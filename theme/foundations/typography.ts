@@ -5,23 +5,17 @@ import config from 'configs/app';
 export const BODY_TYPEFACE = config.UI.fonts.body?.name ?? 'Inter';
 export const HEADING_TYPEFACE = config.UI.fonts.heading?.name ?? 'Poppins';
 
-const typography = {
-  fonts: {
-    heading: `${ HEADING_TYPEFACE }, ${ theme.fonts.heading }`,
-    body: `${ BODY_TYPEFACE }, ${ theme.fonts.body }`,
-  },
-  textStyles: {
-    h2: {
-      fontSize: [ '32px' ],
-      fontWeight: '500',
-      lineHeight: '40px',
-      fontFamily: 'heading',
+const drukWide = localFont({
+  src: [
+    {
+      path: './fonts/Druk-Wide-Bold.ttf',
+      weight: '700',
+      style: 'normal'
     },
-    h3: {
-      fontSize: '24px',
-      fontWeight: '500',
-      lineHeight: '32px',
-      fontFamily: 'heading',
+    {
+      path: './fonts/Druk-Wide-Medium.ttf',
+      weight: '500',
+      style: 'normal',
     },
     h4: {
       fontSize: 'md',
@@ -32,4 +26,16 @@ const typography = {
   },
 };
 
-export default typography;
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+
+
+const fonts = {
+  heading: `${drukWide.style.fontFamily}, ${ theme.fonts.heading }`,
+  body: `${inter.style.fontFamily}, ${ theme.fonts.body }`,
+}
+
+export {
+  fonts as default,
+  drukWide,
+  inter
+}

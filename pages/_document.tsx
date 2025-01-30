@@ -10,6 +10,9 @@ import config from 'configs/app';
 import theme from 'theme/theme';
 import * as svgSprite from 'ui/shared/IconSvg';
 
+
+import { inter, drukWide } from 'theme/foundations/typography';
+
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const originalRenderPage = ctx.renderPage;
@@ -30,11 +33,12 @@ class MyDocument extends Document {
     return initialProps;
   }
 
+// className={inter.className}
+
   render() {
     return (
       <Html lang="en">
         <Head>
-          { /* FONTS */ }
           <link
             href={ config.UI.fonts.heading?.url ?? 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' }
             rel="stylesheet"
@@ -56,7 +60,7 @@ class MyDocument extends Document {
           <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-chrome-192x192.png"/>
           <link rel="preload" as="image" href={ svgSprite.href }/>
         </Head>
-        <body>
+        <body className={`${inter.variable} ${drukWide.variable}`}>
           <ColorModeScript initialColorMode={ theme.config.initialColorMode }/>
           <Main/>
           <NextScript/>
