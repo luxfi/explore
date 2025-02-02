@@ -53,9 +53,7 @@ async function readEntriesPromise(directoryReader: FileSystemDirectoryReader): P
         reject,
       );
     });
-  } catch (err) {
-    return undefined;
-  }
+  } catch (err) {}
 }
 
 export function convertFileEntryToFile(entry: FileSystemFileEntry, fullFilePath?: boolean): Promise<File> {

@@ -2,7 +2,7 @@
   "name": "@luxfi/explore",
   "version": "1.0.0",
   "private": false,
-  "homepage": "https://github.com/luxfi/explore#readme",
+  "homepage": "https://github.com/blockscout/frontend#readme",
   "engines": {
     "node": "22.11.0",
     "npm": "10.9.0"
@@ -45,8 +45,6 @@
     "@chakra-ui/anatomy": "^2.2.2",
     "@chakra-ui/lazy-utils": "2.0.5",
     "@chakra-ui/react": "2.7.1",
-    "@chakra-ui/styled-system": "^2.9.2",
-    "@chakra-ui/system": "^2.6.2",
     "@chakra-ui/theme-tools": "^2.0.18",
     "@cloudnouns/kit": "1.1.6",
     "@emotion/react": "^11.10.4",
@@ -141,7 +139,6 @@
     "@types/dom-to-image": "^2.6.4",
     "@types/jest": "^29.2.0",
     "@types/js-cookie": "^3.0.2",
-    "@types/lodash": "^4.17.7",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "20.16.7",
     "@types/phoenix": "^1.5.4",
