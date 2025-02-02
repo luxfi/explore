@@ -1,8 +1,6 @@
 import type { StyleFunctionProps } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
 
-import luxColors from 'theme/foundations/lux-colors';
-
 import getDefaultTransitionProps from './getDefaultTransitionProps';
 import getFormStyles from './getFormStyles';
 
@@ -35,7 +33,7 @@ export default function getOutlinedFieldStyles(props: StyleFunctionProps) {
       cursor: 'not-allowed',
       ':-webkit-autofill': {
         // background color for disabled input which value was selected from browser autocomplete popup
-        WebkitBoxShadow: `0 0 0px 1000px ${ mode('rgba(16, 17, 18, 0.08)', 'rgba(255, 255, 255, 0.08)')(props) } inset`,
+        '-webkit-box-shadow': `0 0 0px 1000px ${ mode('rgba(16, 17, 18, 0.08)', 'rgba(255, 255, 255, 0.08)')(props) } inset`,
       },
     },
     _invalid: {
@@ -49,7 +47,6 @@ export default function getOutlinedFieldStyles(props: StyleFunctionProps) {
       ...formStyles.input.focus,
       zIndex: 1,
       boxShadow: 'md',
-      color: luxColors.colors.muted2,
     },
     _placeholder: {
       color: formStyles.placeholder.default.color,

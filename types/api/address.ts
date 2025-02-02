@@ -39,6 +39,10 @@ export interface AddressZilliqaParams {
   is_scilla_contract: boolean;
 }
 
+export interface AddressZilliqaParams {
+  is_scilla_contract: boolean;
+}
+
 export interface AddressCounters {
   transactions_count: string;
   token_transfers_count: string;
