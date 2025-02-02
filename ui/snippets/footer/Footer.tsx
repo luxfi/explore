@@ -22,8 +22,8 @@ import getApiVersionUrl from './utils/getApiVersionUrl';
 
 const MAX_LINKS_COLUMNS = 4;
 
-const FRONT_VERSION_URL = `https://github.com/luxfi/explorer/tree/${ config.UI.footer.frontendVersion }`;
-const FRONT_COMMIT_URL = `https://github.com/luxfi/explorer/commit/${ config.UI.footer.frontendCommit }`;
+const FRONT_VERSION_URL = `https://github.com/luxfi/explore/tree/${ config.UI.footer.frontendVersion }`;
+const FRONT_COMMIT_URL = `https://github.com/luxfi/explore/commit/${ config.UI.footer.frontendCommit }`;
 
 const Footer = () => {
 
@@ -52,14 +52,14 @@ const Footer = () => {
     {
       icon: 'social/twitter' as const,
       iconSize: '18px',
-      text: 'Twitter',
-      url: 'https://www.twitter.com/luxfi',
+      text: 'X',
+      url: 'https://x.com/luxdefi',
     },
     {
       icon: 'social/discord' as const,
       iconSize: '24px',
       text: 'Discord',
-      url: 'https://discord.gg/blockscout',
+      url: 'https://discord.gg/luxdefi',
     },
     {
       icon: 'donate' as const,
@@ -113,7 +113,7 @@ const Footer = () => {
     return (
       <Box gridArea={ gridArea }>
         <Flex columnGap={ 2 } fontSize="xs" lineHeight={ 5 } alignItems="center" color="text">
-          <Link href="https://lux.network" isExternal display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
+          <Link href="https://explore.lux.network" isExternal display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
             <IconSvg
               name="networks/logo-placeholder"
               width="80px"
@@ -122,7 +122,7 @@ const Footer = () => {
           </Link>
         </Flex>
         <Text mt={ 3 } fontSize="xs">
-          Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
+          Explore is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Lux Network.
         </Text>
         <Box mt={ 6 } alignItems="start" fontSize="xs" lineHeight={ 5 }>
           { apiVersionUrl && (
@@ -196,7 +196,7 @@ const Footer = () => {
           >
             {
               ([
-                { title: 'Blockscout', links: BLOCKSCOUT_LINKS },
+                { title: 'Lux', links: BLOCKSCOUT_LINKS },
                 ...(linksData || []),
               ])
                 .slice(0, colNum)
