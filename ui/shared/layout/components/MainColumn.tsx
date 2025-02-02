@@ -11,6 +11,7 @@ interface Props {
 const MainColumn = ({ children, className }: Props) => {
   return (
     <Flex
+      id="MAIN_COLUMN"
       className={ className }
       flexDir="column"
       flexGrow={ 1 }
