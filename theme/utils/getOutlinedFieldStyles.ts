@@ -1,6 +1,8 @@
 import type { StyleFunctionProps } from '@chakra-ui/theme-tools';
 import { mode } from '@chakra-ui/theme-tools';
 
+import luxColors from 'theme/foundations/lux-colors';
+
 import getDefaultTransitionProps from './getDefaultTransitionProps';
 import getFormStyles from './getFormStyles';
 
@@ -47,6 +49,7 @@ export default function getOutlinedFieldStyles(props: StyleFunctionProps) {
       ...formStyles.input.focus,
       zIndex: 1,
       boxShadow: 'md',
+      color: luxColors.colors.muted2,
     },
     _placeholder: {
       color: formStyles.placeholder.default.color,
