@@ -1,6 +1,5 @@
+import luxColors from 'theme/foundations/lux-colors';
 import getDefaultTransitionProps from 'theme/utils/getDefaultTransitionProps';
-
-import useColors from './useColors';
 
 type Props = {
   isExpanded?: boolean;
@@ -9,16 +8,15 @@ type Props = {
 };
 
 export default function useNavLinkProps({ isExpanded, isCollapsed, isActive }: Props) {
-  const colors = useColors();
 
   return {
     itemProps: {
       py: '9px',
       display: 'flex',
-      color: isActive ? colors.text.active : colors.text.default,
-      bgColor: isActive ? colors.bg.active : colors.bg.default,
-      _hover: { color: isActive ? colors.text.active : colors.text.hover },
-      borderRadius: 'base',
+      border: 'none',
+      color: isActive ? luxColors.colors.foreground : luxColors.colors.muted2,
+      bgColor: 'transparent',
+      _hover: { color: luxColors.colors.accent },
       ...getDefaultTransitionProps({ transitionProperty: 'width, padding' }),
     },
     textProps: {
