@@ -5,7 +5,6 @@ import type { ChangeEvent, FormEvent, FocusEvent } from 'react';
 
 import { useScrollDirection } from 'lib/contexts/scrollDirection';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import luxColors from 'theme/foundations/lux-colors';
 import ClearButton from 'ui/shared/ClearButton';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -164,9 +163,9 @@ const SearchBarInput = (
               paddingRight: '36px',
             },
           }}
-          placeholder={ isMobile ? 'Search by address... ' : 'Search by address, txn hash, block, token... ' }
+          placeholder={ isMobile ? 'Search by address / ... ' : 'Search by address / txn hash / block / token... ' }
           onChange={ handleChange }
-          border={ '2px solid ' + luxColors.colors.muted3 }
+          border={ isHomepage ? 'none' : '2px solid' }
           borderColor={ useColorModeValue('blackAlpha.100', 'whiteAlpha.200') }
           _focusWithin={{ _placeholder: { color: 'gray.300' } }}
           color={ useColorModeValue('black', 'white') }

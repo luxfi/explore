@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import type { AddressImplementation } from 'types/api/addressParams';
-import type { SmartContractProxyType } from 'types/api/contract';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import getQueryParamString from 'lib/router/getQueryParamString';
@@ -19,10 +18,9 @@ import { formatAbi } from './utils';
 interface Props {
   implementations: Array<AddressImplementation>;
   isLoading?: boolean;
-  proxyType?: SmartContractProxyType;
 }
 
-const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading, proxyType }: Props) => {
+const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading }: Props) => {
   const router = useRouter();
   const sourceAddress = getQueryParamString(router.query.source_address);
   const tab = getQueryParamString(router.query.tab);
@@ -50,7 +48,7 @@ const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading, pr
           selectedItem={ selectedItem }
           onItemSelect={ setSelectedItem }
           isLoading={ isInitialLoading }
-          label={ proxyType === 'eip7702' ? 'Delegate address' : 'Implementation address' }
+          label="Implementation address"
           mb={ 3 }
         />
         <ContractMethodsFilters
