@@ -25,8 +25,10 @@ const sdk = new NodeSDK({
         process.env.NEXT_PUBLIC_APP_HOST?.replace('.lux.network', '').replaceAll('-', '_') ||
         'unknown_app',
   }),
+  // @ts-ignore
   spanProcessor: new SimpleSpanProcessor(traceExporter),
   traceExporter,
+  // @ts-ignore
   metricReader: new PeriodicExportingMetricReader({
     exporter:
       process.env.NODE_ENV === 'production' ?
