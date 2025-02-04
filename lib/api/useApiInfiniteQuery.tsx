@@ -35,6 +35,7 @@ export default function useApiInfiniteQuery<R extends PaginatedResources>({
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => {
+      // @ts-ignore
       return lastPage.next_page_params as TPageParam<R>;
     },
     ...queryOptions,
