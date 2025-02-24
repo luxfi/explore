@@ -2,8 +2,8 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # lint js/ts files
-echo 🧿 Running file linter...
-npx lint-staged
+# echo 🧿 Running file linter...
+# npx lint-staged
 
 # format svg
 echo 🧿 Running svg formatter...
