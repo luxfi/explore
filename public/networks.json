@@ -1,0 +1,98 @@
+[
+  {
+    "name": "LUX Mainnet",
+    "shortName": "LUX",
+    "id": 96369,
+    "currencyName": "LUX",
+    "currencySymbol": "LUX",
+    "currencyDecimals": 18,
+    "baseUrl": "https://explore.lux.network",
+    "group": "Mainnet",
+    "icon": "https://lux.network/images/6334ed6d2918e27358af1001_lux-logo-upside-down-triangle-p-800_1-p-500.png",
+    "isTestnet": false
+  },
+  {
+    "name": "LUX Testnet",
+    "shortName": "LUX",
+    "id": 96368,
+    "currencyName": "LUX",
+    "currencySymbol": "LUX",
+    "currencyDecimals": 18,
+    "baseUrl": "https://testnet.explore.lux.network",
+    "group": "Testnet",
+    "icon": "https://lux.network/images/6334ed6d2918e27358af1001_lux-logo-upside-down-triangle-p-800_1-p-500.png",
+    "isTestnet": true
+  },
+  {
+    "name": "ZOO Mainnet",
+    "shortName": "ZOO",
+    "id": 200200,
+    "currencyName": "ZOO",
+    "currencySymbol": "ZOO",
+    "currencyDecimals": 18,
+    "baseUrl": "https://explore.zoo.network",
+    "group": "Mainnet",
+    "icon": "https://zoo.network/logo.png",
+    "isTestnet": false
+  },
+  {
+    "name": "ZOO Testnet",
+    "shortName": "ZOO",
+    "id": 200201,
+    "currencyName": "ZOO",
+    "currencySymbol": "ZOO",
+    "currencyDecimals": 18,
+    "baseUrl": "https://testnet.explore.zoo.network",
+    "group": "Testnet",
+    "icon": "https://zoo.network/logo.png",
+    "isTestnet": true
+  },
+  {
+    "name": "SPC Mainnet",
+    "shortName": "SPC",
+    "id": 36911,
+    "currencyName": "SPC",
+    "currencySymbol": "SPC",
+    "currencyDecimals": 18,
+    "baseUrl": "https://explore.spc.network",
+    "group": "Mainnet",
+    "icon": "https://spc.network/logo.png",
+    "isTestnet": false
+  },
+  {
+    "name": "SPC Testnet",
+    "shortName": "SPC",
+    "id": 36912,
+    "currencyName": "SPC",
+    "currencySymbol": "SPC",
+    "currencyDecimals": 18,
+    "baseUrl": "https://testnet.explore.spc.network",
+    "group": "Testnet",
+    "icon": "https://spc.network/logo.png",
+    "isTestnet": true
+  },
+  {
+    "name": "Hanzo Mainnet",
+    "shortName": "HANZO",
+    "id": 36963,
+    "currencyName": "HANZO",
+    "currencySymbol": "HANZO",
+    "currencyDecimals": 18,
+    "baseUrl": "https://explore.hanzo.network",
+    "group": "Mainnet",
+    "icon": "https://hanzo.network/logo.png",
+    "isTestnet": false
+  },
+  {
+    "name": "Hanzo Testnet",
+    "shortName": "HANZO",
+    "id": 36962,
+    "currencyName": "HANZO",
+    "currencySymbol": "HANZO",
+    "currencyDecimals": 18,
+    "baseUrl": "https://testnet.explore.hanzo.network",
+    "group": "Testnet",
+    "icon": "https://hanzo.network/logo.png",
+    "isTestnet": true
+  }
+]
