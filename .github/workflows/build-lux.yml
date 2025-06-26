@@ -1,0 +1,79 @@
+name: Build and Push LUX Explorer
+
+on:
+  push:
+    branches:
+      - main
+      - lux-branding
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: luxfi/explore
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_PAT }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=lux-branded
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_NETWORK_NAME=LUX Network
+            NEXT_PUBLIC_NETWORK_SHORT_NAME=LUX
+            NEXT_PUBLIC_NETWORK_ID=96369
+            NEXT_PUBLIC_NETWORK_CURRENCY_NAME=LUX
+            NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=LUX
+            NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS=18
+            NEXT_PUBLIC_API_HOST=api-explore.lux.network
+            NEXT_PUBLIC_API_PROTOCOL=https
+            NEXT_PUBLIC_APP_HOST=explore.lux.network
+            NEXT_PUBLIC_APP_PROTOCOL=https
+            NEXT_PUBLIC_IS_TESTNET=false
+            NEXT_PUBLIC_NETWORK_LOGO=/logos/lux-logo-white.png
+            NEXT_PUBLIC_NETWORK_LOGO_DARK=/logos/lux-logo-white.png
+            NEXT_PUBLIC_NETWORK_ICON=/logos/lux-logo-white.png
+            NEXT_PUBLIC_NETWORK_ICON_DARK=/logos/lux-logo-white.png
+            NEXT_PUBLIC_OG_IMAGE_URL=/logos/lux-logo-white.png
+            NEXT_PUBLIC_STATS_API_HOST=https://api-explore.lux.network/api/stats
+            NEXT_PUBLIC_VISUALIZE_API_HOST=https://api-explore.lux.network/api/visualize
+            NEXT_PUBLIC_CONTRACT_INFO_API_HOST=https://api-explore.lux.network
+            NEXT_PUBLIC_ADMIN_SERVICE_API_HOST=https://api-explore.lux.network

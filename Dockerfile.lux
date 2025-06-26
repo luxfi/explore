@@ -1,0 +1,67 @@
+# Build stage
+FROM node:22.11.0-alpine AS builder
+
+RUN apk add --no-cache libc6-compat python3 make g++ git
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json yarn.lock ./
+COPY tsconfig.json ./
+COPY next.config.js ./
+COPY postcss.config.js ./
+COPY tailwind.config.ts ./
+
+# Copy necessary directories
+COPY types ./types
+COPY lib ./lib
+COPY configs ./configs
+COPY toolkit ./toolkit
+COPY ui ./ui
+COPY pages ./pages
+COPY nextjs ./nextjs
+COPY theme ./theme
+COPY icons ./icons
+COPY mocks ./mocks
+COPY jest ./jest
+COPY playwright ./playwright
+COPY deploy ./deploy
+COPY public ./public
+COPY stubs ./stubs
+
+# Copy environment file
+COPY .env.production .env.local
+
+# Install dependencies
+RUN yarn install --frozen-lockfile --network-timeout 100000
+
+# Build the application
+RUN yarn build
+
+# Production stage
+FROM node:22.11.0-alpine AS runner
+
+RUN apk add --no-cache --upgrade bash curl jq unzip
+
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy built application
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+
+# Set permissions
+RUN chown -R nextjs:nodejs /app
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT=3000
+ENV NODE_ENV=production
+
+CMD ["node", "server.js"]
