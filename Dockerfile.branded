@@ -1,0 +1,28 @@
+FROM ghcr.io/blockscout/frontend:latest
+
+# LUX Network Branding
+ENV NEXT_PUBLIC_NETWORK_NAME="LUX Network" \
+    NEXT_PUBLIC_NETWORK_SHORT_NAME="LUX" \
+    NEXT_PUBLIC_NETWORK_ID="96369" \
+    NEXT_PUBLIC_NETWORK_CURRENCY_NAME="LUX" \
+    NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL="LUX" \
+    NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS="18" \
+    NEXT_PUBLIC_API_HOST="api-explore.lux.network" \
+    NEXT_PUBLIC_API_PROTOCOL="https" \
+    NEXT_PUBLIC_API_BASE_PATH="/" \
+    NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL="wss" \
+    NEXT_PUBLIC_APP_HOST="explore.lux.network" \
+    NEXT_PUBLIC_APP_PROTOCOL="https" \
+    NEXT_PUBLIC_IS_TESTNET="false" \
+    NEXT_PUBLIC_HOMEPAGE_CHARTS='["daily_txs", "coin_price", "market_cap"]' \
+    NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED="true" \
+    NEXT_PUBLIC_STATS_API_HOST="https://api-explore.lux.network/api/stats" \
+    NEXT_PUBLIC_VISUALIZE_API_HOST="https://api-explore.lux.network/api/visualize" \
+    NEXT_PUBLIC_CONTRACT_INFO_API_HOST="https://api-explore.lux.network" \
+    NEXT_PUBLIC_ADMIN_SERVICE_API_HOST="https://api-explore.lux.network"
+
+# Copy LUX logo
+COPY public/logos/lux-logo-white.png /app/public/assets/lux-logo.png
+
+# Note: Font and color theme changes require building from source
+# This image uses the default Blockscout theme
