@@ -1,0 +1,109 @@
+version: '3.8'
+
+# Local development compose file - runs entire stack locally
+services:
+  redis:
+    image: redis:alpine
+    container_name: lux-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - explorer-network
+
+  postgres:
+    image: postgres:14
+    container_name: lux-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: blockscout
+      POSTGRES_USER: blockscout
+      POSTGRES_PASSWORD: blockscout
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - explorer-network
+
+  backend:
+    image: blockscout/blockscout:latest
+    container_name: lux-backend
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://blockscout:blockscout@postgres:5432/blockscout
+      REDIS_URL: redis://redis:6379
+      ETHEREUM_JSONRPC_HTTP_URL: http://127.0.0.1:9650/ext/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/rpc
+      ETHEREUM_JSONRPC_TRACE_URL: http://127.0.0.1:9650/ext/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/rpc
+      ETHEREUM_JSONRPC_WS_URL: ws://127.0.0.1:9650/ext/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/ws
+      CHAIN_ID: 96369
+      COIN: LUX
+      NETWORK: LUX Network
+      BLOCKSCOUT_HOST: localhost
+      BLOCKSCOUT_PROTOCOL: http
+      SECRET_KEY_BASE: VTIB3uHDNbvrY0+60ZWgUoUBKDn9ppLR8MI4CpRz4/qLyEFs54ktJfaNT6Z221No
+    ports:
+      - "4000:4000"
+    networks:
+      - explorer-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lux-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      # Network configuration
+      NEXT_PUBLIC_NETWORK_NAME: LUX Network
+      NEXT_PUBLIC_NETWORK_SHORT_NAME: LUX
+      NEXT_PUBLIC_NETWORK_ID: 96369
+      NEXT_PUBLIC_NETWORK_CURRENCY_NAME: LUX
+      NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL: LUX
+      NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS: 18
+      
+      # Branding
+      NEXT_PUBLIC_NETWORK_LOGO: https://docs.lux.network/img/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_LOGO_DARK: https://docs.lux.network/img/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_ICON: https://docs.lux.network/img/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_ICON_DARK: https://docs.lux.network/img/lux-logo-white.png
+      NEXT_PUBLIC_OG_IMAGE_URL: https://docs.lux.network/img/lux-logo-white.png
+      
+      # Font configuration
+      NEXT_PUBLIC_FONT_FAMILY_HEADING: '{"name": "Inter", "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"}'
+      NEXT_PUBLIC_FONT_FAMILY_BODY: '{"name": "Inter", "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"}'
+      
+      # Theme configuration
+      NEXT_PUBLIC_COLOR_THEME_DEFAULT: dark
+      NEXT_PUBLIC_HOMEPAGE_PLATE_BACKGROUND: black
+      NEXT_PUBLIC_HOMEPAGE_PLATE_TEXT_COLOR: white
+      
+      # API configuration
+      NEXT_PUBLIC_API_HOST: localhost
+      NEXT_PUBLIC_API_PORT: 4000
+      NEXT_PUBLIC_API_PROTOCOL: http
+      NEXT_PUBLIC_API_BASE_PATH: /
+      NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL: ws
+      
+      # Network dropdown (all LUX ecosystem networks)
+      NEXT_PUBLIC_FEATURED_NETWORKS: /networks.json
+      
+      # Other configurations
+      NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED: 'true'
+      NEXT_PUBLIC_AUTH_URL: http://localhost:4000
+      NEXT_PUBLIC_LOGOUT_URL: https://luxwallet.xyz/api/auth/logout
+    ports:
+      - "3000:3000"
+    networks:
+      - explorer-network
+
+volumes:
+  redis-data:
+  postgres-data:
+
+networks:
+  explorer-network:
+    driver: bridge

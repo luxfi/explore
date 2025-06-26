@@ -33,37 +33,36 @@ services:
       NEXT_PUBLIC_HOMEPAGE_PLATE_TEXT_COLOR: white
       
       # API configuration
-      NEXT_PUBLIC_API_HOST: lux-explorer-backend
+      NEXT_PUBLIC_API_HOST: api-explore.lux.network
+      NEXT_PUBLIC_API_PROTOCOL: https
       NEXT_PUBLIC_API_BASE_PATH: /
-      NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL: ws
+      NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL: wss
       
       # Network dropdown (all LUX ecosystem networks)
       NEXT_PUBLIC_FEATURED_NETWORKS: /networks.json
       
       # Other configurations
       NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED: 'true'
-      NEXT_PUBLIC_AUTH_URL: http://lux-explorer-backend:4000
+      NEXT_PUBLIC_AUTH_URL: https://api-explore.lux.network
       NEXT_PUBLIC_LOGOUT_URL: https://luxwallet.xyz/api/auth/logout
-      NEXT_PUBLIC_STATS_API_HOST: http://lux-explorer-stats:8050
-      NEXT_PUBLIC_VISUALIZE_API_HOST: http://lux-explorer-visualizer:8050
-      NEXT_PUBLIC_CONTRACT_INFO_API_HOST: http://lux-explorer-backend:4000
-      NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: http://lux-explorer-backend:4000
+      NEXT_PUBLIC_STATS_API_HOST: https://api-explore.lux.network/api/stats
+      NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.lux.network/api/visualize
+      NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.lux.network
+      NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explore.lux.network
       
     networks:
-      - explorer-network
+      - hanzo-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.lux-explorer.rule=Host(`explore.lux.network`)"
       - "traefik.http.routers.lux-explorer.entrypoints=websecure"
       - "traefik.http.routers.lux-explorer.tls.certresolver=letsencrypt"
       - "traefik.http.services.lux-explorer.loadbalancer.server.port=3000"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=hanzo-network"
     volumes:
       - ./public/networks.json:/app/public/networks.json:ro
       - ./public/favicon.ico:/app/public/favicon.ico:ro
 
 networks:
-  explorer-network:
-    external: true
-  traefik:
+  hanzo-network:
     external: true
