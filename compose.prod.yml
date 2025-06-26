@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/blockscout/frontend:latest
     container_name: lux-explorer-frontend
     restart: unless-stopped
+    ports:
+      - "3100:3000"
     environment:
       # Network configuration
       NEXT_PUBLIC_NETWORK_NAME: LUX Network
@@ -17,11 +17,11 @@ services:
       NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS: 18
       
       # Branding
-      NEXT_PUBLIC_NETWORK_LOGO: https://docs.lux.network/img/lux-logo-white.png
-      NEXT_PUBLIC_NETWORK_LOGO_DARK: https://docs.lux.network/img/lux-logo-white.png
-      NEXT_PUBLIC_NETWORK_ICON: https://docs.lux.network/img/lux-logo-white.png
-      NEXT_PUBLIC_NETWORK_ICON_DARK: https://docs.lux.network/img/lux-logo-white.png
-      NEXT_PUBLIC_OG_IMAGE_URL: https://docs.lux.network/img/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_LOGO: /logos/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_LOGO_DARK: /logos/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_ICON: /logos/lux-logo-white.png
+      NEXT_PUBLIC_NETWORK_ICON_DARK: /logos/lux-logo-white.png
+      NEXT_PUBLIC_OG_IMAGE_URL: /logos/lux-logo-white.png
       
       # Font configuration
       NEXT_PUBLIC_FONT_FAMILY_HEADING: '{"name": "Inter", "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"}'
@@ -39,7 +39,11 @@ services:
       NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL: wss
       
       # Network dropdown (all LUX ecosystem networks)
-      NEXT_PUBLIC_FEATURED_NETWORKS: /networks.json
+      NEXT_PUBLIC_FEATURED_NETWORKS: '[]'
+      
+      # App host
+      NEXT_PUBLIC_APP_HOST: explore.lux.network
+      NEXT_PUBLIC_APP_PROTOCOL: https
       
       # Other configurations
       NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED: 'true'
@@ -60,8 +64,7 @@ services:
       - "traefik.http.services.lux-explorer.loadbalancer.server.port=3000"
       - "traefik.docker.network=hanzo-network"
     volumes:
-      - ./public/networks.json:/app/public/networks.json:ro
-      - ./public/favicon.ico:/app/public/favicon.ico:ro
+      - /home/z/logos:/app/public/logos:ro
 
 networks:
   hanzo-network:
