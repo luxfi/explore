@@ -3,7 +3,7 @@ import React from 'react';
 import type { AddressImplementation } from 'types/api/addressParams';
 import type { SmartContractProxyType } from 'types/api/contract';
 
-import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
+import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 interface Props {
@@ -16,21 +16,21 @@ const AddressImplementations = ({ data, isLoading, proxyType }: Props) => {
   const hasManyItems = data.length > 1;
   const [ hasScroll, setHasScroll ] = React.useState(false);
 
-  const text = proxyType === 'eip7702' ? 'Delegate address' : `Implementation${ hasManyItems ? 's' : '' }`;
+  const text = proxyType === 'eip7702' ? 'Delegated to' : `Implementation${ hasManyItems ? 's' : '' }`;
   const hint = proxyType === 'eip7702' ?
     'Account\'s executable code address' :
     `Implementation${ hasManyItems ? 's' : '' } address${ hasManyItems ? 'es' : '' } of the proxy contract`;
 
   return (
     <>
-      <DetailsInfoItem.Label
+      <DetailedInfo.ItemLabel
         hint={ hint }
         isLoading={ isLoading }
         hasScroll={ hasScroll }
       >
         { text }
-      </DetailsInfoItem.Label>
-      <DetailsInfoItem.ValueWithScroll
+      </DetailedInfo.ItemLabel>
+      <DetailedInfo.ItemValueWithScroll
         gradientHeight={ 48 }
         onScrollVisibilityChange={ setHasScroll }
         rowGap={ 2 }
@@ -38,9 +38,9 @@ const AddressImplementations = ({ data, isLoading, proxyType }: Props) => {
       >
         { data.map((item) => (
           <AddressEntity
-            key={ item.address }
+            key={ item.address_hash }
             address={{
-              hash: item.address,
+              hash: item.address_hash,
               filecoin: { robust: item.filecoin_robust_address },
               name: item.name,
               is_contract: true,
@@ -49,7 +49,7 @@ const AddressImplementations = ({ data, isLoading, proxyType }: Props) => {
             noIcon
           />
         )) }
-      </DetailsInfoItem.ValueWithScroll>
+      </DetailedInfo.ItemValueWithScroll>
     </>
   );
 };
