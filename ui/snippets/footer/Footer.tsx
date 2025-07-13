@@ -132,7 +132,7 @@ const Footer = () => {
           </Link>
         </Flex>
         <Text mt={ 3 } fontSize="xs">
-          Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
+          Lux Network is a high-performance blockchain platform for decentralized applications and custom blockchain networks.
         </Text>
         <Box mt={ 6 } alignItems="start" textStyle="xs">
           { apiVersionUrl && (
@@ -146,7 +146,7 @@ const Footer = () => {
             </Text>
           ) }
           <Text>
-            Copyright { copy } Blockscout Limited 2023-{ (new Date()).getFullYear() }
+            Copyright { copy } Lux Network 2023-{ (new Date()).getFullYear() }
           </Text>
         </Box>
       </Box>
@@ -206,7 +206,7 @@ const Footer = () => {
           >
             {
               ([
-                { title: 'Blockscout', links: BLOCKSCOUT_LINKS },
+                { title: 'Lux Network', links: BLOCKSCOUT_LINKS },
                 ...(linksData || []),
               ])
                 .slice(0, colNum)
