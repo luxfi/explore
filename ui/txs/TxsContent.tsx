@@ -7,6 +7,7 @@ import type { Transaction, TransactionsSortingField, TransactionsSortingValue } 
 import type { PaginationParams } from 'ui/shared/pagination/types';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { apos } from 'toolkit/utils/htmlEntities';
 import AddressCsvExportLink from 'ui/address/AddressCsvExportLink';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -24,7 +25,6 @@ const SORT_SEQUENCE: Record<TransactionsSortingField, Array<TransactionsSortingV
 };
 
 type Props = {
-
   pagination: PaginationParams;
   showBlockInfo?: boolean;
   socketType?: TxsSocketType;
@@ -36,8 +36,9 @@ type Props = {
   items?: Array<Transaction>;
   isPlaceholderData: boolean;
   isError: boolean;
-  setSorting: (value: TransactionsSortingValue) => void;
+  setSorting?: (value: TransactionsSortingValue) => void;
   sort: TransactionsSortingValue;
+  stickyHeader?: boolean;
 };
 
 const TxsContent = ({
@@ -54,17 +55,18 @@ const TxsContent = ({
   isError,
   setSorting,
   sort,
+  stickyHeader = true,
 }: Props) => {
   const isMobile = useIsMobile();
 
   const onSortToggle = React.useCallback((field: TransactionsSortingField) => {
     const value = getNextSortValue<TransactionsSortingField, TransactionsSortingValue>(SORT_SEQUENCE, field)(sort);
-    setSorting(value);
+    setSorting?.(value);
   }, [ sort, setSorting ]);
 
-  const itemsWithTranslation = useDescribeTxs(items, currentAddress, isPlaceholderData);
+  const translationQuery = useDescribeTxs(items, currentAddress, isPlaceholderData);
 
-  const content = itemsWithTranslation ? (
+  const content = items && items.length > 0 ? (
     <>
       <Box hideFrom="lg">
         <TxsList
@@ -73,20 +75,23 @@ const TxsContent = ({
           isLoading={ isPlaceholderData }
           enableTimeIncrement={ enableTimeIncrement }
           currentAddress={ currentAddress }
-          items={ itemsWithTranslation }
+          items={ items }
+          translationQuery={ translationQuery }
         />
       </Box>
       <Box hideBelow="lg">
         <TxsTable
-          txs={ itemsWithTranslation }
+          txs={ items }
           sort={ sort }
-          onSortToggle={ onSortToggle }
+          onSortToggle={ setSorting ? onSortToggle : undefined }
           showBlockInfo={ showBlockInfo }
           socketType={ socketType }
           top={ top || (pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0) }
           currentAddress={ currentAddress }
           enableTimeIncrement={ enableTimeIncrement }
           isLoading={ isPlaceholderData }
+          stickyHeader={ stickyHeader }
+          translationQuery={ translationQuery }
         />
       </Box>
     </>
@@ -114,9 +119,13 @@ const TxsContent = ({
   return (
     <DataListDisplay
       isError={ isError }
-      itemsNum={ itemsWithTranslation?.length }
+      itemsNum={ items?.length }
       emptyText="There are no transactions."
       actionBar={ actionBar }
+      filterProps={{
+        hasActiveFilters: Boolean(filterValue),
+        emptyFilteredText: `Couldn${ apos }t find any transaction that matches your query.`,
+      }}
     >
       { content }
     </DataListDisplay>

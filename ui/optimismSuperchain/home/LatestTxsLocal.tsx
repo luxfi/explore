@@ -1,14 +1,15 @@
-import { noop } from 'es-toolkit';
 import React from 'react';
 
 import type { PaginationParams } from 'ui/shared/pagination/types';
 
-import multichainConfig from 'configs/multichain';
+import { route } from 'nextjs/routes';
+
 import getSocketUrl from 'lib/api/getSocketUrl';
 import useApiQuery from 'lib/api/useApiQuery';
-import { MultichainProvider } from 'lib/contexts/multichain';
+import { useMultichainContext } from 'lib/contexts/multichain';
 import { SocketProvider } from 'lib/socket/context';
 import { TX } from 'stubs/tx';
+import { Link } from 'toolkit/chakra/link';
 import TxsContent from 'ui/txs/TxsContent';
 
 const PAGINATION_PARAMS: PaginationParams = {
@@ -23,35 +24,38 @@ const PAGINATION_PARAMS: PaginationParams = {
   resetPage: () => {},
 };
 
-interface Props {
-  chainSlug: string;
-}
+const LatestTxsLocal = () => {
+  const chain = useMultichainContext()?.chain;
 
-const LatestTxsLocal = ({ chainSlug }: Props) => {
   const query = useApiQuery('general:homepage_txs', {
-    chainSlug,
+    chain,
     queryOptions: {
-      placeholderData: Array(5).fill(TX),
-      select: (data) => data.slice(0, 5),
+      placeholderData: Array(3).fill(TX),
+      select: (data) => data.slice(0, 3),
     },
   });
 
-  const chainData = multichainConfig()?.chains.find(chain => chain.slug === chainSlug);
-
   return (
-    <MultichainProvider chainSlug={ chainSlug }>
-      <SocketProvider url={ getSocketUrl(chainData?.config) }>
-        <TxsContent
-          items={ query.data || [] }
-          isPlaceholderData={ query.isPlaceholderData }
-          isError={ query.isError }
-          pagination={ PAGINATION_PARAMS }
-          setSorting={ noop }
-          sort="default"
-          socketType="txs_home"
-        />
-      </SocketProvider>
-    </MultichainProvider>
+    <SocketProvider url={ getSocketUrl(chain?.app_config) }>
+      <TxsContent
+        items={ query.data }
+        isPlaceholderData={ query.isPlaceholderData }
+        isError={ query.isError }
+        pagination={ PAGINATION_PARAMS }
+        sort="default"
+        socketType="txs_home"
+        stickyHeader={ false }
+      />
+      <Link
+        href={ route({ pathname: '/txs', query: { chain_id: chain?.id, tab: 'txs_local' } }) }
+        w="full"
+        justifyContent="center"
+        textStyle="sm"
+        mt={ 3 }
+      >
+        View all transactions
+      </Link>
+    </SocketProvider>
   );
 };
 
