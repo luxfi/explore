@@ -4,7 +4,6 @@ import React from 'react';
 
 import type { TabItemRegular } from './types';
 
-import { useScrollDirection } from 'lib/contexts/scrollDirection';
 import useIsMobile from 'lib/hooks/useIsMobile';
 
 import { Skeleton } from '../../chakra/skeleton';
@@ -74,7 +73,6 @@ const AdaptiveTabsList = (props: Props) => {
     variant,
   } = props;
 
-  const scrollDirection = useScrollDirection();
   const isMobile = useIsMobile();
 
   const tabsList = React.useMemo(() => {
@@ -86,6 +84,10 @@ const AdaptiveTabsList = (props: Props) => {
   const activeTabIndex = tabsList.findIndex((tab) => getTabValue(tab) === activeTab) ?? 0;
   useScrollToActiveTab({ activeTabIndex, listRef, tabsRefs, isMobile, isLoading });
 
+  if (tabs.length === 1 && !leftSlot && !rightSlot) {
+    return null;
+  }
+
   const isReady = !isLoading && tabsCut !== undefined;
 
   return (
@@ -94,7 +96,7 @@ const AdaptiveTabsList = (props: Props) => {
       flexWrap="nowrap"
       alignItems="center"
       whiteSpace="nowrap"
-      bgColor={{ _light: 'white', _dark: 'black' }}
+      bgColor="bg.primary"
       marginBottom={ 6 }
       mx={{ base: '-12px', lg: 'unset' }}
       px={{ base: '12px', lg: 'unset' }}
@@ -115,7 +117,7 @@ const AdaptiveTabsList = (props: Props) => {
         ...(props.stickyEnabled ? {
           position: 'sticky',
           boxShadow: { base: isSticky ? 'md' : 'none', lg: 'none' },
-          top: { base: scrollDirection === 'down' ? `0px` : `106px`, lg: 0 },
+          top: 0,
           zIndex: { base: 'sticky2', lg: 'docked' },
         } : { })
       }
@@ -133,7 +135,7 @@ const AdaptiveTabsList = (props: Props) => {
         </Box>
       )
       }
-      { tabsList.map((tab, index) => {
+      { tabs.length > 1 && tabsList.map((tab, index) => {
         const value = getTabValue(tab);
         const ref = tabsRefs[index];
 

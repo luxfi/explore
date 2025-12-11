@@ -2,61 +2,63 @@ import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import multichainConfig from 'configs/multichain';
+import { MultichainProvider } from 'lib/contexts/multichain';
+import useIsMobile from 'lib/hooks/useIsMobile';
+import useRoutedChainSelect from 'lib/multichain/useRoutedChainSelect';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { Heading } from 'toolkit/chakra/heading';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
-import ChainSelect from 'ui/shared/multichain/ChainSelect';
+import ChainSelect from 'ui/optimismSuperchain/components/ChainSelect';
+import ComingSoon from 'ui/shared/ComingSoon';
 
-import LatestTxsCrossChain from './LatestTxsCrossChain';
 import LatestTxsLocal from './LatestTxsLocal';
 
 const LatestTxs = () => {
+  const isMobile = useIsMobile();
   const router = useRouter();
   const tab = getQueryParamString(router.query.tab);
+  const chainSelect = useRoutedChainSelect();
 
-  const [ chainValue, setChainValue ] = React.useState<Array<string> | undefined>(
-    [ getQueryParamString(router.query['chain-slug']) ?? multichainConfig()?.chains[0]?.slug ].filter(Boolean),
-  );
-
-  const handleChainValueChange = React.useCallback(({ value }: { value: Array<string> }) => {
-    setChainValue(value);
-    router.push({
-      query: {
-        ...router.query,
-        'chain-slug': value[0],
-      },
-    }, undefined, { shallow: true });
-  }, [ router ]);
+  const isLocalTab = tab === 'txs_local' || !tab;
 
   const tabs = [
     {
       id: 'cross_chain_txs',
       title: 'Cross-chain',
-      component: <LatestTxsCrossChain/>,
+      component: <ComingSoon/>,
     },
     {
-      id: 'local_txs',
+      id: 'txs_local',
       title: 'Local',
-      component: chainValue ? <LatestTxsLocal key={ chainValue[0] } chainSlug={ chainValue[0] }/> : null,
+      component: chainSelect.value ? (
+        <MultichainProvider chainId={ chainSelect.value[0] }>
+          <LatestTxsLocal/>
+        </MultichainProvider>
+      ) : null,
     },
   ];
 
-  const rightSlot = tab === 'local_txs' ? (
+  const heading = <Heading level="3" mb={{ base: 3, lg: 0 }}>Latest transactions</Heading>;
+
+  const rightSlot = isLocalTab ? (
     <ChainSelect
       loading={ false }
-      value={ chainValue }
-      onValueChange={ handleChainValueChange }
-      w="fit-content"
+      value={ chainSelect.value }
+      onValueChange={ chainSelect.onValueChange }
     />
   ) : null;
 
   return (
-    <Box as="section" mt={ 8 }>
-      <Heading level="3" mb={ 6 }>Latest transactions</Heading>
+    <Box as="section" my={ 8 }>
+      { isMobile && heading }
       <RoutedTabs
         tabs={ tabs }
+        defaultTabId="txs_local"
+        listProps={{ mb: 3 }}
+        leftSlot={ !isMobile ? heading : null }
+        leftSlotProps={{ mr: 6 }}
         rightSlot={ rightSlot }
+        rightSlotProps={{ ml: { base: 'auto', lg: 6 } }}
       />
     </Box>
   );

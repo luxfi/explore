@@ -5,7 +5,7 @@ import type { TransactionType } from 'types/api/transaction';
 import type { BadgeProps } from 'toolkit/chakra/badge';
 import { Badge } from 'toolkit/chakra/badge';
 
-export interface Props {
+export interface Props extends BadgeProps {
   types: Array<TransactionType>;
   isLoading?: boolean;
 }
@@ -21,11 +21,11 @@ const TYPES_ORDER: Array<TransactionType> = [
   'coin_transfer',
 ];
 
-const TxType = ({ types, isLoading }: Props) => {
+const TxType = ({ types, isLoading, ...rest }: Props) => {
   // Handle undefined/null types array
   if (!types || !Array.isArray(types) || types.length === 0) {
     return (
-      <Badge colorPalette="purple" loading={ isLoading }>
+      <Badge colorPalette="purple" loading={ isLoading } { ...rest }>
         Transaction
       </Badge>
     );
@@ -79,7 +79,7 @@ const TxType = ({ types, isLoading }: Props) => {
   }
 
   return (
-    <Badge colorPalette={ colorPalette } loading={ isLoading }>
+    <Badge colorPalette={ colorPalette } loading={ isLoading } { ...rest }>
       { label }
     </Badge>
   );
