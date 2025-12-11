@@ -19,6 +19,10 @@ export interface ApiPropsFull extends ApiPropsBase {
 
 const generalApi = (() => {
   const apiHost = getEnvValue('NEXT_PUBLIC_API_HOST');
+  if (!apiHost) {
+    return;
+  }
+
   const apiSchema = getEnvValue('NEXT_PUBLIC_API_PROTOCOL') || 'https';
   const apiPort = getEnvValue('NEXT_PUBLIC_API_PORT');
   const apiEndpoint = [
@@ -101,9 +105,10 @@ const rewardsApi = (() => {
   });
 })();
 
-const multichainApi = (() => {
+const multichainAggregatorApi = (() => {
   const apiHost = getEnvValue('NEXT_PUBLIC_MULTICHAIN_AGGREGATOR_API_HOST');
-  if (!apiHost) {
+  const cluster = getEnvValue('NEXT_PUBLIC_MULTICHAIN_CLUSTER');
+  if (!apiHost || !cluster) {
     return;
   }
 
@@ -113,11 +118,22 @@ const multichainApi = (() => {
     return Object.freeze({
       endpoint: apiHost,
       socketEndpoint: `wss://${ url.host }`,
+      basePath: `/api/v1/clusters/${ cluster }`,
     });
   } catch (error) {
     return;
   }
+})();
 
+const multichainStatsApi = (() => {
+  const apiHost = getEnvValue('NEXT_PUBLIC_MULTICHAIN_STATS_API_HOST');
+  if (!apiHost) {
+    return;
+  }
+
+  return Object.freeze({
+    endpoint: apiHost,
+  });
 })();
 
 const statsApi = (() => {
@@ -143,6 +159,17 @@ const tacApi = (() => {
   });
 })();
 
+const userOpsApi = (() => {
+  const apiHost = getEnvValue('NEXT_PUBLIC_USER_OPS_INDEXER_API_HOST');
+  if (!apiHost) {
+    return;
+  }
+
+  return Object.freeze({
+    endpoint: apiHost,
+  });
+})();
+
 const visualizeApi = (() => {
   const apiHost = getEnvValue('NEXT_PUBLIC_VISUALIZE_API_HOST');
   if (!apiHost) {
@@ -155,21 +182,54 @@ const visualizeApi = (() => {
   });
 })();
 
+const clustersApi = (() => {
+  const apiHost = getEnvValue('NEXT_PUBLIC_CLUSTERS_API_HOST');
+  if (!apiHost) {
+    return;
+  }
+
+  return Object.freeze({
+    endpoint: apiHost,
+  });
+})();
+
+const zetachainApi = (() => {
+  const apiHost = getEnvValue('NEXT_PUBLIC_ZETACHAIN_SERVICE_API_HOST');
+  if (!apiHost) {
+    return;
+  }
+
+  try {
+    const url = new URL(apiHost);
+
+    return Object.freeze({
+      endpoint: apiHost,
+      socketEndpoint: `wss://${ url.host }/socket`,
+    });
+  } catch (error) {
+    return;
+  }
+})();
+
 export type Apis = {
-  general: ApiPropsFull;
+  general: ApiPropsFull | undefined;
 } & Partial<Record<Exclude<ApiName, 'general'>, ApiPropsBase>>;
 
 const apis: Apis = Object.freeze({
   general: generalApi,
   admin: adminApi,
   bens: bensApi,
+  clusters: clustersApi,
   contractInfo: contractInfoApi,
   metadata: metadataApi,
-  multichain: multichainApi,
+  multichainAggregator: multichainAggregatorApi,
+  multichainStats: multichainStatsApi,
   rewards: rewardsApi,
   stats: statsApi,
   tac: tacApi,
+  userOps: userOpsApi,
   visualize: visualizeApi,
+  zetachain: zetachainApi,
 });
 
 export default apis;
