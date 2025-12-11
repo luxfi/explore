@@ -22,7 +22,16 @@ const TYPES_ORDER: Array<TransactionType> = [
 ];
 
 const TxType = ({ types, isLoading }: Props) => {
-  const typeToShow = types.sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
+  // Handle undefined/null types array
+  if (!types || !Array.isArray(types) || types.length === 0) {
+    return (
+      <Badge colorPalette="purple" loading={ isLoading }>
+        Transaction
+      </Badge>
+    );
+  }
+
+  const typeToShow = [...types].sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
 
   let label;
   let colorPalette: BadgeProps['colorPalette'];
