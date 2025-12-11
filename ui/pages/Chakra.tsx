@@ -23,6 +23,7 @@ import MenuShowcase from 'ui/showcases/Menu';
 import PaginationShowcase from 'ui/showcases/Pagination';
 import PinInputShowcase from 'ui/showcases/PinInput';
 import PopoverShowcase from 'ui/showcases/Popover';
+import ProgressShowcase from 'ui/showcases/Progress';
 import ProgressCircleShowcase from 'ui/showcases/ProgressCircle';
 import RadioShowcase from 'ui/showcases/Radio';
 import RatingShowcase from 'ui/showcases/Rating';
@@ -36,6 +37,7 @@ import TagShowcase from 'ui/showcases/Tag';
 import TextareaShowcase from 'ui/showcases/Textarea';
 import ToastShowcase from 'ui/showcases/Toast';
 import TooltipShowcase from 'ui/showcases/Tooltip';
+import ValuesShowcase from 'ui/showcases/Values';
 
 const tabs = [
   { label: 'Accordion', value: 'accordion', component: <AccordionsShowcase/> },
@@ -54,6 +56,7 @@ const tabs = [
   { label: 'Link', value: 'link', component: <LinkShowcase/> },
   { label: 'Menu', value: 'menu', component: <MenuShowcase/> },
   { label: 'Pagination', value: 'pagination', component: <PaginationShowcase/> },
+  { label: 'Progress', value: 'progress', component: <ProgressShowcase/> },
   { label: 'Progress Circle', value: 'progress-circle', component: <ProgressCircleShowcase/> },
   { label: 'Radio', value: 'radio', component: <RadioShowcase/> },
   { label: 'Rating', value: 'rating', component: <RatingShowcase/> },
@@ -69,6 +72,7 @@ const tabs = [
   { label: 'Textarea', value: 'textarea', component: <TextareaShowcase/> },
   { label: 'Toast', value: 'toast', component: <ToastShowcase/> },
   { label: 'Tooltip', value: 'tooltip', component: <TooltipShowcase/> },
+  { label: 'Values', value: 'values', component: <ValuesShowcase/> },
 ];
 
 const ChakraShowcases = () => {

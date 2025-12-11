@@ -3,8 +3,10 @@ import React from 'react';
 
 import { route } from 'nextjs/routes';
 
+import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import * as EntityBase from 'ui/shared/entities/base/components';
+import getChainTooltipText from 'ui/shared/externalChains/getChainTooltipText';
 
 import { distributeEntityProps } from '../base/utils';
 
@@ -13,7 +15,7 @@ type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'hash'>;
 const Link = chakra((props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/tx/[hash]', query: { hash: props.hash } },
-    props.chain ? { chain: props.chain } : undefined,
+    { chain: props.chain, external: props.external },
   );
 
   return (
@@ -26,15 +28,39 @@ const Link = chakra((props: LinkProps) => {
   );
 });
 
-const Icon = (props: EntityBase.IconBaseProps) => {
+type IconProps = EntityBase.IconBaseProps & Pick<EntityProps, 'isPendingUpdate'>;
+
+const Icon = (props: IconProps) => {
+  const isPendingUpdate = props.isPendingUpdate && config.UI.views.block.pendingUpdateAlertEnabled;
+
+  const name = (() => {
+    if ('name' in props) {
+      return props.name;
+    }
+
+    return isPendingUpdate ? 'status/warning' : 'transactions_slim';
+  })();
+
+  const hint = (() => {
+    if ('hint' in props) {
+      return props.hint;
+    }
+
+    if (props.chain && props.shield !== false) {
+      return getChainTooltipText(props.chain, 'Transaction on ');
+    }
+
+    return isPendingUpdate ?
+      'This transaction is part of a block that is being re-synced. Details may be incomplete until the update is finished.' :
+      undefined;
+  })();
+
   return (
     <EntityBase.Icon
       { ...props }
-      name={ props.name ?? 'transactions_slim' }
-      shield={ props.shield ?? (props.chain ? {
-        src: props.chain.config.UI.navigation.icon.default,
-      } : undefined) }
-      hint={ props.chain ? `Transaction on ${ props.chain.config.chain.name } (Chain ID: ${ props.chain.config.chain.id })` : undefined }
+      name={ name }
+      shield={ props.shield ?? (props.chain ? { src: props.chain.logo } : undefined) }
+      hint={ hint }
     />
   );
 };
@@ -57,8 +83,7 @@ const Copy = (props: CopyProps) => {
     <EntityBase.Copy
       { ...props }
       text={ props.hash }
-      // by default we don't show copy icon, maybe this should be revised
-      noCopy={ props.noCopy ?? true }
+      noCopy={ props.noCopy }
     />
   );
 };
@@ -68,19 +93,19 @@ const Container = EntityBase.Container;
 export interface EntityProps extends EntityBase.EntityBaseProps {
   hash: string;
   text?: string;
+  isPendingUpdate?: boolean;
 }
 
 const TxEntity = (props: EntityProps) => {
   const multichainContext = useMultichainContext();
-  const partsProps = distributeEntityProps(props);
+  const partsProps = distributeEntityProps(props, multichainContext);
 
-  const chain = props.chain ?? multichainContext?.chain;
   const content = <Content { ...partsProps.content }/>;
 
   return (
     <Container { ...partsProps.container }>
-      <Icon { ...partsProps.icon }/>
-      { props.noLink ? content : <Link { ...partsProps.link } chain={ chain }>{ content }</Link> }
+      <Icon { ...partsProps.icon } isPendingUpdate={ props.isPendingUpdate }/>
+      { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
       <Copy { ...partsProps.copy }/>
     </Container>
   );

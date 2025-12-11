@@ -12,7 +12,7 @@ import shortenString from 'lib/shortenString';
 import { Button } from 'toolkit/chakra/button';
 import { Link } from 'toolkit/chakra/link';
 import { Hint } from 'toolkit/components/Hint/Hint';
-import TruncatedValue from 'ui/shared/TruncatedValue';
+import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import useLogout from 'ui/snippets/auth/useLogout';
 
 import UserWalletAutoConnectAlert from '../UserWalletAutoConnectAlert';
@@ -90,7 +90,7 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
         borderColor="border.divider"
         borderWidth="1px"
         borderRadius="base"
-        color={{ _light: 'gray.500', _dark: 'gray.300' }}
+        color="text.secondary"
       >
         { config.features.blockchainInteraction.isEnabled && (
           <Flex p={ 2 } borderColor="border.divider" borderBottomWidth="1px">
@@ -107,7 +107,7 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
         <Flex p={ 2 } columnGap={ 4 }>
           <Box mr="auto">Email</Box>
           { data?.email ?
-            <TruncatedValue value={ data.email }/> : <Link onClick={ onAddEmail }>Add email</Link> }
+            <TruncatedText text={ data.email }/> : <Link onClick={ onAddEmail }>Add email</Link> }
         </Flex>
       </Box>
 
