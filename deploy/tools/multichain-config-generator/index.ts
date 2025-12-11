@@ -3,16 +3,48 @@ import { dirname, resolve as resolvePath } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Worker } from 'node:worker_threads';
 
+import { ClusterChainConfig } from 'types/multichain';
+
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDir = dirname(currentFilePath);
 
-const EXPLORER_URLS = [
-  'https://optimism-interop-alpha-0.blockscout.com',
-  'https://optimism-interop-alpha-1.blockscout.com',
-];
+// const EXPLORER_URLS = [
+//   'https://optimism.blockscout.com',
+//   'https://base.blockscout.com',
+//   'https://arbitrum.blockscout.com',
+//   'https://unichain.blockscout.com',
+//   'https://explorer.redstone.xyz',
+//   'https://matchscan.io'
+//   // 'https://optimism-interop-alpha-0.blockscout.com',
+//   // 'https://optimism-interop-alpha-1.blockscout.com',
+// ];
 
-function getSlug(url: string) {
-  return new URL(url).hostname.replace('.blockscout.com', '').replace('.k8s-dev', '');
+function getSlug(chainName: string) {
+  return chainName.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
+}
+
+async function getChainscoutInfo(chainIds: Array<string>) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort(`Request to Chainscout API timed out`);
+  }, 30_000);
+
+  try {
+    const response = await fetch(`https://chains.blockscout.com/api/chains?chain_ids=${ chainIds.join(',') }`, { signal: controller.signal });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch chains info from Chainscout API`);
+    }
+    const chainsInfo = await response.json() as Record<string, { explorers: [ { url: string } ], logo: string }>;
+  
+    return chainIds.map((chainId) => ({
+      id: chainId,
+      logoUrl: chainsInfo[chainId]?.logo,
+    }))
+  } catch (error) {
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function computeChainConfig(url: string): Promise<unknown> {
@@ -41,6 +73,23 @@ async function computeChainConfig(url: string): Promise<unknown> {
   });
 }
 
+async function getExplorerUrls() {
+  // return EXPLORER_URLS;
+  try {
+    const basePath = `/api/v1/clusters/${ process.env.NEXT_PUBLIC_MULTICHAIN_CLUSTER }/chains`;
+    const url = new URL(basePath, process.env.NEXT_PUBLIC_MULTICHAIN_AGGREGATOR_API_HOST);
+
+    const response = await fetch(url.toString());
+    const data = await response.json();
+
+    console.log(`💡 Found ${ data.items.length } chains in cluster.`);
+
+    return data.items.map((item: { explorer_url: string }) => item.explorer_url);
+  } catch (error) {
+    return [];
+  }
+}
+
 async function run() {
   try {
     if (!process.env.NEXT_PUBLIC_MULTICHAIN_AGGREGATOR_API_HOST) {
@@ -49,14 +98,28 @@ async function run() {
     }
 
     console.log('🌀 Generating multichain config...');
-    const configs = await Promise.all(EXPLORER_URLS.map(computeChainConfig));
+
+    const explorerUrls = await getExplorerUrls();
+
+    if (!explorerUrls.length) {
+      throw new Error('No chains found in the cluster.');
+    }
+
+    const configs = await Promise.all(explorerUrls.map(computeChainConfig));
+    const chainscoutInfo = await getChainscoutInfo(configs.map((config) => config.chain.id));
 
     const config = {
       chains: configs.map((config, index) => {
+        const chainId = config.chain.id;
+        const chainName = (config as { chain: { name: string } })?.chain?.name ?? `Chain ${ chainId }`;
         return {
-          slug: getSlug(EXPLORER_URLS[index]),
-          config,
-        };
+          id: chainId,
+          name: chainName,
+          logo: chainscoutInfo.find((chain) => chain.id === chainId)?.logoUrl,
+          explorer_url: explorerUrls[index],
+          slug: getSlug(chainName),
+          app_config: config,
+        } satisfies ClusterChainConfig;
       }),
     };
 

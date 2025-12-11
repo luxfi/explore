@@ -1,6 +1,7 @@
 import type { Channel } from 'phoenix';
 
 import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as zetaChainCCTXType from '@blockscout/zetachain-cctx-types';
 import type { AddressCoinBalanceHistoryItem, AddressTokensBalancesSocketMessage } from 'types/api/address';
 import type { NewArbitrumBatchSocketResponse } from 'types/api/arbitrumL2';
 import type { NewBlockSocketResponse } from 'types/api/block';
@@ -35,13 +36,16 @@ SocketMessage.AddressTxsPending |
 SocketMessage.AddressTokenTransfer |
 SocketMessage.AddressChangedBytecode |
 SocketMessage.AddressFetchedBytecode |
+SocketMessage.EthBytecodeDbLookupStarted |
 SocketMessage.SmartContractWasVerified |
+SocketMessage.SmartContractWasNotVerified |
 SocketMessage.TokenTransfers |
 SocketMessage.TokenTotalSupply |
 SocketMessage.TokenInstanceMetadataFetched |
 SocketMessage.ContractVerification |
 SocketMessage.NewZkEvmL2Batch |
 SocketMessage.NewArbitrumL2Batch |
+SocketMessage.NewZetaChainCCTXs |
 SocketMessage.Unknown;
 
 interface SocketMessageParamsGeneric<Event extends string | undefined, Payload extends object | unknown> {
@@ -76,12 +80,15 @@ export namespace SocketMessage {
   export type AddressTokenTransfer = SocketMessageParamsGeneric<'token_transfer', { token_transfers: Array<TokenTransfer> }>;
   export type AddressChangedBytecode = SocketMessageParamsGeneric<'changed_bytecode', Record<string, never>>;
   export type AddressFetchedBytecode = SocketMessageParamsGeneric<'fetched_bytecode', { fetched_bytecode: string }>;
+  export type EthBytecodeDbLookupStarted = SocketMessageParamsGeneric<'eth_bytecode_db_lookup_started', Record<string, never>>;
   export type SmartContractWasVerified = SocketMessageParamsGeneric<'smart_contract_was_verified', Record<string, never>>;
+  export type SmartContractWasNotVerified = SocketMessageParamsGeneric<'smart_contract_was_not_verified', Record<string, never>>;
   export type TokenTransfers = SocketMessageParamsGeneric<'token_transfer', { token_transfer: number }>;
   export type TokenTotalSupply = SocketMessageParamsGeneric<'total_supply', { total_supply: number }>;
   export type TokenInstanceMetadataFetched = SocketMessageParamsGeneric<'fetched_token_instance_metadata', TokenInstanceMetadataSocketMessage>;
   export type ContractVerification = SocketMessageParamsGeneric<'verification_result', SmartContractVerificationResponse>;
   export type NewZkEvmL2Batch = SocketMessageParamsGeneric<'new_zkevm_confirmed_batch', NewZkEvmBatchSocketResponse>;
   export type NewArbitrumL2Batch = SocketMessageParamsGeneric<'new_arbitrum_batch', NewArbitrumBatchSocketResponse>;
+  export type NewZetaChainCCTXs = SocketMessageParamsGeneric<'new_cctxs', Array<zetaChainCCTXType.CctxListItem>>;
   export type Unknown = SocketMessageParamsGeneric<undefined, unknown>;
 }

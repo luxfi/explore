@@ -1,18 +1,16 @@
-import { Box, Grid, chakra } from '@chakra-ui/react';
+import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochDetails } from 'types/api/epochs';
 
-import config from 'configs/app';
-import getCurrencyValue from 'lib/getCurrencyValue';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Skeleton } from 'toolkit/chakra/skeleton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
-import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import CeloEpochStatus from 'ui/shared/statusTag/CeloEpochStatus';
 import TokenTransferSnippet from 'ui/shared/TokenTransferSnippet/TokenTransferSnippet';
+import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
+import TokenValue from 'ui/shared/value/TokenValue';
 
 import EpochElectionRewards from './electionRewards/EpochElectionRewards';
 
@@ -23,11 +21,6 @@ interface Props {
 
 const EpochDetails = ({ data, isLoading }: Props) => {
   const isMobile = useIsMobile();
-
-  const totalFunRewards = data.distribution?.transfers_total?.total ? getCurrencyValue({
-    value: data.distribution?.transfers_total.total.value,
-    decimals: data.distribution?.transfers_total.total.decimals,
-  }) : null;
 
   const processingRange = (() => {
     if (!data.start_processing_block_number || !data.end_processing_block_number) {
@@ -47,9 +40,35 @@ const EpochDetails = ({ data, isLoading }: Props) => {
     );
   })();
 
+  const totalFundRewards = (() => {
+    if (!data.distribution?.transfers_total?.total?.value) {
+      return <Box color="text.secondary">N/A</Box>;
+    }
+
+    if (data.distribution?.transfers_total?.token) {
+      return (
+        <TokenValue
+          amount={ data.distribution?.transfers_total?.total?.value }
+          token={ data.distribution?.transfers_total.token }
+          decimals={ data.distribution?.transfers_total?.total?.decimals }
+          accuracy={ 0 }
+          loading={ isLoading }
+        />
+      );
+    }
+
+    return (
+      <NativeCoinValue
+        amount={ data.distribution?.transfers_total?.total?.value }
+        accuracy={ 0 }
+        loading={ isLoading }
+      />
+    );
+  })();
+
   return (
     <>
-      <Grid columnGap={ 8 } rowGap={ 3 } templateColumns={{ base: 'minmax(0, 1fr)', lg: 'max-content minmax(728px, auto)' }}>
+      <DetailedInfo.Container>
         <DetailedInfo.ItemLabel
           hint="Current status of the epoch"
           isLoading={ isLoading }
@@ -89,7 +108,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
         >
           Community fund
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue>
+        <DetailedInfo.ItemValue multiRow>
           { data.distribution?.community_transfer ? (
             <TokenTransferSnippet
               data={ data.distribution.community_transfer }
@@ -106,7 +125,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
         >
           Carbon offset fund
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue>
+        <DetailedInfo.ItemValue multiRow>
           { data.distribution?.carbon_offsetting_transfer ? (
             <TokenTransferSnippet
               data={ data.distribution.carbon_offsetting_transfer }
@@ -123,27 +142,10 @@ const EpochDetails = ({ data, isLoading }: Props) => {
         >
           Total fund rewards
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue flexWrap="nowrap" gap={ 2 }>
-          { totalFunRewards ? (
-            <>
-              <Skeleton loading={ isLoading }>
-                <span>{ totalFunRewards.valueStr }</span>
-              </Skeleton>
-              { data.distribution?.transfers_total?.token ? (
-                <TokenEntity
-                  token={ data.distribution?.transfers_total.token }
-                  isLoading={ isLoading }
-                  noCopy
-                  onlySymbol
-                />
-              ) :
-                config.chain.currency.symbol }
-            </>
-          ) : (
-            <Box color="text.secondary">N/A</Box>
-          ) }
+        <DetailedInfo.ItemValue>
+          { totalFundRewards }
         </DetailedInfo.ItemValue>
-      </Grid>
+      </DetailedInfo.Container>
       <EpochElectionRewards data={ data } isLoading={ isLoading }/>
     </>
   );
