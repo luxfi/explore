@@ -65,3 +65,8 @@ yarn-error.log*
 # build outputs
 /tools/preset-sync/index.js
 /toolkit/package/dist
+
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+QWEN.md
