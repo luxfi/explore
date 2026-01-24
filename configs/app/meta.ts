@@ -4,7 +4,8 @@ import { getEnvValue, getExternalAssetFilePath } from './utils';
 const defaultImageUrl = '/static/og_image.png';
 
 const meta = Object.freeze({
-  promoteBlockscoutInTitle: getEnvValue('NEXT_PUBLIC_PROMOTE_BLOCKSCOUT_IN_TITLE') === 'false' ? false : true,
+  // Lux fork: disable Blockscout branding by default
+  promoteBlockscoutInTitle: getEnvValue('NEXT_PUBLIC_PROMOTE_BLOCKSCOUT_IN_TITLE') === 'true' ? true : false,
   og: {
     description: getEnvValue('NEXT_PUBLIC_OG_DESCRIPTION') || '',
     imageUrl: app.baseUrl + (getExternalAssetFilePath('NEXT_PUBLIC_OG_IMAGE_URL') || defaultImageUrl),
