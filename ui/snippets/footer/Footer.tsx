@@ -23,8 +23,8 @@ import getApiVersionUrl from './utils/getApiVersionUrl';
 
 const MAX_LINKS_COLUMNS = 4;
 
-const FRONT_VERSION_URL = `https://github.com/blockscout/frontend/tree/${ config.UI.footer.frontendVersion }`;
-const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.UI.footer.frontendCommit }`;
+const FRONT_VERSION_URL = `https://github.com/luxfi/explore/tree/${ config.UI.footer.frontendVersion }`;
+const FRONT_COMMIT_URL = `https://github.com/luxfi/explore/commit/${ config.UI.footer.frontendCommit }`;
 
 const Footer = () => {
 
@@ -37,7 +37,7 @@ const Footer = () => {
   const apiVersionUrl = getApiVersionUrl(backendVersionData?.backend_version);
   const issueUrl = useIssueUrl(backendVersionData?.backend_version);
 
-  const BLOCKSCOUT_LINKS = [
+  const LUX_LINKS = [
     {
       icon: 'edit' as const,
       iconSize: '16px',
@@ -48,31 +48,31 @@ const Footer = () => {
       icon: 'social/git' as const,
       iconSize: '18px',
       text: 'Contribute',
-      url: 'https://github.com/blockscout/blockscout',
+      url: 'https://github.com/luxfi',
     },
     {
       icon: 'social/twitter' as const,
       iconSize: '18px',
       text: 'X (ex-Twitter)',
-      url: 'https://x.com/blockscout',
+      url: 'https://x.com/luxaboratory',
     },
     {
       icon: 'social/discord' as const,
       iconSize: '24px',
       text: 'Discord',
-      url: 'https://discord.gg/blockscout',
+      url: 'https://discord.gg/luxnetwork',
     },
     {
-      icon: 'brands/blockscout' as const,
+      icon: 'globe' as const,
       iconSize: '18px',
-      text: 'All chains',
-      url: 'https://www.blockscout.com/chains-and-projects',
+      text: 'Lux Network',
+      url: 'https://lux.network',
     },
     {
-      icon: 'donate' as const,
+      icon: 'docs' as const,
       iconSize: '20px',
-      text: 'Donate',
-      url: 'https://eth.blockscout.com/address/0xfB4aF6A8592041E9BcE186E5aC4BDbd2B137aD11',
+      text: 'Documentation',
+      url: 'https://docs.lux.network',
     },
   ];
 
@@ -124,8 +124,8 @@ const Footer = () => {
     return (
       <Box gridArea={ gridArea }>
         <Flex columnGap={ 2 } textStyle="xs" alignItems="center">
-          <span>Made with</span>
-          <Link href="https://www.blockscout.com" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
+          <span>Powered by</span>
+          <Link href="https://lux.network" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
             <IconSvg
               name="networks/logo-placeholder"
               width="80px"
@@ -208,7 +208,7 @@ const Footer = () => {
           >
             {
               ([
-                { title: 'Lux Network', links: BLOCKSCOUT_LINKS },
+                { title: 'Lux Network', links: LUX_LINKS },
                 ...(linksData || []),
               ])
                 .slice(0, colNum)
@@ -262,7 +262,7 @@ const Footer = () => {
           justifyContent={{ lg: 'flex-end' }}
           mt={{ base: 8, lg: 0 }}
         >
-          { BLOCKSCOUT_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
+          { LUX_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
         </Grid>
       </Grid>
     </Box>

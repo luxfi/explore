@@ -8,8 +8,8 @@ import { getEnvValue, parseEnvJson } from '../utils';
 
 const provider: AdBannerProviders = (() => {
   const envValue = getEnvValue('NEXT_PUBLIC_AD_BANNER_PROVIDER') as AdBannerProviders;
-
-  return envValue && SUPPORTED_AD_BANNER_PROVIDERS.includes(envValue) ? envValue : 'slise';
+  // Lux fork: disable ads by default
+  return envValue && SUPPORTED_AD_BANNER_PROVIDERS.includes(envValue) ? envValue : 'none';
 })();
 
 const additionalProvider = getEnvValue('NEXT_PUBLIC_AD_BANNER_ADDITIONAL_PROVIDER') as AdBannerAdditionalProviders;
