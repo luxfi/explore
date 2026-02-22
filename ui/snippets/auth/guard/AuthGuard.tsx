@@ -4,12 +4,17 @@ import config from 'configs/app';
 
 const AuthGuardAuth0 = dynamic(() => import('./AuthGuardAuth0'), { ssr: false });
 const AuthGuardDynamic = dynamic(() => import('./AuthGuardDynamic'), { ssr: false });
+const AuthGuardOidc = dynamic(() => import('./AuthGuardOidc'), { ssr: false });
 
 const feature = config.features.account;
 
 const AuthGuard = (() => {
   if (feature.isEnabled && feature.authProvider === 'dynamic') {
     return AuthGuardDynamic;
+  }
+
+  if (feature.isEnabled && feature.authProvider === 'oidc') {
+    return AuthGuardOidc;
   }
 
   return AuthGuardAuth0;
