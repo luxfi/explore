@@ -52,7 +52,7 @@ const Footer = () => {
     },
     {
       icon: 'social/twitter' as const,
-      iconSize: '18px',
+      iconSize: '24px',
       text: 'X (ex-Twitter)',
       url: 'https://x.com/luxaboratory',
     },
@@ -71,8 +71,14 @@ const Footer = () => {
     {
       icon: 'docs' as const,
       iconSize: '20px',
-      text: 'Documentation',
+text: 'Documentation',
       url: 'https://docs.lux.network',
+    },
+    {
+      icon: 'AI' as const,
+      iconSize: '20px',
+      text: 'llms.txt',
+      url: `${ config.app.baseUrl }/llms.txt`,
     },
   ];
 
