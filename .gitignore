@@ -55,6 +55,7 @@ yarn-error.log*
 **.decrypted~**
 /test-results/
 /playwright-report/
+/blob-report/
 /playwright/.cache/
 /playwright/.browser/
 /playwright/envs.js
@@ -65,6 +66,7 @@ yarn-error.log*
 # build outputs
 /tools/preset-sync/index.js
 /toolkit/package/dist
+license.json
 
 AGENTS.md
 CLAUDE.md
