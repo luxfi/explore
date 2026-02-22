@@ -27,6 +27,15 @@ export const accountAuth0: Guard = (chainConfig: typeof config) => async() => {
   }
 };
 
+export const accountOidc: Guard = (chainConfig: typeof config) => async() => {
+  const feature = chainConfig.features.account;
+  if (!feature.isEnabled || feature.authProvider !== 'oidc') {
+    return {
+      notFound: true,
+    };
+  }
+};
+
 export const verifiedAddresses: Guard = (chainConfig: typeof config) => async() => {
   if (!chainConfig.features.addressVerification.isEnabled) {
     return {

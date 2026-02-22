@@ -29,6 +29,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/api-docs">
     | DynamicRoute<"/apps/[id]", { "id": string }>
     | StaticRoute<"/apps">
+    | StaticRoute<"/auth/callback">
     | StaticRoute<"/auth/profile">
     | DynamicRoute<"/batches/[number]", { "number": string }>
     | DynamicRoute<"/batches/celestia/[height]/[commitment]", { "height": string; "commitment": string }>
