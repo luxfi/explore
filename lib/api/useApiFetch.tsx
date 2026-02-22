@@ -5,6 +5,7 @@ import React from 'react';
 import type { CsrfData } from 'types/client/account';
 import type { ExternalChainExtended } from 'types/externalChains';
 
+import config from 'configs/app';
 import isBodyAllowed from 'lib/api/isBodyAllowed';
 import isNeedProxy from 'lib/api/isNeedProxy';
 import { getResourceKey } from 'lib/api/useApiQuery';
@@ -44,7 +45,16 @@ export default function useApiFetch() {
     const withBody = isBodyAllowed(fetchParams?.method);
     const headers = pickBy({
       'x-endpoint': isNeedProxy() ? api.endpoint : undefined,
-      Authorization: [ 'admin', 'contractInfo' ].includes(apiName) ? apiToken : undefined,
+      Authorization: (() => {
+        const feature = config.features.account;
+        if (feature.isEnabled && feature.authProvider === 'oidc' && apiToken && apiName === 'general') {
+          return `Bearer ${ apiToken }`;
+        }
+        if ([ 'admin', 'contractInfo' ].includes(apiName)) {
+          return apiToken;
+        }
+        return undefined;
+      })(),
       'x-csrf-token': [ 'general', 'admin', 'contractInfo' ].includes(apiName) && withBody && csrfToken ? csrfToken : undefined,
       ...(apiName === 'general' ? {
         'api-v2-temp-token': apiTempToken,
