@@ -13,6 +13,10 @@ const config: Feature<{
   dynamic?: {
     environmentId: string;
   };
+  oidc?: {
+    serverUrl: string;
+    clientId: string;
+  };
 }> = (() => {
 
   if (
@@ -21,6 +25,8 @@ const config: Feature<{
   ) {
     const authProvider = getEnvValue('NEXT_PUBLIC_ACCOUNT_AUTH_PROVIDER');
     const dynamicEnvironmentId = getEnvValue('NEXT_PUBLIC_ACCOUNT_DYNAMIC_ENVIRONMENT_ID');
+    const oidcServerUrl = getEnvValue('NEXT_PUBLIC_OIDC_SERVER_URL');
+    const oidcClientId = getEnvValue('NEXT_PUBLIC_OIDC_CLIENT_ID');
 
     if (authProvider === 'dynamic' && dynamicEnvironmentId) {
       return Object.freeze({
@@ -33,11 +39,36 @@ const config: Feature<{
       });
     }
 
+    if (authProvider === 'oidc' && oidcServerUrl && oidcClientId) {
+      return Object.freeze({
+        title,
+        isEnabled: true,
+        authProvider: 'oidc',
+        oidc: {
+          serverUrl: oidcServerUrl,
+          clientId: oidcClientId,
+        },
+      });
+    }
+
     if (services.reCaptchaV2.siteKey) {
       return Object.freeze({
         title,
         isEnabled: true,
         authProvider: 'auth0',
+      });
+    }
+
+    // Fallback: if OIDC env vars are set without explicit provider, enable OIDC
+    if (oidcServerUrl && oidcClientId) {
+      return Object.freeze({
+        title,
+        isEnabled: true,
+        authProvider: 'oidc',
+        oidc: {
+          serverUrl: oidcServerUrl,
+          clientId: oidcClientId,
+        },
       });
     }
   }
