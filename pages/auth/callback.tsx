@@ -3,11 +3,11 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Link } from 'toolkit/chakra/link';
 import PageNextJs from 'nextjs/PageNextJs';
 
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
+import { Link } from 'toolkit/chakra/link';
 
 const COOKIE_MAX_AGE_DAYS = 7;
 
