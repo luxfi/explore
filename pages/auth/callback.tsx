@@ -43,7 +43,11 @@ const OidcCallback: NextPage = () => {
 
     const exchangeCode = async() => {
       try {
-        const { serverUrl, clientId } = feature.oidc;
+        const oidc = feature.oidc;
+        if (!oidc) {
+          return;
+        }
+        const { serverUrl, clientId } = oidc;
         const redirectUri = `${ window.location.origin }/auth/callback`;
 
         const tokenResponse = await fetch(`${ serverUrl }/oauth/token`, {
