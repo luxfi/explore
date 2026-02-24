@@ -96,14 +96,9 @@ const OidcCallback: NextPage = () => {
           <Flex direction="column" alignItems="center" gap={ 4 }>
             <Text fontSize="xl" fontWeight="bold" color="red.500">Authentication Error</Text>
             <Text color="gray.400">{ error }</Text>
-            <Text
-              as="a"
-              href="/"
-              color="blue.400"
-              _hover={{ textDecoration: 'underline' }}
-            >
+            <a href="/" style={{ color: 'var(--chakra-colors-blue-400)', textDecoration: 'none' }}>
               Return to home
-            </Text>
+            </a>
           </Flex>
         </Center>
       </PageNextJs>
