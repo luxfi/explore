@@ -3,10 +3,10 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import PageNextJs from 'nextjs/PageNextJs';
+
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
-
-import PageNextJs from 'nextjs/PageNextJs';
 
 const COOKIE_MAX_AGE_DAYS = 7;
 
@@ -70,9 +70,9 @@ const OidcCallback: NextPage = () => {
         };
 
         // Store the access token in the API_TOKEN cookie
-        const expiresInDays = tokenData.expires_in
-          ? Math.ceil(tokenData.expires_in / 86400)
-          : COOKIE_MAX_AGE_DAYS;
+        const expiresInDays = tokenData.expires_in ?
+          Math.ceil(tokenData.expires_in / 86400) :
+          COOKIE_MAX_AGE_DAYS;
         cookies.set(cookies.NAMES.API_TOKEN, tokenData.access_token, { expires: expiresInDays });
 
         // Redirect to profile page
