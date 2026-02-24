@@ -1,9 +1,9 @@
 import { Center, Flex, Spinner, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { Link } from 'toolkit/chakra/link';
 import PageNextJs from 'nextjs/PageNextJs';
 
 import config from 'configs/app';
@@ -97,9 +97,9 @@ const OidcCallback: NextPage = () => {
           <Flex direction="column" alignItems="center" gap={ 4 }>
             <Text fontSize="xl" fontWeight="bold" color="red.500">Authentication Error</Text>
             <Text color="gray.400">{ error }</Text>
-            <NextLink href="/" style={{ color: 'var(--chakra-colors-blue-400)', textDecoration: 'none' }}>
+            <Link href="/" color="blue.400">
               Return to home
-            </NextLink>
+            </Link>
           </Flex>
         </Center>
       </PageNextJs>
