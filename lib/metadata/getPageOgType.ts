@@ -30,6 +30,7 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/hot-contracts': 'Root page',
   '/api-docs': 'Regular page',
   '/search-results': 'Regular page',
+  '/auth/callback': 'Regular page',
   '/auth/profile': 'Root page',
   '/account/merits': 'Regular page',
   '/account/watchlist': 'Regular page',
