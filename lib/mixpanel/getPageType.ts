@@ -28,6 +28,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/hot-contracts': 'Hot contracts',
   '/api-docs': 'REST API',
   '/search-results': 'Search results',
+  '/auth/callback': 'Auth callback',
   '/auth/profile': 'Profile',
   '/account/merits': 'Merits',
   '/account/watchlist': 'Watchlist',
