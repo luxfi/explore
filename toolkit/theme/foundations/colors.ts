@@ -2,14 +2,12 @@ import { defaultsDeep } from 'es-toolkit/compat';
 
 import config from 'configs/app';
 
+// Lux monochrome theme — pure black/white/grey, no color accents
 const DEFAULT_THEME_COLORS = {
   bg: {
     primary: {
-      // for some reason links to colors.white and colors.black variables are not working here
-      // so we use hex values instead
-      // but it is not the case for other colors
-      _light: { value: '#FFFFFF' }, // colors.white
-      _dark: { value: '#101112' }, // colors.black
+      _light: { value: '#FFFFFF' },
+      _dark: { value: '#000000' }, // pure black
     },
   },
   text: {
@@ -23,24 +21,24 @@ const DEFAULT_THEME_COLORS = {
     },
   },
   hover: {
-    _light: { value: '{colors.blue.400}' },
-    _dark: { value: '{colors.blue.400}' },
+    _light: { value: '{colors.gray.600}' },
+    _dark: { value: '{colors.whiteAlpha.700}' },
   },
   selected: {
     control: {
       text: {
-        _light: { value: '{colors.blue.700}' },
+        _light: { value: '{colors.gray.900}' },
         _dark: { value: '{colors.gray.50}' },
       },
       bg: {
-        _light: { value: '{colors.blue.50}' },
-        _dark: { value: '{colors.whiteAlpha.50}' },
+        _light: { value: '{colors.gray.100}' },
+        _dark: { value: '{colors.whiteAlpha.100}' },
       },
     },
     option: {
       bg: {
-        _light: { value: '{colors.blue.500}' },
-        _dark: { value: '{colors.blue.500}' },
+        _light: { value: '{colors.gray.700}' },
+        _dark: { value: '{colors.whiteAlpha.300}' },
       },
     },
   },
@@ -56,42 +54,42 @@ const DEFAULT_THEME_COLORS = {
   },
   button: {
     primary: {
-      _light: { value: '{colors.blue.600}' },
-      _dark: { value: '{colors.blue.600}' },
+      _light: { value: '{colors.gray.900}' },
+      _dark: { value: '{colors.whiteAlpha.900}' },
     },
   },
   link: {
     primary: {
-      _light: { value: '{colors.blue.600}' },
-      _dark: { value: '{colors.blue.300}' },
+      _light: { value: '{colors.gray.700}' },
+      _dark: { value: '{colors.whiteAlpha.700}' },
     },
   },
   graph: {
     line: {
-      _light: { value: '{colors.blue.500}' },
-      _dark: { value: '{colors.blue.200}' },
+      _light: { value: '{colors.gray.500}' },
+      _dark: { value: '{colors.whiteAlpha.600}' },
     },
     gradient: {
       start: {
-        _light: { value: 'rgba(144, 205, 244, 0.3)' }, // blue.200 with opacity 0.3
-        _dark: { value: 'rgba(144, 205, 244, 0.3)' }, // blue.200 with opacity 0.3
+        _light: { value: 'rgba(160, 174, 192, 0.3)' }, // gray.400 with opacity
+        _dark: { value: 'rgba(255, 255, 255, 0.15)' },
       },
       stop: {
-        _light: { value: 'rgba(144, 205, 244, 0)' }, // blue.200 with opacity 0
-        _dark: { value: 'rgba(144, 205, 244, 0)' }, // blue.200 with opacity 0
+        _light: { value: 'rgba(160, 174, 192, 0)' },
+        _dark: { value: 'rgba(255, 255, 255, 0)' },
       },
     },
   },
   navigation: {
     bg: {
       selected: {
-        _light: { value: '{colors.blue.50}' },
-        _dark: { value: '{colors.gray.800}' },
+        _light: { value: '{colors.gray.100}' },
+        _dark: { value: '{colors.whiteAlpha.100}' },
       },
     },
     text: {
       selected: {
-        _light: { value: '{colors.blue.700}' },
+        _light: { value: '{colors.gray.900}' },
         _dark: { value: '{colors.gray.50}' },
       },
     },
@@ -99,20 +97,20 @@ const DEFAULT_THEME_COLORS = {
   stats: {
     bg: {
       _light: { value: '{colors.gray.50}' },
-      _dark: { value: '{colors.whiteAlpha.100}' },
+      _dark: { value: '{colors.whiteAlpha.50}' },
     },
   },
   topbar: {
     bg: {
       _light: { value: '{colors.gray.50}' },
-      _dark: { value: '{colors.whiteAlpha.100}' },
+      _dark: { value: '{colors.whiteAlpha.50}' },
     },
   },
   tabs: {
     text: {
       primary: {
-        _light: { value: '{colors.blue.700}' },
-        _dark: { value: '{colors.blue.100}' },
+        _light: { value: '{colors.gray.900}' },
+        _dark: { value: '{colors.whiteAlpha.800}' },
       },
     },
   },
@@ -240,7 +238,7 @@ const colors = {
     '800': { value: '#702459' },
     '900': { value: '#521B41' },
   },
-  black: { value: '#101112' },
+  black: { value: '#000000' },
   white: { value: '#ffffff' },
   whiteAlpha: {
     '50': { value: 'RGBA(255, 255, 255, 0.04)' },
