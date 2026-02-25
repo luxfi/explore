@@ -42,12 +42,15 @@ jobs:
           cd ./toolkit/package
           npm version ${{ inputs.version }}
     
+      - name: Setup pnpm
+        run: corepack enable && corepack prepare pnpm@10.11.0 --activate
+
       - name: Build the package
         run: |
-          yarn
+          pnpm install --frozen-lockfile
           cd ./toolkit/package
-          yarn
-          yarn build
+          pnpm install --no-lockfile
+          pnpm build
     
       - name: Publish to NPM registry
         run: |
