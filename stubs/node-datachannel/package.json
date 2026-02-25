@@ -1,0 +1,19 @@
+{
+  "name": "@ipshipyard/node-datachannel",
+  "version": "0.26.6",
+  "description": "Stub — native WebRTC module not needed for Lux explorer",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./polyfill": {
+      "require": "./polyfill.cjs",
+      "import": "./polyfill.js",
+      "default": "./polyfill.js"
+    }
+  }
+}
