@@ -46,11 +46,11 @@ const relativeTimeConfig = {
 // tokens (lll, llll) are used on a locale without formats. This plugin ensures
 // formats are always present on whichever locale the instance uses.
 // Must be registered AFTER localizedFormat.
-const safeFormats: dayjs.PluginFunc = (_option, dayjsClass) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const safeFormats: dayjs.PluginFunc = (_option, dayjsClass: any) => {
   const wrappedFormat = dayjsClass.prototype.format;
   dayjsClass.prototype.format = function(formatStr?: string) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const locale = this.$locale() as any;
+    const locale = this.$locale();
     if (locale && !locale.formats) {
       locale.formats = LUX_FORMATS;
     }
