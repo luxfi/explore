@@ -21,13 +21,11 @@ const UserProfileDesktop = ({ buttonSize, buttonVariant = 'header' }: Props) => 
       case 'dynamic':
         return <UserProfileDynamic buttonSize={ buttonSize } buttonVariant={ buttonVariant }/>;
       default:
-        return null;
+        break;
     }
   }
-  if (config.features.blockchainInteraction.isEnabled) {
-    return <UserWalletDesktop buttonSize={ buttonSize } buttonVariant={ buttonVariant }/>;
-  }
-  return null;
+  // Always render the wallet/settings menu — it handles both wallet and settings
+  return <UserWalletDesktop buttonSize={ buttonSize } buttonVariant={ buttonVariant }/>;
 };
 
 export default UserProfileDesktop;
