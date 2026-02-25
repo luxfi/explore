@@ -10,6 +10,17 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 import { nbsp } from 'toolkit/utils/htmlEntities';
 
+const LUX_FORMATS = {
+  LT: 'h:mm A',
+  LTS: 'h:mm:ss A',
+  L: 'MM/DD/YYYY',
+  LL: 'MMMM D, YYYY',
+  LLL: 'MMMM D, YYYY h:mm A',
+  LLLL: 'dddd, MMMM D, YYYY h:mm A',
+  llll: `MMM DD YYYY HH:mm:ss (Z${ nbsp }UTC)`,
+  lll: 'MMM D, YYYY H:mm',
+};
+
 const relativeTimeConfig = {
   thresholds: [
     { l: 's', r: 1 },
@@ -29,25 +40,35 @@ const relativeTimeConfig = {
   ],
 };
 
+// Safety plugin: @reown/appkit-common sets the global dayjs locale to 'en-web3-modal'
+// which has no `formats` property. The localizedFormat plugin crashes with
+// "Cannot read properties of undefined (reading 'replace')" when lowercase format
+// tokens (lll, llll) are used on a locale without formats. This plugin ensures
+// formats are always present on whichever locale the instance uses.
+// Must be registered AFTER localizedFormat.
+const safeFormats: dayjs.PluginFunc = (_option, dayjsClass) => {
+  const wrappedFormat = dayjsClass.prototype.format;
+  dayjsClass.prototype.format = function(formatStr?: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const locale = this.$locale() as any;
+    if (locale && !locale.formats) {
+      locale.formats = LUX_FORMATS;
+    }
+    return wrappedFormat.call(this, formatStr);
+  };
+};
+
 dayjs.extend(relativeTime, relativeTimeConfig);
 dayjs.extend(updateLocale);
 dayjs.extend(localizedFormat);
+dayjs.extend(safeFormats);
 dayjs.extend(duration);
 dayjs.extend(weekOfYear);
 dayjs.extend(minMax);
 dayjs.extend(utc);
 
 dayjs.updateLocale('en', {
-  formats: {
-    LT: 'h:mm A',
-    LTS: 'h:mm:ss A',
-    L: 'MM/DD/YYYY',
-    LL: 'MMMM D, YYYY',
-    LLL: 'MMMM D, YYYY h:mm A',
-    LLLL: 'dddd, MMMM D, YYYY h:mm A',
-    llll: `MMM DD YYYY HH:mm:ss (Z${ nbsp }UTC)`,
-    lll: 'MMM D, YYYY H:mm',
-  },
+  formats: LUX_FORMATS,
   relativeTime: {
     s: '1s',
     ss: '%ds',
