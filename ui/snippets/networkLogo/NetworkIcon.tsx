@@ -11,7 +11,7 @@ import { INVERT_FILTER } from './consts';
 
 const IconFallback = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30" height="30" aria-label="LUX Network icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30" height="30" aria-label={ `${ config.chain.name } icon` }>
       <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
     </svg>
   );
