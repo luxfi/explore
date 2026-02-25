@@ -15,9 +15,9 @@ const LogoFallback = () => {
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="24" height="24">
         <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
       </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" width="72" height="20">
-        <text x="0" y="23" fontFamily="Geist Sans, sans-serif" fontSize="28" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">LUX</text>
-      </svg>
+      <chakra.span fontWeight="700" fontSize="lg" letterSpacing="-0.02em">
+        { config.chain.name }
+      </chakra.span>
     </Flex>
   );
 };
