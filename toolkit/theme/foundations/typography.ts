@@ -4,8 +4,8 @@ import type { ExcludeUndefined } from 'types/utils';
 
 import config from 'configs/app';
 
-export const BODY_TYPEFACE = config.UI.fonts.body?.name ?? 'Geist Sans';
-export const HEADING_TYPEFACE = config.UI.fonts.heading?.name ?? 'Geist Sans';
+export const BODY_TYPEFACE = config.UI.fonts.body?.name ?? 'Geist';
+export const HEADING_TYPEFACE = config.UI.fonts.heading?.name ?? 'Geist';
 
 export const fonts: ExcludeUndefined<ThemingConfig['tokens']>['fonts'] = {
   heading: { value: `${ HEADING_TYPEFACE }, sans-serif` },
