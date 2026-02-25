@@ -34,12 +34,11 @@ const HeaderMobile = ({ hideSearchButton, onGoToSearchResults }: Props) => {
         case 'dynamic':
           return <UserProfileDynamic/>;
         default:
-          return null;
+          break;
       }
     }
-    if (config.features.blockchainInteraction.isEnabled) {
-      return <UserWalletMobile/>;
-    }
+    // Always render wallet/settings menu
+    return <UserWalletMobile/>;
   })();
 
   return (
