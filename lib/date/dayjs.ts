@@ -39,6 +39,12 @@ dayjs.extend(utc);
 
 dayjs.updateLocale('en', {
   formats: {
+    LT: 'h:mm A',
+    LTS: 'h:mm:ss A',
+    L: 'MM/DD/YYYY',
+    LL: 'MMMM D, YYYY',
+    LLL: 'MMMM D, YYYY h:mm A',
+    LLLL: 'dddd, MMMM D, YYYY h:mm A',
     llll: `MMM DD YYYY HH:mm:ss (Z${ nbsp }UTC)`,
     lll: 'MMM D, YYYY H:mm',
   },
