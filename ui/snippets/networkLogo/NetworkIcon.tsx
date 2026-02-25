@@ -6,19 +6,14 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
 import { Image } from 'toolkit/chakra/image';
-import IconSvg from 'ui/shared/IconSvg';
 
 import { INVERT_FILTER } from './consts';
 
 const IconFallback = () => {
   return (
-    <IconSvg
-      name="networks/icon-placeholder"
-      w="30px"
-      h="30px"
-      color={{ base: 'blue.600', _dark: 'white' }}
-      aria-label="Network icon placeholder"
-    />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30" height="30" aria-label="LUX Network icon">
+      <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
+    </svg>
   );
 };
 
