@@ -7,6 +7,11 @@ RUN apk add --no-cache libc6-compat python3 make g++ git
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
 
+# Global pnpm config for all work directories (shamefully-hoist for compat)
+RUN echo "shamefully-hoist=true" > /root/.npmrc && \
+    echo "strict-peer-dependencies=false" >> /root/.npmrc && \
+    echo "auto-install-peers=true" >> /root/.npmrc
+
 ### APP
 # Install dependencies
 WORKDIR /app
