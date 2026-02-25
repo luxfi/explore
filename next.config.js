@@ -25,7 +25,7 @@ const moduleExports = {
     );
     config.resolve.fallback = { fs: false, net: false, tls: false };
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
-    
+
     config.experiments = { ...config.experiments, topLevelAwait: true };
     // Tell webpack the target supports async/await so it stops warning about top-level await
     // Top-level await is belong to ES2017 specification that is adopted by all major browsers and Node.js.
@@ -44,6 +44,7 @@ const moduleExports = {
   redirects,
   headers,
   output: 'standalone',
+  outputFileTracingRoot: __dirname,
   productionBrowserSourceMaps: false,
   serverExternalPackages: ["@opentelemetry/sdk-node", "@opentelemetry/auto-instrumentations-node"],
   experimental: {
