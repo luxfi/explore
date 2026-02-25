@@ -1,4 +1,4 @@
-import { Flex, Separator, Box, HStack } from '@chakra-ui/react';
+import { Flex, Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -6,7 +6,6 @@ import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 
 import DeFiDropdown from './DeFiDropdown';
 import NetworkMenu from './NetworkMenu';
-import Settings from './settings/Settings';
 
 const TopBar = () => {
   const hasDeFiDropdown = Boolean(config.features.deFiDropdown.isEnabled);
@@ -25,17 +24,11 @@ const TopBar = () => {
         <HStack gap={ 0 } fontSize="xs">
           { Boolean(config.UI.featuredNetworks.items) && <NetworkMenu/> }
         </HStack>
-        <HStack
-          alignItems="center"
-          separator={ <Separator mx={{ base: 2, lg: 3 }} height={ 4 }/> }
-        >
-          { hasDeFiDropdown && (
-            <HStack>
-              <DeFiDropdown/>
-            </HStack>
-          ) }
-          <Settings/>
-        </HStack>
+        { hasDeFiDropdown && (
+          <HStack alignItems="center">
+            <DeFiDropdown/>
+          </HStack>
+        ) }
       </Flex>
     </Box>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import config from 'configs/app';
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
@@ -9,16 +10,19 @@ import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import UserWalletButton from './UserWalletButton';
 import UserWalletMenuContent from './UserWalletMenuContent';
 
+const isWalletEnabled = config.features.blockchainInteraction.isEnabled;
+
 const UserWalletMobile = () => {
   const walletMenu = useDisclosure();
 
   const web3Wallet = useWeb3Wallet({ source: 'Header' });
-  const web3AccountWithDomain = useWeb3AccountWithDomain(web3Wallet.isConnected);
+  const web3AccountWithDomain = useWeb3AccountWithDomain(isWalletEnabled && web3Wallet.isConnected);
   const { isAutoConnectDisabled } = useMarketplaceContext();
 
-  const isPending =
+  const isPending = isWalletEnabled && (
     (web3Wallet.isConnected && web3AccountWithDomain.isLoading) ||
-    (!web3Wallet.isConnected && web3Wallet.isOpen);
+    (!web3Wallet.isConnected && web3Wallet.isOpen)
+  );
 
   const handleOpenWalletClick = React.useCallback(() => {
     web3Wallet.openModal();
@@ -31,17 +35,12 @@ const UserWalletMobile = () => {
   }, [ web3Wallet, walletMenu ]);
 
   const handleOpenChange = React.useCallback(({ open }: { open: boolean }) => {
-    if (!web3Wallet.isConnected) {
-      web3Wallet.openModal();
-      return;
-    }
-
     if (open) {
       walletMenu.onOpen();
     } else {
       walletMenu.onClose();
     }
-  }, [ walletMenu, web3Wallet ]);
+  }, [ walletMenu ]);
 
   return (
     <DrawerRoot
@@ -51,23 +50,23 @@ const UserWalletMobile = () => {
       <DrawerTrigger>
         <UserWalletButton
           variant="header"
-          address={ web3AccountWithDomain.address }
-          domain={ web3AccountWithDomain.domain }
+          address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }
+          domain={ isWalletEnabled ? web3AccountWithDomain.domain : undefined }
           isPending={ isPending }
         />
       </DrawerTrigger>
       <DrawerContent maxWidth="300px">
         <DrawerBody p={ 6 }>
-          { web3AccountWithDomain.address && walletMenu.open && (
-            <UserWalletMenuContent
-              address={ web3AccountWithDomain.address }
-              domain={ web3AccountWithDomain.domain }
-              isAutoConnectDisabled={ isAutoConnectDisabled }
-              isReconnecting={ web3Wallet.isReconnecting }
-              onOpenWallet={ handleOpenWalletClick }
-              onDisconnect={ handleDisconnectClick }
-            />
-          ) }
+          <UserWalletMenuContent
+            address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }
+            domain={ isWalletEnabled ? web3AccountWithDomain.domain : undefined }
+            isAutoConnectDisabled={ isAutoConnectDisabled }
+            isReconnecting={ isWalletEnabled ? web3Wallet.isReconnecting : false }
+            isWalletEnabled={ isWalletEnabled }
+            onOpenWallet={ handleOpenWalletClick }
+            onDisconnect={ handleDisconnectClick }
+            onCloseMenu={ walletMenu.onClose }
+          />
         </DrawerBody>
       </DrawerContent>
     </DrawerRoot>

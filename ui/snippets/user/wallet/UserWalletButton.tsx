@@ -6,6 +6,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
 import { Button } from 'toolkit/chakra/button';
 import { Tooltip } from 'toolkit/chakra/tooltip';
+import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../UserIdenticon';
 
@@ -23,23 +24,27 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
   const isMobile = useIsMobile();
 
   const content = (() => {
-    if (!address) {
-      return 'Connect';
+    if (address) {
+      const text = domain || shortenString(address);
+      return (
+        <HStack gap={ 2 }>
+          <UserIdenticon address={ address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
+          <Box display={{ base: 'none', md: 'block' }}>{ text }</Box>
+        </HStack>
+      );
     }
-
-    const text = domain || shortenString(address);
 
     return (
       <HStack gap={ 2 }>
-        <UserIdenticon address={ address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-        <Box display={{ base: 'none', md: 'block' }}>{ text }</Box>
+        <IconSvg name="profile" boxSize={ 5 }/>
+        <Box display={{ base: 'none', md: 'block' }}>Menu</Box>
       </HStack>
     );
   })();
 
   return (
     <Tooltip
-      content="Connect your wallet to Blockscout for full-featured access"
+      content="Settings & wallet"
       disabled={ isMobile || Boolean(address) }
       openDelay={ 500 }
       disableOnMobile
