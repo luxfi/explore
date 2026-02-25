@@ -1,4 +1,4 @@
-import { chakra } from '@chakra-ui/react';
+import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -6,19 +6,19 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
 import { Image } from 'toolkit/chakra/image';
-import IconSvg from 'ui/shared/IconSvg';
 
 import { INVERT_FILTER } from './consts';
 
 const LogoFallback = () => {
   return (
-    <IconSvg
-      name="networks/logo-placeholder"
-      width="120px"
-      height="24px"
-      color={{ base: 'blue.600', _dark: 'white' }}
-      aria-label="Network logo placeholder"
-    />
+    <Flex alignItems="center" gap="8px" height="24px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="24" height="24">
+        <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" width="72" height="20">
+        <text x="0" y="23" fontFamily="Geist Sans, sans-serif" fontSize="28" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">LUX</text>
+      </svg>
+    </Flex>
   );
 };
 
