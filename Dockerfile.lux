@@ -6,35 +6,21 @@ RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
 
 WORKDIR /app
 
-# Copy package files
+# Install dependencies (cacheable layer)
+# Copy files needed by postinstall (chakra typegen) before install
 COPY package.json pnpm-lock.yaml .npmrc ./
 COPY stubs ./stubs
 COPY tsconfig.json ./
-COPY next.config.js ./
-
-# Copy necessary directories
 COPY types ./types
 COPY lib ./lib
-COPY configs ./configs
-COPY toolkit ./toolkit
-COPY ui ./ui
-COPY pages ./pages
-COPY nextjs ./nextjs
-COPY theme ./theme
-COPY icons ./icons
-COPY mocks ./mocks
-COPY playwright ./playwright
-COPY deploy ./deploy
-COPY public ./public
-COPY stubs ./stubs
-
-# Copy environment file
-COPY .env.production .env.local
-
-# Install dependencies
+COPY configs/app ./configs/app
+COPY toolkit/theme ./toolkit/theme
+COPY toolkit/utils ./toolkit/utils
+COPY toolkit/components/forms/validators/url.ts ./toolkit/components/forms/validators/url.ts
 RUN pnpm install --frozen-lockfile
 
-# Build the application
+# Copy remaining source and build
+COPY . .
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 RUN pnpm build
 
@@ -48,19 +34,13 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy built application
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-
-# Set permissions
-RUN chown -R nextjs:nodejs /app
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
-
 EXPOSE 3000
-
 ENV PORT=3000
 ENV NODE_ENV=production
-
 CMD ["node", "server.js"]
