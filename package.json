@@ -208,7 +208,8 @@
       "node-forge": "1.3.2",
       "brace-expansion": "1.1.12",
       "js-yaml": "4.1.1",
-      "@noble/hashes": "1.8.0"
+      "@noble/hashes": "1.8.0",
+      "@ipshipyard/node-datachannel": "link:./stubs/node-datachannel"
     }
   },
   "packageManager": "pnpm@10.11.0"

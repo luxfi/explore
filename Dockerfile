@@ -11,6 +11,7 @@ RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
 # Install dependencies
 WORKDIR /app
 COPY package.json pnpm-lock.yaml .npmrc ./
+COPY stubs ./stubs
 COPY tsconfig.json ./
 COPY types ./types
 COPY lib ./lib
