@@ -8,9 +8,12 @@ RUN ln -sf /usr/bin/python3 /usr/bin/python
 RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
 
 # Global pnpm config for all work directories (shamefully-hoist for compat)
+# Use Yarn registry as fallback for npm 403 errors from GitHub Actions
 RUN echo "shamefully-hoist=true" > /root/.npmrc && \
     echo "strict-peer-dependencies=false" >> /root/.npmrc && \
-    echo "auto-install-peers=true" >> /root/.npmrc
+    echo "auto-install-peers=true" >> /root/.npmrc && \
+    echo "registry=https://registry.yarnpkg.com/" >> /root/.npmrc && \
+    echo "fetch-retries=5" >> /root/.npmrc
 
 ### APP
 # Install dependencies
