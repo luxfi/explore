@@ -1,10 +1,15 @@
-name: Build and Push LUX Explorer
+name: Build and Deploy LUX Explorer
 
 on:
   push:
     branches:
       - main
-      - lux-branding
+    tags:
+      - "v*"
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - "**/*.mdx"
   pull_request:
     branches:
       - main
@@ -15,66 +20,167 @@ env:
   IMAGE_NAME: luxfi/explore
 
 jobs:
-  build-and-push:
+  # Build amd64 image natively on x86 runner
+  build-amd64:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to the Container registry
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add SHORT_SHA
+        run: echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
 
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=false
           tags: |
-            type=raw,value=latest
+            type=raw,value=latest,enable={{is_default_branch}},suffix=-amd64
+            type=ref,event=branch,suffix=-amd64
+            type=semver,pattern={{version}},suffix=-amd64
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+      - name: Build and push amd64 image
+        id: build
+        uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          platforms: linux/amd64
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cache:amd64
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cache:amd64,mode=max
+          provenance: false
+          push: ${{ github.event_name != 'pull_request' }}
           build-args: |
-            NEXT_PUBLIC_NETWORK_NAME=LUX Network
-            NEXT_PUBLIC_NETWORK_SHORT_NAME=LUX
-            NEXT_PUBLIC_NETWORK_ID=96369
-            NEXT_PUBLIC_NETWORK_CURRENCY_NAME=LUX
-            NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=LUX
-            NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS=18
-            NEXT_PUBLIC_API_HOST=api-explore.lux.network
-            NEXT_PUBLIC_API_PROTOCOL=https
-            NEXT_PUBLIC_APP_HOST=explore.lux.network
-            NEXT_PUBLIC_APP_PROTOCOL=https
-            NEXT_PUBLIC_IS_TESTNET=false
-            NEXT_PUBLIC_NETWORK_LOGO=/logos/lux-logo-white.png
-            NEXT_PUBLIC_NETWORK_LOGO_DARK=/logos/lux-logo-white.png
-            NEXT_PUBLIC_NETWORK_ICON=/logos/lux-logo-white.png
-            NEXT_PUBLIC_NETWORK_ICON_DARK=/logos/lux-logo-white.png
-            NEXT_PUBLIC_OG_IMAGE_URL=/logos/lux-logo-white.png
-            NEXT_PUBLIC_COLOR_THEME_DEFAULT=dark
-            NEXT_PUBLIC_FONT_FAMILY_HEADING={"name":"Geist Sans","url":"https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"}
-            NEXT_PUBLIC_FONT_FAMILY_BODY={"name":"Geist Sans","url":"https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"}
-            NEXT_PUBLIC_HOMEPAGE_CHARTS=["daily_txs","coin_price","market_cap"]
-            NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED=true
-            NEXT_PUBLIC_STATS_API_HOST=https://api-explore.lux.network/api/stats
-            NEXT_PUBLIC_VISUALIZE_API_HOST=https://api-explore.lux.network/api/visualize
-            NEXT_PUBLIC_CONTRACT_INFO_API_HOST=https://api-explore.lux.network
-            NEXT_PUBLIC_ADMIN_SERVICE_API_HOST=https://api-explore.lux.network
+            GIT_COMMIT_SHA=${{ env.SHORT_SHA }}
+            GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
+
+  # Build arm64 image natively on ARM runner
+  build-arm64:
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add SHORT_SHA
+        run: echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=false
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}},suffix=-arm64
+            type=ref,event=branch,suffix=-arm64
+            type=semver,pattern={{version}},suffix=-arm64
+
+      - name: Build and push arm64 image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/arm64
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cache:arm64
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cache:arm64,mode=max
+          provenance: false
+          push: ${{ github.event_name != 'pull_request' }}
+          build-args: |
+            GIT_COMMIT_SHA=${{ env.SHORT_SHA }}
+            GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
+
+  # Create multi-platform manifest
+  create-manifest:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [build-amd64, build-arm64]
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extract metadata for manifest
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=false
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+
+      - name: Create and push manifest
+        run: |
+          TAGS=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
+          AMD64_IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ needs.build-amd64.outputs.image-digest }}"
+          ARM64_IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ needs.build-arm64.outputs.image-digest }}"
+          docker buildx imagetools create $TAGS $AMD64_IMAGE $ARM64_IMAGE
+        env:
+          DOCKER_METADATA_OUTPUT_JSON: ${{ steps.meta.outputs.json }}
+
+  # Deploy to DOKS cluster
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: [create-manifest]
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Configure kubectl
+        run: doctl kubernetes cluster kubeconfig save lux-k8s
+
+      - name: Restart frontend deployments
+        run: |
+          kubectl rollout restart deployment/lux-frontend-mainnet -n lux-explorer
+          kubectl rollout status deployment/lux-frontend-mainnet -n lux-explorer --timeout=300s
