@@ -7,6 +7,7 @@ const DEFAULT_TEMPLATE = 'Lux Network Explorer - Search transactions, verify sma
 // FIXME all page descriptions will be updated later
 const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/': DEFAULT_TEMPLATE,
+  '/ai': 'Explore AI models, compute providers, inference results, and attestations on the Lux Network A-Chain.',
   '/txs': DEFAULT_TEMPLATE,
   '/internal-txs': DEFAULT_TEMPLATE,
   '/txs/kettle/[hash]': DEFAULT_TEMPLATE,
@@ -49,6 +50,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/txn-withdrawals': DEFAULT_TEMPLATE,
   '/visualize/sol2uml': DEFAULT_TEMPLATE,
   '/csv-export': DEFAULT_TEMPLATE,
+  '/dex': 'Explore the D-Chain decentralized exchange on the Lux Network. View orderbook, trade history, liquidity pools, and market data.',
   '/deposits': DEFAULT_TEMPLATE,
   '/output-roots': DEFAULT_TEMPLATE,
   '/dispute-games': DEFAULT_TEMPLATE,
