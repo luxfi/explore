@@ -97,7 +97,7 @@ const OidcCallback: NextPage = () => {
           <Flex direction="column" alignItems="center" gap={ 4 }>
             <Text fontSize="xl" fontWeight="bold" color="red.500">Authentication Error</Text>
             <Text color="gray.400">{ error }</Text>
-            <Link href="/" color="blue.400">
+            <Link href="/" color="gray.400">
               Return to home
             </Link>
           </Flex>

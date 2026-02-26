@@ -6,13 +6,13 @@ import PageNextJs from 'nextjs/PageNextJs';
 
 import config from 'configs/app';
 import OpSuperchainHome from 'ui/optimismSuperchain/home/OpSuperchainHome';
-import Home from 'ui/pages/Home';
+import NetworkOverview from 'ui/pages/NetworkOverview';
 import LayoutHome from 'ui/shared/layout/LayoutHome';
 
 const Page: NextPageWithLayout = () => {
   return (
     <PageNextJs pathname="/">
-      { config.features.opSuperchain.isEnabled ? <OpSuperchainHome/> : <Home/> }
+      { config.features.opSuperchain.isEnabled ? <OpSuperchainHome/> : <NetworkOverview/> }
     </PageNextJs>
   );
 };

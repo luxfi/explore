@@ -8,6 +8,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/tx/[hash]': 'Transaction details',
   '/blocks': 'Blocks',
   '/block/[height_or_hash]': 'Block details',
+  '/chains': 'Chains',
   '/block/countdown': 'Block countdown search',
   '/block/countdown/[height]': 'Block countdown',
   '/accounts': 'Top accounts',
