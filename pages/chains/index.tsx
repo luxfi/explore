@@ -3,12 +3,12 @@ import React from 'react';
 
 import PageNextJs from 'nextjs/PageNextJs';
 
-import ValidatorsPage from 'ui/validators/lux/ValidatorsPage';
+import ChainsPage from 'ui/chains/ChainsPage';
 
 const Page: NextPage = () => {
   return (
-    <PageNextJs pathname="/validators">
-      <ValidatorsPage/>
+    <PageNextJs pathname="/chains">
+      <ChainsPage/>
     </PageNextJs>
   );
 };
