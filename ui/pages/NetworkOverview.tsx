@@ -22,16 +22,24 @@ import Transactions from 'ui/home/Transactions';
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const LUX_DECIMALS = 9;
 
+// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
+// Core chains (always active): C, P, X
+// Extended chains (allvms build): A, B, D, G, I, K, O, Q, R, T, Z
 const PRIMARY_CHAINS = [
-  { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/', explorerUrl: undefined },
-  { id: 'P', name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', href: '/validators', explorerUrl: undefined },
-  { id: 'X', name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', href: undefined, explorerUrl: undefined },
-  { id: 'A', name: 'A-Chain', fullName: 'AI Chain', vm: 'AVM', href: undefined, explorerUrl: undefined },
-  { id: 'B', name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BVM', href: '/bridge', explorerUrl: undefined },
-  { id: 'Q', name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QVM', href: undefined, explorerUrl: undefined },
-  { id: 'T', name: 'T-Chain', fullName: 'Teleport Chain', vm: 'MPC', href: undefined, explorerUrl: undefined },
-  { id: 'Z', name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZVM', href: undefined, explorerUrl: undefined },
-  { id: 'K', name: 'K-Chain', fullName: 'KMS Chain', vm: 'KVM', href: undefined, explorerUrl: undefined },
+  { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/' },
+  { id: 'P', name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', href: '/validators' },
+  { id: 'X', name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', href: undefined },
+  { id: 'D', name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', href: undefined },
+  { id: 'A', name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', href: undefined },
+  { id: 'B', name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', href: '/bridge' },
+  { id: 'Q', name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', href: undefined },
+  { id: 'T', name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', href: undefined },
+  { id: 'Z', name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', href: undefined },
+  { id: 'G', name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', href: undefined },
+  { id: 'K', name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', href: undefined },
+  { id: 'O', name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', href: undefined },
+  { id: 'R', name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', href: undefined },
+  { id: 'I', name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', href: undefined },
 ] as const;
 
 const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
@@ -196,11 +204,23 @@ const NetworkOverview = () => {
         <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
         <NetworkStat label="Validators" value={ String(stats.validatorCount) } isLoading={ isLoading }/>
         <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat label="Total Stake" value={ `${ formatStake(stats.totalStake) } LUX` } isLoading={ isLoading }/>
+        <NetworkStat
+          label="Total Stake"
+          value={ `${ formatStake(stats.totalStake) } LUX` }
+          isLoading={ isLoading }
+        />
         <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat label="Avg Uptime" value={ `${ stats.averageUptime.toFixed(1) }%` } isLoading={ isLoading }/>
+        <NetworkStat
+          label="Avg Uptime"
+          value={ `${ stats.averageUptime.toFixed(1) }%` }
+          isLoading={ isLoading }
+        />
         <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat label="Connected" value={ `${ stats.connectedCount }/${ stats.validatorCount }` } isLoading={ isLoading }/>
+        <NetworkStat
+          label="Connected"
+          value={ `${ stats.connectedCount }/${ stats.validatorCount }` }
+          isLoading={ isLoading }
+        />
       </Flex>
 
       { /* Blockscout stats + Latest blocks/txs */ }

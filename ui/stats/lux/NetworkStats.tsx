@@ -10,7 +10,7 @@ import { Skeleton } from 'toolkit/chakra/skeleton';
 // ── Constants ──
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
-const PRIMARY_CHAIN_COUNT = 9;
+const PRIMARY_CHAIN_COUNT = 14;
 const LUX_DECIMALS = 9;
 
 const STAT_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
