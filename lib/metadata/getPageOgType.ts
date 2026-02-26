@@ -10,6 +10,7 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/tx/[hash]': 'Regular page',
   '/blocks': 'Root page',
   '/block/[height_or_hash]': 'Regular page',
+  '/chains': 'Root page',
   '/block/countdown': 'Regular page',
   '/block/countdown/[height]': 'Regular page',
   '/accounts': 'Root page',

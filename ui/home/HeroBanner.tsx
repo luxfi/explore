@@ -11,10 +11,9 @@ import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 import SearchBarMobile from 'ui/snippets/searchBar/SearchBarMobile';
 import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
-export const BACKGROUND_DEFAULT =
-  'radial-gradient(103.03% 103.03% at 0% 0%, rgba(183, 148, 244, 0.8) 0%, rgba(0, 163, 196, 0.8) 100%), var(--chakra-colors-blue-400)';
+export const BACKGROUND_DEFAULT = 'var(--chakra-colors-whiteAlpha-50)';
 const TEXT_COLOR_DEFAULT = 'white';
-const BORDER_DEFAULT = 'none';
+const BORDER_DEFAULT = '1px solid var(--chakra-colors-whiteAlpha-100)';
 
 const HeroBanner = () => {
 
