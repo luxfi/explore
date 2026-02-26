@@ -103,6 +103,12 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/blockchain',
       isActive: pathname === '/chains',
     };
+    const bridge: NavItem = {
+      text: 'Bridge',
+      nextRoute: { pathname: '/bridge' as const },
+      icon: 'navigation/cross_chain_txs',
+      isActive: pathname === '/bridge',
+    };
     const rollupDeposits = {
       text: `Deposits (L1${ rightLineArrow }L2)`,
       nextRoute: { pathname: '/deposits' as const },
@@ -230,6 +236,7 @@ export default function useNavItems(): ReturnType {
         topAccounts,
         chains,
         validators,
+        bridge,
         verifiedContracts,
         nameLookup,
         beaconChainFeature.isEnabled && !beaconChainFeature.withdrawalsOnly && {
