@@ -1,6 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
+import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
 interface ChainRowProps {
@@ -13,6 +14,7 @@ interface ChainRowProps {
   readonly chainId?: number | null;
   readonly isActive?: boolean;
   readonly isLoading?: boolean;
+  readonly href?: string;
 }
 
 const TRUNCATE_PREFIX_LEN = 8;
@@ -34,8 +36,9 @@ const ChainRow = ({
   chainId,
   isActive = true,
   isLoading = false,
+  href,
 }: ChainRowProps) => {
-  return (
+  const row = (
     <Skeleton loading={ isLoading }>
       <Flex
         alignItems="center"
@@ -47,6 +50,7 @@ const ChainRow = ({
         transition="background 0.15s"
         gap={ 4 }
         flexWrap={{ base: 'wrap', lg: 'nowrap' }}
+        cursor={ href ? 'pointer' : 'default' }
       >
         { /* Name column */ }
         <Flex
@@ -55,19 +59,11 @@ const ChainRow = ({
           maxW={{ base: '100%', lg: '220px' }}
           flexShrink={ 0 }
         >
-          <Box
-            fontWeight="600"
-            fontSize="sm"
-            color="text.primary"
-          >
+          <Box fontWeight="600" fontSize="sm" color="text.primary">
             { name }
           </Box>
           { fullName && (
-            <Box
-              fontSize="xs"
-              color="text.secondary"
-              mt={ 0.5 }
-            >
+            <Box fontSize="xs" color="text.secondary" mt={ 0.5 }>
               { fullName }
             </Box>
           ) }
@@ -136,17 +132,26 @@ const ChainRow = ({
           ) }
         </Flex>
 
-        { /* Status indicator */ }
-        <Flex alignItems="center" flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
+        { /* Status indicator + arrow */ }
+        <Flex alignItems="center" gap={ 2 } flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
           <Box
             bgColor={ isActive ? 'green.400' : 'gray.400' }
             borderRadius="full"
             boxSize="8px"
           />
+          { href && (
+            <Box color="text.secondary" fontSize="sm">{ '\u2192' }</Box>
+          ) }
         </Flex>
       </Flex>
     </Skeleton>
   );
+
+  if (href) {
+    return <Link href={ href } variant="plain">{ row }</Link>;
+  }
+
+  return row;
 };
 
 export default React.memo(ChainRow);
