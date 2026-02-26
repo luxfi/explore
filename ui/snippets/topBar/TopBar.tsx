@@ -4,6 +4,7 @@ import React from 'react';
 import config from 'configs/app';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 
+import ChainSwitcher from './ChainSwitcher';
 import DeFiDropdown from './DeFiDropdown';
 import NetworkMenu from './NetworkMenu';
 
@@ -21,14 +22,13 @@ const TopBar = () => {
         alignItems="center"
         maxW={ `${ CONTENT_MAX_WIDTH }px` }
       >
-        <HStack gap={ 0 } fontSize="xs">
+        <HStack gap={ 2 } fontSize="xs">
           { Boolean(config.UI.featuredNetworks.items) && <NetworkMenu/> }
+          <ChainSwitcher/>
         </HStack>
-        { hasDeFiDropdown && (
-          <HStack alignItems="center">
-            <DeFiDropdown/>
-          </HStack>
-        ) }
+        <HStack alignItems="center" gap={ 2 }>
+          { hasDeFiDropdown && <DeFiDropdown/> }
+        </HStack>
       </Flex>
     </Box>
   );

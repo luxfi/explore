@@ -15,15 +15,15 @@ import ChainRow from './ChainRow';
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 
 const PRIMARY_CHAINS = [
-  { name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', chainId: 96369 },
-  { name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', chainId: null },
-  { name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', chainId: null },
-  { name: 'A-Chain', fullName: 'AI Chain', vm: 'AVM', chainId: null },
-  { name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BVM', chainId: null },
-  { name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QVM', chainId: null },
-  { name: 'T-Chain', fullName: 'Teleport Chain', vm: 'MPC', chainId: null },
-  { name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZVM', chainId: null },
-  { name: 'K-Chain', fullName: 'KMS Chain', vm: 'KVM', chainId: null },
+  { name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', chainId: 96369, slug: 'c-chain' },
+  { name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', chainId: null, slug: 'p-chain' },
+  { name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', chainId: null, slug: 'x-chain' },
+  { name: 'A-Chain', fullName: 'AI Chain', vm: 'AVM', chainId: null, slug: 'a-chain' },
+  { name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BVM', chainId: null, slug: 'b-chain' },
+  { name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QVM', chainId: null, slug: 'q-chain' },
+  { name: 'T-Chain', fullName: 'Teleport Chain', vm: 'MPC', chainId: null, slug: 't-chain' },
+  { name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZVM', chainId: null, slug: 'z-chain' },
+  { name: 'K-Chain', fullName: 'KMS Chain', vm: 'KVM', chainId: null, slug: 'k-chain' },
 ] as const;
 
 const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
@@ -188,6 +188,7 @@ const ChainsPage = () => {
               vmLabel={ chain.vm }
               chainId={ chain.chainId }
               isActive
+              href={ `/chains/${ chain.slug }` }
             />
           )) }
         </Box>
@@ -225,6 +226,7 @@ const ChainsPage = () => {
               vmLabel={ resolveVmLabel(chain.vmID) }
               chainId={ SUBNET_CHAIN_IDS[chain.name] ?? null }
               isActive
+              href={ `/chains/${ chain.name.toLowerCase() }` }
             />
           )) }
         </Box>
