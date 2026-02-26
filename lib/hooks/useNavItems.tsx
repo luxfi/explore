@@ -103,6 +103,18 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/blockchain',
       isActive: pathname === '/chains',
     };
+    const dex: NavItem = {
+      text: 'DEX',
+      nextRoute: { pathname: '/dex' as const },
+      icon: 'navigation/dex_tracker',
+      isActive: pathname === '/dex',
+    };
+    const aiCompute: NavItem = {
+      text: 'AI Compute',
+      nextRoute: { pathname: '/ai' as const },
+      icon: 'navigation/blockchain',
+      isActive: pathname === '/ai',
+    };
     const bridge: NavItem = {
       text: 'Bridge',
       nextRoute: { pathname: '/bridge' as const },
@@ -237,6 +249,8 @@ export default function useNavItems(): ReturnType {
         chains,
         validators,
         bridge,
+        dex,
+        aiCompute,
         verifiedContracts,
         nameLookup,
         beaconChainFeature.isEnabled && !beaconChainFeature.withdrawalsOnly && {

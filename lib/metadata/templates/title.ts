@@ -8,6 +8,7 @@ const dappEntityName = (getFeaturePayload(config.features.marketplace)?.titles.e
 
 const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/': '%network_name% blockchain explorer - View %network_name% stats',
+  '/ai': '%network_name% AI compute - models, providers and attestations',
   '/txs': '%network_name% transactions - %network_name% explorer',
   '/internal-txs': '%network_name% internal transactions - %network_name% explorer',
   '/txs/kettle/[hash]': '%network_name% kettle %hash% transactions',
@@ -50,6 +51,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/txn-withdrawals': '%network_name% L2 to L1 message relayer',
   '/visualize/sol2uml': '%network_name% Solidity UML diagram',
   '/csv-export': '%network_name% export data to CSV',
+  '/dex': '%network_name% DEX - D-Chain orderbook and market data',
   '/deposits': '%network_name% deposits - track on %network_name% explorer',
   '/output-roots': '%network_name% output roots',
   '/dispute-games': '%network_name% dispute games',

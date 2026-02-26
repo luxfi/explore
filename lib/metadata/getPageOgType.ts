@@ -4,6 +4,7 @@ type OGPageType = 'Homepage' | 'Root page' | 'Regular page';
 
 const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/': 'Homepage',
+  '/ai': 'Root page',
   '/txs': 'Root page',
   '/internal-txs': 'Root page',
   '/txs/kettle/[hash]': 'Regular page',
@@ -46,6 +47,7 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/txn-withdrawals': 'Root page',
   '/visualize/sol2uml': 'Regular page',
   '/csv-export': 'Regular page',
+  '/dex': 'Root page',
   '/deposits': 'Root page',
   '/output-roots': 'Root page',
   '/dispute-games': 'Root page',
