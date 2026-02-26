@@ -41,6 +41,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/blocks">
     | StaticRoute<"/bridge">
     | StaticRoute<"/chains">
+    | DynamicRoute<"/chains/[slug]", { "slug": string }>
     | DynamicRoute<"/cc/tx/[hash]", { "hash": string }>
     | DynamicRoute<"/chain/[chain_slug]/accounts/label/[slug]", { "chain_slug": string; "slug": string }>
     | DynamicRoute<"/chain/[chain_slug]/advanced-filter", { "chain_slug": string }>
