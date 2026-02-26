@@ -17,6 +17,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/accounts/label/[slug]", { "slug": string }>
     | DynamicRoute<"/address/[hash]/contract-verification", { "hash": string }>
     | DynamicRoute<"/address/[hash]", { "hash": string }>
+    | StaticRoute<"/ai">
     | StaticRoute<"/advanced-filter">
     | StaticRoute<"/api/config">
     | StaticRoute<"/api/csrf">
@@ -59,6 +60,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/cross-chain-tx/[id]", { "id": string }>
     | StaticRoute<"/csv-export">
     | StaticRoute<"/deposits">
+    | StaticRoute<"/dex">
     | StaticRoute<"/dispute-games">
     | DynamicRoute<"/epochs/[number]", { "number": string }>
     | StaticRoute<"/epochs">
