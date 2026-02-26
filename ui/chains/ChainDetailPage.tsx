@@ -19,7 +19,9 @@ const LUX_DECIMALS = 9;
 
 const INFO_ROW_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 
-// Primary chain metadata that can be resolved from slug
+// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
+// Core: C (EVM), P (PlatformVM), X (ExchangeVM)
+// Extended (allvms build): A, B, D, G, I, K, O, Q, R, T, Z
 const PRIMARY_CHAIN_META: Readonly<Record<string, {
   readonly name: string;
   readonly fullName: string;
@@ -47,6 +49,83 @@ const PRIMARY_CHAIN_META: Readonly<Record<string, {
     vm: 'AVM',
     vmId: 'jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq',
     description: 'The X-Chain is a DAG-based chain for creating and exchanging digital assets on the Lux Network.',
+  },
+  'd-chain': {
+    name: 'D-Chain',
+    fullName: 'DEX Chain',
+    vm: 'DexVM',
+    vmId: '',
+    description: 'The D-Chain is a decentralized exchange chain on the Lux Network for on-chain order books and token swaps.',
+  },
+  'a-chain': {
+    name: 'A-Chain',
+    fullName: 'AI Chain',
+    vm: 'AIVM',
+    vmId: '',
+    description: 'The A-Chain powers AI workloads on the Lux Network, providing decentralized inference and model serving.',
+  },
+  'b-chain': {
+    name: 'B-Chain',
+    fullName: 'Bridge Chain',
+    vm: 'BridgeVM',
+    vmId: '',
+    description: 'The B-Chain is the bridge relay chain on the Lux Network, enabling cross-chain asset transfers via Teleporter.',
+  },
+  'q-chain': {
+    name: 'Q-Chain',
+    fullName: 'Quantum Chain',
+    vm: 'QuantumVM',
+    vmId: '',
+    description: 'The Q-Chain provides post-quantum cryptographic primitives and quantum-resistant operations on the Lux Network.',
+  },
+  't-chain': {
+    name: 'T-Chain',
+    fullName: 'Threshold Chain',
+    vm: 'ThresholdVM',
+    vmId: '',
+    description: 'The T-Chain enables threshold signature schemes and distributed key generation on the Lux Network.',
+  },
+  'z-chain': {
+    name: 'Z-Chain',
+    fullName: 'ZK Chain',
+    vm: 'ZKVM',
+    vmId: '',
+    description: 'The Z-Chain handles zero-knowledge proof generation and verification on the Lux Network.',
+  },
+  'g-chain': {
+    name: 'G-Chain',
+    fullName: 'Graph Chain',
+    vm: 'GraphVM',
+    vmId: '',
+    description: 'The G-Chain provides decentralized graph indexing and query services on the Lux Network.',
+  },
+  'k-chain': {
+    name: 'K-Chain',
+    fullName: 'Key Chain',
+    vm: 'KeyVM',
+    vmId: '',
+    description: 'The K-Chain provides decentralized key management and custody services on the Lux Network.',
+  },
+  'o-chain': {
+    name: 'O-Chain',
+    fullName: 'Oracle Chain',
+    vm: 'OracleVM',
+    vmId: '',
+    description: 'The O-Chain provides decentralized oracle services, bringing off-chain data on-chain for the Lux Network.',
+  },
+  'r-chain': {
+    name: 'R-Chain',
+    fullName: 'Relay Chain',
+    vm: 'RelayVM',
+    vmId: '',
+    description: 'The R-Chain handles cross-chain message relay and interoperability routing on the Lux Network.',
+  },
+  'i-chain': {
+    name: 'I-Chain',
+    fullName: 'Identity Chain',
+    vm: 'IdentityVM',
+    vmId: '',
+    description: 'The I-Chain manages decentralized identity, DIDs, and verifiable credentials on the Lux Network.',
   },
 };
 
