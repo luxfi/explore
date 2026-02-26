@@ -2,6 +2,7 @@ import type { Route } from 'nextjs-routes';
 
 export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/': 'Homepage',
+  '/ai': 'AI Compute',
   '/txs': 'Transactions',
   '/internal-txs': 'Internal transactions',
   '/txs/kettle/[hash]': 'Kettle transactions',
@@ -44,6 +45,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/txn-withdrawals': 'Txn withdrawals',
   '/visualize/sol2uml': 'Solidity UML diagram',
   '/csv-export': 'Export data to CSV file',
+  '/dex': 'DEX',
   '/deposits': 'Deposits',
   '/output-roots': 'Output roots',
   '/dispute-games': 'Dispute games',
