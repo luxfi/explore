@@ -91,12 +91,18 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/name_services',
       isActive: pathname.startsWith('/name-services'),
     } : null;
-    const validators = config.features.validators.isEnabled ? {
+    const validators: NavItem = {
       text: 'Validators',
       nextRoute: { pathname: '/validators' as const },
       icon: 'navigation/validator',
       isActive: pathname === '/validators' || pathname === '/validators/[id]',
-    } : null;
+    };
+    const chains: NavItem = {
+      text: 'Chains',
+      nextRoute: { pathname: '/chains' as const },
+      icon: 'navigation/blockchain',
+      isActive: pathname === '/chains',
+    };
     const rollupDeposits = {
       text: `Deposits (L1${ rightLineArrow }L2)`,
       nextRoute: { pathname: '/deposits' as const },
@@ -222,6 +228,7 @@ export default function useNavItems(): ReturnType {
         blocks,
         epochs,
         topAccounts,
+        chains,
         validators,
         verifiedContracts,
         nameLookup,

@@ -21,7 +21,7 @@ export const ContentLoader = React.memo(({ text, ...props }: Props) => {
           animation: `fromLeftToRight 700ms ease-in-out infinite alternate`,
           left: '0%',
           top: 0,
-          backgroundColor: 'blue.300',
+          backgroundColor: 'gray.400',
           borderRadius: 'full',
         }}
       />

@@ -13,6 +13,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/tx/[hash]': 'View transaction %hash% on %network_title%',
   '/blocks': DEFAULT_TEMPLATE,
   '/block/[height_or_hash]': 'View the transactions, token transfers, and uncles for block %height_or_hash%',
+  '/chains': 'Explore all blockchains on the Lux Network including primary chains and L1/L2/L3 subnets.',
   '/block/countdown': DEFAULT_TEMPLATE,
   '/block/countdown/[height]': DEFAULT_TEMPLATE,
   '/accounts': DEFAULT_TEMPLATE,

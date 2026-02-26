@@ -7,9 +7,12 @@ import config from 'configs/app';
 export const BODY_TYPEFACE = config.UI.fonts.body?.name ?? 'Geist';
 export const HEADING_TYPEFACE = config.UI.fonts.heading?.name ?? 'Geist';
 
+export const MONO_TYPEFACE = 'Geist Mono';
+
 export const fonts: ExcludeUndefined<ThemingConfig['tokens']>['fonts'] = {
   heading: { value: `${ HEADING_TYPEFACE }, sans-serif` },
   body: { value: `${ BODY_TYPEFACE }, sans-serif` },
+  mono: { value: `${ MONO_TYPEFACE }, monospace` },
 };
 
 export const textStyles: ThemingConfig['textStyles'] = {

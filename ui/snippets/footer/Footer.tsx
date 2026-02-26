@@ -71,7 +71,7 @@ const Footer = () => {
     {
       icon: 'docs' as const,
       iconSize: '20px',
-text: 'Documentation',
+      text: 'Documentation',
       url: 'https://docs.lux.network',
     },
     {
@@ -125,7 +125,7 @@ text: 'Documentation',
   }, []);
 
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
-    const logoColor = { base: 'blue.600', _dark: 'white' };
+    const logoColor = { base: 'gray.600', _dark: 'white' };
 
     return (
       <Box gridArea={ gridArea }>
