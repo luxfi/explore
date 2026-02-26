@@ -14,11 +14,22 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 
+// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
 const CHAIN_LABELS: Readonly<Record<string, string>> = {
   C: 'C-Chain',
   P: 'P-Chain',
   X: 'X-Chain',
+  D: 'D-Chain',
+  A: 'A-Chain',
   B: 'B-Chain',
+  Q: 'Q-Chain',
+  T: 'T-Chain',
+  Z: 'Z-Chain',
+  G: 'G-Chain',
+  K: 'K-Chain',
+  O: 'O-Chain',
+  R: 'R-Chain',
+  I: 'I-Chain',
 };
 
 const STAT_CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
@@ -239,10 +250,10 @@ const BridgePage = () => {
           Lux Network Bridge
         </Text>
         <Text fontSize="sm" color="text.secondary" lineHeight="1.6">
-          The Lux Bridge enables cross-chain asset transfers between the Primary Network
-          (C-Chain, X-Chain, P-Chain) and L1 subnet chains. Atomic swaps between Primary
-          Network chains are currently active. Teleporter-based transfers to L1 subnets
-          (Zoo, Hanzo, SPC, Pars) are coming soon via the B-Chain bridge relay.
+          The Lux Bridge enables cross-chain asset transfers between the 14 Primary Network
+          chains and L1 subnet chains. Atomic swaps between core chains (C, P, X) are
+          currently active. Teleporter-based transfers to L1 subnets (Zoo, Hanzo, SPC, Pars)
+          are coming soon via the B-Chain bridge relay.
         </Text>
       </Box>
     </>
