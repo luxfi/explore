@@ -4,6 +4,7 @@ import React from 'react';
 import config from 'configs/app';
 import useEtherscanRedirects from 'lib/router/useEtherscanRedirects';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import NetworkStats from 'ui/stats/lux/NetworkStats';
 
 import ChartsWidgetsList from '../stats/ChartsWidgetsList';
 import NumberWidgetsList from '../stats/NumberWidgetsList';
@@ -31,6 +32,8 @@ const Stats = () => {
       <PageTitle
         title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } statistic & data` : `${ config.chain.name } stats` }
       />
+
+      <NetworkStats/>
 
       <Box mb={{ base: 6, sm: 8 }}>
         <NumberWidgetsList/>
