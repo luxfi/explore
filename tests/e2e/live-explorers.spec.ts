@@ -48,7 +48,7 @@ for (const explorer of explorers) {
     });
 
     test('page has title', async({ page }) => {
-      await page.goto(explorer.url, { waitUntil: 'domcontentloaded' });
+      await page.goto(explorer.url, { waitUntil: 'networkidle' });
       const title = await page.title();
       expect(title.length).toBeGreaterThan(0);
     });
