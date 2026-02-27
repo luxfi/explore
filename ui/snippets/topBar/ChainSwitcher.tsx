@@ -1,26 +1,11 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
+import { getCurrentChain, getCurrentNetwork, getChainsForNetwork } from 'configs/app/chainRegistry';
 import { Button } from 'toolkit/chakra/button';
 import { Link } from 'toolkit/chakra/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 import IconSvg from 'ui/shared/IconSvg';
-
-interface ChainItem {
-  readonly name: string;
-  readonly label: string;
-  readonly vm: string;
-  readonly url: string | undefined;
-  readonly isCurrent: boolean;
-}
-
-const CHAINS: ReadonlyArray<ChainItem> = [
-  { name: 'C-Chain', label: 'Contract Chain', vm: 'EVM', url: 'https://explore.lux.network', isCurrent: true },
-  { name: 'Zoo', label: 'Zoo Chain', vm: 'Subnet EVM', url: 'https://explore-zoo.lux.network', isCurrent: false },
-  { name: 'Hanzo', label: 'Hanzo AI', vm: 'Subnet EVM', url: 'https://explore-hanzo.lux.network', isCurrent: false },
-  { name: 'SPC', label: 'SPC Chain', vm: 'Subnet EVM', url: 'https://explore-spc.lux.network', isCurrent: false },
-  { name: 'Pars', label: 'Pars Network', vm: 'Subnet EVM', url: 'https://explore-pars.lux.network', isCurrent: false },
-];
 
 const ChainSwitcher = () => {
   const [ open, setOpen ] = React.useState(false);
@@ -33,7 +18,9 @@ const ChainSwitcher = () => {
     setOpen((prev) => !prev);
   }, []);
 
-  const current = CHAINS.find((c) => c.isCurrent);
+  const current = getCurrentChain();
+  const network = getCurrentNetwork();
+  const chains = getChainsForNetwork(network.network);
 
   return (
     <PopoverRoot
@@ -52,7 +39,7 @@ const ChainSwitcher = () => {
           px={ 2.5 }
         >
           <IconSvg name="networks" boxSize="14px"/>
-          <span>{ current?.name ?? 'C-Chain' }</span>
+          <span>{ current.name }</span>
           <IconSvg name="arrows/east-mini" boxSize={ 4 } transform="rotate(-90deg)"/>
         </Button>
       </PopoverTrigger>
@@ -63,55 +50,55 @@ const ChainSwitcher = () => {
               Switch Chain
             </Text>
           </Box>
-          { CHAINS.map((chain) => (
-            <Box
-              key={ chain.name }
-              as={ chain.url && !chain.isCurrent ? 'a' : 'div' }
-              { ...(chain.url && !chain.isCurrent ? { href: chain.url } : {}) }
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              px={ 3 }
-              py={ 2.5 }
-              cursor={ chain.isCurrent ? 'default' : 'pointer' }
-              _hover={ chain.isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
-              transition="background 0.15s"
-              borderBottom="1px solid"
-              borderColor="border.divider"
-              _last={{ borderBottom: 'none' }}
-              textDecoration="none"
-            >
-              <Flex direction="column">
-                <Flex align="center" gap={ 2 }>
-                  <Text fontSize="sm" fontWeight={ 500 } color="text.primary">
-                    { chain.name }
-                  </Text>
-                  { chain.isCurrent && (
-                    <Box boxSize="6px" borderRadius="full" bgColor="green.400"/>
-                  ) }
-                </Flex>
-                <Text fontSize="xs" color="text.secondary">
-                  { chain.label }
-                </Text>
-              </Flex>
+          { chains.map((chain) => {
+            const isCurrent = chain.name === current.name && chain.network === current.network;
+            return (
               <Box
-                bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-                color="text.secondary"
-                borderRadius="sm"
-                px={ 1.5 }
-                py={ 0.5 }
-                fontSize="xs"
-                fontFamily="mono"
+                key={ `${ chain.network }-${ chain.name }` }
+                as={ isCurrent ? 'div' : 'a' }
+                { ...(!isCurrent ? { href: chain.explorerUrl } : {}) }
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                px={ 3 }
+                py={ 2.5 }
+                cursor={ isCurrent ? 'default' : 'pointer' }
+                _hover={ isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
+                transition="background 0.15s"
+                borderBottom="1px solid"
+                borderColor="border.divider"
+                _last={{ borderBottom: 'none' }}
+                textDecoration="none"
               >
-                { chain.vm }
+                <Flex direction="column">
+                  <Flex align="center" gap={ 2 }>
+                    <Text fontSize="sm" fontWeight={ 500 } color="text.primary">
+                      { chain.name }
+                    </Text>
+                    { isCurrent && (
+                      <Box boxSize="6px" borderRadius="full" bgColor="green.400"/>
+                    ) }
+                  </Flex>
+                  <Text fontSize="xs" color="text.secondary">
+                    { chain.label }
+                  </Text>
+                </Flex>
+                <Box
+                  bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
+                  color="text.secondary"
+                  borderRadius="sm"
+                  px={ 1.5 }
+                  py={ 0.5 }
+                  fontSize="xs"
+                  fontFamily="mono"
+                >
+                  { chain.vm }
+                </Box>
               </Box>
-            </Box>
-          )) }
+            );
+          }) }
           <Flex justify="center" py={ 2 } borderTop="1px solid" borderColor="border.divider">
-            <Link
-              href="/chains"
-              textStyle="xs"
-            >
+            <Link href="/chains" textStyle="xs">
               View all chains
             </Link>
           </Flex>
