@@ -1,7 +1,5 @@
-// Chain detail page — shows chain info, validators, and subnet details.
-// Modeled after Avalanche's L1 Details page.
-
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -12,16 +10,11 @@ import { Tag } from 'toolkit/chakra/tag';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
-// ── Constants ──
-
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const LUX_DECIMALS = 9;
 
 const INFO_ROW_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 
-// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
-// Core: C (EVM), P (PlatformVM), X (ExchangeVM)
-// Extended (allvms build): A, B, D, G, I, K, O, Q, R, T, Z
 const PRIMARY_CHAIN_META: Readonly<Record<string, {
   readonly name: string;
   readonly fullName: string;
@@ -157,7 +150,46 @@ const KNOWN_VM_IDS: Readonly<Record<string, string>> = {
   rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWsBY6MALT: 'PVM',
 };
 
-// ── Helpers ──
+// DAG chain indexer API URLs
+const CHAIN_INDEXER_URLS: Readonly<Record<string, string>> = {
+  'x-chain': 'https://api-indexer-xchain.lux.network',
+  'a-chain': 'https://api-indexer-achain.lux.network',
+  'b-chain': 'https://api-indexer-bchain.lux.network',
+  'q-chain': 'https://api-indexer-qchain.lux.network',
+  't-chain': 'https://api-indexer-tchain.lux.network',
+  'z-chain': 'https://api-indexer-zchain.lux.network',
+  'k-chain': 'https://api-indexer-kchain.lux.network',
+  'p-chain': 'https://api-indexer-pchain.lux.network',
+  'c-chain': 'https://api-indexer.lux.network',
+};
+
+interface IndexerStats {
+  readonly chain_stats: Record<string, unknown>;
+  readonly dag_stats?: {
+    readonly total_vertices: number;
+    readonly total_edges: number;
+    readonly accepted_vertices: number;
+    readonly pending_vertices: number;
+    readonly chain_type: string;
+    readonly last_updated: string;
+  };
+}
+
+function useChainIndexerStats(slug: string): { stats: IndexerStats | null; isLoading: boolean } {
+  const indexerUrl = CHAIN_INDEXER_URLS[slug];
+  const query = useQuery({
+    queryKey: [ 'chainIndexerStats', slug ],
+    queryFn: async() => {
+      if (!indexerUrl) return null;
+      const res = await fetch(`${ indexerUrl }/api/v2/stats`);
+      if (!res.ok) return null;
+      return await res.json() as IndexerStats;
+    },
+    staleTime: 30_000,
+    enabled: Boolean(indexerUrl),
+  });
+  return { stats: query.data ?? null, isLoading: query.isLoading };
+}
 
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
@@ -170,8 +202,6 @@ function truncateId(id: string, len: number = 16): string {
   if (id.length <= len) return id;
   return `${ id.slice(0, 8) }...${ id.slice(-6) }`;
 }
-
-// ── Info row ──
 
 interface InfoRowProps {
   readonly label: string;
@@ -212,8 +242,6 @@ const InfoRow = ({ label, value, isMono = false, canCopy = false }: InfoRowProps
     </Flex>
   </Flex>
 );
-
-// ── Validator row ──
 
 interface ValidatorRowProps {
   readonly validator: PChainValidator;
@@ -266,8 +294,6 @@ const ValidatorRow = ({ validator, index }: ValidatorRowProps) => {
   );
 };
 
-// ── Main component ──
-
 const ChainDetailPage = () => {
   const router = useRouter();
   const slug = (router.query.slug as string || '').toLowerCase();
@@ -275,8 +301,8 @@ const ChainDetailPage = () => {
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { validators, isLoading: validatorsLoading } = useCurrentValidators();
   const { subnets } = useSubnets();
+  const { stats: indexerStats } = useChainIndexerStats(slug);
 
-  // Resolve chain from slug
   const resolvedChain = React.useMemo<{
     blockchain: PChainBlockchain | undefined;
     isPrimary: boolean;
@@ -311,19 +337,16 @@ const ChainDetailPage = () => {
   const explorerUrl = EXPLORER_URLS[slug];
   const isLoading = chainsLoading || validatorsLoading;
 
-  // Get subnet info
   const subnet = React.useMemo(
     () => subnets.find((s) => s.id === subnetId),
     [ subnets, subnetId ],
   );
 
-  // Get chains in same subnet
   const subnetChains = React.useMemo(
     () => subnetId ? blockchains.filter((c) => c.subnetID === subnetId) : [],
     [ blockchains, subnetId ],
   );
 
-  // Total stake
   const totalStake = React.useMemo(
     () => validators.reduce((sum, v) => sum + BigInt(v.stakeAmount || v.weight || '0'), BigInt(0)),
     [ validators ],
@@ -342,7 +365,6 @@ const ChainDetailPage = () => {
         ) }
       />
 
-      { /* Description */ }
       <Box
         p={ 4 }
         mb={ 6 }
@@ -356,7 +378,6 @@ const ChainDetailPage = () => {
         </Text>
       </Box>
 
-      { /* Stats bar */ }
       <Grid
         templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
         gap={ 3 }
@@ -404,7 +425,6 @@ const ChainDetailPage = () => {
         </Box>
       </Grid>
 
-      { /* Chain Info table */ }
       <Box mb={ 6 }>
         <Text fontSize="sm" fontWeight={ 600 } color="text.primary" mb={ 3 }>
           Chain Info
@@ -422,7 +442,39 @@ const ChainDetailPage = () => {
         </Box>
       </Box>
 
-      { /* Subnet Chains table */ }
+      { indexerStats && (
+        <Box mb={ 6 }>
+          <Flex align="center" gap={ 2 } mb={ 3 }>
+            <Text fontSize="sm" fontWeight={ 600 } color="text.primary">
+              Indexer Stats
+            </Text>
+            { indexerStats.dag_stats && (
+              <Tag size="sm" variant="subtle">
+                { indexerStats.dag_stats.chain_type.toUpperCase() }
+              </Tag>
+            ) }
+          </Flex>
+          <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+            { indexerStats.dag_stats && (
+              <>
+                <InfoRow label="Total Vertices" value={ String(indexerStats.dag_stats.total_vertices) }/>
+                <InfoRow label="Total Edges" value={ String(indexerStats.dag_stats.total_edges) }/>
+                <InfoRow label="Accepted Vertices" value={ String(indexerStats.dag_stats.accepted_vertices) }/>
+                <InfoRow label="Pending Vertices" value={ String(indexerStats.dag_stats.pending_vertices) }/>
+                <InfoRow label="Last Updated" value={ indexerStats.dag_stats.last_updated }/>
+              </>
+            ) }
+            { Object.entries(indexerStats.chain_stats).map(([ key, value ]) => (
+              <InfoRow
+                key={ key }
+                label={ key.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') }
+                value={ typeof value === 'object' ? JSON.stringify(value) : String(value) }
+              />
+            )) }
+          </Box>
+        </Box>
+      ) }
+
       { subnetChains.length > 0 && (
         <Box mb={ 6 }>
           <Flex align="center" gap={ 2 } mb={ 3 }>
@@ -432,7 +484,6 @@ const ChainDetailPage = () => {
             <Tag size="sm" variant="subtle">{ subnetChains.length }</Tag>
           </Flex>
           <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-            { /* Table header */ }
             <Flex
               px={ 4 }
               py={ 2 }
@@ -497,7 +548,6 @@ const ChainDetailPage = () => {
         </Box>
       ) }
 
-      { /* Validators table */ }
       <Box mb={ 6 }>
         <Flex align="center" gap={ 2 } mb={ 3 }>
           <Text fontSize="sm" fontWeight={ 600 } color="text.primary">
@@ -508,7 +558,6 @@ const ChainDetailPage = () => {
           </Skeleton>
         </Flex>
         <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          { /* Table header */ }
           <Flex
             px={ 4 }
             py={ 2 }
