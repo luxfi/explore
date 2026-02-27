@@ -17,6 +17,7 @@ import { MarketplaceContextProvider } from 'lib/contexts/marketplace';
 import { SettingsContextProvider } from 'lib/contexts/settings';
 import { initGrowthBook } from 'lib/growthbook/init';
 import useLoadFeatures from 'lib/growthbook/useLoadFeatures';
+import useChainFavicon from 'lib/hooks/useChainFavicon';
 import { clientConfig as rollbarConfig, Provider as RollbarProvider } from 'lib/rollbar';
 import { SocketProvider } from 'lib/socket/context';
 import { Provider as ChakraProvider } from 'toolkit/chakra/provider';
@@ -61,6 +62,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   const growthBook = initGrowthBook(pageProps.uuid);
   useLoadFeatures(growthBook);
+  useChainFavicon();
 
   const queryClient = useQueryClientConfig();
 
