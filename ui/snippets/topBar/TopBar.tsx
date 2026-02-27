@@ -91,13 +91,13 @@ const TopBar = () => {
           gap="6px"
           flexShrink={ 0 }
           mr={ 3 }
-          aria-label="Lux Network home"
+          aria-label={ `${ chain.branding.brandName } home` }
           textDecoration="none"
           _hover={{ textDecoration: 'none', opacity: 0.8 }}
           transition="opacity 0.15s"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="18" height="18">
-            <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
+            <path d={ chain.branding.logoSvg } fill="currentColor"/>
           </svg>
           <chakra.span
             fontWeight={ 700 }
@@ -106,7 +106,7 @@ const TopBar = () => {
             whiteSpace="nowrap"
             color="text.primary"
           >
-            { chain.name === 'C-Chain' ? 'Lux Network' : chain.name }
+            { chain.branding.brandName }
           </chakra.span>
         </chakra.a>
 
