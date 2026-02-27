@@ -4,24 +4,17 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-import type {
-  GetSubnetsResponse,
-  PChainSubnet,
-} from './types';
+import type { PChainSubnet } from './types';
 
-import { pchainRpc } from './client';
+import { getPChain } from './client';
 
 const SUBNETS_STALE_TIME_MS = 300_000;
 const SUBNETS_QUERY_KEY = 'pchain:subnets' as const;
 const EMPTY_SUBNETS: ReadonlyArray<PChainSubnet> = [];
 
 async function fetchSubnets(): Promise<ReadonlyArray<PChainSubnet>> {
-  const response = await pchainRpc<GetSubnetsResponse>(
-    'platform.getSubnets',
-    {},
-  );
-
-  return response.subnets;
+  const subnets = await getPChain().getSubnets();
+  return subnets as unknown as ReadonlyArray<PChainSubnet>;
 }
 
 export function useSubnets() {
