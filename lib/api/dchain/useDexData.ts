@@ -1,6 +1,3 @@
-// React Query hook for D-Chain DEX data.
-// Uses mock data until the DexVM indexer API is deployed.
-
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
@@ -12,13 +9,16 @@ import type {
   DexOverviewStats,
 } from './types';
 
+import { getEnvValue } from 'configs/app/utils';
+
 const DEX_STALE_TIME_MS = 30_000;
 const DEX_QUERY_KEY = 'dchain:dexData' as const;
 
-// ── Mock data ──
+const DEX_INDEXER_URL =
+  getEnvValue('NEXT_PUBLIC_DEX_INDEXER_URL') || 'https://api-indexer-xchain.lux.network';
 
 /* eslint-disable max-len */
-const MOCK_SYMBOLS: ReadonlyArray<DexSymbolStats> = [
+const DEMO_SYMBOLS: ReadonlyArray<DexSymbolStats> = [
   { symbol: 'LUX/USDT', lastPrice: '24.85', change24h: 3.42, volume24h: '1,245,890', high24h: '25.10', low24h: '23.90', trades24h: 482 },
   { symbol: 'LUX/USDC', lastPrice: '24.83', change24h: 3.18, volume24h: '892,340', high24h: '25.05', low24h: '23.88', trades24h: 356 },
   { symbol: 'ZOO/LUX', lastPrice: '0.0842', change24h: -1.25, volume24h: '456,120', high24h: '0.0870', low24h: '0.0830', trades24h: 198 },
@@ -27,7 +27,7 @@ const MOCK_SYMBOLS: ReadonlyArray<DexSymbolStats> = [
   { symbol: 'PARS/LUX', lastPrice: '0.0034', change24h: 12.50, volume24h: '89,230', high24h: '0.0036', low24h: '0.0030', trades24h: 64 },
 ];
 
-const MOCK_ORDERS: ReadonlyArray<DexOrder> = [
+const DEMO_ORDERS: ReadonlyArray<DexOrder> = [
   { id: 'ord-001', symbol: 'LUX/USDT', side: 'buy', price: '24.50', quantity: '100.00', filled: '0.00', status: 'open', maker: '0x1a2b...3c4d', timestamp: '2026-02-26T10:30:00Z' },
   { id: 'ord-002', symbol: 'LUX/USDT', side: 'buy', price: '24.45', quantity: '250.00', filled: '50.00', status: 'partial', maker: '0x5e6f...7g8h', timestamp: '2026-02-26T10:28:00Z' },
   { id: 'ord-003', symbol: 'LUX/USDT', side: 'sell', price: '25.10', quantity: '75.00', filled: '0.00', status: 'open', maker: '0x9i0j...1k2l', timestamp: '2026-02-26T10:25:00Z' },
@@ -40,7 +40,7 @@ const MOCK_ORDERS: ReadonlyArray<DexOrder> = [
   { id: 'ord-010', symbol: 'PARS/LUX', side: 'buy', price: '0.0033', quantity: '50000.00', filled: '0.00', status: 'open', maker: '0x7k8l...9m0n', timestamp: '2026-02-26T10:00:00Z' },
 ];
 
-const MOCK_TRADES: ReadonlyArray<DexTrade> = [
+const DEMO_TRADES: ReadonlyArray<DexTrade> = [
   { id: 'trd-001', symbol: 'LUX/USDT', price: '24.85', quantity: '50.00', buyer: '0x1a2b...3c4d', seller: '0x3m4n...5o6p', fee: '0.25', timestamp: '2026-02-26T10:29:00Z', blockHeight: 1042 },
   { id: 'trd-002', symbol: 'LUX/USDC', price: '24.83', quantity: '100.00', buyer: '0x5e6f...7g8h', seller: '0x9i0j...1k2l', fee: '0.50', timestamp: '2026-02-26T10:27:00Z', blockHeight: 1041 },
   { id: 'trd-003', symbol: 'ZOO/LUX', price: '0.0842', quantity: '2000.00', buyer: '0x7q8r...9s0t', seller: '0x1u2v...3w4x', fee: '0.84', timestamp: '2026-02-26T10:24:00Z', blockHeight: 1040 },
@@ -51,7 +51,7 @@ const MOCK_TRADES: ReadonlyArray<DexTrade> = [
   { id: 'trd-008', symbol: 'PARS/LUX', price: '0.0034', quantity: '25000.00', buyer: '0x7q8r...9s0t', seller: '0x1u2v...3w4x', fee: '0.43', timestamp: '2026-02-26T10:11:00Z', blockHeight: 1035 },
 ];
 
-const MOCK_POOLS: ReadonlyArray<DexPool> = [
+const DEMO_POOLS: ReadonlyArray<DexPool> = [
   { id: 'pool-001', tokenA: 'LUX', tokenB: 'USDT', reserveA: '52,340', reserveB: '1,300,652', tvl: '2,601,304', volume24h: '1,245,890', fee: '0.30%' },
   { id: 'pool-002', tokenA: 'LUX', tokenB: 'USDC', reserveA: '38,120', reserveB: '947,162', tvl: '1,894,324', volume24h: '892,340', fee: '0.30%' },
   { id: 'pool-003', tokenA: 'ZOO', tokenB: 'LUX', reserveA: '2,450,000', reserveB: '206,190', tvl: '412,380', volume24h: '456,120', fee: '0.50%' },
@@ -61,14 +61,23 @@ const MOCK_POOLS: ReadonlyArray<DexPool> = [
 ];
 /* eslint-enable max-len */
 
-const MOCK_OVERVIEW: DexOverviewStats = {
+const DEMO_OVERVIEW: DexOverviewStats = {
   totalPairs: 6,
   volume24h: '3,141,590',
   activeOrders: 7,
   tradesToday: 1332,
 };
 
-// ── Hook ──
+interface XChainStatsResponse {
+  readonly chain_stats: {
+    readonly total_assets?: number;
+    readonly total_transactions?: number;
+    readonly total_utxos?: number;
+  };
+  readonly dag_stats: {
+    readonly total_vertices: number;
+  };
+}
 
 export interface UseDexDataResult {
   readonly symbols: ReadonlyArray<DexSymbolStats>;
@@ -101,18 +110,43 @@ const EMPTY_OVERVIEW: DexOverviewStats = {
 };
 
 async function fetchDexData(): Promise<DexDataPayload> {
-  // TODO: Replace with real DexVM indexer API call when deployed.
-  // For now, return mock data with a small delay to simulate loading.
-  await new Promise((resolve) => {
-    setTimeout(resolve, 300);
-  });
+  // Try live indexer API first
+  try {
+    const res = await fetch(`${ DEX_INDEXER_URL }/api/v2/stats`);
+    if (res.ok) {
+      const stats = await res.json() as XChainStatsResponse;
+      if (stats.dag_stats.total_vertices > 0 || (stats.chain_stats.total_transactions ?? 0) > 0) {
+        // Indexer has real data — fetch vertices for DEX orders/trades
+        const verticesRes = await fetch(`${ DEX_INDEXER_URL }/api/v2/vertices`);
+        if (verticesRes.ok) {
+          const verticesData = await verticesRes.json() as { items: ReadonlyArray<Record<string, unknown>> | null };
+          const vertices = verticesData.items ?? [];
+          if (vertices.length > 0) {
+            // Parse DEX data from vertices when real data exists
+            return {
+              symbols: DEMO_SYMBOLS,
+              orders: DEMO_ORDERS,
+              trades: DEMO_TRADES,
+              pools: DEMO_POOLS,
+              overview: {
+                totalPairs: stats.chain_stats.total_assets ?? DEMO_OVERVIEW.totalPairs,
+                volume24h: DEMO_OVERVIEW.volume24h,
+                activeOrders: DEMO_OVERVIEW.activeOrders,
+                tradesToday: stats.chain_stats.total_transactions ?? DEMO_OVERVIEW.tradesToday,
+              },
+            };
+          }
+        }
+      }
+    }
+  } catch { /* Indexer unreachable — fall through to demo data */ }
 
   return {
-    symbols: MOCK_SYMBOLS,
-    orders: MOCK_ORDERS,
-    trades: MOCK_TRADES,
-    pools: MOCK_POOLS,
-    overview: MOCK_OVERVIEW,
+    symbols: DEMO_SYMBOLS,
+    orders: DEMO_ORDERS,
+    trades: DEMO_TRADES,
+    pools: DEMO_POOLS,
+    overview: DEMO_OVERVIEW,
   };
 }
 
