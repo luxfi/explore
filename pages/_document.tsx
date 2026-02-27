@@ -6,6 +6,7 @@ import logRequestFromBot from 'nextjs/utils/logRequestFromBot';
 import * as serverTiming from 'nextjs/utils/serverTiming';
 
 import config from 'configs/app';
+import { getCurrentChain } from 'configs/app/chainRegistry';
 import * as svgSprite from 'ui/shared/IconSvg';
 
 const marketplaceFeature = config.features.marketplace;
@@ -63,14 +64,16 @@ class MyDocument extends Document {
             </>
           ) }
 
-          { /* FAVICON */ }
-          <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg"/>
-          <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"/>
+          { /* FAVICON — dynamic per-chain SVG, static PNG fallbacks */ }
+          <link
+            rel="icon"
+            type="image/svg+xml"
+            href={ `data:image/svg+xml,${ encodeURIComponent(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${ getCurrentChain().branding.faviconContent }</svg>`,
+            ) }` }
+          />
           <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"/>
-          <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon/favicon-48x48.png"/>
           <link rel="shortcut icon" href="/assets/favicon/favicon.ico"/>
-          <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon-180x180.png"/>
-          <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-chrome-192x192.png"/>
           <link rel="preload" as="image" href={ svgSprite.href }/>
         </Head>
         <body>
