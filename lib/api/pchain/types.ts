@@ -67,25 +67,3 @@ export interface ValidatorStats {
   readonly totalDelegatedStake: bigint;
   readonly averageUptime: number;
 }
-
-// JSON-RPC envelope types
-
-export interface JsonRpcRequest {
-  readonly jsonrpc: '2.0';
-  readonly id: number;
-  readonly method: string;
-  readonly params?: Record<string, unknown>;
-}
-
-export interface JsonRpcResponse<TResult> {
-  readonly jsonrpc: '2.0';
-  readonly id: number;
-  readonly result?: TResult;
-  readonly error?: JsonRpcError;
-}
-
-export interface JsonRpcError {
-  readonly code: number;
-  readonly message: string;
-  readonly data?: unknown;
-}

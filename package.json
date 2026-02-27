@@ -98,6 +98,7 @@
     "graphql": "^16.8.1",
     "graphql-ws": "^5.11.3",
     "js-cookie": "^3.0.1",
+    "luxnet": "3.16.0",
     "magic-bytes.js": "1.8.0",
     "mixpanel-browser": "2.67.0",
     "monaco-editor": "^0.34.1",
