@@ -1,6 +1,6 @@
 // P-chain API hooks and types.
 
-export { pchainRpc, getPChainUrl } from './client';
+export { getPChain, getInfo, getHealth } from './client';
 export { useCurrentValidators } from './useCurrentValidators';
 export { useBlockchains } from './useBlockchains';
 export { useSubnets } from './useSubnets';
@@ -15,9 +15,6 @@ export type {
   GetBlockchainsResponse,
   GetSubnetsResponse,
   ValidatorStats,
-  JsonRpcRequest,
-  JsonRpcResponse,
-  JsonRpcError,
 } from './types';
 
 export type { UseCurrentValidatorsResult } from './useCurrentValidators';
