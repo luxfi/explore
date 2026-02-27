@@ -10,7 +10,7 @@ import type {
   ValidatorStats,
 } from './types';
 
-import { pchainRpc } from './client';
+import { getPChain } from './client';
 
 const VALIDATORS_STALE_TIME_MS = 60_000;
 const VALIDATORS_QUERY_KEY = 'pchain:currentValidators' as const;
@@ -63,12 +63,8 @@ export interface UseCurrentValidatorsResult {
 }
 
 async function fetchCurrentValidators(): Promise<UseCurrentValidatorsResult> {
-  const response = await pchainRpc<GetCurrentValidatorsResponse>(
-    'platform.getCurrentValidators',
-    {},
-  );
-
-  const validators = response.validators;
+  const result = await getPChain().getCurrentValidators() as GetCurrentValidatorsResponse;
+  const validators = result.validators;
   const stats = computeValidatorStats(validators);
 
   return { validators, stats };
