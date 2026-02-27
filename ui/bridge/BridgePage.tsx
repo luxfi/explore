@@ -4,6 +4,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
+import { useBridgeData } from 'lib/api/bchain';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -107,13 +108,14 @@ const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
 const BridgePage = () => {
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { stats, isLoading: validatorsLoading } = useCurrentValidators();
+  const { stats: bridgeStats, isLoading: bridgeLoading } = useBridgeData();
 
   const l1Chains = React.useMemo<ReadonlyArray<PChainBlockchain>>(
     () => blockchains.filter((c) => c.subnetID !== PRIMARY_NETWORK_ID),
     [ blockchains ],
   );
 
-  const isLoading = chainsLoading || validatorsLoading;
+  const isLoading = chainsLoading || validatorsLoading || bridgeLoading;
 
   // Build bridge pairs: Primary chain <-> L1 subnets
   const bridgePairs = React.useMemo(() => {
@@ -173,8 +175,8 @@ const BridgePage = () => {
           isLoading={ isLoading }
         />
         <StatCard
-          label="Validators"
-          value={ String(stats.validatorCount) }
+          label="Bridge Signers"
+          value={ bridgeStats.signerCount > 0 ? String(bridgeStats.signerCount) : String(stats.validatorCount) }
           isLoading={ isLoading }
         />
         <StatCard
