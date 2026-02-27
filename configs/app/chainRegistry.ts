@@ -216,11 +216,13 @@ export const NETWORKS: ReadonlyArray<NetworkEntry> = [
   },
 ];
 
+import { getEnvValue } from 'configs/app/utils';
+
 function getHostname(): string {
   if (typeof window !== 'undefined') {
     return window.location.hostname;
   }
-  return 'explore.lux.network';
+  return getEnvValue('NEXT_PUBLIC_APP_HOST') || 'explore.lux.network';
 }
 
 export function getCurrentChain(): ChainEntry {
