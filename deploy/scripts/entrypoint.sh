@@ -66,7 +66,19 @@ echo
 node --no-warnings ./og_image_generator.js
 
 # Create envs.js file with run-time environment variables for the client app
-./make_envs_script.sh
+# Multi-tenant mode: fetch envs.js from S3 if ENVS_S3_URL is set
+if [ -n "$ENVS_S3_URL" ] && [ -n "$NEXT_PUBLIC_APP_HOST" ]; then
+  envs_url="${ENVS_S3_URL}/${NEXT_PUBLIC_APP_HOST}.js"
+  echo "🌐 Multi-tenant mode: fetching envs.js from ${envs_url}"
+  if curl -sf -o ./public/assets/envs.js "$envs_url"; then
+    echo "✅ envs.js fetched from S3."
+  else
+    echo "⚠️  Failed to fetch from S3, falling back to local generation."
+    ./make_envs_script.sh
+  fi
+else
+  ./make_envs_script.sh
+fi
 
 # Generate multichain config
 node --no-warnings ./deploy/tools/multichain-config-generator/dist/index.js
