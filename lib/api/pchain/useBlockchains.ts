@@ -4,24 +4,17 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-import type {
-  GetBlockchainsResponse,
-  PChainBlockchain,
-} from './types';
+import type { PChainBlockchain } from './types';
 
-import { pchainRpc } from './client';
+import { getPChain } from './client';
 
 const BLOCKCHAINS_STALE_TIME_MS = 300_000;
 const BLOCKCHAINS_QUERY_KEY = 'pchain:blockchains' as const;
 const EMPTY_BLOCKCHAINS: ReadonlyArray<PChainBlockchain> = [];
 
 async function fetchBlockchains(): Promise<ReadonlyArray<PChainBlockchain>> {
-  const response = await pchainRpc<GetBlockchainsResponse>(
-    'platform.getBlockchains',
-    {},
-  );
-
-  return response.blockchains;
+  const blockchains = await getPChain().getBlockchains();
+  return blockchains as unknown as ReadonlyArray<PChainBlockchain>;
 }
 
 export function useBlockchains() {
