@@ -6,11 +6,14 @@ export interface ChainBranding {
   /** Display name in the header (e.g. "Lux Network", "Zoo Chain") */
   readonly brandName: string;
 
-  /** SVG path data for the 18×18 logo icon (viewBox "0 0 50 50") */
-  readonly logoSvg: string;
+  /** viewBox for the inline logo SVG */
+  readonly logoViewBox: string;
 
-  /** SVG path data for the favicon circle icon (viewBox "0 0 512 512") */
-  readonly faviconSvg: string;
+  /** Inner SVG content for the inline logo (multi-path supported, uses currentColor) */
+  readonly logoContent: string;
+
+  /** Full inner SVG content for the favicon (viewBox "0 0 512 512") */
+  readonly faviconContent: string;
 }
 
 export interface ChainEntry {
@@ -33,40 +36,85 @@ export interface NetworkEntry {
 }
 
 // ── Per-chain branding definitions ──
+// Real logos sourced from ~/work/{org}/logo/ repos.
 
-/** Lux triangle — downward-pointing triangle */
+/** Lux — downward-pointing triangle (~/work/lux/logo/) */
 const LUX_BRANDING: ChainBranding = {
   brandName: 'Lux Network',
-  logoSvg: 'M25 46.65 50 3.35H0z',
-  faviconSvg: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="m256 410 179-308H77z"/>',
+  logoViewBox: '0 0 100 100',
+  logoContent: '<path d="M50 85 L15 25 L85 25 Z" fill="currentColor"/>',
+  faviconContent: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="m256 410 179-308H77z"/>',
 };
 
-/** Zoo — hexagon (beehive / ecosystem) */
+/** Zoo — three overlapping circles (~/work/zoo/logo/) */
 const ZOO_BRANDING: ChainBranding = {
   brandName: 'Zoo Chain',
-  logoSvg: 'M25 3 46.65 14.5v21L25 47 3.35 35.5v-21z',
-  faviconSvg: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="M256 82l150 87v174l-150 87-150-87V169z"/>',
+  logoViewBox: '0 0 64 64',
+  logoContent:
+    '<circle cx="32" cy="22" r="12" fill="#00A652"/>' +
+    '<circle cx="21" cy="40" r="12" fill="#ED1C24"/>' +
+    '<circle cx="43" cy="40" r="12" fill="#2E3192"/>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
+    '<circle cx="256" cy="176" r="96" fill="#00A652"/>' +
+    '<circle cx="168" cy="320" r="96" fill="#ED1C24"/>' +
+    '<circle cx="344" cy="320" r="96" fill="#2E3192"/>',
 };
 
-/** Hanzo — four-pointed star */
+/** Hanzo — geometric H logo (~/work/hanzo/logo/) */
 const HANZO_BRANDING: ChainBranding = {
   brandName: 'Hanzo AI',
-  logoSvg: 'M25 3 31 19h16l-13 10 5 16-14-10-14 10 5-16L3 19h16z',
-  faviconSvg: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="M256 62l50 144h152l-123 90 47 144-126-91-126 91 47-144L54 206h152z"/>',
+  logoViewBox: '0 0 67 67',
+  logoContent:
+    '<path d="M22.21 67V44.64H0V67H22.21Z" fill="currentColor"/>' +
+    '<path d="M66.7 22.32H22.25L0.09 44.64H44.46L66.7 22.32Z" fill="currentColor"/>' +
+    '<path d="M22.21 0H0V22.32H22.21V0Z" fill="currentColor"/>' +
+    '<path d="M66.72 0H44.51V22.32H66.72V0Z" fill="currentColor"/>' +
+    '<path d="M66.72 67V44.64H44.51V67H66.72Z" fill="currentColor"/>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
+    '<g transform="translate(64,64) scale(5.73)">' +
+    '<path d="M22.21 67V44.64H0V67H22.21Z" fill="#fff"/>' +
+    '<path d="M66.7 22.32H22.25L0.09 44.64H44.46L66.7 22.32Z" fill="#fff"/>' +
+    '<path d="M22.21 0H0V22.32H22.21V0Z" fill="#fff"/>' +
+    '<path d="M66.72 0H44.51V22.32H66.72V0Z" fill="#fff"/>' +
+    '<path d="M66.72 67V44.64H44.51V67H66.72Z" fill="#fff"/>' +
+    '</g>',
 };
 
-/** SPC — diamond / gem */
+/** SPC — unicorn */
 const SPC_BRANDING: ChainBranding = {
   brandName: 'SPC Chain',
-  logoSvg: 'M25 3 47 25 25 47 3 25z',
-  faviconSvg: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="M256 62l194 194-194 194L62 256z"/>',
+  logoViewBox: '0 0 64 64',
+  logoContent:
+    '<text x="32" y="46" text-anchor="middle" font-size="42" fill="currentColor">&#x1F984;</text>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
+    '<text x="256" y="350" text-anchor="middle" font-size="320">&#x1F984;</text>',
 };
 
-/** Pars — octagram / eight-pointed star */
+/** Pars — 8-pointed star with gold/blue gradients (~/work/pars/logo/) */
+
+const PARS_STAR_OUTER = 'M0-100 30-60 100-40 60 0 100 40 30 60 0 100-30 60-100 40-60 0-100-40-30-60Z';
+
+const PARS_STAR_INNER = 'M0-65 20-39 65-26 39 0 65 26 20 39 0 65-20 39-65 26-39 0-65-26-20-39Z';
+
 const PARS_BRANDING: ChainBranding = {
   brandName: 'Pars Network',
-  logoSvg: 'M25 3l6 15h16l-13 9 5 16-14-10-14 10 5-16-13-9h16z',
-  faviconSvg: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="M256 72l48 128h136l-110 80 42 130-116-84-116 84 42-130-110-80h136z"/>',
+  logoViewBox: '-120 -120 240 240',
+  logoContent:
+    `<path d="${ PARS_STAR_OUTER }" fill="none"` +
+    ' stroke="currentColor" stroke-width="8"/>' +
+    `<path d="${ PARS_STAR_INNER }" fill="currentColor"/>` +
+    '<circle r="12" fill="currentColor"/>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#003355"/>' +
+    '<g transform="translate(256,256) scale(2)">' +
+    `<path d="${ PARS_STAR_OUTER }" fill="none"` +
+    ' stroke="#f5d06f" stroke-width="8"/>' +
+    `<path d="${ PARS_STAR_INNER }"` +
+    ' fill="#00abff" stroke="#f5d06f" stroke-width="6"/>' +
+    '<circle r="12" fill="#f5d06f"/></g>',
 };
 
 export const CHAINS: ReadonlyArray<ChainEntry> = [
