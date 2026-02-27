@@ -2,27 +2,23 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 import IconSvg from 'ui/shared/IconSvg';
 
-interface ChainItem {
+interface NetworkItem {
   readonly name: string;
   readonly label: string;
-  readonly vm: string;
-  readonly url: string | undefined;
+  readonly url: string;
   readonly isCurrent: boolean;
 }
 
-const CHAINS: ReadonlyArray<ChainItem> = [
-  { name: 'C-Chain', label: 'Contract Chain', vm: 'EVM', url: 'https://explore.lux.network', isCurrent: true },
-  { name: 'Zoo', label: 'Zoo Chain', vm: 'Subnet EVM', url: 'https://explore-zoo.lux.network', isCurrent: false },
-  { name: 'Hanzo', label: 'Hanzo AI', vm: 'Subnet EVM', url: 'https://explore-hanzo.lux.network', isCurrent: false },
-  { name: 'SPC', label: 'SPC Chain', vm: 'Subnet EVM', url: 'https://explore-spc.lux.network', isCurrent: false },
-  { name: 'Pars', label: 'Pars Network', vm: 'Subnet EVM', url: 'https://explore-pars.lux.network', isCurrent: false },
+const NETWORKS: ReadonlyArray<NetworkItem> = [
+  { name: 'Mainnet', label: 'Production network', url: 'https://explore.lux.network', isCurrent: true },
+  { name: 'Testnet', label: 'Test network', url: 'https://explore.lux-test.network', isCurrent: false },
+  { name: 'Devnet', label: 'Development network', url: 'https://explore.lux-dev.network', isCurrent: false },
 ];
 
-const ChainSwitcher = () => {
+const NetworkSelector = () => {
   const [ open, setOpen ] = React.useState(false);
 
   const handleOpenChange = React.useCallback(({ open: isOpen }: { open: boolean }) => {
@@ -33,7 +29,7 @@ const ChainSwitcher = () => {
     setOpen((prev) => !prev);
   }, []);
 
-  const current = CHAINS.find((c) => c.isCurrent);
+  const current = NETWORKS.find((n) => n.isCurrent);
 
   return (
     <PopoverRoot
@@ -51,30 +47,30 @@ const ChainSwitcher = () => {
           borderColor="border.divider"
           px={ 2.5 }
         >
-          <IconSvg name="networks" boxSize="14px"/>
-          <span>{ current?.name ?? 'C-Chain' }</span>
+          <Box boxSize="6px" borderRadius="full" bgColor="green.400" flexShrink={ 0 }/>
+          <span>{ current?.name ?? 'Mainnet' }</span>
           <IconSvg name="arrows/east-mini" boxSize={ 4 } transform="rotate(-90deg)"/>
         </Button>
       </PopoverTrigger>
-      <PopoverContent w="280px">
+      <PopoverContent w="240px">
         <PopoverBody p={ 0 }>
           <Box px={ 3 } py={ 2 } borderBottom="1px solid" borderColor="border.divider">
             <Text fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider">
-              Switch Chain
+              Network
             </Text>
           </Box>
-          { CHAINS.map((chain) => (
+          { NETWORKS.map((network) => (
             <Box
-              key={ chain.name }
-              as={ chain.url && !chain.isCurrent ? 'a' : 'div' }
-              { ...(chain.url && !chain.isCurrent ? { href: chain.url } : {}) }
+              key={ network.name }
+              as={ network.isCurrent ? 'div' : 'a' }
+              { ...(!network.isCurrent ? { href: network.url } : {}) }
               display="flex"
               alignItems="center"
               justifyContent="space-between"
               px={ 3 }
               py={ 2.5 }
-              cursor={ chain.isCurrent ? 'default' : 'pointer' }
-              _hover={ chain.isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
+              cursor={ network.isCurrent ? 'default' : 'pointer' }
+              _hover={ network.isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
               transition="background 0.15s"
               borderBottom="1px solid"
               borderColor="border.divider"
@@ -84,41 +80,22 @@ const ChainSwitcher = () => {
               <Flex direction="column">
                 <Flex align="center" gap={ 2 }>
                   <Text fontSize="sm" fontWeight={ 500 } color="text.primary">
-                    { chain.name }
+                    { network.name }
                   </Text>
-                  { chain.isCurrent && (
+                  { network.isCurrent && (
                     <Box boxSize="6px" borderRadius="full" bgColor="green.400"/>
                   ) }
                 </Flex>
                 <Text fontSize="xs" color="text.secondary">
-                  { chain.label }
+                  { network.label }
                 </Text>
               </Flex>
-              <Box
-                bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-                color="text.secondary"
-                borderRadius="sm"
-                px={ 1.5 }
-                py={ 0.5 }
-                fontSize="xs"
-                fontFamily="mono"
-              >
-                { chain.vm }
-              </Box>
             </Box>
           )) }
-          <Flex justify="center" py={ 2 } borderTop="1px solid" borderColor="border.divider">
-            <Link
-              href="/chains"
-              textStyle="xs"
-            >
-              View all chains
-            </Link>
-          </Flex>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
   );
 };
 
-export default React.memo(ChainSwitcher);
+export default React.memo(NetworkSelector);
