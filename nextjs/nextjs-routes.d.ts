@@ -17,8 +17,8 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/accounts/label/[slug]", { "slug": string }>
     | DynamicRoute<"/address/[hash]/contract-verification", { "hash": string }>
     | DynamicRoute<"/address/[hash]", { "hash": string }>
-    | StaticRoute<"/ai">
     | StaticRoute<"/advanced-filter">
+    | StaticRoute<"/ai">
     | StaticRoute<"/api/config">
     | StaticRoute<"/api/csrf">
     | StaticRoute<"/api/healthz">
@@ -41,8 +41,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/block/countdown">
     | StaticRoute<"/blocks">
     | StaticRoute<"/bridge">
-    | StaticRoute<"/chains">
-    | DynamicRoute<"/chains/[slug]", { "slug": string }>
     | DynamicRoute<"/cc/tx/[hash]", { "hash": string }>
     | DynamicRoute<"/chain/[chain_slug]/accounts/label/[slug]", { "chain_slug": string; "slug": string }>
     | DynamicRoute<"/chain/[chain_slug]/advanced-filter", { "chain_slug": string }>
@@ -55,6 +53,8 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/chain/[chain_slug]/token/[hash]/instance/[id]", { "chain_slug": string; "hash": string; "id": string }>
     | DynamicRoute<"/chain/[chain_slug]/tx/[hash]", { "chain_slug": string; "hash": string }>
     | DynamicRoute<"/chain/[chain_slug]/visualize/sol2uml", { "chain_slug": string }>
+    | DynamicRoute<"/chains/[slug]", { "slug": string }>
+    | StaticRoute<"/chains">
     | StaticRoute<"/chakra">
     | StaticRoute<"/contract-verification">
     | DynamicRoute<"/cross-chain-tx/[id]", { "id": string }>
