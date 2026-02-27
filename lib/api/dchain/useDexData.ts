@@ -9,13 +9,10 @@ import type {
   DexOverviewStats,
 } from './types';
 
-import { getEnvValue } from 'configs/app/utils';
+import { getDChain } from 'lib/api/luxnet/chains';
 
 const DEX_STALE_TIME_MS = 30_000;
 const DEX_QUERY_KEY = 'dchain:dexData' as const;
-
-const DEX_INDEXER_URL =
-  getEnvValue('NEXT_PUBLIC_DEX_INDEXER_URL') || 'https://api-indexer-xchain.lux.network';
 
 /* eslint-disable max-len */
 const DEMO_SYMBOLS: ReadonlyArray<DexSymbolStats> = [
@@ -68,17 +65,6 @@ const DEMO_OVERVIEW: DexOverviewStats = {
   tradesToday: 1332,
 };
 
-interface XChainStatsResponse {
-  readonly chain_stats: {
-    readonly total_assets?: number;
-    readonly total_transactions?: number;
-    readonly total_utxos?: number;
-  };
-  readonly dag_stats: {
-    readonly total_vertices: number;
-  };
-}
-
 export interface UseDexDataResult {
   readonly symbols: ReadonlyArray<DexSymbolStats>;
   readonly orders: ReadonlyArray<DexOrder>;
@@ -110,36 +96,40 @@ const EMPTY_OVERVIEW: DexOverviewStats = {
 };
 
 async function fetchDexData(): Promise<DexDataPayload> {
-  // Try live indexer API first
+  // Try luxnet SDK D-Chain RPC first
   try {
-    const res = await fetch(`${ DEX_INDEXER_URL }/api/v2/stats`);
-    if (res.ok) {
-      const stats = await res.json() as XChainStatsResponse;
-      if (stats.dag_stats.total_vertices > 0 || (stats.chain_stats.total_transactions ?? 0) > 0) {
-        // Indexer has real data — fetch vertices for DEX orders/trades
-        const verticesRes = await fetch(`${ DEX_INDEXER_URL }/api/v2/vertices`);
-        if (verticesRes.ok) {
-          const verticesData = await verticesRes.json() as { items: ReadonlyArray<Record<string, unknown>> | null };
-          const vertices = verticesData.items ?? [];
-          if (vertices.length > 0) {
-            // Parse DEX data from vertices when real data exists
-            return {
-              symbols: DEMO_SYMBOLS,
-              orders: DEMO_ORDERS,
-              trades: DEMO_TRADES,
-              pools: DEMO_POOLS,
-              overview: {
-                totalPairs: stats.chain_stats.total_assets ?? DEMO_OVERVIEW.totalPairs,
-                volume24h: DEMO_OVERVIEW.volume24h,
-                activeOrders: DEMO_OVERVIEW.activeOrders,
-                tradesToday: stats.chain_stats.total_transactions ?? DEMO_OVERVIEW.tradesToday,
-              },
-            };
-          }
-        }
-      }
+    const dchain = getDChain();
+    const stats = await dchain.getStats();
+
+    if (stats && stats.trades24h > 0) {
+      const [ pools, markets ] = await Promise.all([
+        dchain.getPools(),
+        dchain.getMarkets(),
+      ]);
+
+      return {
+        symbols: DEMO_SYMBOLS,
+        orders: DEMO_ORDERS,
+        trades: DEMO_TRADES,
+        pools: pools.length > 0 ? pools.map((p, i) => ({
+          id: `pool-${ i }`,
+          tokenA: String(p.tokenA),
+          tokenB: String(p.tokenB),
+          reserveA: String(p.reserveA),
+          reserveB: String(p.reserveB),
+          tvl: String(p.totalLiquidity),
+          volume24h: DEMO_POOLS[i]?.volume24h ?? '0',
+          fee: String(p.fee),
+        })) : DEMO_POOLS,
+        overview: {
+          totalPairs: markets.length || DEMO_OVERVIEW.totalPairs,
+          volume24h: stats.volume24h || DEMO_OVERVIEW.volume24h,
+          activeOrders: DEMO_OVERVIEW.activeOrders,
+          tradesToday: stats.trades24h || DEMO_OVERVIEW.tradesToday,
+        },
+      };
     }
-  } catch { /* Indexer unreachable — fall through to demo data */ }
+  } catch { /* D-Chain RPC unavailable — fall through to demo data */ }
 
   return {
     symbols: DEMO_SYMBOLS,
