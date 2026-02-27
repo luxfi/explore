@@ -4,12 +4,16 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
+import { getCurrentChain } from 'configs/app/chainRegistry';
 import { Link } from 'toolkit/chakra/link';
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
 import ChainSwitcher from './ChainSwitcher';
 import NetworkSelector from './NetworkSelector';
+
+// ── Nav link ──
 
 interface NavLinkProps {
   readonly text: string;
@@ -20,38 +24,47 @@ interface NavLinkProps {
 const NavLinkItem = ({ text, href, isActive }: NavLinkProps) => (
   <Link
     href={ href }
-    px={ 2.5 }
-    py={ 1.5 }
-    textStyle="sm"
-    fontWeight={ 500 }
-    borderRadius="base"
-    variant="navigation"
-    { ...(isActive ? { 'data-selected': true } : {}) }
+    px={ 2 }
+    py={ 1 }
+    textStyle="xs"
+    fontWeight={ isActive ? 600 : 500 }
+    borderRadius="sm"
+    color={ isActive ? 'text.primary' : 'text.secondary' }
+    _hover={{ color: 'text.primary', bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
     textDecoration="none"
     whiteSpace="nowrap"
+    transition="all 0.15s"
   >
     { text }
   </Link>
 );
 
+// ── Blockchain sub-menu items ──
+
+const BLOCKCHAIN_ITEMS = [
+  { text: 'Blocks', pathname: '/blocks' as const },
+  { text: 'Transactions', pathname: '/txs' as const },
+  { text: 'Tokens', pathname: '/tokens' as const },
+  { text: 'Accounts', pathname: '/accounts' as const },
+  { text: 'Verified Contracts', pathname: '/verified-contracts' as const },
+] as const;
+
+// ── Main component ──
+
 const TopBar = () => {
   const router = useRouter();
   const pathname = router.pathname;
+  const chain = getCurrentChain();
 
-  const navItems = React.useMemo(() => [
-    { text: 'Home', href: route({ pathname: '/' as const }), isActive: pathname === '/' },
-    { text: 'Chains', href: route({ pathname: '/chains' as const }), isActive: pathname === '/chains' || pathname.startsWith('/chain/') },
-    { text: 'Validators', href: route({ pathname: '/validators' as const }), isActive: pathname === '/validators' || pathname.startsWith('/validators/') },
-    { text: 'Stats', href: route({ pathname: '/stats' as const }), isActive: pathname.startsWith('/stats') },
-    { text: 'Bridge', href: route({ pathname: '/bridge' as const }), isActive: pathname === '/bridge' },
-    { text: 'Blocks', href: route({ pathname: '/blocks' as const }), isActive: pathname === '/blocks' || pathname.startsWith('/block/') },
-    { text: 'Txns', href: route({ pathname: '/txs' as const }), isActive: pathname === '/txs' || pathname.startsWith('/tx/') },
-    { text: 'Tokens', href: route({ pathname: '/tokens' as const }), isActive: pathname === '/tokens' || pathname.startsWith('/token/') },
-  ], [ pathname ]);
+  const isBlockchainActive = pathname === '/blocks' || pathname.startsWith('/block/') ||
+    pathname === '/txs' || pathname.startsWith('/tx/') ||
+    pathname === '/tokens' || pathname.startsWith('/token/') ||
+    pathname === '/accounts' || pathname.startsWith('/address/') ||
+    pathname === '/verified-contracts';
 
   return (
     <Box
-      bgColor={{ _light: 'rgba(255, 255, 255, 0.95)', _dark: 'rgba(16, 17, 18, 0.95)' }}
+      bgColor={{ _light: 'rgba(255, 255, 255, 0.97)', _dark: 'rgba(16, 17, 18, 0.97)' }}
       position="sticky"
       top={ 0 }
       left={ 0 }
@@ -60,7 +73,7 @@ const TopBar = () => {
       zIndex="sticky"
       borderBottom="1px solid"
       borderColor="border.divider"
-      backdropFilter="blur(12px)"
+      backdropFilter="blur(16px)"
     >
       <Flex
         py={ 2 }
@@ -68,40 +81,132 @@ const TopBar = () => {
         m="0 auto"
         alignItems="center"
         maxW={ `${ CONTENT_MAX_WIDTH }px` }
-        gap={ 2 }
+        gap={ 1 }
       >
-        { /* Logo */ }
+        { /* ── Logo + Network brand ── */ }
         <chakra.a
           href={ route({ pathname: '/' as const }) }
           display="flex"
           alignItems="center"
-          gap="8px"
+          gap="6px"
           flexShrink={ 0 }
-          mr={ 4 }
+          mr={ 3 }
           aria-label="Lux Network home"
           textDecoration="none"
-          _hover={{ textDecoration: 'none' }}
+          _hover={{ textDecoration: 'none', opacity: 0.8 }}
+          transition="opacity 0.15s"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20" height="20">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="18" height="18">
             <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
           </svg>
-          <chakra.span fontWeight={ 700 } fontSize="md" letterSpacing="-0.02em" whiteSpace="nowrap">
-            Lux Network
+          <chakra.span
+            fontWeight={ 700 }
+            fontSize="sm"
+            letterSpacing="-0.02em"
+            whiteSpace="nowrap"
+            color="text.primary"
+          >
+            { chain.name === 'C-Chain' ? 'Lux Network' : chain.name }
           </chakra.span>
         </chakra.a>
 
-        { /* Navigation */ }
-        <HStack as="nav" gap={ 0 } display={{ base: 'none', lg: 'flex' }}>
-          { navItems.map((item) => (
-            <NavLinkItem key={ item.text } { ...item }/>
-          )) }
+        { /* ── Divider ── */ }
+        <Box h="16px" w="1px" bgColor="border.divider" flexShrink={ 0 } mr={ 2 }/>
+
+        { /* ── Navigation ── */ }
+        <HStack as="nav" gap={ 0 } display={{ base: 'none', lg: 'flex' }} flexShrink={ 0 }>
+          <NavLinkItem
+            text="Home"
+            href={ route({ pathname: '/' as const }) }
+            isActive={ pathname === '/' }
+          />
+
+          { /* Blockchain dropdown */ }
+          <MenuRoot>
+            <MenuTrigger asChild>
+              <chakra.button
+                px={ 2 }
+                py={ 1 }
+                textStyle="xs"
+                fontWeight={ isBlockchainActive ? 600 : 500 }
+                borderRadius="sm"
+                color={ isBlockchainActive ? 'text.primary' : 'text.secondary' }
+                _hover={{ color: 'text.primary', bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
+                cursor="pointer"
+                transition="all 0.15s"
+                display="flex"
+                alignItems="center"
+                gap={ 0.5 }
+                bg="transparent"
+                border="none"
+              >
+                Blockchain
+                <chakra.svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  w="14px"
+                  h="14px"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clipRule="evenodd"
+                  />
+                </chakra.svg>
+              </chakra.button>
+            </MenuTrigger>
+            <MenuContent minW="180px">
+              { BLOCKCHAIN_ITEMS.map((item) => (
+                <MenuItem
+                  key={ item.pathname }
+                  value={ item.pathname }
+                  asChild
+                >
+                  <Link
+                    href={ route({ pathname: item.pathname }) }
+                    textDecoration="none"
+                    _hover={{ textDecoration: 'none' }}
+                  >
+                    { item.text }
+                  </Link>
+                </MenuItem>
+              )) }
+            </MenuContent>
+          </MenuRoot>
+
+          <NavLinkItem
+            text="Chains"
+            href={ route({ pathname: '/chains' as const }) }
+            isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
+          />
+          <NavLinkItem
+            text="Validators"
+            href={ route({ pathname: '/validators' as const }) }
+            isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
+          />
+          <NavLinkItem
+            text="Stats"
+            href={ route({ pathname: '/stats' as const }) }
+            isActive={ pathname.startsWith('/stats') }
+          />
+          <NavLinkItem
+            text="Bridge"
+            href={ route({ pathname: '/bridge' as const }) }
+            isActive={ pathname === '/bridge' }
+          />
+          <NavLinkItem
+            text="DEX"
+            href={ route({ pathname: '/dex' as const }) }
+            isActive={ pathname === '/dex' }
+          />
         </HStack>
 
-        { /* Spacer */ }
+        { /* ── Spacer ── */ }
         <Box flex={ 1 }/>
 
-        { /* Right controls */ }
-        <HStack gap={ 2 } flexShrink={ 0 }>
+        { /* ── Right controls ── */ }
+        <HStack gap={ 1.5 } flexShrink={ 0 }>
           <NetworkSelector/>
           <ChainSwitcher/>
           <UserProfileDesktop buttonSize="sm"/>
