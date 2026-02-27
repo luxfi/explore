@@ -9,7 +9,7 @@ import { getCurrentChain } from 'configs/app/chainRegistry';
 export default function useChainFavicon(): void {
   React.useEffect(() => {
     const chain = getCurrentChain();
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${ chain.branding.faviconSvg }</svg>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${ chain.branding.faviconContent }</svg>`;
     const dataUri = `data:image/svg+xml,${ encodeURIComponent(svg) }`;
 
     // Update the SVG favicon link (browsers prefer SVG when available)

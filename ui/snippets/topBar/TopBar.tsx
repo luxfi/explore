@@ -96,9 +96,13 @@ const TopBar = () => {
           _hover={{ textDecoration: 'none', opacity: 0.8 }}
           transition="opacity 0.15s"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="18" height="18">
-            <path d={ chain.branding.logoSvg } fill="currentColor"/>
-          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox={ chain.branding.logoViewBox }
+            width="18"
+            height="18"
+            dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
+          />
           <chakra.span
             fontWeight={ 700 }
             fontSize="sm"
