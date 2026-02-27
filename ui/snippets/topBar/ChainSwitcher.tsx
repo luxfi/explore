@@ -48,9 +48,14 @@ const ChainSwitcher = () => {
           onClick={ handleToggle }
           flexShrink={ 0 }
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="14" height="14" style={{ flexShrink: 0 }}>
-            <path d={ current.branding.logoSvg } fill="currentColor"/>
-          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox={ current.branding.logoViewBox }
+            width="14"
+            height="14"
+            style={{ flexShrink: 0 }}
+            dangerouslySetInnerHTML={{ __html: current.branding.logoContent }}
+          />
           { current.name }
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="12" height="12">
             <path
@@ -88,9 +93,14 @@ const ChainSwitcher = () => {
                 textDecoration="none"
               >
                 <Flex alignItems="center" gap={ 2 }>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="16" height="16" style={{ flexShrink: 0 }}>
-                    <path d={ chain.branding.logoSvg } fill="currentColor"/>
-                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox={ chain.branding.logoViewBox }
+                    width="16"
+                    height="16"
+                    style={{ flexShrink: 0 }}
+                    dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
+                  />
                   <Flex direction="column">
                     <Text fontSize="sm" fontWeight={ isCurrent ? 600 : 400 } color="text.primary">
                       { chain.branding.brandName }
