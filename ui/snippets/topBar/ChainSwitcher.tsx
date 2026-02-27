@@ -1,6 +1,3 @@
-// Chain switcher dropdown for the top bar.
-// Shows all Lux chains with links to their respective explorer instances.
-
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
@@ -22,7 +19,7 @@ const CHAINS: ReadonlyArray<ChainItem> = [
   { name: 'Zoo', label: 'Zoo Chain', vm: 'Subnet EVM', url: 'https://explore-zoo.lux.network', isCurrent: false },
   { name: 'Hanzo', label: 'Hanzo AI', vm: 'Subnet EVM', url: 'https://explore-hanzo.lux.network', isCurrent: false },
   { name: 'SPC', label: 'SPC Chain', vm: 'Subnet EVM', url: 'https://explore-spc.lux.network', isCurrent: false },
-  { name: 'Pars', label: 'Pars Chain', vm: 'Subnet EVM', url: 'https://explore-pars.lux.network', isCurrent: false },
+  { name: 'Pars', label: 'Pars Network', vm: 'Subnet EVM', url: 'https://explore.pars.network', isCurrent: false },
 ];
 
 const ChainSwitcher = () => {

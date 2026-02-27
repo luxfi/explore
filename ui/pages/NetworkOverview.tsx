@@ -1,7 +1,3 @@
-// Network Overview homepage for the Lux multi-chain explorer.
-// Combines P-chain network stats, Blockscout chain stats, latest blocks/txs,
-// and chain directory cards with links to per-chain explorers.
-
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
@@ -17,29 +13,24 @@ import LatestBlocks from 'ui/home/LatestBlocks';
 import Stats from 'ui/home/Stats';
 import Transactions from 'ui/home/Transactions';
 
-// ── Constants ──
-
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const LUX_DECIMALS = 9;
 
-// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
-// Core chains (always active): C, P, X
-// Extended chains (allvms build): A, B, D, G, I, K, O, Q, R, T, Z
 const PRIMARY_CHAINS = [
   { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/' },
   { id: 'P', name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', href: '/validators' },
-  { id: 'X', name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', href: undefined },
-  { id: 'D', name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', href: undefined },
-  { id: 'A', name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', href: undefined },
+  { id: 'X', name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', href: '/chain/x-chain' },
+  { id: 'D', name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', href: '/dex' },
+  { id: 'A', name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', href: '/ai' },
   { id: 'B', name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', href: '/bridge' },
-  { id: 'Q', name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', href: undefined },
-  { id: 'T', name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', href: undefined },
-  { id: 'Z', name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', href: undefined },
-  { id: 'G', name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', href: undefined },
-  { id: 'K', name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', href: undefined },
-  { id: 'O', name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', href: undefined },
-  { id: 'R', name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', href: undefined },
-  { id: 'I', name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', href: undefined },
+  { id: 'Q', name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', href: '/chain/q-chain' },
+  { id: 'T', name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', href: '/chain/t-chain' },
+  { id: 'Z', name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', href: '/chain/z-chain' },
+  { id: 'G', name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', href: '/chain/g-chain' },
+  { id: 'K', name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', href: '/chain/k-chain' },
+  { id: 'O', name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', href: '/chain/o-chain' },
+  { id: 'R', name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', href: '/chain/r-chain' },
+  { id: 'I', name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', href: '/chain/i-chain' },
 ] as const;
 
 const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
@@ -52,16 +43,12 @@ const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
 const STAT_CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 const CHAIN_CARD_HOVER = { _light: 'gray.50', _dark: 'whiteAlpha.100' };
 
-// ── Helpers ──
-
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
   if (lux >= 1_000_000) return `${ (lux / 1_000_000).toFixed(1) }M`;
   if (lux >= 1_000) return `${ (lux / 1_000).toFixed(1) }K`;
   return lux.toFixed(0);
 }
-
-// ── Sub-components ──
 
 interface NetworkStatProps {
   readonly label: string;
@@ -167,8 +154,6 @@ const L1ChainCard = ({ chain }: L1ChainCardProps) => {
   );
 };
 
-// ── Main component ──
-
 const NetworkOverview = () => {
   const isMobile = useIsMobile();
   const { stats, isLoading: validatorsLoading } = useCurrentValidators();
@@ -186,7 +171,6 @@ const NetworkOverview = () => {
     <Box as="main">
       <HeroBanner/>
 
-      { /* Network stats bar */ }
       <Flex
         justify="space-around"
         align="center"
@@ -223,7 +207,6 @@ const NetworkOverview = () => {
         />
       </Flex>
 
-      { /* Blockscout stats + Latest blocks/txs */ }
       <Flex mt={ 6 } gap={ 6 } flexDir={{ base: 'column', lg: 'row' }}>
         <Stats/>
         <LatestBlocks/>
@@ -233,13 +216,11 @@ const NetworkOverview = () => {
         <Transactions/>
       </Box>
 
-      { /* Chain directory */ }
       <Grid
         templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
         gap={{ base: 6, lg: 8 }}
         mt={ 8 }
       >
-        { /* Primary Network */ }
         <Box>
           <Flex align="center" justify="space-between" mb={ 3 }>
             <Heading level="3">Primary Network</Heading>
@@ -258,7 +239,6 @@ const NetworkOverview = () => {
           </Flex>
         </Box>
 
-        { /* L1 Chains */ }
         <Box>
           <Flex align="center" justify="space-between" mb={ 3 }>
             <Heading level="3">L1 Chains</Heading>
@@ -286,7 +266,6 @@ const NetworkOverview = () => {
             </Flex>
           ) }
 
-          { /* View all link */ }
           { !isMobile && (
             <Flex justify="center" mt={ 4 }>
               <Link href="/chains" textStyle="sm">View all chains</Link>
