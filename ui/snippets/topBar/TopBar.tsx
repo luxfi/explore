@@ -8,7 +8,7 @@ import { getCurrentChain } from 'configs/app/chainRegistry';
 import { Link } from 'toolkit/chakra/link';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
-import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
+import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 
 import ChainSwitcher from './ChainSwitcher';
 import NetworkSelector from './NetworkSelector';
@@ -83,48 +83,47 @@ const TopBar = () => {
         maxW={ `${ CONTENT_MAX_WIDTH }px` }
         gap={ 1 }
       >
-        { /* ── Logo + Network brand ── */ }
-        <chakra.a
-          href={ route({ pathname: '/' as const }) }
-          display="flex"
-          alignItems="center"
-          gap="6px"
-          flexShrink={ 0 }
-          mr={ 3 }
-          aria-label={ `${ chain.branding.brandName } home` }
-          textDecoration="none"
-          _hover={{ textDecoration: 'none', opacity: 0.8 }}
-          transition="opacity 0.15s"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox={ chain.branding.logoViewBox }
-            width="18"
-            height="18"
-            dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
-          />
-          <chakra.span
-            fontWeight={ 700 }
-            fontSize="sm"
-            letterSpacing="-0.02em"
-            whiteSpace="nowrap"
-            color="text.primary"
+        { /* ── Logo + Brand + Chain/Network selectors (grouped) ── */ }
+        <Flex alignItems="center" gap={ 1.5 } flexShrink={ 0 }>
+          <chakra.a
+            href={ route({ pathname: '/' as const }) }
+            display="flex"
+            alignItems="center"
+            gap="6px"
+            flexShrink={ 0 }
+            aria-label={ `${ chain.branding.brandName } home` }
+            textDecoration="none"
+            _hover={{ textDecoration: 'none', opacity: 0.8 }}
+            transition="opacity 0.15s"
           >
-            { chain.branding.brandName }
-          </chakra.span>
-        </chakra.a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox={ chain.branding.logoViewBox }
+              width="18"
+              height="18"
+              dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
+            />
+            <chakra.span
+              fontWeight={ 700 }
+              fontSize="sm"
+              letterSpacing="-0.02em"
+              whiteSpace="nowrap"
+              color="text.primary"
+            >
+              { chain.branding.brandName }
+            </chakra.span>
+          </chakra.a>
+
+          { /* Chain & Network selectors — directly next to brand name */ }
+          <NetworkSelector/>
+          <ChainSwitcher/>
+        </Flex>
 
         { /* ── Divider ── */ }
-        <Box h="16px" w="1px" bgColor="border.divider" flexShrink={ 0 } mr={ 2 }/>
+        <Box h="16px" w="1px" bgColor="border.divider" flexShrink={ 0 } mx={ 1 }/>
 
-        { /* ── Navigation ── */ }
+        { /* ── Navigation (no Home — logo click does that) ── */ }
         <HStack as="nav" gap={ 0 } display={{ base: 'none', lg: 'flex' }} flexShrink={ 0 }>
-          <NavLinkItem
-            text="Home"
-            href={ route({ pathname: '/' as const }) }
-            isActive={ pathname === '/' }
-          />
-
           { /* Blockchain dropdown */ }
           <MenuRoot>
             <MenuTrigger asChild>
@@ -206,15 +205,13 @@ const TopBar = () => {
           />
         </HStack>
 
-        { /* ── Spacer ── */ }
-        <Box flex={ 1 }/>
+        { /* ── Search bar (center, flexible) ── */ }
+        <Box flex={ 1 } mx={ 2 } display={{ base: 'none', lg: 'block' }} maxW="480px">
+          <SearchBar isHeroBanner={ false }/>
+        </Box>
 
-        { /* ── Right controls ── */ }
-        <HStack gap={ 1.5 } flexShrink={ 0 }>
-          <NetworkSelector/>
-          <ChainSwitcher/>
-          <UserProfileDesktop buttonSize="sm"/>
-        </HStack>
+        { /* ── Spacer ── */ }
+        <Box flex={ 1 } display={{ base: 'block', lg: 'none' }}/>
       </Flex>
     </Box>
   );
