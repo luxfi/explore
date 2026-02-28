@@ -20,8 +20,8 @@ const getMicroserviceSwaggerUrl = (api: ApiPropsBase) => `${ api.endpoint }${ ap
 
 export const REST_API_SECTIONS = [
   feature.isEnabled && {
-    id: 'blockscout-core-api',
-    title: 'Blockscout core API',
+    id: 'lux-core-api',
+    title: 'Lux Explorer Core API',
     swagger: {
       url: feature.coreApiSwaggerUrl,
       requestInterceptor: (req: SwaggerRequest) => {
@@ -29,8 +29,8 @@ export const REST_API_SECTIONS = [
           return req;
         }
 
-        const DEFAULT_SERVER = 'blockscout.com/poa/core';
-        const DEFAULT_SERVER_NEW = 'eth.blockscout.com';
+        const DEFAULT_SERVER = 'api.lux.network';
+        const DEFAULT_SERVER_NEW = 'api.lux.network';
 
         if (!req.loadSpec) {
           const newUrl = new URL(
