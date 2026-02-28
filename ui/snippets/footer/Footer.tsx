@@ -129,16 +129,13 @@ const Footer = () => {
 
     return (
       <Box gridArea={ gridArea }>
-        <Flex columnGap={ 2 } textStyle="xs" alignItems="center">
-          <span>Powered by</span>
-          <Link href="https://lux.network" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
-            <IconSvg
-              name="networks/logo-placeholder"
-              width="80px"
-              height={ 4 }
-            />
-          </Link>
-        </Flex>
+        <Link href="https://lux.network" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
+          <IconSvg
+            name="networks/logo-placeholder"
+            width="80px"
+            height={ 4 }
+          />
+        </Link>
         <Text mt={ 3 } fontSize="xs">
           Lux Network is a high-performance blockchain platform for decentralized applications and custom blockchain networks.
         </Text>
@@ -154,7 +151,7 @@ const Footer = () => {
             </Text>
           ) }
           <Text>
-            Copyright { copy } Lux Network 2023-{ (new Date()).getFullYear() }
+            { copy } { (new Date()).getFullYear() } Lux Industries Inc. All rights reserved.
           </Text>
         </Box>
       </Box>

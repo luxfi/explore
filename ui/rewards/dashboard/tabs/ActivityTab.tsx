@@ -111,10 +111,10 @@ export default function ActivityTab() {
   const tasks = useMemo(() => (
     [
       {
-        title: 'Blockscout activity',
+        title: 'Lux Explorer activity',
         description: (
           <>
-            Use Blockscout tools like{ ' ' }
+            Use Lux Explorer tools like{ ' ' }
             <Link
               external={ !marketplaceFeature?.essentialDapps }
               href={ marketplaceFeature?.essentialDapps ?
@@ -144,7 +144,7 @@ export default function ActivityTab() {
             <Link href={ route({ pathname: '/contract-verification' }) }>
               verify a smart contract
             </Link>{ ' ' }
-            on the Blockscout explorer to earn Merits.
+            on the Lux Explorer to earn Merits.
           </>
         ),
         percentile: activities.contracts?.percentile,
@@ -154,11 +154,11 @@ export default function ActivityTab() {
         maxAmount: getMaxAmount(rewardsConfigQuery.data?.rewards?.verified_contracts_activity_rewards),
       },
       {
-        title: 'Blockscout usage',
+        title: 'Lux Explorer usage',
         description: (
           <>
-            Use Blockscout explorers in your daily routine { mdash } check transactions, explore addresses,
-            or add tokens/networks to MetaMask via Blockscout.
+            Use Lux Explorer in your daily routine { mdash } check transactions, explore addresses,
+            or add tokens/networks to MetaMask via Lux Explorer.
           </>
         ),
         percentile: activities.usage?.percentile,
@@ -220,7 +220,7 @@ export default function ActivityTab() {
           <Flex flexDirection="column" p={{ base: 1.5, md: 0 }} pb={ 0 }>
             <Heading level="3" mb={ 2 }>Your activity</Heading>
             <Text textStyle="sm" mb={{ base: 2, md: 4 }}>
-              Use Blockscout and related products daily to earn Merits. Check each task for details and how to get started.
+              Use Lux Explorer and related products daily to earn Merits. Check each task for details and how to get started.
             </Text>
             <Flex alignItems="center" gap={ 3 } mb={{ base: 0, md: 4 }}>
               <Button
