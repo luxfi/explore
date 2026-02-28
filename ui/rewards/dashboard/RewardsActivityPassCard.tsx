@@ -34,7 +34,7 @@ export default function RewardsActivityPassCard() {
           <Link external href={ activityPassUrl } loading={ rewardsConfigQuery.isLoading }>
             Activity pass
           </Link>{ ' ' }
-          then engage with various Blockscout products and features to earn Merits every day!{ ' ' }
+          then engage with various Lux Explorer products and features to earn Merits every day!{ ' ' }
           <Link external href="https://docs.blockscout.com/using-blockscout/merits/activity-pass">
             Learn more
           </Link>

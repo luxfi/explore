@@ -1,5 +1,5 @@
 {
-	"name": "blockscout dev",
+	"name": "lux explorer dev",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:20",
 	"forwardPorts": [ 3000 ],
 	"customizations": {
