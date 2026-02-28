@@ -40,8 +40,9 @@ const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
   Pars: 'https://explore-pars.lux.network',
 };
 
-const STAT_CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
-const CHAIN_CARD_HOVER = { _light: 'gray.50', _dark: 'whiteAlpha.100' };
+const CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
+const CARD_HOVER = { _light: 'gray.100', _dark: 'whiteAlpha.100' };
+const CARD_BORDER = '1px solid';
 
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
@@ -50,56 +51,60 @@ function formatStake(nanoLux: bigint): string {
   return lux.toFixed(0);
 }
 
-interface NetworkStatProps {
+// ── Hero metric (compact inline stat) ──
+
+interface MetricProps {
   readonly label: string;
   readonly value: string;
   readonly isLoading: boolean;
 }
 
-const NetworkStat = ({ label, value, isLoading }: NetworkStatProps) => (
-  <Box textAlign="center">
+const Metric = ({ label, value, isLoading }: MetricProps) => (
+  <Flex direction="column" align="center" px={ 3 }>
     <Skeleton loading={ isLoading }>
-      <Text fontSize={{ base: 'lg', lg: '2xl' }} fontWeight={ 700 } color="text.primary">
+      <Text fontSize="lg" fontWeight={ 700 } fontFamily="mono" color="text.primary" lineHeight="1.2">
         { value }
       </Text>
     </Skeleton>
-    <Text fontSize="xs" color="text.secondary" fontWeight={ 500 } mt={ 0.5 }>
+    <Text fontSize="2xs" color="text.secondary" fontWeight={ 500 } mt={ 0.5 } textTransform="uppercase" letterSpacing="0.05em">
       { label }
     </Text>
-  </Box>
+  </Flex>
 );
 
-interface ChainCardProps {
+// ── Chain row (compact, for sidebar) ──
+
+interface ChainRowProps {
   readonly name: string;
   readonly fullName: string;
   readonly vm: string;
   readonly href: string | undefined;
+  readonly tier?: string;
 }
 
-const ChainCard = ({ name, fullName, vm, href }: ChainCardProps) => {
+const ChainRow = ({ name, fullName, vm, href, tier }: ChainRowProps) => {
   const content = (
     <Flex
       align="center"
       justify="space-between"
-      p={ 3 }
+      py={ 2 }
+      px={ 3 }
       borderRadius="md"
-      border="1px solid"
-      borderColor="border.divider"
       cursor={ href ? 'pointer' : 'default' }
-      _hover={ href ? { bg: CHAIN_CARD_HOVER } : undefined }
+      _hover={ href ? { bg: CARD_HOVER } : undefined }
       transition="background 0.15s"
     >
-      <Box>
+      <Flex align="center" gap={ 2 }>
         <Text fontWeight={ 600 } color="text.primary" fontSize="sm">
           { name }
         </Text>
-        <Text fontSize="xs" color="text.secondary">
+        <Text fontSize="xs" color="text.secondary" display={{ base: 'none', lg: 'inline' }}>
           { fullName }
         </Text>
-      </Box>
-      <Flex align="center" gap={ 2 }>
+      </Flex>
+      <Flex align="center" gap={ 1.5 }>
+        { tier && <Tag size="sm" variant="subtle">{ tier }</Tag> }
         <Tag size="sm" variant="subtle">{ vm }</Tag>
-        { href && <Text color="text.secondary" fontSize="sm">{ '\u2192' }</Text> }
       </Flex>
     </Flex>
   );
@@ -110,11 +115,13 @@ const ChainCard = ({ name, fullName, vm, href }: ChainCardProps) => {
   return content;
 };
 
-interface L1ChainCardProps {
+// ── L1 Chain row ──
+
+interface L1ChainRowProps {
   readonly chain: PChainBlockchain;
 }
 
-const L1ChainCard = ({ chain }: L1ChainCardProps) => {
+const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   const explorerUrl = L1_EXPLORER_URLS[chain.name];
   const slug = chain.name.toLowerCase();
 
@@ -122,25 +129,24 @@ const L1ChainCard = ({ chain }: L1ChainCardProps) => {
     <Flex
       align="center"
       justify="space-between"
-      p={ 3 }
+      py={ 2 }
+      px={ 3 }
       borderRadius="md"
-      border="1px solid"
-      borderColor="border.divider"
       cursor="pointer"
-      _hover={{ bg: CHAIN_CARD_HOVER }}
+      _hover={{ bg: CARD_HOVER }}
       transition="background 0.15s"
     >
-      <Box>
+      <Flex align="center" gap={ 2 }>
         <Text fontWeight={ 600 } color="text.primary" fontSize="sm">
           { chain.name }
         </Text>
-        <Text fontSize="xs" color="text.secondary" fontFamily="mono">
-          { chain.id.slice(0, 10) }...
+        <Text fontSize="xs" color="text.secondary" fontFamily="mono" display={{ base: 'none', lg: 'inline' }}>
+          { chain.id.slice(0, 8) }...
         </Text>
-      </Box>
-      <Flex align="center" gap={ 2 }>
+      </Flex>
+      <Flex align="center" gap={ 1.5 }>
         <Tag size="sm" variant="subtle">L1</Tag>
-        <Text color="text.secondary" fontSize="sm">{ '\u2192' }</Text>
+        <Text color="text.secondary" fontSize="xs">{ '\u2192' }</Text>
       </Flex>
     </Flex>
   );
@@ -148,11 +154,47 @@ const L1ChainCard = ({ chain }: L1ChainCardProps) => {
   if (explorerUrl) {
     return <Link href={ explorerUrl } variant="plain" target="_blank">{ content }</Link>;
   }
-
-  return (
-    <Link href={ `/chains/${ slug }` } variant="plain">{ content }</Link>
-  );
+  return <Link href={ `/chains/${ slug }` } variant="plain">{ content }</Link>;
 };
+
+// ── Sidebar card ──
+
+interface SidebarCardProps {
+  readonly title: string;
+  readonly count?: number;
+  readonly isLoading?: boolean;
+  readonly action?: { label: string; href: string };
+  readonly children: React.ReactNode;
+}
+
+const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardProps) => (
+  <Box
+    border={ CARD_BORDER }
+    borderColor="border.divider"
+    borderRadius="lg"
+    p={ 4 }
+    bgColor={ CARD_BG }
+  >
+    <Flex align="center" justify="space-between" mb={ 3 }>
+      <Flex align="center" gap={ 2 }>
+        <Heading level="3" fontSize="sm">{ title }</Heading>
+        { count !== undefined && (
+          <Skeleton loading={ isLoading }>
+            <Tag size="sm" variant="subtle">{ count }</Tag>
+          </Skeleton>
+        ) }
+      </Flex>
+      { action && (
+        <Link href={ action.href } textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+          { action.label }
+        </Link>
+      ) }
+    </Flex>
+    { children }
+  </Box>
+);
+
+// ── Main page ──
 
 const NetworkOverview = () => {
   const isMobile = useIsMobile();
@@ -169,110 +211,175 @@ const NetworkOverview = () => {
 
   return (
     <Box as="main">
+      { /* ── Hero search ── */ }
       <HeroBanner/>
 
+      { /* ── Metrics strip ── */ }
       <Flex
-        justify="space-around"
+        justify="center"
         align="center"
-        py={ 4 }
-        px={{ base: 4, lg: 6 }}
+        py={ 3 }
         mt={ 4 }
         borderRadius="lg"
-        border="1px solid"
+        border={ CARD_BORDER }
         borderColor="border.divider"
-        bgColor={ STAT_CARD_BG }
-        gap={ 4 }
+        bgColor={ CARD_BG }
+        gap={ 0 }
         flexWrap="wrap"
+        overflow="hidden"
       >
-        <NetworkStat label="Total Chains" value={ String(totalChains) } isLoading={ isLoading }/>
-        <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat label="Validators" value={ String(stats.validatorCount) } isLoading={ isLoading }/>
-        <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat
-          label="Total Stake"
-          value={ `${ formatStake(stats.totalStake) } LUX` }
-          isLoading={ isLoading }
-        />
-        <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat
-          label="Avg Uptime"
-          value={ `${ stats.averageUptime.toFixed(1) }%` }
-          isLoading={ isLoading }
-        />
-        <Box w="1px" h="32px" bgColor="border.divider" display={{ base: 'none', lg: 'block' }}/>
-        <NetworkStat
-          label="Connected"
-          value={ `${ stats.connectedCount }/${ stats.validatorCount }` }
-          isLoading={ isLoading }
-        />
+        <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+        <Metric label="Validators" value={ String(stats.validatorCount) } isLoading={ isLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+        <Metric label="Staked" value={ `${ formatStake(stats.totalStake) } LUX` } isLoading={ isLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+        <Metric label="Uptime" value={ `${ stats.averageUptime.toFixed(1) }%` } isLoading={ isLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+        <Metric label="Connected" value={ `${ stats.connectedCount }/${ stats.validatorCount }` } isLoading={ isLoading }/>
       </Flex>
 
-      <Flex mt={ 6 } gap={ 6 } flexDir={{ base: 'column', lg: 'row' }}>
-        <Stats/>
-        <LatestBlocks/>
-      </Flex>
-
-      <Box mt={ 6 }>
-        <Transactions/>
-      </Box>
-
+      { /* ── Two-column: Activity (primary) + Chain Health (secondary) ── */ }
       <Grid
-        templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
-        gap={{ base: 6, lg: 8 }}
-        mt={ 8 }
+        templateColumns={{ base: '1fr', lg: '1fr 340px' }}
+        gap={ 5 }
+        mt={ 5 }
       >
+        { /* ── Left: Activity ── */ }
         <Box>
-          <Flex align="center" justify="space-between" mb={ 3 }>
-            <Heading level="3">Primary Network</Heading>
-            <Tag size="sm" variant="subtle">{ PRIMARY_CHAINS.length }</Tag>
-          </Flex>
-          <Flex direction="column" gap={ 2 }>
-            { PRIMARY_CHAINS.map((chain) => (
-              <ChainCard
-                key={ chain.id }
-                name={ chain.name }
-                fullName={ chain.fullName }
-                vm={ chain.vm }
-                href={ chain.href }
-              />
-            )) }
-          </Flex>
+          { /* Stats grid */ }
+          <Stats/>
+
+          { /* Latest blocks */ }
+          <Box mt={ 5 }>
+            <LatestBlocks/>
+          </Box>
+
+          { /* Transactions */ }
+          <Box mt={ 5 }>
+            <Transactions/>
+          </Box>
         </Box>
 
-        <Box>
-          <Flex align="center" justify="space-between" mb={ 3 }>
-            <Heading level="3">L1 Chains</Heading>
-            <Skeleton loading={ chainsLoading }>
-              <Tag size="sm" variant="subtle">{ l1Chains.length }</Tag>
-            </Skeleton>
-          </Flex>
-          { chainsLoading && (
-            <Flex direction="column" gap={ 2 }>
-              { Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={ i } loading h="68px" borderRadius="md"/>
+        { /* ── Right: Chain Health sidebar ── */ }
+        <Flex direction="column" gap={ 4 } display={{ base: 'none', lg: 'flex' }}>
+          { /* Primary Network chains */ }
+          <SidebarCard
+            title="Primary Network"
+            count={ PRIMARY_CHAINS.length }
+          >
+            <Flex direction="column" gap={ 0 }>
+              { PRIMARY_CHAINS.map((chain) => (
+                <ChainRow
+                  key={ chain.id }
+                  name={ chain.name }
+                  fullName={ chain.fullName }
+                  vm={ chain.vm }
+                  href={ chain.href }
+                />
               )) }
             </Flex>
-          ) }
-          { !chainsLoading && l1Chains.length === 0 && (
-            <Text color="text.secondary" fontSize="sm" py={ 4 }>
-              No L1 chains registered yet.
-            </Text>
-          ) }
-          { !chainsLoading && l1Chains.length > 0 && (
-            <Flex direction="column" gap={ 2 }>
-              { l1Chains.map((chain) => (
-                <L1ChainCard key={ chain.id } chain={ chain }/>
-              )) }
-            </Flex>
-          ) }
+          </SidebarCard>
 
-          { !isMobile && (
-            <Flex justify="center" mt={ 4 }>
-              <Link href="/chains" textStyle="sm">View all chains</Link>
+          { /* Subnet / L1 chains — renamed to just "Chains" */ }
+          <SidebarCard
+            title="Chains"
+            count={ l1Chains.length }
+            isLoading={ chainsLoading }
+            action={{ label: 'View all', href: '/chains' }}
+          >
+            { chainsLoading && (
+              <Flex direction="column" gap={ 1 }>
+                { Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={ i } loading h="40px" borderRadius="md"/>
+                )) }
+              </Flex>
+            ) }
+            { !chainsLoading && l1Chains.length === 0 && (
+              <Text color="text.secondary" fontSize="sm" py={ 2 }>
+                No chains registered yet.
+              </Text>
+            ) }
+            { !chainsLoading && l1Chains.length > 0 && (
+              <Flex direction="column" gap={ 0 }>
+                { l1Chains.map((chain) => (
+                  <L1ChainRow key={ chain.id } chain={ chain }/>
+                )) }
+              </Flex>
+            ) }
+          </SidebarCard>
+
+          { /* Validators summary card */ }
+          <SidebarCard title="Validators">
+            <Grid templateColumns="1fr 1fr" gap={ 3 }>
+              <Box>
+                <Skeleton loading={ isLoading }>
+                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                    { stats.validatorCount }
+                  </Text>
+                </Skeleton>
+                <Text fontSize="2xs" color="text.secondary">Active</Text>
+              </Box>
+              <Box>
+                <Skeleton loading={ isLoading }>
+                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                    { formatStake(stats.totalStake) }
+                  </Text>
+                </Skeleton>
+                <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
+              </Box>
+              <Box>
+                <Skeleton loading={ isLoading }>
+                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                    { stats.delegatorCount }
+                  </Text>
+                </Skeleton>
+                <Text fontSize="2xs" color="text.secondary">Delegators</Text>
+              </Box>
+              <Box>
+                <Skeleton loading={ isLoading }>
+                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                    { `${ stats.connectedCount }/${ stats.validatorCount }` }
+                  </Text>
+                </Skeleton>
+                <Text fontSize="2xs" color="text.secondary">Connected</Text>
+              </Box>
+            </Grid>
+            <Flex justify="center" mt={ 3 }>
+              <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+                View validators
+              </Link>
             </Flex>
-          ) }
-        </Box>
+          </SidebarCard>
+        </Flex>
       </Grid>
+
+      { /* ── Mobile-only chains section ── */ }
+      { isMobile && (
+        <Box mt={ 5 }>
+          <SidebarCard
+            title="Chains"
+            count={ totalChains }
+            isLoading={ isLoading }
+            action={{ label: 'View all', href: '/chains' }}
+          >
+            <Flex direction="column" gap={ 0 }>
+              { PRIMARY_CHAINS.slice(0, 5).map((chain) => (
+                <ChainRow
+                  key={ chain.id }
+                  name={ chain.name }
+                  fullName={ chain.fullName }
+                  vm={ chain.vm }
+                  href={ chain.href }
+                />
+              )) }
+              { l1Chains.map((chain) => (
+                <L1ChainRow key={ chain.id } chain={ chain }/>
+              )) }
+            </Flex>
+          </SidebarCard>
+        </Box>
+      ) }
     </Box>
   );
 };
