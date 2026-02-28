@@ -1,27 +1,27 @@
 {
-  "name": "@blockscout/ui-toolkit",
+  "name": "@luxfi/ui-toolkit",
   "version": "2.4.0-alpha",
-  "description": "A comprehensive collection of reusable Chakra UI components and theme system for Blockscout's projects",
+  "description": "A comprehensive collection of reusable UI components and theme system for Lux Network explorer",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "GPL-3.0-only",
-  "author": "Blockscout Team",
+  "author": "Lux Industries Inc",
   "repository": {
     "type": "git",
-    "url": "https://github.com/blockscout/frontend.git",
+    "url": "https://github.com/luxfi/explore.git",
     "directory": "toolkit/package"
   },
-  "homepage": "https://github.com/blockscout/frontend/tree/main/toolkit/package",
+  "homepage": "https://github.com/luxfi/explore/tree/main/toolkit/package",
   "bugs": {
-    "url": "https://github.com/blockscout/frontend/issues"
+    "url": "https://github.com/luxfi/explore/issues"
   },
   "keywords": [
-    "blockscout",
+    "lux",
+    "explorer",
     "ui",
     "components",
-    "chakra-ui",
     "react",
     "typescript",
     "design-system"
