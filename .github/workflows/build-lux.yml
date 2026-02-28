@@ -20,9 +20,9 @@ env:
   IMAGE_NAME: luxfi/explore
 
 jobs:
-  # Build amd64 image natively on x86 runner
+  # Build amd64 image on self-hosted DOKS lux-build runner
   build-amd64:
-    runs-on: ubuntu-latest
+    runs-on: lux-build
     permissions:
       contents: read
       packages: write
@@ -129,7 +129,7 @@ jobs:
   # Create multi-platform manifest
   create-manifest:
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: lux-build
     permissions:
       contents: read
       packages: write
@@ -169,7 +169,7 @@ jobs:
   # Deploy to DOKS cluster
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: lux-build
     needs: [create-manifest]
     steps:
       - name: Install doctl
