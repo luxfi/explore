@@ -18,7 +18,7 @@ const traceExporter = new OTLPTraceExporter();
 
 const sdk = new NodeSDK({
   resource: new Resource({
-    [SEMRESATTRS_SERVICE_NAME]: 'blockscout_frontend',
+    [SEMRESATTRS_SERVICE_NAME]: 'lux_explorer_frontend',
     [SEMRESATTRS_SERVICE_VERSION]: process.env.NEXT_PUBLIC_GIT_TAG || process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'unknown_version',
     [SEMRESATTRS_SERVICE_INSTANCE_ID]:
         process.env.NEXT_PUBLIC_APP_INSTANCE ||
