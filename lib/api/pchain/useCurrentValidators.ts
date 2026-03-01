@@ -14,7 +14,6 @@ import { getPChain } from './client';
 
 const VALIDATORS_STALE_TIME_MS = 60_000;
 const VALIDATORS_QUERY_KEY = 'pchain:currentValidators' as const;
-const UPTIME_PERCENTAGE_SCALE = 100;
 const ZERO = BigInt(0);
 
 function computeValidatorStats(
@@ -27,7 +26,7 @@ function computeValidatorStats(
   let uptimeSum = 0;
 
   for (const v of validators) {
-    totalStake += BigInt(v.stakeAmount);
+    totalStake += BigInt(v.stakeAmount ?? v.weight);
 
     if (v.connected) {
       connectedCount += 1;
@@ -43,8 +42,9 @@ function computeValidatorStats(
     }
   }
 
+  // uptime values from the API are already in percentage (0–100); no scaling needed
   const averageUptime = validators.length > 0 ?
-    (uptimeSum / validators.length) * UPTIME_PERCENTAGE_SCALE :
+    uptimeSum / validators.length :
     0;
 
   return {
