@@ -56,7 +56,7 @@ const ContractVerificationSolidityHardhat = ({ config: formConfig }: { config: S
           <ContractVerificationFormCodeSnippet code={ secondCodeSnippet }/>
         </Flex>
         <Box whiteSpace="pre-wrap">
-          <span>Full tutorial about contract verification via Hardhat on Blockscout is available </span>
+          <span>Full tutorial about contract verification via Hardhat is available </span>
           <Link href="https://docs.blockscout.com/devs/verification/hardhat-verification-plugin" external>
             here
           </Link>
