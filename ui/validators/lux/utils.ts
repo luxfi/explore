@@ -3,7 +3,6 @@
 const LUX_DECIMALS = 9;
 const TRUNCATE_PREFIX_LEN = 12;
 const TRUNCATE_SUFFIX_LEN = 6;
-const UPTIME_PERCENTAGE_SCALE = 100;
 const UPTIME_FRACTION_DIGITS = 2;
 const STAKE_FRACTION_DIGITS = 2;
 
@@ -14,7 +13,8 @@ export function formatStake(nanoLux: bigint | string): string {
 }
 
 export function formatUptime(uptime: string): string {
-  return `${ (parseFloat(uptime) * UPTIME_PERCENTAGE_SCALE).toFixed(UPTIME_FRACTION_DIGITS) }%`;
+  // uptime is already in percentage format (0–100), no scaling needed
+  return `${ parseFloat(uptime).toFixed(UPTIME_FRACTION_DIGITS) }%`;
 }
 
 export function truncateNodeId(nodeId: string): string {

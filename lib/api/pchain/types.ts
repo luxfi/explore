@@ -20,12 +20,12 @@ export interface PChainValidator {
   readonly txID: string;
   readonly startTime: string;
   readonly endTime: string;
-  readonly stakeAmount: string;
+  readonly stakeAmount?: string; // may be absent; use weight instead
   readonly nodeID: string;
   readonly weight: string;
   readonly delegationFee: string;
   readonly potentialReward: string;
-  readonly connected: boolean;
+  readonly connected?: boolean;
   readonly uptime: string;
   readonly delegators: ReadonlyArray<PChainDelegator> | null;
 }
