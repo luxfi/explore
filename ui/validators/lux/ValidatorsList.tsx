@@ -33,8 +33,8 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
   // Sort by stake desc, then filter by search
   const filtered = React.useMemo(() => {
     const sorted = [ ...validators ].sort((a, b) => {
-      const aStake = BigInt(a.stakeAmount);
-      const bStake = BigInt(b.stakeAmount);
+      const aStake = BigInt(a.stakeAmount ?? a.weight);
+      const bStake = BigInt(b.stakeAmount ?? b.weight);
       if (bStake > aStake) return 1;
       if (bStake < aStake) return -1;
       return 0;
@@ -158,7 +158,7 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
               { truncateNodeId(v.nodeID) }
             </Box>
             <Box flex={ 1 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
-              { formatStake(v.stakeAmount) } LUX
+              { formatStake(v.stakeAmount ?? v.weight) } LUX
             </Box>
             <Box w={{ base: 'auto', lg: '120px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
               { v.delegationFee }%
@@ -168,7 +168,7 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
             </Box>
             <Flex w={{ base: 'auto', lg: '80px' }} flexShrink={ 0 } justifyContent={{ base: 'flex-start', lg: 'center' }} alignItems="center">
               <Box
-                bgColor={ v.connected ? 'green.400' : 'red.400' }
+                bgColor={ v.connected !== false ? 'green.400' : 'red.400' }
                 borderRadius="full"
                 boxSize="8px"
               />
