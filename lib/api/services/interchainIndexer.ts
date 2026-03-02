@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as interchainIndexer from '@blockscout/interchain-indexer-types';
+import type * as interchainIndexer from '@luxfi/interchain-indexer-types';
 import type { CrossChainMessageFilters, CrossChainTransferFilters } from 'types/api/interchainIndexer';
 
 export const INTERCHAIN_INDEXER_API_RESOURCES = {

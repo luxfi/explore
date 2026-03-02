@@ -380,9 +380,11 @@ const NetworkOverview = () => {
 
         { /* Validators summary card */ }
         <SidebarCard title="Validators">
-          { validatorsError ? (
+          { !hasValidatorData && !validatorsLoading ? (
             <Flex direction="column" align="center" py={ 3 }>
-              <Text color="text.secondary" fontSize="sm">Unable to fetch validator data.</Text>
+              <Text color="text.secondary" fontSize="sm">
+                { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
+              </Text>
               <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }} mt={ 2 }>
                 View validators
               </Link>
@@ -393,7 +395,7 @@ const NetworkOverview = () => {
                 <Box>
                   <Skeleton loading={ validatorsLoading }>
                     <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { stats.validatorCount }
+                      { hasValidatorData ? stats.validatorCount : '\u2014' }
                     </Text>
                   </Skeleton>
                   <Text fontSize="2xs" color="text.secondary">Active</Text>
@@ -401,7 +403,7 @@ const NetworkOverview = () => {
                 <Box>
                   <Skeleton loading={ validatorsLoading }>
                     <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { formatStake(stats.totalStake) }
+                      { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
                     </Text>
                   </Skeleton>
                   <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
@@ -409,7 +411,7 @@ const NetworkOverview = () => {
                 <Box>
                   <Skeleton loading={ validatorsLoading }>
                     <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { stats.delegatorCount }
+                      { hasValidatorData ? stats.delegatorCount : '\u2014' }
                     </Text>
                   </Skeleton>
                   <Text fontSize="2xs" color="text.secondary">Delegators</Text>
@@ -417,7 +419,7 @@ const NetworkOverview = () => {
                 <Box>
                   <Skeleton loading={ validatorsLoading }>
                     <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { `${ stats.connectedCount }/${ stats.validatorCount }` }
+                      { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
                     </Text>
                   </Skeleton>
                   <Text fontSize="2xs" color="text.secondary">Connected</Text>

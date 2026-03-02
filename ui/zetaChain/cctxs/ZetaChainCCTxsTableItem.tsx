@@ -1,7 +1,7 @@
 import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
-import type { CctxListItem } from '@blockscout/zetachain-cctx-types';
+import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
 
 import { TableCell, TableRow } from 'toolkit/chakra/table';
 import { SECOND } from 'toolkit/utils/consts';

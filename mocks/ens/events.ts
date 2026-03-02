@@ -1,4 +1,4 @@
-import type * as bens from '@blockscout/bens-types';
+import type * as bens from '@luxfi/bens-types';
 
 export const ensDomainEventA: bens.DomainEvent = {
   transaction_hash: '0x86c66b9fad66e4f20d42a6eed4fe12a0f48a274786fd85e9d4aa6c60e84b5874',

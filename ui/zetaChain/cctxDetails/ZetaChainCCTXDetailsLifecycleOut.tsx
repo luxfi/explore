@@ -2,7 +2,7 @@ import { Flex, Grid, Text } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
-import { type OutboundParams, type CrossChainTx, CctxStatus } from '@blockscout/zetachain-cctx-types';
+import { type OutboundParams, type CrossChainTx, CctxStatus } from '@luxfi/zetachain-cctx-types';
 
 import config from 'configs/app';
 import { Skeleton } from 'toolkit/chakra/skeleton';

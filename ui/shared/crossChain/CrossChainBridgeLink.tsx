@@ -1,7 +1,7 @@
 import type { JsxStyleProps } from '@chakra-ui/react';
 import React from 'react';
 
-import type { BridgeInfo } from '@blockscout/interchain-indexer-types';
+import type { BridgeInfo } from '@luxfi/interchain-indexer-types';
 
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';

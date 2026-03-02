@@ -1,6 +1,6 @@
 import { useCallback, useRef, useEffect } from 'react';
 
-import type { PreSubmitTransactionResponse } from '@blockscout/points-types';
+import type { PreSubmitTransactionResponse } from '@luxfi/points-types';
 
 import config from 'configs/app';
 import useApiFetch from 'lib/api/useApiFetch';

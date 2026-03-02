@@ -94,9 +94,5 @@ jobs:
 
       - name: Restart frontend deployments
         run: |
-          for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
-            kubectl rollout restart deployment/$dep -n lux-explorer || echo "Skipped $dep (not found)"
-          done
-          for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
-            kubectl rollout status deployment/$dep -n lux-explorer --timeout=300s || echo "Skipped $dep"
-          done
+          kubectl rollout restart deployment/explorer-frontend -n lux-explorer || echo "Skipped explorer-frontend"
+          kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s || echo "Timeout waiting for explorer-frontend"

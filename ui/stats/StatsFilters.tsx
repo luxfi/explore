@@ -1,7 +1,7 @@
 import { createListCollection, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
-import type * as stats from '@blockscout/stats-types';
+import type * as stats from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
 import { Select } from 'toolkit/chakra/select';

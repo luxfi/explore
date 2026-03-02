@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as tac from '@blockscout/tac-operation-lifecycle-types';
+import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';

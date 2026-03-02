@@ -1,5 +1,5 @@
 {
-  "name": "@blockscout/llms-txt-generator",
+  "name": "@luxfi/llms-txt-generator",
   "version": "1.0.0",
   "private": true,
   "type": "module",

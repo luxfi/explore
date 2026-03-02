@@ -1,5 +1,5 @@
-import type * as multichain from '@blockscout/multichain-aggregator-types';
-import type * as stats from '@blockscout/stats-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
+import type * as stats from '@luxfi/stats-types';
 import type { AddressTokenItem } from 'types/client/multichain-aggregator';
 
 import { ADDRESS_HASH } from './addressParams';

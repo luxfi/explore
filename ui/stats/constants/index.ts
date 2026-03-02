@@ -1,4 +1,4 @@
-import { Resolution } from '@blockscout/stats-types';
+import { Resolution } from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
 export const STATS_RESOLUTIONS: Array<{ id: Resolution; title: string }> = [

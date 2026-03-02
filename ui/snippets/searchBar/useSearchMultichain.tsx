@@ -1,4 +1,4 @@
-import type * as bens from '@blockscout/bens-types';
+import type * as bens from '@luxfi/bens-types';
 import type { QuickSearchResultBlock, QuickSearchResultToken } from 'types/client/multichain-aggregator';
 import type { QuickSearchResultItem } from 'types/client/search';
 

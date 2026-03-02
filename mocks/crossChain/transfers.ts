@@ -1,5 +1,5 @@
-import type { GetTransfersResponse, InterchainTransfer } from '@blockscout/interchain-indexer-types';
-import { MessageStatus } from '@blockscout/interchain-indexer-types';
+import type { GetTransfersResponse, InterchainTransfer } from '@luxfi/interchain-indexer-types';
+import { MessageStatus } from '@luxfi/interchain-indexer-types';
 
 import { config } from './config';
 
