@@ -3,7 +3,7 @@ import type { ControllerRenderProps } from 'react-hook-form';
 
 import type { Fields, SocialLinkFields } from '../types';
 
-import type { FieldProps } from 'toolkit/chakra/field';
+import type { FieldProps } from '@luxfi/ui/field';
 import { FormFieldUrl } from 'toolkit/components/forms/fields/FormFieldUrl';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
@@ -35,7 +35,7 @@ interface Props {
 const TokenInfoFieldSocialLink = ({ readOnly, size, name }: Props) => {
 
   const endElement = React.useCallback(({ field }: { field: ControllerRenderProps<Fields> }) => {
-    return <IconSvg name={ SETTINGS[name].icon } boxSize="60px" px={ 4 } color={ field.value ? SETTINGS[name].color : '#718096' }/>;
+    return <IconSvg name={ SETTINGS[name].icon } className="w-[60px] h-[60px] px-4" style={{ color: field.value ? SETTINGS[name].color : '#718096' }}/>;
   }, [ name ]);
 
   return (

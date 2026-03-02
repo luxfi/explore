@@ -1,11 +1,11 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
 import type { SmartContractVerificationConfig } from 'types/client/contract';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
+import { createListCollection } from '@luxfi/ui/select';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 

@@ -60,7 +60,7 @@ test('base view +@dark-mode', async({ render, page }) => {
 });
 
 test('loading', async({ render }) => {
-  const component = await render(<ChartWidget { ...props } isLoading minH="250px"/>);
+  const component = await render(<ChartWidget { ...props } isLoading style={{ minHeight: '250px' }}/>);
   await expect(component).toHaveScreenshot();
 });
 

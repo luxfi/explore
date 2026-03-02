@@ -1,16 +1,14 @@
 // React Query hook for platform.getCurrentValidators.
 // Returns the validator list and aggregated network statistics.
+// Uses the server-side /api/pchain proxy to bypass CORS.
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 import type {
-  GetCurrentValidatorsResponse,
   PChainValidator,
   ValidatorStats,
 } from './types';
-
-import { getPChain } from './client';
 
 const VALIDATORS_STALE_TIME_MS = 60_000;
 const VALIDATORS_QUERY_KEY = 'pchain:currentValidators' as const;
@@ -65,8 +63,23 @@ export interface UseCurrentValidatorsResult {
 }
 
 async function fetchCurrentValidators(): Promise<UseCurrentValidatorsResult> {
-  const result = await getPChain().getCurrentValidators() as GetCurrentValidatorsResponse;
-  const validators = result.validators;
+  const res = await fetch('/api/pchain', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      method: 'platform.getCurrentValidators',
+      params: { subnetID: '11111111111111111111111111111111LpoYY' },
+      id: 1,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`P-chain proxy returned ${ res.status }`);
+  }
+
+  const json = await res.json() as { result?: { validators?: ReadonlyArray<PChainValidator> } };
+  const validators = json.result?.validators ?? [];
   const stats = computeValidatorStats(validators);
 
   return { validators, stats };

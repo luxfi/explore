@@ -1,11 +1,11 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import { debounce } from 'es-toolkit';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Heading } from 'toolkit/chakra/heading';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { cn } from 'lib/utils/cn';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import TextAd from 'ui/shared/ad/TextAd';
 
@@ -68,40 +68,30 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
   }, [ tooltip ]);
 
   return (
-    <Flex className={ className } flexDir="column" rowGap={ 3 } mb={ 6 }>
-      <Flex
-        flexDir="row"
-        flexWrap="wrap"
-        rowGap={ 3 }
-        columnGap={ 3 }
-        alignItems="center"
-      >
-        <Flex h={{ base: 'auto', lg: isLoading ? 10 : 'auto' }} maxW="100%" alignItems="center">
+    <div className={ cn('flex flex-col gap-y-3 mb-6', className) }>
+      <div className="flex items-center flex-row flex-wrap gap-x-3 gap-y-3">
+        <div className={ cn('flex items-center max-w-full', isLoading ? 'h-auto lg:h-10' : 'h-auto') }>
           { beforeTitle }
           <Skeleton
             loading={ isLoading }
-            overflow="hidden"
+            className="overflow-hidden"
           >
             <Tooltip
               content={ title }
               open={ tooltip.open }
               onOpenChange={ handleTooltipOpenChange }
-              contentProps={{ maxW: { base: 'calc(100vw - 32px)', lg: '500px' } }}
-              closeOnScroll={ isMobile ? true : false }
+              contentProps={{ className: 'max-w-[calc(100vw-32px)] lg:max-w-[500px]' }}
               disabled={ !isTextTruncated }
             >
               <Heading
                 ref={ headingRef }
                 level="1"
-                whiteSpace="normal"
-                wordBreak="break-all"
+                className="whitespace-normal break-all overflow-hidden text-ellipsis"
                 style={{
                   WebkitLineClamp: TEXT_MAX_LINES,
                   WebkitBoxOrient: 'vertical',
                   display: '-webkit-box',
                 }}
-                overflow="hidden"
-                textOverflow="ellipsis"
                 onMouseEnter={ tooltip.onOpen }
                 onMouseLeave={ tooltip.onClose }
                 onClick={ isMobile ? tooltip.onToggle : undefined }
@@ -113,17 +103,17 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
             </Tooltip>
           </Skeleton>
           { afterTitle }
-        </Flex>
+        </div>
         { contentAfter }
-        { withTextAd && <TextAd order={{ base: -1, lg: 100 }} mb={{ base: 6, lg: 0 }} ml="auto" w={{ base: '100%', lg: 'auto' }}/> }
-      </Flex>
+        { withTextAd && <TextAd className="order-[-1] lg:order-[100] mb-6 lg:mb-0 ml-auto w-full lg:w-auto"/> }
+      </div>
       { secondRow && (
-        <Skeleton loading={ isLoading } alignItems="center" minH={ 10 } overflow="hidden" display="flex" _empty={{ display: 'none' }}>
+        <Skeleton loading={ isLoading } alignItems="center" display="flex" className="min-h-10 overflow-hidden empty:hidden">
           { secondRow }
         </Skeleton>
       ) }
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(PageTitle);
+export default PageTitle;

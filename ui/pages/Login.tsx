@@ -1,23 +1,20 @@
-import { VStack, Code, Flex, Box } from '@chakra-ui/react';
 import mixpanel from 'mixpanel-browser';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
-import useFeatureValue from 'lib/growthbook/useFeatureValue';
 import useGradualIncrement from 'lib/hooks/useGradualIncrement';
 import { useRollbar } from 'lib/rollbar';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Textarea } from 'toolkit/chakra/textarea';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Textarea } from '@luxfi/ui/textarea';
+import { toaster } from '@luxfi/ui/toaster';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 const Login = () => {
   const rollbar = useRollbar();
   const [ num, setNum ] = useGradualIncrement(0);
-  const testFeature = useFeatureValue('test_value', 'fallback');
 
   const [ isFormVisible, setFormVisibility ] = React.useState(false);
   const [ token, setToken ] = React.useState('');
@@ -62,7 +59,7 @@ const Login = () => {
   }, [ setNum ]);
 
   return (
-    <VStack gap={ 4 } alignItems="flex-start" maxW="1000px">
+    <div className="flex items-start max-w-[1000px] gap-4">
       <PageTitle title="Login page 😂"/>
       { isFormVisible && (
         <>
@@ -72,23 +69,22 @@ const Login = () => {
             inline={ false }
           >
             To Sign in go to production instance first, sign in there, copy obtained API token from cookie
-            <Code ml={ 1 }>{ cookies.NAMES.API_TOKEN }</Code> and paste it in the form below. After submitting the form you should be successfully
+            <code className="ml-1">{ cookies.NAMES.API_TOKEN }</code> and paste it in the form below. After submitting the form you should be successfully
             authenticated in current environment
           </Alert>
           <Textarea value={ token } onChange={ handleTokenChange } placeholder="API token"/>
           <Button onClick={ handleSetTokenClick }>Set cookie</Button>
         </>
       ) }
-      <Flex columnGap={ 2 }>
-        <Button colorScheme="red" onClick={ checkRollbar }>Check Rollbar</Button>
-        <Button colorScheme="teal" onClick={ checkMixpanel }>Check Mixpanel</Button>
-      </Flex>
-      <Flex columnGap={ 2 } alignItems="center">
-        <Box w="50px" textAlign="center">{ num }</Box>
+      <div className="flex gap-x-2">
+        <Button className="bg-red-600 text-white hover:bg-red-500" onClick={ checkRollbar }>Check Rollbar</Button>
+        <Button className="bg-teal-600 text-white hover:bg-teal-500" onClick={ checkMixpanel }>Check Mixpanel</Button>
+      </div>
+      <div className="flex items-center gap-x-2">
+        <div className="text-center w-[50px]">{ num }</div>
         <Button onClick={ handleNumIncrement } size="sm">add</Button>
-      </Flex>
-      <Box>Test feature value: <b>{ testFeature.isLoading ? 'loading...' : JSON.stringify(testFeature.value) }</b></Box>
-    </VStack>
+      </div>
+    </div>
   );
 
 };

@@ -1,29 +1,29 @@
-import { chakra, Grid } from '@chakra-ui/react';
 import React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 interface Props {
   children: React.ReactNode;
   className?: string;
   isLoading: boolean;
+  gridTemplateColumns?: string;
 }
 
-const OptimisticL2TxnBatchBlobWrapper = ({ children, className, isLoading }: Props) => {
+const OptimisticL2TxnBatchBlobWrapper = ({ children, className, isLoading, gridTemplateColumns }: Props) => {
   return (
-    <Grid
-      className={ className }
-      columnGap={ 3 }
-      rowGap="10px"
-      p={ 4 }
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-      gridTemplateColumns="auto 1fr"
-      borderRadius="base"
-      w="100%"
-      h={ isLoading ? '140px' : undefined }
-      textStyle="sm"
+    <div
+      className={ cn(
+        'grid gap-x-3 gap-y-[10px] p-4 bg-black/5 dark:bg-white/10 rounded w-full text-sm',
+        className,
+      ) }
+      style={{
+        gridTemplateColumns: gridTemplateColumns || 'auto 1fr',
+        height: isLoading ? '140px' : undefined,
+      }}
     >
       { isLoading ? null : children }
-    </Grid>
+    </div>
   );
 };
 
-export default React.memo(chakra(OptimisticL2TxnBatchBlobWrapper));
+export default React.memo(OptimisticL2TxnBatchBlobWrapper);

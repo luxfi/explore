@@ -1,11 +1,10 @@
-import { chakra, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Screen } from '../types';
 import type { UserInfo } from 'types/api/account';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 
 interface Props {
   email: string;
@@ -22,44 +21,44 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
 
   if (isAuth) {
     return (
-      <Box>
-        <Text>
+      <div>
+        <p>
           Your account was linked to{ ' ' }
-          <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
+          <span className="font-bold">{ email }</span>{ ' ' }
           email. Use for the next login.
-        </Text>
+        </p>
         <Button
-          mt={ 6 }
+          className="mt-6"
           variant="outline"
           onClick={ onClose }
         >
           Got it!
         </Button>
-      </Box>
+      </div>
     );
   }
 
   return (
-    <Box>
-      <Text>
-        <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
+    <div>
+      <p>
+        <span className="font-bold">{ email }</span>{ ' ' }
         email has been successfully used to log in to your Lux account.
-      </Text>
+      </p>
       { !profile?.address_hash && config.features.blockchainInteraction.isEnabled ? (
         <>
-          <Text mt={ 6 }>Add your web3 wallet to safely interact with smart contracts and dapps inside Lux Explorer.</Text>
-          <Button mt={ 6 } onClick={ handleConnectWalletClick }>Connect wallet</Button>
+          <p className="mt-6">Add your web3 wallet to safely interact with smart contracts and dapps inside the explorer.</p>
+          <Button className="mt-6" onClick={ handleConnectWalletClick }>Connect wallet</Button>
         </>
       ) : (
         <Button
           variant="outline"
-          mt={ 6 }
+          className="mt-6"
           onClick={ onClose }
         >
           Got it!
         </Button>
       ) }
-    </Box>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { HStack, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
@@ -12,18 +11,11 @@ const HeaderDesktop = ({ renderSearchBar }: Props) => {
   const searchBar = renderSearchBar ? renderSearchBar() : <SearchBar/>;
 
   return (
-    <HStack
-      as="header"
-      display={{ base: 'none', lg: 'flex' }}
-      width="100%"
-      alignItems="center"
-      justifyContent="center"
-      gap={ 6 }
-    >
-      <Box width="100%">
+    <header className="hidden lg:flex w-full items-center justify-center gap-6">
+      <div className="w-full">
         { searchBar }
-      </Box>
-    </HStack>
+      </div>
+    </header>
   );
 };
 

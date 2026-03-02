@@ -1,31 +1,30 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra, Flex, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import type { SkeletonProps } from '@luxfi/ui/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 interface Props {
   label: string;
   children: React.ReactNode;
-  className?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
   hint?: string;
-  contentProps?: BoxProps;
+  className?: string;
+  contentProps?: Partial<Pick<SkeletonProps, 'className' | 'style'>>;
 }
 
-const ContractDetailsInfoItem = ({ label, children, className, isLoading, hint, contentProps }: Props) => {
+const ContractDetailsInfoItem = ({ label, children, isLoading, hint, className, contentProps }: Props) => {
   return (
-    <GridItem display="flex" columnGap={ 6 } wordBreak="break-all" className={ className } alignItems="baseline" maxW="100%" overflow="hidden">
-      <Skeleton loading={ isLoading } w="170px" flexShrink={ 0 } fontWeight={ 500 }>
-        <Flex alignItems="center">
+    <>
+      <Skeleton loading={ isLoading } flexShrink={ 0 } fontWeight={ 500 }>
+        <div className="flex items-center">
           { label }
           { hint && <Hint label={ hint } ml={ 2 }/> }
-        </Flex>
+        </div>
       </Skeleton>
-      <Skeleton loading={ isLoading } { ...contentProps }>{ children }</Skeleton>
-    </GridItem>
+      <Skeleton loading={ isLoading } className={ `break-all max-w-full overflow-hidden ${ className || '' }`.trim() } { ...contentProps }>{ children }</Skeleton>
+    </>
   );
 };
 
-export default React.memo(chakra(ContractDetailsInfoItem));
+export default React.memo(ContractDetailsInfoItem);

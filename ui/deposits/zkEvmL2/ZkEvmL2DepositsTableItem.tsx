@@ -1,12 +1,11 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { ZkEvmL2DepositsItem } from 'types/api/zkEvmL2';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
@@ -28,8 +27,7 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntityL1
           number={ item.block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="text-sm font-semibold"
           noIcon
         />
       </TableCell>
@@ -44,7 +42,7 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
           hash={ item.l1_transaction_hash }
           truncation="constant_long"
           noIcon
-          textStyle="sm"
+          className="text-sm"
           noCopy
         />
       </TableCell>
@@ -60,14 +58,14 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
           <TxEntity
             isLoading={ isLoading }
             hash={ item.l2_transaction_hash }
-            textStyle="sm"
+            className="text-sm"
             truncation="constant_long"
             noIcon
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span color="text.secondary">
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>

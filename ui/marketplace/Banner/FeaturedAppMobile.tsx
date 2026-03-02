@@ -1,15 +1,14 @@
-import { Flex, Text } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
 
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Heading } from 'toolkit/chakra/heading';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Image } from 'toolkit/chakra/image';
-import { Link, LinkBox } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Heading } from '@luxfi/ui/heading';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Image } from '@luxfi/ui/image';
+import { Link, LinkBox } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import FavoriteIcon from '../FavoriteIcon';
 import MarketplaceAppCardLink from '../MarketplaceAppCardLink';
@@ -45,26 +44,14 @@ const FeaturedAppMobile = ({
 
   return (
     <LinkBox
-      borderRadius="md"
-      padding={{ base: 3, sm: '20px' }}
+      className="rounded-md p-3 sm:p-5 group bg-[var(--color-purple-50)] dark:bg-white/10"
       role="group"
-      background={{ _light: 'purple.50', _dark: 'whiteAlpha.100' }}
     >
-      <Flex
-        flexDirection="row"
-        height="100%"
-        alignContent="start"
-        gap={ 4 }
-      >
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+      <div className="flex flex-row h-full content-start gap-4">
+        <div className="flex flex-col items-center justify-between">
           <Skeleton
             loading={ isLoading }
-            w={{ base: '64px', sm: '96px' }}
-            h={{ base: '64px', sm: '96px' }}
+            className="w-16 sm:w-24 h-16 sm:h-24"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -77,28 +64,22 @@ const FeaturedAppMobile = ({
           </Skeleton>
 
           { !isLoading && (
-            <Flex
-              position={{ base: 'relative', sm: 'absolute' }}
-              right={{ base: 0, sm: '50px' }}
-              top={{ base: 0, sm: '24px' }}
-            >
+            <div className="relative sm:absolute sm:right-[50px] sm:top-[24px]">
               <Link
-                fontSize={{ base: 'xs', sm: 'sm' }}
-                fontWeight="500"
-                paddingRight={{ sm: 2 }}
+                className="text-xs sm:text-sm font-medium sm:pr-2"
                 href="#"
                 onClick={ onInfoClick }
               >
                 More info
               </Link>
-            </Flex>
+            </div>
           ) }
-        </Flex>
+        </div>
 
-        <Flex flexDirection="column" gap={ 2 }>
+        <div className="flex flex-col gap-2">
           <Skeleton
             loading={ isLoading }
-            paddingRight={{ base: '25px', sm: '110px' }}
+            className="pr-[25px] sm:pr-[110px]"
             display="flex"
             alignItems="center"
           >
@@ -126,20 +107,15 @@ const FeaturedAppMobile = ({
             loading={ isLoading }
             asChild
           >
-            <Text lineClamp={ 3 } textStyle="xs">
+            <span className="line-clamp-3 text-xs">
               { shortDescription }
-            </Text>
+            </span>
           </Skeleton>
-        </Flex>
+        </div>
 
         { !isLoading && (
           <IconButton
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            position="absolute"
-            right={{ base: 1, sm: '10px' }}
-            top={{ base: 1, sm: '18px' }}
+            className="flex items-center justify-center absolute right-1 sm:right-[10px] top-1 sm:top-[18px]"
             aria-label="Mark as favorite"
             title="Mark as favorite"
             variant="icon_background"
@@ -150,7 +126,7 @@ const FeaturedAppMobile = ({
             <FavoriteIcon isFavorite={ isFavorite }/>
           </IconButton>
         ) }
-      </Flex>
+      </div>
     </LinkBox>
   );
 };

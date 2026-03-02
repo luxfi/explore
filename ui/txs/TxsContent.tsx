@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TxsSocketType } from './socket/types';
@@ -76,7 +75,7 @@ const TxsContent = ({
 
   const content = items && items.length > 0 ? (
     <>
-      <Box display={ isTableView ? 'none' : 'block' }>
+      <div>
         <TxsList
           showBlockInfo={ showBlockInfo }
           socketType={ socketType }
@@ -86,12 +85,8 @@ const TxsContent = ({
           items={ items }
           translationQuery={ translationQuery }
         />
-      </Box>
-      <Box
-        display={ isTableView ? 'block' : 'none' }
-        overflowX={ isMobile ? 'scroll' : undefined }
-        mx={ isMobile ? -3 : 0 }
-        px={ isMobile ? 3 : 0 }
+      </div>
+      <div
       >
         <TxsTable
           txs={ items }
@@ -106,7 +101,7 @@ const TxsContent = ({
           stickyHeader={ !isMobile && stickyHeader }
           translationQuery={ translationQuery }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -120,7 +115,6 @@ const TxsContent = ({
 
   const actionBar = isMobile ? (
     <TxsHeaderMobile
-      mt={ -6 }
       sorting={ sort }
       setSorting={ setSorting }
       paginationProps={ pagination }

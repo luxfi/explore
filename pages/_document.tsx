@@ -7,28 +7,37 @@ import * as serverTiming from 'nextjs/utils/serverTiming';
 
 import config from 'configs/app';
 import { getCurrentChain } from 'configs/app/chainRegistry';
+import { parseHostHeader, withRequestHost } from 'lib/requestHost';
 import * as svgSprite from 'ui/shared/IconSvg';
 
 const marketplaceFeature = config.features.marketplace;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const originalRenderPage = ctx.renderPage;
-    ctx.renderPage = async() => {
-      const start = Date.now();
-      const result = await originalRenderPage();
-      const end = Date.now();
+    // Capture the request's Host header once and bind it to an
+    // AsyncLocalStorage scope. Every `getCurrentChain()` / `getHostname()`
+    // call reachable from this request now sees the correct host, which
+    // is what makes the same Docker image serve any subdomain without a
+    // rebuild. See lib/requestHost.ts.
+    const host = parseHostHeader(ctx.req?.headers?.host as string | undefined);
 
-      serverTiming.appendValue(ctx.res, 'renderPage', end - start);
+    return await withRequestHost(host, async() => {
+      const originalRenderPage = ctx.renderPage;
+      ctx.renderPage = async() => {
+        const start = Date.now();
+        const result = await originalRenderPage();
+        const end = Date.now();
 
-      return result;
-    };
+        serverTiming.appendValue(ctx.res, 'renderPage', end - start);
 
-    await logRequestFromBot(ctx.req, ctx.res, ctx.pathname);
+        return result;
+      };
 
-    const initialProps = await Document.getInitialProps(ctx);
+      await logRequestFromBot(ctx.req, ctx.res, ctx.pathname);
 
-    return initialProps;
+      const initialProps = await Document.getInitialProps(ctx);
+      return initialProps;
+    });
   }
 
   render() {
@@ -51,7 +60,7 @@ class MyDocument extends Document {
 
           { /* eslint-disable-next-line @next/next/no-sync-scripts */ }
           <script src="/assets/envs.js"/>
-          { config.features.opSuperchain.isEnabled && (
+          { config.features.multichain.isEnabled && (
             <>
               { /* eslint-disable-next-line @next/next/no-sync-scripts */ }
               <script src="/assets/multichain/config.js"/>

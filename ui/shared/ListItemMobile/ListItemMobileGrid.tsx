@@ -1,34 +1,25 @@
-import { Grid, chakra, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface ContainerProps {
   className?: string;
   animation?: string;
   children: React.ReactNode;
+  style?: React.CSSProperties;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
-const Container = chakra(({ animation, children, className }: ContainerProps) => {
+const Container = (({ animation, children, className, style }: ContainerProps) => {
   return (
-    <Grid
-      w="100%"
-      animation={ animation }
-      rowGap={ 2 }
-      columnGap={ 2 }
-      gridTemplateColumns="86px auto"
-      alignItems="start"
-      paddingY={ 4 }
-      borderColor="border.divider"
-      borderTopWidth="1px"
-      _last={{
-        borderBottomWidth: '1px',
-      }}
-      className={ className }
-      textStyle="sm"
+    <div
+      className={ cn('grid items-start gap-x-2 gap-y-2 w-full text-sm border-t border-[var(--color-border-divider)] py-4', className) }
+      style={{ gridTemplateColumns: '86px auto', ...style }}
     >
       { children }
-    </Grid>
+    </div>
   );
 });
 
@@ -38,14 +29,12 @@ interface LabelProps {
   isLoading?: boolean;
 }
 
-const Label = chakra(({ children, className, isLoading }: LabelProps) => {
+const Label = (({ children, className, isLoading }: LabelProps) => {
   return (
     <Skeleton
-      className={ className }
+      className={ cn('font-medium self-start', className) }
       loading={ isLoading }
-      fontWeight={ 500 }
-      my="5px"
-      justifySelf="start"
+      style={{ marginTop: '5px', marginBottom: '5px' }}
     >
       { children }
     </Skeleton>
@@ -55,18 +44,15 @@ const Label = chakra(({ children, className, isLoading }: LabelProps) => {
 interface ValueProps {
   className?: string;
   children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
-const Value = chakra(({ children, className }: ValueProps) => {
+const Value = (({ children, className }: ValueProps) => {
   return (
-    <GridItem
-      className={ className }
-      py="5px"
-      color="text.secondary"
-      overflow="hidden"
-    >
+    <div className={ cn('py-[5px] text-[var(--color-text-secondary)] overflow-hidden', className) }>
       { children }
-    </GridItem>
+    </div>
   );
 });
 

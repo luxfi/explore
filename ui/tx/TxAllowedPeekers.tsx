@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CollapsibleList } from 'toolkit/chakra/collapsible';
+import { CollapsibleList } from '@luxfi/ui/collapsible';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
@@ -25,7 +25,7 @@ const TxAllowedPeekers = ({ items }: Props) => {
           items={ items }
           renderItem={ renderItem }
           cutLength={ 2 }
-          rowGap={ 3 }
+          className="gap-y-3"
         />
       </DetailedInfo.ItemValue>
     </>

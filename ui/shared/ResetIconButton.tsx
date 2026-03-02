@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { CloseButton } from 'toolkit/chakra/close-button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { CloseButton } from '@luxfi/ui/close-button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 type Props = {
   onClick: () => void;
@@ -10,7 +10,7 @@ type Props = {
 const ResetIconButton = ({ onClick }: Props) => {
   return (
     <Tooltip content="Reset filter">
-      <CloseButton onClick={ onClick } ml={ 1 }/>
+      <CloseButton onClick={ onClick } className="ml-1"/>
     </Tooltip>
   );
 };

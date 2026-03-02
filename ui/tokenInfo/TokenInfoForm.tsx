@@ -1,4 +1,3 @@
-import { Grid, GridItem, Text } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -11,8 +10,8 @@ import type { ResourceError } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import useApiQuery from 'lib/api/useApiQuery';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 import { FormFieldEmail } from 'toolkit/components/forms/fields/FormFieldEmail';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
@@ -122,7 +121,7 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ handleSubmit(onFormSubmit) } autoComplete="off" ref={ containerRef }>
         <TokenInfoFormStatusText application={ application }/>
-        <Grid mt={ 8 } gridTemplateColumns={{ base: '1fr', lg: '1fr 1fr' }} columnGap={ 5 } rowGap={ 5 }>
+        <div>
 
           <FormFieldText<Fields> name="token_name" required placeholder="Token name" { ...fieldProps } readOnly/>
           <FormFieldAddress<Fields> name="address" required placeholder="Token contract address" { ...fieldProps } readOnly/>
@@ -136,24 +135,24 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
           <FormFieldUrl<Fields> name="project_website" required placeholder="Official project website" { ...fieldProps }/>
           <FormFieldUrl<Fields> name="docs" placeholder="Docs" { ...fieldProps }/>
           <TokenInfoFieldSupport { ...fieldProps }/>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <div className="col-span-1 lg:col-span-2">
             <TokenInfoFieldIconUrl { ...fieldProps }/>
-          </GridItem>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          </div>
+          <div className="col-span-1 lg:col-span-2">
             <FormFieldText<Fields>
               name="project_description"
               required
               placeholder="Project description"
-              maxH="160px"
               rules={{ maxLength: 300, ...nonWhitespaceFieldRules }}
               asComponent="Textarea"
+              inputProps={{ style: { maxHeight: '160px' } }}
               { ...fieldProps }
             />
-            <Text color="text.secondary" fontSize="sm" mt={ 1 }>
+            <span className="text-[var(--color-text-secondary)]">
               Introduce or summarize the project’s operation/goals in a maximum of 300 characters.
               The description should be written in a neutral point of view and must exclude unsubstantiated claims unless proven otherwise.
-            </Text>
-          </GridItem>
+            </span>
+          </div>
 
           <TokenInfoFormSectionHeader>Links</TokenInfoFormSectionHeader>
           <TokenInfoFieldSocialLink { ...fieldProps } name="github"/>
@@ -170,24 +169,24 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
           <TokenInfoFormSectionHeader>Price data</TokenInfoFormSectionHeader>
           <FormFieldUrl<Fields> name="ticker_coin_market_cap" placeholder="CoinMarketCap URL" { ...fieldProps }/>
           <FormFieldUrl<Fields> name="ticker_coin_gecko" placeholder="CoinGecko URL" { ...fieldProps }/>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <div className="col-span-1 lg:col-span-2">
             <FormFieldUrl<Fields> name="ticker_defi_llama" placeholder="DefiLlama URL" { ...fieldProps }/>
-          </GridItem>
+          </div>
 
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <div className="col-span-1 lg:col-span-2">
             <FormFieldText<Fields>
               name="comment"
               placeholder="Comment"
-              maxH="160px"
               rules={{ maxLength: 300 }}
               asComponent="Textarea"
+              inputProps={{ style: { maxHeight: '160px' } }}
               { ...fieldProps }
             />
-          </GridItem>
-        </Grid>
+          </div>
+        </div>
         <Button
           type="submit"
-          mt={ 8 }
+          className="mt-8"
           loading={ formState.isSubmitting }
           loadingText="Send request"
           disabled={ application?.status === 'IN_PROCESS' }

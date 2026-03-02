@@ -4,7 +4,7 @@ import type { ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
 
 export const ZETA_CHAIN_API_RESOURCES = {
   transactions: {
-    path: '/api/v1/CctxInfo\\:list',
+    path: '/v1/CctxInfo\\:list',
     filterFields: [
       'limit' as const,
       'offset' as const,
@@ -23,11 +23,11 @@ export const ZETA_CHAIN_API_RESOURCES = {
     paginated: true,
   },
   transaction: {
-    path: '/api/v1/CctxInfo\\:get',
+    path: '/v1/CctxInfo\\:get',
     filterFields: [ 'cctx_id' as const ],
   },
   tokens: {
-    path: '/api/v1/TokenInfo\\:list',
+    path: '/v1/TokenInfo\\:list',
   },
 } satisfies Record<string, ApiResource>;
 

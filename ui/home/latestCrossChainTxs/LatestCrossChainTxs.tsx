@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -7,8 +6,8 @@ import useApiQuery from 'lib/api/useApiQuery';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { INTERCHAIN_MESSAGE } from 'stubs/interchainIndexer';
 import { generateListStub } from 'stubs/utils';
-import { Link } from 'toolkit/chakra/link';
-import { TableBody, TableRoot } from 'toolkit/chakra/table';
+import { Link } from 'toolkit/next/link';
+import { TableBody, TableRoot } from '@luxfi/ui/table';
 import TransactionsCrossChainListItem from 'ui/crossChain/txs/TransactionsCrossChainListItem';
 
 import LatestCrossChainTxsItemDesktop from './LatestCrossChainTxsItemDesktop';
@@ -29,28 +28,21 @@ const LatestCrossChainTxs = () => {
   });
 
   if (isError || !data) {
-    return <Text mt={ 4 }>No data. Please reload the page.</Text>;
+    return <span className="mt-4">No data. Please reload the page.</span>;
   }
 
   return (
     <>
-      <Box mb={ 3 } hideFrom="lg" textStyle="sm">
+      <div className="mb-3 lg:hidden text-sm">
         { data.items.slice(0, txsCount).map(((tx, index) => (
           <TransactionsCrossChainListItem
             key={ tx.message_id + (isPlaceholderData ? index : '') }
             data={ tx }
             isLoading={ isPlaceholderData }
-            py={ 4 }
-            textStyle="sm"
-            rowGap="14px"
-            _first={{
-              borderTopWidth: '0',
-              paddingTop: '4px',
-            }}
           />
         ))) }
-      </Box>
-      <Box mb={ 3 } hideBelow="lg" textStyle="sm">
+      </div>
+      <div className="mb-3 hidden lg:block text-sm">
         <TableRoot minWidth="750px">
           <TableBody>
             { data.items.slice(0, txsCount).map(((tx, index) => (
@@ -62,10 +54,10 @@ const LatestCrossChainTxs = () => {
             ))) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Flex justifyContent="center">
-        <Link textStyle="sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
-      </Flex>
+      </div>
+      <div className="flex justify-center">
+        <Link className="text-sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
+      </div>
     </>
   );
 };

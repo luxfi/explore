@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -12,9 +11,9 @@ import isNeedProxy from 'lib/api/isNeedProxy';
 import type { ResourceName } from 'lib/api/resources';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import dayjs from 'lib/date/dayjs';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { downloadBlob } from 'toolkit/utils/file';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
 import useReCaptcha from 'ui/shared/reCaptcha/useReCaptcha';
@@ -51,7 +50,6 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
         to_period: exportType !== 'holders' ? dayjs(data.to).toISOString() : null,
         filter_type: filterType,
         filter_value: filterValue,
-        recaptcha_response: recaptchaToken,
       }, undefined, multichainContext?.chain);
 
       const response = await fetch(url, {
@@ -106,26 +104,26 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ handleSubmit(onFormSubmit) }
       >
-        <Flex columnGap={ 5 } rowGap={ 3 } flexDir={{ base: 'column', lg: 'row' }} alignItems={{ base: 'flex-start', lg: 'center' }} flexWrap="wrap">
+        <div className="flex gap-x-5 gap-y-3 flex-col lg:flex-row items-start lg:items-center flex-wrap">
           { exportType !== 'holders' && <CsvExportFormField name="from" formApi={ formApi }/> }
           { exportType !== 'holders' && <CsvExportFormField name="to" formApi={ formApi }/> }
-        </Flex>
+        </div>
         <ReCaptcha { ...recaptcha }/>
         <Button
           variant="solid"
           type="submit"
-          mt={ 8 }
+          className="mt-8"
           loading={ formState.isSubmitting }
           loadingText="Download"
           disabled={ Boolean(formState.errors.from || formState.errors.to || recaptcha.isInitError) }
         >
           Download
         </Button>
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

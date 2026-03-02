@@ -3,7 +3,7 @@ import React from 'react';
 import * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { getTacOperationStatus } from 'lib/operations/tac';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import StatusTag from './StatusTag';
 
@@ -22,6 +22,7 @@ const TacOperationStatus = ({ status, isLoading, noTooltip }: Props) => {
 
   switch (status) {
     case tac.OperationType.ERROR:
+    case tac.OperationType.INSUFFICIENT_FEE:
       return <StatusTag type="error" text={ text } loading={ isLoading }/>;
     case tac.OperationType.ROLLBACK:
       return (

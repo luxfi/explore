@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -19,4 +18,4 @@ const TxEntityTon = (props: TxEntity.EntityProps) => {
   return <TxEntity.default { ...props } hash={ formattedHash } href={ props.href ?? defaultHref } icon={{ name: 'brands/ton' }} link={{ external: true }}/>;
 };
 
-export default chakra(TxEntityTon);
+export default TxEntityTon;

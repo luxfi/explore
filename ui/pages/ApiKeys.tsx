@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type { ApiKey } from 'types/api/account';
@@ -6,9 +5,9 @@ import type { ApiKey } from 'types/api/account';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { API_KEY } from 'stubs/account';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { space } from 'toolkit/utils/htmlEntities';
 import ApiKeyModal from 'ui/apiKey/ApiKeyModal/ApiKeyModal';
@@ -24,6 +23,7 @@ import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInval
 const DATA_LIMIT = 3;
 
 const apiKeysAlertHtml = config.UI.apiKeysAlert.message;
+const feature = config.features.account;
 
 const ApiKeysPage: React.FC = () => {
   const apiKeyModalProps = useDisclosure();
@@ -62,7 +62,7 @@ const ApiKeysPage: React.FC = () => {
   const description = (
     <AccountPageDescription>
       Create API keys to use for your RPC and EthRPC API requests. For more information, see { space }
-      <Link href="https://docs.blockscout.com/using-blockscout/my-account/api-keys#api-keys" external noIcon>"How to use an API key"</Link>.
+      <Link href="https://docs.lux.network/using-explorer/my-account/api-keys#api-keys" external noIcon>"How to use an API key"</Link>.
     </AccountPageDescription>
   );
 
@@ -73,7 +73,7 @@ const ApiKeysPage: React.FC = () => {
 
     const list = (
       <>
-        <Box display={{ base: 'block', lg: 'none' }}>
+        <div className="block lg:hidden">
           { data?.map((item, index) => (
             <ApiKeyListItem
               key={ item.api_key + (isPlaceholderData ? index : '') }
@@ -83,8 +83,8 @@ const ApiKeysPage: React.FC = () => {
               onEditClick={ onEditClick }
             />
           )) }
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>
+        </div>
+        <div className="hidden lg:block">
           <ApiKeyTable
             data={ data }
             isLoading={ isPlaceholderData }
@@ -92,13 +92,36 @@ const ApiKeysPage: React.FC = () => {
             onEditClick={ onEditClick }
             limit={ DATA_LIMIT }
           />
-        </Box>
+        </div>
       </>
     );
 
     const canAdd = !isPlaceholderData ? (data?.length || 0) < DATA_LIMIT : true;
 
-    const alert = apiKeysAlertHtml ? <AlertWithExternalHtml html={ apiKeysAlertHtml } status="warning" mb={ 6 }/> : null;
+    const alert = apiKeysAlertHtml ? <AlertWithExternalHtml html={ apiKeysAlertHtml } status="warning" className="mb-6"/> : null;
+
+    const button = (() => {
+      if (!feature.isEnabled || feature.apiKeysButton === false) {
+        return null;
+      }
+
+      if (typeof feature.apiKeysButton === 'string') {
+        return (
+          <Link href={ feature.apiKeysButton } external noIcon>
+            <Button>Add API key</Button>
+          </Link>
+        );
+      }
+
+      return (
+        <Button
+          onClick={ apiKeyModalProps.onOpen }
+          disabled={ !canAdd }
+        >
+          Add API key
+        </Button>
+      );
+    })();
 
     return (
       <>
@@ -106,24 +129,16 @@ const ApiKeysPage: React.FC = () => {
         { alert }
         { Boolean(data?.length) && list }
         <Skeleton
-          marginTop={ 8 }
-          flexDir={{ base: 'column', lg: 'row' }}
-          alignItems={{ base: 'start', lg: 'center' }}
+          mt={ 8 }
           loading={ isPlaceholderData }
           display="inline-flex"
-          columnGap={ 5 }
-          rowGap={ 5 }
+          className="flex-col lg:flex-row items-start lg:items-center gap-x-5 gap-y-5"
         >
-          <Button
-            onClick={ apiKeyModalProps.onOpen }
-            disabled={ !canAdd }
-          >
-            Add API key
-          </Button>
+          { button }
           { !canAdd && (
-            <Text fontSize="sm" color="text.secondary">
+            <span className="text-sm text-[var(--color-text-secondary)]">
               { `You have added the maximum number of API keys (${ DATA_LIMIT }). Contact us to request additional keys.` }
-            </Text>
+            </span>
           ) }
         </Skeleton>
         <ApiKeyModal open={ apiKeyModalProps.open } onOpenChange={ onApiKeyModalOpenChange } data={ apiKeyModalData }/>

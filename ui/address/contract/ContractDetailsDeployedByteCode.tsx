@@ -1,13 +1,12 @@
-import { Flex, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
 
 import config from 'configs/app';
 import hexToUtf8 from 'lib/hexToUtf8';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
@@ -63,9 +62,9 @@ const ContractDetailsDeployedByteCode = ({ bytecode, isLoading: isLoadingProp, a
   const content = selectedDataType[0] === 'UTF-8' ? hexToUtf8(bytecode) : bytecode;
 
   const beforeSlot = (
-    <Flex alignItems="center" flexWrap="wrap" mb={ 3 } columnGap={ 3 } rowGap={ 1 }>
+    <div className="flex items-center flex-wrap mb-3 gap-x-3 gap-y-1">
       <Skeleton fontWeight={ 500 } loading={ isLoading }>Deployed bytecode</Skeleton>
-      <Flex alignItems="center" flexGrow={ 1 }>
+      <div className="flex items-center grow">
         { showSelect && (
           <Select
             collection={ collection }
@@ -85,8 +84,8 @@ const ContractDetailsDeployedByteCode = ({ bytecode, isLoading: isLoadingProp, a
           />
         ) }
         <CopyToClipboard text={ content } isLoading={ isLoading } ml={ showVerificationButton ? 0 : 'auto' }/>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
 
   );
 

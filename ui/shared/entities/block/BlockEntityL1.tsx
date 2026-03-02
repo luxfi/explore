@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -22,4 +21,4 @@ const BlockEntityL1 = (props: BlockEntity.EntityProps) => {
   return <BlockEntity.default { ...props } href={ props.href ?? defaultHref } link={{ external: true }}/>;
 };
 
-export default chakra(BlockEntityL1);
+export default BlockEntityL1;

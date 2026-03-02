@@ -15,7 +15,7 @@ const title = 'API documentation';
 
 const config: Feature<{
   tabs: Array<ApiDocsTabId>;
-  coreApiSwaggerUrl: string;
+  alertMessage: string | undefined;
 }> = (() => {
   if (tabs) {
     return Object.freeze({
@@ -23,6 +23,7 @@ const config: Feature<{
       isEnabled: true,
       tabs,
       coreApiSwaggerUrl: getEnvValue('NEXT_PUBLIC_API_SPEC_URL') || `https://raw.githubusercontent.com/luxfi/explorer-api-swagger/main/swagger.yaml`,
+      alertMessage: getEnvValue('NEXT_PUBLIC_API_DOCS_ALERT_MESSAGE'),
     });
   }
 

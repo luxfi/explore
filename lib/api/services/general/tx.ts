@@ -1,5 +1,6 @@
 import type { ApiResource } from '../../types';
 import type { TxBlobs } from 'types/api/blobs';
+import type { FheOperationsResponse } from 'types/api/fheOperations';
 import type { InternalTransactionFilters, InternalTransactionsResponse } from 'types/api/internalTransaction';
 import type { LogsResponseTx } from 'types/api/log';
 import type { RawTracesResponse } from 'types/api/rawTrace';
@@ -18,81 +19,86 @@ import type { TxStateChanges } from 'types/api/txStateChanges';
 
 export const GENERAL_API_TX_RESOURCES = {
   txs_stats: {
-    path: '/api/v2/transactions/stats',
+    path: '/transactions/stats',
   },
   txs_validated: {
-    path: '/api/v2/transactions',
+    path: '/transactions',
     filterFields: [ 'filter' as const, 'type' as const, 'method' as const ],
     paginated: true,
   },
   txs_pending: {
-    path: '/api/v2/transactions',
+    path: '/transactions',
     filterFields: [ 'filter' as const, 'type' as const, 'method' as const ],
     paginated: true,
   },
   txs_with_blobs: {
-    path: '/api/v2/transactions',
+    path: '/transactions',
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   txs_watchlist: {
-    path: '/api/v2/transactions/watchlist',
+    path: '/transactions/watchlist',
     filterFields: [ ],
     paginated: true,
   },
   txs_execution_node: {
-    path: '/api/v2/transactions/execution-node/:hash',
+    path: '/transactions/execution-node/:hash',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
     paginated: true,
   },
   tx: {
-    path: '/api/v2/transactions/:hash',
+    path: '/transactions/:hash',
     pathParams: [ 'hash' as const ],
   },
   tx_internal_txs: {
-    path: '/api/v2/transactions/:hash/internal-transactions',
+    path: '/transactions/:hash/internal-transactions',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
     paginated: true,
   },
   tx_logs: {
-    path: '/api/v2/transactions/:hash/logs',
+    path: '/transactions/:hash/logs',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
     paginated: true,
   },
+  tx_fhe_operations: {
+    path: '/transactions/:hash/fhe-operations',
+    pathParams: [ 'hash' as const ],
+  },
+
   tx_token_transfers: {
-    path: '/api/v2/transactions/:hash/token-transfers',
+    path: '/transactions/:hash/token-transfers',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   tx_raw_trace: {
-    path: '/api/v2/transactions/:hash/raw-trace',
+    path: '/transactions/:hash/raw-trace',
     pathParams: [ 'hash' as const ],
   },
   tx_state_changes: {
-    path: '/api/v2/transactions/:hash/state-changes',
+    path: '/transactions/:hash/state-changes',
     pathParams: [ 'hash' as const ],
     filterFields: [],
     paginated: true,
   },
   tx_blobs: {
-    path: '/api/v2/transactions/:hash/blobs',
+    path: '/transactions/:hash/blobs',
     pathParams: [ 'hash' as const ],
     paginated: true,
   },
   tx_interpretation: {
-    path: '/api/v2/transactions/:hash/summary',
+    path: '/transactions/:hash/summary',
     pathParams: [ 'hash' as const ],
   },
   tx_external_transactions: {
-    path: '/api/v2/transactions/:hash/external-transactions',
+    path: '/transactions/:hash/external-transactions',
     pathParams: [ 'hash' as const ],
   },
   internal_txs: {
-    path: '/api/v2/internal-transactions',
+    path: '/internal-transactions',
     paginated: true,
     filterFields: [ 'transaction_hash' as const ],
   },
@@ -112,6 +118,7 @@ R extends 'general:tx_internal_txs' ? InternalTransactionsResponse :
 R extends 'general:tx' ? Transaction :
 R extends 'general:tx_logs' ? LogsResponseTx :
 R extends 'general:tx_token_transfers' ? TokenTransferResponse :
+R extends 'general:tx_fhe_operations' ? FheOperationsResponse :
 R extends 'general:tx_raw_trace' ? RawTracesResponse :
 R extends 'general:tx_state_changes' ? TxStateChanges :
 R extends 'general:tx_blobs' ? TxBlobs :

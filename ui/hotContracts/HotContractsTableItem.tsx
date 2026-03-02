@@ -1,10 +1,9 @@
-import { HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
 import type { HotContract } from 'types/api/contracts';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import { Reputation } from 'ui/shared/entities/token/TokenEntity';
@@ -27,27 +26,27 @@ const HotContractsTableItem = ({
   return (
     <TableRow>
       <TableCell>
-        <HStack>
+        <div>
           <AddressEntity
             address={ data.contract_address }
             isLoading={ isLoading }
           />
-          <Reputation value={ data.contract_address.reputation ?? null } ml={ 0 }/>
-        </HStack>
+          <Reputation value={ data.contract_address.reputation ?? null } className="ml-0"/>
+        </div>
         { protocolTags && protocolTags.length > 0 && (
           <EntityTags
             isLoading={ isLoading }
             tags={ protocolTags }
-            mt="10px"
+            className="mt-[10px]"
             noColors
           />
         ) }
       </TableCell>
       <TableCell isNumeric>
-        <TruncatedText text={ Number(data.transactions_count).toLocaleString() } loading={ isLoading } maxW="100%"/>
+        <TruncatedText text={ Number(data.transactions_count).toLocaleString() } loading={ isLoading } className="max-w-full"/>
       </TableCell>
       <TableCell isNumeric>
-        <TruncatedText text={ BigNumber(data.total_gas_used || 0).toFormat() } loading={ isLoading } maxW="100%"/>
+        <TruncatedText text={ BigNumber(data.total_gas_used || 0).toFormat() } loading={ isLoading } className="max-w-full"/>
       </TableCell>
       <TableCell isNumeric>
         <NativeCoinValue

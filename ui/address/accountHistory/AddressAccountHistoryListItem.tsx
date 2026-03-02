@@ -1,10 +1,9 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
 
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { SECOND } from 'toolkit/utils/consts';
 import IconSvg from 'ui/shared/IconSvg';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
@@ -26,28 +25,25 @@ const AddressAccountHistoryListItem = (props: Props) => {
   }, [ props.tx.classificationData.description ]);
 
   return (
-    <ListItemMobile rowGap={ 4 } w="full">
+    <ListItemMobile className="gap-y-4 w-full">
       <Skeleton borderRadius="sm" loading={ props.isPlaceholderData } w="full">
-        <Flex justifyContent="space-between" w="full">
-          <Flex columnGap={ 2 }>
+        <div className="flex justify-between w-full">
+          <div className="flex gap-x-2">
             <IconSvg
               name="lightning"
-              height="5"
-              width="5"
-              color="icon.primary"
+              className="w-5 h-5 text-[var(--color-icon-primary)]"
             />
 
-            <Text fontSize="sm" fontWeight={ 500 }>
+            <span className="text-sm font-medium">
               Action
-            </Text>
-          </Flex>
+            </span>
+          </div>
           <TimeWithTooltip
             timestamp={ props.tx.rawTransactionData.timestamp * SECOND }
             color="text.secondary"
-            borderRadius="sm"
-            fontWeight={ 500 }
+            fontWeight="500"
           />
-        </Flex>
+        </div>
       </Skeleton>
       <Skeleton borderRadius="sm" loading={ props.isPlaceholderData }>
         <Link
@@ -60,9 +56,9 @@ const AddressAccountHistoryListItem = (props: Props) => {
         </Link>
       </Skeleton>
 
-      <Box maxW="full">
+      <div className="max-w-full">
         <NovesFromTo txData={ props.tx } currentAddress={ props.currentAddress } isLoaded={ !props.isPlaceholderData }/>
-      </Box>
+      </div>
     </ListItemMobile>
   );
 };

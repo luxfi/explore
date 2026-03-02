@@ -3,7 +3,7 @@ import React from 'react';
 import config from 'configs/app';
 import { useAppContext } from 'lib/contexts/app';
 import * as cookies from 'lib/cookies';
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 
 const SettingsScamTokens = () => {
   const { cookies: appCookies } = useAppContext();
@@ -31,9 +31,7 @@ const SettingsScamTokens = () => {
       checked={ isChecked }
       onChange={ handleChange }
       direction="rtl"
-      justifyContent="space-between"
-      w="100%"
-      minH="34px"
+      className="justify-between w-full min-h-[34px]"
     >
       Hide scam tokens
     </Switch>

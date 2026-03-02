@@ -1,10 +1,9 @@
-import { HStack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
 import type { OtpCodeFormFields } from '../types';
 
-import { PinInput } from 'toolkit/chakra/pin-input';
+import { PinInput } from '@luxfi/ui/pin-input';
 
 const CODE_LENGTH = 6;
 
@@ -28,7 +27,7 @@ const AuthModalFieldOtpCode = ({ isDisabled: isDisabledProp }: Props) => {
 
   return (
     <>
-      <HStack>
+      <div className="flex flex-row">
         <PinInput
           otp
           name={ field.name }
@@ -38,8 +37,8 @@ const AuthModalFieldOtpCode = ({ isDisabled: isDisabledProp }: Props) => {
           invalid={ Boolean(fieldState.error) }
           bgColor="dialog.bg"
         />
-      </HStack>
-      { fieldState.error?.message && <Text color="text.error" textStyle="sm" mt={ 1 }>{ fieldState.error.message }</Text> }
+      </div>
+      { fieldState.error?.message && <p className="text-[var(--color-text-error)] text-sm mt-1">{ fieldState.error.message }</p> }
     </>
   );
 };

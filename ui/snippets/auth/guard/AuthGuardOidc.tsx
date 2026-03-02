@@ -36,7 +36,7 @@ function getOidcLoginUrl(): string {
     state,
   });
 
-  return `${ serverUrl }/login/oauth/authorize?${ params.toString() }`;
+  return `${ serverUrl }/oauth/authorize?${ params.toString() }`;
 }
 
 const AuthGuardOidc = ({ children, onAuthSuccess, ensureEmail }: Props) => {

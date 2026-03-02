@@ -5,8 +5,9 @@ import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { layerLabels } from 'lib/rollups/utils';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import ArbitrumL2TxnBatchDA from 'ui/shared/batch/ArbitrumL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
@@ -25,23 +26,23 @@ const ArbitrumL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="110px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '110px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Batch #</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>L1 status</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } status</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <ArbitrumL2TxnBatchStatus status={ item.commitment_transaction.status } isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>L1 block</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } block</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BlockEntityL1
           number={ item.commitment_transaction.block_number }
@@ -58,7 +59,7 @@ const ArbitrumL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
         </>
       ) }
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>L1 transaction</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } transaction</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntityL1
           hash={ item.commitment_transaction.hash }
@@ -83,8 +84,7 @@ const ArbitrumL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          fontWeight={ 600 }
-          minW="40px"
+          className="font-semibold min-w-[40px]"
         >
           { item.transactions_count.toLocaleString() }
         </Link>

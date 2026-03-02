@@ -1,16 +1,11 @@
-import {
-  Box,
-  Flex,
-  chakra,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Alert } from 'toolkit/chakra/alert';
-import { Heading } from 'toolkit/chakra/heading';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Alert } from '@luxfi/ui/alert';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import GasTrackerChart from 'ui/gasTracker/GasTrackerChart';
 import GasTrackerFaq from 'ui/gasTracker/GasTrackerFaq';
 import GasTrackerNetworkUtilization from 'ui/gasTracker/GasTrackerNetworkUtilization';
@@ -35,16 +30,7 @@ const GasTracker = () => {
   const isLoading = isPlaceholderData;
 
   const titleSecondRow = (
-    <Flex
-      alignItems={{ base: 'flex-start', lg: 'center' }}
-      fontFamily="heading"
-      fontSize="lg"
-      fontWeight={ 500 }
-      w="100%"
-      columnGap={ 3 }
-      rowGap={ 1 }
-      flexDir={{ base: 'column', lg: 'row' }}
-    >
+    <div className="flex font-heading text-lg w-full gap-x-3 gap-y-1 font-medium items-start lg:items-center flex-col lg:flex-row">
       { typeof data?.network_utilization_percentage === 'number' &&
         <GasTrackerNetworkUtilization percentage={ data.network_utilization_percentage } isLoading={ isLoading }/> }
       { data?.gas_price_updated_at && (
@@ -56,19 +42,19 @@ const GasTracker = () => {
               key={ dataUpdatedAt }
               startTime={ dataUpdatedAt }
               duration={ data.gas_prices_update_in }
-              ml={ 2 }
+              className="ml-2"
             />
           ) }
         </Skeleton>
       ) }
       { data?.coin_price && (
-        <Skeleton loading={ isLoading } ml={{ base: 0, lg: 'auto' }} whiteSpace="pre" display="flex" alignItems="center">
-          <NativeTokenIcon mr={ 2 } boxSize={ 6 }/>
-          <chakra.span color="text.secondary">{ config.chain.currency.symbol }</chakra.span>
+        <Skeleton loading={ isLoading } ml={ 0 } display="flex" alignItems="center" className="lg:ml-auto whitespace-pre">
+          <NativeTokenIcon className="mr-2 size-6"/>
+          <span className="text-[var(--color-text-secondary)]">{ config.chain.currency.symbol }</span>
           <span> ${ Number(data.coin_price).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
         </Skeleton>
       ) }
-    </Flex>
+    </div>
   );
 
   const snippets = (() => {
@@ -88,12 +74,12 @@ const GasTracker = () => {
         secondRow={ titleSecondRow }
         withTextAd
       />
-      <Heading level="2" mt={ 8 } mb={ 4 }>{ `Track ${ config.chain.name } gas fees` }</Heading>
+      <Heading level="2" className="mt-8 mb-4">{ `Track ${ config.chain.name } gas fees` }</Heading>
       { snippets }
       { config.features.stats.isEnabled && (
-        <Box mt={ 12 } _empty={{ display: 'none' }}>
+        <div className="mt-12">
           <GasTrackerChart/>
-        </Box>
+        </div>
       ) }
       { faq }
     </>

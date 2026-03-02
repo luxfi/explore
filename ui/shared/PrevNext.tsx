@@ -1,9 +1,9 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { cn } from 'lib/utils/cn';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -27,21 +27,20 @@ const PrevNext = ({ className, onClick, prevLabel, nextLabel, isPrevDisabled, is
 
   if (isLoading) {
     return (
-      <Flex columnGap="10px" className={ className }>
-        <Skeleton loading boxSize={ 6 } borderRadius="sm"/>
-        <Skeleton loading boxSize={ 6 } borderRadius="sm"/>
-      </Flex>
+      <div className={ cn('flex gap-x-[10px]', className) }>
+        <Skeleton loading={ true } className="size-6 rounded-sm"/>
+        <Skeleton loading={ true } className="size-6 rounded-sm"/>
+      </div>
     );
   }
 
   return (
-    <Box className={ className } display="flex">
+    <div className={ cn('flex', className) }>
       <Tooltip content={ prevLabel }>
         <IconButton
           aria-label="prev"
-          borderRadius="sm"
           variant="icon_background"
-          boxSize={ 6 }
+          className="size-6 rounded-sm"
           onClick={ handelPrevClick }
           disabled={ isPrevDisabled }
         >
@@ -51,18 +50,16 @@ const PrevNext = ({ className, onClick, prevLabel, nextLabel, isPrevDisabled, is
       <Tooltip content={ nextLabel }>
         <IconButton
           aria-label="next"
-          borderRadius="sm"
           variant="icon_background"
-          boxSize={ 6 }
-          ml="10px"
+          className="size-6 rounded-sm ml-[10px]"
           onClick={ handelNextClick }
           disabled={ isNextDisabled }
         >
-          <IconSvg name="arrows/east-mini" transform="rotate(180deg)"/>
+          <IconSvg name="arrows/east-mini" className="rotate-180"/>
         </IconButton>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 
-export default chakra(PrevNext);
+export default PrevNext;

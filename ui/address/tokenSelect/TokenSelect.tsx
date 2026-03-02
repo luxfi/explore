@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { useQueryClient, useIsFetching } from '@tanstack/react-query';
 import { sumBy } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -13,10 +12,10 @@ import { useMultichainContext } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import useFetchTokens from '../utils/useFetchTokens';
@@ -49,20 +48,20 @@ const TokenSelect = () => {
 
   if (isPending) {
     return (
-      <Flex columnGap={ 3 }>
-        <Skeleton loading h={ 8 } w="150px" borderRadius="base"/>
-        <Skeleton loading h={ 8 } w={ 9 } borderRadius="base"/>
-      </Flex>
+      <div className="flex gap-x-3">
+        <Skeleton loading={ true } h="32px" w="150px" borderRadius="base"/>
+        <Skeleton loading={ true } h="32px" w="36px" borderRadius="base"/>
+      </div>
     );
   }
 
   const hasTokens = sumBy(Object.values(data), ({ items }) => items.length) > 0;
   if (isError || !hasTokens) {
-    return <Box py="6px">0</Box>;
+    return <div className="py-[6px]">0</div>;
   }
 
   return (
-    <Flex columnGap={ 3 } mt={{ base: 1, lg: 0 }}>
+    <div className="flex gap-x-3 mt-1 lg:mt-0">
       { isMobile ?
         <TokenSelectMobile data={ data } isLoading={ tokensIsFetching === 1 }/> :
         <TokenSelectDesktop data={ data } isLoading={ tokensIsFetching === 1 }/>
@@ -70,7 +69,6 @@ const TokenSelect = () => {
       <Tooltip content="Show all tokens">
         <Link
           href={ route({ pathname: '/address/[hash]', query: { hash: addressHash, tab: 'tokens' } }, { chain: multichainContext?.chain }) }
-          asChild
           scroll={ false }
         >
           <IconButton
@@ -83,7 +81,7 @@ const TokenSelect = () => {
           </IconButton>
         </Link>
       </Tooltip>
-    </Flex>
+    </div>
   );
 };
 

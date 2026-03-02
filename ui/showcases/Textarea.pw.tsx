@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { test, expect } from 'playwright/lib';
-import { TabsRoot } from 'toolkit/chakra/tabs';
+import { TabsRoot } from '@luxfi/ui/tabs';
 
 import Textarea from './Textarea';
 

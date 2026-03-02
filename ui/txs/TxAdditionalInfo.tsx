@@ -1,11 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
 
-import { DialogContent, DialogHeader, DialogRoot, DialogTrigger, DialogBody } from 'toolkit/chakra/dialog';
-import { Heading } from 'toolkit/chakra/heading';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { DialogContent, DialogHeader, DialogRoot, DialogTrigger, DialogBody } from '@luxfi/ui/dialog';
+import { Heading } from '@luxfi/ui/heading';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import AdditionalInfoButton from 'ui/shared/AdditionalInfoButton';
 
 import TxAdditionalInfoContainer from './TxAdditionalInfoContainer';
@@ -50,9 +49,9 @@ const TxAdditionalInfo = ({ hash, tx, isMobile, isLoading, className }: Props) =
       <PopoverTrigger>
         <AdditionalInfoButton loading={ isLoading } className={ className }/>
       </PopoverTrigger>
-      <PopoverContent w="330px">
+      <PopoverContent className="w-[330px]">
         <PopoverBody>
-          <Heading level="3" mb={ 4 }>Additional info </Heading>
+          <Heading level="3" className="mb-4">Additional info </Heading>
           { content }
         </PopoverBody>
       </PopoverContent>
@@ -60,4 +59,4 @@ const TxAdditionalInfo = ({ hash, tx, isMobile, isLoading, className }: Props) =
   );
 };
 
-export default React.memo(chakra(TxAdditionalInfo));
+export default React.memo(TxAdditionalInfo);

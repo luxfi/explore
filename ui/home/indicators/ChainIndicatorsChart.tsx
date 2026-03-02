@@ -1,8 +1,9 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
+import { mdash } from 'toolkit/utils/htmlEntities';
+import FallbackChart from 'ui/shared/fallbacks/FallbackChart';
 import IconSvg from 'ui/shared/IconSvg';
 
 import ChainIndicatorChartContainer from './ChainIndicatorChartContainer';
@@ -17,25 +18,27 @@ interface Props {
   hint?: string;
 }
 
-const ChainIndicatorsChart = ({ isLoading, value, valueDiff, chartQuery, title, hint }: Props) => {
+const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, chartQuery, title, hint }: Props) => {
+  const isLoading = isLoadingProp || chartQuery.isPending;
+
   const valueTitleElement = (() => {
     if (isLoading) {
       return <Skeleton loading h="36px" w="200px"/>;
     }
 
     if (value.includes('N/A')) {
-      return <Text fontWeight={ 700 } fontSize="30px" lineHeight="36px">N/A</Text>;
+      return <span className="font-bold text-[30px] leading-[36px] opacity-40">{ mdash }</span>;
     }
 
     return (
-      <Text fontWeight={ 700 } fontSize="30px" lineHeight="36px">
+      <span className="font-bold text-[30px] leading-[36px]">
         { value }
-      </Text>
+      </span>
     );
   })();
 
   const valueDiffElement = (() => {
-    if (valueDiff === undefined) {
+    if (valueDiff === undefined || (!isLoading && value.includes('N/A'))) {
       return null;
     }
 
@@ -43,26 +46,30 @@ const ChainIndicatorsChart = ({ isLoading, value, valueDiff, chartQuery, title, 
 
     return (
       <Skeleton loading={ isLoading } display="flex" alignItems="center" color={ diffColor } ml={ 2 }>
-        <IconSvg name="arrows/up-head" boxSize={ 5 } mr={ 1 } transform={ valueDiff < 0 ? 'rotate(180deg)' : 'rotate(0)' }/>
-        <Text color={ diffColor } fontWeight={ 600 }>{ valueDiff }%</Text>
+        <IconSvg name="arrows/up-head" className={ `w-5 h-5 mr-1 ${ valueDiff < 0 ? 'rotate-180' : '' }` }/>
+        <span className={ `font-semibold ${ valueDiff >= 0 ? 'text-green-500' : 'text-red-500' }` }>{ valueDiff }%</span>
       </Skeleton>
     );
   })();
 
+  if (chartQuery.isError) {
+    return <FallbackChart term={ title } className="h-[144px] lg:h-[184px]"/>;
+  }
+
   return (
-    <Flex flexGrow={ 1 } flexDir="column">
-      <Skeleton loading={ isLoading } display="flex" alignItems="center" w="fit-content" columnGap={ 1 }>
-        <Text fontWeight={ 500 }>{ title }</Text>
+    <div className="grow flex flex-col">
+      <Skeleton loading={ isLoading } display="flex" alignItems="center" w="fit-content" className="gap-1">
+        <span className="font-medium">{ title }</span>
         { hint && <Hint label={ hint }/> }
       </Skeleton>
-      <Flex mb={{ base: 0, lg: 2 }} mt={ 1 } alignItems="end">
+      <div className="mb-0 lg:mb-2 mt-1 flex items-end">
         { valueTitleElement }
         { valueDiffElement }
-      </Flex>
-      <Flex h={{ base: '80px', lg: '110px' }} alignItems="flex-start" flexGrow={ 1 }>
-        <ChainIndicatorChartContainer { ...chartQuery } isPending={ chartQuery.isPending || isLoading }/>
-      </Flex>
-    </Flex>
+      </div>
+      <div className="h-[80px] lg:h-[110px] flex items-start grow">
+        <ChainIndicatorChartContainer { ...chartQuery } isPending={ isLoading }/>
+      </div>
+    </div>
   );
 };
 

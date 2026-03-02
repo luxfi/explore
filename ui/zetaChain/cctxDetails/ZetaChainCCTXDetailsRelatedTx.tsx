@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { type RelatedCctx, CctxStatusReduced } from '@luxfi/zetachain-cctx-types';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import TxEntityZetaChainCC from 'ui/shared/entities/tx/TxEntityZetaChainCC';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import IconSvg from 'ui/shared/IconSvg';
@@ -33,17 +32,14 @@ const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
 
   return (
     <Skeleton
-      display="flex"
-      gap={ 2 }
-      alignItems="center"
       loading={ isLoading }
-      color={ color }
-      maxH="20px"
+      className="flex gap-2 items-center max-h-[20px]"
+      style={{ color: `var(--color-${color.replace('.', '-')})` }}
     >
       <ChainIcon data={ chainFrom }/>
-      <IconSvg name="arrows/east" boxSize={ 5 } color="text.secondary"/>
+      <IconSvg name="arrows/east" className="size-5"/>
       { chainsTo.map((chain, index) => <ChainIcon key={ index } data={ chain }/>) }
-      <Box>CCTX</Box>
+      <div>CCTX</div>
       <TxEntityZetaChainCC hash={ tx.index } isLoading={ isLoading } noIcon truncation="constant"/>
       <ZetaChainCCTXReducedStatus status={ tx.status_reduced } isLoading={ isLoading } type="full"/>
     </Skeleton>

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs/routes';
@@ -11,4 +10,4 @@ const TxEntityZetaChainCC = (props: TxEntity.EntityProps) => {
   return <TxEntity.default { ...props } icon={{ name: 'interop' }} href={ props.href ?? defaultHref }/>;
 };
 
-export default chakra(TxEntityZetaChainCC);
+export default TxEntityZetaChainCC;

@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -9,9 +8,10 @@ import { route } from 'nextjs-routes';
 
 import type { ResourceError } from 'lib/api/resources';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { layerLabels } from 'lib/rollups/utils';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import ArbitrumL2TxnBatchDA from 'ui/shared/batch/ArbitrumL2TxnBatchDA';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -62,11 +62,10 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
   return (
     <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Batch number indicates the length of batches produced by grouping L2 blocks to be proven on L1"
+        hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
       >
         Txn batch number
       </DetailedInfo.ItemLabel>
@@ -75,7 +74,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
+          className="ml-6"
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -86,7 +85,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Date and time at which batch is submitted to L1"
+        hint={ `Date and time at which batch is submitted to ${ layerLabels.parent }` }
       >
         Timestamp
       </DetailedInfo.ItemLabel>
@@ -111,7 +110,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Number of L2 blocks in this batch"
+        hint={ `Number of ${ layerLabels.current } blocks in this batch` }
       >
         Blocks
       </DetailedInfo.ItemLabel>
@@ -123,24 +122,24 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Hash of L1 transaction in which transactions was committed"
+        hint={ `Hash of ${ layerLabels.parent } transaction in which transactions was committed` }
       >
-        L1 transaction hash
+        { layerLabels.parent } transaction hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <TxEntityL1
           isLoading={ isPlaceholderData }
           hash={ data.commitment_transaction.hash }
-          maxW="100%"
+          className="max-w-full"
           noCopy
         />
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
-        hint="Heigh of L1 block which includes L1 transactions"
+        hint={ `Height of ${ layerLabels.parent } block which includes ${ layerLabels.parent } transactions` }
       >
-        L1 block
+        { layerLabels.parent } block
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <BlockEntityL1
@@ -168,8 +167,8 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
       >
         Before acc
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexWrap="nowrap" >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+      <DetailedInfo.ItemValue className="flex-nowrap" >
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.before_acc_hash }/>
         </Skeleton>
         <CopyToClipboard text={ data.before_acc_hash } isLoading={ isPlaceholderData }/>
@@ -181,8 +180,8 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
       >
         After acc
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexWrap="nowrap">
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+      <DetailedInfo.ItemValue className="flex-nowrap">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.after_acc_hash }/>
         </Skeleton>
         <CopyToClipboard text={ data.after_acc_hash } isLoading={ isPlaceholderData }/>
@@ -191,11 +190,10 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
       { (data.data_availability.batch_data_container === 'in_anytrust' || data.data_availability.batch_data_container === 'in_celestia') && (
         <CollapsibleDetails
           loading={ isPlaceholderData }
-          mt={ 6 }
-          gridColumn={{ base: undefined, lg: '1 / 3' }}
+          className="mt-6 lg:col-[1/3]"
           text={ [ 'Show data availability info', 'Hide data availability info' ] }
         >
-          <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
+          <div className="lg:col-span-2 mt-1 lg:mt-4"/>
 
           { data.data_availability.batch_data_container === 'in_anytrust' && (
             <ArbitrumL2TxnBatchDetailsAnyTrustDA data={ data.data_availability }/>

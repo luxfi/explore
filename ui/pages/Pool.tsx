@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -10,10 +9,10 @@ import { getPoolTitle } from 'lib/pools/getPoolTitle';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import * as addressStubs from 'stubs/address';
 import { POOL } from 'stubs/pools';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import PoolInfo from 'ui/pool/PoolInfo';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -73,7 +72,7 @@ const Pool = () => {
     return externalLinks
       .map((link) => {
         return (
-          <Link external h="34px" key={ link.url } href={ link.url } alignItems="center" display="inline-flex" minW="120px">
+          <Link external key={ link.url } href={ link.url } className="h-[34px] items-center inline-flex min-w-[120px]">
             <Image boxSize={ 5 } mr={ 2 } src={ link.image } alt={ `${ link.title } icon` }/>
             { link.title }
           </Link>
@@ -86,10 +85,10 @@ const Pool = () => {
       return <AddressEntity address={ addressQuery.data } isLoading={ addressQuery.isPlaceholderData }/>;
     } else if (data?.pool_id) {
       return (
-        <Skeleton loading={ isPlaceholderData } display="flex" alignItems="center" overflow="hidden">
-          <Flex overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } display="flex" alignItems="center" className="overflow-hidden">
+          <div className="overflow-hidden">
             <HashStringShortenDynamic hash={ data?.pool_id }/>
-          </Flex>
+          </div>
           <CopyToClipboard text={ data?.pool_id }/>
         </Skeleton>
       );
@@ -99,9 +98,9 @@ const Pool = () => {
   }, [ data, isPlaceholderData, addressQuery.isPlaceholderData, addressQuery.data ]);
 
   const titleSecondRow = (
-    <Flex alignItems="center" justifyContent="space-between" w="100%">
+    <div className="flex items-center justify-between w-full">
       { poolIdOrContract }
-      <Flex gap={ 2 } ml={ 2 }>
+      <div className="flex ml-2 gap-2">
         <InfoButton>
           { `This Liquidity Provider (LP) token represents ${ data?.base_token_symbol }/${ data?.quote_token_symbol } pairing.` }
         </InfoButton>
@@ -113,8 +112,8 @@ const Pool = () => {
             shortText=""
           />
         ) }
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 
   const poolTitle = data ? getPoolTitle(data) : '';

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -10,7 +9,7 @@ import type { ResourceErrorAccount } from 'lib/api/resources';
 import { resourceKey } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/getErrorMessage';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 
 type Props = {
@@ -98,7 +97,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
             name="token"
             placeholder="Auto-generated API key token"
             readOnly
-            mb={ 5 }
+            className="mb-5"
           />
         ) }
         <FormFieldText<Inputs>
@@ -108,10 +107,9 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
           rules={{
             maxLength: NAME_MAX_LENGTH,
           }}
-          bgColor="dialog.bg"
-          mb={ 8 }
+          className="mb-8 [&_input]:bg-[var(--color-dialog-bg)]"
         />
-        <Box marginTop={ 8 }>
+        <div className="mt-8">
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }
@@ -119,7 +117,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
           >
             { data ? 'Save' : 'Generate API key' }
           </Button>
-        </Box>
+        </div>
       </form>
     </FormProvider>
   );

@@ -1,14 +1,14 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { NOVES_TRANSLATE } from 'stubs/noves/NovesTranslate';
 import { TX_INTERPRETATION } from 'stubs/txInterpretation';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import AccountActionsMenu from 'ui/shared/AccountActionsMenu/AccountActionsMenu';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';
 import useAppActionData from 'ui/shared/AppActionButton/useAppActionData';
@@ -75,28 +75,26 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
           summary={ novesSummary }
           isLoading={ novesInterpretationQuery.isPlaceholderData || txQuery.isPlaceholderData }
           addressDataMap={ addressDataMap }
-          fontSize="lg"
-          mr={{ base: 0, lg: 2 }}
+          className="text-lg mr-0 lg:mr-2"
           isNoves
           chainData={ multichainContext?.chain }
         />
       );
     } else if (hasInternalInterpretation) {
       return (
-        <Flex mr={{ base: 0, lg: 2 }} flexWrap="wrap" alignItems="center">
+        <div className="flex mr-0 lg:mr-2 flex-wrap items-center">
           <TxInterpretation
             summary={ txInterpretationQuery.data?.data.summaries[0] }
             isLoading={ txInterpretationQuery.isPlaceholderData || txQuery.isPlaceholderData }
             addressDataMap={ addressDataMap }
-            fontSize="lg"
-            mr={ hasViewAllInterpretationsLink ? 3 : 0 }
+            className={ cn('text-lg', hasViewAllInterpretationsLink ? 'mr-3' : 'mr-0') }
             chainData={ multichainContext?.chain }
           />
           { hasViewAllInterpretationsLink &&
           <Link href={ `#${ TX_ACTIONS_BLOCK_ID }` }>View all</Link> }
-        </Flex>
+        </div>
       );
-    } else if (hasInterpretationFeature && txQuery.data?.method && txQuery.data?.from && txQuery.data?.to) {
+    } else if (hasInterpretationFeature && txQuery.data?.method && txQuery.data?.from && txQuery.data?.to && !txQuery.isPlaceholderData) {
       return (
         <TxInterpretation
           summary={{
@@ -116,14 +114,12 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
               },
             },
           }}
-          isLoading={ txQuery.isPlaceholderData }
-          fontSize="lg"
-          mr={{ base: 0, lg: 2 }}
+          className="text-lg mr-0 lg:mr-2"
           chainData={ multichainContext?.chain }
         />
       );
     } else {
-      return <TxEntity hash={ hash } noLink variant="subheading" mr={{ base: 0, lg: 2 }} chain={ multichainContext?.chain }/>;
+      return <TxEntity hash={ hash } noLink variant="subheading" className="mr-0 lg:mr-2" chain={ multichainContext?.chain }/>;
     }
   })();
 
@@ -133,22 +129,16 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
     (hasInternalInterpretation && txInterpretationQuery.isPlaceholderData);
 
   return (
-    <Box display={{ base: 'block', lg: 'flex' }} alignItems="center" w="100%">
+    <div className="block lg:flex lg:items-center w-full">
       { content }
-      <Flex
-        alignItems="center"
-        justifyContent={{ base: 'start', lg: 'space-between' }}
-        flexGrow={ 1 }
-        gap={ 3 }
-        mt={{ base: 3, lg: 0 }}
-      >
+      <div className="flex items-center justify-start lg:justify-between grow gap-3 mt-3 lg:mt-0">
         { !hasTag && <AccountActionsMenu isLoading={ isLoading }/> }
         { appActionData && (
           <AppActionButton data={ appActionData } txHash={ hash } source="Txn"/>
         ) }
-        <NetworkExplorers type="tx" pathParam={ hash } ml="auto"/>
-      </Flex>
-    </Box>
+        <NetworkExplorers type="tx" pathParam={ hash } className="ml-auto"/>
+      </div>
+    </div>
   );
 };
 

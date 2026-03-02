@@ -1,9 +1,27 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { getCurrentChain, getCurrentNetwork, getChainsForNetwork } from 'configs/app/chainRegistry';
-import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { getCurrentChain, getCurrentNetwork, getChainsForNetwork, NETWORKS } from 'configs/app/chainRegistry';
+import { cn } from 'lib/utils/cn';
+import { Link } from 'toolkit/next/link';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+
+// DropdownNavigator carries per-item state for the anchor's onClick so the
+// handler reference stays stable across renders (satisfies react/jsx-no-bind)
+// while still closing the popover and forcing navigation — the Popover
+// framework otherwise swallows the anchor's default action in some browsers.
+class DropdownNavigator {
+  constructor(
+    private readonly targetUrl: string | undefined,
+    private readonly isDisabled: boolean,
+    private readonly closePopover: () => void,
+  ) {}
+  handle = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (this.isDisabled || !this.targetUrl) return;
+    e.preventDefault();
+    this.closePopover();
+    window.location.href = this.targetUrl;
+  };
+}
 
 const ChainSwitcher = () => {
   const [ open, setOpen ] = React.useState(false);
@@ -16,9 +34,34 @@ const ChainSwitcher = () => {
     setOpen((prev) => !prev);
   }, []);
 
+  const closePopover = React.useCallback(() => {
+    setOpen(false);
+  }, []);
+
   const current = getCurrentChain();
-  const network = getCurrentNetwork();
-  const chains = getChainsForNetwork(network.network);
+  const currentNetwork = getCurrentNetwork();
+  const isMainChain = current.name === 'C-Chain';
+
+  // For white-label subnets (Zoo, Pars, Hanzo, SPC), only show that chain's
+  // mainnet/testnet entries — don't show the full Lux ecosystem.
+  // For the main C-Chain explorer, show all chains.
+  const chains = React.useMemo(() => {
+    const allChains = getChainsForNetwork(currentNetwork.network);
+    if (isMainChain) {
+      return allChains;
+    }
+    // Filter to only chains with the same branding (same subnet)
+    return allChains.filter((c) => c.branding.brandName === current.branding.brandName);
+  }, [ currentNetwork.network, isMainChain, current.branding.brandName ]);
+
+  // For subnets, show network switcher (mainnet/testnet) instead of chain switcher
+  const availableNetworks = React.useMemo(() => {
+    if (isMainChain) return [];
+    return NETWORKS.filter((net) => {
+      const chainsInNet = getChainsForNetwork(net.network);
+      return chainsInNet.some((c) => c.branding.brandName === current.branding.brandName);
+    });
+  }, [ isMainChain, current.branding.brandName ]);
 
   return (
     <PopoverRoot
@@ -28,107 +71,154 @@ const ChainSwitcher = () => {
       onOpenChange={ handleOpenChange }
     >
       <PopoverTrigger>
-        <Box
-          as="button"
-          display="flex"
-          alignItems="center"
-          gap={ 1.5 }
-          px={ 2 }
-          py={ 1 }
-          borderRadius="sm"
-          cursor="pointer"
-          border="1px solid"
-          borderColor="border.divider"
-          fontSize="xs"
-          fontWeight={ 500 }
-          color="text.primary"
-          bg="transparent"
-          _hover={{ bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
-          transition="all 0.15s"
+        <button
+          className={ cn(
+            'flex items-center gap-1.5 px-2 py-1 rounded-sm cursor-pointer',
+            'border border-[var(--color-border-divider)] text-xs font-medium',
+            'text-[var(--color-text-primary)] bg-transparent shrink-0',
+            'hover:bg-[var(--color-blackAlpha-50)]',
+            'dark:hover:bg-[var(--color-whiteAlpha-50)]',
+            'transition-all duration-150',
+          ) }
           onClick={ handleToggle }
-          flexShrink={ 0 }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox={ current.branding.logoViewBox }
-            width="14"
-            height="14"
-            style={{ flexShrink: 0 }}
+            className="w-3.5 h-3.5 shrink-0"
             dangerouslySetInnerHTML={{ __html: current.branding.logoContent }}
           />
           { current.name }
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="12" height="12">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="w-3 h-3"
+          >
             <path
               fillRule="evenodd"
               d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
               clipRule="evenodd"
             />
           </svg>
-        </Box>
+        </button>
       </PopoverTrigger>
       <PopoverContent w="240px">
-        <PopoverBody p={ 1 }>
-          <Box px={ 2 } py={ 1.5 }>
-            <Text fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider">
-              Switch Chain
-            </Text>
-          </Box>
-          { chains.map((chain) => {
-            const isCurrent = chain.name === current.name && chain.network === current.network;
-            return (
-              <Box
-                key={ `${ chain.network }-${ chain.name }` }
-                as={ isCurrent ? 'div' : 'a' }
-                { ...(!isCurrent ? { href: chain.explorerUrl } : {}) }
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                px={ 2.5 }
-                py={ 2 }
-                borderRadius="sm"
-                cursor={ isCurrent ? 'default' : 'pointer' }
-                bg={ isCurrent ? { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } : 'transparent' }
-                _hover={ isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
-                transition="background 0.15s"
-                textDecoration="none"
+        <PopoverBody className="p-1">
+          { /* Network switcher for subnets (e.g. Zoo Mainnet / Zoo Testnet) */ }
+          { availableNetworks.length > 1 && (
+            <>
+              <div className="px-2 py-1.5">
+                <span className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">
+                  Network
+                </span>
+              </div>
+              { availableNetworks.map((net) => {
+                const isCurrentNet = net.network === currentNetwork.network;
+                const chainInNet = getChainsForNetwork(net.network)
+                  .find((c) => c.branding.brandName === current.branding.brandName);
+                const targetUrl = chainInNet?.explorerUrl;
+                const nav = new DropdownNavigator(targetUrl, isCurrentNet, closePopover);
+                return (
+                  <a
+                    key={ net.network }
+                    href={ targetUrl || '#' }
+                    onClick={ nav.handle }
+                    className={ cn(
+                      'flex items-center gap-2 px-2.5 py-2 rounded-sm',
+                      'no-underline transition-[background] duration-150',
+                      isCurrentNet ?
+                        'cursor-default bg-[var(--color-whiteAlpha-50)]' :
+                        'cursor-pointer hover:bg-[var(--color-whiteAlpha-50)]',
+                    ) }
+                  >
+                    <span className={ cn(
+                      'text-sm text-[var(--color-text-primary)]',
+                      isCurrentNet ? 'font-semibold' : 'font-normal',
+                    ) }>
+                      { net.name }
+                    </span>
+                    { isCurrentNet && (
+                      <span className="ml-auto text-[10px] text-[var(--color-text-secondary)]">
+                        Current
+                      </span>
+                    ) }
+                  </a>
+                );
+              }) }
+            </>
+          ) }
+
+          { /* Chain switcher (only for main C-Chain explorer) */ }
+          { chains.length > 1 && (
+            <>
+              <div className="px-2 py-1.5">
+                <span className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">
+                  Switch Chain
+                </span>
+              </div>
+              { chains.map((chain) => {
+                const isCurrent = chain.name === current.name &&
+                  chain.network === current.network;
+                const nav = new DropdownNavigator(chain.explorerUrl, isCurrent, closePopover);
+                return (
+                  <a
+                    key={ `${ chain.network }-${ chain.name }` }
+                    href={ chain.explorerUrl || '#' }
+                    onClick={ nav.handle }
+                    className={ cn(
+                      'flex items-center justify-between px-2.5 py-2',
+                      'rounded-sm no-underline transition-[background] duration-150',
+                      isCurrent ?
+                        'cursor-default bg-[var(--color-whiteAlpha-50)]' :
+                        'cursor-pointer hover:bg-[var(--color-whiteAlpha-50)]',
+                    ) }
+                  >
+                    <div className="flex items-center gap-2 min-w-0">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox={ chain.branding.logoViewBox }
+                        className="w-4 h-4 shrink-0"
+                        dangerouslySetInnerHTML={{
+                          __html: chain.branding.logoContent,
+                        }}
+                      />
+                      <div className="flex flex-col min-w-0">
+                        <span className={ cn(
+                          'text-sm text-[var(--color-text-primary)] truncate',
+                          isCurrent ? 'font-semibold' : 'font-normal',
+                        ) }>
+                          { chain.branding.brandName }
+                        </span>
+                        <span className="text-xs text-[var(--color-text-secondary)]">
+                          { chain.label }
+                        </span>
+                      </div>
+                    </div>
+                    <span className={ cn(
+                      'bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)]',
+                      'rounded-sm px-1.5 py-0.5 text-[10px] font-mono shrink-0',
+                    ) }>
+                      { chain.vm }
+                    </span>
+                  </a>
+                );
+              }) }
+            </>
+          ) }
+
+          { /* Only show "View all chains" link on main explorer */ }
+          { isMainChain && (
+            <div className="px-2 py-1.5 border-t border-[var(--color-border-divider)] mt-1">
+              <Link
+                href="/chains"
+                className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                variant="plain"
               >
-                <Flex alignItems="center" gap={ 2 }>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox={ chain.branding.logoViewBox }
-                    width="16"
-                    height="16"
-                    style={{ flexShrink: 0 }}
-                    dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
-                  />
-                  <Flex direction="column">
-                    <Text fontSize="sm" fontWeight={ isCurrent ? 600 : 400 } color="text.primary">
-                      { chain.branding.brandName }
-                    </Text>
-                    <Text fontSize="xs" color="text.secondary">
-                      { chain.label }
-                    </Text>
-                  </Flex>
-                </Flex>
-                <Box
-                  bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-                  color="text.secondary"
-                  borderRadius="sm"
-                  px={ 1.5 }
-                  py={ 0.5 }
-                  fontSize="2xs"
-                  fontFamily="mono"
-                >
-                  { chain.vm }
-                </Box>
-              </Box>
-            );
-          }) }
-          <Box px={ 2 } py={ 1.5 } borderTop="1px solid" borderColor="border.divider" mt={ 1 }>
-            <Link href="/chains" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
-              View all chains
-            </Link>
-          </Box>
+                View all chains
+              </Link>
+            </div>
+          ) }
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

@@ -1,4 +1,3 @@
-import { createListCollection, Flex } from '@chakra-ui/react';
 import React from 'react';
 import type { MouseEvent } from 'react';
 
@@ -9,10 +8,10 @@ import config from 'configs/app';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useGraphLinks from 'lib/hooks/useGraphLinks';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Heading } from 'toolkit/chakra/heading';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Link } from 'toolkit/chakra/link';
-import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
+import { Heading } from '@luxfi/ui/heading';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from 'toolkit/next/link';
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import AdaptiveTabs from 'toolkit/components/AdaptiveTabs/AdaptiveTabs';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import Banner from 'ui/marketplace/Banner';
@@ -29,6 +28,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Sort from 'ui/shared/sort/Sort';
 
 import useMarketplace from '../marketplace/useMarketplace';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({ items: SORT_OPTIONS });
 
@@ -98,7 +98,7 @@ const Marketplace = () => {
 
     tabs.unshift({
       id: MarketplaceCategory.FAVORITES,
-      title: () => <IconSvg name="heart_filled" boxSize={ 5 }/>,
+      title: () => <IconSvg name="heart_filled" className="size-5"/>,
       count: favoriteApps.length,
       component: null,
     });
@@ -150,7 +150,7 @@ const Marketplace = () => {
               <IconButton
                 variant="icon_background"
                 size="md"
-                ml="auto"
+                className="ml-auto"
               >
                 <IconSvg name="dots"/>
               </IconButton>
@@ -158,8 +158,8 @@ const Marketplace = () => {
             <MenuContent zIndex="banner">
               { links.map(({ label, href, icon }) => (
                 <MenuItem key={ label } value={ label } asChild>
-                  <Link external href={ href } variant="menu" gap={ 0 }>
-                    <IconSvg name={ icon } boxSize={ 4 } mr={ 2 }/>
+                  <Link external href={ href } variant="menu" className="gap-0">
+                    <IconSvg name={ icon } className="size-4 mr-2"/>
                     { label }
                   </Link>
                 </MenuItem>
@@ -167,13 +167,13 @@ const Marketplace = () => {
             </MenuContent>
           </MenuRoot>
         ) : (
-          <Flex ml="auto">
+          <div className="ml-auto">
             { links.map(({ label, href }) => (
-              <Link external key={ label } href={ href } variant="underlaid" textStyle="sm" ml={ 2 }>
+              <Link external key={ label } href={ href } variant="underlaid" className="text-sm ml-2">
                 { label }
               </Link>
             )) }
-          </Flex>
+          </div>
         ) }
       />
 
@@ -188,7 +188,7 @@ const Marketplace = () => {
 
       { feature.essentialDapps && (
         <>
-          <Heading level="2" mb={ 6 } mt={ 8 }>
+          <Heading level="2" className="mb-6 mt-8">
             { feature.titles.subtitle_essential_dapps }
           </Heading>
           <EssentialDappsList/>
@@ -200,23 +200,17 @@ const Marketplace = () => {
 
       <ActionBar
         showShadow
-        display="flex"
-        flexDirection="column"
-        mt={ 0 }
-        mx={{ base: -3, lg: -12 }}
-        px={{ base: 3, lg: 12 }}
-        pt={{ base: 4, lg: 6 }}
-        pb={{ base: 4, lg: 3 }}
+        className="flex flex-col mt-0 -mx-3 lg:-mx-12 px-3 lg:px-12 pt-4 lg:pt-6 pb-4 lg:pb-3"
       >
         <AdaptiveTabs
           tabs={ categoryTabs }
           onValueChange={ handleCategoryChange }
           defaultValue={ selectedTabId }
-          marginBottom={ -2 }
+          className="-mb-2"
           isLoading={ isCategoriesPlaceholderData }
         />
 
-        <Flex gap={{ base: 2, lg: 3 }}>
+        <div className="flex gap-2 lg:gap-3">
           { showSort && (
             <Sort
               name="dapps_sorting"
@@ -232,9 +226,9 @@ const Marketplace = () => {
             placeholder="Find app by name or keyword..."
             loading={ isPlaceholderData }
             size="sm"
-            w={{ base: '100%', lg: '350px' }}
+            className="w-full lg:w-[350px]"
           />
-        </Flex>
+        </div>
       </ActionBar>
 
       <MarketplaceList

@@ -1,10 +1,9 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
 
@@ -19,36 +18,27 @@ type Props = {
 
 const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animation }: Props) => {
   return (
-    <Box
-      animation={ animation }
-      borderRadius="md"
-      border="1px solid"
-      borderColor="border.divider"
-      p={ 3 }
+    <div
+      className="rounded-md border border-solid border-[var(--color-border-divider)] p-3"
+      style={ animation ? { animation } : undefined }
     >
-      <Flex alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
+      <div className="flex items-center overflow-hidden w-full mb-3">
         <BatchEntityL2
           isLoading={ isLoading }
           number={ number }
           tailLength={ 2 }
-          textStyle="md"
-          fontWeight={ 500 }
-          mr="auto"
+          className="text-base font-medium mr-auto"
         />
         <TimeWithTooltip
           timestamp={ timestamp }
           enableIncrement={ !isLoading }
           timeFormat="relative"
           isLoading={ isLoading }
-          color="text.secondary"
-          display="inline-block"
-          textStyle="sm"
-          flexShrink={ 0 }
-          ml={ 2 }
+          className="text-[var(--color-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between" w="100%" flexWrap="wrap" textStyle="sm">
-        <Flex alignItems="center">
+      </div>
+      <div className="flex items-center justify-between w-full flex-wrap text-sm">
+        <div className="flex items-center">
           <Skeleton loading={ isLoading } mr={ 2 }>Txn</Skeleton>
           <Link
             href={ route({ pathname: '/batches/[number]', query: { number: number.toString(), tab: 'txs' } }) }
@@ -56,10 +46,10 @@ const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animat
           >
             { txCount }
           </Link>
-        </Flex>
+        </div>
         { status }
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 };
 

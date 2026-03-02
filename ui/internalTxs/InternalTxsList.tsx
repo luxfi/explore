@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -19,7 +18,7 @@ const InternalTxsList = ({ data, currentAddress, isLoading, showBlockInfo = true
   const chainData = multichainContext?.chain;
 
   return (
-    <Box>
+    <div>
       { data.map((item, index) => (
         <InternalTxsListItem
           key={ item.transaction_hash + '_' + index }
@@ -30,7 +29,7 @@ const InternalTxsList = ({ data, currentAddress, isLoading, showBlockInfo = true
           chainData={ chainData }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

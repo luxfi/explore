@@ -5,7 +5,7 @@ import type * as bens from '@luxfi/bens-types';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -19,11 +19,11 @@ interface Props {
 }
 
 const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
-  const isProtocolBaseChain = stripTrailingSlash(domain?.protocol?.deployment_blockscout_base_url ?? '') === config.app.baseUrl;
+  const isProtocolBaseChain = stripTrailingSlash(domain?.protocol?.deployment_explorer_base_url ?? '') === config.app.baseUrl;
   const txEntityProps = {
     link: { external: !isProtocolBaseChain ? true : false },
     href: !isProtocolBaseChain ? (
-      stripTrailingSlash(domain?.protocol?.deployment_blockscout_base_url ?? '') +
+      stripTrailingSlash(domain?.protocol?.deployment_explorer_base_url ?? '') +
       route({ pathname: '/tx/[hash]', query: { hash: event.transaction_hash } })
     ) : undefined,
   };
@@ -32,7 +32,7 @@ const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
     <ListItemMobileGrid.Container>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Txn hash</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <TxEntity { ...txEntityProps } hash={ event.transaction_hash } isLoading={ isLoading } fontWeight={ 500 } truncation="constant_long" noCopy/>
+        <TxEntity { ...txEntityProps } hash={ event.transaction_hash } isLoading={ isLoading } className="font-medium" truncation="constant_long" noCopy/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>

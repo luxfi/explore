@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
+import { layerLabels } from 'lib/rollups/utils';
 import { generateListStub } from 'stubs/utils';
 import { ZKEVM_WITHDRAWALS_ITEM } from 'stubs/zkEvmL2';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -34,7 +34,7 @@ const ZkEvmL2Withdrawals = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <ZkEvmL2WithdrawalsListItem
             key={ String(item.index) + (isPlaceholderData ? index : '') }
@@ -42,10 +42,10 @@ const ZkEvmL2Withdrawals = () => {
             item={ item }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <ZkEvmL2WithdrawalsTable items={ data.items } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -68,7 +68,7 @@ const ZkEvmL2Withdrawals = () => {
 
   return (
     <>
-      <PageTitle title={ `Withdrawals (L2${ nbsp }${ rightLineArrow }${ nbsp }L1)` } withTextAd/>
+      <PageTitle title={ `Withdrawals (${ layerLabels.current }${ nbsp }${ rightLineArrow }${ nbsp }${ layerLabels.parent })` } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }

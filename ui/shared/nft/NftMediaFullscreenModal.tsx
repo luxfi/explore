@@ -1,10 +1,8 @@
-// eslint-disable-next-line no-restricted-imports
-import { Dialog as ChakraDialog } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
 
-import { DialogContent, DialogRoot, DialogCloseTrigger } from 'toolkit/chakra/dialog';
+import { DialogContent, DialogRoot, DialogCloseTrigger } from '@luxfi/ui/dialog';
 
 import NftHtml from './NftHtml';
 import NftImage from './NftImage';
@@ -45,9 +43,7 @@ const NftMediaFullscreenModal = ({ open, onOpenChange, data, allowedTypes, field
             src={ mediaInfo.src }
             transport={ mediaInfo.transport }
             onError={ handleMediaLoadError }
-            maxW="90vw"
-            maxH="90vh"
-            objectFit="contain"
+            className="max-w-[90vw] max-h-[90vh] object-contain"
             autoPlay
             instance={ data }
           />
@@ -58,8 +54,7 @@ const NftMediaFullscreenModal = ({ open, onOpenChange, data, allowedTypes, field
             src={ mediaInfo.src }
             transport={ mediaInfo.transport }
             onError={ handleMediaLoadError }
-            w="90vw"
-            h="90vh"
+            className="w-[90vw] h-[90vh]"
           />
         );
       case 'image':
@@ -69,9 +64,8 @@ const NftMediaFullscreenModal = ({ open, onOpenChange, data, allowedTypes, field
             srcSet={ mediaInfo.srcSet }
             transport={ mediaInfo.transport }
             onError={ handleMediaLoadError }
-            maxW="90vw"
-            maxH="90vh"
-            objectFit="contain"/>
+            className="max-w-[90vw] max-h-[90vh] object-contain"
+          />
         );
       default:
         return null;
@@ -80,15 +74,13 @@ const NftMediaFullscreenModal = ({ open, onOpenChange, data, allowedTypes, field
 
   return (
     <DialogRoot open={ open } onOpenChange={ onOpenChange } motionPreset="none">
-      <DialogContent w="unset" maxW="100vw" p={ 0 } background="none" boxShadow="none">
+      <DialogContent className="w-[unset] max-w-[100vw] p-0 bg-transparent shadow-none">
         { /* FIXME (maybe): if close trigger is outside of the dialog header, it will not hide backdrop after closing the dialog */ }
-        <ChakraDialog.Header>
+        <div>
           <DialogCloseTrigger
-            position="fixed"
-            top={ 6 }
-            right={ 6 }
+            className="fixed top-6 right-6"
           />
-        </ChakraDialog.Header>
+        </div>
         { content }
       </DialogContent>
     </DialogRoot>

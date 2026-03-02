@@ -3,8 +3,8 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import useApiQuery from 'lib/api/useApiQuery';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 
 interface Props {

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -27,4 +26,4 @@ const AddressEntityL1 = (props: AddressEntity.EntityProps) => {
   );
 };
 
-export default chakra(AddressEntityL1);
+export default AddressEntityL1;

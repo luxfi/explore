@@ -3,12 +3,13 @@ import React from 'react';
 
 import type { TokenHolder, TokenInfo } from 'types/api/token';
 
-import { hasTokenIds } from 'lib/token/tokenTypes';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { hasTokenIds, isConfidentialTokenType } from 'lib/token/tokenTypes';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import Utilization from 'ui/shared/Utilization/Utilization';
 import AssetValue from 'ui/shared/value/AssetValue';
+import ConfidentialValue from 'ui/shared/value/ConfidentialValue';
 
 type Props = {
   holder: TokenHolder;
@@ -23,28 +24,31 @@ const TokenTransferTableItem = ({ holder, token, isLoading }: Props) => {
         <AddressEntity
           address={ holder.address }
           isLoading={ isLoading }
-          flexGrow={ 1 }
-          fontWeight="700"
+          className="grow font-bold"
         />
       </TableCell>
       { (hasTokenIds(token.type)) && 'token_id' in holder && (
         <TableCell verticalAlign="middle">
-          <TruncatedText text={ holder.token_id } loading={ isLoading } w="100%"/>
+          <TruncatedText text={ holder.token_id } loading={ isLoading } className="w-full"/>
         </TableCell>
       ) }
       <TableCell verticalAlign="middle" isNumeric>
-        <AssetValue
-          amount={ holder.value }
-          decimals={ token.decimals ?? '0' }
-          loading={ isLoading }
-        />
+        { isConfidentialTokenType(token.type) ? (
+          <ConfidentialValue loading={ isLoading } className="break-words"/>
+        ) : (
+          <AssetValue
+            amount={ holder.value }
+            decimals={ token.decimals ?? '0' }
+            loading={ isLoading }
+          />
+        ) }
       </TableCell>
-      { token.total_supply && token.type !== 'ERC-404' && (
+      { token.total_supply && token.type !== 'ERC-404' && !isConfidentialTokenType(token.type) && (
         <TableCell verticalAlign="middle" isNumeric>
           <Utilization
             value={ BigNumber(holder.value).div(BigNumber(token.total_supply)).dp(4).toNumber() }
             colorScheme="green"
-            display="inline-flex"
+            className="inline-flex"
             isLoading={ isLoading }
           />
         </TableCell>

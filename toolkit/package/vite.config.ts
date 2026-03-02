@@ -34,7 +34,7 @@ export default defineConfig({
     }),
     dts({
       include: [
-        '../chakra/**/*.tsx',
+        '../@luxfi/ui/**/*.tsx',
         '../theme/**/*.ts',
         '../components/**/*',
         '../utils/**/*.ts',
@@ -80,8 +80,6 @@ export default defineConfig({
         'react-dom',
         'react/jsx-runtime',
         'react/jsx-dev-runtime',
-        '@chakra-ui/react',
-        '@emotion/react',
         'next/link',
         'next/router',
         'next-themes',

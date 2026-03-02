@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProgressCircleRoot, ProgressCircleRing, ProgressCircleValueText } from 'toolkit/chakra/progress-circle';
+import { ProgressCircleRoot, ProgressCircleRing, ProgressCircleValueText } from '@luxfi/ui/progress-circle';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

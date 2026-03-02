@@ -32,7 +32,7 @@ test.describe('with multiple items', () => {
   });
 
   test('base view with styles', async({ render, page }) => {
-    const component = await render(<AccountActionsMenu m={ 2 } outline="1px solid lightpink"/>, { hooksConfig });
+    const component = await render(<AccountActionsMenu className="m-2 outline outline-1 outline-pink-300"/>, { hooksConfig });
     await component.getByRole('button').click();
 
     await expect(page).toHaveScreenshot({ clip: { x: 0, y: 0, width: 200, height: 200 } });
@@ -45,7 +45,7 @@ test.describe('with multiple items', () => {
   });
 
   test('loading with styles', async({ render }) => {
-    const component = await render(<AccountActionsMenu isLoading m={ 2 } outline="1px solid lightpink"/>, { hooksConfig });
+    const component = await render(<AccountActionsMenu isLoading className="m-2 outline outline-1 outline-pink-300"/>, { hooksConfig });
 
     await expect(component).toHaveScreenshot();
   });
@@ -68,7 +68,7 @@ test.describe('with one item', () => {
   });
 
   test('base view with styles', async({ render, page }) => {
-    const component = await render(<AccountActionsMenu m={ 2 } outline="1px solid lightpink"/>, { hooksConfig });
+    const component = await render(<AccountActionsMenu className="m-2 outline outline-1 outline-pink-300"/>, { hooksConfig });
     await component.getByRole('button').hover();
     await expect(page.getByText('Add private tag')).toBeVisible();
     await expect(page).toHaveScreenshot({ clip: { x: 0, y: 0, width: 200, height: 200 } });

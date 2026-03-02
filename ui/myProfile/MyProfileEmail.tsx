@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -12,9 +11,9 @@ import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/errors/getErrorMessage';
 import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import * as mixpanel from 'lib/mixpanel';
-import { Button } from 'toolkit/chakra/button';
-import { Heading } from 'toolkit/chakra/heading';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { Heading } from '@luxfi/ui/heading';
+import { toaster } from '@luxfi/ui/toaster';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
@@ -80,13 +79,10 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
 
   return (
     <section>
-      <Heading level="2" mb={ 3 }>Notifications</Heading>
+      <Heading level="2" className="mb-3">Notifications</Heading>
       <FormProvider { ...formApi }>
-        <chakra.form
-          noValidate
-          onSubmit={ formApi.handleSubmit(onFormSubmit) }
-        >
-          <FormFieldText<FormFields> name="name" placeholder="Name" readOnly mb={ 3 }/>
+        <form noValidate onSubmit={ formApi.handleSubmit(onFormSubmit) }>
+          <FormFieldText<FormFields> name="name" placeholder="Name" readOnly className="mb-3"/>
           <MyProfileFieldsEmail
             isReadOnly={ !config.services.reCaptchaV2.siteKey || Boolean(profileQuery.data?.email) }
             defaultValue={ profileQuery.data?.email || undefined }
@@ -94,7 +90,7 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
           { config.services.reCaptchaV2.siteKey && !profileQuery.data?.email && <ReCaptcha { ...recaptcha }/> }
           { config.services.reCaptchaV2.siteKey && !profileQuery.data?.email && (
             <Button
-              mt={ 6 }
+              className="mt-6"
               size="sm"
               variant="outline"
               type="submit"
@@ -105,7 +101,7 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
               Save changes
             </Button>
           ) }
-        </chakra.form>
+        </form>
       </FormProvider>
       { authModal.open && (
         <AuthModal

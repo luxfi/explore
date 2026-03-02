@@ -178,7 +178,7 @@ const ZetaChainCCTXsTab = () => {
         variant="secondary"
         size="sm"
         stickyEnabled={ !isMobile }
-        rightSlot={ (isMobile || !pagination.isVisible) ? null : <Pagination my={ 1 } { ...pagination }/> }
+        rightSlot={ (isMobile || !pagination.isVisible) ? null : <Pagination className="my-1" { ...pagination }/> }
         listProps={ isMobile ? undefined : TAB_LIST_PROPS }
       />
     </>

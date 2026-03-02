@@ -9,7 +9,7 @@ import type { AllowanceType } from 'types/client/revoke';
 import useRewardsActivity from 'lib/hooks/useRewardsActivity';
 import * as mixpanel from 'lib/mixpanel/index';
 import wagmiConfig from 'lib/web3/wagmiConfig';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 
 export default function useRevoke() {
   const { address: userAddress } = useAccount();

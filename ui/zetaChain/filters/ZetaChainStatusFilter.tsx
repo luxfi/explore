@@ -1,9 +1,8 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZetaChainCCTXFilterParams, StatusReducedFilters } from 'types/client/zetaChain';
 
-import { Radio, RadioGroup } from 'toolkit/chakra/radio';
+import { Radio, RadioGroup } from '@luxfi/ui/radio';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 
 const FILTER_PARAM_STATUS = 'status_reduced';
@@ -75,7 +74,7 @@ const ZetaChainStatusFilter = ({ value = [], handleFilterChange, onClose }: Prop
       onReset={ onReset }
       hasReset
     >
-      <Flex direction="column" gap={ 2 }>
+      <div className="flex">
         <RadioGroup value={ currentValue } onValueChange={ handleRadioChange }>
           { STATUS_OPTIONS.map(option => (
             <Radio key={ option.value } value={ option.value }>
@@ -83,7 +82,7 @@ const ZetaChainStatusFilter = ({ value = [], handleFilterChange, onClose }: Prop
             </Radio>
           )) }
         </RadioGroup>
-      </Flex>
+      </div>
     </TableColumnFilter>
   );
 };

@@ -1,7 +1,6 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogRoot, DialogHeader } from '@luxfi/ui/dialog';
 
 type Props = {
   isOpen: boolean;
@@ -28,10 +27,10 @@ const RewardsTaskDetailsModal = ({ isOpen, onClose, title, children }: Props) =>
           { title }
         </DialogHeader>
         <DialogBody>
-          <Text>{ children }</Text>
-          <Text textStyle="sm" color="text.secondary" mt={ 3 }>
+          <p>{ children }</p>
+          <p className="text-sm text-[var(--color-text-secondary)] mt-3">
             Note: Merits are only earned on supported networks where the program is active.
-          </Text>
+          </p>
         </DialogBody>
       </DialogContent>
     </DialogRoot>

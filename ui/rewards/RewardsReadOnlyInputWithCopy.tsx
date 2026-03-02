@@ -1,10 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import { Field } from 'toolkit/chakra/field';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Field } from '@luxfi/ui/field';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 type Props = {
@@ -16,14 +16,14 @@ type Props = {
 
 const RewardsReadOnlyInputWithCopy = ({ label, value, className, isLoading }: Props) => {
   return (
-    <Skeleton loading={ isLoading } className={ className }>
+    <Skeleton loading={ isLoading } className={ cn(className) }>
       <Field label={ label } floating size="lg" readOnly>
-        <InputGroup endElement={ <CopyToClipboard text={ value }/> } endElementProps={{ px: 3 }}>
-          <Input value={ value } fontWeight="500"/>
+        <InputGroup endElement={ <CopyToClipboard text={ value }/> } endElementProps={{ className: 'px-3' }}>
+          <Input value={ value } className="font-medium"/>
         </InputGroup>
       </Field>
     </Skeleton>
   );
 };
 
-export default chakra(RewardsReadOnlyInputWithCopy);
+export default RewardsReadOnlyInputWithCopy;

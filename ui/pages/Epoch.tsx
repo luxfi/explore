@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,8 +6,8 @@ import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { CELO_EPOCH } from 'stubs/epoch';
-import { Tag } from 'toolkit/chakra/tag';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tag } from '@luxfi/ui/tag';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import EpochDetails from 'ui/epochs/EpochDetails';
 import TextAd from 'ui/shared/ad/TextAd';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
@@ -60,8 +59,8 @@ const EpochPageContent = () => {
     const truncationProps = isTruncated ? { truncation: 'constant' as const, truncationMaxSymbols: 6 } : undefined;
 
     return (
-      <HStack textStyle={{ base: 'heading.sm', lg: 'heading.md' }} flexWrap="wrap">
-        <Box color="text.secondary">Ranging from</Box>
+      <div className="flex flex-wrap">
+        <div className="text-[var(--color-text-secondary)]">Ranging from</div>
         <BlockEntity
           number={ epochQuery.data.start_block_number }
           variant="subheading"
@@ -69,17 +68,17 @@ const EpochPageContent = () => {
         />
         { epochQuery.data.end_block_number && (
           <>
-            <Box color="text.secondary">to</Box>
+            <div className="text-[var(--color-text-secondary)]">to</div>
             <BlockEntity number={ epochQuery.data.end_block_number } variant="subheading" { ...truncationProps }/>
           </>
         ) }
-      </HStack>
+      </div>
     );
   })();
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ `Epoch #${ number }` }
         contentAfter={ titleContentAfter }

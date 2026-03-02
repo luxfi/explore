@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { chunk } from 'es-toolkit';
 import React, { useMemo, useState } from 'react';
 
@@ -6,8 +5,8 @@ import type { PaginationParams } from 'ui/shared/pagination/types';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { NOVES_TRANSLATE } from 'stubs/noves/NovesTranslate';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import ActionBar from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -51,28 +50,28 @@ export default function TxAssetFlows(props: FlowViewProps) {
   const data = chunkedViewData [page - 1];
 
   const actionBar = (
-    <ActionBar mt={ -6 } pb={{ base: 6, md: 5 }} flexDir={{ base: 'column', md: 'initial' }} gap={{ base: '2', md: 'initial' }} >
-      <Box display="flex" alignItems="center" gap={ 1 }>
+    <ActionBar className="-mt-6 pb-6 md:pb-5 flex-col md:flex-row gap-2 md:gap-0" >
+      <div className="flex items-center gap-1">
         <Skeleton borderRadius="sm" loading={ isPlaceholderData } >
-          <Text fontWeight="400" mr={ 1 }>
+          <span className="font-normal mr-1">
             Wallet
-          </Text>
+          </span>
         </Skeleton>
 
         <AddressEntity
           address={{ hash: queryData?.accountAddress || '' }}
-          fontWeight="400"
+          className="font-normal"
           truncation="dynamic"
           isLoading={ isPlaceholderData }
         />
-      </Box>
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...paginationProps }/>
+      </div>
+      <Pagination className="ml-auto lg:ml-8" { ...paginationProps }/>
     </ActionBar>
   );
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="block lg:hidden">
         { data?.map((item, i) => (
           <TxAssetFlowsListItem
             key={ `${ i }-${ item.accountAddress }` }
@@ -80,9 +79,9 @@ export default function TxAssetFlows(props: FlowViewProps) {
             isPlaceholderData={ isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
 
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot>
           <TableHeaderSticky top={ 75 }>
             <TableRow>
@@ -104,7 +103,7 @@ export default function TxAssetFlows(props: FlowViewProps) {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
+      </div>
     </>
   );
 

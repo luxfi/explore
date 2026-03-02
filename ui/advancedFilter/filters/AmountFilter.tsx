@@ -1,12 +1,11 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
 import type { AdvancedFilterParams } from 'types/api/advancedFilter';
 
-import { Input } from 'toolkit/chakra/input';
-import { PopoverCloseTriggerWrapper } from 'toolkit/chakra/popover';
+import { Input } from '@luxfi/ui/input';
+import { PopoverCloseTriggerWrapper } from '@luxfi/ui/popover';
 import { ndash } from 'toolkit/utils/htmlEntities';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';
@@ -83,19 +82,19 @@ const AmountFilter = ({ value = {}, handleFilterChange }: Props) => {
       hasReset
     >
       <PopoverCloseTriggerWrapper>
-        <Flex gap={ 3 }>
+        <div className="flex gap-3">
           <TagGroupSelect<string>
             items={ PRESETS.map((preset) => ({ id: preset.value, title: preset.name })) }
             onChange={ onPresetChange }
             value={ (!currentValue.from || currentValue.from === '0') ? PRESETS.find(preset => preset.value === currentValue.to)?.value : undefined }
           />
-        </Flex>
+        </div>
       </PopoverCloseTriggerWrapper>
-      <Flex mt={ 3 } alignItems="center">
+      <div className="flex items-center mt-3">
         <Input value={ currentValue.from } onChange={ handleFromChange } placeholder="From" type="number" size="sm"/>
-        <Text mx={ 3 }>{ ndash }</Text>
+        <span className="mx-3">{ ndash }</span>
         <Input value={ currentValue.to } onChange={ handleToChange } placeholder="To" type="number" size="sm"/>
-      </Flex>
+      </div>
     </TableColumnFilter>
   );
 };

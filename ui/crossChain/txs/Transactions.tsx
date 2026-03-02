@@ -26,7 +26,7 @@ const Transactions = () => {
         title: 'Txns',
         component: (
           <>
-            <TxsStats mb={ 0 }/>
+            <TxsStats className="!mb-0"/>
             <TxsTabs
               parentTab={ LOCAL_TAB_ID }
               variant="secondary"

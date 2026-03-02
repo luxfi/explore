@@ -1,9 +1,9 @@
-import { Flex, Separator, VStack } from '@chakra-ui/react';
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Separator } from '@luxfi/ui/separator';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -11,6 +11,7 @@ import SettingsAddressFormat from './SettingsAddressFormat';
 import SettingsColorTheme from './SettingsColorTheme';
 import SettingsIdentIcon from './SettingsIdentIcon';
 import SettingsLocalTime from './SettingsLocalTime';
+import SettingsPoorReputationTokens from './SettingsPoorReputationTokens';
 import SettingsScamTokens from './SettingsScamTokens';
 
 const Settings = () => {
@@ -37,30 +38,31 @@ const Settings = () => {
       lazyMount={ false }
     >
       <Tooltip content="Website settings" disableOnMobile open={ tooltip.open } onOpenChange={ handleTooltipOpenChange }>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           <PopoverTrigger>
             <IconButton
               variant="link"
               size="2xs"
-              borderRadius="sm"
+              className="rounded-sm"
               aria-label="User settings"
             >
               <IconSvg name="gear"/>
             </IconButton>
           </PopoverTrigger>
-        </Flex>
+        </div>
       </Tooltip>
-      <PopoverContent overflowY="hidden" w="auto" fontSize="sm">
+      <PopoverContent className="overflow-y-hidden text-sm" style={{ width: 'auto' }}>
         <PopoverBody>
           <SettingsColorTheme onSelect={ popover.onClose }/>
-          <Separator my={ 3 }/>
+          <Separator className="my-3"/>
           <SettingsIdentIcon/>
           <SettingsAddressFormat/>
-          <Separator my={ 3 }/>
-          <VStack gap={ 1 }>
+          <Separator className="my-3"/>
+          <div className="flex flex-col gap-1">
             <SettingsScamTokens/>
+            <SettingsPoorReputationTokens/>
             <SettingsLocalTime/>
-          </VStack>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

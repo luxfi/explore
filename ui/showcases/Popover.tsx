@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from '@luxfi/ui/popover';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

@@ -1,8 +1,7 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
-import { LinkOverlay } from 'toolkit/chakra/link';
+import { LinkOverlay } from 'toolkit/next/link';
 
 import type { MediaElementProps } from './utils';
 
@@ -55,15 +54,13 @@ const NftHtml = ({ src, transport, onLoad, onError, onClick, ...rest }: Props) =
   return (
     <LinkOverlay
       onClick={ onClick }
-      h="100%"
-      { ...rest }
+      className="h-full"
     >
-      <chakra.iframe
+      <iframe
         ref={ ref }
-        h="100%"
-        w="100%"
+        className="h-full w-full"
         sandbox="allow-scripts"
-        opacity={ isLoaded ? 1 : 0 }
+        style={{ opacity: isLoaded ? 1 : 0 }}
       />
     </LinkOverlay>
   );

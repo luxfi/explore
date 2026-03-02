@@ -1,4 +1,3 @@
-import { Box, createListCollection, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,7 +6,7 @@ import type { HotContractsInterval, HotContractsSorting, HotContractsSortingFiel
 import useApiQuery from 'lib/api/useApiQuery';
 import { HOT_CONTRACTS } from 'stubs/contract';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import HotContractsIntervalSelect from 'ui/hotContracts/HotContractsIntervalSelect';
 import HotContractsListItem from 'ui/hotContracts/HotContractsListItem';
 import HotContractsTable from 'ui/hotContracts/HotContractsTable';
@@ -20,6 +19,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import getSortParamsFromValue from 'ui/shared/sort/getSortParamsFromValue';
 import getSortValueFromQuery from 'ui/shared/sort/getSortValueFromQuery';
 import Sort from 'ui/shared/sort/Sort';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,
@@ -62,7 +62,7 @@ const HotContracts = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden ml-2">
         { data?.items.map((item, index) => (
           <HotContractsListItem
             key={ item.contract_address.hash + (isPlaceholderData ? index : '') }
@@ -71,8 +71,8 @@ const HotContracts = () => {
             exchangeRate={ statsQuery.data?.coin_price ?? null }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <HotContractsTable
           items={ data?.items }
           isLoading={ isPlaceholderData }
@@ -80,20 +80,20 @@ const HotContracts = () => {
           setSorting={ handleSortChange }
           exchangeRate={ statsQuery.data?.coin_price ?? null }
         />
-      </Box>
+      </div>
     </>
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
-      <Flex alignItems="center">
+    <ActionBar className="-mt-6">
+      <div className="flex items-center">
         <HotContractsIntervalSelect
           interval={ interval }
           onIntervalChange={ handleIntervalChange }
           isLoading={ isPlaceholderData }
         />
         { [ '1d', '7d', '30d' ].includes(interval) && (
-          <Skeleton loading={ isPlaceholderData } color="text.secondary" hideBelow="lg" textStyle="sm" ml={ 6 }>
+          <Skeleton loading={ isPlaceholderData } color="text.secondary" className="hidden lg:block" textStyle="sm" ml={ 6 }>
             <span>The data is updated once a day.</span>
           </Skeleton>
         ) }
@@ -103,11 +103,10 @@ const HotContracts = () => {
           collection={ sortCollection }
           onValueChange={ handleSortChange }
           isLoading={ isPlaceholderData }
-          hideFrom="lg"
-          ml={ 2 }
+          className="lg:hidden ml-2"
         />
-      </Flex>
-      <Pagination { ...pagination } ml="auto"/>
+      </div>
+      <Pagination { ...pagination } className="ml-auto"/>
     </ActionBar>
   );
 

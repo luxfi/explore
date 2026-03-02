@@ -1,10 +1,10 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
 
 import { CONTRACT_LICENSES } from 'lib/contracts/licenses';
-import type { SelectOption } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
+import type { SelectOption } from '@luxfi/ui/select';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';

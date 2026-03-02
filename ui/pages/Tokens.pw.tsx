@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import * as tokens from 'mocks/tokens/tokenInfo';

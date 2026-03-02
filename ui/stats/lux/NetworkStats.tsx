@@ -1,17 +1,17 @@
-// Network-level stats for Lux Network: validators, chains, stake, uptime.
-// Displayed above the standard Blockscout chain stats on the stats page.
+// Network-level stats: validators, chains, stake, uptime.
+// Displayed above the standard Explorer chain stats on the stats page.
 
-import { Box, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 // ── Constants ──
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const PRIMARY_CHAIN_COUNT = 14;
-const LUX_DECIMALS = 9;
+const LUX_DECIMALS = 6;
 
 const STAT_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 
@@ -19,6 +19,7 @@ const STAT_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
+  if (lux >= 1_000_000_000) return `${ (lux / 1_000_000_000).toFixed(1) }B`;
   if (lux >= 1_000_000) return `${ (lux / 1_000_000).toFixed(1) }M`;
   if (lux >= 1_000) return `${ (lux / 1_000).toFixed(1) }K`;
   return lux.toFixed(0);
@@ -33,22 +34,19 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <Box
-    border="1px solid"
-    borderColor="border.divider"
-    borderRadius="lg"
-    p={ 4 }
-    bgColor={ STAT_BG }
+  <div
+   
+   
   >
-    <Text fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+    <span className="text-[var(--color-text-secondary)]">
       { label }
-    </Text>
+    </span>
     <Skeleton loading={ isLoading }>
-      <Text fontSize="xl" fontWeight="700" color="text.primary">
+      <span className="text-[var(--color-text-primary)]">
         { value }
-      </Text>
+      </span>
     </Skeleton>
-  </Box>
+  </div>
 );
 
 // ── Main component ──
@@ -68,13 +66,12 @@ const NetworkStats = () => {
   const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
   return (
-    <Box mb={ 6 }>
-      <Text fontSize="sm" fontWeight="600" color="text.secondary" textTransform="uppercase" letterSpacing="wider" mb={ 3 }>
+    <div>
+      <span className="text-[var(--color-text-secondary)]">
         Network Overview
-      </Text>
-      <Grid
-        templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }}
-        gap={ 3 }
+      </span>
+      <div
+       
       >
         <StatCard
           label="Total Chains"
@@ -93,7 +90,7 @@ const NetworkStats = () => {
         />
         <StatCard
           label="Total Stake"
-          value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' }
+          value={ hasValidatorData ? `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` : '\u2014' }
           isLoading={ isLoading }
         />
         <StatCard
@@ -101,8 +98,8 @@ const NetworkStats = () => {
           value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' }
           isLoading={ isLoading }
         />
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 };
 

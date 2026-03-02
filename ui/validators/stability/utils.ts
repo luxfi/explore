@@ -3,7 +3,7 @@ import type {
   ValidatorsStabilitySortingField,
 } from 'types/api/validators';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export const VALIDATORS_STABILITY_SORT_OPTIONS: Array<SelectOption<ValidatorsStabilitySortingValue>> = [
   { label: 'Default', value: 'default' },

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CctxStatus } from '@luxfi/zetachain-cctx-types';
 
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 
 type Props = {
   status: CctxStatus;

@@ -1,6 +1,6 @@
 // Formatting helpers for Lux P-chain validator data.
 
-const LUX_DECIMALS = 9;
+const LUX_DECIMALS = 6;
 const TRUNCATE_PREFIX_LEN = 12;
 const TRUNCATE_SUFFIX_LEN = 6;
 const UPTIME_FRACTION_DIGITS = 2;

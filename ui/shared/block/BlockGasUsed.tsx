@@ -1,9 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import config from 'configs/app';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import GasUsedToTargetRatio from '../GasUsedToTargetRatio';
 import TextSeparator from '../TextSeparator';
@@ -48,4 +47,4 @@ const BlockGasUsed = ({ className, gasUsed, gasLimit, gasTarget, isLoading }: Pr
   );
 };
 
-export default React.memo(chakra(BlockGasUsed));
+export default React.memo(BlockGasUsed);

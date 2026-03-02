@@ -7,34 +7,16 @@ import HeaderMobile from 'ui/snippets/header/HeaderMobile';
 
 import * as Layout from './components';
 
-const TOP_BAR_HEIGHT = 36;
-const HEADER_HEIGHT_MOBILE = 56;
-
 const LayoutApp = ({ children }: Props) => {
   return (
     <Layout.Root content={ children }>
-      <Layout.Container
-        overflowY="hidden"
-        height="$100vh"
-        display="flex"
-        flexDirection="column"
-      >
+      <Layout.Container className="overflow-y-hidden h-[100vh] flex flex-col">
         <Layout.TopRow/>
         <HeaderMobile/>
-        <Layout.MainArea
-          minH={{
-            base: `calc(100dvh - ${ TOP_BAR_HEIGHT + HEADER_HEIGHT_MOBILE }px)`,
-            lg: `calc(100dvh - ${ TOP_BAR_HEIGHT }px)`,
-          }}
-          flex={ 1 }
-        >
-          <Layout.MainColumn
-            paddingTop={{ base: 0, lg: 0 }}
-            paddingBottom={ 0 }
-            paddingX={{ base: 4, lg: 6 }}
-          >
+        <Layout.MainArea className="flex-1">
+          <Layout.MainColumn className="pt-0 lg:pt-0 pb-0 px-4 lg:px-6">
             <AppErrorBoundary>
-              <Layout.Content pt={{ base: 0, lg: 2 }} flexGrow={ 1 }>
+              <Layout.Content className="pt-0 lg:pt-2 grow">
                 { children }
               </Layout.Content>
             </AppErrorBoundary>

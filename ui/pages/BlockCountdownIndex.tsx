@@ -1,11 +1,10 @@
-import { chakra, Box, Center } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { routeParams } from 'nextjs/routes';
 
 import { useMultichainContext } from 'lib/contexts/multichain';
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import IconSvg from 'ui/shared/IconSvg';
@@ -26,49 +25,37 @@ const BlockCountdownIndex = () => {
   }, [ router, multichainContext ]);
 
   return (
-    <Center h="100%" justifyContent={{ base: 'flex-start', lg: 'center' }} flexDir="column" textAlign="center" pt={{ base: 8, lg: 0 }}>
-      <Box position="relative">
+    <div className="flex flex-col text-center h-full justify-start lg:justify-center pt-8 lg:pt-0">
+      <div className="relative">
         <IconSvg
           name="block_countdown"
-          color={{ _light: 'gray.300', _dark: 'gray.600' }}
-          w={{ base: '160px', lg: '240px' }}
-          h={{ base: '123px', lg: '184px' }}
+          className="text-neutral-300 dark:text-neutral-600 w-[160px] lg:w-[240px] h-[123px] lg:h-[184px]"
         />
         { multichainContext?.chain && (
           <ChainIcon
             data={ multichainContext.chain }
-            position="absolute"
-            bottom={{ base: '15px', lg: '22px' }}
-            left={{ base: '105px', lg: '150px' }}
-            boxSize={{ lg: '60px' }}
-            bgColor="bg.primary"
-            borderRadius="full"
+            className="absolute bottom-[15px] lg:bottom-[22px] left-[105px] lg:left-[150px] lg:w-[60px] lg:h-[60px] bg-[var(--color-bg-primary)] rounded-full"
           />
         ) }
-      </Box>
+      </div>
       <Heading
         level="1"
-        mt={{ base: 3, lg: 6 }}
+        className="mt-3 lg:mt-6"
       >
         Block countdown
       </Heading>
-      <Box mt={ 2 }>
+      <div className="mt-2">
         The estimated time for a block to be created and added to the blockchain.
-      </Box>
-      <chakra.form
-        noValidate
-        onSubmit={ handleFormSubmit }
-        w={{ base: '100%', lg: '360px' }}
-        mt={{ base: 3, lg: 6 }}
-      >
+      </div>
+      <form className="w-full lg:w-[360px] mt-3 lg:mt-6" noValidate onSubmit={ handleFormSubmit }>
         <FilterInput
           placeholder="Search by block number"
           size="sm"
           type="number"
           name="search_term"
         />
-      </chakra.form>
-    </Center>
+      </form>
+    </div>
   );
 };
 

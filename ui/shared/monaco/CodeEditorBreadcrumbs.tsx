@@ -1,4 +1,3 @@
-import { Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { stripLeadingSlash } from 'toolkit/utils/url';
@@ -13,32 +12,23 @@ const CodeEditorBreadcrumbs = ({ path }: Props) => {
   const themeColors = useThemeColors();
 
   return (
-    <Flex
-      color={ themeColors['breadcrumbs.foreground'] }
-      bgColor={ themeColors['editor.background'] }
-      pl="16px"
-      pr="8px"
-      flexWrap="wrap"
-      fontSize="13px"
-      lineHeight="22px"
-      alignItems="center"
+    <div
+      className="flex items-center flex-wrap text-[13px] leading-[22px] pl-4 pr-2"
+      style={{ color: themeColors['breadcrumbs.foreground'], backgroundColor: themeColors['editor.background'] }}
     >
       { chunks.map((chunk, index) => {
         return (
           <React.Fragment key={ index }>
             { index !== 0 && (
-              <Box
-                className="codicon codicon-breadcrumb-separator"
-                boxSize="16px"
-                _before={{
-                  content: '"\\eab6"',
-                }}/>
+              <div
+                className="codicon codicon-breadcrumb-separator size-4 before:content-['\eab6']"
+              />
             ) }
-            <Box>{ chunk }</Box>
+            <div>{ chunk }</div>
           </React.Fragment>
         );
       }) }
-    </Flex>
+    </div>
   );
 };
 

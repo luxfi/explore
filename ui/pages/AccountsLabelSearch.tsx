@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,7 +6,7 @@ import type { EntityTag as TEntityTag, EntityTagType } from 'ui/shared/EntityTag
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { TOP_ADDRESS } from 'stubs/address';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressesLabelSearchListItem from 'ui/addressesLabelSearch/AddressesLabelSearchListItem';
 import AddressesLabelSearchTable from 'ui/addressesLabelSearch/AddressesLabelSearchTable';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -43,14 +42,14 @@ const AccountsLabelSearch = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <AddressesLabelSearchTable
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           items={ data.items }
           isLoading={ isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { data.items.map((item, index) => {
           return (
             <AddressesLabelSearchListItem
@@ -60,7 +59,7 @@ const AccountsLabelSearch = () => {
             />
           );
         }) }
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -79,16 +78,16 @@ const AccountsLabelSearch = () => {
     };
 
     return (
-      <Flex alignItems="center" columnGap={ 2 } flexWrap="wrap" rowGap={ 1 }>
+      <div className="flex items-center flex-wrap gap-x-2 gap-y-1">
         <Skeleton loading={ isPlaceholderData } display="inline-block">
           Found{ ' ' }
-          <chakra.span fontWeight={ 700 }>
+          <span className="font-bold">
             { num }{ data?.next_page_params || pagination.page > 1 ? '+' : '' }
-          </chakra.span>{ ' ' }
+          </span>{ ' ' }
           matching result{ num > 1 ? 's' : '' } for
         </Skeleton>
         <EntityTag data={ tagData } isLoading={ isPlaceholderData } noLink/>
-      </Flex>
+      </div>
     );
   })();
 

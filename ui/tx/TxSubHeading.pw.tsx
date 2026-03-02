@@ -46,7 +46,7 @@ test('no interpretation +@mobile', async({ render }) => {
   await expect(component).toHaveScreenshot();
 });
 
-test.describe('blockscout provider', () => {
+test.describe('explorer provider', () => {
   test.beforeEach(async({ mockEnvs }) => {
     await mockEnvs(ENVS_MAP.txInterpretation);
   });

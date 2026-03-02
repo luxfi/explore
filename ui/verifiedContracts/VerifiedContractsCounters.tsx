@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -44,7 +43,7 @@ const VerifiedContractsCounters = () => {
     countersApiQuery.data?.new_verified_smart_contracts_24h;
 
   return (
-    <Box columnGap={ 3 } rowGap={ 3 } mb={ 6 } display="grid" gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}>
+    <div className="grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
       <StatsWidget
         label="Total contracts"
         value={ Number(contractsCount).toLocaleString() }
@@ -69,7 +68,7 @@ const VerifiedContractsCounters = () => {
             undefined
         }
       />
-    </Box>
+    </div>
   );
 };
 

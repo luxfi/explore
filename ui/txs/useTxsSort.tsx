@@ -5,7 +5,7 @@ import type { TransactionsSortingValue, TxsResponse } from 'types/api/transactio
 
 import type { ResourceError } from 'lib/api/resources';
 import * as cookies from 'lib/cookies';
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 import sortTxs from './sortTxs';
 

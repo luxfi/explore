@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { MUD_WORLD } from 'stubs/mud';
@@ -30,7 +29,7 @@ const MudWorlds = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <MudWorldsListItem
             key={ item.address.hash + (isPlaceholderData ? String(index) : '') }
@@ -38,16 +37,16 @@ const MudWorlds = () => {
             isLoading={ isPlaceholderData }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <MudWorldsTable items={ data.items } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...pagination }/>
+    <ActionBar className="-mt-6">
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 

@@ -1,4 +1,3 @@
-import { Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 import type { Path } from 'react-hook-form';
 
@@ -26,36 +25,30 @@ export const NOTIFICATIONS = NOTIFICATION_OPTIONS.map(({ id }) => id);
 
 export default function AddressFormNotifications() {
   return (
-    <Grid templateColumns={{ base: 'repeat(2, max-content)', lg: 'repeat(3, max-content)' }} gap={{ base: '10px 24px', lg: '20px 24px' }}>
+    <div className="grid">
       { NOTIFICATION_OPTIONS.map((notification) => {
         const incomingFieldName = `notification_settings.${ notification.id }.incoming` as Path<FormFields>;
         const outgoingFieldName = `notification_settings.${ notification.id }.outcoming` as Path<FormFields>;
         return (
           <React.Fragment key={ notification.id }>
-            <GridItem
-              gridColumnStart={{ base: 1, lg: 1 }}
-              gridColumnEnd={{ base: 3, lg: 1 }}
-              _notFirst={{
-                mt: { base: 3, lg: 0 },
-              }}
-            >
+            <div>
               { notification.label }
-            </GridItem>
-            <GridItem>
+            </div>
+            <div>
               <FormFieldCheckbox<FormFields, typeof incomingFieldName>
                 name={ incomingFieldName }
                 label="Incoming"
               />
-            </GridItem>
-            <GridItem>
+            </div>
+            <div>
               <FormFieldCheckbox<FormFields, typeof outgoingFieldName>
                 name={ outgoingFieldName }
                 label="Outgoing"
               />
-            </GridItem>
+            </div>
           </React.Fragment>
         );
       }) }
-    </Grid>
+    </div>
   );
 }

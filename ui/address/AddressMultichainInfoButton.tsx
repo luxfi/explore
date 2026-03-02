@@ -3,8 +3,8 @@ import React from 'react';
 import type { Address } from 'types/api/address';
 
 import config from 'configs/app';
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link } from 'toolkit/next/link';
 
 const feature = config.features.multichainButton;
 
@@ -30,7 +30,7 @@ const AddressMultichainInfoButton = ({ addressData, ...rest }: Props) => {
   const url = (() => {
     try {
       const url = new URL(promotedProvider.urlTemplate.replace('{address}', addressData.hash));
-      url.searchParams.append('utm_source', 'blockscout');
+      url.searchParams.append('utm_source', 'explorer');
       url.searchParams.append('utm_medium', 'address');
       return url.toString();
     } catch (error) {}

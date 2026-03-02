@@ -1,4 +1,3 @@
-import { Flex, useToken } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -11,7 +10,7 @@ import useAddressMetadataInfoQuery from 'lib/address/useAddressMetadataInfoQuery
 import type { ResourceError } from 'lib/api/resources';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import AddressAlerts from 'ui/address/details/AddressAlerts';
 import AddressQrCode from 'ui/address/details/AddressQrCode';
 import AccountActionsMenu from 'ui/shared/AccountActionsMenu/AccountActionsMenu';
@@ -49,14 +48,14 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
 
   const tokenSymbolText = tokenQuery.data?.symbol ? ` (${ tokenQuery.data.symbol })` : '';
 
-  const [ bridgedTokenTagBgColor ] = useToken('colors', 'blue.500');
-  const [ bridgedTokenTagTextColor ] = useToken('colors', 'white');
+  const bridgedTokenTagBgColor = 'var(--color-blue-500)';
+  const bridgedTokenTagTextColor = 'var(--color-white)';
 
   const tags: Array<EntityTag> = React.useMemo(() => {
     return [
       tokenQuery.data ? {
         slug: tokenQuery.data?.type,
-        name: getTokenTypeName(tokenQuery.data.type),
+        name: getTokenTypeName(tokenQuery.data.type, multichainContext?.chain?.app_config),
         tagType: 'custom' as const,
         ordinal: PREDEFINED_TAG_PRIORITY,
       } : undefined,
@@ -83,27 +82,27 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
     tokenQuery.data,
     verifiedInfoQuery.data?.projectSector,
     hash,
+    multichainContext?.chain?.app_config,
   ]);
 
   const contentAfter = (
     <>
-      { tokenQuery.data && <TokenEntity.Reputation value={ tokenQuery.data.reputation } ml={ 0 }/> }
+      { tokenQuery.data && <TokenEntity.Reputation value={ tokenQuery.data.reputation }/> }
       { verifiedInfoQuery.data?.tokenAddress && (
         <Tooltip content={ `Information on this token has been verified by ${ config.chain.name }` }>
-          <IconSvg name="certified" color="green.500" boxSize={ 6 } cursor="pointer"/>
+          <IconSvg name="certified" color="green.500"/>
         </Tooltip>
       ) }
       <EntityTags
         isLoading={ isLoading || (config.features.addressMetadata.isEnabled && addressMetadataQuery.isPending) }
         tags={ tags }
         addressHash={ addressQuery.data?.hash }
-        flexGrow={ 1 }
       />
     </>
   );
 
   const secondRow = (
-    <Flex alignItems="center" w="100%" minW={ 0 } columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <div>
       { addressQuery.data && (
         <AddressEntity
           address={{ ...addressQuery.data, name: '' }}
@@ -117,11 +116,11 @@ const TokenPageTitle = ({ tokenQuery, addressQuery, verifiedInfoQuery, hash }: P
       { !isLoading && tokenQuery.data && <AddressAddToWallet token={ tokenQuery.data } variant="button"/> }
       { addressQuery.data && <AddressQrCode hash={ addressQuery.data.hash } isLoading={ isLoading }/> }
       <AccountActionsMenu isLoading={ isLoading }/>
-      <Flex ml={{ base: 0, lg: 'auto' }} columnGap={ 2 } flexGrow={{ base: 1, lg: 0 }}>
+      <div>
         <TokenVerifiedInfo verifiedInfoQuery={ verifiedInfoQuery }/>
-        <NetworkExplorers type="token" pathParam={ addressHash } ml={{ base: 'auto', lg: 0 }}/>
-      </Flex>
-    </Flex>
+        <NetworkExplorers type="token" pathParam={ addressHash }/>
+      </div>
+    </div>
   );
 
   return (

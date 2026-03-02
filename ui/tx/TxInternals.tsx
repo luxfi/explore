@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -101,8 +100,8 @@ const TxInternals = ({ txQuery }: Props) => {
 
   const content = filteredData ? (
     <>
-      <Box hideFrom="lg"><TxInternalsList data={ filteredData } isLoading={ isPlaceholderData }/></Box>
-      <Box hideBelow="lg">
+      <div className="block lg:hidden"><TxInternalsList data={ filteredData } isLoading={ isPlaceholderData }/></div>
+      <div className="hidden lg:block">
         <TxInternalsTable
           data={ filteredData }
           sort={ sort }
@@ -110,14 +109,14 @@ const TxInternals = ({ txQuery }: Props) => {
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       { /* <FilterInput onChange={ setSearchTerm } maxW="360px" ml={ 3 } size="xs" placeholder="Search by addresses, hash, method..."/> */ }
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 

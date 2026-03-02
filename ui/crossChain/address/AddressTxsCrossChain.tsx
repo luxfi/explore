@@ -26,7 +26,7 @@ const AddressCrossChainTxs = ({ pagination, isLoading: isLoadingProp, ...rest }:
             onClick={ tableViewFlag.onToggle }
             loading={ isLoading }
           />
-          { pagination?.isVisible && <Pagination { ...pagination } ml="auto"/> }
+          { pagination?.isVisible && <Pagination { ...pagination } className="ml-auto"/> }
         </ActionBar>
       ) }
       <TransactionsCrossChainContent

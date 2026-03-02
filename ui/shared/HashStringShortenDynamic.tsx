@@ -8,20 +8,18 @@
 
 // so i did it with js
 
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import { debounce } from 'es-toolkit';
 import React, { useCallback, useEffect, useRef } from 'react';
 import type { FontFace } from 'use-font-face-observer';
 import useFontFaceObserver from 'use-font-face-observer';
 
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { BODY_TYPEFACE, HEADING_TYPEFACE } from 'toolkit/theme/foundations/typography';
 
 const TAIL_LENGTH = 4;
 const HEAD_MIN_LENGTH = 4;
 
-interface Props extends BoxProps {
+interface Props extends React.HTMLAttributes<HTMLSpanElement> {
   hash: string;
   fontWeight?: string | number;
   noTooltip?: boolean;
@@ -92,14 +90,14 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', noTooltip, tailLen
     };
   }, [ calculateString ]);
 
-  const content = <chakra.span ref={ elementRef } as={ as } { ...props }>{ displayedString }</chakra.span>;
+  const content = <span ref={ elementRef } { ...props }>{ displayedString }</span>;
   const isTruncated = hash.length !== displayedString.length;
 
   if (isTruncated && !noTooltip) {
     return (
       <Tooltip
         content={ hash }
-        contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
+        contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' }}
         interactive={ tooltipInteractive }
       >
         { content }

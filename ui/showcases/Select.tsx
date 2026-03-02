@@ -1,10 +1,9 @@
-import { Box, createListCollection } from '@chakra-ui/react';
 import { noop } from 'es-toolkit';
 import React from 'react';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { Select, SelectAsync } from 'toolkit/chakra/select';
+import { Checkbox } from '@luxfi/ui/checkbox';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select, SelectAsync } from '@luxfi/ui/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 import IconSvg from 'ui/shared/IconSvg';
 import Sort from 'ui/shared/sort/Sort';
@@ -15,9 +14,9 @@ import { Section, Container, SectionHeader, SamplesStack, Sample, SectionSubHead
 
 const frameworks = createListCollection<SelectOption>({
   items: [
-    { label: 'React.js is the most popular framework', value: 'react', icon: <IconSvg name="navigation/api_keys" boxSize={ 5 } flexShrink={ 0 }/> },
+    { label: 'React.js is the most popular framework', value: 'react', icon: <IconSvg name="navigation/api_keys" className="w-5 h-5 shrink-0"/> },
     { label: 'Vue.js is the second most popular framework', value: 'vue' },
-    { value: 'angular', label: 'Angular', renderLabel: () => <div>Angular is <Box as="span" color="red" fontWeight="700">not awesome</Box></div> },
+    { value: 'angular', label: 'Angular', renderLabel: () => <div>Angular is <span className="text-[var(--color-red)] font-bold">not awesome</span></div> },
     { label: 'Svelte', value: 'svelte' },
   ],
 });
@@ -121,7 +120,7 @@ const SelectShowcase = () => {
               loadOptions={ () => {
                 return Promise.resolve(frameworks);
               } }
-              extraControls={ <Checkbox mt={ 2 } size="sm">Include nightly builds</Checkbox> }
+              extraControls={ <Checkbox className="mt-2" size="sm">Include nightly builds</Checkbox> }
             />
           </Sample>
         </SamplesStack>

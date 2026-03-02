@@ -1,10 +1,9 @@
-import { Flex, Box, useBreakpointValue, chakra } from '@chakra-ui/react';
 import React, { useCallback, useState, useEffect } from 'react';
 import { keccak256, stringToBytes } from 'viem';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import NavigationPromoBannerContent from './NavigationPromoBannerContent';
@@ -19,8 +18,16 @@ type Props = {
 
 const NavigationPromoBanner = ({ isCollapsed }: Props) => {
   const isMobile = useIsMobile();
-  const isXLScreen = useBreakpointValue({ base: false, xl: true });
+  const [ isXLScreen, setIsXLScreen ] = React.useState(false);
   const isHorizontalNavigation = isHorizontal && !isMobile;
+
+  React.useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1280px)');
+    const handler = (e: MediaQueryListEvent) => setIsXLScreen(e.matches);
+    setIsXLScreen(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   const [ isShown, setIsShown ] = useState(false);
   const [ promoBannerHash, setPromoBannerHash ] = useState('');
@@ -47,24 +54,13 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
   }
 
   return (
-    <Flex flex={ 1 } mt={ isHorizontalNavigation ? 0 : 3 } pointerEvents="none">
-      <chakra.a
+    <div className={ `flex flex-1 pointer-events-none ${ isHorizontalNavigation ? '' : 'mt-3' }` }>
+      <a
         href={ promoBanner.link_url }
         target="_blank"
         rel="noopener noreferrer"
-        pointerEvents="auto"
-        w="full"
-        minW={ isHorizontalNavigation ? 'auto' : '60px' }
-        mt="auto"
-        position={ isHorizontalNavigation ? undefined : 'sticky' }
-        bottom={ isHorizontalNavigation ? undefined : { base: 0, lg: 6 } }
-        overflow="hidden"
-        _hover={{
-          opacity: 0.8,
-          _icon: {
-            display: 'block',
-          },
-        }}
+        className={ `pointer-events-auto w-full mt-auto overflow-hidden hover:opacity-80 ${ isHorizontalNavigation ? '' : 'sticky bottom-0 lg:bottom-6' }` }
+        style={{ minWidth: isHorizontalNavigation ? 'auto' : '60px' }}
       >
         <Tooltip
           content={ !isTooltipDisabled && (
@@ -75,19 +71,16 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
           ) }
           showArrow={ false }
           positioning={{
-            placement: isHorizontalNavigation ? 'bottom' : 'right-end',
+            placement: isHorizontalNavigation ? 'bottom' : 'right',
             offset: { crossAxis: 0, mainAxis: isHorizontalNavigation ? 8 : 5 },
           }}
           contentProps={{
-            p: 0,
-            borderRadius: 'base',
-            bgColor: 'transparent',
-            boxShadow: isHorizontalNavigation ? '2xl' : 'none',
-            cursor: 'default',
+            className: 'p-0 rounded-base bg-transparent cursor-default',
+            style: { boxShadow: isHorizontalNavigation ? 'var(--shadow-2xl)' : 'none' },
           }}
           interactive
         >
-          <Box w="full" position="relative">
+          <div className="w-full relative">
             <NavigationPromoBannerContent
               isCollapsed={ isCollapsed }
               isHorizontalNavigation={ isHorizontalNavigation }
@@ -95,20 +88,12 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
             <IconSvg
               onClick={ handleClose }
               name="close"
-              boxSize={ 3 }
-              color={{ _light: 'gray.300', _dark: 'gray.600' }}
-              bgColor="bg.primary"
-              borderBottomLeftRadius="sm"
-              borderTopRightRadius="sm"
-              position="absolute"
-              top="0"
-              right="0"
-              display={ isMobile ? 'block' : 'none' }
+              className={ `w-3 h-3 text-gray-300 dark:text-gray-600 bg-[var(--color-bg-primary)] rounded-bl-sm rounded-tr-sm absolute top-0 right-0 ${ isMobile ? 'block' : 'hidden' }` }
             />
-          </Box>
+          </div>
         </Tooltip>
-      </chakra.a>
-    </Flex>
+      </a>
+    </div>
   );
 };
 

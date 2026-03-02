@@ -3,7 +3,7 @@ import React from 'react';
 
 import type { TxAuthorization } from 'types/api/transaction';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
+import type { BadgeProps } from '@luxfi/ui/badge';
 
 import StatusTag from './StatusTag';
 

@@ -42,7 +42,7 @@ const CsvExportFormField = ({ formApi, name }: Props) => {
       placeholder={ capitalize(name) }
       required
       rules={{ validate }}
-      maxW={{ base: 'auto', lg: '220px' }}
+      className="max-w-none lg:max-w-[220px]"
     />
   );
 };

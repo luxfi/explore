@@ -1,11 +1,11 @@
-import { createListCollection } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
 
 import type { FormFields } from '../types';
 import type { PublicTagType } from 'types/api/addressMetadata';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection } from '@luxfi/ui/select';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
 interface Props {
   index: number;

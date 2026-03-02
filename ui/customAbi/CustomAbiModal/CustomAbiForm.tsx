@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -10,7 +9,7 @@ import type { ResourceErrorAccount } from 'lib/api/resources';
 import { resourceKey } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/getErrorMessage';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 
@@ -109,9 +108,8 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           name="contract_address_hash"
           placeholder="Smart contract address (0x...)"
           required
-          bgColor="dialog.bg"
           readOnly={ Boolean(data && 'contract_address_hash' in data) }
-          mb={ 5 }
+          className="mb-5 [&_input]:bg-[var(--color-dialog-bg)]"
         />
         <FormFieldText<Inputs>
           name="name"
@@ -120,20 +118,16 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           rules={{
             maxLength: NAME_MAX_LENGTH,
           }}
-          bgColor="dialog.bg"
-          mb={ 5 }
+          className="mb-5 [&_input]:bg-[var(--color-dialog-bg)]"
         />
         <FormFieldText<Inputs>
           name="abi"
           placeholder="Custom ABI [{...}] (JSON format)"
           required
           asComponent="Textarea"
-          bgColor="dialog.bg"
-          size="2xl"
-          minH="300px"
-          mb={ 8 }
+          className="mb-8 min-h-[300px] [&_textarea]:bg-[var(--color-dialog-bg)]"
         />
-        <Box>
+        <div>
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }
@@ -141,7 +135,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           >
             { data && 'id' in data ? 'Save' : 'Create custom ABI' }
           </Button>
-        </Box>
+        </div>
       </form>
     </FormProvider>
   );

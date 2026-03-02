@@ -1,4 +1,3 @@
-import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 // import { AnimatePresence } from 'framer-motion';
 import React from 'react';
@@ -14,9 +13,10 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { ARBITRUM_L2_TXN_BATCHES_ITEM } from 'stubs/arbitrumL2';
-import { Heading } from 'toolkit/chakra/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Heading } from '@luxfi/ui/heading';
+import { Link } from 'toolkit/next/link';
 
+import LatestBlocksFallback from '../fallbacks/LatestBlocksFallback';
 import LatestBatchItem from './LatestBatchItem';
 
 const LatestArbitrumL2Batches = () => {
@@ -58,41 +58,41 @@ const LatestArbitrumL2Batches = () => {
     handler: handleNewBatchMessage,
   });
 
-  let content;
+  const content = (() => {
+    if (isError) {
+      return <LatestBlocksFallback/>;
+    }
+    if (data && data.items.length > 0) {
+      const dataToShow = data.items.slice(0, batchesMaxCount);
 
-  if (isError) {
-    content = <Text>No data. Please reload the page.</Text>;
-  }
-
-  if (data) {
-    const dataToShow = data.items.slice(0, batchesMaxCount);
-
-    content = (
-      <>
-        <VStack gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
-          { dataToShow.map(((batch, index) => (
-            <LatestBatchItem
-              key={ batch.number + (isPlaceholderData ? String(index) : '') }
-              number={ batch.number }
-              timestamp={ batch.commitment_transaction.timestamp }
-              txCount={ batch.transactions_count }
-              isLoading={ isPlaceholderData }
-              animation={ initialList.getAnimationProp(batch) }
-            />
-          ))) }
-        </VStack>
-        <Flex justifyContent="center">
-          <Link textStyle="sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
-        </Flex>
-      </>
-    );
-  }
+      return (
+        <>
+          <div className="flex flex-col gap-2 mb-3 overflow-hidden items-stretch">
+            { dataToShow.map(((batch, index) => (
+              <LatestBatchItem
+                key={ batch.number + (isPlaceholderData ? String(index) : '') }
+                number={ batch.number }
+                timestamp={ batch.commitment_transaction.timestamp }
+                txCount={ batch.transactions_count }
+                isLoading={ isPlaceholderData }
+                animation={ initialList.getAnimationProp(batch) }
+              />
+            ))) }
+          </div>
+          <div className="flex justify-center">
+            <Link className="text-sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
+          </div>
+        </>
+      );
+    }
+    return <p className="text-sm">No latest batches found.</p>;
+  })();
 
   return (
-    <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
-      <Heading level="3" mb={ 3 }>Latest batches</Heading>
+    <div className="w-full lg:w-[280px] shrink-0">
+      <Heading level="3" className="mb-3">Latest batches</Heading>
       { content }
-    </Box>
+    </div>
   );
 };
 

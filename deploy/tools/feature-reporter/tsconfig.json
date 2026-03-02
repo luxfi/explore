@@ -2,14 +2,15 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "module": "node16",
+    "moduleResolution": "node16",
     "outDir": "./build",
     "paths": {
       "nextjs-routes": ["./nextjs/nextjs-routes.d.ts"],
     }
   },
-  "include": [ "../../../configs/app/index.ts", "../../../global.d.ts" ],
+  "include": [ "../../../configs/app/index.ts", "../../../global.d.ts", "../../../types/@luxfi/ui.d.ts" ],
   "tsc-alias": {
     "verbose": true,
     "resolveFullPaths": true,

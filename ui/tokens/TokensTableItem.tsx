@@ -1,17 +1,16 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
-import type { AggregatedTokenInfo } from 'types/client/multichain-aggregator';
+import type { AggregatedTokenInfo } from 'types/client/multichainAggregator';
 
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
 import getItemIndex from 'lib/getItemIndex';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
 import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import type { EntityProps as AddressEntityProps } from 'ui/shared/entities/address/AddressEntity';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -76,49 +75,43 @@ const TokensTableItem = ({
   return (
     <TableRow className="group">
       <TableCell>
-        <Flex alignItems="flex-start">
+        <div>
           <Skeleton
             loading={ isLoading }
-            textStyle="sm"
-            fontWeight={ 600 }
-            mr={ 3 }
-            minW="28px"
           >
             { getItemIndex(index, page) }
           </Skeleton>
-          <Flex overflow="hidden" flexDir="column" rowGap={ 2 }>
+          <div>
             <TokenEntity
               token={ token }
               chain={ chainInfo }
               isLoading={ isLoading }
               jointSymbol
               noCopy
-              textStyle="sm"
-              fontWeight="700"
+              noLink={ type === 'NATIVE' }
             />
-            <Flex columnGap={ 2 } py="5px" alignItems="center">
-              <AddressEntity
-                address={ tokenAddress }
-                isLoading={ isLoading }
-                noIcon
-                textStyle="sm"
-                fontWeight={ 500 }
-                link={{ variant: 'secondary' }}
-              />
-              <AddressAddToWallet
-                token={ token }
-                isLoading={ isLoading }
-                iconSize={ 5 }
-                opacity={ 0 }
-                _groupHover={{ opacity: 1 }}
-              />
-            </Flex>
-            <Flex columnGap={ 1 }>
-              <Tag loading={ isLoading }>{ getTokenTypeName(type) }</Tag>
+            { type !== 'NATIVE' && (
+              <div>
+                <AddressEntity
+                  address={ tokenAddress }
+                  isLoading={ isLoading }
+                  noIcon
+                  link={{ variant: 'secondary' }}
+                />
+                <AddressAddToWallet
+                  token={ token }
+                  isLoading={ isLoading }
+                  iconSize={ 5 }
+                  chainConfig={ chainInfo?.app_config }
+                />
+              </div>
+            ) }
+            <div>
+              <Tag loading={ isLoading }>{ getTokenTypeName(type, chainInfo?.app_config) }</Tag>
               { bridgedChainTag && <Tag loading={ isLoading }>{ bridgedChainTag }</Tag> }
-            </Flex>
-          </Flex>
-        </Flex>
+            </div>
+          </div>
+        </div>
       </TableCell>
       <TableCell isNumeric>
         { exchangeRate ? (
@@ -143,7 +136,6 @@ const TokensTableItem = ({
       <TableCell isNumeric>
         <Skeleton
           loading={ isLoading }
-          display="inline-block"
         >
           { Number(holdersCount).toLocaleString() }
         </Skeleton>

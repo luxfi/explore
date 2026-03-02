@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -33,8 +32,8 @@ const Accounts = () => {
   });
 
   const actionBar = pagination.isVisible && (
-    <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...pagination }/>
+    <ActionBar className="-mt-6">
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   );
 
@@ -45,7 +44,7 @@ const Accounts = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <AddressesTable
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           items={ data.items }
@@ -53,8 +52,8 @@ const Accounts = () => {
           pageStartIndex={ pageStartIndex }
           isLoading={ isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { data.items.map((item, index) => {
           return (
             <AddressesListItem
@@ -66,7 +65,7 @@ const Accounts = () => {
             />
           );
         }) }
-      </Box>
+      </div>
     </>
   ) : null;
 

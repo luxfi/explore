@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { Element } from 'react-scroll';
 
@@ -7,9 +6,9 @@ import type { FormSubmitHandler, SmartContractMethod } from './types';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
-import { Alert } from 'toolkit/chakra/alert';
-import { Badge } from 'toolkit/chakra/badge';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@luxfi/ui/accordion';
+import { Alert } from '@luxfi/ui/alert';
+import { Badge } from '@luxfi/ui/badge';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
@@ -71,7 +70,7 @@ const ContractAbiItem = ({ data, index, id, addressHash, sourceAddress, tab, onS
           columnGap={ 2 }
         >
           <CopyToClipboard text={ url } type="link" ml={ 0 } as="div"/>
-          <Box fontWeight={ 500 } display="flex" alignItems="center">
+          <div className="font-medium flex items-center">
             { index + 1 }. { data.type === 'fallback' || data.type === 'receive' ? data.type : data.name }
             { data.type === 'fallback' && (
               <Hint
@@ -97,7 +96,7 @@ const ContractAbiItem = ({ data, index, id, addressHash, sourceAddress, tab, onS
                 as="div"
               />
             ) }
-          </Box>
+          </div>
           <Badge colorPalette={ isRead ? 'purple_alt' : 'blue_alt' } flexShrink={ 0 }>{ isRead ? 'read' : 'write' }</Badge>
           { 'method_id' in data && (
             <Badge

@@ -4,24 +4,15 @@ import type { NextPageWithLayout } from 'nextjs/types';
 
 import PageNextJs from 'nextjs/PageNextJs';
 
-import AppError from 'ui/shared/AppError/AppError';
-import LayoutError from 'ui/shared/layout/LayoutError';
-
-const error = new Error('Not found', { cause: { status: 404 } });
-
 const Page: NextPageWithLayout = () => {
   return (
     <PageNextJs pathname="/404">
-      <AppError error={ error }/>
+      <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
+        <span className="text-6xl">404</span>
+        <h1 className="text-xl font-semibold">Page not found</h1>
+        <a href="/" className="text-sm text-blue-400 hover:underline">Go to homepage</a>
+      </div>
     </PageNextJs>
-  );
-};
-
-Page.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <LayoutError>
-      { page }
-    </LayoutError>
   );
 };
 

@@ -5,7 +5,7 @@ import type { VerifiedContractsSortingField, VerifiedContractsSortingValue } fro
 
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { currencyUnits } from 'lib/units';
-import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import getNextSortValue from 'ui/shared/sort/getNextSortValue';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';

@@ -1,5 +1,3 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
-import { chakra, Grid, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
@@ -8,8 +6,8 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';
 import CrossChainFromToTag from 'ui/shared/crossChain/CrossChainFromToTag';
@@ -22,13 +20,13 @@ import TextSeparator from 'ui/shared/TextSeparator';
 import Time from 'ui/shared/time/Time';
 import TokenValueInterchain from 'ui/shared/value/TokenValueInterchain';
 
-interface Props extends JsxStyleProps {
+interface Props {
   data: InterchainMessage;
   isLoading?: boolean;
   currentAddress?: string;
 }
 
-const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAddress, ...rest }: Props) => {
+const TransactionsCrossChainListItem = ({ data, isLoading, currentAddress }: Props) => {
   const timestamp = data.send_timestamp || data.receive_timestamp;
   const firstTransfer = data.transfers.length > 0 ? data.transfers[0] : null;
   const txHashWithTransfers = (() => {
@@ -45,11 +43,11 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
     }
   })();
 
-  const dashElement = <chakra.span color="text.secondary">{ mdash }</chakra.span>;
+  const dashElement = <span className="text-[var(--color-text-secondary)]">{ mdash }</span>;
 
   return (
-    <ListItemMobile rowGap={ rowGap } { ...rest }>
-      <HStack>
+    <ListItemMobile className="gap-y-3">
+      <div className="flex flex-row items-center">
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
         { currentAddress && (
           <CrossChainFromToTag
@@ -57,8 +55,8 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
             isLoading={ isLoading }
           />
         ) }
-      </HStack>
-      <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } fontWeight={ 600 } noIcon={ false } truncation="dynamic" w="100%"/>
+      </div>
+      <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } className="font-semibold w-full" noIcon={ false } truncation="dynamic"/>
       { timestamp && (
         <Skeleton loading={ isLoading } display="flex" alignItems="center" color="text.secondary">
           <div>{ dayjs(timestamp).fromNow() }</div>
@@ -66,7 +64,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           <Time timestamp={ timestamp } format="lll_s"/>
         </Skeleton>
       ) }
-      <Grid templateColumns="120px 1fr" columnGap={ 2 } rowGap={ rowGap }>
+      <div className="grid gap-x-2 gap-y-3" style={{ gridTemplateColumns: '120px minmax(0, 1fr)' }}>
         <Skeleton loading={ isLoading }>
           Source tx
         </Skeleton>
@@ -164,7 +162,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
         { data.bridge ? (
           <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading }/>
         ) : dashElement }
-      </Grid>
+      </div>
     </ListItemMobile>
   );
 };

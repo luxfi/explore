@@ -1,9 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EntityTag } from './types';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -20,11 +19,11 @@ const EntityTagIcon = ({ data, noColors }: Props) => {
   }
 
   if (data.tagType === 'name') {
-    return <IconSvg name="publictags" boxSize={ 3 } color={ iconColor }/>;
+    return <IconSvg name="publictags" className="w-3 h-3" style={{ color: iconColor.includes('.') ? `var(--color-${ iconColor.replace(/\./g, '-') })` : iconColor }}/>;
   }
 
   if (data.tagType === 'protocol' || data.tagType === 'generic') {
-    return <chakra.span color={ iconColor }>#</chakra.span>;
+    return <span style={{ color: iconColor  }}>#</span>;
   }
 
   return null;

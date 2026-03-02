@@ -1,9 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from 'toolkit/next/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import IconSvg from '../IconSvg';
 
@@ -17,20 +16,11 @@ const LinkNewTab = ({ className, label, href }: Props) => {
 
   return (
     <Tooltip content={ label }>
-      <IconButton
-        asChild
-        aria-label={ label ?? 'Open link' }
-        variant="icon_secondary"
-        boxSize={ 5 }
-        className={ className }
-        borderRadius={ 0 }
-      >
-        <Link href={ href } external noIcon>
-          <IconSvg name="open-link"/>
-        </Link>
-      </IconButton>
+      <Link href={ href } external noIcon className={ `size-5 rounded-none inline-flex items-center justify-center text-[var(--color-icon-secondary)] hover:text-[var(--color-hover)] ${ className ?? '' }`.trim() }>
+        <IconSvg name="open-link"/>
+      </Link>
     </Tooltip>
   );
 };
 
-export default React.memo(chakra(LinkNewTab));
+export default React.memo(LinkNewTab);

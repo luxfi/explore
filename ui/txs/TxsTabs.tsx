@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -169,10 +168,10 @@ const TxsTabs = ({ parentTab, tabsHeight, ...rest }: Props) => {
     }
 
     return (
-      <Flex alignItems="center" gap={ 6 }>
+      <div className="flex">
         { isAdvancedFilterEnabled && <AdvancedFilterLink routeParams={{ chain: multichainContext?.chain }}/> }
         { currentQuery.pagination.isVisible && <Pagination { ...currentQuery.pagination }/> }
-      </Flex>
+      </div>
     );
   })();
 

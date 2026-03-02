@@ -3,23 +3,23 @@ import type * as stats from '@luxfi/stats-types';
 
 export const STATS_API_RESOURCES = {
   counters: {
-    path: '/api/v1/counters',
+    path: '/v1/counters',
   },
   lines: {
-    path: '/api/v1/lines',
+    path: '/v1/lines',
   },
   line: {
-    path: '/api/v1/lines/:id',
+    path: '/v1/lines/:id',
     pathParams: [ 'id' as const ],
   },
   pages_main: {
-    path: '/api/v1/pages/main',
+    path: '/v1/pages/main',
   },
   pages_transactions: {
-    path: '/api/v1/pages/transactions',
+    path: '/v1/pages/transactions',
   },
   pages_contracts: {
-    path: '/api/v1/pages/contracts',
+    path: '/v1/pages/contracts',
   },
 } satisfies Record<string, ApiResource>;
 

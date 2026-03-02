@@ -1,13 +1,12 @@
-import type { StackProps } from '@chakra-ui/react';
-import { createListCollection, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
 import dayjs from 'lib/date/dayjs';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { SelectContent, SelectItem, SelectRoot, SelectControl } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { IconButton } from '@luxfi/ui/icon-button';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection } from '@luxfi/ui/select';
+import { SelectContent, SelectItem, SelectRoot, SelectControl } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import IconSvg from 'ui/shared/IconSvg';
 import TextSeparator from 'ui/shared/TextSeparator';
@@ -24,13 +23,14 @@ const collection = createListCollection<SelectOption>({
 
 type Format = (typeof FORMAT_OPTIONS)[number]['value'];
 
-interface Props extends StackProps {
+interface Props {
   timestamp: string | number;
   isLoading?: boolean;
   noRelativeTime?: boolean;
+  className?: string;
 };
 
-const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }: Props) => {
+const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, className }: Props) => {
 
   const settings = useSettingsContext();
 
@@ -53,16 +53,16 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
   })();
 
   return (
-    <HStack maxW="100%" minW="0" { ...rest }>
+    <div className={ `flex flex-row gap-2 items-center max-w-full min-w-0 ${ className || '' }` }>
       { !noRelativeTime && (
         <>
           <Skeleton loading={ isLoading } flexShrink={ 0 }>
             { dayjs(timestamp).fromNow() }
           </Skeleton>
-          <TextSeparator mx={ 0 }/>
+          <TextSeparator className="mx-0"/>
         </>
       ) }
-      <HStack gap={ 1 } minW="0">
+      <div className="flex flex-row gap-1 items-center min-w-0">
         <SelectRoot
           name="time_format"
           collection={ collection }
@@ -72,19 +72,19 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
           w="fit-content"
         >
           <SelectControl
-            triggerProps={{ asChild: true, minH: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            triggerProps={{ asChild: true, className: 'min-h-0 flex items-center justify-center' }}
             noIndicator
             defaultValue={ format }
           >
             <IconButton
               aria-label="Toggle time format"
               variant="icon_secondary"
-              boxSize={ 5 }
-              borderRadius="sm"
+              size="2xs"
+              className="rounded-sm"
               selected={ !isLoading }
               loadingSkeleton={ isLoading }
             >
-              <IconSvg name="clock-light" boxSize="14px"/>
+              <IconSvg name="clock-light" className="w-[14px] h-[14px]"/>
             </IconButton>
           </SelectControl>
           <SelectContent>
@@ -100,8 +100,8 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
           loading={ isLoading }
           minW="0"
         />
-      </HStack>
-    </HStack>
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import type { SmartContractLicenseType } from 'types/api/contract';
 import type { SmartContractVerificationMethod } from 'types/client/contract';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export interface ContractLibrary {
   name: string;

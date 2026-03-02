@@ -1,13 +1,12 @@
-import { Grid, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Resolution, TimeChartData } from './types';
 
 import RepeatIcon from 'icons/repeat.svg';
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 
-import { Button } from '../../chakra/button';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '../../chakra/dialog';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import { ChartWidgetContent } from './ChartWidgetContent';
 
 export interface Props {
@@ -43,19 +42,18 @@ const FullscreenChartModal = ({
       <DialogContent>
         <DialogHeader/>
         <DialogBody pt={ 6 } display="flex" flexDir="column">
-          <Grid gridColumnGap={ 2 } mb={ 4 }>
+          <div className="grid gap-x-2 mb-4">
             <Heading mb={ 1 } level="2">
               { title }
             </Heading>
 
             { description && (
-              <Text
-                gridColumn={ 1 }
-                color="text.secondary"
-                textStyle="sm"
+              <span
+                className="text-sm text-[var(--color-text-secondary)]"
+                style={{ gridColumn: 1 }}
               >
                 { description }
-              </Text>
+              </span>
             ) }
 
             { Boolean(zoomRange) && (
@@ -68,11 +66,11 @@ const FullscreenChartModal = ({
                 variant="outline"
                 onClick={ handleZoomReset }
               >
-                <Icon boxSize={ 4 }><RepeatIcon/></Icon>
+                <RepeatIcon className="w-4 h-4"/>
                 Reset zoom
               </Button>
             ) }
-          </Grid>
+          </div>
           <ChartWidgetContent
             isEnlarged
             charts={ charts }

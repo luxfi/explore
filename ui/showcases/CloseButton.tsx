@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CloseButton } from 'toolkit/chakra/close-button';
+import { CloseButton } from '@luxfi/ui/close-button';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 
@@ -23,7 +23,7 @@ const CloseButtonShowcase = () => {
         <SectionHeader>Size</SectionHeader>
         <SamplesStack>
           <Sample label="size: md">
-            <CloseButton size="md" outline="1px dashed lightpink"/>
+            <CloseButton size="md" style={{ outline: '1px dashed lightpink' }}/>
           </Sample>
         </SamplesStack>
       </Section>

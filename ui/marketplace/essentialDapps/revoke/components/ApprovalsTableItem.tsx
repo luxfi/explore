@@ -1,12 +1,11 @@
-import { Flex } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
 import type { AllowanceType } from 'types/client/revoke';
 
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableRow, TableCell } from 'toolkit/chakra/table';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableRow, TableCell } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import NumberEntity from 'ui/shared/NumberEntity';
@@ -45,9 +44,9 @@ export default function ApprovalsTableItem({
   }, [ revoke, hideApproval, approval, selectedChain?.id ]);
 
   return (
-    <TableRow fontWeight="500">
+    <TableRow className="font-medium">
       <TableCell verticalAlign="middle">
-        <Flex flexDir="column" gap={ 2 } mr={ 2 }>
+        <div className="flex flex-col gap-2 mr-2">
           <TokenEntity
             token={{
               address_hash: approval.address,
@@ -60,8 +59,7 @@ export default function ApprovalsTableItem({
             isLoading={ isLoading }
             noCopy
             jointSymbol
-            textStyle="sm"
-            fontWeight="600"
+            className="text-sm font-semibold"
             chain={ selectedChain }
             link={{ noIcon: true, external: true }}
           />
@@ -73,7 +71,7 @@ export default function ApprovalsTableItem({
             chain={ selectedChain }
             link={{ variant: 'secondary', noIcon: true, external: true }}
           />
-        </Flex>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <AddressEntity

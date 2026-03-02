@@ -26,10 +26,10 @@ const ZetaChainCCTX = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title="Cross-chain tx details"
-        secondRow={ <TxEntityZetaChainCC hash={ hash } noLink variant="subheading" mr={{ base: 0, lg: 2 }}/> }
+        secondRow={ <TxEntityZetaChainCC hash={ hash } noLink variant="subheading" className="mr-0 lg:mr-2"/> }
       />
       <ZetaChainCCTXDetails data={ cctxQuery.data } isLoading={ cctxQuery.isPlaceholderData }/>
     </>

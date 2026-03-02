@@ -1,17 +1,14 @@
-import type { AccordionItemProps, AccordionRootProps, GridProps } from '@chakra-ui/react';
-import { Box, Spinner, HStack, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { StepStatus } from './types';
 
-import type { AccordionItemContentProps } from 'toolkit/chakra/accordion';
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from 'toolkit/chakra/accordion';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from '@luxfi/ui/accordion';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
-export const Root = (props: AccordionRootProps) => {
+export const Root = (props: React.ComponentPropsWithoutRef<typeof AccordionRoot>) => {
   return (
-    <AccordionRoot maxW="800px" display="flex" flexDirection="column" rowGap={ 6 } lazyMount { ...props }/>
+    <AccordionRoot className="max-w-[800px] flex flex-col gap-y-6" lazyMount { ...props }/>
   );
 };
 
@@ -29,12 +26,12 @@ export const Trigger = ({ status, text, isFirst, isLast, isLoading, isDisabled }
     switch (status) {
       case 'pending': {
         return (
-          <HStack gap={ 2 }>
-            <Spinner size="md"/>
-            <Box color="text.secondary">
+          <div className="flex flex-row gap-2">
+            <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5"/>
+            <div className="text-[var(--color-text-secondary)]">
               { text }
-            </Box>
-          </HStack>
+            </div>
+          </div>
         );
       }
       default: {
@@ -52,12 +49,12 @@ export const Trigger = ({ status, text, isFirst, isLast, isLoading, isDisabled }
           }
         })();
         return (
-          <HStack gap={ 2 } color={ color }>
-            <IconSvg name={ icon } boxSize={ 5 } isLoading={ isLoading }/>
+          <div className="flex flex-row gap-2" style={{ color: color }}>
+            <IconSvg name={ icon } className="size-5" isLoading={ isLoading }/>
             <Skeleton loading={ isLoading }>
               { text }
             </Skeleton>
-          </HStack>
+          </div>
         );
       }
     }
@@ -65,81 +62,52 @@ export const Trigger = ({ status, text, isFirst, isLast, isLoading, isDisabled }
 
   return (
     <AccordionItemTrigger
-      position="relative"
-      pt={ isFirst ? 0 : 1 }
-      pb={ 1 }
-      _before={ !isFirst ? {
-        position: 'absolute',
-        left: '9px',
-        bottom: 'calc(100% - 6px)',
-        width: '0',
-        height: '30px',
-        borderColor: 'border.divider',
-        borderLeftWidth: '2px',
-        content: '""',
-      } : undefined }
-      _after={ !isLast ? {
-        position: 'absolute',
-        left: '9px',
-        top: 'calc(100% - 6px)',
-        width: '0',
-        height: '6px',
-        borderColor: 'border.divider',
-        borderLeftWidth: '2px',
-        content: '""',
-      } : undefined }
-      _open={{
-        _after: {
-          height: { base: '14px', lg: '6px' },
-        },
+      className={ `relative ${ isFirst ? 'pt-0' : 'pt-1' } pb-1` }
+      style={{
+        ...(isDisabled ? { cursor: 'default', opacity: 1 } : { cursor: 'pointer' }),
       }}
       disabled={ isLoading || isDisabled }
       noIndicator={ isLoading || isDisabled }
-      cursor={ isDisabled ? 'default' : 'pointer' }
-      _disabled={{
-        opacity: isDisabled ? 1 : 'control.disabled',
-      }}
     >
+      { !isFirst && (
+        <span
+          className="absolute left-[9px] w-0 h-[30px] border-l-2 border-[var(--color-border-divider)]"
+          style={{ bottom: 'calc(100% - 6px)' }}
+        />
+      ) }
+      { !isLast && (
+        <span
+          className="absolute left-[9px] w-0 h-[6px] border-l-2 border-[var(--color-border-divider)] group-data-[state=open]/trigger:h-[14px] lg:group-data-[state=open]/trigger:h-[6px]"
+          style={{ top: 'calc(100% - 6px)' }}
+        />
+      ) }
       { content }
     </AccordionItemTrigger>
   );
 };
 
-export const Item = (props: AccordionItemProps) => {
-  return <AccordionItem borderBottomWidth="0px" { ...props }/>;
+export const Item = (props: React.ComponentPropsWithoutRef<typeof AccordionItem>) => {
+  return <AccordionItem className="border-b-0" { ...props }/>;
 };
 
-interface ContentProps extends AccordionItemContentProps {
+interface ContentProps extends React.ComponentPropsWithoutRef<typeof AccordionItemContent> {
   isLast?: boolean;
 }
 
-export const ItemContent = ({ isLast, ...rest }: ContentProps) => {
+export const ItemContent = ({ isLast, className, ...rest }: ContentProps) => {
   return (
     <AccordionItemContent
-      ml={{ base: 0, lg: '9px' }}
-      pl={{ base: 0, lg: '17px' }}
-      pt={ 2 }
-      pb={ 0 }
-      borderLeftWidth={{ base: 0, lg: '2px' }}
-      borderColor={ isLast ? 'transparent' : 'border.divider' }
+      className={ `pt-2 pb-0 lg:ml-[9px] lg:pl-[17px] lg:border-l-2 ${ isLast ? 'border-transparent' : 'border-[var(--color-border-divider)]' } ${ className ?? '' }`.trim() }
       { ...rest }
     />
   );
 };
 
-export const ItemBody = (props: GridProps) => {
+export const ItemBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <Grid
-      gridTemplateColumns="112px minmax(0, 1fr)"
-      alignItems="flex-start"
-      columnGap={ 3 }
-      rowGap={ 1 }
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      p="6px"
-      pl="18px"
-      textStyle="sm"
-      borderBottomLeftRadius="base"
-      borderBottomRightRadius="base"
+    <div
+      className={ `grid items-start rounded-bl rounded-br gap-x-3 gap-y-1 text-sm bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)] p-[6px] pl-[18px] ${ className ?? '' }`.trim() }
+      style={{ gridTemplateColumns: '112px minmax(0, 1fr)' }}
       { ...props }
     />
   );
@@ -153,12 +121,12 @@ interface ItemRowProps {
 export const ItemRow = ({ label, children }: ItemRowProps) => {
   return (
     <>
-      <GridItem color="text.secondary" py="6px">
+      <div className="text-[var(--color-text-secondary)] py-[6px]">
         { label }
-      </GridItem>
-      <GridItem>
+      </div>
+      <div>
         { children }
-      </GridItem>
+      </div>
     </>
   );
 };

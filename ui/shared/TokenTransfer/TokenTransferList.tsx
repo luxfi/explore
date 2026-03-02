@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -19,7 +18,7 @@ const TokenTransferList = ({ data, baseAddress, showTxInfo, enableTimeIncrement,
   const chainData = multichainContext?.chain;
 
   return (
-    <Box>
+    <div>
       { data.map((item, index) => (
         <TokenTransferListItem
           key={ item.transaction_hash + item.block_hash + item.log_index + (isLoading ? index : '') }
@@ -31,7 +30,7 @@ const TokenTransferList = ({ data, baseAddress, showTxInfo, enableTimeIncrement,
           chainData={ chainData }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

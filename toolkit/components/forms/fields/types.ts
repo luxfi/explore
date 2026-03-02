@@ -1,10 +1,10 @@
 import type React from 'react';
 import type { ControllerRenderProps, FieldPathValue, FieldValues, Path, RegisterOptions } from 'react-hook-form';
 
-import type { FieldProps } from '../../../chakra/field';
-import type { InputProps } from '../../../chakra/input';
-import type { InputGroupProps } from '../../../chakra/input-group';
-import type { TextareaProps } from '../../../chakra/textarea';
+import type { FieldProps } from '@luxfi/ui/field';
+import type { InputProps } from '@luxfi/ui/input';
+import type { InputGroupProps } from '@luxfi/ui/input-group';
+import type { TextareaProps } from '@luxfi/ui/textarea';
 
 export interface FormFieldPropsBase<
   FormFields extends FieldValues,

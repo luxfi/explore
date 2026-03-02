@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokensSortingValue } from 'types/api/tokens';
@@ -30,7 +29,7 @@ const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFi
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { description }
         { data.items.map((item, index) => {
           const chainIds = 'chain_infos' in item ? Object.keys(item.chain_infos).join(',') : undefined;
@@ -45,8 +44,8 @@ const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFi
             />
           );
         }) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         { description }
         <TokensTable
           items={ data.items }
@@ -56,7 +55,7 @@ const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFi
           sorting={ sort }
           top={ tableTop }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 

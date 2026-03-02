@@ -1,11 +1,10 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { GetInstancesResponse } from '@luxfi/points-types';
 
-import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
+import { DialogBody, DialogContent, DialogRoot, DialogHeader } from '@luxfi/ui/dialog';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {
@@ -32,24 +31,19 @@ const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
           Choose explorer
         </DialogHeader>
         <DialogBody>
-          <Flex flexDir="column" gap={ 6 }>
-            <Text>
-              Choose Blockscout explorer that you want to interact with and earn
+          <div className="flex flex-col gap-6">
+            <p>
+              Choose explorer that you want to interact with and earn
               Merits
-            </Text>
-            <Flex flexWrap="wrap" gap={ 2 }>
+            </p>
+            <div className="flex flex-wrap gap-2">
               { items?.map((instance) => (
                 <Link
                   external
                   noIcon
                   key={ instance.chain_id }
                   href={ instance.domain }
-                  display="flex"
-                  gap={ 2 }
-                  alignItems="center"
-                  p={ 2 }
-                  bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-                  borderRadius="base"
+                  className="flex gap-2 items-center p-2 rounded-base bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)]"
                 >
                   <Image
                     src={ instance.details?.icon_url }
@@ -63,18 +57,13 @@ const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
                       />
                     ) }
                   />
-                  <Text
-                    textStyle="sm"
-                    fontWeight="500"
-                    color="text.primary"
-                    _groupHover={{ color: 'inherit' }}
-                  >
+                  <span className="text-sm font-medium text-[var(--color-text-primary)] group-hover:text-inherit">
                     { instance.name }
-                  </Text>
+                  </span>
                 </Link>
               )) }
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </DialogBody>
       </DialogContent>
     </DialogRoot>

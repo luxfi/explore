@@ -3,7 +3,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import type { FormFields } from '../types';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
+import { Checkbox } from '@luxfi/ui/checkbox';
 import { useUpdateEffect } from 'toolkit/hooks/useUpdateEffect';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
@@ -47,7 +47,7 @@ const ContractVerificationFieldLibraries = () => {
       <ContractVerificationFormRow>
         <Checkbox
           onChange={ handleCheckboxChange }
-          mt={ 9 }
+          className="mt-9"
           disabled={ formState.isSubmitting }
         >
           Add contract libraries

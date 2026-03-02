@@ -28,7 +28,7 @@ export function getContentProps(variant: EntityBaseProps['variant'] = 'content')
     // and for the content variant, fontStyle is set in the consumer component
     case 'subheading': {
       return {
-        textStyle: { base: 'heading.sm', lg: 'heading.md' },
+        className: 'text-[14px] leading-[20px] font-semibold lg:text-[18px] lg:leading-[24px] lg:font-medium',
       };
     }
   }

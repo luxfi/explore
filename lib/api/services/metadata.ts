@@ -3,16 +3,16 @@ import type { AddressMetadataInfo, PublicTagTypesResponse } from 'types/api/addr
 
 export const METADATA_API_RESOURCES = {
   info: {
-    path: '/api/v1/metadata',
+    path: '/v1/metadata',
   },
   tags_search: {
-    path: '/api/v1/tags:search',
+    path: '/v1/tags:search',
   },
   public_tag_types: {
-    path: '/api/v1/public-tag-types',
+    path: '/v1/public-tag-types',
   },
   address_submit: {
-    path: '/api/v1/addresses\\:submit',
+    path: '/v1/addresses\\:submit',
   },
 } satisfies Record<string, ApiResource>;
 

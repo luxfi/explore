@@ -1,28 +1,30 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 
 interface Props {
   className?: string;
   children: React.ReactNode;
 }
 
+const isHorizontal = config.UI.navigation.layout === 'horizontal';
+
 const MainColumn = ({ children, className }: Props) => {
   return (
-    <Flex
-      className={ className }
-      flexDir="column"
-      flexGrow={ 1 }
-      w={{ base: '100%', lg: config.UI.navigation.layout === 'horizontal' ? '100%' : 'auto' }}
-      paddingX={{ base: 3, lg: config.UI.navigation.layout === 'horizontal' ? 6 : 12 }}
-      paddingRight={{ '2xl': 6 }}
-      paddingTop={{ base: '12px', lg: 6 }} // 12px is top padding of content area
-      paddingBottom={ 8 }
+    <div
+      className={ cn(
+        'flex flex-col grow pt-[12px] lg:pt-6 pb-8',
+        'w-full',
+        isHorizontal ? 'lg:w-full' : 'lg:w-auto',
+        isHorizontal ? 'px-4 lg:px-6' : 'px-4 lg:px-8',
+        '2xl:px-6',
+        className,
+      ) }
     >
       { children }
-    </Flex>
+    </div>
   );
 };
 
-export default React.memo(chakra(MainColumn));
+export default React.memo(MainColumn);

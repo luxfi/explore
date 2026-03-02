@@ -42,7 +42,7 @@ const AddressCoinBalanceChart = ({ addressHash }: Props) => {
       title="Balances"
       charts={ charts }
       isLoading={ isPending }
-      h="300px"
+      className="h-[300px]"
       emptyText={ data?.days ? `Insufficient data for the past ${ data.days } days` : undefined }
     />
   );

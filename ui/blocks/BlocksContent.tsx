@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -12,7 +11,7 @@ import { useMultichainContext } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import BlocksList from 'ui/blocks/BlocksList';
 import BlocksTable from 'ui/blocks/BlocksTable';
 import ActionBar from 'ui/shared/ActionBar';
@@ -95,7 +94,7 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
 
   const content = query.data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { query.pagination.page === 1 && enableSocket && (
           <SocketNewItemsNotice.Mobile
             num={ newItemsCount }
@@ -105,8 +104,8 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
           />
         ) }
         <BlocksList data={ query.data.items } isLoading={ query.isPlaceholderData } page={ query.pagination.page } chainData={ chainData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <BlocksTable
           data={ query.data.items }
           top={ top || (query.pagination.isVisible ? TABS_HEIGHT : 0) }
@@ -117,17 +116,17 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
           showSocketErrorAlert={ showSocketAlert }
           chainData={ chainData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = isMobile ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <Link href={ route({ pathname: '/block/countdown' }, multichainContext) }>
-        <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
+        <IconSvg name="hourglass" className="w-5 h-5 mr-2"/>
         <span>Block countdown</span>
       </Link>
-      <Pagination ml="auto" { ...query.pagination }/>
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 

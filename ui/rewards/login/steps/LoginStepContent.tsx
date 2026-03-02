@@ -1,19 +1,20 @@
-import { Text, Box, Flex, Separator } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
+import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import * as cookies from 'lib/cookies';
 import useWallet from 'lib/web3/useWallet';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Field } from 'toolkit/chakra/field';
-import { Image } from 'toolkit/chakra/image';
-import { Input } from 'toolkit/chakra/input';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Switch } from 'toolkit/chakra/switch';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Field } from '@luxfi/ui/field';
+import { Image } from '@luxfi/ui/image';
+import { Input } from '@luxfi/ui/input';
+import { Link } from 'toolkit/next/link';
+import { Separator } from '@luxfi/ui/separator';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Switch } from '@luxfi/ui/switch';
 import { apos } from 'toolkit/utils/htmlEntities';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 
@@ -120,16 +121,16 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
         mb={ 3 }
         fallback={ <Skeleton loading w="full" h="120px"/> }
       />
-      <Box mb={ 6 }>
-        Merits are awarded for a variety of different Lux Explorer activities. Connect a wallet to get started.
-        <Link external href="https://docs.blockscout.com/using-blockscout/merits" ml={ 1 } fontWeight="500">
-          More about Lux Explorer Merits
+      <div className="mb-6">
+        Merits are awarded for a variety of different { config.chain.name || '' } Explorer activities. Connect a wallet to get started.
+        <Link external href="https://docs.lux.network/using-explorer/merits" className="ml-1 font-medium">
+          More about { config.chain.name || '' } Explorer Merits
         </Link>
-      </Box>
+      </div>
       { isSignUp && isLoggedIntoAccountWithWallet && (
-        <Box mb={ 6 }>
-          <Separator mb={ 6 }/>
-          <Flex w="full" alignItems="center" justifyContent="space-between">
+        <div className="mb-6">
+          <Separator className="mb-6"/>
+          <div className="flex w-full items-center justify-between">
             I have a referral code
             <Switch
               size="md"
@@ -137,14 +138,14 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
               onCheckedChange={ handleToggleChange }
               aria-label="Referral code switch"
             />
-          </Flex>
+          </div>
           { isRefCodeUsed && (
             <Field
               label="Code"
               floating
               id="referral-code"
               size="lg"
-              mt={ 3 }
+              className="mt-3"
               invalid={ refCodeError }
               helperText="The code should be in format XXXXXX"
               errorText={ refCodeError ? 'Incorrect code or format (6 or 12 characters)' : undefined }
@@ -155,18 +156,16 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
               />
             </Field>
           ) }
-        </Box>
+        </div>
       ) }
       { isAddressMismatch && (
-        <Alert status="warning" mb={ 4 }>
-          Your wallet address doesn{ apos }t match the one in your Lux Explorer account. Please connect the correct wallet.
+        <Alert status="warning" className="mb-4">
+          Your wallet address doesn{ apos }t match the one in your { config.chain.name || '' } Explorer account. Please connect the correct wallet.
         </Alert>
       ) }
       <Button
         variant="solid"
-        w="full"
-        whiteSpace="normal"
-        mb={ 4 }
+        className="w-full whitespace-normal mb-4"
         onClick={ handleButtonClick }
         loading={ isLoading || profileQuery.isLoading || checkUserQuery.isFetching }
         loadingText={ isLoading ? 'Sign message in your wallet' : undefined }
@@ -174,9 +173,9 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
       >
         { buttonText }
       </Button>
-      <Text textStyle="sm" color="text.secondary" textAlign="center">
-        Already registered for Lux Explorer Merits on another network or chain? Connect the same wallet here.
-      </Text>
+      <p className="text-sm text-[var(--color-text-secondary)] text-center">
+        Already registered for { config.chain.name || '' } Explorer Merits on another network or chain? Connect the same wallet here.
+      </p>
     </>
   );
 };

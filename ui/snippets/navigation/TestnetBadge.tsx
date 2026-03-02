@@ -1,8 +1,7 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 interface Props {
   className?: string;
@@ -13,7 +12,7 @@ const TestnetBadge = ({ className }: Props) => {
     return null;
   }
 
-  return <Image className={ className } src="/static/labels/testnet.svg" h="14px" w="37px" color="red.400"/>;
+  return <Image className={ className } src="/static/labels/testnet.svg" h="14px" w="37px" style={{ color: 'var(--color-red-400)' }}/>;
 };
 
-export default React.memo(chakra(TestnetBadge));
+export default React.memo(TestnetBadge);

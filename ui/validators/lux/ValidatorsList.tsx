@@ -1,9 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PChainValidator } from 'lib/api/pchain';
-import { Input } from 'toolkit/chakra/input';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Input } from '@luxfi/ui/input';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import { formatStake, formatUptime, truncateNodeId } from './utils';
 
@@ -49,137 +48,88 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
   }, [ validators, search ]);
 
   return (
-    <Flex direction="column" gap={ 4 }>
+    <div className="flex flex-col gap-4">
       { /* Search */ }
-      <Box maxW="400px">
+      <div>
         <Input
           placeholder="Search by Node ID..."
           value={ search }
           onChange={ handleSearchChange }
-          border="1px solid"
-          borderColor="border.divider"
-          borderRadius="md"
-          bgColor="transparent"
-          color="text.primary"
           size="md"
         />
-      </Box>
+      </div>
 
       { /* Table */ }
-      <Box
-        border="1px solid"
-        borderColor="border.divider"
-        borderRadius="lg"
-        overflow="hidden"
+      <div
+        className="overflow-hidden"
       >
         { /* Header */ }
-        <Flex
-          px={ 4 }
-          py={ 2 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          display={{ base: 'none', lg: 'flex' }}
-        >
-          <Box w="320px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+        <div className="flex gap-4 py-2 border-b border-[var(--color-border-divider)]">
+          <div className="font-semibold flex-[3] min-w-0">
             Node ID
-          </Box>
-          <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+          </div>
+          <div className="font-semibold flex-[2] text-right">
             Stake Amount
-          </Box>
-          <Box
-            w="120px" flexShrink={ 0 } color="text.secondary" fontWeight="600"
-            fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right"
-          >
+          </div>
+          <div className="font-semibold flex-1 text-right">
             Delegation Fee
-          </Box>
-          <Box
-            w="100px" flexShrink={ 0 } color="text.secondary" fontWeight="600"
-            fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right"
-          >
+          </div>
+          <div className="font-semibold flex-1 text-right">
             Delegators
-          </Box>
-          <Box
-            w="80px" flexShrink={ 0 } color="text.secondary" fontWeight="600"
-            fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="center"
-          >
+          </div>
+          <div className="font-semibold flex-1 text-center">
             Connected
-          </Box>
-          <Box
-            w="80px" flexShrink={ 0 } color="text.secondary" fontWeight="600"
-            fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right"
-          >
+          </div>
+          <div className="font-semibold flex-1 text-right">
             Uptime
-          </Box>
-        </Flex>
+          </div>
+        </div>
 
         { /* Loading */ }
         { isLoading && (
-          <Box px={ 4 } py={ 6 }>
-            <Skeleton loading h="16px" mb={ 3 }/>
-            <Skeleton loading h="16px" mb={ 3 }/>
-            <Skeleton loading h="16px" mb={ 3 }/>
-            <Skeleton loading h="16px"/>
-          </Box>
+          <div>
+            <Skeleton loading/>
+            <Skeleton loading/>
+            <Skeleton loading/>
+            <Skeleton loading/>
+          </div>
         ) }
 
         { /* Empty state */ }
         { !isLoading && filtered.length === 0 && (
-          <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+          <div>
             { search.trim() ? 'No validators match your search' : 'No validators found' }
-          </Box>
+          </div>
         ) }
 
         { /* Rows */ }
         { !isLoading && filtered.map((v) => (
-          <Flex
-            key={ v.nodeID }
-            px={ 4 }
-            py={ 3 }
-            gap={ 4 }
-            borderBottom="1px solid"
-            borderColor="border.divider"
-            alignItems="center"
-            _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-            transition="background 0.15s"
-            flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-          >
-            <Box
-              w={{ base: '100%', lg: '320px' }}
-              flexShrink={ 0 }
-              fontFamily="mono"
-              fontSize="sm"
-              color="text.primary"
+          <div className="flex gap-4 py-2 border-b border-[var(--color-border-divider)]" key={ v.nodeID }>
+            <div
               title={ v.nodeID }
-              overflow="hidden"
-              textOverflow="ellipsis"
-              whiteSpace="nowrap"
+              className="flex-[3] min-w-0 overflow-hidden text-ellipsis"
             >
               { truncateNodeId(v.nodeID) }
-            </Box>
-            <Box flex={ 1 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
+            </div>
+            <div className="flex-[2] text-right">
               { formatStake(v.stakeAmount ?? v.weight) } LUX
-            </Box>
-            <Box w={{ base: 'auto', lg: '120px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+            </div>
+            <div className="flex-1 text-right">
               { v.delegationFee }%
-            </Box>
-            <Box w={{ base: 'auto', lg: '100px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+            </div>
+            <div className="flex-1 text-right">
               { v.delegators?.length ?? 0 }
-            </Box>
-            <Flex w={{ base: 'auto', lg: '80px' }} flexShrink={ 0 } justifyContent={{ base: 'flex-start', lg: 'center' }} alignItems="center">
-              <Box
-                bgColor={ v.connected !== false ? 'green.400' : 'red.400' }
-                borderRadius="full"
-                boxSize="8px"
-              />
-            </Flex>
-            <Box w={{ base: 'auto', lg: '80px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+            </div>
+            <div className="flex-1 flex justify-center">
+              <div/>
+            </div>
+            <div className="flex-1 text-right">
               { formatUptime(v.uptime) }
-            </Box>
-          </Flex>
+            </div>
+          </div>
         )) }
-      </Box>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

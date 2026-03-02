@@ -3,7 +3,7 @@ import React from 'react';
 import type { TxStateChange } from 'types/api/txStateChanges';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TxStateTableItem from 'ui/tx/state/TxStateTableItem';
 
 interface Props {

@@ -1,13 +1,15 @@
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
+
 import type { MultichainProviderConfigParsed } from 'types/client/multichainProviderConfig';
 
 import { route } from 'nextjs-routes';
 
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import TextSeparator from 'ui/shared/TextSeparator';
 
 import styles from './AddressMultichainButton.module.css';
@@ -18,8 +20,8 @@ type Props = {
   item: MultichainProviderConfigParsed;
   addressHash: string;
   onClick?: () => void;
-  isFirst: boolean;
-  isLast: boolean;
+  isFirst?: boolean;
+  isLast?: boolean;
 };
 
 const AddressMultichainButton = ({ item, addressHash, onClick, isFirst, isLast }: Props) => {
@@ -31,9 +33,9 @@ const AddressMultichainButton = ({ item, addressHash, onClick, isFirst, isLast }
       src={ item.logoUrl }
       alt={ item.name }
       boxSize={ 5 }
-      mr={ isOnlyOne ? { base: 1, lg: 2 } : 0 }
+      mr={ isOnlyOne ? 1 : 0 }
+      className={ cn(isOnlyOne && 'lg:mr-2', 'rounded overflow-hidden') }
       borderRadius="4px"
-      overflow="hidden"
     />
   );
 
@@ -59,18 +61,16 @@ const AddressMultichainButton = ({ item, addressHash, onClick, isFirst, isLast }
     return (
       <>
         <Link
-          className={ item.promo ? styles.promo : undefined }
+          className={ cn(item.promo ? styles.promo : undefined, 'text-sm font-medium') }
           external={ isExternal }
           href={ isExternal ? portfolioUrl.toString() : route({ pathname: '/apps/[id]', query: { id: dappId, url: portfolioUrl.toString() } }) }
           variant={ isOnlyOne ? 'underlaid' : undefined }
-          textStyle="sm"
-          fontWeight="medium"
           onClick={ onClick }
           noIcon={ !isOnlyOne }
         >
           { buttonContent }
         </Link>
-        { item.promo && isFirst && !isLast && <TextSeparator mx={ 0 }/> }
+        { item.promo && isFirst && !isLast && <TextSeparator className="mx-0"/> }
       </>
     );
   } catch (error) {}

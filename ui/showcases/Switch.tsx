@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -34,4 +33,4 @@ const AddressEntityWithTokenFilter = (props: Props) => {
   );
 };
 
-export default chakra(AddressEntityWithTokenFilter);
+export default AddressEntityWithTokenFilter;

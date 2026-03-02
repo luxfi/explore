@@ -1,4 +1,3 @@
-import { GridItem, Text, Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -13,11 +12,12 @@ import getBlockReward from 'lib/block/getBlockReward';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import * as arbitrum from 'lib/rollups/arbitrum';
+import { formatZkSyncL2TxnBatchStatus, layerLabels } from 'lib/rollups/utils';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ZERO } from 'toolkit/utils/consts';
 import { space } from 'toolkit/utils/htmlEntities';
 import OptimisticL2TxnBatchDA from 'ui/shared/batch/OptimisticL2TxnBatchDA';
@@ -45,6 +45,8 @@ import BlockDetailsBaseFeeCelo from './details/BlockDetailsBaseFeeCelo';
 import BlockDetailsBlobInfo from './details/BlockDetailsBlobInfo';
 import BlockDetailsZilliqaQuorumCertificate from './details/BlockDetailsZilliqaQuorumCertificate';
 import type { BlockQuery } from './useBlockQuery';
+
+const zkSyncVerificationSteps = ZKSYNC_L2_TX_BATCH_STATUSES.map(formatZkSyncL2TxnBatchStatus);
 
 interface Props {
   query: BlockQuery;
@@ -88,7 +90,7 @@ const BlockDetails = ({ query }: Props) => {
     }
 
     return (
-      <Text color="text.secondary" whiteSpace="break-spaces">
+      <span className="text-[var(--color-text-secondary)]" style={{ whiteSpace: 'break-spaces' }}>
         <Tooltip content="Static block reward">
           <span>{ staticReward.dividedBy(WEI).toFixed() }</span>
         </Tooltip>
@@ -108,7 +110,7 @@ const BlockDetails = ({ query }: Props) => {
             </Tooltip>
           </>
         ) }
-      </Text>
+      </span>
     );
   })();
 
@@ -160,9 +162,9 @@ const BlockDetails = ({ query }: Props) => {
         <Skeleton loading={ isPlaceholderData }>
           { data.height }
         </Skeleton>
-        { data.height === 0 && <Text whiteSpace="pre"> - Genesis Block</Text> }
+        { data.height === 0 && <span className="whitespace-pre"> - Genesis Block</span> }
         <PrevNext
-          ml={ 6 }
+          className="ml-6"
           onClick={ handlePrevNextClick }
           prevLabel="View previous block"
           nextLabel="View next block"
@@ -174,10 +176,10 @@ const BlockDetails = ({ query }: Props) => {
       { rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' && data.arbitrum && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The most recent L1 block height as of this L2 block"
+            hint={ `The most recent ${ layerLabels.parent } block height as of this ${ layerLabels.current } block` }
             isLoading={ isPlaceholderData }
           >
-            L1 block height
+            { layerLabels.parent } block height
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <BlockEntityL1 isLoading={ isPlaceholderData } number={ data.arbitrum.l1_block_number }/>
@@ -305,8 +307,13 @@ const BlockDetails = ({ query }: Props) => {
             Status
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            { rollupFeature.type === 'zkSync' && data.zksync &&
-              <VerificationSteps steps={ ZKSYNC_L2_TX_BATCH_STATUSES } currentStep={ data.zksync.status } isLoading={ isPlaceholderData }/> }
+            { rollupFeature.type === 'zkSync' && data.zksync && (
+              <VerificationSteps
+                steps={ zkSyncVerificationSteps }
+                currentStep={ formatZkSyncL2TxnBatchStatus(data.zksync.status) }
+                isLoading={ isPlaceholderData }
+              />
+            ) }
             { rollupFeature.type === 'arbitrum' && data.arbitrum && (
               <VerificationSteps
                 steps={ arbitrum.verificationSteps }
@@ -344,28 +351,28 @@ const BlockDetails = ({ query }: Props) => {
           { data.arbitrum?.commitment_transaction.hash && (
             <>
               <DetailedInfo.ItemLabel
-                hint="L1 transaction containing this batch commitment"
+                hint={ `${ layerLabels.parent } transaction containing this batch commitment` }
                 isLoading={ isPlaceholderData }
               >
                 Commitment tx
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.commitment_transaction.hash } isLoading={ isPlaceholderData }/>
-                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" ml={ 2 }/> }
+                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" className="ml-2"/> }
               </DetailedInfo.ItemValue>
             </>
           ) }
           { data.arbitrum?.confirmation_transaction.hash && (
             <>
               <DetailedInfo.ItemLabel
-                hint="L1 transaction containing confirmation of this batch"
+                hint={ `${ layerLabels.parent } transaction containing confirmation of this batch` }
                 isLoading={ isPlaceholderData }
               >
                 Confirmation tx
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.confirmation_transaction.hash } isLoading={ isPlaceholderData }/>
-                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" ml={ 2 }/> }
+                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" className="ml-2"/> }
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -440,7 +447,7 @@ const BlockDetails = ({ query }: Props) => {
           gasUsed={ data.gas_used || undefined }
           gasLimit={ data.gas_limit }
           isLoading={ isPlaceholderData }
-          ml={ 4 }
+          className="ml-4"
           gasTarget={ data.gas_target_percentage || undefined }
         />
       </DetailedInfo.ItemValue>
@@ -504,7 +511,7 @@ const BlockDetails = ({ query }: Props) => {
               amount={ burntFees.toString() }
               accuracy={ 0 }
               loading={ isPlaceholderData }
-              startElement={ <IconSvg name="flame" boxSize={ 5 } mr={{ base: 1, lg: 2 }} color="icon.primary" isLoading={ isPlaceholderData }/> }
+              startElement={ <IconSvg name="flame" className="w-5 h-5 text-[var(--color-icon-primary)] mr-1 lg:mr-2" isLoading={ isPlaceholderData }/> }
               mr={ 4 }
             />
             { !txFees.isEqualTo(ZERO) && (
@@ -534,8 +541,8 @@ const BlockDetails = ({ query }: Props) => {
       ) }
 
       { /* ADDITIONAL INFO */ }
-      <CollapsibleDetails loading={ isPlaceholderData } mt={ 6 } gridColumn={{ base: undefined, lg: '1 / 3' }}>
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
+      <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
+        <div className="lg:col-span-2 mt-1 lg:mt-4"/>
 
         { rollupFeature.isEnabled && rollupFeature.type === 'zkSync' && data.zksync &&
               <ZkSyncL2TxnBatchHashesInfo data={ data.zksync } isLoading={ isPlaceholderData }/> }
@@ -553,9 +560,9 @@ const BlockDetails = ({ query }: Props) => {
               flexWrap="nowrap"
               alignSelf="flex-start"
             >
-              <Box whiteSpace="nowrap" overflow="hidden">
+              <div className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ data.bitcoin_merged_mining_header }/>
-              </Box>
+              </div>
               <CopyToClipboard text={ data.bitcoin_merged_mining_header }/>
             </DetailedInfo.ItemValue>
           </>
@@ -608,9 +615,9 @@ const BlockDetails = ({ query }: Props) => {
               flexWrap="nowrap"
               alignSelf="flex-start"
             >
-              <Box whiteSpace="nowrap" overflow="hidden">
+              <div className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ data.hash_for_merged_mining }/>
-              </Box>
+              </div>
               <CopyToClipboard text={ data.hash_for_merged_mining }/>
             </DetailedInfo.ItemValue>
           </>
@@ -624,9 +631,9 @@ const BlockDetails = ({ query }: Props) => {
               Difficulty
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <Box overflow="hidden">
+              <div className="overflow-hidden">
                 <HashStringShortenDynamic hash={ BigNumber(data.difficulty).toFormat() }/>
-              </Box>
+              </div>
             </DetailedInfo.ItemValue>
           </>
         ) }
@@ -638,9 +645,9 @@ const BlockDetails = ({ query }: Props) => {
               Total difficulty
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <Box overflow="hidden">
+              <div className="overflow-hidden">
                 <HashStringShortenDynamic hash={ BigNumber(data.total_difficulty).toFormat() }/>
-              </Box>
+              </div>
             </DetailedInfo.ItemValue>
           </>
         ) }
@@ -653,9 +660,9 @@ const BlockDetails = ({ query }: Props) => {
           Hash
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="nowrap">
-          <Box overflow="hidden" >
+          <div className="overflow-hidden" >
             <HashStringShortenDynamic hash={ data.hash }/>
-          </Box>
+          </div>
           <CopyToClipboard text={ data.hash }/>
         </DetailedInfo.ItemValue>
 
@@ -669,8 +676,7 @@ const BlockDetails = ({ query }: Props) => {
             <DetailedInfo.ItemValue flexWrap="nowrap">
               <Link
                 href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: String(data.height - 1) } }, multichainContext) }
-                overflow="hidden"
-                whiteSpace="nowrap"
+                className="overflow-hidden whitespace-nowrap"
               >
                 <HashStringShortenDynamic
                   hash={ data.parent_hash }
@@ -684,7 +690,7 @@ const BlockDetails = ({ query }: Props) => {
         { rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' && data.arbitrum && data.arbitrum.send_count && (
           <>
             <DetailedInfo.ItemLabel
-              hint="The cumulative number of L2 to L1 transactions as of this block"
+              hint={ `The cumulative number of ${ layerLabels.current } to ${ layerLabels.parent } transactions as of this block` }
               isLoading={ isPlaceholderData }
             >
               Send count
@@ -694,7 +700,7 @@ const BlockDetails = ({ query }: Props) => {
             </DetailedInfo.ItemValue>
 
             <DetailedInfo.ItemLabel
-              hint="The root of the Merkle accumulator representing all L2 to L1 transactions as of this block"
+              hint={ `The root of the Merkle accumulator representing all ${ layerLabels.current } to ${ layerLabels.parent } transactions as of this block` }
               isLoading={ isPlaceholderData }
             >
               Send root
@@ -704,7 +710,7 @@ const BlockDetails = ({ query }: Props) => {
             </DetailedInfo.ItemValue>
 
             <DetailedInfo.ItemLabel
-              hint="The number of delayed L1 to L2 messages read as of this block"
+              hint={ `The number of delayed ${ layerLabels.parent } to ${ layerLabels.current } messages read as of this block` }
               isLoading={ isPlaceholderData }
             >
               Delayed messages
@@ -734,7 +740,7 @@ const BlockDetails = ({ query }: Props) => {
             <BlockDetailsZilliqaQuorumCertificate data={ data.zilliqa?.quorum_certificate }/>
             { data.zilliqa?.aggregate_quorum_certificate && (
               <>
-                <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 2 }}/>
+                <div className="lg:col-span-2 mt-1 lg:mt-2"/>
                 <BlockDetailsZilliqaQuorumCertificate data={ data.zilliqa?.aggregate_quorum_certificate }/>
               </>
             ) }

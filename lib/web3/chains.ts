@@ -28,7 +28,7 @@ const getChainInfo = (
     },
     blockExplorers: {
       'default': {
-        name: 'Lux Explorer',
+        name: `${ config.chain.name || '' } Explorer`.trim(),
         url: config.app.baseUrl,
       },
     },
@@ -40,7 +40,7 @@ const getChainInfo = (
   };
 };
 
-export const currentChain: Chain | undefined = !appConfig.features.opSuperchain.isEnabled ? getChainInfo() : undefined;
+export const currentChain: Chain | undefined = !appConfig.features.multichain.isEnabled ? getChainInfo() : undefined;
 
 export const parentChain: Chain | undefined = (() => {
   const rollupFeature = appConfig.features.rollup;
@@ -66,7 +66,7 @@ export const parentChain: Chain | undefined = (() => {
     },
     blockExplorers: {
       'default': {
-        name: 'Lux Explorer',
+        name: `${ parentChain.name || '' } Explorer`.trim(),
         url: parentChain.baseUrl,
       },
     },

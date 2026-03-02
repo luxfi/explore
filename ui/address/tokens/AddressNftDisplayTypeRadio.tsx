@@ -1,8 +1,7 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import type { ButtonGroupRadioProps } from 'toolkit/chakra/button';
-import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
+import type { ButtonGroupRadioProps } from '@luxfi/ui/button';
+import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 
 import type { TNftDisplayType } from './useAddressNftQuery';
@@ -19,13 +18,13 @@ const AddressNftDisplayTypeRadio = ({ value, onChange, ...rest }: Props) => {
       equalWidth
       { ...rest }
     >
-      <Button value="collection" size="sm" px={ 3 }>
-        <IconSvg name="collection" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg">By collection</chakra.span>
+      <Button value="collection" size="sm" className="px-3">
+        <IconSvg name="collection" className="w-5 h-5"/>
+        <span className="hidden lg:inline">By collection</span>
       </Button>
-      <Button value="list" size="sm" px={ 3 }>
-        <IconSvg name="apps" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg">List</chakra.span>
+      <Button value="list" size="sm" className="px-3">
+        <IconSvg name="apps" className="w-5 h-5"/>
+        <span className="hidden lg:inline">List</span>
       </Button>
     </ButtonGroupRadio>
   );

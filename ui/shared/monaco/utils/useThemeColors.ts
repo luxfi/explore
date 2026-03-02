@@ -1,4 +1,4 @@
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 
 import * as themes from './themes';
 

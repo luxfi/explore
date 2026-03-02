@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { makePrettyLink } from 'toolkit/utils/url';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -18,12 +18,9 @@ const WebsiteLink = ({ url }: Props) => {
       external
       noIcon
       href={ url }
-      display="inline-flex"
-      alignItems="center"
-      columnGap={ 1 }
-      mt={ 3 }
+      className="inline-flex items-center gap-x-1 mt-3"
     >
-      <IconSvg name="link" boxSize={ 5 } color="icon.primary"/>
+      <IconSvg name="link" className="w-5 h-5 text-[var(--color-icon-primary)]"/>
       <span>{ makePrettyLink(url)?.domain }</span>
     </Link>
   );

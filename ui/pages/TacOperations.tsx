@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -43,7 +42,7 @@ const TacOperations = () => {
 
   const filterInput = (
     <FilterInput
-      w={{ base: '100%', lg: '460px' }}
+      className="w-full lg:w-[460px]"
       size="sm"
       onChange={ handleSearchTermChange }
       placeholder="Search by operation, tx hash, sender"
@@ -53,15 +52,15 @@ const TacOperations = () => {
 
   const actionBar = (
     <>
-      <Box gap={ 3 } mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 gap-3 flex lg:hidden">
         { filterInput }
-      </Box>
+      </div>
       { (!isMobile || pagination.isVisible) && (
-        <ActionBar mt={ -6 }>
-          <Box gap={ 3 } display={{ base: 'none', lg: 'flex' }}>
+        <ActionBar className="-mt-6">
+          <div className="flex gap-3 hidden lg:flex">
             { filterInput }
-          </Box>
-          <Pagination ml="auto" { ...pagination }/>
+          </div>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>
@@ -69,7 +68,7 @@ const TacOperations = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <TacOperationsListItem
             key={ String(item.operation_id) + (isPlaceholderData ? index : '') }
@@ -77,13 +76,13 @@ const TacOperations = () => {
             item={ item }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <TacOperationsTable
           items={ data.items }
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 

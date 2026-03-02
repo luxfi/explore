@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Pool } from 'types/api/pools';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoSponsoredItem from 'ui/shared/DetailedInfo/DetailedInfoSponsoredItem';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';

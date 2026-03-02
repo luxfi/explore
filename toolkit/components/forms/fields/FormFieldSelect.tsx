@@ -4,8 +4,8 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { FormFieldPropsBase } from './types';
 
-import type { SelectProps } from '../../../chakra/select';
-import { Select } from '../../../chakra/select';
+import type { SelectProps } from '@luxfi/ui/select';
+import { Select } from '@luxfi/ui/select';
 import { getFormFieldErrorText } from '../utils/getFormFieldErrorText';
 
 export type FormFieldSelectProps<

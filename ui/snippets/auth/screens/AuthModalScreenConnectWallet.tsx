@@ -1,4 +1,3 @@
-import { Center, Spinner } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ScreenSuccess } from '../types';
@@ -47,10 +46,10 @@ const AuthModalScreenConnectWallet = ({ onSuccess, onError, isAuth, source, logi
   }, [ start ]);
 
   return (
-    <Center minH="100px" flexDir="column">
-      { !recaptcha.isInitError && <Spinner size="xl"/> }
+    <div className="flex items-center justify-center min-h-[100px] flex-col">
+      { !recaptcha.isInitError && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-8 w-8"/> }
       <ReCaptcha { ...recaptcha }/>
-    </Center>
+    </div>
   );
 };
 

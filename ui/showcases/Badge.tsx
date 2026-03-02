@@ -1,7 +1,6 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 import IconSvg from 'ui/shared/IconSvg';
 import StatusTag from 'ui/shared/statusTag/StatusTag';
 
@@ -115,11 +114,11 @@ const BadgeShowcase = () => {
         <SectionHeader>Truncate</SectionHeader>
         <SamplesStack>
           <Sample label="truncated: true">
-            <Box maxW="150px">
+            <div className="max-w-[150px]">
               <Badge truncated>
                 Very long content that should be truncated
               </Badge>
-            </Box>
+            </div>
           </Sample>
         </SamplesStack>
       </Section>
@@ -127,7 +126,7 @@ const BadgeShowcase = () => {
         <SectionHeader>Icon</SectionHeader>
         <SamplesStack>
           <Sample label="iconStart: status/success">
-            <Badge startElement={ <IconSvg name="status/success" boxSize={ 2.5 }/> }>
+            <Badge startElement={ <IconSvg name="status/success" className="w-2.5 h-2.5"/> }>
               Content
             </Badge>
           </Sample>

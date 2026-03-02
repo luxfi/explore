@@ -3,11 +3,11 @@ import React from 'react';
 import type { TokenInfoApplication, VerifiedAddress } from 'types/api/account';
 
 import dayjs from 'lib/date/dayjs';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import IconSvg from 'ui/shared/IconSvg';
@@ -40,7 +40,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
 
   const tokenInfo = (() => {
     if (isLoading) {
-      return <Skeleton loading height={ 6 } width="140px"/>;
+      return <Skeleton loading className="h-6 w-[140px]"/>;
     }
 
     if (!item.metadata.tokenName) {
@@ -76,7 +76,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
         <AddressEntity
           address={{ hash: item.contractAddress, is_contract: true }}
           isLoading={ isLoading }
-          fontWeight="600"
+          className="font-semibold"
         />
       </TableCell>
       <TableCell fontSize="sm" verticalAlign="middle" pr={ 1 }>
@@ -89,7 +89,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
               aria-label="edit"
               variant="link"
               size="2xs"
-              borderRadius="none"
+              className="rounded-none"
               onClick={ handleEditClick }
             >
               <IconSvg name="edit"/>
@@ -102,7 +102,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
           <VerifiedAddressesStatus status={ item.metadata.tokenName ? application?.status : undefined }/>
         </Skeleton>
       </TableCell>
-      <TableCell fontSize="sm" color="text.secondary">
+      <TableCell fontSize="sm" className="text-[var(--color-text-secondary)]">
         <Skeleton loading={ isLoading } display="inline-block">
           { item.metadata.tokenName && application ? dayjs(application.updatedAt).format('MMM DD, YYYY') : null }
         </Skeleton>

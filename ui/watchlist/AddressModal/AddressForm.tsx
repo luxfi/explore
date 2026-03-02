@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -9,8 +8,8 @@ import type { WatchlistAddress, WatchlistErrors } from 'types/api/account';
 import type { ResourceErrorAccount } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/getErrorMessage';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 import { FormFieldCheckbox } from 'toolkit/components/forms/fields/FormFieldCheckbox';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
@@ -118,8 +117,8 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
         <FormFieldAddress<Inputs>
           name="address"
           required
-          bgColor="dialog.bg"
-          mb={ 5 }
+         
+          className="mb-5"
         />
         <FormFieldText<Inputs>
           name="tag"
@@ -128,18 +127,18 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
           rules={{
             maxLength: TAG_MAX_LENGTH,
           }}
-          bgColor="dialog.bg"
-          mb={ 8 }
+         
+          className="mb-8"
         />
         { hasEmail ? (
           <>
-            <Text color="text.secondary" fontSize="sm" marginBottom={ 5 }>
+            <span>
               Please select what types of notifications you will receive
-            </Text>
-            <Box marginBottom={ 8 }>
+            </span>
+            <div>
               <AddressFormNotifications/>
-            </Box>
-            <Text color="text.secondary" fontSize="sm" marginBottom={{ base: '10px', lg: 5 }}>Notification methods</Text>
+            </div>
+            <span>Notification methods</span>
             <FormFieldCheckbox<Inputs, 'notification'>
               name="notification"
               label="Email notifications"
@@ -149,9 +148,8 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
         { !hasEmail && showEmailAlert ? (
           <Alert
             status="info"
-            descriptionProps={{ alignItems: 'center', gap: 2 }}
-            w="fit-content"
-            mb={ 6 }
+            descriptionProps={{ className: 'items-center gap-2' }}
+            className="w-fit mb-6"
           >
             To receive notifications you need to add an email to your profile.
           </Alert>
@@ -160,7 +158,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
           type="submit"
           loading={ pending }
           disabled={ !formApi.formState.isDirty }
-          mt={ 8 }
+          className="mt-8"
         >
           { !isAdd ? 'Save changes' : 'Add address' }
         </Button>

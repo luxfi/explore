@@ -20,7 +20,7 @@ const TxStateListItem = ({ data, isLoading }: Props) => {
     <ListItemMobileGrid.Container>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value py="3px" display="flex" flexWrap="nowrap" columnGap={ 3 }>
+      <ListItemMobileGrid.Value className="py-[3px] flex flex-nowrap gap-x-3">
         <AddressEntity
           address={ data.address }
           isLoading={ isLoading }
@@ -53,7 +53,7 @@ const TxStateListItem = ({ data, isLoading }: Props) => {
       { tokenId && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Token ID</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value py="0">{ tokenId }</ListItemMobileGrid.Value>
+          <ListItemMobileGrid.Value className="py-0">{ tokenId }</ListItemMobileGrid.Value>
         </>
       ) }
 

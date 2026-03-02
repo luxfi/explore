@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FlashblockItem } from 'types/client/flashblocks';
@@ -16,7 +15,7 @@ interface Props {
 
 const FlashblocksList = ({ data, newItemsNum, showAlertError, onAlertLinkClick }: Props) => {
   return (
-    <Box>
+    <div>
       { (newItemsNum !== undefined || showAlertError) && (
         <SocketNewItemsNotice.Mobile
           type="flashblock"
@@ -31,7 +30,7 @@ const FlashblocksList = ({ data, newItemsNum, showAlertError, onAlertLinkClick }
           data={ item }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

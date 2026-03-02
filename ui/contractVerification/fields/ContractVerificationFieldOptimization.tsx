@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -17,12 +16,12 @@ const ContractVerificationFieldOptimization = () => {
 
   return (
     <ContractVerificationFormRow>
-      <Flex columnGap={ 5 } h={{ base: 'auto', lg: '32px' }}>
+      <div className="flex gap-x-5 h-auto lg:h-8">
         <FormFieldCheckbox<FormFields, 'is_optimization_enabled'>
           name="is_optimization_enabled"
           label="Optimization enabled"
           onChange={ handleCheckboxChange }
-          flexShrink={ 0 }
+          className="shrink-0"
         />
         { isEnabled && (
           <FormFieldText<FormFields, 'optimization_runs'>
@@ -32,13 +31,10 @@ const ContractVerificationFieldOptimization = () => {
             inputProps={{
               type: 'number',
             }}
-            size="sm"
-            minW="100px"
-            maxW="200px"
-            flexShrink={ 1 }
+            className="min-w-[100px] max-w-[200px] shrink text-sm"
           />
         ) }
-      </Flex>
+      </div>
     </ContractVerificationFormRow>
   );
 };

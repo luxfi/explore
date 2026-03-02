@@ -1,11 +1,11 @@
-import { Box, Flex, Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Route } from 'nextjs-routes';
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import IconSvg, { type IconName } from 'ui/shared/IconSvg';
@@ -24,6 +24,7 @@ export type Props = {
   period?: '1h' | '24h' | '30min';
   href?: Route;
   icon?: IconName;
+  isFallback?: boolean;
 };
 
 const Container = ({ href, children, className }: { href?: Route; children: React.JSX.Element; className?: string }) => {
@@ -52,78 +53,66 @@ const StatsWidget = ({
   diffFormatted,
   period,
   href,
+  isFallback,
 }: Props) => {
   return (
     <Container href={ !isLoading ? href : undefined } className={ href ? className : undefined }>
-      <Flex
-        className={ href ? undefined : className }
-        alignItems="center"
-        bgColor={ isLoading ? { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } : { _light: 'theme.stats.bg._light', _dark: 'theme.stats.bg._dark' } }
-        p={ 3 }
-        borderRadius="base"
-        justifyContent="space-between"
-        columnGap={ 2 }
-        w="100%"
-        h="100%"
+      <div
+        className={ cn(
+          'flex items-center p-4 rounded-lg justify-between gap-x-3 w-full h-full',
+          'border border-[var(--color-border-divider)]',
+          isLoading ? 'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' : 'bg-[var(--color-stats-bg)]',
+          !href && className,
+        ) }
       >
         { icon && (
           <IconSvg
             name={ icon }
-            p={ 2 }
-            boxSize="40px"
+            className={ cn(
+              'hidden lg:block shrink-0 p-2 rounded-base',
+              isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
+            ) }
+            style={{ width: '40px', height: '40px' }}
             isLoading={ isLoading }
-            borderRadius="base"
-            display={{ base: 'none', lg: 'block' }}
-            flexShrink={ 0 }
           />
         ) }
-        <Box
-          w={{
-            base: `calc(100% - ${ hint ? '24px' : '0px' })`,
-            lg: `calc(100% - ${ icon ? '48px' : '0px' } - ${ hint ? '24px' : '0px' })`,
-          }}
-        >
-          <Skeleton
-            loading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            w="fit-content"
-          >
+        <div className="flex flex-col grow min-w-0">
+          <Skeleton loading={ isLoading } className="w-fit text-xs text-[var(--color-text-secondary)]">
             <h2>{ label }</h2>
           </Skeleton>
           <Skeleton
             loading={ isLoading }
-            display="flex"
-            alignItems="baseline"
-            fontWeight={ 500 }
-            textStyle="heading.md"
+            className={ cn(
+              'flex items-baseline font-medium text-lg',
+              isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
+            ) }
           >
-            { valuePrefix && <chakra.span whiteSpace="pre">{ valuePrefix }</chakra.span> }
+            { valuePrefix && <span className="whitespace-pre">{ valuePrefix }</span> }
             { typeof value === 'string' ? (
               <TruncatedText text={ value } loading={ isLoading }/>
             ) : (
               value
             ) }
-            { valuePostfix && <chakra.span whiteSpace="pre">{ valuePostfix }</chakra.span> }
+            { valuePostfix && <span className="whitespace-pre">{ valuePostfix }</span> }
             { diff && Number(diff) > 0 && (
               <>
-                <Text ml={ 2 } mr={ 1 } color="green.500">
+                <span className="ml-2 mr-1 text-[var(--color-green-500)]">
                   +{ diffFormatted || Number(diff).toLocaleString() }
-                </Text>
-                <Text color="text.secondary" textStyle="sm">({ diffPeriod })</Text>
+                </span>
+                <span className="text-[var(--color-text-secondary)] text-sm">({ diffPeriod })</span>
               </>
             ) }
-            { period && <Text color="text.secondary" textStyle="xs" fontWeight={ 400 } ml={ 1 }>({ period })</Text> }
+            { period && <span className="text-[var(--color-text-secondary)] text-xs font-normal ml-1">({ period })</span> }
           </Skeleton>
-        </Box>
+        </div>
         { typeof hint === 'string' ? (
-          <Skeleton loading={ isLoading } alignSelf="center" borderRadius="base">
-            <Hint label={ hint } boxSize={ 5 } color="icon.secondary"/>
+          <Skeleton loading={ isLoading } className="self-center shrink-0 rounded-base">
+            <Hint label={ hint } className="size-5 text-[var(--color-icon-secondary)]"/>
           </Skeleton>
         ) : hint }
-      </Flex>
+      </div>
     </Container>
   );
 };
 
-export default chakra(StatsWidget);
+export default StatsWidget;
