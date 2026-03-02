@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 
 import config from 'configs/app';
 import UserProfileAuth0 from 'ui/snippets/user/profile/auth0/UserProfileDesktop';
+import UserProfileOidc from 'ui/snippets/user/profile/oidc/UserProfileDesktop';
 import UserWalletDesktop from 'ui/snippets/user/wallet/UserWalletDesktop';
 
 const UserProfileDynamic = dynamic(() => import('ui/snippets/user/profile/dynamic/UserProfile'), { ssr: false });
@@ -20,8 +21,8 @@ const UserProfileDesktop = ({ buttonSize, buttonVariant = 'header' }: Props) => 
         return <UserProfileAuth0 buttonSize={ buttonSize } buttonVariant={ buttonVariant }/>;
       case 'dynamic':
         return <UserProfileDynamic buttonSize={ buttonSize } buttonVariant={ buttonVariant }/>;
-      default:
-        break;
+      case 'oidc':
+        return <UserProfileOidc buttonSize={ buttonSize } buttonVariant={ buttonVariant }/>;
     }
   }
   // Always render the wallet/settings menu — it handles both wallet and settings
