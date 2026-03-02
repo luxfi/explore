@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-import { type RelatedCctx, CctxStatusReduced } from '@blockscout/zetachain-cctx-types';
+import { type RelatedCctx, CctxStatusReduced } from '@luxfi/zetachain-cctx-types';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import TxEntityZetaChainCC from 'ui/shared/entities/tx/TxEntityZetaChainCC';

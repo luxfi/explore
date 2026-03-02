@@ -8,6 +8,7 @@ export const recipe = defineSlotRecipe({
       bg: 'popover.bg',
       boxShadow: 'popover',
       color: 'initial',
+      fontFamily: 'body',
       maxHeight: 'var(--available-height)',
       '--menu-z-index': 'zIndex.popover',
       zIndex: 'calc(var(--menu-z-index) + var(--layer-index, 0))',

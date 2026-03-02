@@ -1,4 +1,4 @@
-import type * as stats from '@blockscout/stats-types';
+import type * as stats from '@luxfi/stats-types';
 import type { HomeStats } from 'types/api/stats';
 
 export const HOMEPAGE_STATS: HomeStats = {
