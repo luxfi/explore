@@ -25,7 +25,7 @@ test('base view +@dark-mode', async({ render, mockApiResponse }) => {
     queryParams: {
       limit: 8,
       offset: 0,
-      direction: zetaChainCCTXType.Direction.DESC,
+      direction: zetaChainCCTXType.Direction.Desc,
     },
   });
 
@@ -41,7 +41,7 @@ test.describe('mobile', () => {
       queryParams: {
         limit: 3,
         offset: 0,
-        direction: zetaChainCCTXType.Direction.DESC,
+        direction: zetaChainCCTXType.Direction.Desc,
       },
     });
 
