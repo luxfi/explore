@@ -54,7 +54,7 @@ const StatCard = ({ label, value, isLoading }: StatCardProps) => (
 // ── Main component ──
 
 const NetworkStats = () => {
-  const { stats, isLoading: validatorsLoading } = useCurrentValidators();
+  const { stats, isLoading: validatorsLoading, isError: validatorsError } = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
 
   const isLoading = validatorsLoading || chainsLoading;
@@ -65,6 +65,7 @@ const NetworkStats = () => {
   );
 
   const totalChains = PRIMARY_CHAIN_COUNT + l1Count;
+  const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
   return (
     <Box mb={ 6 }>
@@ -82,22 +83,22 @@ const NetworkStats = () => {
         />
         <StatCard
           label="Validators"
-          value={ String(stats.validatorCount) }
+          value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
           isLoading={ isLoading }
         />
         <StatCard
           label="Connected"
-          value={ `${ stats.connectedCount }/${ stats.validatorCount }` }
+          value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
           isLoading={ isLoading }
         />
         <StatCard
           label="Total Stake"
-          value={ `${ formatStake(stats.totalStake) } LUX` }
+          value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' }
           isLoading={ isLoading }
         />
         <StatCard
           label="Avg Uptime"
-          value={ `${ stats.averageUptime.toFixed(1) }%` }
+          value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' }
           isLoading={ isLoading }
         />
       </Grid>

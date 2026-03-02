@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as tac from '@blockscout/tac-operation-lifecycle-types';
+import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import AddressEntityTacTon from 'ui/shared/entities/address/AddressEntityTacTon';
 import OperationEntity from 'ui/shared/entities/operation/OperationEntity';
