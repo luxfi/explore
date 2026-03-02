@@ -107,7 +107,7 @@ const LatestBlocks = () => {
   const networkUtilization = getNetworkUtilizationParams(statsQueryResult.data?.network_utilization_percentage ?? 0);
 
   return (
-    <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
+    <Box width="100%">
       <Heading level="3">Latest blocks</Heading>
       { statsQueryResult.data?.network_utilization_percentage !== undefined && (
         <Skeleton loading={ statsQueryResult.isPlaceholderData } mt={ 2 } display="inline-block" textStyle="sm">
