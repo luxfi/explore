@@ -12,7 +12,7 @@ services:
       - explorer-network
 
   postgres:
-    image: postgres:14
+    image: ghcr.io/hanzoai/sql:latest
     container_name: lux-postgres
     restart: unless-stopped
     environment:

@@ -4,6 +4,7 @@ export { getPChain, getInfo, getHealth } from './client';
 export { useCurrentValidators } from './useCurrentValidators';
 export { useBlockchains } from './useBlockchains';
 export { useSubnets } from './useSubnets';
+export { useChainHeights } from './useChainHeights';
 
 export type {
   PChainValidator,
@@ -18,3 +19,4 @@ export type {
 } from './types';
 
 export type { UseCurrentValidatorsResult } from './useCurrentValidators';
+export type { UseChainHeightsResult } from './useChainHeights';
