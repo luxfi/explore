@@ -75,6 +75,7 @@ export function useCurrentValidators() {
     queryKey: [ VALIDATORS_QUERY_KEY ],
     queryFn: fetchCurrentValidators,
     staleTime: VALIDATORS_STALE_TIME_MS,
+    retry: 2,
   });
 
   const validators = React.useMemo(

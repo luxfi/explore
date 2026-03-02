@@ -3,7 +3,6 @@ import React from 'react';
 
 import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
-import useIsMobile from 'lib/hooks/useIsMobile';
 import { Heading } from 'toolkit/chakra/heading';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -32,6 +31,14 @@ const PRIMARY_CHAINS = [
   { id: 'R', name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', href: '/chain/r-chain' },
   { id: 'I', name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', href: '/chain/i-chain' },
 ] as const;
+
+// Known L1 chains (fallback when P-chain API is unreachable from browser)
+const KNOWN_L1_CHAINS: ReadonlyArray<{ readonly name: string; readonly href: string }> = [
+  { name: 'Zoo', href: 'https://explore-zoo.lux.network' },
+  { name: 'Hanzo', href: 'https://explore-hanzo.lux.network' },
+  { name: 'SPC', href: 'https://explore-spc.lux.network' },
+  { name: 'Pars', href: 'https://explore-pars.lux.network' },
+];
 
 const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
   Zoo: 'https://explore-zoo.lux.network',
@@ -166,6 +173,36 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   return <Link href={ `/chains/${ slug }` } variant="plain">{ content }</Link>;
 };
 
+// ── Known L1 chain row (fallback when API unavailable) ──
+
+interface KnownL1RowProps {
+  readonly name: string;
+  readonly href: string;
+}
+
+const KnownL1Row = ({ name, href }: KnownL1RowProps) => (
+  <Link href={ href } variant="plain" target="_blank">
+    <Flex
+      align="center"
+      justify="space-between"
+      py={ 2 }
+      px={ 3 }
+      borderRadius="md"
+      cursor="pointer"
+      _hover={{ bg: CARD_HOVER }}
+      transition="background 0.15s"
+    >
+      <Text fontWeight={ 600 } color="text.primary" fontSize="sm">
+        { name }
+      </Text>
+      <Flex align="center" gap={ 1.5 }>
+        <Tag size="sm" variant="subtle">L1</Tag>
+        <Text color="text.secondary" fontSize="xs">{ '\u2192' }</Text>
+      </Flex>
+    </Flex>
+  </Link>
+);
+
 // ── Sidebar card ──
 
 interface SidebarCardProps {
@@ -206,8 +243,7 @@ const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardP
 // ── Main page ──
 
 const NetworkOverview = () => {
-  const isMobile = useIsMobile();
-  const { stats, isLoading: validatorsLoading } = useCurrentValidators();
+  const { stats, isLoading: validatorsLoading, isError: validatorsError } = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
 
@@ -216,8 +252,15 @@ const NetworkOverview = () => {
     [ blockchains ],
   );
 
-  const totalChains = PRIMARY_CHAINS.length + l1Chains.length;
+  // Use known L1 chains as fallback when P-chain API is unreachable
+  const hasL1Data = l1Chains.length > 0;
+  const showFallbackL1 = !chainsLoading && !hasL1Data;
+
+  const totalChains = PRIMARY_CHAINS.length + (hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length);
   const isLoading = validatorsLoading || chainsLoading;
+
+  // Hide validator metrics when API returned an error (show dashes instead of 0)
+  const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
   return (
     <Box as="main">
@@ -238,164 +281,157 @@ const NetworkOverview = () => {
         flexWrap="wrap"
         overflow="hidden"
       >
-        <Metric label="C-Chain" value={ cChainHeight > 0 ? `#${ cChainHeight.toLocaleString() }` : '—' } isLoading={ heightsLoading }/>
+        <Metric label="C-Chain" value={ cChainHeight > 0 ? `#${ cChainHeight.toLocaleString() }` : '\u2014' } isLoading={ heightsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="P-Chain" value={ pChainHeight > 0 ? `#${ pChainHeight.toLocaleString() }` : '—' } isLoading={ heightsLoading }/>
+        <Metric label="P-Chain" value={ pChainHeight > 0 ? `#${ pChainHeight.toLocaleString() }` : '\u2014' } isLoading={ heightsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Validators" value={ String(stats.validatorCount) } isLoading={ isLoading }/>
+        <Metric label="Validators" value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' } isLoading={ validatorsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Staked" value={ `${ formatStake(stats.totalStake) } LUX` } isLoading={ isLoading }/>
+        <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' } isLoading={ validatorsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Uptime" value={ `${ stats.averageUptime.toFixed(1) }%` } isLoading={ isLoading }/>
+        <Metric label="Uptime" value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' } isLoading={ validatorsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Connected" value={ `${ stats.connectedCount }/${ stats.validatorCount }` } isLoading={ isLoading }/>
+        <Metric
+          label="Connected"
+          value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
+          isLoading={ validatorsLoading }
+        />
       </Flex>
 
-      { /* ── Two-column: Activity (primary) + Chain Health (secondary) ── */ }
-      <Grid
-        templateColumns={{ base: '1fr', lg: '1fr 340px' }}
-        gap={ 5 }
-        mt={ 5 }
-      >
-        { /* ── Left: Activity ── */ }
-        <Box>
-          { /* Stats grid */ }
-          <Stats/>
+      { /* ── Stats widgets ── */ }
+      <Box mt={ 5 }>
+        <Stats/>
+      </Box>
 
-          { /* Latest blocks */ }
-          <Box mt={ 5 }>
-            <LatestBlocks/>
-          </Box>
-
-          { /* Transactions */ }
-          <Box mt={ 5 }>
-            <Transactions/>
-          </Box>
+      { /* ── Two-column: Latest blocks (left) + Latest transactions (right) ── */ }
+      <Flex mt={ 8 } direction={{ base: 'column', lg: 'row' }} columnGap={ 12 } rowGap={ 6 }>
+        <Box flexGrow={ 1 } flexBasis="50%" overflow="hidden">
+          <LatestBlocks/>
         </Box>
+        <Box flexGrow={ 1 } flexBasis="50%" overflow="hidden">
+          <Transactions/>
+        </Box>
+      </Flex>
 
-        { /* ── Right: Chain Health sidebar ── */ }
-        <Flex direction="column" gap={ 4 } display={{ base: 'none', lg: 'flex' }}>
-          { /* Primary Network chains */ }
-          <SidebarCard
-            title="Primary Network"
-            count={ PRIMARY_CHAINS.length }
-          >
-            <Flex direction="column" gap={ 0 }>
-              { PRIMARY_CHAINS.map((chain) => (
+      { /* ── Chain Health section (below blocks/txns) ── */ }
+      <Grid
+        templateColumns={{ base: '1fr', lg: 'repeat(3, 1fr)' }}
+        gap={ 4 }
+        mt={ 8 }
+      >
+        { /* Primary Network chains */ }
+        <SidebarCard
+          title="Primary Network"
+          count={ PRIMARY_CHAINS.length }
+        >
+          <Flex direction="column" gap={ 0 }>
+            { PRIMARY_CHAINS.map((chain) => {
+              const chainHeight = (() => {
+                if (chain.id === 'C') return cChainHeight;
+                if (chain.id === 'P') return pChainHeight;
+                return undefined;
+              })();
+              return (
                 <ChainRow
                   key={ chain.id }
                   name={ chain.name }
                   fullName={ chain.fullName }
                   vm={ chain.vm }
                   href={ chain.href }
-                  height={ chain.id === 'C' ? cChainHeight : chain.id === 'P' ? pChainHeight : undefined }
+                  height={ chainHeight }
                   heightLoading={ heightsLoading }
                 />
+              );
+            }) }
+          </Flex>
+        </SidebarCard>
+
+        { /* Subnet / L1 chains */ }
+        <SidebarCard
+          title="Chains"
+          count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
+          isLoading={ chainsLoading }
+          action={{ label: 'View all', href: '/chains' }}
+        >
+          { chainsLoading && (
+            <Flex direction="column" gap={ 1 }>
+              { Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={ i } loading h="40px" borderRadius="md"/>
               )) }
             </Flex>
-          </SidebarCard>
-
-          { /* Subnet / L1 chains — renamed to just "Chains" */ }
-          <SidebarCard
-            title="Chains"
-            count={ l1Chains.length }
-            isLoading={ chainsLoading }
-            action={{ label: 'View all', href: '/chains' }}
-          >
-            { chainsLoading && (
-              <Flex direction="column" gap={ 1 }>
-                { Array.from({ length: 4 }).map((_, i) => (
-                  <Skeleton key={ i } loading h="40px" borderRadius="md"/>
-                )) }
-              </Flex>
-            ) }
-            { !chainsLoading && l1Chains.length === 0 && (
-              <Text color="text.secondary" fontSize="sm" py={ 2 }>
-                No chains registered yet.
-              </Text>
-            ) }
-            { !chainsLoading && l1Chains.length > 0 && (
-              <Flex direction="column" gap={ 0 }>
-                { l1Chains.map((chain) => (
-                  <L1ChainRow key={ chain.id } chain={ chain }/>
-                )) }
-              </Flex>
-            ) }
-          </SidebarCard>
-
-          { /* Validators summary card */ }
-          <SidebarCard title="Validators">
-            <Grid templateColumns="1fr 1fr" gap={ 3 }>
-              <Box>
-                <Skeleton loading={ isLoading }>
-                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                    { stats.validatorCount }
-                  </Text>
-                </Skeleton>
-                <Text fontSize="2xs" color="text.secondary">Active</Text>
-              </Box>
-              <Box>
-                <Skeleton loading={ isLoading }>
-                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                    { formatStake(stats.totalStake) }
-                  </Text>
-                </Skeleton>
-                <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
-              </Box>
-              <Box>
-                <Skeleton loading={ isLoading }>
-                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                    { stats.delegatorCount }
-                  </Text>
-                </Skeleton>
-                <Text fontSize="2xs" color="text.secondary">Delegators</Text>
-              </Box>
-              <Box>
-                <Skeleton loading={ isLoading }>
-                  <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                    { `${ stats.connectedCount }/${ stats.validatorCount }` }
-                  </Text>
-                </Skeleton>
-                <Text fontSize="2xs" color="text.secondary">Connected</Text>
-              </Box>
-            </Grid>
-            <Flex justify="center" mt={ 3 }>
-              <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
-                View validators
-              </Link>
-            </Flex>
-          </SidebarCard>
-        </Flex>
-      </Grid>
-
-      { /* ── Mobile-only chains section ── */ }
-      { isMobile && (
-        <Box mt={ 5 }>
-          <SidebarCard
-            title="Chains"
-            count={ totalChains }
-            isLoading={ isLoading }
-            action={{ label: 'View all', href: '/chains' }}
-          >
+          ) }
+          { !chainsLoading && hasL1Data && (
             <Flex direction="column" gap={ 0 }>
-              { PRIMARY_CHAINS.slice(0, 5).map((chain) => (
-                <ChainRow
-                  key={ chain.id }
-                  name={ chain.name }
-                  fullName={ chain.fullName }
-                  vm={ chain.vm }
-                  href={ chain.href }
-                />
-              )) }
               { l1Chains.map((chain) => (
                 <L1ChainRow key={ chain.id } chain={ chain }/>
               )) }
             </Flex>
-          </SidebarCard>
-        </Box>
-      ) }
+          ) }
+          { showFallbackL1 && (
+            <Flex direction="column" gap={ 0 }>
+              { KNOWN_L1_CHAINS.map((chain) => (
+                <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
+              )) }
+            </Flex>
+          ) }
+        </SidebarCard>
+
+        { /* Validators summary card */ }
+        <SidebarCard title="Validators">
+          { validatorsError ? (
+            <Flex direction="column" align="center" py={ 3 }>
+              <Text color="text.secondary" fontSize="sm">Unable to fetch validator data.</Text>
+              <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }} mt={ 2 }>
+                View validators
+              </Link>
+            </Flex>
+          ) : (
+            <>
+              <Grid templateColumns="1fr 1fr" gap={ 3 }>
+                <Box>
+                  <Skeleton loading={ validatorsLoading }>
+                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      { stats.validatorCount }
+                    </Text>
+                  </Skeleton>
+                  <Text fontSize="2xs" color="text.secondary">Active</Text>
+                </Box>
+                <Box>
+                  <Skeleton loading={ validatorsLoading }>
+                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      { formatStake(stats.totalStake) }
+                    </Text>
+                  </Skeleton>
+                  <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
+                </Box>
+                <Box>
+                  <Skeleton loading={ validatorsLoading }>
+                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      { stats.delegatorCount }
+                    </Text>
+                  </Skeleton>
+                  <Text fontSize="2xs" color="text.secondary">Delegators</Text>
+                </Box>
+                <Box>
+                  <Skeleton loading={ validatorsLoading }>
+                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      { `${ stats.connectedCount }/${ stats.validatorCount }` }
+                    </Text>
+                  </Skeleton>
+                  <Text fontSize="2xs" color="text.secondary">Connected</Text>
+                </Box>
+              </Grid>
+              <Flex justify="center" mt={ 3 }>
+                <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+                  View validators
+                </Link>
+              </Flex>
+            </>
+          ) }
+        </SidebarCard>
+      </Grid>
     </Box>
   );
 };
