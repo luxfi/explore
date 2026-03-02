@@ -68,8 +68,8 @@ const ZetaChainCCTxs = ({
     });
 
     const filteredPayload = type === 'pending' ?
-      payload.filter(tx => tx.status_reduced === CctxStatusReduced.PENDING) :
-      payload.filter(tx => tx.status_reduced === CctxStatusReduced.SUCCESS || tx.status_reduced === CctxStatusReduced.FAILED);
+      payload.filter(tx => tx.status_reduced === CctxStatusReduced.Pending) :
+      payload.filter(tx => tx.status_reduced === CctxStatusReduced.Success || tx.status_reduced === CctxStatusReduced.Failed);
 
     queryClient.setQueryData(currentQueryKey, (prevData: ListCctxsResponse | undefined) => {
       if (!prevData) {

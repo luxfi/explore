@@ -69,7 +69,7 @@ const ZetaChainCCTXsTab = () => {
       direction: 'DESC',
     },
     options: {
-      placeholderData: { items: Array(50).fill(ZETA_CHAIN_CCTX_LIST_ITEM), next_page_params: { limit: 0, page_key: 0, direction: Direction.DESC } },
+      placeholderData: { items: Array(50).fill(ZETA_CHAIN_CCTX_LIST_ITEM), next_page_params: { limit: 0, page_key: 0, direction: Direction.Desc } },
       enabled: tab === 'cctx' || tab === 'cctx_mined',
     },
     hasNextPageFn,
@@ -85,7 +85,7 @@ const ZetaChainCCTXsTab = () => {
       direction: 'DESC',
     },
     options: {
-      placeholderData: { items: Array(50).fill(ZETA_CHAIN_CCTX_LIST_ITEM), next_page_params: { limit: 0, page_key: 0, direction: Direction.DESC } },
+      placeholderData: { items: Array(50).fill(ZETA_CHAIN_CCTX_LIST_ITEM), next_page_params: { limit: 0, page_key: 0, direction: Direction.Desc } },
       enabled: tab === 'cctx_pending',
     },
     hasNextPageFn,
