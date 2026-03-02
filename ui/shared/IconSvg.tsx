@@ -1,4 +1,6 @@
-import type { IconName } from 'public/icons/name';
+import type { HTMLChakraProps } from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/react';
+import { type IconName } from 'public/icons/name';
 import React from 'react';
 
 import config from 'configs/app';
@@ -8,23 +10,18 @@ export const href = config.app.spriteHash ? `/icons/sprite.${ config.app.spriteH
 
 export { IconName };
 
-export interface Props extends React.SVGAttributes<SVGSVGElement> {
+export interface Props extends HTMLChakraProps<'div'> {
   name: IconName;
   isLoading?: boolean;
 }
 
 const IconSvg = React.forwardRef(
-  function IconSvg({ name, isLoading = false, ...props }: Props, ref: React.ForwardedRef<SVGSVGElement>) {
+  function IconSvg({ name, isLoading = false, ...props }: Props, ref: React.ForwardedRef<HTMLDivElement>) {
     return (
-      <Skeleton loading={ isLoading } display="inline-block" flexShrink={ 0 } asChild>
-        <svg
-          ref={ ref }
-          width="100%"
-          height="100%"
-          { ...props }
-        >
+      <Skeleton loading={ isLoading } display="inline-block" flexShrink={ 0 } asChild { ...props } ref={ ref }>
+        <chakra.svg w="100%" h="100%">
           <use href={ `${ href }#${ name }` }/>
-        </svg>
+        </chakra.svg>
       </Skeleton>
     );
   },
