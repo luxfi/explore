@@ -9,6 +9,7 @@ import { Link } from 'toolkit/chakra/link';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
+import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
 import ChainSwitcher from './ChainSwitcher';
 import NetworkSelector from './NetworkSelector';
@@ -212,6 +213,11 @@ const TopBar = () => {
 
         { /* ── Spacer ── */ }
         <Box flex={ 1 } display={{ base: 'block', lg: 'none' }}/>
+
+        { /* ── User profile / Sign in ── */ }
+        <Box flexShrink={ 0 }>
+          <UserProfileDesktop buttonSize="sm"/>
+        </Box>
       </Flex>
     </Box>
   );

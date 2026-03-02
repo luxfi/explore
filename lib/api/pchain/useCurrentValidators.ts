@@ -28,7 +28,9 @@ function computeValidatorStats(
   for (const v of validators) {
     totalStake += BigInt(v.stakeAmount ?? v.weight);
 
-    if (v.connected) {
+    // connected field may be absent in some node configurations;
+    // infer connectivity from uptime > 0 when missing
+    if (v.connected ?? (parseFloat(v.uptime) > 0)) {
       connectedCount += 1;
     }
 
