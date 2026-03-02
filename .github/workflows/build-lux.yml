@@ -15,18 +15,20 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: lux-build-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: luxfi/explore
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: lux-build
     permissions:
       contents: read
       packages: write
-    outputs:
-      image-digest: ${{ steps.build.outputs.digest }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,9 +42,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add SHORT_SHA
-        run: echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
 
       - name: Extract metadata
         id: meta
@@ -64,35 +63,28 @@ jobs:
           platforms: linux/amd64
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cache:amd64
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cache:amd64,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           provenance: false
           push: ${{ github.event_name != 'pull_request' }}
           build-args: |
-            GIT_COMMIT_SHA=${{ env.SHORT_SHA }}
+            GIT_COMMIT_SHA=${{ github.sha }}
             GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
 
-  deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: lux-build
-    needs: [build]
-    steps:
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Install kubectl
+      - name: Deploy to production
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         run: |
-          mkdir -p $HOME/bin
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x kubectl && mv kubectl $HOME/bin/kubectl
-          echo "$HOME/bin" >> $GITHUB_PATH
-
-      - name: Configure kubectl
-        run: doctl kubernetes cluster kubeconfig save lux-k8s
-
-      - name: Restart frontend deployments
-        run: |
-          kubectl rollout restart deployment/explorer-frontend -n lux-explorer || echo "Skipped explorer-frontend"
-          kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s || echo "Timeout waiting for explorer-frontend"
+          # Install doctl + kubectl if not present
+          if ! command -v doctl &>/dev/null; then
+            curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-1.119.1-linux-amd64.tar.gz | tar xz -C /usr/local/bin 2>/dev/null || true
+          fi
+          if ! command -v kubectl &>/dev/null; then
+            curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x kubectl && mv kubectl /usr/local/bin/kubectl
+          fi
+          doctl auth init -t "$DIGITALOCEAN_ACCESS_TOKEN"
+          doctl kubernetes cluster kubeconfig save lux-k8s
+          kubectl rollout restart deployment/explorer-frontend -n lux-explorer
+          kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s
