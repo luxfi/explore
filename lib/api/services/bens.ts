@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as bens from '@blockscout/bens-types';
+import type * as bens from '@luxfi/bens-types';
 import type { EnsAddressLookupFilters, EnsDomainLookupFilters, EnsLookupSorting } from 'types/api/ens';
 
 export const BENS_API_RESOURCES = {

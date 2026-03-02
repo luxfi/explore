@@ -1,7 +1,7 @@
 import { Box, Grid } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
-import type * as stats from '@blockscout/stats-types';
+import type * as stats from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
 import config from 'configs/app';

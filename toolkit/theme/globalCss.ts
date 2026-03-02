@@ -18,6 +18,10 @@ const webkitAutofillRules = {
 };
 
 const globalCss: SystemConfig['globalCss'] = {
+  // Override Chakra default blue ring color with monochrome gray
+  '*': {
+    '--ring-color': 'rgba(160, 174, 192, 0.6)',
+  },
   body: {
     bg: 'global.body.bg',
     color: 'global.body.fg',

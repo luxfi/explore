@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, VStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import type { CrossChainTx } from '@blockscout/zetachain-cctx-types';
+import type { CrossChainTx } from '@luxfi/zetachain-cctx-types';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import base64ToHex from 'lib/base64ToHex';

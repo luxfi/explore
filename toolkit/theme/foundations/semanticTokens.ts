@@ -49,14 +49,33 @@ const semanticTokens: ThemingConfig['semanticTokens'] = {
     },
     bg: {
       primary: { value: { _light: '{colors.theme.bg.primary._light}', _dark: '{colors.theme.bg.primary._dark}' } },
+      // Override Chakra default blue info bg to monochrome gray
+      info: { value: { _light: '{colors.gray.50}', _dark: '{colors.gray.900}' } },
+    },
+    fg: {
+      // Override Chakra default blue info fg to monochrome gray
+      info: { value: { _light: '{colors.gray.600}', _dark: '{colors.gray.300}' } },
     },
     border: {
       divider: { value: { _light: '{colors.blackAlpha.100}', _dark: '{colors.whiteAlpha.100}' } },
       error: { value: '{colors.red.500}' },
+      // Override Chakra default blue info border to monochrome gray
+      info: { value: { _light: '{colors.gray.400}', _dark: '{colors.gray.500}' } },
     },
     icon: {
       primary: { value: { _light: '{colors.theme.icon.primary._light}', _dark: '{colors.theme.icon.primary._dark}' } },
       secondary: { value: { _light: '{colors.theme.icon.secondary._light}', _dark: '{colors.theme.icon.secondary._dark}' } },
+    },
+
+    // Override Chakra default blue color palette to monochrome gray
+    blue: {
+      contrast: { value: { _light: '{colors.white}', _dark: '{colors.black}' } },
+      fg: { value: { _light: '{colors.gray.700}', _dark: '{colors.gray.300}' } },
+      subtle: { value: { _light: '{colors.gray.100}', _dark: '{colors.gray.900}' } },
+      muted: { value: { _light: '{colors.gray.200}', _dark: '{colors.gray.800}' } },
+      emphasized: { value: { _light: '{colors.gray.300}', _dark: '{colors.gray.700}' } },
+      solid: { value: { _light: '{colors.gray.900}', _dark: '{colors.white}' } },
+      focusRing: { value: { _light: '{colors.gray.800}', _dark: '{colors.gray.200}' } },
     },
 
     // ELEMENTS
