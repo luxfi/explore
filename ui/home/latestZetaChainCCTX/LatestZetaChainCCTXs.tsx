@@ -30,7 +30,7 @@ const LatestZetaChainCCTXs = () => {
       placeholderData: generateListStub<'zetachain:transactions'>(
         ZETA_CHAIN_CCTX_LIST_ITEM,
         50,
-        { next_page_params: { page_key: 0, limit: 0, direction: Direction.DESC } },
+        { next_page_params: { page_key: 0, limit: 0, direction: Direction.Desc } },
       ),
     },
     queryParams: {

@@ -21,15 +21,15 @@ const ZetaChainCCTXValue = ({ coinType, tokenSymbol, amount, decimals, isLoading
   let unit: string;
   let value: string | undefined;
   switch (coinType) {
-    case CoinType.ERC20:
+    case CoinType.Erc20:
       unit = tokenSymbol || 'Unnamed token';
       value = calculateUsdValue({ amount, decimals: decimals?.toString() || '18', accuracy }).valueStr;
       break;
-    case CoinType.ZETA:
+    case CoinType.Zeta:
       unit = config.chain.currency.symbol || config.chain.currency.name || '';
       value = calculateUsdValue({ amount, decimals: config.chain.currency.decimals?.toString() || '18', accuracy }).valueStr;
       break;
-    case CoinType.GAS:
+    case CoinType.Gas:
       unit = tokenSymbol || 'Unnamed token';
       value = calculateUsdValue({ amount, decimals: decimals?.toString() || '18', accuracy }).valueStr;
       break;
