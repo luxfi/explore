@@ -12,3 +12,16 @@ README.md
 /test-results/
 /playwright-report/
 /blob-report/
+/mocks/
+**/*.spec.ts
+**/*.spec.tsx
+**/*.pw.tsx
+**/*.test.ts
+**/*.test.tsx
+/.github/
+/.vscode/
+/.husky/
+/playwright/
+CHANGELOG.md
+LICENSE
+.env.local
