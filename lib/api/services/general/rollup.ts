@@ -52,176 +52,176 @@ import type { ZkSyncBatch, ZkSyncBatchesResponse, ZkSyncBatchTxs } from 'types/a
 export const GENERAL_API_ROLLUP_RESOURCES = {
   // OPTIMISTIC
   optimistic_l2_deposits: {
-    path: '/api/v2/optimism/deposits',
+    path: '/optimism/deposits',
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_deposits_count: {
-    path: '/api/v2/optimism/deposits/count',
+    path: '/optimism/deposits/count',
   },
   optimistic_l2_withdrawals: {
-    path: '/api/v2/optimism/withdrawals',
+    path: '/optimism/withdrawals',
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_withdrawals_count: {
-    path: '/api/v2/optimism/withdrawals/count',
+    path: '/optimism/withdrawals/count',
   },
   optimistic_l2_output_roots: {
-    path: '/api/v2/optimism/output-roots',
+    path: '/optimism/output-roots',
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_output_roots_count: {
-    path: '/api/v2/optimism/output-roots/count',
+    path: '/optimism/output-roots/count',
   },
   optimistic_l2_txn_batches: {
-    path: '/api/v2/optimism/batches',
+    path: '/optimism/batches',
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_txn_batches_count: {
-    path: '/api/v2/optimism/batches/count',
+    path: '/optimism/batches/count',
   },
   optimistic_l2_txn_batch: {
-    path: '/api/v2/optimism/batches/:number',
+    path: '/optimism/batches/:number',
     pathParams: [ 'number' as const ],
   },
   optimistic_l2_txn_batch_celestia: {
-    path: '/api/v2/optimism/batches/da/celestia/:height/:commitment',
+    path: '/optimism/batches/da/celestia/:height/:commitment',
     pathParams: [ 'height' as const, 'commitment' as const ],
   },
   optimistic_l2_txn_batch_txs: {
-    path: '/api/v2/transactions/optimism-batch/:number',
+    path: '/transactions/optimism-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_txn_batch_blocks: {
-    path: '/api/v2/blocks/optimism-batch/:number',
+    path: '/blocks/optimism-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_dispute_games: {
-    path: '/api/v2/optimism/games',
+    path: '/optimism/games',
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_dispute_games_count: {
-    path: '/api/v2/optimism/games/count',
+    path: '/optimism/games/count',
   },
 
   // OPTIMISTIC INTEROP
   optimistic_l2_interop_messages: {
-    path: '/api/v2/optimism/interop/messages',
+    path: '/optimism/interop/messages',
     filterFields: [],
     paginated: true,
   },
   optimistic_l2_interop_messages_count: {
-    path: '/api/v2/optimism/interop/messages/count',
+    path: '/optimism/interop/messages/count',
   },
 
   // MUD
   mud_worlds: {
-    path: '/api/v2/mud/worlds',
+    path: '/mud/worlds',
     filterFields: [],
     paginated: true,
   },
   mud_tables: {
-    path: '/api/v2/mud/worlds/:hash/tables',
+    path: '/mud/worlds/:hash/tables',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'q' as const ],
     paginated: true,
   },
   mud_tables_count: {
-    path: '/api/v2/mud/worlds/:hash/tables/count',
+    path: '/mud/worlds/:hash/tables/count',
     pathParams: [ 'hash' as const ],
   },
   mud_records: {
-    path: '/api/v2/mud/worlds/:hash/tables/:table_id/records',
+    path: '/mud/worlds/:hash/tables/:table_id/records',
     pathParams: [ 'hash' as const, 'table_id' as const ],
     filterFields: [ 'filter_key0' as const, 'filter_key1' as const ],
     paginated: true,
   },
   mud_record: {
-    path: '/api/v2/mud/worlds/:hash/tables/:table_id/records/:record_id',
+    path: '/mud/worlds/:hash/tables/:table_id/records/:record_id',
     pathParams: [ 'hash' as const, 'table_id' as const, 'record_id' as const ],
   },
   mud_systems: {
-    path: '/api/v2/mud/worlds/:hash/systems',
+    path: '/mud/worlds/:hash/systems',
     pathParams: [ 'hash' as const ],
   },
   mud_system_info: {
-    path: '/api/v2/mud/worlds/:hash/systems/:system_address',
+    path: '/mud/worlds/:hash/systems/:system_address',
     pathParams: [ 'hash' as const, 'system_address' as const ],
   },
 
   // ARBITRUM
   arbitrum_l2_messages: {
-    path: '/api/v2/arbitrum/messages/:direction',
+    path: '/arbitrum/messages/:direction',
     pathParams: [ 'direction' as const ],
     filterFields: [],
     paginated: true,
   },
   arbitrum_l2_messages_count: {
-    path: '/api/v2/arbitrum/messages/:direction/count',
+    path: '/arbitrum/messages/:direction/count',
     pathParams: [ 'direction' as const ],
   },
   arbitrum_l2_txn_batches: {
-    path: '/api/v2/arbitrum/batches',
+    path: '/arbitrum/batches',
     filterFields: [],
     paginated: true,
   },
   arbitrum_l2_txn_batches_count: {
-    path: '/api/v2/arbitrum/batches/count',
+    path: '/arbitrum/batches/count',
   },
   arbitrum_l2_txn_batch: {
-    path: '/api/v2/arbitrum/batches/:number',
+    path: '/arbitrum/batches/:number',
     pathParams: [ 'number' as const ],
   },
   arbitrum_l2_txn_batch_celestia: {
-    path: '/api/v2/arbitrum/batches/da/celestia/:height/:commitment',
+    path: '/arbitrum/batches/da/celestia/:height/:commitment',
     pathParams: [ 'height' as const, 'commitment' as const ],
   },
   arbitrum_l2_txn_batch_txs: {
-    path: '/api/v2/transactions/arbitrum-batch/:number',
+    path: '/transactions/arbitrum-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
   },
   arbitrum_l2_txn_batch_blocks: {
-    path: '/api/v2/blocks/arbitrum-batch/:number',
+    path: '/blocks/arbitrum-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
   },
   arbitrum_l2_txn_withdrawals: {
-    path: '/api/v2/arbitrum/messages/withdrawals/:hash',
+    path: '/arbitrum/messages/withdrawals/:hash',
     pathParams: [ 'hash' as const ],
     filterFields: [],
   },
   arbitrum_l2_message_claim: {
-    path: '/api/v2/arbitrum/messages/claim/:id',
+    path: '/arbitrum/messages/claim/:id',
     pathParams: [ 'id' as const ],
     filterFields: [],
   },
 
   // zkSync
   zksync_l2_txn_batches: {
-    path: '/api/v2/zksync/batches',
+    path: '/zksync/batches',
     filterFields: [],
     paginated: true,
   },
   zksync_l2_txn_batches_count: {
-    path: '/api/v2/zksync/batches/count',
+    path: '/zksync/batches/count',
   },
   zksync_l2_txn_batch: {
-    path: '/api/v2/zksync/batches/:number',
+    path: '/zksync/batches/:number',
     pathParams: [ 'number' as const ],
   },
   zksync_l2_txn_batch_txs: {
-    path: '/api/v2/transactions/zksync-batch/:number',
+    path: '/transactions/zksync-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
@@ -229,35 +229,35 @@ export const GENERAL_API_ROLLUP_RESOURCES = {
 
   // zkEvm
   zkevm_l2_deposits: {
-    path: '/api/v2/zkevm/deposits',
+    path: '/zkevm/deposits',
     filterFields: [],
     paginated: true,
   },
   zkevm_l2_deposits_count: {
-    path: '/api/v2/zkevm/deposits/count',
+    path: '/zkevm/deposits/count',
   },
   zkevm_l2_withdrawals: {
-    path: '/api/v2/zkevm/withdrawals',
+    path: '/zkevm/withdrawals',
     filterFields: [],
     paginated: true,
   },
   zkevm_l2_withdrawals_count: {
-    path: '/api/v2/zkevm/withdrawals/count',
+    path: '/zkevm/withdrawals/count',
   },
   zkevm_l2_txn_batches: {
-    path: '/api/v2/zkevm/batches',
+    path: '/zkevm/batches',
     filterFields: [],
     paginated: true,
   },
   zkevm_l2_txn_batches_count: {
-    path: '/api/v2/zkevm/batches/count',
+    path: '/zkevm/batches/count',
   },
   zkevm_l2_txn_batch: {
-    path: '/api/v2/zkevm/batches/:number',
+    path: '/zkevm/batches/:number',
     pathParams: [ 'number' as const ],
   },
   zkevm_l2_txn_batch_txs: {
-    path: '/api/v2/transactions/zkevm-batch/:number',
+    path: '/transactions/zkevm-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
@@ -265,59 +265,59 @@ export const GENERAL_API_ROLLUP_RESOURCES = {
 
   // SHIBARIUM
   shibarium_deposits: {
-    path: '/api/v2/shibarium/deposits',
+    path: '/shibarium/deposits',
     filterFields: [],
     paginated: true,
   },
   shibarium_deposits_count: {
-    path: '/api/v2/shibarium/deposits/count',
+    path: '/shibarium/deposits/count',
   },
   shibarium_withdrawals: {
-    path: '/api/v2/shibarium/withdrawals',
+    path: '/shibarium/withdrawals',
     filterFields: [],
     paginated: true,
   },
   shibarium_withdrawals_count: {
-    path: '/api/v2/shibarium/withdrawals/count',
+    path: '/shibarium/withdrawals/count',
   },
 
   // SCROLL
   scroll_l2_deposits: {
-    path: '/api/v2/scroll/deposits',
+    path: '/scroll/deposits',
     filterFields: [],
     paginated: true,
   },
   scroll_l2_deposits_count: {
-    path: '/api/v2/scroll/deposits/count',
+    path: '/scroll/deposits/count',
   },
   scroll_l2_withdrawals: {
-    path: '/api/v2/scroll/withdrawals',
+    path: '/scroll/withdrawals',
     filterFields: [],
     paginated: true,
   },
   scroll_l2_withdrawals_count: {
-    path: '/api/v2/scroll/withdrawals/count',
+    path: '/scroll/withdrawals/count',
   },
   scroll_l2_txn_batches: {
-    path: '/api/v2/scroll/batches',
+    path: '/scroll/batches',
     filterFields: [],
     paginated: true,
   },
   scroll_l2_txn_batches_count: {
-    path: '/api/v2/scroll/batches/count',
+    path: '/scroll/batches/count',
   },
   scroll_l2_txn_batch: {
-    path: '/api/v2/scroll/batches/:number',
+    path: '/scroll/batches/:number',
     pathParams: [ 'number' as const ],
   },
   scroll_l2_txn_batch_txs: {
-    path: '/api/v2/transactions/scroll-batch/:number',
+    path: '/transactions/scroll-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,
   },
   scroll_l2_txn_batch_blocks: {
-    path: '/api/v2/blocks/scroll-batch/:number',
+    path: '/blocks/scroll-batch/:number',
     pathParams: [ 'number' as const ],
     filterFields: [],
     paginated: true,

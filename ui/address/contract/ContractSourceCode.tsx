@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContract } from 'types/api/contract';
@@ -7,9 +6,9 @@ import { route } from 'nextjs/routes';
 
 import { useMultichainContext } from 'lib/contexts/multichain';
 import formatLanguageName from 'lib/contracts/formatLanguageName';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import CodeEditor from 'ui/shared/monaco/CodeEditor';
 import formatFilePath from 'ui/shared/monaco/utils/formatFilePath';
@@ -63,7 +62,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
     <Skeleton loading={ isLoading } fontWeight={ 500 }>
       <span>Contract source code</span>
       { data?.language &&
-        <Text whiteSpace="pre" as="span" color="text.secondary"> ({ formatLanguageName(data.language) })</Text> }
+        <span className="whitespace-pre text-[var(--color-text-secondary)]"> ({ formatLanguageName(data.language) })</span> }
     </Skeleton>
   );
 
@@ -93,7 +92,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
     <CopyToClipboard
       text={ data.source_code }
       isLoading={ isLoading }
-      ml={{ base: 'auto', lg: diagramLink ? '0' : 'auto' }}
+      ml={ diagramLink ? '0' : 'auto' }
     />
   ) :
     null;
@@ -122,13 +121,13 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
 
   return (
     <section>
-      <Flex alignItems="center" mb={ 3 } columnGap={ 3 } rowGap={ 2 } flexWrap="wrap">
+      <div className="flex items-center mb-3 gap-x-3 gap-y-2 flex-wrap">
         { heading }
         { externalLibraries }
         { diagramLink }
         { ides }
         { copyToClipboard }
-      </Flex>
+      </div>
       { content }
     </section>
   );

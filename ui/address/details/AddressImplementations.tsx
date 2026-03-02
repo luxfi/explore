@@ -33,8 +33,7 @@ const AddressImplementations = ({ data, isLoading, proxyType }: Props) => {
       <DetailedInfo.ItemValueWithScroll
         gradientHeight={ 48 }
         onScrollVisibilityChange={ setHasScroll }
-        rowGap={ 2 }
-        maxH="200px"
+        className="gap-y-2 max-h-[200px]"
       >
         { data.map((item) => (
           <AddressEntity

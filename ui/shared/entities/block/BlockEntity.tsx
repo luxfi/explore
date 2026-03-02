@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs/routes';
@@ -12,7 +11,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Partial<Pick<EntityProps, 'hash' | 'number'>>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = (props: LinkProps) => {
   const heightOrHash = props.hash ?? String(props.number);
   const defaultHref = route(
     { pathname: '/block/[height_or_hash]', query: { height_or_hash: heightOrHash } },
@@ -27,7 +26,7 @@ const Link = chakra((props: LinkProps) => {
       { props.children }
     </EntityBase.Link>
   );
-});
+};
 
 type IconProps = EntityBase.IconBaseProps & Pick<EntityProps, 'isPendingUpdate'>;
 
@@ -67,7 +66,7 @@ const Icon = (props: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'number'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = (props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
@@ -75,7 +74,7 @@ const Content = chakra((props: ContentProps) => {
       tailLength={ props.tailLength ?? 2 }
     />
   );
-});
+};
 
 const Container = EntityBase.Container;
 
@@ -99,7 +98,7 @@ const BlockEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(BlockEntity));
+export default React.memo(BlockEntity);
 
 export {
   Container,

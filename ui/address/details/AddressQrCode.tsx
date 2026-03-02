@@ -1,4 +1,3 @@
-import { chakra, Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import QRCode from 'qrcode';
 import React from 'react';
@@ -6,11 +5,11 @@ import React from 'react';
 import getPageType from 'lib/mixpanel/getPageType';
 import * as mixpanel from 'lib/mixpanel/index';
 import { useRollbar } from 'lib/rollbar';
-import { Alert } from 'toolkit/chakra/alert';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Alert } from '@luxfi/ui/alert';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
@@ -53,7 +52,7 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
   }, [ hash, open, pageType, rollbar ]);
 
   if (isLoading) {
-    return <Skeleton loading className={ className } w="36px" h="32px" borderRadius="base"/>;
+    return <Skeleton loading={ true } className={ className } w="36px" h="32px" borderRadius="base"/>;
   }
 
   return (
@@ -85,12 +84,11 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
             <DialogHeader>Address QR code</DialogHeader>
             <DialogBody>
               <AddressEntity
-                mb={ 3 }
-                fontWeight={ 500 }
+                className="mb-3 font-medium"
                 address={{ hash }}
                 noLink
               />
-              <Box p={ 4 } dangerouslySetInnerHTML={{ __html: qr }}/>
+              <div className="p-4" dangerouslySetInnerHTML={{ __html: qr }}/>
             </DialogBody>
           </DialogContent>
         </DialogRoot>
@@ -99,4 +97,4 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
   );
 };
 
-export default React.memo(chakra(AddressQrCode));
+export default React.memo(AddressQrCode);

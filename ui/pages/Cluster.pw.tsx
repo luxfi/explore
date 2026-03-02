@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { campNetworkClusterByName, testnetClusterByName } from 'mocks/clusters/cluster';

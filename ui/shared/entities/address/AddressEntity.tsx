@@ -1,4 +1,3 @@
-import { Box, Flex, chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
@@ -8,8 +7,8 @@ import { route } from 'nextjs/routes';
 import { toBech32Address } from 'lib/address/bech32';
 import { useAddressHighlightContext } from 'lib/contexts/addressHighlight';
 import { useSettingsContext } from 'lib/contexts/settings';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';
 import { getTagName } from 'ui/shared/EntityTags/utils';
 import getChainTooltipText from 'ui/shared/externalChains/getChainTooltipText';
@@ -26,7 +25,7 @@ const getDisplayedAddress = (address: AddressProp, altHash?: string) => {
   return address.filecoin?.robust ?? address.filecoin?.id ?? altHash ?? address.hash;
 };
 
-const Link = chakra((props: LinkProps) => {
+const Link = (props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/address/[hash]', query: { ...props.query, hash: props.address.hash } },
     { chain: props.chain, external: props.external },
@@ -40,7 +39,7 @@ const Link = chakra((props: LinkProps) => {
       { props.children }
     </EntityBase.Link>
   );
-});
+};
 
 type IconProps = Pick<EntityProps, 'address' | 'isSafeAddress'> & EntityBase.IconBaseProps;
 
@@ -63,7 +62,7 @@ const Icon = (props: IconProps) => {
   const styles = getIconProps(props, Boolean(shield));
 
   if (props.isLoading) {
-    return <Skeleton { ...styles } loading borderRadius="full" flexShrink={ 0 }/>;
+    return <Skeleton boxSize={ styles.boxSize } marginRight={ String(styles.marginRight) } loading borderRadius="full" flexShrink={ 0 }/>;
   }
 
   if ('src' in props || 'name' in props) {
@@ -119,21 +118,21 @@ const Icon = (props: IconProps) => {
       interactive={ props.tooltipInteractive }
       positioning={ shield ? { offset: { mainAxis: 8 } } : undefined }
     >
-      <Flex marginRight={ styles.marginRight } position="relative">
+      <div style={{ marginRight: styles.marginRight, position: 'relative' }}>
         <AddressIdenticon
           size={ props.size ?? (props.variant === 'heading' ? 30 : 20) }
           hash={ getDisplayedAddress(props.address) }
         />
         { shield && <EntityBase.IconShield { ...shield }/> }
         { isDelegatedAddress && <AddressIconDelegated isVerified={ Boolean(props.address.is_verified) }/> }
-      </Flex>
+      </div>
     </Tooltip>
   );
 };
 
 export type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'address'> & { altHash?: string };
 
-const Content = chakra((props: ContentProps) => {
+const Content = (props: ContentProps) => {
   const displayedAddress = getDisplayedAddress(props.address, props.altHash);
   const nameTag = (() => {
     const tagData = props.address.metadata?.tags.find(tag => tag.tagType === 'name');
@@ -155,23 +154,23 @@ const Content = chakra((props: ContentProps) => {
     const styles = getContentProps(props.variant);
 
     const label = (
-      <VStack gap={ 0 } py={ 1 } color="inherit">
-        <Box fontWeight={ 600 } whiteSpace="pre-wrap" wordBreak="break-word">{ nameText }</Box>
-        <Box whiteSpace="pre-wrap" wordBreak="break-word">
+      <div className="flex flex-col gap-0 py-1 text-inherit">
+        <div className="font-semibold whitespace-pre-wrap break-words">{ nameText }</div>
+        <div className="whitespace-pre-wrap break-words">
           { displayedAddress }
-        </Box>
-      </VStack>
+        </div>
+      </div>
     );
 
     return (
       <Tooltip
         content={ label }
-        contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
-        triggerProps={{ minW: 0 }}
+        contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' }}
+        triggerProps={{ className: 'min-w-0' }}
         interactive={ props.tooltipInteractive }
         disabled={ props.noTooltip }
       >
-        <Skeleton loading={ props.isLoading } overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" { ...styles }>
+        <Skeleton loading={ props.isLoading } overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" className={ styles?.className }>
           { nameText }
         </Skeleton>
       </Tooltip>
@@ -184,7 +183,7 @@ const Content = chakra((props: ContentProps) => {
       text={ displayedAddress }
     />
   );
-});
+};
 
 type CopyProps = Omit<EntityBase.CopyBaseProps, 'text'> & Pick<EntityProps, 'address'> & { altHash?: string };
 
@@ -219,21 +218,15 @@ const AddressEntity = (props: EntityProps) => {
 
   // inside highlight context all tooltips should be interactive
   // because non-interactive ones will not pass 'onMouseLeave' event to the parent component
-  // see issue - https://github.com/chakra-ui/chakra-ui/issues/9939#issuecomment-2810567024
   const content = <Content { ...partsProps.content } altHash={ altHash } tooltipInteractive={ Boolean(highlightContext) }/>;
 
   return (
     <Container
       // we have to use the global classnames here, see theme/global.ts
-      // otherwise, if we use sx prop, Chakra will generate the same styles for each instance of the component on the page
-      className={ `${ props.className } address-entity ${ props.noCopy ? 'address-entity_no-copy' : '' }` }
+      className={ `${ props.className } address-entity ${ props.noCopy ? 'address-entity_no-copy' : '' } relative z-0 w-fit max-w-full` }
       data-hash={ highlightContext && !props.isLoading ? props.address.hash : undefined }
       onMouseEnter={ highlightContext?.onMouseEnter }
       onMouseLeave={ highlightContext?.onMouseLeave }
-      position="relative"
-      zIndex={ 0 }
-      w="fit-content"
-      maxW="100%"
     >
       <Icon { ...partsProps.icon } tooltipInteractive={ Boolean(highlightContext) }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
@@ -242,7 +235,7 @@ const AddressEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(AddressEntity));
+export default React.memo(AddressEntity);
 
 export {
   Container,

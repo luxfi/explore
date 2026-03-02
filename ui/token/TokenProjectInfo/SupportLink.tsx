@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -16,11 +16,9 @@ const SupportLink = ({ url }: Props) => {
       href={ href }
       external
       noIcon
-      display="inline-flex"
-      alignItems="center"
-      columnGap={ 1 }
+      className="inline-flex items-center gap-1"
     >
-      <IconSvg name={ isEmail ? 'email' : 'link' } boxSize={ 6 } color="icon.primary"/>
+      <IconSvg name={ isEmail ? 'email' : 'link' } className="w-6 h-6 text-[var(--color-icon-primary)]"/>
       <span>{ url }</span>
     </Link>
   );

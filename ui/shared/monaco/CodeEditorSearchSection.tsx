@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SearchResult } from './types';
 
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@luxfi/ui/accordion';
 
 import CodeEditorFileIcon from './CodeEditorFileIcon';
 import CodeEditorSearchResultItem from './CodeEditorSearchResultItem';
@@ -28,49 +27,27 @@ const CodeEditorSearchSection = ({ data, onItemClick }: Props) => {
   const themeColors = useThemeColors();
 
   return (
-    <AccordionItem value={ data.file_path } borderWidth="0px" _last={{ borderBottomWidth: '0px' }}>
+    <AccordionItem value={ data.file_path } className="border-b-0">
       <AccordionItemTrigger
-        py={ 0 }
-        px={ 2 }
-        _hover={{ bgColor: themeColors['custom.list.hoverBackground'] }}
-        fontSize="13px"
-        transitionDuration="0"
-        lineHeight="22px"
-        alignItems="center"
+        className="py-0 px-2 text-[13px] transition-none leading-[22px] items-center"
         noIndicator
       >
-        <Box
-          className="codicon codicon-tree-item-expanded"
-          transform="rotate(-90deg)"
-          _groupExpanded={{
-            transform: 'rotate(0deg)',
-          }}
-          // transform={ isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }
-          width="20px"
-          height="22px"
-          py="3px"
-          flexShrink={ 0 }
+        <div
+          className="codicon codicon-tree-item-expanded w-5 h-[22px] shrink-0 py-[3px]"
+          style={{ transform: 'rotate(-90deg)' }}
         />
-        <CodeEditorFileIcon mr="4px" fileName={ fileName }/>
-        <Box
-          mr="8px"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          textAlign="left"
-        >
+        <CodeEditorFileIcon className="mr-1" fileName={ fileName }/>
+        <div className="mr-2 whitespace-nowrap text-ellipsis text-left overflow-hidden">
           { fileName }
-        </Box>
-        <Box
-          className="monaco-count-badge"
-          ml="auto"
-          bgColor={ themeColors['badge.background'] }
-          flexShrink={ 0 }
+        </div>
+        <div
+          className="monaco-count-badge shrink-0 ml-auto"
+          style={{ backgroundColor: themeColors['badge.background'] }}
         >
           { data.matches.length }
-        </Box>
+        </div>
       </AccordionItemTrigger>
-      <AccordionItemContent p={ 0 }>
+      <AccordionItemContent className="p-0">
         { data.matches.map((match) => (
           <CodeEditorSearchResultItem
             key={ data.file_path + '_' + match.startLineNumber + '_' + match.startColumn }

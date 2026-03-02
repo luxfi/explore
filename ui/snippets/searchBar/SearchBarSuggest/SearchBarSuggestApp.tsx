@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,8 +6,8 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 import { route } from 'nextjs-routes';
 
 import highlightText from 'lib/highlightText';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 
 import SearchBarSuggestItemLink from './SearchBarSuggestItemLink';
@@ -34,60 +33,35 @@ const SearchBarSuggestApp = ({ data, isMobile, searchTerm, onClick }: Props) => 
     if (isMobile) {
       return (
         <>
-          <Flex alignItems="center">
+          <div className="flex items-center">
             { logo }
-            <Text
-              fontWeight={ 700 }
-              overflow="hidden"
-              whiteSpace="nowrap"
-              textOverflow="ellipsis"
-              ml={ 2 }
-            >
+            <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis ml-2">
               <span dangerouslySetInnerHTML={{ __html: highlightText(data.title, searchTerm) }}/>
-            </Text>
-            { data.external && <IconSvg name="link_external" color="icon.secondary" boxSize={ 3 } verticalAlign="middle" flexShrink={ 0 }/> }
-          </Flex>
-          <Text
-            color="text.secondary"
-            lineClamp={ 3 }
-          >
+            </span>
+            { data.external && <IconSvg name="link_external" className="w-3 h-3 align-middle shrink-0 text-[var(--color-icon-secondary)]"/> }
+          </div>
+          <p className="text-[var(--color-text-secondary)] line-clamp-3">
             { data.description }
-          </Text>
+          </p>
         </>
       );
     }
     return (
-      <Flex gap={ 2 } alignItems="center">
+      <div className="flex gap-2 items-center">
         { logo }
-        <Text
-          fontWeight={ 700 }
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          w="200px"
-          flexShrink={ 0 }
-        >
+        <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis w-[200px] shrink-0">
           <span dangerouslySetInnerHTML={{ __html: highlightText(data.title, searchTerm) }}/>
-        </Text>
-        <Text
-          color="text.secondary"
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          flexGrow={ 1 }
-        >
+        </span>
+        <span className="text-[var(--color-text-secondary)] overflow-hidden whitespace-nowrap text-ellipsis grow">
           { data.description }
-        </Text>
+        </span>
         { data.external && (
           <IconSvg
             name="link_external"
-            color="icon.secondary"
-            boxSize={ 3 }
-            verticalAlign="middle"
-            flexShrink={ 0 }
+            className="w-3 h-3 align-middle shrink-0 text-[var(--color-icon-secondary)]"
           />
         ) }
-      </Flex>
+      </div>
     );
   })();
 

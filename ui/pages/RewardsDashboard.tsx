@@ -1,12 +1,11 @@
-import { Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { apos } from 'toolkit/utils/htmlEntities';
@@ -48,24 +47,24 @@ const RewardsDashboard = () => {
 
   return (
     <>
-      <Flex gap={ 3 } justifyContent="space-between" mb={ 6 }>
+      <div className="flex justify-between mb-6 gap-3">
         <PageTitle
           title="Dashboard"
           secondRow={ (
             <span>
-              <Link external href={ `https://merits.blockscout.com/?tab=users&utm_source=${ config.chain.id }&utm_medium=text-banner` }>
+              <Link external href={ `https://merits.lux.network/?tab=users&utm_source=${ config.chain.id }&utm_medium=text-banner` }>
                 Explore the Merits Hub
               </Link>{ ' ' }
               to earn, spend, and learn more about the program.
             </span>
           ) }
-          mb={ 0 }
+          className="mb-0"
         />
-        { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
-      </Flex>
-      <Flex flexDirection="column" alignItems="flex-start" w="full" gap={ 6 }>
+        { !isMobile && <AdBanner format="mobile" className="w-fit shrink-0 rounded-md overflow-hidden"/> }
+      </div>
+      <div className="flex flex-col items-start w-full gap-6">
         { isError && <Alert status="error">Failed to load some data. Please try again later.</Alert> }
-        <Flex gap={ 6 } flexDirection={{ base: 'column', md: 'row' }} w="full">
+        <div className="flex w-full gap-6 flex-col md:flex-row">
           <RewardsDashboardCard
             title="All Merits"
             description="Claim your daily Merits and any Merits received from referrals."
@@ -75,7 +74,7 @@ const RewardsDashboard = () => {
             hint={ (
               <>
                 Total number of Merits earned from all activities.{ ' ' }
-                <Link external href="https://docs.blockscout.com/using-blockscout/merits">
+                <Link external href="https://docs.lux.network/using-explorer/merits">
                   More info on Merits
                 </Link>
               </>
@@ -109,14 +108,14 @@ const RewardsDashboard = () => {
             hint={ (
               <>
                 See the{ ' ' }
-                <Link external href="https://docs.blockscout.com/using-blockscout/merits/streak-rewards">docs</Link>{ ' ' }
+                <Link external href="https://docs.lux.network/using-explorer/merits/streak-rewards">docs</Link>{ ' ' }
                 to learn how your streak number affects daily rewards
               </>
             ) }
             contentDirection="column-reverse"
             cardValueStyle={{ minH: { base: '64px', md: '116px' } }}
             contentAfter={ (
-              <Button mt={ 3 } onClick={ streakModal.onOpen } loading={ isBadgesLoading }>
+              <Button className="mt-3" onClick={ streakModal.onOpen } loading={ isBadgesLoading }>
                 Check achievements
               </Button>
             ) }
@@ -130,9 +129,9 @@ const RewardsDashboard = () => {
               isBottomTextLoading={ isBadgesLoading }
             />
           </RewardsDashboardCard>
-        </Flex>
+        </div>
         <RoutedTabs
-          w="full"
+          className="w-full"
           tabs={ [
             {
               id: 'activity',
@@ -151,7 +150,7 @@ const RewardsDashboard = () => {
             },
           ] }
         />
-      </Flex>
+      </div>
       { !isBadgesLoading && !dailyRewardQuery.isPending && (
         <RewardsStreakModal
           open={ streakModal.open }

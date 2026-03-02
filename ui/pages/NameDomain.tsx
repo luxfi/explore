@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -11,8 +10,8 @@ import useApiQuery from 'lib/api/useApiQuery';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { ENS_DOMAIN } from 'stubs/ENS';
-import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import NameDomainDetails from 'ui/nameDomain/NameDomainDetails';
 import NameDomainHistory from 'ui/nameDomain/NameDomainHistory';
@@ -50,23 +49,17 @@ const NameDomain = () => {
   const isLoading = infoQuery.isPlaceholderData;
 
   const titleSecondRow = (
-    <Flex
-      columnGap={ 3 }
-      rowGap={ 3 }
-      alignItems="center"
-      w="100%"
-      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-    >
+    <div className="flex items-center w-full gap-x-3 gap-y-3 flex-wrap lg:flex-nowrap">
       <EnsEntity
         domain={ domainName }
         protocol={ infoQuery.data?.protocol }
         isLoading={ isLoading }
         noLink
-        maxW={{ lg: infoQuery.data?.resolved_address ? '300px' : 'max-content' }}
+        className={ infoQuery.data?.resolved_address ? 'lg:max-w-[300px]' : 'lg:max-w-max' }
         variant="subheading"
       />
       { infoQuery.data?.resolved_address && (
-        <Flex alignItems="center" maxW="100%" columnGap={ 2 }>
+        <div className="flex items-center max-w-full gap-x-2">
           <AddressEntity
             address={ infoQuery.data?.resolved_address }
             isLoading={ isLoading }
@@ -74,24 +67,23 @@ const NameDomain = () => {
           />
           <Tooltip content="Lookup for related domain names">
             <Link
-              flexShrink={ 0 }
-              display="inline-flex"
+              className="shrink-0 inline-flex"
               href={ route({
                 pathname: '/name-services',
                 query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: infoQuery.data?.resolved_address?.hash },
               }) }
             >
-              <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+              <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
             </Link>
           </Tooltip>
-        </Flex>
+        </div>
       ) }
-    </Flex>
+    </div>
   );
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle title="Name details" secondRow={ titleSecondRow }/>
       <RoutedTabs tabs={ tabs } isLoading={ infoQuery.isPlaceholderData }/>
     </>

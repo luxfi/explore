@@ -1,8 +1,8 @@
 import React from 'react';
 
 import dayjs from 'lib/date/dayjs';
-import type { ProgressCircleRootProps } from 'toolkit/chakra/progress-circle';
-import { ProgressCircleRing, ProgressCircleRoot } from 'toolkit/chakra/progress-circle';
+import type { ProgressCircleRootProps } from '@luxfi/ui/progress-circle';
+import { ProgressCircleRing, ProgressCircleRoot } from '@luxfi/ui/progress-circle';
 
 interface Props extends ProgressCircleRootProps {
   startTime: number;

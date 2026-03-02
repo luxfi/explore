@@ -1,10 +1,9 @@
-import { Flex, HStack, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { AddressTag } from 'types/api/account';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
@@ -27,22 +26,21 @@ const AddressTagListItem = ({ item, onEditClick, onDeleteClick, isLoading }: Pro
 
   return (
     <ListItemMobile>
-      <Flex alignItems="flex-start" flexDirection="column" maxW="100%">
+      <div className="flex flex-col items-start max-w-full">
         <AddressEntity
           address={ item.address }
           isLoading={ isLoading }
-          fontWeight="600"
-          w="100%"
+          className="font-semibold w-full"
         />
-        <HStack gap={ 3 } mt={ 4 }>
-          <Text textStyle="sm" fontWeight="medium">Private tag</Text>
+        <div className="flex mt-4 gap-3">
+          <span className="font-medium">Private tag</span>
           <Skeleton loading={ isLoading } display="inline-block" borderRadius="sm">
             <Tag>
               { item.name }
             </Tag>
           </Skeleton>
-        </HStack>
-      </Flex>
+        </div>
+      </div>
       <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
     </ListItemMobile>
   );

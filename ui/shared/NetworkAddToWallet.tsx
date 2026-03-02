@@ -4,7 +4,7 @@ import config from 'configs/app';
 import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -27,17 +27,11 @@ const NetworkAddToWallet = ({ source, onAddSuccess }: Props) => {
     <Button
       variant="outline"
       size="2xs"
-      borderWidth="1px"
-      fontWeight="500"
-      color={ walletInfo.color }
-      borderColor={ walletInfo.color }
+      className="border font-medium hover:text-[var(--color-link-primary-hover)] hover:border-[var(--color-link-primary-hover)]"
+      style={{ color: walletInfo.color, borderColor: walletInfo.color }}
       onClick={ handleClick }
-      _hover={{
-        color: 'link.primary.hover',
-        borderColor: 'link.primary.hover',
-      }}
     >
-      <IconSvg name={ walletInfo.icon } boxSize={ 3 }/>
+      <IconSvg name={ walletInfo.icon } className="size-3"/>
       Add { config.chain.name }
     </Button>
   );

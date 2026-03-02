@@ -1,11 +1,10 @@
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { STATS_CHARTS_SECTION_GAS } from 'stubs/stats';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import ChartWidgetContainer from 'ui/stats/ChartWidgetContainer';
@@ -49,7 +48,7 @@ const GasTrackerChart = () => {
         interval="oneMonth"
         isPlaceholderData={ isPlaceholderData }
         onLoadingError={ handleLoadingError }
-        h="320px"
+        className="h-[320px]"
       />
     );
   })();
@@ -59,13 +58,13 @@ const GasTrackerChart = () => {
   }
 
   return (
-    <Box>
-      <Flex justifyContent="space-between" alignItems="center" mb={ 6 }>
-        <chakra.h3 textStyle="h3">Gas price history</chakra.h3>
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-bold">Gas price history</h3>
         <Link href={ route({ pathname: '/stats', hash: 'gas' }) }>Charts & stats</Link>
-      </Flex>
+      </div>
       { content }
-    </Box>
+    </div>
   );
 };
 

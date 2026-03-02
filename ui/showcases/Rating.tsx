@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Rating } from 'toolkit/chakra/rating';
+import { Rating } from '@luxfi/ui/rating';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

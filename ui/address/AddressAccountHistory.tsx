@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -10,7 +9,7 @@ import useIsMounted from 'lib/hooks/useIsMounted';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { NOVES_TRANSLATE } from 'stubs/noves/NovesTranslate';
 import { generateListStub } from 'stubs/utils';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import AddressAccountHistoryTableItem from 'ui/address/accountHistory/AddressAccountHistoryTableItem';
 import ActionBar from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -56,7 +55,7 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
   }
 
   const actionBar = (
-    <ActionBar mt={ -6 } pb={{ base: 6, md: 5 }}>
+    <ActionBar className="-mt-6 pb-6 md:pb-5">
       <AccountHistoryFilter
         defaultFilter={ filterValue }
         onFilterChange={ handleFilterChange }
@@ -64,15 +63,15 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
         isLoading={ pagination.isLoading }
       />
 
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...pagination }/>
+      <Pagination className="ml-auto lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 
   const filteredData = isPlaceholderData ? data?.items : data?.items.filter(i => filterValue ? getFromToValue(i, currentAddress) === filterValue : i);
 
   const content = (
-    <Box position="relative">
-      <Box hideFrom="lg">
+    <div className="relative">
+      <div className="lg:hidden">
         { filteredData?.map((item, i) => (
           <AddressAccountHistoryListItem
             key={ `${ i }-${ item.rawTransactionData.transactionHash }` }
@@ -81,9 +80,9 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
             isPlaceholderData={ isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
 
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot>
           <TableHeaderSticky top={ 75 }>
             <TableRow>
@@ -109,8 +108,8 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 
   return (

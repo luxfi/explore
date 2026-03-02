@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { TransactionType } from 'types/api/transaction';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
-import { Badge } from 'toolkit/chakra/badge';
+import type { BadgeProps } from '@luxfi/ui/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 export interface Props extends BadgeProps {
   types: Array<TransactionType>;
@@ -31,7 +31,7 @@ const TxType = ({ types, isLoading, ...rest }: Props) => {
     );
   }
 
-  const typeToShow = [...types].sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
+  const typeToShow = [ ...types ].sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
 
   let label;
   let colorPalette: BadgeProps['colorPalette'];

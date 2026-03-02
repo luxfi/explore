@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormSubmitResultGrouped } from '../types';
@@ -12,10 +11,10 @@ interface Props {
 
 const PublicTagsSubmitResultSuccess = ({ data }: Props) => {
   return (
-    <Grid gridTemplateColumns={{ base: '1fr', lg: '1fr 1fr' }} rowGap={ 3 } columnGap={ 3 }>
-      <GridItem overflow="hidden">
-        <Box fontSize="sm" color="text.secondary" fontWeight={ 500 }>Smart contract / Address (0x...)</Box>
-        <Flex flexDir="column" rowGap={ 2 } mt={ 2 }>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <div className="overflow-hidden">
+        <div className="text-sm text-[var(--color-text-secondary)] font-medium">Smart contract / Address (0x...)</div>
+        <div className="flex flex-col gap-y-2 mt-2">
           { data.items
             .map(({ addresses }) => addresses)
             .flat()
@@ -26,11 +25,11 @@ const PublicTagsSubmitResultSuccess = ({ data }: Props) => {
                 noIcon
               />
             )) }
-        </Flex>
-      </GridItem>
-      <GridItem>
-        <Box fontSize="sm" color="text.secondary" fontWeight={ 500 }>Tag</Box>
-        <Flex rowGap={ 2 } columnGap={ 2 } mt={ 2 } justifyContent="flex-start" flexWrap="wrap">
+        </div>
+      </div>
+      <div>
+        <div className="text-sm text-[var(--color-text-secondary)] font-medium">Tag</div>
+        <div className="flex gap-2 mt-2 justify-start flex-wrap">
           { data.items
             .map(({ tags }) => tags)
             .flat()
@@ -46,9 +45,9 @@ const PublicTagsSubmitResultSuccess = ({ data }: Props) => {
                 noLink
               />
             )) }
-        </Flex>
-      </GridItem>
-    </Grid>
+        </div>
+      </div>
+    </div>
   );
 };
 

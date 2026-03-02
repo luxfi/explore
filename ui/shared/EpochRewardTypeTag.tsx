@@ -2,9 +2,9 @@ import React from 'react';
 
 import type { CeloEpochRewardsType } from 'types/api/epochs';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
-import { Badge } from 'toolkit/chakra/badge';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { BadgeProps } from '@luxfi/ui/badge';
+import { Badge } from '@luxfi/ui/badge';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 type Props = {
   type: CeloEpochRewardsType;

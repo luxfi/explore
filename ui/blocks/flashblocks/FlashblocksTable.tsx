@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FlashblockItem } from 'types/client/flashblocks';
 
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 
 import FlashblocksTableItem from './FlashblocksTableItem';

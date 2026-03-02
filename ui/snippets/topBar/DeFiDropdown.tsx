@@ -1,4 +1,3 @@
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,9 +6,9 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import getPageType from 'lib/mixpanel/getPageType';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { space } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -37,21 +36,21 @@ const DeFiDropdown = () => {
   return items.length > 1 ? (
     <PopoverRoot>
       <PopoverTrigger>
-        <Button size="2xs" gap={ 0 }>
-          <chakra.span display={{ base: 'none', lg: 'inline' }} whiteSpace="pre-wrap">
+        <Button size="2xs" className="gap-0">
+          <span className="hidden lg:inline whitespace-pre-wrap">
             { config.chain.name || 'Explorer' }{ space }
-          </chakra.span>
+          </span>
           DeFi
-          <IconSvg name="arrows/east-mini" boxSize={ 4 } ml={ 1 } transform="rotate(-90deg)"/>
+          <IconSvg name="arrows/east-mini" className="w-4 h-4 ml-1 -rotate-90"/>
         </Button>
       </PopoverTrigger>
-      <PopoverContent w="auto" minW={{ base: 'auto', lg: '132px' }}>
+      <PopoverContent style={{ width: 'auto', minWidth: '132px' }}>
         <PopoverBody >
-          <Flex flexDirection="column" gap={ 1 }>
+          <div className="flex flex-col gap-1">
             { items.map((item, index) => (
               <DeFiDropdownItem key={ index } item={ item }/>
             )) }
-          </Flex>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
@@ -65,17 +64,16 @@ const DeFiDropdown = () => {
           }) :
           items[0].url
       }
-      target={ items[0].dappId ? '_self' : '_blank' }
-      asChild
+      external={ !items[0].dappId }
     >
       <Button onClick={ items[0].onClick } size="2xs">
-        { items[0].icon && <IconSvg name={ items[0].icon } boxSize={ 3 } mr={{ base: 0, sm: 1 }}/> }
-        <Box display={{ base: 'none', sm: 'inline' }}>
+        { items[0].icon && <IconSvg name={ items[0].icon } className="w-3 h-3 mr-0 sm:mr-1"/> }
+        <span className="hidden sm:inline">
           { items[0].text }
-        </Box>
+        </span>
       </Button>
     </Link>
   );
 };
 
-export default chakra(React.memo(DeFiDropdown));
+export default React.memo(DeFiDropdown);

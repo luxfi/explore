@@ -1,12 +1,11 @@
-import { Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
 import type { MetadataAttributes } from 'types/client/token';
 
 import parseMetadata from 'lib/token/parseMetadata';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 
@@ -28,44 +27,28 @@ const Item = ({ data, isLoading }: ItemProps) => {
       return (
         <Link
           external
-          whiteSpace="nowrap"
-          display="inline-flex"
-          alignItems="center"
-          w="100%"
-          overflow="hidden"
+          className="whitespace-nowrap inline-flex items-center w-full overflow-hidden text-sm"
           href={ data.value }
-          textStyle="sm"
           loading={ isLoading }
         >
-          <TruncatedText text={ data.value } w="calc(100% - 16px)" loading={ isLoading }/>
+          <TruncatedText text={ data.value } className="w-[calc(100%-16px)]" loading={ isLoading }/>
         </Link>
       );
     }
 
-    return <TruncatedText text={ data.value } fontSize="sm" w="100%" loading={ isLoading }/>;
+    return <TruncatedText text={ data.value } className="text-sm w-full" loading={ isLoading }/>;
   })();
 
   return (
-    <GridItem
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      borderRadius="md"
-      px={ 4 }
-      py={ 2 }
-      display="flex"
-      flexDir="column"
-      alignItems="flex-start"
+    <div
     >
       <TruncatedText
         text={ data.trait_type }
-        textStyle="xs"
-        w="100%"
-        color="text.secondary"
-        fontWeight={ 500 }
-        mb={ 1 }
+        className="text-xs w-full text-[var(--color-text-secondary)] font-medium mb-1"
         loading={ isLoading }
       />
       { value }
-    </GridItem>
+    </div>
   );
 };
 
@@ -93,8 +76,6 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
             Name
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            whiteSpace="normal"
-            wordBreak="break-word"
           >
             <Skeleton loading={ isLoading }>
               { metadata.name }
@@ -111,8 +92,6 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
             Description
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            whiteSpace="normal"
-            wordBreak="break-word"
           >
             <Skeleton loading={ isLoading }>
               { metadata.description }
@@ -129,11 +108,11 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
             Attributes
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Grid gap={ 2 } templateColumns="repeat(auto-fill,minmax(160px, 1fr))" w="100%" whiteSpace="normal">
+            <div>
               { metadata.attributes
                 .filter((attribute) => attribute.value)
                 .map((attribute, index) => <Item key={ index } data={ attribute } isLoading={ isLoading }/>) }
-            </Grid>
+            </div>
           </DetailedInfo.ItemValue>
         </>
       ) }

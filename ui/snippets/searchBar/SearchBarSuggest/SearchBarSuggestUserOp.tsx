@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -11,31 +10,31 @@ import Time from 'ui/shared/time/Time';
 const SearchBarSuggestUserOp = ({ data, isMobile }: ItemsProps<SearchResultUserOp>) => {
   const icon = <UserOpEntity.Icon/>;
   const hash = (
-    <chakra.mark overflow="hidden" whiteSpace="nowrap" fontWeight={ 700 }>
+    <mark className="overflow-hidden whitespace-nowrap font-bold">
       <HashStringShortenDynamic hash={ data.user_operation_hash } noTooltip/>
-    </chakra.mark>
+    </mark>
   );
 
   if (isMobile) {
     return (
       <>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           { icon }
           { hash }
-        </Flex>
+        </div>
         <Time timestamp={ data.timestamp } color="text.secondary" format="lll_s"/>
       </>
     );
   }
 
   return (
-    <Flex columnGap={ 2 }>
-      <Flex alignItems="center" minW={ 0 }>
+    <div className="flex gap-x-2">
+      <div className="flex items-center min-w-0">
         { icon }
         { hash }
-      </Flex>
+      </div>
       <Time timestamp={ data.timestamp } color="text.secondary" textAlign="end" flexShrink={ 0 } ml="auto" format="lll_s"/>
-    </Flex>
+    </div>
   );
 };
 
