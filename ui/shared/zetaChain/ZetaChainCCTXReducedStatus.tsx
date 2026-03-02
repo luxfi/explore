@@ -13,13 +13,13 @@ type Props = {
 const ZetaChainCCTXReducedStatus = ({ status, isLoading, type = 'reduced' }: Props) => {
   let statusTagType: StatusTagType;
   switch (status) {
-    case CctxStatusReduced.SUCCESS:
+    case CctxStatusReduced.Success:
       statusTagType = 'ok';
       break;
-    case CctxStatusReduced.PENDING:
+    case CctxStatusReduced.Pending:
       statusTagType = 'pending';
       break;
-    case CctxStatusReduced.FAILED:
+    case CctxStatusReduced.Failed:
       statusTagType = 'error';
       break;
     case CctxStatusReduced.UNRECOGNIZED:
@@ -30,13 +30,13 @@ const ZetaChainCCTXReducedStatus = ({ status, isLoading, type = 'reduced' }: Pro
   if (type === 'full') {
     let text: string;
     switch (status) {
-      case CctxStatusReduced.SUCCESS:
+      case CctxStatusReduced.Success:
         text = 'Success';
         break;
-      case CctxStatusReduced.PENDING:
+      case CctxStatusReduced.Pending:
         text = 'Pending';
         break;
-      case CctxStatusReduced.FAILED:
+      case CctxStatusReduced.Failed:
         text = 'Failed';
         break;
       case CctxStatusReduced.UNRECOGNIZED:
