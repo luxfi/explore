@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as mixpanel from 'lib/mixpanel/index';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 
 import useAddChain from './useAddChain';
 import useProvider from './useProvider';

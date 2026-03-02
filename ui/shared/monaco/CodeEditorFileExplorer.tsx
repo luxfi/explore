@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { File } from './types';
@@ -46,7 +45,7 @@ const CodeEditorFileExplorer = ({ data, onFileSelect, selectedFile, mainFile, is
   }, [ isActive, renderActionBar, setActionBarRenderer ]);
 
   return (
-    <Box>
+    <div>
       <CodeEditorFileTree
         key={ key }
         tree={ tree }
@@ -55,7 +54,7 @@ const CodeEditorFileExplorer = ({ data, onFileSelect, selectedFile, mainFile, is
         selectedFile={ selectedFile }
         mainFile={ mainFile }
       />
-    </Box>
+    </div>
   );
 };
 

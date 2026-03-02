@@ -10,7 +10,7 @@ import { getResourceKey } from 'lib/api/useApiQuery';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import * as cookies from 'lib/cookies';
 import * as mixpanel from 'lib/mixpanel';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 
 const PROTECTED_ROUTES: Array<Route['pathname']> = [
   '/account/api-key',

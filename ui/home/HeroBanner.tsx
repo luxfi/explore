@@ -1,92 +1,26 @@
-// we use custom heading size for hero banner
-// eslint-disable-next-line no-restricted-imports
-import { Box, Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
-import useIsMobile from 'lib/hooks/useIsMobile';
 import RewardsButton from 'ui/rewards/RewardsButton';
-import AdBanner from 'ui/shared/ad/AdBanner';
-import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
-import SearchBarMobile from 'ui/snippets/searchBar/SearchBarMobile';
 
-export const BACKGROUND_DEFAULT = 'var(--chakra-colors-whiteAlpha-50)';
-const TEXT_COLOR_DEFAULT = 'white';
-const BORDER_DEFAULT = '1px solid var(--chakra-colors-whiteAlpha-100)';
+export const BACKGROUND_DEFAULT = 'var(--color-whiteAlpha-50)';
 
 const HeroBanner = () => {
-
-  const isMobile = useIsMobile();
-
-  const background = {
-    _light:
-      config.UI.homepage.heroBanner?.background?.[0] ||
-      BACKGROUND_DEFAULT,
-    _dark:
-      config.UI.homepage.heroBanner?.background?.[1] ||
-      config.UI.homepage.heroBanner?.background?.[0] ||
-      BACKGROUND_DEFAULT,
-  };
-
-  const textColor = {
-    _light:
-      // light mode
-      config.UI.homepage.heroBanner?.text_color?.[0] ||
-      TEXT_COLOR_DEFAULT,
-    // dark mode
-    _dark:
-      config.UI.homepage.heroBanner?.text_color?.[1] ||
-      config.UI.homepage.heroBanner?.text_color?.[0] ||
-      TEXT_COLOR_DEFAULT,
-  };
-
-  const border = {
-    _light:
-      config.UI.homepage.heroBanner?.border?.[0] || BORDER_DEFAULT,
-    _dark:
-      config.UI.homepage.heroBanner?.border?.[1] || config.UI.homepage.heroBanner?.border?.[0] || BORDER_DEFAULT,
-  };
-
   return (
-    <Flex
-      w="100%"
-      background={ background }
-      border={ border }
-      borderRadius="md"
-      p={{ base: 4, lg: 8 }}
-      columnGap={ 8 }
-      alignItems="center"
-    >
-      <Box flexGrow={ 1 }>
-        <Flex mb={{ base: 2, lg: 3 }} justifyContent="space-between" alignItems="center" columnGap={ 2 }>
-          <Heading
-            as="h1"
-            fontSize={{ base: '18px', lg: '30px' }}
-            lineHeight={{ base: '24px', lg: '36px' }}
-            fontWeight={{ base: 500, lg: 700 }}
-            color={ textColor }
-          >
-            {
-              config.meta.seo.enhancedDataEnabled ?
-                `${ config.chain.name } blockchain explorer` :
-                `${ config.chain.name } explorer`
-            }
-          </Heading>
+    <div className="w-full rounded-lg px-4 py-3 lg:px-6 lg:py-4 flex items-center border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]">
+      <div className="grow">
+        <div className="flex justify-between items-center gap-x-2">
+          <span className="text-sm lg:text-base font-semibold tracking-wide uppercase text-[var(--color-text-secondary)]">
+            { config.chain.name }
+          </span>
           { config.UI.navigation.layout === 'vertical' && config.features.rewards.isEnabled && (
-            <Box display={{ base: 'none', lg: 'flex' }} gap={ 2 }>
+            <div className="hidden lg:flex gap-2">
               <RewardsButton variant="hero"/>
-            </Box>
+            </div>
           ) }
-        </Flex>
-        <Box display={{ base: 'flex', lg: 'none' }}>
-          <SearchBarMobile isHeroBanner/>
-        </Box>
-        <Box display={{ base: 'none', lg: 'flex' }}>
-          <SearchBar isHeroBanner/>
-        </Box>
-      </Box>
-      { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 };
 

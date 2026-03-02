@@ -1,5 +1,3 @@
-import type { ButtonProps } from '@chakra-ui/react';
-import { Box, HStack } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
@@ -9,12 +7,14 @@ import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../../UserIdenticon';
 import { getUserHandle } from '../common/utils';
+
+import type { ButtonProps } from '@luxfi/ui/button';
 
 interface Props {
   profileQuery: UseQueryResult<UserInfo, unknown>;
@@ -48,12 +48,12 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
   const content = (() => {
     if (web3AccountWithDomain.address && !isButtonLoading) {
       return (
-        <HStack gap={ 2 }>
+        <div>
           <UserIdenticon address={ web3AccountWithDomain.address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-          <Box display={{ base: 'none', md: 'block' }} maxW="200px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+          <div>
             { web3AccountWithDomain.domain || shortenString(web3AccountWithDomain.address) }
-          </Box>
-        </HStack>
+          </div>
+        </div>
       );
     }
 
@@ -62,10 +62,10 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
     }
 
     return (
-      <HStack gap={ 2 }>
-        <IconSvg name="profile" boxSize={ 5 }/>
-        <Box display={{ base: 'none', md: 'block' }}>{ data.email ? getUserHandle(data.email) : 'My profile' }</Box>
-      </HStack>
+      <div>
+        <IconSvg name="profile"/>
+        <div>{ data.email ? getUserHandle(data.email) : 'My profile' }</div>
+      </div>
     );
   })();
 
@@ -85,8 +85,7 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
           onFocus={ handleFocus }
           selected={ dataExists }
           highlighted={ isAutoConnectDisabled }
-          px={{ base: 2.5, lg: 3 }}
-          fontWeight={ dataExists ? 700 : 600 }
+          className="px-2.5 lg:px-3"
           loading={ isButtonLoading }
           { ...rest }
         >

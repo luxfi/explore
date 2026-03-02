@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -22,9 +22,9 @@ const ButtonItem = ({ className, label, onClick, icon, isDisabled }: Props) => {
         onClick={ onClick }
         disabled={ isDisabled }
         variant="icon_background"
-        boxSize={ 8 }
+        size="md"
       >
-        { typeof icon === 'string' ? <IconSvg name={ icon } boxSize={ 6 }/> : icon }
+        { typeof icon === 'string' ? <IconSvg name={ icon } className="w-6 h-6"/> : icon }
       </IconButton>
     </Tooltip>
   );

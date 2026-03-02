@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { ClustersLeaderboardObject } from 'types/api/clusters';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ClustersEntity from 'ui/shared/entities/clusters/ClustersEntity';
 
 interface Props {
@@ -20,7 +20,7 @@ const ClustersLeaderboardTableItem = ({ item, isLoading }: Props) => {
         </Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 600 }/>
+        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } className="font-semibold"/>
       </TableCell>
       <TableCell verticalAlign="middle">
         <Skeleton loading={ isLoading }>

@@ -5,9 +5,9 @@ import type { ScrollL2TxnBatch } from 'types/api/scrollL2';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ScrollL2TxnBatchDA from 'ui/shared/batch/ScrollL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
@@ -30,7 +30,7 @@ const ScrollL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>

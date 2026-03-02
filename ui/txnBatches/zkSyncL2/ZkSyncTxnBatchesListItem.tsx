@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZkSyncBatchesItem } from 'types/api/zkSyncL2';
@@ -6,7 +5,7 @@ import type { ZkSyncBatchesItem } from 'types/api/zkSyncL2';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
@@ -23,15 +22,14 @@ const ZkSyncTxnBatchesListItem = ({ item, isLoading }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="110px auto">
+    <ListItemMobileGrid.Container>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Batch #</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 
@@ -46,7 +44,7 @@ const ZkSyncTxnBatchesListItem = ({ item, isLoading }: Props) => {
           timestamp={ item.timestamp }
           fallbackText="Undefined"
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block"
         />
       </ListItemMobileGrid.Value>
 
@@ -55,8 +53,7 @@ const ZkSyncTxnBatchesListItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          fontWeight={ 600 }
-          minW="40px"
+          className="font-semibold min-w-[40px]"
         >
           { item.transactions_count }
         </Link>
@@ -68,11 +65,10 @@ const ZkSyncTxnBatchesListItem = ({ item, isLoading }: Props) => {
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.commit_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Prove tx</ListItemMobileGrid.Label>
@@ -81,11 +77,10 @@ const ZkSyncTxnBatchesListItem = ({ item, isLoading }: Props) => {
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.prove_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </ListItemMobileGrid.Value>
 
     </ListItemMobileGrid.Container>

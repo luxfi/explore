@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ApiKeys, ApiKey } from 'types/api/account';
 
-import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from '@luxfi/ui/table';
 
 import ApiKeyTableItem from './ApiKeyTableItem';
 

@@ -4,8 +4,8 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { FormFieldPropsBase } from './types';
 
-import { Switch } from '../../../chakra/switch';
-import type { SwitchProps } from '../../../chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
+import type { SwitchProps } from '@luxfi/ui/switch';
 
 export type FormFieldSwitchProps<
   FormFields extends FieldValues,
@@ -42,18 +42,16 @@ const FormFieldSwitchContent = <
   }, [ field, onCheckedChange ],
   );
 
-  return (
-    <Switch
-      name={ field.name }
-      checked={ field.value }
-      onCheckedChange={ handleCheckedChange }
-      disabled={ formState.isSubmitting || disabled }
-      inputProps={{ onBlur: field.onBlur }}
-      { ...rest }
-    >
-      { placeholder }
-    </Switch>
-  );
+  const switchProps: SwitchProps = {
+    checked: field.value,
+    onCheckedChange: handleCheckedChange,
+    disabled: formState.isSubmitting || disabled,
+    inputProps: { onBlur: field.onBlur, name: field.name },
+    children: placeholder,
+    ...rest,
+  };
+
+  return <Switch { ...switchProps }/>;
 };
 
 export const FormFieldSwitch = React.memo(FormFieldSwitchContent) as typeof FormFieldSwitchContent;

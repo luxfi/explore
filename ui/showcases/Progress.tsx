@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Progress } from 'toolkit/chakra/progress';
+import { Progress } from '@luxfi/ui/progress';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

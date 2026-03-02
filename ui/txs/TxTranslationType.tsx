@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TransactionType } from 'types/api/transaction';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 import { camelCaseToSentence } from './noves/utils';
 import TxType from './TxType';

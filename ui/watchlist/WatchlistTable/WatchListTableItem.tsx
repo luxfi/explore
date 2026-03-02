@@ -4,11 +4,11 @@ import React, { useCallback, useState } from 'react';
 import type { WatchlistAddress } from 'types/api/account';
 
 import useApiFetch from 'lib/api/useApiFetch';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Switch } from 'toolkit/chakra/switch';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Switch } from '@luxfi/ui/switch';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
+import { toaster } from '@luxfi/ui/toaster';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
 
 import WatchListAddressItem from './WatchListAddressItem';

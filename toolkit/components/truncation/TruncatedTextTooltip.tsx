@@ -3,7 +3,7 @@ import { debounce } from 'es-toolkit';
 import React from 'react';
 import useFontFaceObserver from 'use-font-face-observer';
 
-import { Tooltip } from '../../chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { BODY_TYPEFACE } from '../../theme/foundations/typography';
 
@@ -62,8 +62,7 @@ export const TruncatedTextTooltip = React.memo(({ children, label, placement, in
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
   };
-  const handleClick = React.useCallback((event: React.MouseEvent) => {
-    event.stopPropagation();
+  const handleClick = React.useCallback(() => {
     onToggle();
   }, [ onToggle ]);
 
@@ -81,8 +80,8 @@ export const TruncatedTextTooltip = React.memo(({ children, label, placement, in
     return (
       <Tooltip
         content={ label }
-        contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
-        positioning={{ placement }}
+        contentProps={{ style: { maxWidth: '400px' } }}
+        positioning={{ placement: placement as 'top' | 'bottom' | 'left' | 'right' | undefined }}
         open={ open }
         interactive={ interactive }
       >

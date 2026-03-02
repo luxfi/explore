@@ -10,8 +10,8 @@ import { route } from 'nextjs-routes';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
 import { getRecentSearchKeywords, saveToRecentKeywords } from 'lib/recentSearchKeywords';
-import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverFooter, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Link } from 'toolkit/next/link';
+import { PopoverBody, PopoverContent, PopoverFooter, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import SearchBarBackdrop from './SearchBarBackdrop';
@@ -36,9 +36,9 @@ const SearchBarDesktop = ({ isHeroBanner }: Props) => {
 
   const { searchTerm, debouncedSearchTerm, handleSearchTermChange, query, zetaChainCCTXQuery, externalSearchItem } = useSearchWithClusters();
 
-  const navigateToResults = React.useCallback(() => {
+  const navigateToResults = React.useCallback((redirect: boolean) => {
     if (searchTerm) {
-      const resultRoute: Route = { pathname: '/search-results', query: { q: searchTerm, redirect: 'true' } };
+      const resultRoute: Route = { pathname: '/search-results', query: { q: searchTerm, redirect: redirect ? 'true' : 'false' } };
       const url = route(resultRoute);
       mixpanel.logEvent(mixpanel.EventTypes.SEARCH_QUERY, {
         'Search query': searchTerm,
@@ -52,7 +52,11 @@ const SearchBarDesktop = ({ isHeroBanner }: Props) => {
 
   const handleSubmit = React.useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigateToResults();
+    navigateToResults(true);
+  }, [ navigateToResults ]);
+
+  const handleViewAllResultsClick = React.useCallback(() => {
+    navigateToResults(false);
   }, [ navigateToResults ]);
 
   const handleFocus = React.useCallback(() => {
@@ -146,7 +150,7 @@ const SearchBarDesktop = ({ isHeroBanner }: Props) => {
         lazyMount
         closeOnInteractOutside={ false }
       >
-        <PopoverTrigger asChild w="100%">
+        <PopoverTrigger asChild>
           <SearchBarInput
             ref={ inputRef }
             onChange={ handleSearchTermChange }
@@ -161,19 +165,12 @@ const SearchBarDesktop = ({ isHeroBanner }: Props) => {
           />
         </PopoverTrigger>
         <PopoverContent
-          maxW={{ base: 'calc(100vw - 8px)', lg: 'unset' }}
-          w={ `${ menuWidth.current }px` }
           ref={ menuRef }
-          overflow="hidden"
-          zIndex="modal"
+          className="overflow-hidden z-[var(--z-index-modal)]"
+          style={{ maxWidth: 'calc(100vw - 8px)', width: `${ menuWidth.current }px` }}
         >
           <PopoverBody
-            px={ 4 }
-            color="chakra-body-text"
-            maxH="50vh"
-            display="flex"
-            flexDirection="column"
-            overflowY="hidden"
+            className="px-4 max-h-[50vh] flex flex-col overflow-y-hidden"
           >
             { searchTerm.trim().length === 0 && recentSearchKeywords.length > 0 && (
               <SearchBarRecentKeywords onClick={ handleSearchTermChange } onClear={ onClose }/>
@@ -189,10 +186,10 @@ const SearchBarDesktop = ({ isHeroBanner }: Props) => {
             ) }
           </PopoverBody>
           { showAllResultsLink && (
-            <PopoverFooter pt={ 2 } borderTopWidth={ 1 } borderColor="border.divider">
+            <PopoverFooter className="pt-2 border-t border-[var(--color-border-divider)]">
               <Link
-                textStyle="sm"
-                onClick={ navigateToResults }
+                className="text-sm"
+                onClick={ handleViewAllResultsClick }
               >
                 View all results
               </Link>

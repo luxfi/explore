@@ -71,8 +71,16 @@ export function app(isPrivateMode = false): CspDev.DirectiveDescriptor {
       // hash of ColorModeScript: system + dark
       '\'sha256-yYJq8IP5/WhJj6zxyTmujEqBFs/MufRufp2QKJFU76M=\'',
 
+      // hash of ColorModeScript: dark theme
+      '\'sha256-Os32ny+s3zEaX+XxoAVngBThnQv/IOycQlrqgxXOgRI=\'',
+
       // CapybaraRunner
       '\'sha256-5+YTmTcBwCYdJ8Jetbr6kyjGp0Ry/H7ptpoun6CrSwQ=\'',
+
+      // Lux analytics / inline scripts
+      '\'sha256-YiC5bd+aSY6gJKgwwD9kRRZCdn/qi++mRW6ERR4uZ3c=\'',
+      '\'sha256-wMOeDjJaOTjCfNjluteV+tSqHW547T89sgxd8W6tQJM=\'',
+      '\'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\'',
     ],
 
     'style-src': [

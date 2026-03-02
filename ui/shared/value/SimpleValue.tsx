@@ -1,17 +1,17 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, chakra } from '@chakra-ui/react';
 import type BigNumber from 'bignumber.js';
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 import { DEFAULT_ACCURACY, formatBnValue } from './utils';
 
-const TOOLTIP_CONTENT_PROPS = { maxW: { base: 'calc(100vw - 8px)', lg: '400px' } };
+const TOOLTIP_CONTENT_PROPS = { className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' };
 
-export interface Props extends Omit<BoxProps, 'prefix' | 'postfix'> {
+export interface Props {
+  className?: string;
+  color?: string;
   value: BigNumber;
   accuracy?: number;
   prefix?: string;
@@ -22,6 +22,11 @@ export interface Props extends Omit<BoxProps, 'prefix' | 'postfix'> {
   noTooltip?: boolean;
   loading?: boolean;
   overflowed?: boolean;
+  tooltipContentBefore?: React.ReactNode;
+  // Legacy style-prop shims
+  fontSize?: string;
+  lineHeight?: string;
+  maxW?: string;
 }
 
 const SimpleValue = ({
@@ -32,23 +37,28 @@ const SimpleValue = ({
   startElement,
   endElement,
   tooltipContent: tooltipContentProp,
+  tooltipContentBefore,
   noTooltip,
   loading,
   overflowed,
+  color,
   ...rest
 }: Props) => {
 
   const tooltipContent = React.useMemo(() => {
     return (
-      <Box display="inline" whiteSpace="wrap" wordBreak="break-all">
-        { prefix ?? '' }{ value.toFormat() }{ postfix ?? '' }
-        <CopyToClipboard text={ value.toFixed() } verticalAlign="bottom" noTooltip/>
-      </Box>
+      <>
+        { tooltipContentBefore }
+        <span className="inline whitespace-normal break-all">
+          { prefix ?? '' }{ value.toFormat() }{ postfix ?? '' }
+          <CopyToClipboard text={ value.toFixed() } className="align-bottom" noTooltip/>
+        </span>
+      </>
     );
-  }, [ postfix, prefix, value ]);
+  }, [ postfix, prefix, value, tooltipContentBefore ]);
 
   return (
-    <Skeleton loading={ loading } display="inline-flex" alignItems="center" whiteSpace="pre" maxW="100%" overflow="hidden" { ...rest }>
+    <Skeleton loading={ loading } display="inline-flex" alignItems="center" color={ color } className="whitespace-pre max-w-full overflow-hidden" { ...rest }>
       { startElement }
       <Tooltip
         content={ tooltipContentProp ?? tooltipContent }
@@ -56,9 +66,9 @@ const SimpleValue = ({
         disabled={ noTooltip }
         interactive
       >
-        <chakra.span display="inline-block" maxW="100%" overflow="hidden" textOverflow="ellipsis">
+        <span className="inline-block max-w-full overflow-hidden text-ellipsis">
           { formatBnValue({ value, accuracy, prefix, postfix, overflowed }) }
-        </chakra.span>
+        </span>
       </Tooltip>
       { typeof endElement === 'string' ? <span>{ endElement }</span> : endElement }
     </Skeleton>

@@ -1,4 +1,3 @@
-import { Grid, Text, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -18,54 +17,32 @@ const SearchBarSuggestCluster = ({ data, searchTerm, addressFormat }: ItemsProps
   const displayName = shouldShowTrailingSlash ? data.cluster_info.name + '/' : data.cluster_info.name;
   const searchTermForHighlight = searchTerm.replace(/\/$/, '');
 
-  const containerProps = {
-    opacity: isClickable ? 1 : 0.6,
-  };
-
   const icon = <ClusterIcon clusterName={ data.cluster_info.name }/>;
 
   const name = (
-    <Text
-      fontWeight={ 700 }
-      overflow="hidden"
-      whiteSpace="nowrap"
-      textOverflow="ellipsis"
-    >
+    <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis">
       <span dangerouslySetInnerHTML={{ __html: highlightText(displayName, searchTermForHighlight) }}/>
-    </Text>
+    </span>
   );
 
   const address = (
-    <Text
-      overflow="hidden"
-      whiteSpace="nowrap"
-      color="text.secondary"
-    >
+    <span className="overflow-hidden whitespace-nowrap text-[var(--color-text-secondary)]">
       <HashStringShortenDynamic hash={ hash } noTooltip/>
-    </Text>
+    </span>
   );
 
   return (
-    <Box { ...containerProps }>
-      <Grid
-        alignItems="center"
-        gridTemplateColumns={{ base: '1fr', md: '228px 1fr' }}
-        gap={ 2 }
-      >
-        <Flex alignItems="center">
+    <div style={{ opacity: isClickable ? 1 : 0.6 }}>
+      <div className="grid items-center gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(0, 1fr))' }}>
+        <div className="flex items-center">
           { icon }
           { name }
-        </Flex>
-        <Flex
-          alignItems="center"
-          overflow="hidden"
-          gap={ 1 }
-          mt={{ base: 0, md: 0 }}
-        >
+        </div>
+        <div className="flex items-center overflow-hidden gap-1">
           { address }
-        </Flex>
-      </Grid>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

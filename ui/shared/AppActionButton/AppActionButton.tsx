@@ -1,4 +1,3 @@
-import { Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
@@ -7,8 +6,8 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
 
 type Props = {
   data: NonNullable<AddressMetadataTagFormatted['meta']>;
@@ -44,9 +43,9 @@ const AppActionButton = ({ data, className, txHash, source }: Props) => {
           mr={ 2 }
         />
       ) }
-      <Text textStyle="sm" fontWeight="500" color="currentColor">
+      <span className="text-sm font-medium text-current">
         { appActionButtonText }
-      </Text>
+      </span>
     </>
   );
 
@@ -58,14 +57,14 @@ const AppActionButton = ({ data, className, txHash, source }: Props) => {
       onClick={ handleClick }
       variant="underlaid"
       iconColor={ textColor }
-      color={ textColor }
-      bg={ bgColor }
-      _hover={{ color: textColor, opacity: textColor || bgColor ? 0.9 : 1 }}
-      _active={{ color: textColor, opacity: textColor || bgColor ? 0.9 : 1 }}
+      style={{
+        color: textColor || undefined,
+        backgroundColor: bgColor || undefined,
+      }}
     >
       { content }
     </Link>
   );
 };
 
-export default chakra(AppActionButton);
+export default AppActionButton;

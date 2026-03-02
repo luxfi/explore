@@ -4,7 +4,7 @@ import type { UserOpsItem } from 'types/api/userOps';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import config from 'configs/app';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressStringOrParam from 'ui/shared/entities/address/AddressStringOrParam';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -31,7 +31,7 @@ const UserOpsTableItem = ({ item, isLoading, showTx, showSender, chainData }: Pr
         </TableCell>
       ) }
       <TableCell verticalAlign="middle">
-        <UserOpEntity hash={ item.hash } isLoading={ isLoading } noIcon fontWeight={ 700 } truncation="constant_long" noCopy/>
+        <UserOpEntity hash={ item.hash } isLoading={ isLoading } noIcon className="font-bold" truncation="constant_long" noCopy/>
       </TableCell>
       <TableCell verticalAlign="middle">
         <TimeWithTooltip
@@ -67,7 +67,7 @@ const UserOpsTableItem = ({ item, isLoading, showTx, showSender, chainData }: Pr
         <BlockEntity
           number={ Number(item.block_number) }
           isLoading={ isLoading }
-          textStyle="sm"
+          className="text-sm"
           noIcon
         />
       </TableCell>
