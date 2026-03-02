@@ -1,11 +1,10 @@
-import { Flex, Grid } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
 import type { ExcludeUndefined } from 'types/utils';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoNativeCoinValue from 'ui/shared/DetailedInfo/DetailedInfoNativeCoinValue';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -22,7 +21,10 @@ interface Props {
 
 const TxDetailsWrapped = ({ data }: Props) => {
   return (
-    <Grid columnGap={ 8 } rowGap={{ base: 3, lg: 3 }} templateColumns={{ base: 'minmax(0, 1fr)', lg: 'auto minmax(0, 1fr)' }}>
+    <div
+      className="grid gap-x-8 gap-y-3 lg:gap-y-3"
+      style={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
+    >
       <DetailedInfo.ItemLabel
         hint="Unique character string (TxID) assigned to every verified transaction"
       >
@@ -53,9 +55,9 @@ const TxDetailsWrapped = ({ data }: Props) => {
             { data.to.is_contract ? 'Interacted with contract' : 'To' }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Flex flexWrap="nowrap" alignItems="center" maxW="100%">
+            <div className="flex flex-nowrap items-center max-w-full">
               <AddressEntity address={ data.to }/>
-            </Flex>
+            </div>
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -77,7 +79,7 @@ const TxDetailsWrapped = ({ data }: Props) => {
             Transaction fee
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <TxFee tx={ data }/>
+            <TxFee tx={ data } hasExchangeRateToggle/>
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -122,7 +124,7 @@ const TxDetailsWrapped = ({ data }: Props) => {
           </DetailedInfo.ItemValue>
         </>
       ) }
-    </Grid>
+    </div>
   );
 };
 

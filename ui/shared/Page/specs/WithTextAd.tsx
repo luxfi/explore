@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 import PageTitle from '../PageTitle';
 

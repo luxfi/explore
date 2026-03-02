@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import React from 'react';
@@ -8,8 +7,8 @@ import type { UserOp } from 'types/api/userOps';
 import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
@@ -49,9 +48,7 @@ const UserOpDetails = ({ query }: Props) => {
   }
 
   return (
-    <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 220px) minmax(0, 1fr)' }}
-    >
+    <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
         hint="Unique character string assigned to every User operation"
         isLoading={ isPlaceholderData }
@@ -59,7 +56,7 @@ const UserOpDetails = ({ query }: Props) => {
         User operation hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <UserOpEntity hash={ data.hash } noIcon noLink/>
         </Skeleton>
       </DetailedInfo.ItemValue>
@@ -107,8 +104,6 @@ const UserOpDetails = ({ query }: Props) => {
             Revert reason
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            wordBreak="break-all"
-            whiteSpace="normal"
           >
             <Skeleton loading={ isPlaceholderData }>
               { data.revert_reason }
@@ -169,7 +164,6 @@ const UserOpDetails = ({ query }: Props) => {
           { BigNumber(data.gas_used).toFormat() }
         </Skeleton>
         <Utilization
-          ml={ 4 }
           colorScheme="gray"
           value={ BigNumber(data.gas_used).dividedBy(BigNumber(data.gas)).toNumber() }
           isLoading={ isPlaceholderData }
@@ -209,9 +203,7 @@ const UserOpDetails = ({ query }: Props) => {
       { config.features.txInterpretation.isEnabled && <UserOpDetailsActions hash={ data.hash } isUserOpDataLoading={ isPlaceholderData }/> }
 
       { /* ADDITIONAL INFO */ }
-      <CollapsibleDetails loading={ isPlaceholderData } mt={ 6 } gridColumn={{ base: undefined, lg: '1 / 3' }}>
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
-
+      <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
         <DetailedInfo.ItemLabel
           hint="Gas limit for execution phase"
         >
@@ -341,8 +333,6 @@ const UserOpDetails = ({ query }: Props) => {
           Signature
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
-          wordBreak="break-all"
-          whiteSpace="normal"
         >
           { data.signature }
         </DetailedInfo.ItemValue>
@@ -353,8 +343,6 @@ const UserOpDetails = ({ query }: Props) => {
           Nonce
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
-          wordBreak="break-all"
-          whiteSpace="normal"
         >
           { data.nonce }
         </DetailedInfo.ItemValue>

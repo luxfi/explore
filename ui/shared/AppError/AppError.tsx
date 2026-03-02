@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -8,8 +7,8 @@ import getErrorCauseStatusCode from 'lib/errors/getErrorCauseStatusCode';
 import getErrorObjStatusCode from 'lib/errors/getErrorObjStatusCode';
 import getErrorProp from 'lib/errors/getErrorProp';
 import getResourceErrorPayload from 'lib/errors/getResourceErrorPayload';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
 
 import AdBanner from '../ad/AdBanner';
 import AppErrorIcon from './AppErrorIcon';
@@ -92,19 +91,18 @@ const AppError = ({ error, className }: Props) => {
           <>
             <AppErrorIcon statusCode={ statusCode }/>
             <AppErrorTitle title={ title }/>
-            <Text color="text.secondary" mt={ 3 }>{ text }</Text>
+            <p className="text-[var(--color-text-secondary)] mt-3">{ text }</p>
             <Link
               href={ route({ pathname: '/' }) }
-              asChild
             >
               <Button
-                mt={ 8 }
+                className="mt-8"
                 variant="outline"
               >
                 Back to home
               </Button>
             </Link>
-            { statusCode === 404 && <AdBanner mt={ 12 }/> }
+            { statusCode === 404 && <AdBanner className="mt-12"/> }
           </>
         );
       }
@@ -112,9 +110,9 @@ const AppError = ({ error, className }: Props) => {
   })();
 
   return (
-    <Box className={ className } mt={{ base: '52px', lg: '104px' }} maxW="800px">
+    <div className={ `mt-[52px] lg:mt-[104px] max-w-[800px] ${ className || '' }` }>
       { content }
-    </Box>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from '@luxfi/interchain-indexer-types';
@@ -13,10 +12,10 @@ import AssetValue from './AssetValue';
 interface Props extends Omit<AssetValueProps, 'asset'> {
   token: TokenInfo;
   chain: ExternalChain | undefined;
-  tokenEntityProps?: Omit<TokenEntityProps, 'token'> & BoxProps;
+  tokenEntityProps?: Omit<TokenEntityProps, 'token'>;
 }
 
-const TokenValueInterchain = ({ token, tokenEntityProps, chain, ...rest }: Props) => {
+const TokenValueInterchain = ({ token, tokenEntityProps, chain, amount, ...rest }: Props) => {
 
   const tokenInfo = React.useMemo(() => {
     return {
@@ -35,19 +34,19 @@ const TokenValueInterchain = ({ token, tokenEntityProps, chain, ...rest }: Props
       chain={ chain }
       noCopy
       onlySymbol
-      flexShrink={ 0 }
-      w="fit-content"
-      ml={ 2 }
+      className="shrink-0 w-fit ml-2"
       icon={{ marginRight: 1 }}
       { ...tokenEntityProps }
     />
   );
+  const assetValueProps = {
+    ...rest,
+    amount,
+    asset,
+    decimals: token.decimals,
+  } as AssetValueProps;
   return (
-    <AssetValue
-      asset={ asset }
-      decimals={ token.decimals }
-      { ...rest }
-    />
+    <AssetValue { ...assetValueProps }/>
   );
 };
 

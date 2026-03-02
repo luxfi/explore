@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { SmartContractVerificationConfig } from 'types/client/contract';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import ContractVerificationMethod from '../ContractVerificationMethod';
 import ContractVerificationFieldCompiler from '../fields/ContractVerificationFieldCompiler';

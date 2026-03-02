@@ -1,8 +1,7 @@
-import { Box, chakra } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 const Identicon = dynamic<{ bg: string; string: string; size: number }>(
   async() => {
@@ -10,7 +9,7 @@ const Identicon = dynamic<{ bg: string; string: string; size: number }>(
     return typeof lib === 'object' && 'default' in lib ? lib.default : lib;
   },
   {
-    loading: () => <Skeleton loading w="100%" h="100%"/>,
+    loading: () => <Skeleton loading className="w-full h-full"/>,
     ssr: false,
   },
 );
@@ -23,13 +22,9 @@ interface Props {
 
 const IdenticonGithub = ({ iconSize, seed }: Props) => {
   return (
-    <Box
-      boxSize={ `${ iconSize * 2 }px` }
-      transformOrigin="left top"
-      transform="scale(0.5)"
-      borderRadius="full"
-      overflow="hidden"
-      bg={{ _light: 'gray.100', _dark: 'white' }}
+    <div
+      style={{ width: `${ iconSize * 2 }px`, height: `${ iconSize * 2 }px`, transformOrigin: 'left top', transform: 'scale(0.5)' }}
+      className="rounded-full bg-[var(--color-gray-100)] dark:bg-[var(--color-white)] overflow-hidden"
     >
       <Identicon
         bg="transparent"
@@ -37,8 +32,8 @@ const IdenticonGithub = ({ iconSize, seed }: Props) => {
         // the displayed size is doubled for retina displays and then scaled down
         size={ iconSize * 2 }
       />
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(IdenticonGithub));
+export default React.memo(IdenticonGithub);

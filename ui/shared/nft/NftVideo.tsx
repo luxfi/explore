@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -98,7 +97,7 @@ const NftVideo = ({ src, transport, instance, autoPlay = true, onLoad, size = 'o
   }, [ autoPlay, loadPosterViaHttp, loadPosterViaIpfs, mediaInfoQuery.data, mediaInfoQuery.isPending ]);
 
   return (
-    <chakra.video
+    <video
       ref={ ref }
       { ...videoPlayProps }
       autoPlay={ autoPlay }

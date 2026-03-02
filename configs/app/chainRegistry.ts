@@ -6,6 +6,24 @@ export interface ChainBranding {
   /** Display name in the header (e.g. "Lux Network", "Zoo Chain") */
   readonly brandName: string;
 
+  /** Organization name for copyright (e.g. "Lux Industries Inc.") */
+  readonly orgName: string;
+
+  /** Primary website URL */
+  readonly websiteUrl: string;
+
+  /** One-line description for footer */
+  readonly description: string;
+
+  /** GitHub org URL */
+  readonly githubUrl: string;
+
+  /** Twitter/X URL */
+  readonly twitterUrl: string;
+
+  /** Discord invite URL */
+  readonly discordUrl: string;
+
   /** viewBox for the inline logo SVG */
   readonly logoViewBox: string;
 
@@ -20,7 +38,7 @@ export interface ChainEntry {
   readonly name: string;
   readonly label: string;
   readonly vm: string;
-  readonly network: 'mainnet' | 'testnet' | 'devnet';
+  readonly network: 'mainnet' | 'testnet' | 'devnet' | 'localnet';
   readonly hostnames: ReadonlyArray<string>;
   readonly explorerUrl: string;
   readonly apiUrl: string;
@@ -30,7 +48,7 @@ export interface ChainEntry {
 export interface NetworkEntry {
   readonly name: string;
   readonly label: string;
-  readonly network: 'mainnet' | 'testnet' | 'devnet';
+  readonly network: 'mainnet' | 'testnet' | 'devnet' | 'localnet';
   readonly baseHostname: string;
   readonly explorerUrl: string;
 }
@@ -41,29 +59,82 @@ export interface NetworkEntry {
 /** Lux — downward-pointing triangle (~/work/lux/logo/) */
 const LUX_BRANDING: ChainBranding = {
   brandName: 'Lux Network',
+  orgName: 'Lux Industries Inc.',
+  websiteUrl: 'https://lux.network',
+  description: 'High-performance blockchain for decentralized applications.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/luxdefi',
+  discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 100 100',
   logoContent: '<path d="M50 85 L15 25 L85 25 Z" fill="currentColor"/>',
   faviconContent: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="m256 410 179-308H77z"/>',
 };
 
-/** Zoo — three overlapping circles (~/work/zoo/logo/) */
+/** Zoo — colorful interlocking circles from ~/work/zoo/logo/ */
 const ZOO_BRANDING: ChainBranding = {
   brandName: 'Zoo Chain',
-  logoViewBox: '0 0 64 64',
+  orgName: 'Zoo Labs Foundation',
+  websiteUrl: 'https://zoo.ngo',
+  description: 'Open AI research network — decentralized AI and science.',
+  githubUrl: 'https://github.com/zoolabs',
+  twitterUrl: 'https://x.com/zoolabs',
+  discordUrl: 'https://discord.gg/zoolabs',
+  logoViewBox: '0 0 1024 1024',
   logoContent:
-    '<circle cx="32" cy="22" r="12" fill="#00A652"/>' +
-    '<circle cx="21" cy="40" r="12" fill="#ED1C24"/>' +
-    '<circle cx="43" cy="40" r="12" fill="#2E3192"/>',
+    '<defs>' +
+    '<clipPath id="zooClip"><circle cx="512" cy="511" r="270"/></clipPath>' +
+    '<clipPath id="zooGClip"><circle cx="513" cy="369" r="234"/></clipPath>' +
+    '<clipPath id="zooRClip"><circle cx="365" cy="595" r="234"/></clipPath>' +
+    '</defs>' +
+    '<g clip-path="url(#zooClip)">' +
+    '<circle cx="513" cy="369" r="234" fill="#00A652"/>' +
+    '<circle cx="365" cy="595" r="234" fill="#ED1C24"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#2E3192"/>' +
+    '<g clip-path="url(#zooGClip)">' +
+    '<circle cx="365" cy="595" r="234" fill="#FCF006"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#01ACF1"/>' +
+    '</g>' +
+    '<g clip-path="url(#zooRClip)">' +
+    '<circle cx="643" cy="595" r="234" fill="#EA018E"/>' +
+    '</g>' +
+    '<g clip-path="url(#zooGClip)">' +
+    '<g clip-path="url(#zooRClip)">' +
+    '<circle cx="643" cy="595" r="234" fill="#FFFFFF"/>' +
+    '</g></g></g>',
   faviconContent:
     '<rect width="512" height="512" rx="64" fill="#000"/>' +
-    '<circle cx="256" cy="176" r="96" fill="#00A652"/>' +
-    '<circle cx="168" cy="320" r="96" fill="#ED1C24"/>' +
-    '<circle cx="344" cy="320" r="96" fill="#2E3192"/>',
+    '<g transform="translate(0,-5) scale(0.5)">' +
+    '<defs>' +
+    '<clipPath id="zfClip"><circle cx="512" cy="511" r="270"/></clipPath>' +
+    '<clipPath id="zfG"><circle cx="513" cy="369" r="234"/></clipPath>' +
+    '<clipPath id="zfR"><circle cx="365" cy="595" r="234"/></clipPath>' +
+    '</defs>' +
+    '<g clip-path="url(#zfClip)">' +
+    '<circle cx="513" cy="369" r="234" fill="#00A652"/>' +
+    '<circle cx="365" cy="595" r="234" fill="#ED1C24"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#2E3192"/>' +
+    '<g clip-path="url(#zfG)">' +
+    '<circle cx="365" cy="595" r="234" fill="#FCF006"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#01ACF1"/>' +
+    '</g>' +
+    '<g clip-path="url(#zfR)">' +
+    '<circle cx="643" cy="595" r="234" fill="#EA018E"/>' +
+    '</g>' +
+    '<g clip-path="url(#zfG)">' +
+    '<g clip-path="url(#zfR)">' +
+    '<circle cx="643" cy="595" r="234" fill="#FFFFFF"/>' +
+    '</g></g></g></g>',
 };
 
 /** Hanzo — geometric H logo (~/work/hanzo/logo/) */
 const HANZO_BRANDING: ChainBranding = {
   brandName: 'Hanzo AI',
+  orgName: 'Hanzo Industries Inc.',
+  websiteUrl: 'https://hanzo.ai',
+  description: 'AI blockchain — decentralized compute and inference.',
+  githubUrl: 'https://github.com/hanzoai',
+  twitterUrl: 'https://x.com/hanaboratory',
+  discordUrl: 'https://discord.gg/hanzoai',
   logoViewBox: '0 0 67 67',
   logoContent:
     '<path d="M22.21 67V44.64H0V67H22.21Z" fill="currentColor"/>' +
@@ -85,6 +156,12 @@ const HANZO_BRANDING: ChainBranding = {
 /** SPC — unicorn */
 const SPC_BRANDING: ChainBranding = {
   brandName: 'SPC Chain',
+  orgName: 'Sparkle Pony Club',
+  websiteUrl: 'https://sparkleponyclub.com',
+  description: 'SPC chain.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/luxdefi',
+  discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 64 64',
   logoContent:
     '<text x="32" y="46" text-anchor="middle" font-size="42" fill="currentColor">&#x1F984;</text>',
@@ -93,28 +170,64 @@ const SPC_BRANDING: ChainBranding = {
     '<text x="256" y="350" text-anchor="middle" font-size="320">&#x1F984;</text>',
 };
 
-/** Pars — 8-pointed star with gold/blue gradients (~/work/pars/logo/) */
-
-const PARS_STAR_OUTER = 'M0-100 30-60 100-40 60 0 100 40 30 60 0 100-30 60-100 40-60 0-100-40-30-60Z';
-
-const PARS_STAR_INNER = 'M0-65 20-39 65-26 39 0 65 26 20 39 0 65-20 39-65 26-39 0-65-26-20-39Z';
-
+/** Pars — Persian 8-pointed star from ~/work/pars/logo/docs/assets/pars-logo-mono.svg */
 const PARS_BRANDING: ChainBranding = {
   brandName: 'Pars Network',
+  orgName: 'Parsis Foundation',
+  websiteUrl: 'https://pars.network',
+  description: 'Pars blockchain — financial infrastructure for the Persian-speaking world.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/parsnetwork',
+  discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '-120 -120 240 240',
   logoContent:
-    `<path d="${ PARS_STAR_OUTER }" fill="none"` +
-    ' stroke="currentColor" stroke-width="8"/>' +
-    `<path d="${ PARS_STAR_INNER }" fill="currentColor"/>` +
-    '<circle r="12" fill="currentColor"/>',
+    // Outer 8-pointed star
+    '<path d="M0,-100 L30,-60 L100,-40 L60,0 L100,40 L30,60 L0,100 L-30,60 L-100,40 L-60,0 L-100,-40 L-30,-60 Z"' +
+    ' fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>' +
+    // Inner star
+    '<path d="M0,-70 L22,-42 L70,-28 L42,0 L70,28 L22,42 L0,70 L-22,42 L-70,28 L-42,0 L-70,-28 L-22,-42 Z"' +
+    ' fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>' +
+    // Recursive inner star
+    '<path d="M0,-45 L14,-27 L45,-18 L27,0 L45,18 L14,27 L0,45 L-14,27 L-45,18 L-27,0 L-45,-18 L-14,-27 Z"' +
+    ' fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity="0.6"/>' +
+    // Interlaced circles
+    '<circle r="55" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>' +
+    '<circle r="35" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>' +
+    // Center rosette
+    '<circle r="8" fill="currentColor"/>' +
+    '<path d="M0,-20 L6,-6 L20,0 L6,6 L0,20 L-6,6 L-20,0 L-6,-6 Z"' +
+    ' fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.8"/>',
   faviconContent:
-    '<rect width="512" height="512" rx="64" fill="#003355"/>' +
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
     '<g transform="translate(256,256) scale(2)">' +
-    `<path d="${ PARS_STAR_OUTER }" fill="none"` +
-    ' stroke="#f5d06f" stroke-width="8"/>' +
-    `<path d="${ PARS_STAR_INNER }"` +
-    ' fill="#00abff" stroke="#f5d06f" stroke-width="6"/>' +
-    '<circle r="12" fill="#f5d06f"/></g>',
+    '<path d="M0,-100 L30,-60 L100,-40 L60,0 L100,40 L30,60 L0,100 L-30,60 L-100,40 L-60,0 L-100,-40 L-30,-60 Z"' +
+    ' fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>' +
+    '<path d="M0,-70 L22,-42 L70,-28 L42,0 L70,28 L22,42 L0,70 L-22,42 L-70,28 L-42,0 L-70,-28 L-22,-42 Z"' +
+    ' fill="#fff" fill-opacity="0.15" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M0,-45 L14,-27 L45,-18 L27,0 L45,18 L14,27 L0,45 L-14,27 L-45,18 L-27,0 L-45,-18 L-14,-27 Z"' +
+    ' fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" opacity="0.6"/>' +
+    '<circle r="55" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.4"/>' +
+    '<circle r="35" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.4"/>' +
+    '<circle r="8" fill="#fff"/>' +
+    '<path d="M0,-20 L6,-6 L20,0 L6,6 L0,20 L-6,6 L-20,0 L-6,-6 Z"' +
+    ' fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" opacity="0.8"/>' +
+    '</g>',
+};
+
+/** Liquidity — wordmark "L" from ~/work/liquidity/brand/ */
+const LIQUIDITY_BRANDING: ChainBranding = {
+  brandName: 'Liquidity Network',
+  orgName: 'Liquidity Inc.',
+  websiteUrl: 'https://liquidity.io',
+  description: 'Digital securities exchange — ATS, broker-dealer, transfer agent.',
+  githubUrl: 'https://github.com/liquidityio',
+  twitterUrl: 'https://x.com/liquidityio',
+  discordUrl: 'https://discord.gg/liquidityio',
+  logoViewBox: '0 0 100 100',
+  logoContent: '<path d="M30 20 L30 80 L70 80 L70 65 L45 65 L45 20 Z" fill="currentColor"/>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
+    '<path d="M155 100 L155 410 L360 410 L360 340 L230 340 L230 100 Z" fill="#fff"/>',
 };
 
 export const CHAINS: ReadonlyArray<ChainEntry> = [
@@ -123,7 +236,9 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'mainnet',
-    hostnames: [ 'explore.lux.network', 'localhost' ],
+    // explore.lux.build is a legacy alias — the runtime ingress 301-redirects
+    // it to explore.lux.network, so we only register the canonical host here.
+    hostnames: [ 'explore.lux.network', 'localhost', '127.0.0.1', '0.0.0.0' ],
     explorerUrl: 'https://explore.lux.network',
     apiUrl: 'https://api-explore.lux.network',
     branding: LUX_BRANDING,
@@ -131,9 +246,9 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Zoo',
     label: 'Zoo Chain',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
-    hostnames: [ 'explore-zoo.lux.network' ],
+    hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
     branding: ZOO_BRANDING,
@@ -141,9 +256,9 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Hanzo',
     label: 'Hanzo AI',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
-    hostnames: [ 'explore-hanzo.lux.network' ],
+    hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
     branding: HANZO_BRANDING,
@@ -151,7 +266,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'SPC',
     label: 'SPC Chain',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
     hostnames: [ 'explore-spc.lux.network' ],
     explorerUrl: 'https://explore-spc.lux.network',
@@ -161,12 +276,22 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Pars',
     label: 'Pars Network',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
-    hostnames: [ 'explore-pars.lux.network' ],
+    hostnames: [ 'explore-pars.lux.network', 'explore.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',
     apiUrl: 'https://api-explore-pars.lux.network',
     branding: PARS_BRANDING,
+  },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    vm: 'Liquid EVM',
+    network: 'mainnet',
+    hostnames: [ 'explore.liquidity.io', 'explore.satschel.com' ],
+    explorerUrl: 'https://explore.liquidity.io',
+    apiUrl: 'https://api-explore.liquidity.io',
+    branding: LIQUIDITY_BRANDING,
   },
   // Testnet chains
   {
@@ -174,10 +299,20 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'testnet',
-    hostnames: [ 'explore.lux-test.network' ],
-    explorerUrl: 'https://explore.lux-test.network',
-    apiUrl: 'https://api-explore.lux-test.network',
+    hostnames: [ 'explore-test.lux.network', 'explore.lux-test.network' ],
+    explorerUrl: 'https://explore-test.lux.network',
+    apiUrl: 'https://api-explore-test.lux.network',
     branding: LUX_BRANDING,
+  },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    vm: 'Liquid EVM',
+    network: 'testnet',
+    hostnames: [ 'explore.test.satschel.com' ],
+    explorerUrl: 'https://explore.test.satschel.com',
+    apiUrl: 'https://api-explore.test.satschel.com',
+    branding: LIQUIDITY_BRANDING,
   },
   // Devnet chains
   {
@@ -185,10 +320,44 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'devnet',
-    hostnames: [ 'explore.lux-dev.network' ],
-    explorerUrl: 'https://explore.lux-dev.network',
-    apiUrl: 'https://api-explore.lux-dev.network',
+    hostnames: [ 'explore-dev.lux.network', 'explore.lux-dev.network' ],
+    explorerUrl: 'https://explore-dev.lux.network',
+    apiUrl: 'https://api-explore-dev.lux.network',
     branding: LUX_BRANDING,
+  },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    vm: 'Liquid EVM',
+    network: 'devnet',
+    hostnames: [ 'explore.dev.satschel.com' ],
+    explorerUrl: 'https://explore.dev.satschel.com',
+    apiUrl: 'https://api-explore.dev.satschel.com',
+    branding: LIQUIDITY_BRANDING,
+  },
+
+  // Localnet — chainId 1337 (Lux) / 8675312 (Liquidity). Listing localhost /
+  // 127.0.0.1 / 0.0.0.0 here keeps isWhiteLabelMode() false in local dev so
+  // the chain + network selectors remain visible without env gymnastics.
+  {
+    name: 'C-Chain',
+    label: 'Contract Chain',
+    vm: 'EVM',
+    network: 'localnet',
+    hostnames: [ 'explore.localnet', 'explore-local.lux.network' ],
+    explorerUrl: 'http://localhost:3000',
+    apiUrl: 'http://localhost:4000',
+    branding: LUX_BRANDING,
+  },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    vm: 'Liquid EVM',
+    network: 'localnet',
+    hostnames: [ 'explore.local.liquidity.io', 'explore.local.satschel.com' ],
+    explorerUrl: 'http://explore.local.liquidity.io',
+    apiUrl: 'http://api-explore.local.liquidity.io',
+    branding: LIQUIDITY_BRANDING,
   },
 ];
 
@@ -214,27 +383,127 @@ export const NETWORKS: ReadonlyArray<NetworkEntry> = [
     baseHostname: 'explore.lux-dev.network',
     explorerUrl: 'https://explore.lux-dev.network',
   },
+  {
+    name: 'Localnet',
+    label: 'Local development (chainId 1337)',
+    network: 'localnet',
+    baseHostname: 'localhost',
+    explorerUrl: 'http://localhost:3000',
+  },
 ];
 
 import { getEnvValue } from 'configs/app/utils';
 
+// ── White-label support ──
+// When the hostname doesn't match any known chain, build branding from env vars.
+// This allows a single Docker image to serve any EVM chain.
+
+function buildWhiteLabelBranding(): ChainBranding {
+  return {
+    brandName: getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || '▼ Explorer',
+    orgName: getEnvValue('NEXT_PUBLIC_NETWORK_ORG_NAME') || '',
+    websiteUrl: getEnvValue('NEXT_PUBLIC_NETWORK_WEBSITE_URL') || '',
+    description: getEnvValue('NEXT_PUBLIC_NETWORK_DESCRIPTION') || 'Blockchain explorer.',
+    githubUrl: getEnvValue('NEXT_PUBLIC_NETWORK_GITHUB_URL') || '',
+    twitterUrl: getEnvValue('NEXT_PUBLIC_NETWORK_TWITTER_URL') || '',
+    discordUrl: getEnvValue('NEXT_PUBLIC_NETWORK_DISCORD_URL') || '',
+    logoViewBox: '0 0 100 100',
+    logoContent: '<circle cx="50" cy="50" r="40" fill="currentColor"/>',
+    faviconContent: '<circle cx="256" cy="256" r="256"/>',
+  };
+}
+
+function buildWhiteLabelChain(hostname: string): ChainEntry {
+  const branding = buildWhiteLabelBranding();
+  const appHost = getEnvValue('NEXT_PUBLIC_APP_HOST') || hostname;
+  const apiHost = getEnvValue('NEXT_PUBLIC_API_HOST') || '';
+  const protocol = getEnvValue('NEXT_PUBLIC_APP_PROTOCOL') || 'https';
+  const apiProtocol = getEnvValue('NEXT_PUBLIC_API_PROTOCOL') || 'https';
+  return {
+    name: getEnvValue('NEXT_PUBLIC_NETWORK_SHORT_NAME') || branding.brandName,
+    label: branding.brandName,
+    vm: 'EVM',
+    network: (getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true' ? 'testnet' : 'mainnet') as 'mainnet' | 'testnet' | 'devnet' | 'localnet',
+    hostnames: [ hostname ],
+    explorerUrl: `${ protocol }://${ appHost }`,
+    apiUrl: apiHost ? `${ apiProtocol }://${ apiHost }` : '',
+    branding,
+  };
+}
+
 function getHostname(): string {
+  // Client: trust the browser — this is the request origin.
   if (typeof window !== 'undefined') {
     return window.location.hostname;
+  }
+  // Server: prefer the per-request Host header captured in AsyncLocalStorage
+  // at the start of each SSR render (see pages/_document.tsx). This keeps the
+  // FE stateless — one docker image serves any hostname. Fall back to the
+  // build-time env only when called outside a request (static prerender,
+  // health checks, etc.).
+  try {
+    // Lazy require so browser bundles don't pick up the ALS module.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+    const { getRequestHost } = require('lib/requestHost') as { getRequestHost: () => string };
+    const reqHost = getRequestHost();
+    if (reqHost) return reqHost;
+  } catch {
+    // Falls through to env fallback.
   }
   return getEnvValue('NEXT_PUBLIC_APP_HOST') || 'explore.lux.network';
 }
 
+export function isWhiteLabelMode(): boolean {
+  const hostname = getHostname();
+  return !CHAINS.some((c) => c.hostnames.includes(hostname));
+}
+
+export function isChainSelectorEnabled(): boolean {
+  const envVal = getEnvValue('NEXT_PUBLIC_CHAIN_SELECTOR_ENABLED');
+  if (envVal !== undefined && envVal !== '') {
+    return envVal === 'true';
+  }
+  // Disabled by default in white-label mode
+  return !isWhiteLabelMode();
+}
+
+export function isNetworkSelectorEnabled(): boolean {
+  const envVal = getEnvValue('NEXT_PUBLIC_NETWORK_SELECTOR_ENABLED');
+  if (envVal !== undefined && envVal !== '') {
+    return envVal === 'true';
+  }
+  // Disabled by default in white-label mode
+  return !isWhiteLabelMode();
+}
+
 export function getCurrentChain(): ChainEntry {
   const hostname = getHostname();
-  return CHAINS.find((c) => c.hostnames.includes(hostname)) ?? CHAINS[0];
+  const found = CHAINS.find((c) => c.hostnames.includes(hostname));
+  if (found) {
+    return found;
+  }
+  // White-label mode: build from env vars
+  return buildWhiteLabelChain(hostname);
 }
 
 export function getCurrentNetwork(): NetworkEntry {
   const chain = getCurrentChain();
+  if (isWhiteLabelMode()) {
+    // In white-label mode, return a single network entry from env vars
+    const branding = buildWhiteLabelBranding();
+    const appHost = getEnvValue('NEXT_PUBLIC_APP_HOST') || '';
+    const protocol = getEnvValue('NEXT_PUBLIC_APP_PROTOCOL') || 'https';
+    return {
+      name: chain.network === 'testnet' ? 'Testnet' : 'Mainnet',
+      label: branding.brandName,
+      network: chain.network,
+      baseHostname: appHost,
+      explorerUrl: appHost ? `${ protocol }://${ appHost }` : '',
+    };
+  }
   return NETWORKS.find((n) => n.network === chain.network) ?? NETWORKS[0];
 }
 
-export function getChainsForNetwork(network: 'mainnet' | 'testnet' | 'devnet'): ReadonlyArray<ChainEntry> {
+export function getChainsForNetwork(network: 'mainnet' | 'testnet' | 'devnet' | 'localnet'): ReadonlyArray<ChainEntry> {
   return CHAINS.filter((c) => c.network === network);
 }

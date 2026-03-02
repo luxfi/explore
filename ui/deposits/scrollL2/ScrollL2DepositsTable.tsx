@@ -4,7 +4,8 @@ import type { ScrollL2MessageItem } from 'types/api/scrollL2';
 
 import config from 'configs/app';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { layerLabels } from 'lib/rollups/utils';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import ScrollL2DepositsTableItem from './ScrollL2DepositsTableItem';
@@ -21,14 +22,14 @@ const ScrollL2DepositsTable = ({ items, top, isLoading }: Props) => {
       <TableRoot tableLayout="auto" minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>L1 block</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.parent } block</TableColumnHeader>
             <TableColumnHeader>Index</TableColumnHeader>
-            <TableColumnHeader>L1 txn hash</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.parent } txn hash</TableColumnHeader>
             <TableColumnHeader>
               Timestamp
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>L2 txn hash</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.current } txn hash</TableColumnHeader>
             <TableColumnHeader isNumeric>Value { config.chain.currency.symbol }</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>

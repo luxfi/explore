@@ -22,7 +22,7 @@ frontend:
   enabled: true
   replicaCount: 1
   image:
-    repository: ghcr.io/blockscout/frontend-private
+    repository: ghcr.io/luxfi/explore
     tag: review-{{ requiredEnv "GITHUB_REF_NAME_SLUG" }}
     pullPolicy: Always
   ingress:

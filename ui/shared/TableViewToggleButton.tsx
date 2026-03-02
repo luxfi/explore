@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { IconButton } from '@luxfi/ui/icon-button';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
@@ -13,9 +12,10 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useIsMounted from 'lib/hooks/useIsMounted';
+import { isConfidentialTokenType } from 'lib/token/tokenTypes';
 import { TOKEN_COUNTERS } from 'stubs/token';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { TokenTabs } from 'ui/pages/Token';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';
 import useAppActionData from 'ui/shared/AppActionButton/useAppActionData';
@@ -106,7 +106,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             ZRC-2 Address
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } display="inline-block">
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               <AddressEntity address={{ hash: zilliqa.zrc2_address_hash }} isLoading={ tokenQuery.isPlaceholderData }/>
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -122,7 +122,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Price
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } display="inline-block">
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               <span>{ `$${ Number(exchangeRate).toLocaleString(undefined, { minimumSignificantDigits: 4 }) }` }</span>
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -138,33 +138,33 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Market cap
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } display="inline-block">
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               <span>{ `$${ BigNumber(marketCap).toFormat() }` }</span>
             </Skeleton>
           </DetailedInfo.ItemValue>
         </>
       ) }
-
-      <DetailedInfo.ItemLabel
-        hint="The total amount of tokens issued"
-        isLoading={ tokenQuery.isPlaceholderData }
-      >
-        Max total supply
-      </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue
-        alignSelf="center"
-        wordBreak="break-word"
-        whiteSpace="pre-wrap"
-      >
-        <AssetValue
-          amount={ totalSupply }
-          asset={ <chakra.span maxW="50%" overflow="hidden" textOverflow="ellipsis"> { symbol }</chakra.span> }
-          accuracy={ 3 }
-          decimals={ decimals ?? '0' }
-          loading={ tokenQuery.isPlaceholderData }
-          w="100%"
-        />
-      </DetailedInfo.ItemValue>
+      { type && !isConfidentialTokenType(type) && (
+        <>
+          <DetailedInfo.ItemLabel
+            hint="The total amount of tokens issued"
+            isLoading={ tokenQuery.isPlaceholderData }
+          >
+            Max total supply
+          </DetailedInfo.ItemLabel>
+          <DetailedInfo.ItemValue
+          >
+            <AssetValue
+              amount={ totalSupply }
+              asset={ <span> { symbol }</span> }
+              accuracy={ 3 }
+              decimals={ decimals ?? '0' }
+              loading={ tokenQuery.isPlaceholderData }
+              w="100%"
+            />
+          </DetailedInfo.ItemValue>
+        </>
+      ) }
 
       <DetailedInfo.ItemLabel
         hint="Number of accounts holding the token"
@@ -199,7 +199,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Decimals
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } minW={ 6 }>
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               { decimals }
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -223,9 +223,8 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Dapp
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            py="1px"
           >
-            <AppActionButton data={ appActionData } height="30px" source="NFT collection"/>
+            <AppActionButton data={ appActionData } className="h-[30px]" source="NFT collection"/>
           </DetailedInfo.ItemValue>
         </>
       ) }

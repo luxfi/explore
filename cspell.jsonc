@@ -15,7 +15,8 @@
         "public/static/capybara/index.js",
         "ui/showcases/utils.ts",
         "ui/tx/TxExternalTxs.pw.tsx",
-        "pnpm-lock.yaml"
+        "pnpm-lock.yaml",
+        ".cspell-words.txt"
     ],
     "enableGlobDot": true,
     "ignoreRandomStrings": true,
@@ -25,7 +26,7 @@
         "f410f[a-z2-7]{39}",
         // Specify publisher key
         "spk_\\w+",
-        // Posthog project key
+        // Insights project key
         "phc_\\w+",
         // GitHub account names
         "@(\\w|-)+"
@@ -33,6 +34,7 @@
     // words - list of words to be always considered correct
     "words": [
         "aatx",
+        "hanzoai",
         "abfnrtv",
         "abitype",
         "AIVM",
@@ -88,6 +90,7 @@
         "clstr",
         "coinzilla",
         "coinzillatag",
+        "commitish",
         "Computor",
         "contentscript",
         "contractname",
@@ -195,7 +198,7 @@
         "peekers",
         "pino",
         "pjpeg",
-        "posthog",
+        "insights",
         "procs",
         "PWDEBUG",
         "pwstory",
@@ -224,6 +227,7 @@
         "rollups",
         "rubic",
         "Sastana",
+        "satschel",
         "schnorr",
         "screencasts",
         "scure",
@@ -231,6 +235,8 @@
         "SEMRESATTRS",
         "Semrush",
         "servedbyadbutler",
+        "sevio",
+        "sevioads",
         "Shavuha",
         "Shavukha",
         "shibarium",

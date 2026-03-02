@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
+import { layerLabels } from 'lib/rollups/utils';
 import { generateListStub } from 'stubs/utils';
 import { ZKEVM_DEPOSITS_ITEM } from 'stubs/zkEvmL2';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import ZkEvmL2DepositsListItem from 'ui/deposits/zkEvmL2/ZkEvmL2DepositsListItem';
 import ZkEvmL2DepositsTable from 'ui/deposits/zkEvmL2/ZkEvmL2DepositsTable';
@@ -34,7 +34,7 @@ const ZkEvmL2Deposits = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <ZkEvmL2DepositsListItem
             key={ String(item.index) + (isPlaceholderData ? index : '') }
@@ -42,10 +42,10 @@ const ZkEvmL2Deposits = () => {
             item={ item }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <ZkEvmL2DepositsTable items={ data.items } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -68,7 +68,7 @@ const ZkEvmL2Deposits = () => {
 
   return (
     <>
-      <PageTitle title={ `Deposits (L1${ nbsp }${ rightLineArrow }${ nbsp }L2)` } withTextAd/>
+      <PageTitle title={ `Deposits (${ layerLabels.parent }${ nbsp }${ rightLineArrow }${ nbsp }${ layerLabels.current })` } withTextAd/>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }

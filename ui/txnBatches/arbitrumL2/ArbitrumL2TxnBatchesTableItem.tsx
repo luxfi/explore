@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
@@ -6,9 +5,9 @@ import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ArbitrumL2TxnBatchDA from 'ui/shared/batch/ArbitrumL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
@@ -31,15 +30,15 @@ const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>
       <TableCell verticalAlign="middle">
-        <HStack gap={ 1 }>
+        <div className="flex flex-row gap-1">
           <ArbitrumL2TxnBatchStatus status={ item.commitment_transaction.status } isLoading={ isLoading }/>
           <ArbitrumL2TxnBatchDA dataContainer={ item.batch_data_container } isLoading={ isLoading }/>
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <BlockEntityL1
@@ -70,7 +69,7 @@ const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          minW="40px"
+          className="min-w-[40px]"
         >
           { item.transactions_count.toLocaleString() }
         </Link>

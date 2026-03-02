@@ -1,9 +1,17 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-const TextSeparator = ({ id, ...props }: HTMLChakraProps<'span'> & { id?: string }) => {
-  return <chakra.span mx={{ base: 2, lg: 3 }} id={ id } { ...props } color="border.divider">|</chakra.span>;
+import { cn } from 'lib/utils/cn';
+
+const TextSeparator = ({ id, className, ...props }: React.HTMLAttributes<HTMLSpanElement> & { id?: string }) => {
+  return (
+    <span
+      className={ cn('mx-2 lg:mx-3 text-[var(--color-border-divider)]', className) }
+      id={ id }
+      { ...props }
+    >
+      |
+    </span>
+  );
 };
 
 export default React.memo(TextSeparator);

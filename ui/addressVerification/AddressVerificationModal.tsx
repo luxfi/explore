@@ -7,7 +7,7 @@ import type { VerifiedAddress } from 'types/api/account';
 import config from 'configs/app';
 import { FallbackProvider } from 'lib/contexts/fallback';
 import * as mixpanel from 'lib/mixpanel/index';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 
 const Web3ProviderBase = dynamic(() => import('ui/shared/web3/Web3Provider'), { ssr: false });
 
@@ -112,16 +112,13 @@ const AddressVerificationModal = ({ defaultAddress, open, onOpenChange, onSubmit
       open={ open }
       onOpenChange={ handleOpenChange }
       size={{ lgDown: 'full', lg: 'md' }}
-      closeOnInteractOutside={ false }
       modal={ false }
-      trapFocus={ false }
-      preventScroll={ false }
     >
       <DialogContent>
         <DialogHeader onBackToClick={ stepIndex !== 0 ? handleGoToPrevStep : undefined }>
           { step.title }
         </DialogHeader>
-        <DialogBody mb={ 0 }>
+        <DialogBody className="mb-0">
           <Web3Provider>
             { step.content }
           </Web3Provider>

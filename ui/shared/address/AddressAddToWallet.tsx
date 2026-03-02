@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { WatchAssetParams } from 'viem';
 
@@ -11,13 +10,11 @@ import * as mixpanel from 'lib/mixpanel/index';
 import useProvider from 'lib/web3/useProvider';
 import useSwitchOrAddChain from 'lib/web3/useSwitchOrAddChain';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { toaster } from 'toolkit/chakra/toaster';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { toaster } from '@luxfi/ui/toaster';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
-
-const feature = config.features.web3Wallet;
 
 function getRequestParams(token: TokenInfo, tokenId?: string): WatchAssetParams | undefined {
   switch (token.type) {
@@ -57,13 +54,16 @@ interface Props {
   isLoading?: boolean;
   variant?: 'icon' | 'button';
   iconSize?: number;
+  chainConfig?: typeof config;
 }
 
-const AddressAddToWallet = ({ className, token, tokenId, isLoading, variant = 'icon', iconSize = 6 }: Props) => {
+const AddressAddToWallet = ({ className, token, tokenId, isLoading, variant = 'icon', iconSize = 6, chainConfig }: Props) => {
   const { data: { wallet, provider } = {} } = useProvider();
-  const switchOrAddChain = useSwitchOrAddChain();
+  const switchOrAddChain = useSwitchOrAddChain({ chainConfig });
   const isMobile = useIsMobile();
   const { trackUsage } = useRewardsActivity();
+
+  const feature = (chainConfig ?? config).features.web3Wallet;
 
   const handleClick = React.useCallback(async() => {
     if (!wallet) {
@@ -146,11 +146,11 @@ const AddressAddToWallet = ({ className, token, tokenId, isLoading, variant = 'i
 
   return (
     <Tooltip content={ `Add token to ${ WALLETS_INFO[wallet].name }` }>
-      <Box className={ className } display="inline-flex" cursor="pointer" onClick={ handleClick } flexShrink={ 0 } aria-label="Add token to wallet">
-        <IconSvg name={ WALLETS_INFO[wallet].icon } boxSize={ iconSize }/>
-      </Box>
+      <span className={ `inline-flex cursor-pointer shrink-0 ${ className || '' }` } onClick={ handleClick } aria-label="Add token to wallet">
+        <IconSvg name={ WALLETS_INFO[wallet].icon } style={{ width: `${ iconSize * 4 }px`, height: `${ iconSize * 4 }px` }}/>
+      </span>
     </Tooltip>
   );
 };
 
-export default React.memo(chakra(AddressAddToWallet));
+export default React.memo(AddressAddToWallet);

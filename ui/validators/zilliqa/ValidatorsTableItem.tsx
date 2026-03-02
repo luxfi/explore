@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { ValidatorsZilliqaItem } from 'types/api/validators';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ValidatorEntity from 'ui/shared/entities/validator/ValidatorEntity';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 
@@ -16,7 +16,7 @@ const ValidatorsTableItem = ({ data, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <ValidatorEntity id={ data.bls_public_key } isLoading={ isLoading } fontWeight="700"/>
+        <ValidatorEntity id={ data.bls_public_key } isLoading={ isLoading } className="font-bold"/>
       </TableCell>
       <TableCell verticalAlign="middle">
         <Skeleton loading={ isLoading } display="inline-block">

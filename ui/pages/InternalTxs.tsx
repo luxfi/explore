@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -20,7 +19,7 @@ const InternalTxs = () => {
 
   const filterInput = (
     <FilterInput
-      w={{ base: '100%', lg: '350px' }}
+      className="w-full lg:w-[350px]"
       size="sm"
       onChange={ onSearchTermChange }
       placeholder="Search by transaction hash"
@@ -30,15 +29,15 @@ const InternalTxs = () => {
 
   const actionBar = (
     <>
-      <Box mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 flex lg:hidden">
         { filterInput }
-      </Box>
+      </div>
       { (!isMobile || pagination.isVisible) && (
-        <ActionBar mt={ -6 }>
-          <Box display={{ base: 'none', lg: 'flex' }}>
+        <ActionBar className="-mt-6">
+          <div className="hidden lg:flex">
             { filterInput }
-          </Box>
-          <Pagination ml="auto" { ...pagination }/>
+          </div>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>
@@ -46,12 +45,12 @@ const InternalTxs = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <InternalTxsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <InternalTxsTable data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

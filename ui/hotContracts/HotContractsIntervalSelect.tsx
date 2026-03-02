@@ -1,11 +1,10 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { HotContractsInterval } from 'types/api/contracts';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';
 
 import { INTERVAL_ITEMS } from './utils';
@@ -45,7 +44,7 @@ const HotContractsIntervalSelect = ({ interval, onIntervalChange, isLoading }: P
         tagSize="lg"
         loading={ isInitialLoading }
         disabled={ isLoading }
-        hideBelow="lg"
+        className="hidden lg:flex"
       />
       <Select
         collection={ intervalCollection }

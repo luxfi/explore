@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -6,15 +5,16 @@ import type { AddressTokensErc20Item } from './types';
 
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
-import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { getTokenTypeName, isConfidentialTokenType } from 'lib/token/tokenTypes';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import NativeTokenTag from 'ui/shared/celo/NativeTokenTag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
+import ConfidentialValue from 'ui/shared/value/ConfidentialValue';
 import SimpleValue from 'ui/shared/value/SimpleValue';
 import { DEFAULT_ACCURACY_USD } from 'ui/shared/value/utils';
 
@@ -46,31 +46,31 @@ const ERC20TokensListItem = ({
   }, [ chainValues ]);
 
   return (
-    <ListItemMobile rowGap={ 2 }>
-      <Flex alignItems="center" width="100%" columnGap={ 2 }>
+    <ListItemMobile className="!gap-y-2">
+      <div className="flex items-center w-full gap-x-2">
         <TokenEntity
           token={ token }
           chain={ chainInfo }
           isLoading={ isLoading }
           noCopy
           jointSymbol
-          fontWeight="700"
-          width="auto"
+          className="font-bold w-auto"
+         
         />
         { isNativeToken && <NativeTokenTag/> }
         { hasAdditionalTokenTypes && <Tag loading={ isLoading }>{ getTokenTypeName(token.type) }</Tag> }
-      </Flex>
-      <Flex alignItems="center" pl={ 8 }>
+      </div>
+      <div className="flex items-center pl-8">
         <AddressEntity
           address={{ hash: token.address_hash }}
           isLoading={ isLoading }
           truncation="constant"
           noIcon
         />
-        <AddressAddToWallet token={ token } ml={ 2 } isLoading={ isLoading }/>
-      </Flex>
+        <AddressAddToWallet token={ token } className="ml-2" isLoading={ isLoading }/>
+      </div>
       { token.exchange_rate !== undefined && token.exchange_rate !== null && (
-        <HStack gap={ 3 }>
+        <div className="flex flex-row gap-3">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Price</Skeleton>
           <SimpleValue
             value={ BigNumber(token.exchange_rate) }
@@ -79,19 +79,29 @@ const ERC20TokensListItem = ({
             fontSize="sm"
             color="text.secondary"
           />
-        </HStack>
+        </div>
       ) }
-      <HStack gap={ 3 } alignItems="baseline">
+      <div className="flex flex-row items-baseline gap-3">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Quantity</Skeleton>
-        <SimpleValue
-          value={ tokenQuantity }
-          loading={ isLoading }
-          fontSize="sm"
-          color="text.secondary"
-        />
-      </HStack>
-      { token.exchange_rate && (
-        <HStack gap={ 3 } alignItems="baseline">
+        { isConfidentialTokenType(token.type) ? (
+          <ConfidentialValue loading={ isLoading }/>
+        ) : (
+          <SimpleValue
+            value={ tokenQuantity }
+            loading={ isLoading }
+            fontSize="sm"
+            color="text.secondary"
+          />
+        ) }
+      </div>
+      { isConfidentialTokenType(token.type) && (
+        <div className="flex flex-row items-baseline gap-3">
+          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
+          <ConfidentialValue loading={ isLoading }/>
+        </div>
+      ) }
+      { !isConfidentialTokenType(token.type) && token.exchange_rate && (
+        <div className="flex flex-row items-baseline gap-3">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
           <SimpleValue
             value={ tokenValue }
@@ -101,7 +111,7 @@ const ERC20TokensListItem = ({
             fontSize="sm"
             color="text.secondary"
           />
-        </HStack>
+        </div>
       ) }
     </ListItemMobile>
   );

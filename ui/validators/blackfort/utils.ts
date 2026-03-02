@@ -3,7 +3,7 @@ import type {
   ValidatorsBlackfortSortingField,
 } from 'types/api/validators';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export const VALIDATORS_BLACKFORT_SORT_OPTIONS: Array<SelectOption<ValidatorsBlackfortSortingValue>> = [
   { label: 'Default', value: 'default' },

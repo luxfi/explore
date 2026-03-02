@@ -3,7 +3,7 @@ import React from 'react';
 import type { ScrollL2TxnBatch } from 'types/api/scrollL2';
 import type { ExcludeUndefined } from 'types/utils';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 export interface Props {
   container: ExcludeUndefined<ScrollL2TxnBatch['data_availability']['batch_data_container']>;

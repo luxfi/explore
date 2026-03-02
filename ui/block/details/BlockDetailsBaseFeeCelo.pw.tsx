@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { BlockBaseFeeCelo } from 'types/api/block';

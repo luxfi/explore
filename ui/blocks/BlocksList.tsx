@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -22,7 +21,7 @@ const BlocksList = ({ data, isLoading, page, chainData }: Props) => {
   });
 
   return (
-    <Box>
+    <div>
       { data.map((item, index) => (
         <BlocksListItem
           key={ item.height + (isLoading ? String(index) : '') }
@@ -33,7 +32,7 @@ const BlocksList = ({ data, isLoading, page, chainData }: Props) => {
           chainData={ chainData }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

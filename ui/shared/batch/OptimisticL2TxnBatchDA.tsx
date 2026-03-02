@@ -3,8 +3,8 @@ import React from 'react';
 import type { OptimisticL2TxnBatchesItem } from 'types/api/optimisticL2';
 import type { ExcludeUndefined } from 'types/utils';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
-import { Badge } from 'toolkit/chakra/badge';
+import type { BadgeProps } from '@luxfi/ui/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 export interface Props extends BadgeProps {
   container: ExcludeUndefined<OptimisticL2TxnBatchesItem['batch_data_container']>;

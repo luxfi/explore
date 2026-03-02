@@ -1,9 +1,8 @@
-import { Box, chakra, Grid } from '@chakra-ui/react';
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -21,40 +20,34 @@ const VerifyWith = ({ className, links, label, longText, shortText }: Props) => 
   return (
     <PopoverRoot open={ popover.open } onOpenChange={ popover.onOpenChange }>
       <Tooltip content={ label } disabled={ popover.open } disableOnMobile closeOnClick>
-        <Box className={ className }>
+        <div className={ className }>
           <PopoverTrigger>
             <Button
               size="sm"
               variant="dropdown"
               aria-label={ label }
-              fontWeight={ 500 }
-              px={ shortText ? 2 : 1 }
-              flexShrink={ 0 }
-              columnGap={ 1 }
+              className="font-medium shrink-0 gap-x-1"
+              style={{ padding: shortText ? '0 0.5rem' : '0 0.25rem' }}
             >
-              <IconSvg name="explorer" boxSize={ 5 }/>
-              <chakra.span hideBelow="xl">{ longText }</chakra.span>
-              { shortText && <chakra.span hideFrom="xl">{ shortText }</chakra.span> }
+              <IconSvg name="explorer" className="w-5 h-5"/>
+              <span className="hidden xl:inline">{ longText }</span>
+              { shortText && <span className="xl:hidden">{ shortText }</span> }
             </Button>
           </PopoverTrigger>
-        </Box>
+        </div>
       </Tooltip>
-      <PopoverContent w="auto">
-        <PopoverBody >
-          <chakra.span color="text.secondary" textStyle="xs">{ label }</chakra.span>
-          <Grid
-            alignItems="center"
-            templateColumns={ links.length > 1 ? 'auto auto' : '1fr' }
-            columnGap={ 4 }
-            rowGap={ 2 }
-            mt={ 3 }
+      <PopoverContent style={{ width: 'auto' }}>
+        <PopoverBody>
+          <span className="text-[var(--color-text-secondary)] text-xs">{ label }</span>
+          <div
+            className={ `grid items-center gap-x-4 gap-y-2 mt-3 ${ links.length > 1 ? 'grid-cols-[auto_auto]' : 'grid-cols-1' }` }
           >
             { links }
-          </Grid>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
   );
 };
 
-export default chakra(VerifyWith);
+export default VerifyWith;

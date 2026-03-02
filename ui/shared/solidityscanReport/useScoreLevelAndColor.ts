@@ -1,18 +1,14 @@
 export default function useScoreLevelAndColor(score: number) {
-  const greatScoreColor = { _light: 'green.600', _dark: 'green.400' };
-  const averageScoreColor = { _light: 'purple.600', _dark: 'purple.400' };
-  const lowScoreColor = { _light: 'red.600', _dark: 'red.400' };
-
-  let scoreColor;
-  let scoreLevel;
+  let scoreColor: string;
+  let scoreLevel: string;
   if (score >= 80) {
-    scoreColor = greatScoreColor;
+    scoreColor = 'var(--color-green-600)';
     scoreLevel = 'GREAT';
   } else if (score >= 30) {
-    scoreColor = averageScoreColor;
+    scoreColor = 'var(--color-purple-600)';
     scoreLevel = 'AVERAGE';
   } else {
-    scoreColor = lowScoreColor;
+    scoreColor = 'var(--color-red-600)';
     scoreLevel = 'LOW';
   }
   return { scoreColor, scoreLevel };

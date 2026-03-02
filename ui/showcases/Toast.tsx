@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 import { TEXT } from './utils';

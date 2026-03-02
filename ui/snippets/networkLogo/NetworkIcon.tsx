@@ -1,13 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
-
-import { INVERT_FILTER } from './consts';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
 
 const IconFallback = () => {
   return (
@@ -26,7 +23,7 @@ const NetworkIcon = ({ className }: Props) => {
   const iconSrc = useColorModeValue(config.UI.navigation.icon.default, config.UI.navigation.icon.dark || config.UI.navigation.icon.default);
 
   return (
-    <chakra.a
+    <a
       className={ className }
       href={ route({ pathname: '/' }) }
       aria-label="Link to main page"
@@ -37,12 +34,12 @@ const NetworkIcon = ({ className }: Props) => {
         src={ iconSrc }
         alt={ `${ config.chain.name } network icon` }
         fallback={ <IconFallback/> }
-        filter={{ _dark: !config.UI.navigation.icon.dark ? INVERT_FILTER : undefined }}
         objectFit="contain"
         objectPosition="left"
+        className={ !config.UI.navigation.icon.dark ? 'dark:brightness-0 dark:invert' : undefined }
       />
-    </chakra.a>
+    </a>
   );
 };
 
-export default React.memo(chakra(NetworkIcon));
+export default React.memo(NetworkIcon);

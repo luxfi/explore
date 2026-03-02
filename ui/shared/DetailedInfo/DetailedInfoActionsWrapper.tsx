@@ -26,10 +26,7 @@ const DetailedInfoActionsWrapper = ({ children, isLoading, type }: Props) => {
       <DetailedInfo.ItemValueWithScroll
         gradientHeight={ 48 }
         onScrollVisibilityChange={ setHasScroll }
-        alignItems="stretch"
-        rowGap={ 5 }
-        w="100%"
-        maxH="200px"
+        className="items-stretch gap-y-5 w-full max-h-[200px]"
       >
         { children }
       </DetailedInfo.ItemValueWithScroll>

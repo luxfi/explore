@@ -1,4 +1,3 @@
-import { Center, Flex, Spinner, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,7 +6,7 @@ import PageNextJs from 'nextjs/PageNextJs';
 
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 const COOKIE_MAX_AGE_DAYS = 7;
 
@@ -36,7 +35,7 @@ const OidcCallback: NextPage = () => {
 
     // Verify CSRF state
     const savedState = sessionStorage.getItem('oidc_state');
-    if (savedState && state !== savedState) {
+    if (!savedState || state !== savedState) {
       setError('Invalid state parameter - possible CSRF attack');
       return;
     }
@@ -51,7 +50,7 @@ const OidcCallback: NextPage = () => {
         const { serverUrl, clientId } = oidc;
         const redirectUri = `${ window.location.origin }/auth/callback`;
 
-        const tokenResponse = await fetch(`${ serverUrl }/api/login/oauth/access_token`, {
+        const tokenResponse = await fetch(`${ serverUrl }/oauth/token`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams({
@@ -93,27 +92,27 @@ const OidcCallback: NextPage = () => {
   if (error) {
     return (
       <PageNextJs pathname="/auth/callback">
-        <Center minH="50vh">
-          <Flex direction="column" alignItems="center" gap={ 4 }>
-            <Text fontSize="xl" fontWeight="bold" color="red.500">Authentication Error</Text>
-            <Text color="gray.400">{ error }</Text>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="flex flex-col items-center gap-4">
+            <span className="text-xl font-bold text-red-500">Authentication Error</span>
+            <span className="text-gray-400">{ error }</span>
             <Link href="/" color="gray.400">
               Return to home
             </Link>
-          </Flex>
-        </Center>
+          </div>
+        </div>
       </PageNextJs>
     );
   }
 
   return (
     <PageNextJs pathname="/auth/callback">
-      <Center minH="50vh">
-        <Flex direction="column" alignItems="center" gap={ 4 }>
-          <Spinner size="xl"/>
-          <Text fontSize="lg">Completing sign in...</Text>
-        </Flex>
-      </Center>
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-10 w-10"/>
+          <span className="text-lg">Completing sign in...</span>
+        </div>
+      </div>
     </PageNextJs>
   );
 };

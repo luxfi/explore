@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+
 import React from 'react';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 const AppErrorGlobalContainer = ({ children }: Props) => {
-  return <Box bgColor="bg.primary">{ children }</Box>;
+  return <div className="mt-8 bg-[var(--color-bg-primary)]">{ children }</div>;
 };
 
 export default React.memo(AppErrorGlobalContainer);
