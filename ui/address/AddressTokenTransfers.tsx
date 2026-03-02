@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -90,7 +89,7 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
         <>
           { isMobile && crossChainQuery.pagination.isVisible && (
             <ActionBar>
-              <Pagination ml="auto" { ...crossChainQuery.pagination }/>
+              <Pagination className="ml-auto" { ...crossChainQuery.pagination }/>
             </ActionBar>
           ) }
           <TokenTransfersCrossChainContent
@@ -116,7 +115,7 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
 
       return (
         <>
-          <HStack gap={ 2 }>
+          <div className="flex flex-row gap-2">
             <TokenTransferFilter
               defaultTypeFilters={ localQuery.filters.type }
               onTypeFilterChange={ localQuery.onTypeFilterChange }
@@ -126,8 +125,8 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
               defaultAddressFilter={ localQuery.filters.filter }
               isLoading={ localQuery.query.isPlaceholderData }
             />
-          </HStack>
-          <HStack gap={{ base: 2, lg: 6 }} ml={{ base: 2, lg: 'auto' }} _empty={{ display: 'none' }}>
+          </div>
+          <div className="flex flex-row gap-2 lg:gap-6 ml-2 lg:ml-auto empty:hidden">
             <AddressAdvancedFilterLink
               isLoading={ localQuery.query.isPlaceholderData }
               address={ hash }
@@ -139,8 +138,8 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
               params={{ type: 'token-transfers', filterType: 'address', filterValue: localQuery.filters.filter }}
               isLoading={ localQuery.query.isPlaceholderData }
             />
-          </HStack>
-          <Pagination ml={{ base: 'auto', lg: 8 }} { ...localQuery.query.pagination }/>
+          </div>
+          <Pagination className="ml-auto lg:ml-8" { ...localQuery.query.pagination }/>
         </>
       );
     }
@@ -149,7 +148,7 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
       if (isMobile) {
         return null;
       }
-      return <Pagination ml="auto" { ...crossChainQuery.pagination }/>;
+      return <Pagination className="ml-auto" { ...crossChainQuery.pagination }/>;
     }
 
     return null;

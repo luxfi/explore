@@ -1,11 +1,11 @@
-import { Text } from '@chakra-ui/react';
+
 import React from 'react';
 
 import config from 'configs/app';
 import buildUrl from 'lib/api/buildUrl';
 import * as cookies from 'lib/cookies';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { DAY, SECOND } from 'toolkit/utils/consts';
 import { apos } from 'toolkit/utils/htmlEntities';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
@@ -119,11 +119,11 @@ const AppErrorTooManyRequests = ({ bypassOptions, reset }: Props) => {
     <>
       <AppErrorIcon statusCode={ 429 }/>
       <AppErrorTitle title="Too many requests"/>
-      <Text color="text.secondary" mt={ 3 }>
+      <p className="text-[var(--color-text-secondary)] mt-3">
         { text }
-      </Text>
+      </p>
       <ReCaptcha { ...recaptcha }/>
-      { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } mt={ 8 }>I'm not a robot</Button> }
+      { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } className="mt-8">I'm not a robot</Button> }
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -7,9 +6,9 @@ import type { TxStateChange } from 'types/api/txStateChanges';
 import config from 'configs/app';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ZERO_ADDRESS } from 'toolkit/utils/consts';
 import { nbsp, space } from 'toolkit/utils/htmlEntities';
 import NftEntity from 'ui/shared/entities/nft/NftEntity';
@@ -22,7 +21,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
     if (data.is_miner) {
       return (
         <Tooltip content="A block producer who successfully included the block into the blockchain">
-          <Badge textTransform="capitalize" colorPalette="yellow" loading={ isLoading }>
+          <Badge className="capitalize" colorPalette="yellow" loading={ isLoading }>
             { getNetworkValidatorTitle() }
           </Badge>
         </Tooltip>
@@ -42,7 +41,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
         const text = changeDirection === 'from' ? 'Mint' : 'Burn';
         return (
           <Tooltip content="Address used in tokens mintings and burnings">
-            <Badge textTransform="capitalize" colorPalette="yellow" loading={ isLoading }>{ text } address</Badge>
+            <Badge className="capitalize" colorPalette="yellow" loading={ isLoading }>{ text } address</Badge>
           </Tooltip>
         );
       }
@@ -61,17 +60,17 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
 
       return {
         before: (
-          <Skeleton loading={ isLoading } wordBreak="break-all" display="inline-block">
+          <Skeleton loading={ isLoading } className="break-all">
             { beforeBn.toFormat() } { currencyUnits.ether }
           </Skeleton>
         ),
         after: (
-          <Skeleton loading={ isLoading } wordBreak="break-all" display="inline-block">
+          <Skeleton loading={ isLoading } className="break-all">
             { afterBn.toFormat() } { currencyUnits.ether }
           </Skeleton>
         ),
         change: (
-          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor }>
+          <Skeleton loading={ isLoading } color={ changeColor } className="break-all">
             <span>{ changeSign }{ nbsp }{ differenceBn.abs().toFormat() }</span>
           </Skeleton>
         ),
@@ -86,7 +85,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
           noIcon
           noCopy
           onlySymbol
-          w="auto"
+          className="w-auto"
         />
       );
       const beforeBn = BigNumber(data.balance_before || '0').div(BigNumber(10 ** (Number(data.token.decimals))));
@@ -107,7 +106,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
         const changeSign = differenceBn.isGreaterThanOrEqualTo(0) ? '+' : '-';
 
         return (
-          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor } wordBreak="break-all">
+          <Skeleton loading={ isLoading } color={ changeColor } className="break-all">
             <span>{ changeSign }{ nbsp }{ differenceBn.abs().toFormat() }</span>
           </Skeleton>
         );
@@ -133,18 +132,18 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
 
       return {
         before: data.balance_before ? (
-          <Flex whiteSpace="pre-wrap" justifyContent={{ base: 'flex-start', lg: 'flex-end' }} flexWrap="wrap">
-            <Skeleton loading={ isLoading } wordBreak="break-all">{ beforeBn.toFormat() }</Skeleton>
+          <div>
+            <Skeleton loading={ isLoading } className="break-all">{ beforeBn.toFormat() }</Skeleton>
             <span>{ space }</span>
             { tokenLink }
-          </Flex>
+          </div>
         ) : null,
         after: data.balance_after ? (
-          <Flex whiteSpace="pre-wrap" justifyContent={{ base: 'flex-start', lg: 'flex-end' }} flexWrap="wrap">
-            <Skeleton loading={ isLoading } wordBreak="break-all">{ afterBn.toFormat() }</Skeleton>
+          <div>
+            <Skeleton loading={ isLoading } className="break-all">{ afterBn.toFormat() }</Skeleton>
             <span>{ space }</span>
             { tokenLink }
-          </Flex>
+          </div>
         ) : null,
         change,
         tag,

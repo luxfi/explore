@@ -18,7 +18,7 @@ const AddressMudRecordsKeyFilter = ({ value = '', handleFilterChange, columnName
       columnName={ columnName }
       selected={ Boolean(value) }
       isLoading={ isLoading }
-      w="350px"
+      className="w-[350px]"
     >
       <AddressMudRecordsKeyFilterContent
         value={ value }

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TxAuthorization } from 'types/api/transaction';
@@ -12,9 +11,9 @@ interface Props {
 
 const TxAuthorizationsList = ({ data, isLoading }: Props) => {
   return (
-    <Box>
+    <div>
       { data?.map((item, index) => <TxAuthorizationsListItem key={ item.nonce.toString() + (isLoading ? index : '') } { ...item } isLoading={ isLoading }/>) }
-    </Box>
+    </div>
   );
 };
 

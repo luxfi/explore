@@ -1,28 +1,21 @@
-import { chakra, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { getFeaturePayload } from 'configs/app/features/types';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
-import type { ButtonProps } from 'toolkit/chakra/button';
-import { Button } from 'toolkit/chakra/button';
-import { PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
-interface Props extends ButtonProps {
-  rating?: number;
-  count?: number;
-  fullView?: boolean;
-  canRate: boolean;
-};
+interface Props extends ButtonProps { rating?: number; count?: number; fullView?: boolean; canRate: boolean }
 
 const getTooltipText = (canRate: boolean) => {
-  if (!canRate) {
-    return <>Please log in to rate this { (getFeaturePayload(config.features.marketplace)?.titles.entity_name ?? '').toLowerCase() }.</>;
-  }
+  if (!canRate) { return <>Please log in to rate this { (getFeaturePayload(config.features.marketplace)?.titles.entity_name ?? '').toLowerCase() }.</>; }
   return <>Ratings come from verified users.<br/>Click here to rate!</>;
 };
 
@@ -34,42 +27,17 @@ const TriggerButton = (
   const isMobile = useIsMobile();
 
   return (
-    <Tooltip
-      content={ getTooltipText(canRate) }
-      closeOnClick={ Boolean(canRate) || isMobile }
-      disableOnMobile={ canRate }
-    >
+    <Tooltip content={ getTooltipText(canRate) } closeOnClick={ Boolean(canRate) || isMobile } disableOnMobile={ canRate }>
       <div>
         <PopoverTrigger>
-          <Button
-            ref={ ref }
-            size="xs"
-            variant="link"
-            p={ 0 }
-            fontSize={ fullView ? 'md' : 'sm' }
-            fontWeight={ fullView ? '400' : '500' }
-            lineHeight="21px"
-            ml={ fullView ? 3 : 0 }
-            onFocusCapture={ onFocusCapture }
-            cursor={ canRate ? 'pointer' : 'default' }
-            { ...rest }
-          >
-            { !fullView && (
-              <IconSvg
-                name={ rating ? 'star_filled' : 'star_outline' }
-                color={ rating ? 'yellow.400' : 'icon.secondary' }
-                boxSize={ 5 }
-                mr={ 1 }
-              />
-            ) }
+          <Button ref={ ref } size="xs" variant="link" className={ cn('p-0 leading-[21px]', fullView ? 'text-base font-normal ml-3' : 'text-sm font-medium ml-0', canRate ? 'cursor-pointer' : 'cursor-default') } onFocusCapture={ onFocusCapture } { ...rest }>
+            { !fullView && <IconSvg name={ rating ? 'star_filled' : 'star_outline' } className={ cn('w-5 h-5 mr-1', rating ? 'text-yellow-400' : 'text-[var(--color-icon-secondary)]') }/> }
             { (rating && !fullView) ? (
-              <chakra.span color="text.primary" transition="inherit" display="inline-flex">
+              <span className="text-[var(--color-text-primary)] transition-[inherit] inline-flex">
                 { rating }
-                <Text color="text.secondary" ml={ 1 }>({ count })</Text>
-              </chakra.span>
-            ) : (
-              'Rate it!'
-            ) }
+                <span className="text-[var(--color-text-secondary)] ml-1">({ count })</span>
+              </span>
+            ) : 'Rate it!' }
           </Button>
         </PopoverTrigger>
       </div>

@@ -1,4 +1,3 @@
-import { Flex, Spinner, chakra } from '@chakra-ui/react';
 import { isEqual, differenceBy } from 'es-toolkit';
 import React from 'react';
 
@@ -6,8 +5,8 @@ import type { AdvancedFilterMethodInfo, AdvancedFilterParams } from 'types/api/a
 
 import useApiQuery from 'lib/api/useApiQuery';
 import useDebounce from 'lib/hooks/useDebounce';
-import { Badge } from 'toolkit/chakra/badge';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Badge } from '@luxfi/ui/badge';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 
@@ -81,14 +80,14 @@ const MethodFilter = ({ value = [], handleFilterChange }: Props) => {
         size="sm"
         onChange={ onSearchChange }
         placeholder="Find by function name/ method ID"
-        mb={ 3 }
+        className="mb-3"
       />
-      { methodsQuery.isLoading && <Spinner/> }
+      { methodsQuery.isLoading && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5"/> }
       { methodsQuery.isError && <span>Something went wrong. Please try again.</span> }
       { Boolean(searchTerm) && methodsQuery.data?.length === 0 && <span>No results found.</span> }
       { methodsQuery.data && (
         // added negative margin because of checkbox focus styles & overflow hidden
-        <Flex display="flex" flexDir="column" rowGap={ 3 } maxH="250px" overflowY="scroll">
+        <div className="flex flex-col overflow-y-scroll flex gap-y-3 max-h-[250px]">
           <CheckboxGroup
             value={ currentValue.length ? currentValue.map(i => i.method_id) : [ ] }
             orientation="vertical"
@@ -100,16 +99,16 @@ const MethodFilter = ({ value = [], handleFilterChange }: Props) => {
                 data-id={ method.method_id }
                 onChange={ handleChange }
               >
-                <Flex justifyContent="space-between" alignItems="center" id={ method.method_id }>
-                  <chakra.span overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">{ method.name || method.method_id }</chakra.span>
-                  <Badge colorPalette="gray" truncated ml="auto">
+                <div className="flex items-center justify-between" id={ method.method_id }>
+                  <span className="overflow-hidden whitespace-nowrap text-ellipsis">{ method.name || method.method_id }</span>
+                  <Badge colorPalette="gray" truncated className="ml-auto">
                     { method.method_id }
                   </Badge>
-                </Flex>
+                </div>
               </Checkbox>
             )) }
           </CheckboxGroup>
-        </Flex>
+        </div>
       ) }
     </TableColumnFilter>
   );

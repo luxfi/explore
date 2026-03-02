@@ -14,76 +14,76 @@ import type { TokenTransferResponse, TokenTransferFilters } from 'types/api/toke
 export const GENERAL_API_TOKEN_RESOURCES = {
   // TOKEN
   token: {
-    path: '/api/v2/tokens/:hash',
+    path: '/tokens/:hash',
     pathParams: [ 'hash' as const ],
   },
   token_counters: {
-    path: '/api/v2/tokens/:hash/counters',
+    path: '/tokens/:hash/counters',
     pathParams: [ 'hash' as const ],
   },
   token_holders: {
-    path: '/api/v2/tokens/:hash/holders',
+    path: '/tokens/:hash/holders',
     pathParams: [ 'hash' as const ],
     filterFields: [],
     paginated: true,
   },
   token_transfers: {
-    path: '/api/v2/tokens/:hash/transfers',
+    path: '/tokens/:hash/transfers',
     pathParams: [ 'hash' as const ],
     filterFields: [],
     paginated: true,
   },
   token_inventory: {
-    path: '/api/v2/tokens/:hash/instances',
+    path: '/tokens/:hash/instances',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'holder_address_hash' as const ],
     paginated: true,
   },
   tokens: {
-    path: '/api/v2/tokens',
+    path: '/tokens',
     filterFields: [ 'q' as const, 'type' as const ],
     paginated: true,
   },
   tokens_bridged: {
-    path: '/api/v2/tokens/bridged',
+    path: '/tokens/bridged',
     filterFields: [ 'q' as const, 'chain_ids' as const ],
     paginated: true,
   },
   token_csv_export_holders: {
-    path: '/api/v2/tokens/:hash/holders/csv',
+    path: '/tokens/:hash/holders/csv',
     pathParams: [ 'hash' as const ],
   },
 
   // TOKEN INSTANCE
   token_instance: {
-    path: '/api/v2/tokens/:hash/instances/:id',
+    path: '/tokens/:hash/instances/:id',
     pathParams: [ 'hash' as const, 'id' as const ],
   },
   token_instance_transfers_count: {
-    path: '/api/v2/tokens/:hash/instances/:id/transfers-count',
+    path: '/tokens/:hash/instances/:id/transfers-count',
     pathParams: [ 'hash' as const, 'id' as const ],
   },
   token_instance_transfers: {
-    path: '/api/v2/tokens/:hash/instances/:id/transfers',
+    path: '/tokens/:hash/instances/:id/transfers',
     pathParams: [ 'hash' as const, 'id' as const ],
     filterFields: [],
     paginated: true,
   },
   token_instance_holders: {
-    path: '/api/v2/tokens/:hash/instances/:id/holders',
+    path: '/tokens/:hash/instances/:id/holders',
     pathParams: [ 'hash' as const, 'id' as const ],
     filterFields: [],
     paginated: true,
   },
   token_instance_refresh_metadata: {
-    path: '/api/v2/tokens/:hash/instances/:id/refetch-metadata',
+    path: '/tokens/:hash/instances/:id/refetch-metadata',
     pathParams: [ 'hash' as const, 'id' as const ],
     filterFields: [],
   },
 
   // TOKEN TRANSFERS
   token_transfers_all: {
-    path: '/api/v2/token-transfers',
+    path: '/token-transfers',
     filterFields: [ 'type' as const ],
     paginated: true,
   },

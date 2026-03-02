@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -10,39 +10,35 @@ type Props = {
 };
 
 const MarketplaceAppIntegrationIcon = ({ external, internalWallet }: Props) => {
-  const [ icon, iconColor, text, boxSize ] = React.useMemo(() => {
+  const [ icon, iconColor, text, size ] = React.useMemo(() => {
     let icon: IconName = 'integration/partial';
-    let color = 'icon.secondary';
-    let text = 'This app opens in Lux Explorer without wallet functionality. Use your external web3 wallet to connect directly to this application';
-    let boxSize = 5;
+    let color = 'text-[var(--color-icon-secondary)]';
+    let text = 'This app opens in the explorer without wallet functionality. Use your external web3 wallet to connect directly to this application';
+    let size = 'w-5 h-5';
 
     if (external) {
       icon = 'link_external';
-      color = 'icon.secondary';
+      color = 'text-[var(--color-icon-secondary)]';
       text = 'This app opens in a separate tab';
-      boxSize = 4;
+      size = 'w-4 h-4';
     } else if (internalWallet) {
       icon = 'integration/full';
-      color = 'green.500';
-      text = 'This app opens in Lux Explorer and your Lux Explorer wallet connects automatically';
+      color = 'text-green-500';
+      text = 'This app opens in the explorer and your wallet connects automatically';
     }
 
-    return [ icon, color, text, boxSize ];
+    return [ icon, color, text, size ];
   }, [ external, internalWallet ]);
 
   return (
     <Tooltip
       content={ text }
       openDelay={ 300 }
-      contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
+      contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' }}
     >
       <IconSvg
         name={ icon }
-        boxSize={ boxSize }
-        color={ iconColor }
-        position="relative"
-        cursor="pointer"
-        verticalAlign="middle"
+        className={ `${ size } ${ iconColor } relative cursor-pointer align-middle` }
       />
     </Tooltip>
   );

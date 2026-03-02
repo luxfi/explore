@@ -7,7 +7,7 @@ import type {
 import type { Blob } from 'types/api/blobs';
 import type { Block } from 'types/api/block';
 import type { ChartMarketResponse, ChartSecondaryCoinPriceResponse, ChartTransactionResponse } from 'types/api/charts';
-import type { BackendVersionConfig, CeloConfig, ContractLanguagesConfig, CsvExportConfig } from 'types/api/configs';
+import type { BackendConfig, BackendVersionConfig, CeloConfig, ContractLanguagesConfig, CsvExportConfig } from 'types/api/configs';
 import type { HotContractsFilters, HotContractsResponse, HotContractsSorting } from 'types/api/contracts';
 import type { DepositsResponse, DepositsCounters } from 'types/api/deposits';
 import type { CeloEpochDetails, CeloEpochElectionRewardDetailsResponse, CeloEpochListResponse } from 'types/api/epochs';
@@ -42,175 +42,175 @@ import type {
 export const GENERAL_API_MISC_RESOURCES = {
   // WITHDRAWALS
   withdrawals: {
-    path: '/api/v2/withdrawals',
+    path: '/withdrawals',
     filterFields: [],
     paginated: true,
   },
   withdrawals_counters: {
-    path: '/api/v2/withdrawals/counters',
+    path: '/withdrawals/counters',
   },
 
   // DEPOSITS
   deposits: {
-    path: '/api/v2/beacon/deposits',
+    path: '/beacon/deposits',
     filterFields: [],
     paginated: true,
   },
   deposits_counters: {
-    path: '/api/v2/beacon/deposits/count',
+    path: '/beacon/deposits/count',
   },
 
   // APP STATS
   stats: {
-    path: '/api/v2/stats',
+    path: '/stats',
     headers: {
       'updated-gas-oracle': 'true',
     },
   },
   stats_charts_txs: {
-    path: '/api/v2/stats/charts/transactions',
+    path: '/stats/charts/transactions',
   },
   stats_charts_market: {
-    path: '/api/v2/stats/charts/market',
+    path: '/stats/charts/market',
   },
   stats_charts_secondary_coin_price: {
-    path: '/api/v2/stats/charts/secondary-coin-market',
+    path: '/stats/charts/secondary-coin-market',
   },
   stats_hot_contracts: {
-    path: '/api/v2/stats/hot-smart-contracts',
+    path: '/stats/hot-smart-contracts',
     paginated: true,
     filterFields: [ 'scale' as const ],
   },
 
   // HOMEPAGE
   homepage_blocks: {
-    path: '/api/v2/main-page/blocks',
+    path: '/main-page/blocks',
   },
   homepage_optimistic_deposits: {
-    path: '/api/v2/main-page/optimism-deposits',
+    path: '/main-page/optimism-deposits',
   },
   homepage_arbitrum_deposits: {
-    path: '/api/v2/main-page/arbitrum/messages/to-rollup',
+    path: '/main-page/arbitrum/messages/to-rollup',
   },
   homepage_txs: {
-    path: '/api/v2/main-page/transactions',
+    path: '/main-page/transactions',
   },
   homepage_zkevm_l2_batches: {
-    path: '/api/v2/main-page/zkevm/batches/confirmed',
+    path: '/main-page/zkevm/batches/confirmed',
   },
   homepage_arbitrum_l2_batches: {
-    path: '/api/v2/main-page/arbitrum/batches/committed',
+    path: '/main-page/arbitrum/batches/committed',
   },
   homepage_txs_watchlist: {
-    path: '/api/v2/main-page/transactions/watchlist',
+    path: '/main-page/transactions/watchlist',
   },
   homepage_indexing_status: {
-    path: '/api/v2/main-page/indexing-status',
+    path: '/main-page/indexing-status',
   },
   homepage_zkevm_latest_batch: {
-    path: '/api/v2/main-page/zkevm/batches/latest-number',
+    path: '/main-page/zkevm/batches/latest-number',
   },
   homepage_zksync_latest_batch: {
-    path: '/api/v2/main-page/zksync/batches/latest-number',
+    path: '/main-page/zksync/batches/latest-number',
   },
   homepage_arbitrum_latest_batch: {
-    path: '/api/v2/main-page/arbitrum/batches/latest-number',
+    path: '/main-page/arbitrum/batches/latest-number',
   },
 
   // SEARCH
   quick_search: {
-    path: '/api/v2/search/quick',
+    path: '/search/quick',
     filterFields: [ 'q' ],
   },
   search: {
-    path: '/api/v2/search',
+    path: '/search',
     filterFields: [ 'q' ],
     paginated: true,
   },
   search_check_redirect: {
-    path: '/api/v2/search/check-redirect',
+    path: '/search/check-redirect',
   },
 
   // NOVES-FI
   noves_transaction: {
-    path: '/api/v2/proxy/3rdparty/noves-fi/transactions/:hash',
+    path: '/proxy/3rdparty/noves-fi/transactions/:hash',
     pathParams: [ 'hash' as const ],
   },
   noves_address_history: {
-    path: '/api/v2/proxy/3rdparty/noves-fi/addresses/:address/transactions',
+    path: '/proxy/3rdparty/noves-fi/addresses/:address/transactions',
     pathParams: [ 'address' as const ],
     filterFields: [],
     paginated: true,
   },
   noves_describe_txs: {
-    path: '/api/v2/proxy/3rdparty/noves-fi/transaction-descriptions',
+    path: '/proxy/3rdparty/noves-fi/transaction-descriptions',
   },
 
   // USER OPS
   user_ops: {
-    path: '/api/v2/proxy/account-abstraction/operations',
+    path: '/proxy/account-abstraction/operations',
     filterFields: [ 'transaction_hash' as const, 'sender' as const ],
     paginated: true,
   },
   user_op: {
-    path: '/api/v2/proxy/account-abstraction/operations/:hash',
+    path: '/proxy/account-abstraction/operations/:hash',
     pathParams: [ 'hash' as const ],
   },
   user_ops_account: {
-    path: '/api/v2/proxy/account-abstraction/accounts/:hash',
+    path: '/proxy/account-abstraction/accounts/:hash',
     pathParams: [ 'hash' as const ],
   },
   user_op_interpretation: {
-    path: '/api/v2/proxy/account-abstraction/operations/:hash/summary',
+    path: '/proxy/account-abstraction/operations/:hash/summary',
     pathParams: [ 'hash' as const ],
   },
 
   // VALIDATORS
   validators_stability: {
-    path: '/api/v2/validators/stability',
+    path: '/validators/stability',
     filterFields: [ 'address_hash' as const, 'state_filter' as const ],
     paginated: true,
   },
   validators_stability_counters: {
-    path: '/api/v2/validators/stability/counters',
+    path: '/validators/stability/counters',
   },
   validators_blackfort: {
-    path: '/api/v2/validators/blackfort',
+    path: '/validators/blackfort',
     filterFields: [],
     paginated: true,
   },
   validators_blackfort_counters: {
-    path: '/api/v2/validators/blackfort/counters',
+    path: '/validators/blackfort/counters',
   },
   validators_zilliqa: {
-    path: '/api/v2/validators/zilliqa',
+    path: '/validators/zilliqa',
     filterFields: [],
     paginated: true,
   },
   validator_zilliqa: {
-    path: '/api/v2/validators/zilliqa/:bls_public_key',
+    path: '/validators/zilliqa/:bls_public_key',
     pathParams: [ 'bls_public_key' as const ],
     filterFields: [],
   },
 
   // BLOBS
   blob: {
-    path: '/api/v2/blobs/:hash',
+    path: '/blobs/:hash',
     pathParams: [ 'hash' as const ],
   },
 
   // EPOCHS
   epochs_celo: {
-    path: '/api/v2/celo/epochs',
+    path: '/celo/epochs',
     filterFields: [],
     paginated: true,
   },
   epoch_celo: {
-    path: '/api/v2/celo/epochs/:number',
+    path: '/celo/epochs/:number',
     pathParams: [ 'number' as const ],
   },
   epoch_celo_election_rewards: {
-    path: '/api/v2/celo/epochs/:number/election-rewards/:reward_type',
+    path: '/celo/epochs/:number/election-rewards/:reward_type',
     pathParams: [ 'number' as const, 'reward_type' as const ],
     filterFields: [],
     paginated: true,
@@ -218,7 +218,7 @@ export const GENERAL_API_MISC_RESOURCES = {
 
   // ADVANCED FILTER
   advanced_filter: {
-    path: '/api/v2/advanced-filters',
+    path: '/advanced-filters',
     filterFields: [
       'transaction_types' as const,
       'methods' as const,
@@ -245,30 +245,33 @@ export const GENERAL_API_MISC_RESOURCES = {
     paginated: true,
   },
   advanced_filter_methods: {
-    path: '/api/v2/advanced-filters/methods',
+    path: '/advanced-filters/methods',
     filterFields: [ 'q' as const ],
   },
   advanced_filter_csv: {
-    path: '/api/v2/advanced-filters/csv',
+    path: '/advanced-filters/csv',
   },
 
   // CONFIGS
+  config_backend: {
+    path: '/config/backend',
+  },
   config_backend_version: {
-    path: '/api/v2/config/backend-version',
+    path: '/config/backend-version',
   },
   config_csv_export: {
-    path: '/api/v2/config/csv-export',
+    path: '/config/csv-export',
   },
   config_celo: {
-    path: '/api/v2/config/celo',
+    path: '/config/celo',
   },
   config_contract_languages: {
-    path: '/api/v2/config/smart-contracts/languages',
+    path: '/config/smart-contracts/languages',
   },
 
   // OTHER
   api_v2_key: {
-    path: '/api/v2/key',
+    path: '/key',
   },
 } satisfies Record<string, ApiResource>;
 
@@ -295,6 +298,7 @@ R extends 'general:homepage_arbitrum_latest_batch' ? number :
 R extends 'general:quick_search' ? Array<SearchResultItem> :
 R extends 'general:search' ? SearchResult :
 R extends 'general:search_check_redirect' ? SearchRedirectResult :
+R extends 'general:config_backend' ? BackendConfig :
 R extends 'general:config_backend_version' ? BackendVersionConfig :
 R extends 'general:config_csv_export' ? CsvExportConfig :
 R extends 'general:config_celo' ? CeloConfig :

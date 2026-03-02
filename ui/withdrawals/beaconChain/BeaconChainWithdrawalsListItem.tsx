@@ -5,7 +5,7 @@ import type { BlockWithdrawalsItem } from 'types/api/block';
 import type { WithdrawalsItem } from 'types/api/withdrawals';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
@@ -31,7 +31,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '100px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
@@ -50,7 +50,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
             <BlockEntity
               number={ item.block_number }
               isLoading={ isLoading }
-              textStyle="sm"
+              className="text-sm"
             />
           </ListItemMobileGrid.Value>
         </>

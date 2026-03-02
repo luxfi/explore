@@ -3,7 +3,7 @@ import type { BlockCountdownResponse } from 'types/api/block';
 
 export const GENERAL_API_V1_RESOURCES = {
   graphql: {
-    path: '/api/v1/graphql',
+    path: '/v1/graphql',
   },
   block_countdown: {
     path: '/api',

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TransactionTags, TransactionTag } from 'types/api/account';
 
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 
 import TransactionTagTableItem from './TransactionTagTableItem';
 

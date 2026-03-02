@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import Script from 'next/script';
 import React from 'react';
 
@@ -39,16 +38,18 @@ const CoinzillaBanner = ({ className, format = 'responsive' }: BannerProps) => {
   }, [ isInBrowser, width, height ]);
 
   return (
-    <Flex
-      className={ className }
+    <div
+      className={ `flex ${ className || '' }` }
       id={ 'adBanner' + (format ? `_${ format }` : '') }
-      h={ height ? `${ height }px` : { base: `${ MOBILE_BANNER_HEIGHT }px`, lg: `${ DESKTOP_BANNER_HEIGHT }px` } }
-      w={ width ? `${ width }px` : undefined }
+      style={{
+        height: `${ height }px`,
+        width: width ? `${ width }px` : undefined,
+      }}
     >
       <Script strategy="lazyOnload" src="https://coinzillatag.com/lib/display.js"/>
       <div className="coinzilla" data-zone="C-26660bf627543e46851"></div>
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(CoinzillaBanner);
+export default CoinzillaBanner;

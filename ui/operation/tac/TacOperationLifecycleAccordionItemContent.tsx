@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import * as tac from '@luxfi/tac-operation-lifecycle-types';
@@ -19,47 +18,36 @@ const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
     <ItemContent isLast={ isLast }>
       <ItemBody>
         <ItemRow label="Status">
-          <StatusTag type={ data.is_success ? 'ok' : 'error' } text={ data.is_success ? 'Success' : 'Failed' } my={ 1 }/>
+          <StatusTag type={ data.is_success ? 'ok' : 'error' } text={ data.is_success ? 'Success' : 'Failed' } className="my-1"/>
         </ItemRow>
 
         { data.timestamp && (
           <ItemRow label="Timestamp">
-            <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ false } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
+            <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ false } className="flex-wrap lg:flex-nowrap py-[6px]"/>
           </ItemRow>
         ) }
 
-        <ItemRow label="Transactions">
-          <Box
-            display="flex"
-            flexDirection="column"
-            rowGap={ 3 }
-            py="6px"
-            width="100%"
-            overflow="hidden"
-          >
-            {
-              data.transactions.map((tx) => {
-                if (tx.type === tac.BlockchainType.TON) {
-                  return <TxEntityTon key={ tx.hash } hash={ tx.hash }/>;
-                }
+        { data.transactions.length > 0 && (
+          <ItemRow label="Transactions">
+            <div className="flex flex-col overflow-hidden gap-y-3 py-[6px] w-full">
+              {
+                data.transactions.map((tx) => {
+                  if (tx.type === tac.BlockchainType.TON) {
+                    return <TxEntityTon key={ tx.hash } hash={ tx.hash }/>;
+                  }
 
-                return <TxEntity key={ tx.hash } hash={ tx.hash } icon={{ name: 'brands/tac' }}/>;
-              })
-            }
-          </Box>
-        </ItemRow>
+                  return <TxEntity key={ tx.hash } hash={ tx.hash } icon={{ name: 'brands/tac' }}/>;
+                })
+              }
+            </div>
+          </ItemRow>
+        ) }
 
         { data.note && (
           <ItemRow label="Note">
-            <Box
-              display="inline-flex"
-              alignItems="center"
-              py="6px"
-              whiteSpace="pre-wrap"
-              wordBreak="break-word"
-            >
+            <div className="items-center whitespace-pre-wrap break-words inline-flex py-[6px]">
               { data.note }
-            </Box>
+            </div>
           </ItemRow>
         ) }
       </ItemBody>

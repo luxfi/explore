@@ -1,9 +1,9 @@
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Button } from 'toolkit/chakra/button';
-import { DialogRoot, DialogContent, DialogTrigger, DialogHeader } from 'toolkit/chakra/dialog';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { DialogRoot, DialogContent, DialogTrigger, DialogHeader } from '@luxfi/ui/dialog';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -18,14 +18,11 @@ const InfoButton = ({ children, isLoading }: Props) => {
     <Button
       size="sm"
       variant="dropdown"
-      gap={ 0 }
       aria-label="Show info"
-      fontWeight={ 500 }
-      pl={ 1 }
-      pr={ isMobile ? 1 : 2 }
+      className="gap-0 font-medium pl-1 pr-2 max-lg:pr-1"
       loadingSkeleton={ isLoading }
     >
-      <IconSvg name="info" boxSize={ 6 } mr={ isMobile ? 0 : 1 }/>
+      <IconSvg name="info" className={ `size-6 ${ isMobile ? '' : 'mr-1' }`.trim() }/>
       { !isMobile && <span>Info</span> }
     </Button>
   );
@@ -49,7 +46,7 @@ const InfoButton = ({ children, isLoading }: Props) => {
       <PopoverTrigger>
         { triggerButton }
       </PopoverTrigger>
-      <PopoverContent w="500px">
+      <PopoverContent className="w-[500px]">
         <PopoverBody>
           { children }
         </PopoverBody>

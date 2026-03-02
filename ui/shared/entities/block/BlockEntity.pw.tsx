@@ -61,9 +61,7 @@ test('customization', async({ render }) => {
   const component = await render(
     <BlockEntity
       number={ 17943507 }
-      p={ 3 }
-      borderWidth="1px"
-      borderColor="blue.700"
+      className="p-3 border border-blue-700"
     />,
   );
 
