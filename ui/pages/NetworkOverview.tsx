@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
+import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { Heading } from 'toolkit/chakra/heading';
@@ -80,9 +80,11 @@ interface ChainRowProps {
   readonly vm: string;
   readonly href: string | undefined;
   readonly tier?: string;
+  readonly height?: number;
+  readonly heightLoading?: boolean;
 }
 
-const ChainRow = ({ name, fullName, vm, href, tier }: ChainRowProps) => {
+const ChainRow = ({ name, fullName, vm, href, tier, height, heightLoading }: ChainRowProps) => {
   const content = (
     <Flex
       align="center"
@@ -103,6 +105,13 @@ const ChainRow = ({ name, fullName, vm, href, tier }: ChainRowProps) => {
         </Text>
       </Flex>
       <Flex align="center" gap={ 1.5 }>
+        { height !== undefined && (
+          <Skeleton loading={ heightLoading }>
+            <Text fontSize="xs" color="text.secondary" fontFamily="mono">
+              { height > 0 ? `#${ height.toLocaleString() }` : '' }
+            </Text>
+          </Skeleton>
+        ) }
         { tier && <Tag size="sm" variant="subtle">{ tier }</Tag> }
         <Tag size="sm" variant="subtle">{ vm }</Tag>
       </Flex>
@@ -200,6 +209,7 @@ const NetworkOverview = () => {
   const isMobile = useIsMobile();
   const { stats, isLoading: validatorsLoading } = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
+  const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
 
   const l1Chains = React.useMemo(
     () => blockchains.filter((c) => c.subnetID !== PRIMARY_NETWORK_ID),
@@ -228,6 +238,10 @@ const NetworkOverview = () => {
         flexWrap="wrap"
         overflow="hidden"
       >
+        <Metric label="C-Chain" value={ cChainHeight > 0 ? `#${ cChainHeight.toLocaleString() }` : '—' } isLoading={ heightsLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+        <Metric label="P-Chain" value={ pChainHeight > 0 ? `#${ pChainHeight.toLocaleString() }` : '—' } isLoading={ heightsLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric label="Validators" value={ String(stats.validatorCount) } isLoading={ isLoading }/>
@@ -276,6 +290,8 @@ const NetworkOverview = () => {
                   fullName={ chain.fullName }
                   vm={ chain.vm }
                   href={ chain.href }
+                  height={ chain.id === 'C' ? cChainHeight : chain.id === 'P' ? pChainHeight : undefined }
+                  heightLoading={ heightsLoading }
                 />
               )) }
             </Flex>
