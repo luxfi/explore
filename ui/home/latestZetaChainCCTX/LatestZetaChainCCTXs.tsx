@@ -2,8 +2,8 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
-import { Direction } from '@blockscout/zetachain-cctx-types';
-import type { ListCctxsResponse } from '@blockscout/zetachain-cctx-types';
+import { Direction } from '@luxfi/zetachain-cctx-types';
+import type { ListCctxsResponse } from '@luxfi/zetachain-cctx-types';
 import type { SocketMessage } from 'lib/socket/types';
 
 import { route } from 'nextjs-routes';
