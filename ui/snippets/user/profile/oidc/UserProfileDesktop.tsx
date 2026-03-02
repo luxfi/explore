@@ -8,9 +8,9 @@ import React from 'react';
 import config from 'configs/app';
 import shortenString from 'lib/shortenString';
 import { Button } from 'toolkit/chakra/button';
+import { Link } from 'toolkit/chakra/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 import { Separator } from 'toolkit/chakra/separator';
-import { Link } from 'toolkit/chakra/link';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 import useLogout from 'ui/snippets/auth/useLogout';
@@ -112,7 +112,7 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           <PopoverBody>
             <Flex direction="column" gap={ 2 } py={ 1 }>
               <Box fontSize="sm" color="text.secondary" px={ 1 }>
-                { data.email ?? shortenString(String(data.id ?? '')) }
+                { data.email ?? shortenString(String(data.address_hash ?? '')) }
               </Box>
               <Separator/>
               <Link href="/auth/profile" textStyle="sm" color="text.primary" px={ 1 }>
