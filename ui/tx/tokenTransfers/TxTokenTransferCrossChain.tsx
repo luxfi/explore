@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import TokenTransfersCrossChainListItem from 'ui/crossChain/transfers/TokenTransfersCrossChainListItem';
@@ -19,7 +18,7 @@ interface Props {
 const TxTokenTransferCrossChain = ({ txQuery, crossChainQuery, isLoading, tableTop }: Props) => {
   const content = crossChainQuery.data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { crossChainQuery.data.items.map((item, index) => (
           <TokenTransfersCrossChainListItem
             key={ getItemKey(item, crossChainQuery.isPlaceholderData ? index : undefined) }
@@ -27,14 +26,14 @@ const TxTokenTransferCrossChain = ({ txQuery, crossChainQuery, isLoading, tableT
             isLoading={ isLoading || crossChainQuery.isPlaceholderData }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <TokenTransfersCrossChainTable
           data={ crossChainQuery.data.items }
           isLoading={ isLoading || crossChainQuery.isPlaceholderData }
           top={ tableTop }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 

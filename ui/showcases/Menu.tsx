@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import IconSvg from 'ui/shared/IconSvg';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';

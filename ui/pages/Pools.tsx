@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -38,7 +37,7 @@ const Pools = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { poolsQuery.data?.items.map((item, index) => (
           <PoolsListItem
             key={ item.pool_id + (poolsQuery.isPlaceholderData ? index : '') }
@@ -46,21 +45,21 @@ const Pools = () => {
             item={ item }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <PoolsTable
           items={ poolsQuery.data?.items ?? [] }
           top={ poolsQuery.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ poolsQuery.isPlaceholderData }
           page={ poolsQuery.pagination.page }
         />
-      </Box>
+      </div>
     </>
   );
 
   const filter = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
+      className="w-full lg:w-[360px]"
       size="sm"
       onChange={ handleSearchTermChange }
       placeholder="Pair, token symbol or token address"
@@ -70,17 +69,16 @@ const Pools = () => {
 
   const actionBar = (
     <>
-      <Flex mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 flex lg:hidden">
         { filter }
-      </Flex>
+      </div>
       <ActionBar
-        mt={ -6 }
-        display={{ base: poolsQuery.pagination.isVisible ? 'flex' : 'none', lg: 'flex' }}
+        className={ poolsQuery.pagination.isVisible ? '-mt-6 flex lg:flex' : '-mt-6 hidden lg:flex' }
       >
-        <Box hideBelow="lg">
+        <div className="hidden lg:block">
           { filter }
-        </Box>
-        <Pagination { ...poolsQuery.pagination } ml="auto"/>
+        </div>
+        <Pagination { ...poolsQuery.pagination } className="ml-auto"/>
       </ActionBar>
     </>
   );

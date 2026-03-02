@@ -1,11 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
 import type { SmartContract } from 'types/api/contract';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Link } from 'toolkit/next/link';
 
 import ContractDetailsVerificationButton from '../ContractDetailsVerificationButton';
 
@@ -63,7 +62,7 @@ const ContractDetailsAlertVerificationStatus = ({ data, isLoading, addressData }
         isLoading={ isLoading }
         addressHash={ addressData.hash }
       />
-      { sourceElement && <Box w="100%">{ sourceElement }</Box> }
+      { sourceElement && <div className="w-full">{ sourceElement }</div> }
     </Alert>
   );
 };

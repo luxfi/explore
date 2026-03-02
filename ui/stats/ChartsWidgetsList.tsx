@@ -1,4 +1,3 @@
-import { Box, Grid } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type * as stats from '@luxfi/stats-types';
@@ -7,9 +6,10 @@ import type { StatsIntervalIds } from 'types/client/stats';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
-import { EmptyState } from 'toolkit/chakra/empty-state';
-import { Heading } from 'toolkit/chakra/heading';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import replaceNativeCoinName from 'lib/stats/replaceNativeCoinName';
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -69,7 +69,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
   }
 
   return (
-    <Box>
+    <div>
       { isSomeChartLoadingError && (
         <ChartsLoadingErrorAlert/>
       ) }
@@ -77,46 +77,41 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
       <section ref={ sectionRef }>
         {
           charts?.map((section) => (
-            <Box
+            <div
               key={ section.id }
-              mb={{ base: 6, lg: 8 }}
-              _last={{
-                marginBottom: 0,
-              }}
             >
-              <Skeleton loading={ isPlaceholderData } mb={{ base: 3, lg: 4 }} display="inline-flex" alignItems="center" columnGap={ 2 } id={ section.id }>
+              <Skeleton loading={ isPlaceholderData } className="mb-3 lg:mb-4 inline-flex items-center gap-2" id={ section.id }>
                 <Heading level="2" id={ section.id }>
                   { section.title }
                 </Heading>
                 { isGasTrackerEnabled && section.id === 'gas' && homeStatsQuery.data && homeStatsQuery.data.gas_prices && (
                   <GasInfoTooltip data={ homeStatsQuery.data } dataUpdatedAt={ homeStatsQuery.dataUpdatedAt }>
-                    <IconSvg name="info" boxSize={ 5 } display="block" cursor="pointer" color="icon.secondary" _hover={{ color: 'hover' }}/>
+                    <IconSvg name="info" color="icon.secondary"/>
                   </GasInfoTooltip>
                 ) }
               </Skeleton>
 
-              <Grid
-                templateColumns={{ lg: 'repeat(2, minmax(0, 1fr))' }}
-                gap={{ base: 3, lg: 4 }}
+              <div
+               
               >
                 { section.charts.map((chart) => (
                   <ChartWidgetContainer
                     key={ chart.id }
                     id={ chart.id }
-                    title={ chart.title }
-                    description={ chart.description }
+                    title={ replaceNativeCoinName(chart.title) }
+                    description={ replaceNativeCoinName(chart.description) }
                     interval={ interval }
                     isPlaceholderData={ isPlaceholderData }
                     onLoadingError={ handleChartLoadingError }
                     href={{ pathname: '/stats/[id]', query: { id: chart.id, ...(chain?.id ? { chain_id: chain.id } : {}) } }}
                   />
                 )) }
-              </Grid>
-            </Box>
+              </div>
+            </div>
           ))
         }
       </section>
-    </Box>
+    </div>
   );
 };
 

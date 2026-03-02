@@ -1,9 +1,8 @@
-import { Grid, Box, Flex, Text } from '@chakra-ui/react';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
 
 import Confetti from './Confetti';
 
@@ -141,9 +140,9 @@ const Puzzle15 = () => {
   }, [ isWon, moveTile ]);
 
   return (
-    <Flex flexDirection="column" alignItems="center" justifyContent="center" my={ 10 }>
+    <div className="flex flex-col items-center justify-center my-10">
       { isWon && <Confetti/> }
-      <Grid templateColumns="repeat(4, 1fr)" w="400px" h="400px">
+      <div className="grid grid-cols-4 w-[400px] h-[400px]">
         { tiles.map((tile, index) => (
           <div
             key={ tile }
@@ -153,7 +152,7 @@ const Puzzle15 = () => {
               transform: 'translate3d(0, 0, 0)',
             }}
           >
-            <Box position="relative">
+            <div className="relative">
               <canvas
                 ref={ (el) => {
                   canvasRefs.current[index] = el;
@@ -168,47 +167,32 @@ const Puzzle15 = () => {
                   imageRendering: 'pixelated',
                 }}
               />
-              <Box
-                position="absolute"
-                top="0"
-                left="0"
-                right="0"
-                bottom="0"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                fontSize="3xl"
-                fontWeight="bold"
-                color="white"
-                opacity="0"
-                _hover={{ opacity: 0.3 }}
-                transition="opacity 0.2s"
-              >
+              <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-3xl font-bold text-white opacity-0 hover:opacity-30 transition-opacity duration-200">
                 { tile !== 15 && tile + 1 }
-              </Box>
-            </Box>
+              </div>
+            </div>
           </div>
         )) }
-      </Grid>
+      </div>
       { !isWon && (
         <>
-          <Text mt={ 10 }>Put the pieces together and win a prize</Text>
-          <Text mb={ 1 }>Click on a square to move it</Text>
+          <span className="mt-10">Put the pieces together and win a prize</span>
+          <span className="mb-1">Click on a square to move it</span>
         </>
       ) }
       { isWon && easterEggPuzzleBadgeFeature.isEnabled && (
-        <Flex flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
-          <Text fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</Text>
-          <Text fontSize="lg" textAlign="center">Congratulations! You're eligible to claim an epic hidden badge!</Text>
+        <div className="flex flex-col items-center justify-center gap-4 mt-10">
+          <span className="text-2xl font-bold">You unlocked a hidden badge!</span>
+          <span className="text-lg text-center">Congratulations! You're eligible to claim an epic hidden badge!</span>
           <Link
             href={ easterEggPuzzleBadgeFeature.badgeClaimLink }
             external noIcon
           >
             <Button>Claim</Button>
           </Link>
-        </Flex>
+        </div>
       ) }
-    </Flex>
+    </div>
   );
 };
 

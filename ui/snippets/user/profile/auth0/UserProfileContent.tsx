@@ -1,4 +1,4 @@
-import { Box, Separator, Flex, VStack } from '@chakra-ui/react';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import type { NavLink } from './types';
@@ -9,8 +9,8 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import shortenString from 'lib/shortenString';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import useLogout from 'ui/snippets/auth/useLogout';
@@ -71,49 +71,43 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
 
   if (!data) {
     return (
-      <Box>
+      <div>
         { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
         { config.features.blockchainInteraction.isEnabled && <UserProfileContentWallet onClose={ onClose }/> }
-        <Button mt={ 3 } onClick={ onLogin } size="sm" w="100%">Log in</Button>
-      </Box>
+        <Button className="mt-3 w-full" onClick={ onLogin } size="sm">Log in</Button>
+      </div>
     );
   }
 
   return (
-    <Box>
+    <div>
       { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
 
-      <Box textStyle="xs" fontWeight="500" px={ 1 } mb="1">Account</Box>
-      <Box
-        textStyle="xs"
-        fontWeight="500"
-        borderColor="border.divider"
-        borderWidth="1px"
-        borderRadius="base"
-        color="text.secondary"
+      <div>Account</div>
+      <div
+       
       >
         { config.features.blockchainInteraction.isEnabled && (
-          <Flex p={ 2 } borderColor="border.divider" borderBottomWidth="1px">
-            <Box>Address</Box>
+          <div>
+            <div>Address</div>
             <Hint
               label={ `This wallet address is linked to your Lux account. It can be used to login ${ config.features.rewards.isEnabled ? 'and is used for Merits Program participation' : '' }` } // eslint-disable-line max-len
-              boxSize={ 4 }
-              ml={ 1 }
+              className="ml-1"
             />
             { data?.address_hash ?
-              <Box ml="auto">{ shortenString(data?.address_hash) }</Box> : <Link ml="auto" onClick={ onAddAddress }>Add address</Link> }
-          </Flex>
+              <div>{ shortenString(data?.address_hash) }</div> : <Link className="ml-auto" onClick={ onAddAddress }>Add address</Link> }
+          </div>
         ) }
-        <Flex p={ 2 } columnGap={ 4 }>
-          <Box mr="auto">Email</Box>
+        <div>
+          <div>Email</div>
           { data?.email ?
             <TruncatedText text={ data.email }/> : <Link onClick={ onAddEmail }>Add email</Link> }
-        </Flex>
-      </Box>
+        </div>
+      </div>
 
-      { config.features.blockchainInteraction.isEnabled && <UserProfileContentWallet onClose={ onClose } mt={ 3 }/> }
+      { config.features.blockchainInteraction.isEnabled && <UserProfileContentWallet onClose={ onClose }/> }
 
-      <VStack as="ul" gap="0" alignItems="flex-start" overflow="hidden" mt={ 4 }>
+      <ul className="flex flex-col gap-0 items-start overflow-hidden mt-4">
         { navLinks.map((item) => (
           <UserProfileContentNavLink
             key={ item.text }
@@ -121,16 +115,16 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
             onClick={ onClose }
           />
         )) }
-      </VStack>
+      </ul>
 
-      <Separator my={ 1 }/>
+      <Separator/>
 
       <UserProfileContentNavLink
         text="Sign out"
         icon="sign_out"
         onClick={ handleLogoutClick }
       />
-    </Box>
+    </div>
   );
 };
 

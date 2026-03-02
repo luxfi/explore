@@ -1,8 +1,8 @@
 import React from 'react';
 
 import config from 'configs/app';
-import type { AlertProps } from 'toolkit/chakra/alert';
-import { Alert } from 'toolkit/chakra/alert';
+import type { AlertProps } from '@luxfi/ui/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 interface Props extends AlertProps {
   view?: 'block' | 'tx';

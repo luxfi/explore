@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -20,30 +19,30 @@ const TxDetailsOther = ({ nonce, type, position, queueIndex }: Props) => {
         {
           [
             typeof type === 'number' && (
-              <Box key="type">
+              <div key="type">
                 <span>Txn type: </span>
                 <span>{ type }</span>
-                { type === 2 && <Text as="span" ml={ 1 } color="text.secondary">(EIP-1559)</Text> }
-                { type === 3 && <Text as="span" ml={ 1 } color="text.secondary">(EIP-4844)</Text> }
-                { type === 4 && <Text as="span" ml={ 1 } color="text.secondary">(EIP-7702)</Text> }
-              </Box>
+                { type === 2 && <span>(EIP-1559)</span> }
+                { type === 3 && <span>(EIP-4844)</span> }
+                { type === 4 && <span>(EIP-7702)</span> }
+              </div>
             ),
             queueIndex !== undefined ? (
-              <Box key="queueIndex">
+              <div key="queueIndex">
                 <span>Queue index: </span>
                 <span>{ queueIndex }</span>
-              </Box>
+              </div>
             ) : (
-              <Box key="nonce">
+              <div key="nonce">
                 <span>Nonce: </span>
                 <span>{ nonce }</span>
-              </Box>
+              </div>
             ),
             position !== null && position !== undefined && (
-              <Box key="position">
+              <div key="position">
                 <span>Position: </span>
                 <span>{ position }</span>
-              </Box>
+              </div>
             ),
           ]
             .filter(Boolean)

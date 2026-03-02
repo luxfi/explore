@@ -41,13 +41,13 @@ const AddressLogs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
   const addressQuery = useAddressQuery({ hash });
 
   const actionBar = (
-    <ActionBar mt={ -6 } showShadow justifyContent={{ base: 'space-between', lg: 'end' }}>
+    <ActionBar className="-mt-6 justify-between lg:justify-end" showShadow>
       <AddressCsvExportLink
         address={ hash }
         isLoading={ pagination.isLoading }
         params={{ type: 'logs' }}
       />
-      <Pagination ml={{ base: 0, lg: 8 }} { ...pagination }/>
+      <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

@@ -1,11 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import type { FC } from 'react';
 import React from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { NovesFlowViewItem } from 'ui/tx/assetFlows/utils/generateFlowViewData';
 
 import AddressEntity from '../entities/address/AddressEntity';
@@ -35,28 +34,24 @@ const NovesFromTo: FC<Props> = ({ isLoaded, txData, currentAddress = '', item })
   const address = { hash: data.address || '', name: data.name || '' };
 
   return (
-    <Skeleton borderRadius="sm" loading={ !isLoaded }>
-      <Box display="flex">
+    <Skeleton borderRadius="sm" loading={ !isLoaded } className="rounded-sm">
+      <div className="flex">
         <Badge
           colorPalette={ isSent ? 'yellow' : 'green' }
-          px={ 0 }
-          w="113px"
-          flexShrink={ 0 }
-          justifyContent="center"
+          className="px-0 w-[113px] shrink-0 justify-center"
         >
           { data.text }
         </Badge>
 
         <AddressEntity
           address={ address }
-          fontWeight="500"
+          className="font-medium ml-2"
           noCopy={ !data.address }
           noLink={ !data.address }
           noIcon={ address.name === 'Validators' }
-          ml={ 2 }
           truncation="dynamic"
         />
-      </Box>
+      </div>
     </Skeleton>
   );
 };

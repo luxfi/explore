@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -32,12 +31,12 @@ const TxTokenTransferLocal = ({ txQuery, tokenTransferQuery, tokenTransferFilter
 
   const content = tokenTransferQuery.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TokenTransferTable data={ items } top={ ACTION_BAR_HEIGHT_DESKTOP } isLoading={ tokenTransferQuery.isPlaceholderData }/>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="block lg:hidden">
         <TokenTransferList data={ items } isLoading={ tokenTransferQuery.isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

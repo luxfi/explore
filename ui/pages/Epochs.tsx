@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { CELO_EPOCH_ITEM } from 'stubs/epoch';
@@ -24,8 +23,8 @@ const EpochsPageContent = () => {
   });
 
   const actionBar = epochsQuery.pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...epochsQuery.pagination }/>
+    <ActionBar className="-mt-6">
+      <Pagination className="ml-auto" { ...epochsQuery.pagination }/>
     </ActionBar>
   ) : null;
 
@@ -38,14 +37,14 @@ const EpochsPageContent = () => {
 
     return epochsQuery.data?.items ? (
       <>
-        <Box hideBelow="lg">
+        <div className="hidden lg:block">
           <EpochsTable
             items={ epochsQuery.data.items }
             top={ epochsQuery.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
             isLoading={ isLoading }
           />
-        </Box>
-        <Box hideFrom="lg">
+        </div>
+        <div className="lg:hidden">
           { epochsQuery.data.items.map((item, index) => (
             <EpochsListItem
               key={ item.number + (epochsQuery.isPlaceholderData ? String(index) : '') }
@@ -53,7 +52,7 @@ const EpochsPageContent = () => {
               isLoading={ isLoading }
             />
           )) }
-        </Box>
+        </div>
       </>
     ) : null;
   })();

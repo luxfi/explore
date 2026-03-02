@@ -3,64 +3,64 @@ import type * as rewards from '@luxfi/points-types';
 
 export const REWARDS_API_RESOURCES = {
   config: {
-    path: '/api/v1/config',
+    path: '/v1/config',
   },
   check_ref_code: {
-    path: '/api/v1/auth/code/:code',
+    path: '/v1/auth/code/:code',
     pathParams: [ 'code' as const ],
   },
   nonce: {
-    path: '/api/v1/auth/nonce',
+    path: '/v1/auth/nonce',
   },
   check_user: {
-    path: '/api/v1/auth/user/:address',
+    path: '/v1/auth/user/:address',
     pathParams: [ 'address' as const ],
   },
   login: {
-    path: '/api/v1/auth/login',
+    path: '/v1/auth/login',
   },
   logout: {
-    path: '/api/v1/auth/logout',
+    path: '/v1/auth/logout',
   },
   user_balances: {
-    path: '/api/v1/user/balances',
+    path: '/v1/user/balances',
   },
   user_daily_check: {
-    path: '/api/v1/user/daily/check',
+    path: '/v1/user/daily/check',
   },
   user_daily_claim: {
-    path: '/api/v1/user/daily/claim',
+    path: '/v1/user/daily/claim',
   },
   user_referrals: {
-    path: '/api/v1/user/referrals',
+    path: '/v1/user/referrals',
   },
   user_badges: {
-    path: '/api/v1/user/badges',
+    path: '/v1/user/badges',
   },
   user_check_activity_pass: {
-    path: '/api/v1/activity/check-pass',
+    path: '/v1/activity/check-pass',
     filterFields: [ 'address' as const ],
   },
   user_activity: {
-    path: '/api/v1/user/activity/rewards',
+    path: '/v1/user/activity/rewards',
   },
   user_activity_track_tx: {
-    path: '/api/v1/user/activity/track/transaction',
+    path: '/v1/user/activity/track/transaction',
   },
   user_activity_track_tx_confirm: {
-    path: '/api/v1/activity/track/transaction/confirm',
+    path: '/v1/activity/track/transaction/confirm',
   },
   user_activity_track_contract: {
-    path: '/api/v1/user/activity/track/contract',
+    path: '/v1/user/activity/track/contract',
   },
   user_activity_track_contract_confirm: {
-    path: '/api/v1/activity/track/contract/confirm',
+    path: '/v1/activity/track/contract/confirm',
   },
   user_activity_track_usage: {
-    path: '/api/v1/user/activity/track/usage',
+    path: '/v1/user/activity/track/usage',
   },
   instances: {
-    path: '/api/v1/instances',
+    path: '/v1/instances',
   },
 } satisfies Record<string, ApiResource>;
 

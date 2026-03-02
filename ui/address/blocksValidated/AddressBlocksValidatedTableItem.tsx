@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -6,8 +5,8 @@ import type { Block } from 'types/api/block';
 
 import config from 'configs/app';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
@@ -28,8 +27,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
           isLoading={ props.isLoading }
           number={ props.height }
           noIcon
-          textStyle="sm"
-          fontWeight={ 700 }
+          className="text-sm font-bold"
         />
       </TableCell>
       <TableCell>
@@ -47,7 +45,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
         </Skeleton>
       </TableCell>
       <TableCell>
-        <Flex alignItems="center" columnGap={ 2 }>
+        <div className="flex items-center gap-x-2">
           <Skeleton loading={ props.isLoading } flexBasis="80px">
             { BigNumber(props.gas_used || 0).toFormat() }
           </Skeleton>
@@ -56,7 +54,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
             gasLimit={ props.gas_limit }
             isLoading={ props.isLoading }
           />
-        </Flex>
+        </div>
       </TableCell>
       { !config.UI.views.block.hiddenFields?.total_reward && !config.features.rollup.isEnabled && (
         <TableCell isNumeric>

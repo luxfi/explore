@@ -1,4 +1,3 @@
-import { chakra, Box, Flex, HStack, Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
@@ -17,17 +16,19 @@ import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { BLOCK } from 'stubs/block';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Heading } from 'toolkit/chakra/heading';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Heading } from '@luxfi/ui/heading';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { nbsp } from 'toolkit/utils/htmlEntities';
+import FallbackRpcIcon from 'ui/shared/fallbacks/FallbackRpcIcon';
 
+import LatestBlocksDegraded from './fallbacks/LatestBlocksDegraded';
+import { useHomeRpcDataContext } from './fallbacks/rpcDataContext';
 import LatestBlocksItem from './LatestBlocksItem';
 
 const LatestBlocks = () => {
   const isMobile = useIsMobile();
-  // const blocksMaxCount = isMobile ? 2 : 3;
   let blocksMaxCount: number;
   if (config.features.rollup.isEnabled || config.UI.views.block.hiddenFields?.total_reward) {
     blocksMaxCount = isMobile ? 4 : 8;
@@ -53,6 +54,9 @@ const LatestBlocks = () => {
     },
   });
 
+  const rpcDataContext = useHomeRpcDataContext();
+  const isRpcData = rpcDataContext.isEnabled && !rpcDataContext.isLoading && !rpcDataContext.isError && rpcDataContext.subscriptions.includes('latest-blocks');
+
   const handleNewBlockMessage: SocketMessage.NewBlock['handler'] = React.useCallback((payload) => {
     queryClient.setQueryData(getResourceKey('general:homepage_blocks'), (prevData: Array<Block> | undefined) => {
 
@@ -76,61 +80,62 @@ const LatestBlocks = () => {
     handler: handleNewBlockMessage,
   });
 
-  let content;
+  const content = (() => {
+    if (isError) {
+      return <LatestBlocksDegraded maxNum={ blocksMaxCount }/>;
+    }
+    if (data && data.length > 0) {
+      const dataToShow = data.slice(0, blocksMaxCount);
 
-  if (isError) {
-    content = <Text>No data. Please reload the page.</Text>;
-  }
-
-  if (data) {
-    const dataToShow = data.slice(0, blocksMaxCount);
-
-    content = (
-      <>
-        <HStack gap={ 3 } mb={ 3 } overflowX="auto" overflowY="hidden" alignItems="stretch" pb={ 1 }>
-          { dataToShow.map(((block, index) => (
-            <LatestBlocksItem
-              key={ block.height + (isPlaceholderData ? String(index) : '') }
-              block={ block }
-              isLoading={ isPlaceholderData }
-              animation={ initialList.getAnimationProp(block) }
-            />
-          ))) }
-        </HStack>
-        <Flex justifyContent="center">
-          <Link textStyle="sm" href={ route({ pathname: '/blocks' }) }>View all blocks</Link>
-        </Flex>
-      </>
-    );
-  }
+      return (
+        <>
+          <div className="flex gap-3 overflow-x-auto items-stretch pb-2 -mb-2">
+            { dataToShow.map(((block, index) => (
+              <LatestBlocksItem
+                key={ block.height + (isPlaceholderData ? String(index) : '') }
+                block={ block }
+                isLoading={ isPlaceholderData }
+                animation={ initialList.getAnimationProp(block) }
+              />
+            ))) }
+          </div>
+          <div className="flex justify-center mt-4">
+            <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
+          </div>
+        </>
+      );
+    }
+    return <div className="text-sm text-[var(--color-text-secondary)]">No latest blocks found.</div>;
+  })();
 
   const networkUtilization = getNetworkUtilizationParams(statsQueryResult.data?.network_utilization_percentage ?? 0);
 
   return (
-    <Box width="100%">
-      <Heading level="3">Latest blocks</Heading>
-      { statsQueryResult.data?.network_utilization_percentage !== undefined && (
-        <Skeleton loading={ statsQueryResult.isPlaceholderData } mt={ 2 } display="inline-block" textStyle="sm">
-          <Text as="span">
-            Network utilization:{ nbsp }
-          </Text>
-          <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
-            <Text as="span" color={ networkUtilization.color } fontWeight={ 700 }>
-              { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
-            </Text>
-          </Tooltip>
-        </Skeleton>
-      ) }
+    <div className="w-full">
+      <div className="flex items-center gap-2 mb-4">
+        <Heading level="3">Latest blocks</Heading>
+        { isRpcData && <FallbackRpcIcon/> }
+        { statsQueryResult.data?.network_utilization_percentage !== undefined && (
+          <Skeleton loading={ statsQueryResult.isPlaceholderData } className="inline-block text-sm ml-auto">
+            <span className="text-[var(--color-text-secondary)]">
+              Network utilization:{ nbsp }
+            </span>
+            <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
+              <span className="font-bold" style={{ color: networkUtilization.color }}>
+                { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
+              </span>
+            </Tooltip>
+          </Skeleton>
+        ) }
+      </div>
       { statsQueryResult.data?.celo && (
-        <Box whiteSpace="pre-wrap" textStyle="sm" mt={ 2 }>
+        <div className="whitespace-pre-wrap text-sm mb-3 text-[var(--color-text-secondary)]">
           <span>Current epoch: </span>
-          <chakra.span fontWeight={ 700 }>#{ statsQueryResult.data.celo.epoch_number }</chakra.span>
-        </Box>
+          <span className="font-bold text-[var(--color-text-primary)]">#{ statsQueryResult.data.celo.epoch_number }</span>
+        </div>
       ) }
-      <Box mt={ 3 }>
-        { content }
-      </Box>
-    </Box>
+      { content }
+    </div>
   );
 };
 

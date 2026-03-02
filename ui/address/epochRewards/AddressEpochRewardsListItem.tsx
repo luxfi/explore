@@ -16,7 +16,7 @@ type Props = {
 
 const AddressEpochRewardsListItem = ({ item, isLoading }: Props) => {
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '100px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Epoch #</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>

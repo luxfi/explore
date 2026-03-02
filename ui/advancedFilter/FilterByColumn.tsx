@@ -47,7 +47,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="Method"
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) }
-          w="350px"
+          className="w-[350px]"
         >
           <MethodFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>
@@ -60,7 +60,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="Age"
           isLoading={ isLoading }
           selected={ Boolean(value.from || value.to || value.age) }
-          w="382px"
+          className="w-[382px]"
         >
           <AgeFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>
@@ -72,7 +72,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="And/Or"
           isLoading={ isLoading }
           selected
-          w="106px"
+          className="w-[106px]"
           value={ filters.address_relation === 'and' ? 'AND' : 'OR' }
         >
           <AddressRelationFilter { ...commonProps } value={ filters.address_relation }/>
@@ -89,7 +89,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="Address from"
           isLoading={ isLoading }
           selected={ Boolean(value.length) }
-          w="480px"
+          className="w-[480px]"
         >
           <AddressFilter { ...commonProps } type="from" value={ value }/>
         </TableColumnFilterWrapper>
@@ -106,7 +106,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="Address to"
           isLoading={ isLoading }
           selected={ Boolean(value.length) }
-          w="480px"
+          className="w-[480px]"
         >
           <AddressFilter { ...commonProps } type="to" value={ value }/>
         </TableColumnFilterWrapper>
@@ -119,7 +119,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="Amount"
           isLoading={ isLoading }
           selected={ Boolean(value.from || value.to) }
-          w="382px"
+          className="w-[382px]"
         >
           <AmountFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>
@@ -146,7 +146,7 @@ const FilterByColumn = ({ column, filters, columnName, handleFilterChange, searc
           columnName="Asset"
           isLoading={ isLoading }
           selected={ Boolean(value.length) }
-          w="382px"
+          className="w-[382px]"
         >
           <AssetFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>

@@ -24,8 +24,8 @@ env:
   IMAGE_NAME: luxfi/explore
 
 jobs:
-  build-and-deploy:
-    runs-on: lux-build
+  build:
+    runs-on: lux-build-linux-amd64
     permissions:
       contents: read
       packages: write
@@ -71,20 +71,85 @@ jobs:
             GIT_COMMIT_SHA=${{ github.sha }}
             GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
 
-      - name: Deploy to production
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: lux-build-linux-amd64
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+
+      - name: Fetch deploy credentials from KMS
+        id: kms
         env:
-          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
+          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
+          HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
+          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
         run: |
-          # Install doctl + kubectl if not present
+          # Auth: Universal Auth (preferred) or legacy API key
+          if [ -n "${KMS_CLIENT_ID}" ] && [ -n "${KMS_CLIENT_SECRET}" ]; then
+            HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
+              -H "Content-Type: application/json" \
+              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" | jq -r '.accessToken')
+          fi
+          response=$(curl -sf "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=e1359bf4-31b4-4dfa-bb90-323e2c298ad8&secretPath=/deploy&environment=prod" \
+            -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null || echo "")
+          if [ -n "$response" ]; then
+            token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="DO_API_TOKEN") | .secretValue // empty')
+          fi
+          if [ -z "${token:-}" ]; then
+            echo "::warning::Deploy credentials not found. Image was pushed but deployment skipped."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "::add-mask::${token}"
+          echo "token=${token}" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy to production
+        if: steps.kms.outputs.skip != 'true'
+        env:
+          DO_TOKEN: ${{ steps.kms.outputs.token }}
+        run: |
+          INSTALL_DIR="$HOME/.local/bin"
+          mkdir -p "$INSTALL_DIR"
+          export PATH="$INSTALL_DIR:$PATH"
           if ! command -v doctl &>/dev/null; then
-            curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-1.119.1-linux-amd64.tar.gz | tar xz -C /usr/local/bin 2>/dev/null || true
+            DOCTL_VERSION=$(curl -sI https://github.com/digitalocean/doctl/releases/latest | grep -i '^location:' | sed 's|.*/v||;s/\r//')
+            curl -sL "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz" | tar xz -C "$INSTALL_DIR"
           fi
           if ! command -v kubectl &>/dev/null; then
             curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            chmod +x kubectl && mv kubectl /usr/local/bin/kubectl
+            chmod +x kubectl && mv kubectl "$INSTALL_DIR/kubectl"
           fi
-          doctl auth init -t "$DIGITALOCEAN_ACCESS_TOKEN"
+          doctl auth init -t "$DO_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
-          kubectl rollout restart deployment/explorer-frontend -n lux-explorer
-          kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s
+
+          # Ensure namespaces exist
+          for ns in lux-mainnet lux-testnet lux-devnet; do
+            kubectl create namespace $ns 2>/dev/null || true
+          done
+
+          # Deploy shared services (stats) — mainnet only for now
+          kubectl apply -f deploy/k8s/stats.yaml -n lux-mainnet || true
+          kubectl rollout restart deployment/lux-stats -n lux-mainnet 2>/dev/null || true
+
+          # Deploy testnet & devnet frontends (creates if not exists)
+          kubectl apply -f deploy/k8s/frontend-testnet.yaml -n lux-testnet || true
+          kubectl apply -f deploy/k8s/frontend-devnet.yaml -n lux-devnet || true
+
+          # Mainnet frontends
+          for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
+            kubectl rollout restart deployment/$dep -n lux-mainnet || true
+          done
+
+          # Testnet & devnet frontends
+          kubectl rollout restart deployment/lux-frontend-testnet -n lux-testnet || true
+          kubectl rollout restart deployment/lux-frontend-devnet -n lux-devnet || true
+
+          # Wait for mainnet rollout
+          kubectl rollout status deployment/lux-frontend-mainnet -n lux-mainnet --timeout=300s

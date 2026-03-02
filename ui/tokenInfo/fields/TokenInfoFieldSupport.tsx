@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Fields } from '../types';
 
-import type { FieldProps } from 'toolkit/chakra/field';
+import type { FieldProps } from '@luxfi/ui/field';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 import { emailValidator } from 'toolkit/components/forms/validators/email';
 import { urlValidator } from 'toolkit/components/forms/validators/url';

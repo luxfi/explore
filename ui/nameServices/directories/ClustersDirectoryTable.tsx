@@ -3,7 +3,7 @@ import React from 'react';
 import type { ClustersDirectoryObject } from 'types/api/clusters';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableHeaderSticky, TableRow, TableColumnHeader, TableRoot } from 'toolkit/chakra/table';
+import { TableBody, TableHeaderSticky, TableRow, TableColumnHeader, TableRoot } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import ClustersDirectoryTableItem from './ClustersDirectoryTableItem';

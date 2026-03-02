@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CsvExportParams } from 'types/client/address';
@@ -10,8 +9,8 @@ import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -20,9 +19,10 @@ interface Props {
   className?: string;
   isLoading?: boolean;
   chainData?: ClusterChainConfig;
+  [key: string]: unknown;
 }
 
-const AddressCsvExportLink = ({ className, address, params, isLoading, chainData }: Props) => {
+const AddressCsvExportLink = ({ className, address, params, isLoading, chainData, ...rest }: Props) => {
   const isMobile = useIsMobile();
   const isInitialLoading = useIsInitialLoading(isLoading);
   const multichainContext = useMultichainContext();
@@ -44,12 +44,13 @@ const AddressCsvExportLink = ({ className, address, params, isLoading, chainData
         minW={ 8 }
         justifyContent="center"
         textStyle="sm"
+        { ...rest }
       >
-        <IconSvg name="files/csv" boxSize={ 5 }/>
-        <chakra.span ml={ 1 } hideBelow="lg">Download</chakra.span>
+        <IconSvg name="files/csv" className="w-5 h-5"/>
+        <span className="ml-1 hidden lg:inline">Download</span>
       </Link>
     </Tooltip>
   );
 };
 
-export default React.memo(chakra(AddressCsvExportLink));
+export default React.memo(AddressCsvExportLink);

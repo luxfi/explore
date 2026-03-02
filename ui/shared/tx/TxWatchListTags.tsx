@@ -1,9 +1,8 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 interface Props {
   tx: Transaction;
@@ -21,19 +20,19 @@ const TxWatchListTags = ({ tx, isLoading }: Props) => {
   }
 
   return (
-    <Flex columnGap={ 2 } rowGap={ 2 } flexWrap="wrap" overflow="hidden" maxW="100%">
+    <div className="flex gap-x-2 gap-y-2 flex-wrap overflow-hidden max-w-full">
       { tags.map((tag) => (
         <Badge
           key={ tag.label }
           loading={ isLoading }
           truncated
-          maxW={{ base: '115px', lg: '100%' }}
+          className="max-w-[115px] lg:max-w-full"
           colorPalette="gray"
         >
           { tag.display_name }
         </Badge>
       )) }
-    </Flex>
+    </div>
   );
 };
 

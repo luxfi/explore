@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -24,4 +23,4 @@ const TokenEntityL1 = (props: TokenEntity.EntityProps) => {
   );
 };
 
-export default chakra(TokenEntityL1);
+export default TokenEntityL1;
