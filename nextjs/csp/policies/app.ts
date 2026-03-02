@@ -41,9 +41,17 @@ export function app(isPrivateMode = false): CspDev.DirectiveDescriptor {
       ...Object.values(config.apis).filter(Boolean).map((api) => api.endpoint),
       ...Object.values(config.apis).filter(Boolean).map((api) => api.socketEndpoint),
 
-      // chain RPC server
+      // chain RPC server (full URLs + base origins for SDK calls to other paths like /ext/bc/P)
       ...config.chain.rpcUrls,
+      ...config.chain.rpcUrls.map((url) => {
+        try {
+          return new URL(url).origin;
+        } catch {
+          return '';
+        }
+      }),
       'https://infragrid.v.network', // RPC providers
+      'https://lux.id', // OIDC authentication provider
 
       // github (spec for api-docs page)
       'raw.githubusercontent.com',
