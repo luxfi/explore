@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Link } from 'toolkit/next/link';
 interface Props {
   status: 'error' | 'close';
 }
@@ -12,7 +12,7 @@ const TxSocketAlert = ({ status }: Props) => {
     'An error has occurred while fetching transaction info. Please click here to update.';
 
   return (
-    <Link href={ window.document.location.href } asChild>
+    <Link href={ window.document.location.href }>
       <Alert status="warning">{ text }</Alert>
     </Link>
   );

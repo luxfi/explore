@@ -20,6 +20,6 @@ test('default view', async({ render }) => {
     onPrevPageClick: () => {},
     resetPage: () => {},
   };
-  const component = await render(<Pagination { ...props } w="fit-content"/>);
+  const component = await render(<Pagination { ...props } className="w-fit"/>);
   await expect(component).toHaveScreenshot();
 });

@@ -1,7 +1,6 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'toolkit/chakra/tabs';
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '@luxfi/ui/tabs';
 import AdaptiveTabs from 'toolkit/components/AdaptiveTabs/AdaptiveTabs';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample, SectionSubHeader } from './parts';
@@ -62,16 +61,16 @@ const TabsShowcase = () => {
 
         <SectionSubHeader>Adaptive tabs</SectionSubHeader>
         <SamplesStack>
-          <Sample gridColumn="1 / 3" w="100%" maxW={{ base: '100vw', lg: '700px' }}>
+          <Sample className="col-span-2 w-full max-w-full lg:max-w-[700px]">
             <AdaptiveTabs
-              w="100%"
+              className="w-full"
               tabs={ tabs }
               defaultValue={ tabs[0].id }
-              outline="1px dashed lightpink"
-              leftSlot={ <Box display={{ base: 'none', lg: 'block' }}>Left element</Box> }
-              leftSlotProps={{ pr: { base: 0, lg: 4 }, color: 'text.secondary' }}
-              rightSlot={ <Box display={{ base: 'none', lg: 'flex' }} justifyContent="space-between"><span>Right element</span><span>🙈</span></Box> }
-              rightSlotProps={{ pl: { base: 0, lg: 4 }, color: 'text.secondary', widthAllocation: 'available' }}
+              style={{ outline: '1px dashed lightpink' }}
+              leftSlot={ <div className="hidden lg:block">Left element</div> }
+              leftSlotProps={{ className: 'pr-0 lg:pr-4 text-[var(--color-text-secondary)]' }}
+              rightSlot={ <div className="hidden lg:flex justify-between"><span>Right element</span><span>see-no-evil</span></div> }
+              rightSlotProps={{ className: 'pl-0 lg:pl-4 text-[var(--color-text-secondary)]', widthAllocation: 'available' }}
             />
           </Sample>
         </SamplesStack>

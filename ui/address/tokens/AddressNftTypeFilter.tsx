@@ -12,7 +12,7 @@ interface Props {
 
 const AddressNftTypeFilter = ({ value, onChange }: Props) => {
   return (
-    <PopoverFilter contentProps={{ w: '200px' }} appliedFiltersNum={ value?.length }>
+    <PopoverFilter contentProps={{ className: 'w-[200px]' }} appliedFiltersNum={ value?.length }>
       <TokenTypeFilter<NFTTokenType> nftOnly onChange={ onChange } defaultValue={ value }/>
     </PopoverFilter>
   );

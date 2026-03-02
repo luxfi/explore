@@ -3,8 +3,8 @@ import React from 'react';
 import type { AddressMetadataTagApi } from 'types/api/addressMetadata';
 
 import highlightText from 'lib/highlightText';
-import type { TagProps } from 'toolkit/chakra/tag';
-import { Tag } from 'toolkit/chakra/tag';
+import type { TagProps } from '@luxfi/ui/tag';
+import { Tag } from '@luxfi/ui/tag';
 import EntityTagIcon from 'ui/shared/EntityTags/EntityTagIcon';
 import { getTagName } from 'ui/shared/EntityTags/utils';
 

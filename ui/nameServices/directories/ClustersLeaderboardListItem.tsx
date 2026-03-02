@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ClustersLeaderboardObject } from 'types/api/clusters';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import ClustersEntity from 'ui/shared/entities/clusters/ClustersEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
 
@@ -27,7 +27,7 @@ const ClustersLeaderboardListItem = ({ item, isLoading }: Props) => {
         Cluster name
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 500 }/>
+        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } className="font-medium"/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>

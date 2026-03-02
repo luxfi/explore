@@ -1,12 +1,11 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type { AddressTag } from 'types/api/account';
 
 import { PAGE_TYPE_DICT } from 'lib/mixpanel/getPageType';
 import { PRIVATE_TAG_ADDRESS } from 'stubs/account';
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AccountPageDescription from 'ui/shared/AccountPageDescription';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -59,8 +58,8 @@ const PrivateAddressTags = () => {
   }, [ deleteModalProps ]);
 
   const actionBar = pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...pagination }/>
+    <ActionBar className="-mt-6">
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 
@@ -76,7 +75,7 @@ const PrivateAddressTags = () => {
         emptyText=""
         actionBar={ actionBar }
       >
-        <Box display={{ base: 'block', lg: 'none' }}>
+        <div className="block lg:hidden">
           { addressTagsData?.items.map((item: AddressTag, index: number) => (
             <AddressTagListItem
               item={ item }
@@ -86,8 +85,8 @@ const PrivateAddressTags = () => {
               isLoading={ isPlaceholderData }
             />
           )) }
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>
+        </div>
+        <div className="hidden lg:block">
           <AddressTagTable
             isLoading={ isPlaceholderData }
             data={ addressTagsData?.items }
@@ -95,7 +94,7 @@ const PrivateAddressTags = () => {
             onEditClick={ onEditClick }
             top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           />
-        </Box>
+        </div>
       </DataListDisplay>
       <Skeleton mt={ 8 } loading={ isPlaceholderData } display="inline-block">
         <Button

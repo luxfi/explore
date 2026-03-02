@@ -1,11 +1,11 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumTransactionMessageStatus, Transaction } from 'types/api/transaction';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { layerLabels } from 'lib/rollups/utils';
+import { Link } from 'toolkit/next/link';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import VerificationSteps from 'ui/shared/verificationSteps/VerificationSteps';
@@ -75,7 +75,7 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
               steps={ steps as unknown as Array<ArbitrumTransactionMessageStatus> }
               currentStep={ data.arbitrum.message_related_info.message_status }
             />
-          ) : <Text color="text.secondary">Could not determine</Text> }
+          ) : <span className="text-[var(--color-text-secondary)]">Could not determine</span> }
         </DetailedInfo.ItemValue>
       </>
     );
@@ -85,12 +85,12 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
       <DetailedInfo.ItemLabel
         hint="The hash of the transaction that originated the message from the base layer"
       >
-        Originating L1 txn hash
+        Originating { layerLabels.parent } txn hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         { data.arbitrum.message_related_info.associated_l1_transaction_hash ?
           <TxEntityL1 hash={ data.arbitrum.message_related_info.associated_l1_transaction_hash }/> :
-          <Text color="text.secondary">Waiting for confirmation</Text>
+          <span className="text-[var(--color-text-secondary)]">Waiting for confirmation</span>
         }
       </DetailedInfo.ItemValue>
     </>

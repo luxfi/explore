@@ -1,15 +1,14 @@
-import type { StackProps } from '@chakra-ui/react';
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
-import type { TagProps } from 'toolkit/chakra/tag';
-import { Tag } from 'toolkit/chakra/tag';
+import type { TagProps } from '@luxfi/ui/tag';
+import { Tag } from '@luxfi/ui/tag';
 
 type Props<T extends string> = {
   items: Array<{ id: T; title: string }>;
   tagSize?: TagProps['size'];
   loading?: boolean;
   disabled?: boolean;
+  className?: string;
 } & (
   {
     value?: T;
@@ -20,9 +19,9 @@ type Props<T extends string> = {
     onChange: (value: Array<T>) => void;
     isMulti: true;
   }
-) & Omit<StackProps, 'onChange'>;
+);
 
-const TagGroupSelect = <T extends string>({ items, value, isMulti, onChange, tagSize, loading, disabled, ...rest }: Props<T>) => {
+const TagGroupSelect = <T extends string>({ items, value, isMulti, onChange, tagSize, loading, disabled, className, ...rest }: Props<T>) => {
   const onItemClick = React.useCallback((event: React.SyntheticEvent) => {
     const itemValue = (event.currentTarget as HTMLDivElement).getAttribute('data-id') as T;
     if (isMulti) {
@@ -39,7 +38,7 @@ const TagGroupSelect = <T extends string>({ items, value, isMulti, onChange, tag
   }, [ isMulti, onChange, value ]);
 
   return (
-    <HStack { ...rest }>
+    <div className={ `flex flex-row gap-2 ${ className ?? '' }`.trim() } { ...rest }>
       { items.map(item => {
         const isSelected = isMulti ? value.includes(item.id) : value === item.id;
         return (
@@ -48,11 +47,9 @@ const TagGroupSelect = <T extends string>({ items, value, isMulti, onChange, tag
             key={ item.id }
             data-id={ item.id }
             selected={ isSelected }
-            fontWeight={ 500 }
             onClick={ disabled ? undefined : onItemClick }
             size={ tagSize }
-            display="inline-flex"
-            justifyContent="center"
+            className="inline-flex justify-center font-medium"
             loading={ loading }
             disabled={ disabled }
           >
@@ -60,7 +57,7 @@ const TagGroupSelect = <T extends string>({ items, value, isMulti, onChange, tag
           </Tag>
         );
       }) }
-    </HStack>
+    </div>
   );
 };
 

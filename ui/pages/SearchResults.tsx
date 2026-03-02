@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import React from 'react';
@@ -8,10 +7,11 @@ import type { SearchResultItem } from 'types/client/search';
 
 import config from 'configs/app';
 import { useSettingsContext } from 'lib/contexts/settings';
+import { cn } from 'lib/utils/cn';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import removeQueryParam from 'lib/router/removeQueryParam';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import * as regexp from 'toolkit/utils/regexp';
 import useMarketplaceApps from 'ui/marketplace/useMarketplaceApps';
@@ -184,7 +184,7 @@ const SearchResultsPageContent = () => {
 
     return (
       <>
-        <Box hideFrom="lg">
+        <div className="lg:hidden">
           { displayedItems.map((item, index) => (
             <SearchResultListItem
               key={ (isLoading ? 'placeholder_' : 'actual_') + index }
@@ -194,9 +194,9 @@ const SearchResultsPageContent = () => {
               addressFormat={ settingsContext?.addressFormat }
             />
           )) }
-        </Box>
-        <Box hideBelow="lg">
-          <TableRoot fontWeight={ 500 }>
+        </div>
+        <div className="hidden lg:block">
+          <TableRoot className="font-medium">
             <TableHeaderSticky top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
               <TableRow>
                 <TableColumnHeader width="30%">Search result</TableColumnHeader>
@@ -217,7 +217,7 @@ const SearchResultsPageContent = () => {
               )) }
             </TableBody>
           </TableRoot>
-        </Box>
+        </div>
       </>
     );
   })();
@@ -240,16 +240,16 @@ const SearchResultsPageContent = () => {
 
       return (
         <>
-          <Box mb={ pagination.isVisible ? 0 : 6 } lineHeight="32px">
+          <div className={cn("leading-[32px]", pagination.isVisible ? "mb-0" : "mb-6")}>
             <span>Found </span>
-            <chakra.span fontWeight={ 700 }>
+            <span className="font-bold">
               { resultsCount }
-            </chakra.span>
+            </span>
             <span> matching result{ (((displayedItems.length || 0) + marketplaceApps.displayedApps.length) > 1) || pagination.page > 1 ? 's' : '' } for </span>
-            “<chakra.span fontWeight={ 700 }>{ debouncedSearchTerm }</chakra.span>”
-          </Box>
+            “<span className="font-bold">{ debouncedSearchTerm }</span>”
+          </div>
           { resultsCount === 0 && regexp.BLOCK_HEIGHT.test(debouncedSearchTerm) &&
-            <SearchBarSuggestBlockCountdown blockHeight={ debouncedSearchTerm } mt={ -4 }/> }
+            <SearchBarSuggestBlockCountdown blockHeight={ debouncedSearchTerm } className="-mt-4"/> }
         </>
       );
     })();
@@ -260,9 +260,9 @@ const SearchResultsPageContent = () => {
 
     return (
       <>
-        <Box hideFrom="lg">{ text }</Box>
-        <ActionBar mt={{ base: 0, lg: -6 }} alignItems="center">
-          <Box hideBelow="lg">{ text }</Box>
+        <div className="lg:hidden">{ text }</div>
+        <ActionBar className="mt-0 lg:-mt-6 items-center">
+          <div className="hidden lg:block">{ text }</div>
           <Pagination { ...pagination }/>
         </ActionBar>
       </>
@@ -296,7 +296,7 @@ const SearchResultsPageContent = () => {
           <HeaderAlert/>
           <HeaderDesktop renderSearchBar={ renderSearchBar }/>
           <AppErrorBoundary>
-            <Layout.Content flexGrow={ 0 }>
+            <Layout.Content className="grow-0">
               { pageContent }
             </Layout.Content>
           </AppErrorBoundary>

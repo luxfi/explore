@@ -3,7 +3,7 @@ import type { NextRouter } from 'next/router';
 import config from 'configs/app';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import removeQueryParam from 'lib/router/removeQueryParam';
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 const feature = config.features.marketplace;
 

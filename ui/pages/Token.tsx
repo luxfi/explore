@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -42,9 +41,7 @@ import useTokenQuery from 'ui/token/useTokenQuery';
 export type TokenTabs = 'token_transfers' | 'holders' | 'inventory';
 
 const TABS_RIGHT_SLOT_PROPS = {
-  display: 'flex',
-  alignItems: 'center',
-  columnGap: 4,
+  className: 'flex items-center gap-x-4',
 };
 
 const TokenPageContent = () => {
@@ -206,7 +203,7 @@ const TokenPageContent = () => {
           return (
             <>
               <span>Contract</span>
-              <IconSvg name="status/success" boxSize="14px" color="green.500"/>
+              <IconSvg name="status/success" className="size-[14px] text-[var(--color-green-500)]"/>
             </>
           );
         }
@@ -259,7 +256,7 @@ const TokenPageContent = () => {
     return (
       <>
         { (tab === 'token_transfers' || tab === '') && (
-          <TokenAdvancedFilterLink token={ tokenQuery.data } ml={ 6 }/>
+          <TokenAdvancedFilterLink token={ tokenQuery.data } className="ml-6"/>
         ) }
         { tab === 'holders' && (
           <AddressCsvExportLink
@@ -276,7 +273,7 @@ const TokenPageContent = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
 
       <TokenPageTitle
         tokenQuery={ tokenQuery }
@@ -288,7 +285,7 @@ const TokenPageContent = () => {
       <TokenDetails tokenQuery={ tokenQuery }/>
 
       { /* should stay before tabs to scroll up with pagination */ }
-      <Box ref={ scrollRef }></Box>
+      <div ref={ scrollRef }></div>
 
       <RoutedTabs
         tabs={ tabs }

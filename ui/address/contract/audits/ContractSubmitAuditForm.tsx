@@ -1,4 +1,3 @@
-import { VStack } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -8,8 +7,8 @@ import type { SmartContractSecurityAuditSubmission } from 'types/api/contract';
 import type { ResourceError } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import dayjs from 'lib/date/dayjs';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { FormFieldCheckbox } from 'toolkit/components/forms/fields/FormFieldCheckbox';
 import { FormFieldEmail } from 'toolkit/components/forms/fields/FormFieldEmail';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
@@ -84,7 +83,7 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
   return (
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ handleSubmit(onFormSubmit) } autoComplete="off" ref={ containerRef }>
-        <VStack gap={ 5 } alignItems="flex-start">
+        <div className="flex flex-col gap-5 items-start">
           <FormFieldText<Inputs> name="submitter_name" required placeholder="Submitter name"/>
           <FormFieldEmail<Inputs> name="submitter_email" required placeholder="Submitter email"/>
           <FormFieldCheckbox<Inputs, 'is_project_owner'>
@@ -104,11 +103,11 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
           <FormFieldText<Inputs>
             name="comment"
             placeholder="Comment"
-            maxH="160px"
             rules={{ maxLength: 300 }}
             asComponent="Textarea"
+            inputProps={{ style: { maxHeight: '160px' } }}
           />
-        </VStack>
+        </div>
         <Button
           type="submit"
           mt={ 8 }

@@ -1,9 +1,7 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
-import { Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
-import type { CollapsibleDetailsProps } from 'toolkit/chakra/collapsible';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
+import type { CollapsibleDetailsProps } from '@luxfi/ui/collapsible';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 
@@ -11,39 +9,31 @@ interface ContainerProps extends CollapsibleDetailsProps {}
 
 export const Container = ({ children, ...rest }: ContainerProps) => {
   return (
-    <CollapsibleDetails noScroll variant="secondary" display="block" textStyle={ undefined } fontSize="sm" { ...rest }>
-      <Grid
-        gridTemplateColumns="max-content minmax(0px, 1fr)"
-        alignItems="start"
-        textStyle="sm"
-        bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-        w="100%"
-        p={{ base: 2, lg: 3 }}
-        mt={ 1 }
-        columnGap={ 3 }
-        rowGap={ 4 }
-        borderBottomRightRadius="base"
-        borderBottomLeftRadius="base"
+    <CollapsibleDetails noScroll variant="secondary" className="block text-sm" { ...rest }>
+      <div
+        className="grid items-start text-sm w-full p-2 lg:p-3 mt-1 gap-x-3 gap-y-4 rounded-b-base bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]"
+        style={{ gridTemplateColumns: 'max-content minmax(0px, 1fr)' }}
       >
         { children }
-      </Grid>
+      </div>
     </CollapsibleDetails>
   );
 };
 
-interface RowProps extends JsxStyleProps {
+interface RowProps {
   label: string;
   hint?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export const Row = ({ label, hint, children, ...rest }: RowProps) => {
+export const Row = ({ label, hint, children, className }: RowProps) => {
   return (
     <>
-      <GridItem color="text.secondary" display="flex" alignItems="center" { ...rest }>
-        { hint && <Hint label={ hint } boxSize={ 4 } mr={ 1 }/> }
+      <div className={ `text-[var(--color-text-secondary)] flex items-center ${ className || '' }` }>
+        { hint && <Hint label={ hint } className="size-4 mr-1"/> }
         <TruncatedText text={ label } maxW={{ base: '130px', lg: 'unset' }}/>
-      </GridItem>
+      </div>
       { children }
     </>
   );

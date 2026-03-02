@@ -49,12 +49,12 @@ export default function useProfileQuery() {
   const isOidc = feature.isEnabled && feature.authProvider === 'oidc';
 
   const oidcQuery = useOidcProfileQuery();
-  const blockscoutQuery = useApiQuery('general:user_info', {
+  const explorerQuery = useApiQuery('general:user_info', {
     queryOptions: {
       refetchOnMount: false,
       enabled: !isOidc && feature.isEnabled && Boolean(cookies.get(cookies.NAMES.API_TOKEN)),
     },
   });
 
-  return isOidc ? oidcQuery : blockscoutQuery;
+  return isOidc ? oidcQuery : explorerQuery;
 }

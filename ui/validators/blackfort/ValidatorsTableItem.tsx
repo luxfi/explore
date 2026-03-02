@@ -1,10 +1,9 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ValidatorBlackfort } from 'types/api/validators';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
@@ -25,9 +24,9 @@ const ValidatorsTableItem = ({ data, isLoading }: Props) => {
         />
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Flex>
+        <div className="flex">
           <TruncatedText text={ data.name } loading={ isLoading }/>
-        </Flex>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>
         <Skeleton loading={ isLoading }>

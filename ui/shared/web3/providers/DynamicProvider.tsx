@@ -14,7 +14,7 @@ import getErrorMessage from 'lib/errors/getErrorMessage';
 import useGetCsrfToken from 'lib/hooks/useGetCsrfToken';
 import * as mixpanel from 'lib/mixpanel/index';
 import { chains } from 'lib/web3/chains';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 import { castToString } from 'toolkit/utils/guards';
 import useLogout from 'ui/snippets/auth/useLogout';
 

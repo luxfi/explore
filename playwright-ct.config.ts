@@ -98,7 +98,6 @@ const config: PlaywrightTestConfig = defineConfig({
           { find: '@metamask/sdk', replacement: './node_modules/@metamask/sdk/dist/browser/es/metamask-sdk.js' },
 
           // Mock for growthbook to test feature flags
-          { find: 'lib/growthbook/useFeatureValue', replacement: './playwright/mocks/lib/growthbook/useFeatureValue.js' },
 
           // Mock for reCaptcha hook
           { find: 'ui/shared/reCaptcha/useReCaptcha', replacement: './playwright/mocks/ui/shared/recaptcha/useReCaptcha.js' },

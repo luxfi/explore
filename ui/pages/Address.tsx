@@ -1,4 +1,3 @@
-import { Box, Flex, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -65,6 +64,8 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 
 const TOKEN_TABS = [ 'tokens_erc20', 'tokens_nfts', 'tokens_nfts_collection', 'tokens_nfts_list' ];
 const PREDEFINED_TAG_PRIORITY = 100;
+const FHE_TOOLTIP_DESCRIPTION = 'This contract uses Fully Homomorphic Encryption (FHE) to encrypt on-chain data. ' +
+    'Inputs and most outputs are intentionally hidden, while computations are verified on-chain.';
 
 const txInterpretation = config.features.txInterpretation;
 const addressProfileAPIFeature = config.features.addressProfileAPI;
@@ -189,7 +190,7 @@ const AddressPageContent = () => {
             return (
               <>
                 <span>{ tabName }</span>
-                <IconSvg name="status/success" boxSize="14px" color="green.500"/>
+                <IconSvg name="status/success" className="size-[14px] text-[var(--color-green-500)]"/>
               </>
             );
           }
@@ -327,7 +328,18 @@ const AddressPageContent = () => {
 
   const tags: Array<EntityTag> = React.useMemo(() => {
     return [
-      ...(addressQuery.data?.public_tags?.map((tag) => ({ slug: tag.label, name: tag.display_name, tagType: 'custom' as const, ordinal: -1 })) || []),
+      ...(addressQuery.data?.public_tags?.map((tag) => {
+        const isFhe = tag.label.toLowerCase() === 'fhe' || tag.display_name.toLowerCase() === 'fhe';
+        return {
+          slug: tag.label,
+          name: tag.display_name,
+          tagType: 'custom' as const,
+          ordinal: -1,
+          meta: isFhe ? {
+            tooltipDescription: FHE_TOOLTIP_DESCRIPTION,
+          } : undefined,
+        };
+      }) || []),
       addressQuery.data?.celo?.account ? {
         slug: 'celo-account',
         name: 'Celo account',
@@ -421,14 +433,13 @@ const AddressPageContent = () => {
   }, [ hash, addressQuery.data?.hash, isLoading ]);
 
   const titleSecondRow = (
-    <Flex alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <div className="flex items-center w-full gap-x-2 gap-y-2 flex-wrap lg:flex-nowrap">
       { addressQuery.data?.ens_domain_name && (
         <EnsEntity
           domain={ addressQuery.data?.ens_domain_name }
           protocol={ !addressEnsDomainsQuery.isPending ? addressMainDomain?.protocol : null }
           variant="subheading"
-          mr={ 1 }
-          maxW="300px"
+          className="mr-1 max-w-[300px]"
         />
       ) }
       <AddressEntity
@@ -443,7 +454,7 @@ const AddressPageContent = () => {
         variant="subheading"
         noLink
         isSafeAddress={ isSafeAddress }
-        icon={{ color: isSafeAddress ? { _light: 'black', _dark: 'white' } : undefined }}
+        icon={{ color: isSafeAddress ? 'var(--color-text-primary)' : undefined }}
       />
       { !isLoading && addressQuery.data?.is_contract && addressQuery.data.token &&
         <AddressAddToWallet token={ addressQuery.data.token } variant="button"/> }
@@ -452,7 +463,7 @@ const AddressPageContent = () => {
       ) }
       <AddressQrCode hash={ addressQuery.data?.filecoin?.robust ?? checkSummedHash } isLoading={ isLoading }/>
       <AccountActionsMenu isLoading={ isLoading }/>
-      <HStack ml="auto" gap={ 2 }/>
+      <div className="flex gap-2 ml-auto"/>
       <AddressMultichainInfoButton loading={ isLoading } addressData={ addressQuery.data }/>
       { !isLoading && addressQuery.data?.is_contract && addressQuery.data?.is_verified && config.UI.views.address.solidityscanEnabled &&
         <SolidityscanReport hash={ hash }/> }
@@ -461,12 +472,12 @@ const AddressPageContent = () => {
       { !isLoading && nameServicesFeature.isEnabled && nameServicesFeature.clusters.isEnabled &&
         <AddressClusters query={ addressClustersQuery } addressHash={ hash }/> }
       <NetworkExplorers type="address" pathParam={ hash }/>
-    </Flex>
+    </div>
   );
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ `${ addressQuery.data?.is_contract && addressQuery.data?.proxy_type !== 'eip7702' ? 'Contract' : 'Address' } details` }
         contentAfter={ titleContentAfter }
@@ -475,7 +486,7 @@ const AddressPageContent = () => {
       />
       { !addressMetadataQuery.isPending &&
         <AddressAlerts tags={ addressMetadataQuery.data?.addresses?.[hash.toLowerCase()]?.tags }/> }
-      { config.features.metasuites.isEnabled && <Box display="none" id="meta-suites__address" data-ready={ !isLoading }/> }
+      { config.features.metasuites.isEnabled && <div className="hidden" id="meta-suites__address" data-ready={ !isLoading }/> }
       <RoutedTabs tabs={ tabs } isLoading={ isTabsLoading }/>
     </>
   );

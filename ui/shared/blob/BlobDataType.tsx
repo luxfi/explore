@@ -1,8 +1,7 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import * as blobUtils from 'lib/blob';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 interface Props {
@@ -44,10 +43,10 @@ const BlobDataType = ({ data, isLoading }: Props) => {
   })();
 
   return (
-    <Flex alignItems="center" columnGap={ 2 }>
-      <IconSvg name={ iconName } boxSize={ 5 } color="icon.primary" isLoading={ isLoading }/>
+    <div className="flex items-center gap-x-2">
+      <IconSvg name={ iconName } className="w-5 h-5 text-[var(--color-icon-primary)]" isLoading={ isLoading }/>
       <Skeleton loading={ isLoading }>{ label }</Skeleton>
-    </Flex>
+    </div>
   );
 };
 

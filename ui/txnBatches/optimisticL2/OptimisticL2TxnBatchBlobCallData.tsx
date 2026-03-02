@@ -1,6 +1,6 @@
-import { GridItem } from '@chakra-ui/react';
 import React from 'react';
 
+import { layerLabels } from 'lib/rollups/utils';
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 
@@ -15,14 +15,14 @@ interface Props {
 const OptimisticL2TxnBatchBlobCallData = ({ l1TxHashes, l1Timestamp, isLoading }: Props) => {
   return (
     <OptimisticL2TxnBatchBlobWrapper isLoading={ isLoading }>
-      <GridItem fontWeight={ 600 }>Timestamp</GridItem>
-      <GridItem overflow="hidden">
-        <DetailedInfoTimestamp timestamp={ l1Timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }}/>
-      </GridItem>
-      <GridItem fontWeight={ 600 }>L1 txn hash{ l1TxHashes.length > 1 ? 'es' : '' }</GridItem>
-      <GridItem overflow="hidden" display="flex" flexDir="column" rowGap={ 2 }>
+      <div className="font-semibold">Timestamp</div>
+      <div className="overflow-hidden">
+        <DetailedInfoTimestamp timestamp={ l1Timestamp } isLoading={ isLoading }/>
+      </div>
+      <div className="font-semibold">{ layerLabels.parent } txn hash{ l1TxHashes.length > 1 ? 'es' : '' }</div>
+      <div className="overflow-hidden flex flex-col" style={{ rowGap: "8px" }}>
         { l1TxHashes.map((hash) => <TxEntityL1 key={ hash } hash={ hash } noIcon/>) }
-      </GridItem>
+      </div>
     </OptimisticL2TxnBatchBlobWrapper>
 
   );

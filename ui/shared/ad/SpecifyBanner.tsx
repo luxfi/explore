@@ -1,12 +1,11 @@
-import { Box, chakra } from '@chakra-ui/react';
+import React from 'react';
 import type { SpecifyAd } from '@specify-sh/sdk';
 import Specify, { ImageFormat } from '@specify-sh/sdk';
-import React from 'react';
 
 import type { BannerProps } from './types';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 import {
   DESKTOP_BANNER_HEIGHT,
@@ -70,9 +69,11 @@ const SpecifyBanner = ({ className, format = 'responsive', address, onEmpty, isL
 
   if (isLoading || isFetching) {
     return (
-      <Box className={ className }
-        h={ height ? `${ height }px` : { base: `${ MOBILE_BANNER_HEIGHT }px`, lg: `${ DESKTOP_BANNER_HEIGHT }px` } }
-        w={ width ? `${ width }px` : undefined }
+      <div className={ className }
+        style={{
+          height: height ? `${ height }px` : undefined,
+          width: width ? `${ width }px` : undefined,
+        }}
       />
     );
   }
@@ -92,4 +93,4 @@ const SpecifyBanner = ({ className, format = 'responsive', address, onEmpty, isL
   );
 };
 
-export default chakra(SpecifyBanner);
+export default SpecifyBanner;

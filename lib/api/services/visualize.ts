@@ -3,7 +3,7 @@ import type * as visualizer from '@luxfi/visualizer-types';
 
 export const VISUALIZE_API_RESOURCES = {
   solidity_contract: {
-    path: '/api/v1/solidity\\:visualize-contracts',
+    path: '/v1/solidity\\:visualize-contracts',
   },
 } satisfies Record<string, ApiResource>;
 

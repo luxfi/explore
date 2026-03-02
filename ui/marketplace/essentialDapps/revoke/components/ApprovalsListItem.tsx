@@ -1,12 +1,11 @@
-import { Text } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
 import type { AllowanceType } from 'types/client/revoke';
 
 import dayjs from 'lib/date/dayjs';
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
@@ -47,19 +46,11 @@ export default function ApprovalsListItem({
 
   return (
     <ListItemMobileGrid.Container
-      gridTemplateColumns="minmax(0, 1fr) minmax(0, 1fr)"
-      fontWeight="500"
-      _first={{
-        borderTop: 0,
-        paddingTop: 0,
-      }}
-      _last={{
-        borderBottom: 0,
-        paddingBottom: 0,
-      }}
+      className="font-medium first:border-t-0 first:pt-0 last:border-b-0 last:pb-0"
+      style={{ gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)' }}
     >
       <ListItemMobileGrid.Label isLoading={ isLoading }>Token</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value display="flex" flexDir="column" gap={ 2 } color="inherit">
+      <ListItemMobileGrid.Value className="flex flex-col gap-2 text-inherit">
         <TokenEntity
           token={{
             address_hash: approval.address,
@@ -96,7 +87,7 @@ export default function ApprovalsListItem({
         />
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Approved amount</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="inherit">
+      <ListItemMobileGrid.Value className="text-inherit">
         <Skeleton loading={ isLoading }>
           <NumberEntity
             value={ allowance }
@@ -107,7 +98,7 @@ export default function ApprovalsListItem({
         </Skeleton>
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Value at risk</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="inherit">
+      <ListItemMobileGrid.Value className="text-inherit">
         <Skeleton loading={ isLoading }>
           { approval.valueAtRiskUsd ? (
             <NumberEntity
@@ -118,10 +109,10 @@ export default function ApprovalsListItem({
         </Skeleton>
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Last updated</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="inherit">
-        <Skeleton loading={ isLoading } display="flex" flexDir="column" rowGap={ 2 }>
+      <ListItemMobileGrid.Value className="text-inherit">
+        <Skeleton loading={ isLoading } display="flex" className="flex-col gap-y-2">
           <Time timestamp={ approval.timestamp }/>
-          <Text>{ dayjs(approval.timestamp).fromNow() }</Text>
+          <span>{ dayjs(approval.timestamp).fromNow() }</span>
         </Skeleton>
       </ListItemMobileGrid.Value>
       { isAddressMatch && (
@@ -130,7 +121,7 @@ export default function ApprovalsListItem({
           variant="outline"
           loading={ isLoading || isPending }
           onClick={ handleRevoke }
-          gridColumn="span 2"
+          className="col-span-2"
         >
           Revoke
         </Button>

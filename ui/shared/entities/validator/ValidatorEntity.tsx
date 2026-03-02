@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -9,7 +8,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'id'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route({ pathname: '/validators/[id]', query: { id: props.id } });
 
   return (
@@ -33,7 +32,7 @@ const Icon = (props: EntityBase.IconBaseProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'id'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   const { id, ...rest } = props;
 
   return (
@@ -76,7 +75,7 @@ const ValidatorEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(ValidatorEntity));
+export default React.memo(ValidatorEntity);
 
 export {
   Container,

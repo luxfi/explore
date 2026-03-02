@@ -30,7 +30,7 @@ const KettleTxs = () => {
   return (
     <>
       <PageTitle title="Computor transactions" withTextAd/>
-      <AddressEntity address={{ hash }} mb={ 6 }/>
+      <AddressEntity address={{ hash }} className="mb-6"/>
       <TxsWithFrontendSorting query={ query }/>
     </>
   );

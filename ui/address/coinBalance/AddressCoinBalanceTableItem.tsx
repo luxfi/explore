@@ -1,12 +1,11 @@
-import { Stat } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { AddressCoinBalanceHistoryItem } from 'types/api/address';
 import type { ClusterChainConfig } from 'types/multichain';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { ZERO } from 'toolkit/utils/consts';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -38,7 +37,7 @@ const AddressCoinBalanceTableItem = (props: Props) => {
           isLoading={ props.isLoading }
           number={ props.block_number }
           noIcon
-          fontWeight={ 700 }
+          className="font-bold"
         />
       </TableCell>
       <TableCell>
@@ -47,8 +46,7 @@ const AddressCoinBalanceTableItem = (props: Props) => {
             hash={ props.transaction_hash }
             isLoading={ props.isLoading }
             noIcon
-            fontWeight={ 700 }
-            maxW="150px"
+            className="font-bold max-w-[150px]"
           />
         ) }
       </TableCell>
@@ -71,15 +69,17 @@ const AddressCoinBalanceTableItem = (props: Props) => {
       </TableCell>
       <TableCell isNumeric display="flex" justifyContent="end">
         <Skeleton loading={ props.isLoading }>
-          <Stat.Root flexGrow="0" size="sm" positive={ isPositiveDelta }>
-            <Stat.ValueText fontWeight={ 600 }>
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="font-semibold text-sm">
               <SimpleValue
                 value={ deltaBn }
                 loading={ props.isLoading }
               />
-            </Stat.ValueText>
-            { isPositiveDelta ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-          </Stat.Root>
+            </span>
+            <span className={ isPositiveDelta ? 'text-green-500' : 'text-red-500' }>
+              { isPositiveDelta ? '\u25B2' : '\u25BC' }
+            </span>
+          </div>
         </Skeleton>
       </TableCell>
     </TableRow>

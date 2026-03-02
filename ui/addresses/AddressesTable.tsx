@@ -4,7 +4,7 @@ import React from 'react';
 import type { AddressesItem } from 'types/api/addresses';
 
 import { currencyUnits } from 'lib/units';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { ZERO } from 'toolkit/utils/consts';
 
 import AddressesTableItem from './AddressesTableItem';

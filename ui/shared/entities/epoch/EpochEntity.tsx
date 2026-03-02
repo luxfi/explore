@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -9,7 +8,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'number'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route({ pathname: '/epochs/[number]', query: { number: props.number } });
 
   return (
@@ -33,7 +32,7 @@ const Icon = (props: EntityBase.IconBaseProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'number'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
@@ -74,7 +73,7 @@ const EpochEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(EpochEntity));
+export default React.memo(EpochEntity);
 
 export {
   Container,

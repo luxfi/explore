@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs/routes';
@@ -10,7 +9,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'id'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/cross-chain-tx/[id]', query: { id: props.id } },
     { chain: props.chain, external: props.external },
@@ -56,7 +55,7 @@ const Icon = ({ noIcon, ...props }: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'id'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   return (
     <EntityBase.Content
       truncation="constant"
@@ -98,7 +97,7 @@ const CrossChainMessageEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(CrossChainMessageEntity));
+export default React.memo(CrossChainMessageEntity);
 
 export {
   Container,

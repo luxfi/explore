@@ -47,14 +47,14 @@ const BlobPageContent = () => {
       <NetworkExplorers
         type="blob"
         pathParam={ hash }
-        ml={{ base: 3, lg: 'auto' }}
+        className="ml-3 lg:ml-auto"
       />
     </>
   );
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title="Blob details"
         secondRow={ titleSecondRow }

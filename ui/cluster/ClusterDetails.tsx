@@ -4,7 +4,7 @@ import type { ClusterByNameResponse } from 'types/api/clusters';
 
 import { isEvmAddress } from 'lib/address/isEvmAddress';
 import { currencyUnits } from 'lib/units';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -38,7 +38,7 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
           clusterName={ clusterName }
           isLoading={ isLoading }
           noLink
-          fontWeight={ 500 }
+          className="font-medium"
         />
       </DetailedInfo.ItemValue>
 
@@ -52,7 +52,7 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
         <AddressEntity
           address={{ hash: clusterData?.owner || '' }}
           isLoading={ isLoading }
-          fontWeight={ 500 }
+          className="font-medium"
           noLink={ !ownerIsEvm }
         />
       </DetailedInfo.ItemValue>

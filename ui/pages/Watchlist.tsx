@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
@@ -7,8 +6,8 @@ import type { WatchlistAddress, WatchlistResponse } from 'types/api/account';
 import { resourceKey } from 'lib/api/resources';
 import { getResourceKey } from 'lib/api/useApiQuery';
 import { WATCH_LIST_ITEM_WITH_TOKEN_INFO } from 'stubs/account';
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AccountPageDescription from 'ui/shared/AccountPageDescription';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -80,8 +79,8 @@ const WatchList: React.FC = () => {
 
   const content = (() => {
     const actionBar = pagination.isVisible ? (
-      <ActionBar mt={ -6 }>
-        <Pagination ml="auto" { ...pagination }/>
+      <ActionBar className="-mt-6">
+        <Pagination className="ml-auto" { ...pagination }/>
       </ActionBar>
     ) : null;
 
@@ -97,7 +96,7 @@ const WatchList: React.FC = () => {
           emptyText=""
           actionBar={ actionBar }
         >
-          <Box display={{ base: 'block', lg: 'none' }}>
+          <div className="block lg:hidden">
             { data?.items.map((item, index) => (
               <WatchListItem
                 key={ item.address_hash + (isPlaceholderData ? index : '') }
@@ -108,8 +107,8 @@ const WatchList: React.FC = () => {
                 hasEmail={ hasEmail }
               />
             )) }
-          </Box>
-          <Box display={{ base: 'none', lg: 'block' }}>
+          </div>
+          <div className="hidden lg:block">
             <WatchlistTable
               data={ data?.items }
               isLoading={ isPlaceholderData }
@@ -118,7 +117,7 @@ const WatchList: React.FC = () => {
               top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
               hasEmail={ hasEmail }
             />
-          </Box>
+          </div>
         </DataListDisplay>
         <Skeleton mt={ 8 } loading={ isPlaceholderData } display="inline-block">
           <Button

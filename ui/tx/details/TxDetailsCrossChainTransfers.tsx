@@ -3,7 +3,7 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 
 import useTxCrossChainTransfersQuery from '../useTxCrossChainTransfersQuery';
