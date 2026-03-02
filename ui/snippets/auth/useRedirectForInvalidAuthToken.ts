@@ -7,7 +7,8 @@ import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 export default function useRedirectForInvalidAuthToken() {
   const rollbar = useRollbar();
   const profileQuery = useProfileQuery();
-  const errorStatus = profileQuery.error?.status;
+  const error = profileQuery.error;
+  const errorStatus = error && 'status' in error ? (error as { status: number }).status : undefined;
 
   React.useEffect(() => {
     if (errorStatus === 401) {
