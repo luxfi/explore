@@ -1,7 +1,7 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
-import type * as bens from '@blockscout/bens-types';
+import type * as bens from '@luxfi/bens-types';
 
 import type { ResourceError } from 'lib/api/resources';
 import * as ensDomainMock from 'mocks/ens/domain';

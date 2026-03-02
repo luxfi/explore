@@ -1,7 +1,7 @@
 import type { Channel } from 'phoenix';
 
-import type * as multichain from '@blockscout/multichain-aggregator-types';
-import type * as zetaChainCCTXType from '@blockscout/zetachain-cctx-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
+import type * as zetaChainCCTXType from '@luxfi/zetachain-cctx-types';
 import type { AddressCoinBalanceHistoryItem, AddressTokensBalancesSocketMessage } from 'types/api/address';
 import type { NewArbitrumBatchSocketResponse } from 'types/api/arbitrumL2';
 import type { NewBlockSocketResponse } from 'types/api/block';

@@ -1,7 +1,7 @@
 import { chakra, Grid, HStack, type JsxStyleProps } from '@chakra-ui/react';
 import React from 'react';
 
-import type { InterchainTransfer } from '@blockscout/interchain-indexer-types';
+import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
 
 import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
