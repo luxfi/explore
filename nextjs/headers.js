@@ -1,6 +1,16 @@
 async function headers() {
   return [
     {
+      // envs.js is generated at container startup — must never be cached
+      source: '/assets/envs.js',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store, no-cache, must-revalidate',
+        },
+      ],
+    },
+    {
       source: '/:path*',
       headers: [
         // security headers from here - https://nextjs.org/docs/advanced-features/security-headers
