@@ -1,4 +1,4 @@
-import type * as bens from '@blockscout/bens-types';
+import type * as bens from '@luxfi/bens-types';
 
 export interface EnsAddressLookupFilters extends Pick<bens.LookupAddressRequest, 'address' | 'resolved_to' | 'owned_by' | 'only_active'> {
   protocols: Array<string> | undefined;

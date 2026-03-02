@@ -1,7 +1,7 @@
 import { chakra } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 
-import { Resolution } from '@blockscout/stats-types';
+import { Resolution } from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
 import { route, type Route } from 'nextjs-routes';

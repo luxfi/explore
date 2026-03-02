@@ -1,5 +1,5 @@
 {
-  "name": "@blockscout/essential-dapps-chains-config-generator",
+  "name": "@luxfi/essential-dapps-chains-config-generator",
   "version": "1.0.0",
   "private": true,
   "type": "module",

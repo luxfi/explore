@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { LineChart, Resolution } from '@blockscout/stats-types';
+import type { LineChart, Resolution } from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
 import useApiQuery from 'lib/api/useApiQuery';

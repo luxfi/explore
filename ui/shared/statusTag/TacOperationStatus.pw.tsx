@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as tac from '@blockscout/tac-operation-lifecycle-types';
+import * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { test, expect } from 'playwright/lib';
 

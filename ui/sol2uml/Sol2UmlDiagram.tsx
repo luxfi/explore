@@ -1,7 +1,7 @@
 import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import type * as visualizer from '@blockscout/visualizer-types';
+import type * as visualizer from '@luxfi/visualizer-types';
 import type { SmartContract } from 'types/api/contract';
 
 import type { ResourceError } from 'lib/api/resources';

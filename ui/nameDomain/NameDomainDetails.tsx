@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
-import * as bens from '@blockscout/bens-types';
+import * as bens from '@luxfi/bens-types';
 
 import { route } from 'nextjs-routes';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
+import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
 import * as streakBadgesMock from 'mocks/rewards/streakBadges';
 import type { TestFnArgs } from 'playwright/lib';

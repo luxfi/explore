@@ -7,6 +7,7 @@ export const recipe = defineSlotRecipe({
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
+      fontFamily: 'body',
       textStyle: 'sm',
       '--popover-bg': 'colors.popover.bg',
       bg: 'var(--popover-bg)',

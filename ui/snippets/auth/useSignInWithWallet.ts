@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSignMessage, useSwitchChain } from 'wagmi';
 
-import type * as rewards from '@blockscout/points-types';
+import type * as rewards from '@luxfi/points-types';
 import type { UserInfo } from 'types/api/account';
 
 import config from 'configs/app';
