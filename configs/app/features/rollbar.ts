@@ -10,7 +10,7 @@ const instance = (() => {
     return envValue;
   }
 
-  return app.host?.replace('.blockscout.com', '').replace('.k8s-dev', '').replaceAll('-', '_');
+  return app.host?.replace('.lux.network', '').replace('.blockscout.com', '').replace('.k8s-dev', '').replaceAll('-', '_');
 })();
 const environment = getEnvValue('NEXT_PUBLIC_APP_ENV') || 'production';
 const codeVersion = getEnvValue('NEXT_PUBLIC_GIT_TAG') || getEnvValue('NEXT_PUBLIC_GIT_COMMIT_SHA');
