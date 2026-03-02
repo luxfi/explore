@@ -21,7 +21,7 @@ const TacOperationDetails = ({ isLoading, data }: Props) => {
 
   return (
     <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: '210px minmax(728px, auto)' }}
+      className="lg:grid-cols-[210px_minmax(728px,auto)]"
     >
       { data?.sender && (
         <>
@@ -73,7 +73,7 @@ const TacOperationDetails = ({ isLoading, data }: Props) => {
           >
             Lifecycle
           </DetailedInfo.ItemLabel>
-          <DetailedInfo.ItemValue mt={ 1 }>
+          <DetailedInfo.ItemValue className="mt-1">
             <TacOperationLifecycleAccordion data={ statusHistory } isLoading={ isLoading } type={ data.type }/>
           </DetailedInfo.ItemValue>
         </>

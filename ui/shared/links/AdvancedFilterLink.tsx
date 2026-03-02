@@ -1,11 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { RouteParams } from 'nextjs/routes';
 import { route } from 'nextjs/routes';
 
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props extends LinkProps {
@@ -14,18 +13,15 @@ interface Props extends LinkProps {
   adaptive?: boolean;
 }
 
-const AdvancedFilterLink = ({ query, routeParams, adaptive = true, ...rest }: Props) => {
+const AdvancedFilterLink = ({ query, routeParams, adaptive = true, className, ...rest }: Props) => {
   return (
     <Link
       href={ route({ pathname: '/advanced-filter', query }, routeParams) }
-      display="flex"
-      alignItems="center"
-      gap={ 1 }
-      textStyle="sm"
+      className={ `flex items-center gap-1 text-sm ${ className ?? '' }`.trim() }
       { ...rest }
     >
-      <IconSvg name="advanced-filter" boxSize={ 5 }/>
-      <chakra.span hideBelow={ adaptive ? 'lg' : undefined }>Advanced</chakra.span>
+      <IconSvg name="advanced-filter" className="size-5"/>
+      <span className={ adaptive ? 'hidden lg:inline' : '' }>Advanced</span>
     </Link>
   );
 };

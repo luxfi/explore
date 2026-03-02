@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react';
+
 import { useMutation } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Button } from 'toolkit/chakra/button';
-import { DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import FormSubmitAlert from 'ui/shared/FormSubmitAlert';
 
 type Props = {
@@ -54,7 +54,7 @@ const DeleteModal: React.FC<Props> = ({
       <DialogContent>
         <DialogHeader>{ title }</DialogHeader>
         <DialogBody>
-          { isAlertVisible && <Box mb={ 4 }><FormSubmitAlert/></Box> }
+          { isAlertVisible && <div className="mb-4"><FormSubmitAlert/></div> }
           { renderContent() }
         </DialogBody>
         <DialogFooter>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TokenVerifiedInfo } from 'types/api/token';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -21,10 +21,9 @@ const ServiceLink = ({ href, title, icon }: Props) => {
       title={ title }
       external
       noIcon
-      display="inline-flex"
-      alignItems="center"
+      className="inline-flex items-center"
     >
-      <IconSvg name={ icon } boxSize={ 5 } mr={ 2 } color="icon.primary"/>
+      <IconSvg name={ icon } className="w-5 h-5 mr-2 text-[var(--color-icon-primary)]"/>
       <span>{ title }</span>
     </Link>
   );

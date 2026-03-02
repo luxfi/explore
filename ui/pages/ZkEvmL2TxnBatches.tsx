@@ -1,10 +1,9 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { generateListStub } from 'stubs/utils';
 import { ZKEVM_L2_TXN_BATCHES_ITEM } from 'stubs/zkEvmL2';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import PageTitle from 'ui/shared/Page/PageTitle';
@@ -38,7 +37,7 @@ const ZkEvmL2TxnBatches = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <ZkEvmTxnBatchesListItem
             key={ item.number + (isPlaceholderData ? String(index) : '') }
@@ -46,10 +45,10 @@ const ZkEvmL2TxnBatches = () => {
             isLoading={ isPlaceholderData }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <ZkEvmTxnBatchesTable items={ data.items } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -59,10 +58,10 @@ const ZkEvmL2TxnBatches = () => {
     }
 
     return (
-      <Skeleton loading={ countersQuery.isPlaceholderData || isPlaceholderData } display="flex" flexWrap="wrap">
+      <Skeleton loading={ countersQuery.isPlaceholderData || isPlaceholderData } display="flex" className="flex-wrap">
         Txn batch
-        <Text fontWeight={ 600 } whiteSpace="pre"> #{ data.items[0].number } </Text>to
-        <Text fontWeight={ 600 } whiteSpace="pre"> #{ data.items[data.items.length - 1].number } </Text>
+        <span className="whitespace-pre font-semibold"> #{ data.items[0].number } </span>to
+        <span className="whitespace-pre font-semibold"> #{ data.items[data.items.length - 1].number } </span>
         (total of { countersQuery.data?.toLocaleString() } batches)
       </Skeleton>
     );

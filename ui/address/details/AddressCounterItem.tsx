@@ -7,8 +7,8 @@ import type { AddressCounters } from 'types/api/address';
 import { route } from 'nextjs/routes';
 
 import type { ResourceError } from 'lib/api/resources';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   prop: keyof AddressCounters;
@@ -30,7 +30,7 @@ const AddressCounterItem = ({ prop, query, address, isAddressQueryLoading, isDeg
   }, []);
 
   if (query.isPlaceholderData || isAddressQueryLoading) {
-    return <Skeleton loading h={ 5 } w="80px" borderRadius="full"/>;
+    return <Skeleton loading h="20px" w="80px" borderRadius="full"/>;
   }
 
   const data = query.data?.[prop];

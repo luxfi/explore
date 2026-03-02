@@ -1,4 +1,3 @@
-import { Box, Center, Flex, Grid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -9,10 +8,10 @@ import { useMultichainContext } from 'lib/contexts/multichain';
 import dayjs from 'lib/date/dayjs';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Button } from 'toolkit/chakra/button';
-import { Heading } from 'toolkit/chakra/heading';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
+import { Button } from '@luxfi/ui/button';
+import { Heading } from '@luxfi/ui/heading';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import { downloadBlob } from 'toolkit/utils/file';
@@ -66,30 +65,28 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
   }
 
   if (isPending || !data?.result) {
-    return <Center h="100%"><ContentLoader/></Center>;
+    return <div className="h-full"><ContentLoader/></div>;
   }
 
   return (
-    <Center h="100%" alignItems={{ base: 'flex-start', lg: 'center' }}>
-      <Flex flexDir="column" w="fit-content" maxW={{ base: '100%', lg: '700px', xl: '1000px' }}>
-        <Flex columnGap={ 8 } alignItems="flex-start" justifyContent={{ base: 'space-between', lg: undefined }} w="100%">
-          <Box maxW={{ base: 'calc(100% - 65px - 32px)', lg: 'calc(100% - 125px - 32px)' }}>
+    <div className="flex h-full items-start lg:items-center">
+      <div className="flex flex-col w-fit max-w-full lg:max-w-[700px] xl:max-w-[1000px]">
+        <div className="flex items-start w-full gap-x-8 justify-between lg:justify-start">
+          <div className="max-w-[calc(100% - 65px - 32px)] lg:max-w-[calc(100% - 125px - 32px)]">
             <Heading
               level="1"
             >
-              <TruncatedText text={ `Block #${ height }` } w="100%"/>
+              <TruncatedText text={ `Block #${ height }` } className="w-full"/>
             </Heading>
-            <Box mt={ 2 } color="text.secondary">
-              <Box fontWeight={ 600 }>Estimated target date</Box>
+            <div className="text-[var(--color-text-secondary)] mt-2">
+              <div className="font-semibold">Estimated target date</div>
               <Time timestamp={ dayjs().add(Number(data.result.EstimateTimeInSec), 's').valueOf() }/>
-            </Box>
-            <Flex columnGap={ 2 } mt={ 3 }>
+            </div>
+            <div className="flex mt-3 gap-x-2">
               <Link
                 external
                 variant="underlaid"
-                textStyle="sm"
-                px={ 2 }
-                display="inline-flex"
+                className="text-sm px-2 inline-flex"
                 href={ createGoogleCalendarLink({ blockHeight: height, timeFromNow: Number(data.result.EstimateTimeInSec), multichainContext }) }
               >
                 <Image src="/static/google_calendar.svg" alt="Google calendar logo" boxSize={ 5 } mr={ 2 }/>
@@ -97,54 +94,41 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
               </Link>
               <Button
                 variant="plain"
-                px={ 2 }
                 size="sm"
-                fontWeight="normal"
-                color="link.primary"
-                _hover={{ color: 'link.primary.hover' }}
-                bgColor="link.underlaid.bg"
-                display="inline-flex"
+                className="px-2 font-normal text-[var(--color-link-primary)] hover:text-[var(--color-link-primary-hover)] bg-[var(--color-link-underlaid-bg)] inline-flex"
                 onClick={ handleAddToAppleCalClick }
               >
                 <Image src="/static/apple_calendar.svg" alt="Apple calendar logo" boxSize={ 5 }/>
                 <span>Apple</span>
               </Button>
-            </Flex>
-          </Box>
-          <Box position="relative">
+            </div>
+          </div>
+          <div className="relative">
             <IconSvg
               name="block"
-              w={{ base: '65px', lg: '125px' }}
-              h={{ base: '75px', lg: '140px' }}
-              color={{ _light: 'gray.300', _dark: 'gray.600' }}
-              flexShrink={ 0 }
+              className="w-[65px] lg:w-[125px] h-[75px] lg:h-[140px] text-neutral-300 dark:text-neutral-600 shrink-0"
             />
             { multichainContext?.chain && (
               <ChainIcon
                 data={ multichainContext.chain }
-                position="absolute"
-                bottom={{ base: '5px', lg: '6px' }}
-                right={{ base: '45px', lg: '86px' }}
-                boxSize={{ lg: '60px' }}
-                bgColor="bg.primary"
-                borderRadius="full"
+                className="absolute bottom-[5px] lg:bottom-[6px] right-[45px] lg:right-[86px] lg:w-[60px] lg:h-[60px] bg-[var(--color-bg-primary)] rounded-full"
               />
             ) }
-          </Box>
-        </Flex>
+          </div>
+        </div>
         { data.result.EstimateTimeInSec && (
           <BlockCountdownTimer
             value={ Math.ceil(Number(data.result.EstimateTimeInSec)) }
             onFinish={ handleTimerFinish }
           />
         ) }
-        <Grid gridTemplateColumns="repeat(2, calc(50% - 4px))" columnGap={ 2 } mt={ 2 }>
+        <div className="grid mt-2 gap-x-2 grid-cols-2">
           <StatsWidget label="Remaining blocks" value={ data.result.RemainingBlock } icon="apps"/>
           <StatsWidget label="Current block" value={ data.result.CurrentBlock } icon="block"/>
-        </Grid>
+        </div>
         { !hideCapybaraRunner && <CapybaraRunner/> }
-      </Flex>
-    </Center>
+      </div>
+    </div>
   );
 };
 

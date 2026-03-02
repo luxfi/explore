@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ValidatorBlackfort } from 'types/api/validators';
@@ -7,7 +6,7 @@ import ValidatorsListItem from './ValidatorsListItem';
 
 const ValidatorsList = ({ data, isLoading }: { data: Array<ValidatorBlackfort>; isLoading: boolean }) => {
   return (
-    <Box>
+    <div>
       { data.map((item, index) => (
         <ValidatorsListItem
           key={ item.address.hash + (isLoading ? index : '') }
@@ -15,7 +14,7 @@ const ValidatorsList = ({ data, isLoading }: { data: Array<ValidatorBlackfort>; 
           isLoading={ isLoading }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

@@ -27,7 +27,7 @@ const BeaconChainDepositsListItem = ({ item, isLoading, view }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="120px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '120px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Transaction hash</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>

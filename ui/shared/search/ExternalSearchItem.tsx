@@ -1,9 +1,8 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 import type { ExternalSearchItem as ExternalSearchItemType } from 'lib/search/externalSearch';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 const zetaChainFeature = config.features.zetachain;
 
@@ -27,10 +26,10 @@ const ExternalSearchItem = ({ item }: Props) => {
 
   return (
     <>
-      <Text color="text.secondary">
+      <span className="text-[var(--color-text-secondary)]">
         It looks like you are searching for { getIndefiniteArticle(item.name) } { item.name }. This information is best served by the external explorer.
-      </Text>
-      <Link href={ url } external mt={ 4 }>
+      </span>
+      <Link href={ url } external className="mt-4">
         Click here to be redirected
       </Link>
     </>

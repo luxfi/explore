@@ -9,7 +9,7 @@ import { getResourceKey } from 'lib/api/useApiQuery';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useGetCsrfToken from 'lib/hooks/useGetCsrfToken';
 import * as mixpanel from 'lib/mixpanel';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 
 import AuthModalScreenConnectWallet from './screens/AuthModalScreenConnectWallet';
 import AuthModalScreenEmail from './screens/AuthModalScreenEmail';
@@ -183,10 +183,6 @@ const AuthModal = ({ initialScreen, onClose, mixpanelConfig, closeOnError }: Pro
       size={{ lgDown: 'full', lg: 'sm' }}
       // we need to allow user interact with element outside of dialog otherwise they can't click on recaptcha
       modal={ false }
-      // FIXME if we allow to close on interact outside, the dialog will be closed when user click on recaptcha
-      closeOnInteractOutside={ ![ 'email', 'otp_code', 'connect_wallet', 'select_method' ].includes(currentStep.type) }
-      trapFocus={ false }
-      preventScroll={ false }
     >
       <DialogContent>
         <DialogHeader

@@ -1,4 +1,3 @@
-import { Text, Flex, VStack, chakra, Box, Grid, GridItem, Separator } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -6,9 +5,9 @@ import type { AddressMudTableItem } from 'types/api/address';
 
 import { route } from 'nextjs-routes';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import HashStringShorten from 'ui/shared/HashStringShorten';
 import IconSvg from 'ui/shared/IconSvg';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
@@ -50,28 +49,28 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
   }, [ router, scrollRef, hash ]);
 
   return (
-    <ListItemMobile rowGap={ 3 } fontSize="sm" py={ 3 }>
-      <Flex w="100%">
+    <ListItemMobile className="!gap-y-3 !text-sm !py-3">
+      <div className="flex w-full">
         <Skeleton loading={ isLoading }>
-          <Link display="block">
+          <Link className="block">
             <IconSvg
               name="arrows/east-mini"
-              transform={ isOpened ? 'rotate(270deg)' : 'rotate(180deg)' }
-              boxSize={ 6 }
-              cursor="pointer"
+              style={{ transform:  isOpened ? 'rotate(270deg)' : 'rotate(180deg)'  }}
+              className="w-6 h-6 transition-transform duration-150 cursor-pointer"
+             
               onClick={ handleIconClick }
-              transitionDuration="faster"
+             
               aria-label="View schema"
             />
           </Link>
         </Skeleton>
-        <Box flexGrow="1">
-          <Flex justifyContent="space-between" height={ 6 } alignItems="center" mb={ 3 }>
+        <div className="grow">
+          <div className="flex items-center justify-between mb-3 h-6">
             <Skeleton loading={ isLoading }>
               <Link
                 onClick={ onTableClick }
                 data-id={ item.table.table_id }
-                fontWeight={ 500 }
+                className="font-medium"
                 href={ route({ pathname: '/address/[hash]', query: { hash, tab: 'mud', table_id: item.table.table_id } }) }
               >
                 { item.table.table_full_name }
@@ -80,37 +79,37 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
             <Skeleton loading={ isLoading } color="text.secondary">
               { item.table.table_type }
             </Skeleton>
-          </Flex>
+          </div>
           <Skeleton loading={ isLoading } color="text.secondary">
             <HashStringShorten hash={ item.table.table_id } type="long"/>
           </Skeleton>
-        </Box>
-      </Flex>
+        </div>
+      </div>
 
       { isOpened && (
-        <Grid templateColumns="48px 1fr" gap="8px 24px" fontWeight={ 500 } w="100%">
+        <div className="grid w-full gap-[8px 24px] font-medium" style={{ gridTemplateColumns: '48px 1fr' }}>
           { Boolean(item.schema.key_names.length) && (
             <>
-              <Text lineHeight="24px">Key</Text>
-              <VStack gap={ 1 } alignItems="start">
+              <span className="leading-[24px]">Key</span>
+              <div className="flex flex-col items-start gap-1">
                 { item.schema.key_names.map((name, index) => (
                   <Badge key={ name }>
-                    <chakra.span fontWeight={ 700 }>{ item.schema.key_types[index] }</chakra.span> { name }
+                    <span className="font-bold">{ item.schema.key_types[index] }</span> { name }
                   </Badge>
                 )) }
-              </VStack>
+              </div>
             </>
           ) }
-          <GridItem colSpan={ 2 }><Separator/></GridItem>
-          <Text lineHeight="24px">Value</Text>
-          <VStack gap={ 1 } alignItems="start">
+          <div className="col-span-2"><hr/></div>
+          <span className="leading-[24px]">Value</span>
+          <div className="flex flex-col items-start gap-1">
             { item.schema.value_names.map((name, index) => (
-              <Text key={ name }>
-                <chakra.span fontWeight={ 700 }>{ item.schema.value_types[index] }</chakra.span> { name }
-              </Text>
+              <span key={ name }>
+                <span className="font-bold">{ item.schema.value_types[index] }</span> { name }
+              </span>
             )) }
-          </VStack>
-        </Grid>
+          </div>
+        </div>
       ) }
     </ListItemMobile>
   );

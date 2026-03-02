@@ -1,4 +1,3 @@
-import { Flex, Grid, GridItem } from '@chakra-ui/react';
 import { pickBy } from 'es-toolkit';
 import React from 'react';
 
@@ -6,10 +5,10 @@ import type { FormSubmitResult } from './types';
 
 import { route } from 'nextjs-routes';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Heading } from 'toolkit/chakra/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Heading } from '@luxfi/ui/heading';
+import { Link } from 'toolkit/next/link';
 import { makePrettyLink } from 'toolkit/utils/url';
 
 import PublicTagsSubmitResultSuccess from './result/PublicTagsSubmitResultSuccess';
@@ -39,48 +38,48 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
   return (
     <div>
       { !hasErrors && (
-        <Alert status="success" mb={ 6 }>
+        <Alert status="success" className="mb-6">
           Success! All tags went into moderation pipeline and soon will appear in the explorer.
         </Alert>
       ) }
 
       <Heading level="2">Company info</Heading>
-      <Grid rowGap={ 3 } columnGap={ 6 } gridTemplateColumns="170px 1fr" mt={ 6 }>
-        <GridItem>Your name</GridItem>
-        <GridItem>{ groupedData.requesterName }</GridItem>
-        <GridItem>Email</GridItem>
-        <GridItem>{ groupedData.requesterEmail }</GridItem>
+      <div className="grid gap-y-3 gap-x-6 mt-6" style={{ gridTemplateColumns: '170px 1fr' }}>
+        <div>Your name</div>
+        <div>{ groupedData.requesterName }</div>
+        <div>Email</div>
+        <div>{ groupedData.requesterEmail }</div>
         { groupedData.companyName && (
           <>
-            <GridItem>Company name</GridItem>
-            <GridItem>{ groupedData.companyName }</GridItem>
+            <div>Company name</div>
+            <div>{ groupedData.companyName }</div>
           </>
         ) }
         { companyWebsite && (
           <>
-            <GridItem>Company website</GridItem>
-            <GridItem>
+            <div>Company website</div>
+            <div>
               <Link external href={ companyWebsite.href }>{ companyWebsite.domain }</Link>
-            </GridItem>
+            </div>
           </>
         ) }
-      </Grid>
+      </div>
 
-      <Heading level="2" mt={ 8 } mb={ 5 }>Public tags/labels</Heading>
+      <Heading level="2" className="mt-8 mb-5">Public tags/labels</Heading>
       { hasErrors ? <PublicTagsSubmitResultWithErrors data={ groupedData }/> : <PublicTagsSubmitResultSuccess data={ groupedData }/> }
 
-      <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 6 } mt={ 8 } rowGap={ 3 }>
+      <div className="flex flex-col lg:flex-row gap-x-6 mt-8 gap-y-3">
         { hasErrors && (
-          <Link href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) } asChild>
-            <Button variant="outline" w={{ base: '100%', lg: 'auto' }}>
+          <Link href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }>
+            <Button variant="outline" className="w-full lg:w-auto">
               Start over
             </Button>
           </Link>
         ) }
-        <Link href={ route({ pathname: '/public-tags/submit' }) } asChild>
-          <Button w={{ base: '100%', lg: 'auto' }}>Add new tag</Button>
+        <Link href={ route({ pathname: '/public-tags/submit' }) }>
+          <Button className="w-full lg:w-auto">Add new tag</Button>
         </Link>
-      </Flex>
+      </div>
     </div>
   );
 };

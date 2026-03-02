@@ -5,7 +5,7 @@ import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 import useApiQuery from 'lib/api/useApiQuery';
 import { INTERCHAIN_MESSAGE } from 'stubs/interchainIndexer';
 import { generateListStub } from 'stubs/utils';
-import { CollapsibleList } from 'toolkit/chakra/collapsible';
+import { CollapsibleList } from '@luxfi/ui/collapsible';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 
 import TxDetailsCrossChainMessage from './TxDetailsCrossChainMessage';
@@ -50,8 +50,7 @@ const TxDetailsCrossChainMessages = ({ hash, isLoading: isLoadingProp }: Props) 
           renderItem={ renderItem }
           cutLength={ 5 }
           text={ [ 'View all messages', 'Hide all messages' ] }
-          py={ 1 }
-          rowGap="14px"
+          className="py-1 gap-y-3.5"
         />
       </DetailedInfo.ItemValue>
     </>

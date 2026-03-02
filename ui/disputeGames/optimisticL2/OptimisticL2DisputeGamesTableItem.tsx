@@ -1,11 +1,10 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { OptimisticL2DisputeGamesItem } from 'types/api/optimisticL2';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import BlockEntityL2 from 'ui/shared/entities/block/BlockEntityL2';
 import HashStringShorten from 'ui/shared/HashStringShorten';
@@ -29,12 +28,12 @@ const OptimisticL2DisputeGamesTableItem = ({ item, isLoading }: Props) => {
         <Skeleton loading={ isLoading } display="inline-block">{ item.game_type }</Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Flex overflow="hidden" w="100%" alignItems="center">
+        <div className="flex overflow-hidden w-full items-center">
           <Skeleton loading={ isLoading }>
             <HashStringShorten hash={ item.contract_address_hash } type="long"/>
           </Skeleton>
-          <CopyToClipboard text={ item.contract_address_hash } ml={ 2 } isLoading={ isLoading }/>
-        </Flex>
+          <CopyToClipboard text={ item.contract_address_hash } className="ml-2" isLoading={ isLoading }/>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <BlockEntityL2

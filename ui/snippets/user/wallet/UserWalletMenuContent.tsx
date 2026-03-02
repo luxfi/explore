@@ -1,9 +1,9 @@
-import { Box, Flex, Separator, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import delay from 'lib/delay';
-import { Button } from 'toolkit/chakra/button';
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { Button } from '@luxfi/ui/button';
+import { IconButton } from '@luxfi/ui/icon-button';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 import SettingsAddressFormat from 'ui/snippets/topBar/settings/SettingsAddressFormat';
@@ -47,20 +47,18 @@ const UserWalletMenuContent = ({
   }, [ onCloseMenu, onOpenWallet ]);
 
   return (
-    <Box>
+    <div>
       { /* Wallet section */ }
       { isWalletEnabled && address && (
         <>
           { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
-          <Text fontSize="sm" fontWeight={ 600 } mb={ 1 }>My wallet</Text>
-          <Flex alignItems="center" columnGap={ 2 } justifyContent="space-between">
+          <span>My wallet</span>
+          <div>
             <AddressEntity
               address={{ hash: address, ens_domain_name: domain }}
               truncation="dynamic"
-              fontSize="sm"
-              fontWeight={ 700 }
             />
-            { isReconnecting ? <Spinner size="sm" m="2px" flexShrink={ 0 }/> : (
+            { isReconnecting ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4 m-[2px] shrink-0"/> : (
               <IconButton
                 aria-label="Open wallet"
                 variant="icon_secondary"
@@ -70,32 +68,32 @@ const UserWalletMenuContent = ({
                 <IconSvg name="gear"/>
               </IconButton>
             ) }
-          </Flex>
-          <Button size="sm" width="full" variant="outline" onClick={ onDisconnect } mt={ 3 }>
+          </div>
+          <Button size="sm" className="w-full mt-3" variant="outline" onClick={ onDisconnect }>
             Disconnect
           </Button>
-          <Separator my={ 3 }/>
+          <Separator/>
         </>
       ) }
       { isWalletEnabled && !address && (
         <>
-          <Button size="sm" width="full" variant="outline" onClick={ handleConnectClick }>
+          <Button size="sm" className="w-full" variant="outline" onClick={ handleConnectClick }>
             Connect wallet
           </Button>
-          <Separator my={ 3 }/>
+          <Separator/>
         </>
       ) }
       { /* Settings section */ }
       <SettingsColorTheme onSelect={ onCloseMenu }/>
-      <Separator my={ 3 }/>
+      <Separator/>
       <SettingsIdentIcon/>
       <SettingsAddressFormat/>
-      <Separator my={ 3 }/>
-      <VStack gap={ 1 }>
+      <Separator/>
+      <div>
         <SettingsScamTokens/>
         <SettingsLocalTime/>
-      </VStack>
-    </Box>
+      </div>
+    </div>
   );
 };
 

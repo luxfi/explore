@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -10,8 +9,9 @@ import { route } from 'nextjs-routes';
 
 import type { ResourceError } from 'lib/api/resources';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { formatZkEvmL2TxnBatchStatus } from 'lib/rollups/utils';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
@@ -21,6 +21,8 @@ import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 import PrevNext from 'ui/shared/PrevNext';
 import VerificationSteps from 'ui/shared/verificationSteps/VerificationSteps';
+
+const verificationSteps = ZKEVM_L2_TX_BATCH_STATUSES.map(formatZkEvmL2TxnBatchStatus);
 
 interface Props {
   query: UseQueryResult<ZkEvmL2TxnBatch, ResourceError>;
@@ -55,9 +57,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
   }
 
   return (
-    <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+    <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
@@ -68,7 +68,6 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -83,7 +82,11 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         Status
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <VerificationSteps steps={ ZKEVM_L2_TX_BATCH_STATUSES } currentStep={ data.status } isLoading={ isPlaceholderData }/>
+        <VerificationSteps
+          steps={ verificationSteps }
+          currentStep={ formatZkEvmL2TxnBatchStatus(data.status) }
+          isLoading={ isPlaceholderData }
+        />
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
@@ -105,10 +108,9 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
           <TxEntityL1
             isLoading={ isPlaceholderData }
             hash={ data.verify_transaction_hash }
-            maxW="100%"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
@@ -132,9 +134,8 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         Global exit root
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap="nowrap"
       >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.global_exit_root }/>
         </Skeleton>
         <CopyToClipboard text={ data.global_exit_root } isLoading={ isPlaceholderData }/>
@@ -146,9 +147,8 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         Acc input hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap="nowrap"
       >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.acc_input_hash }/>
         </Skeleton>
         <CopyToClipboard text={ data.acc_input_hash } isLoading={ isPlaceholderData }/>
@@ -164,10 +164,9 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
           <TxEntityL1
             isLoading={ isPlaceholderData }
             hash={ data.sequence_transaction_hash }
-            maxW="100%"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
@@ -176,9 +175,8 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         State root
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap="nowrap"
       >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.state_root }/>
         </Skeleton>
         <CopyToClipboard text={ data.state_root } isLoading={ isPlaceholderData }/>

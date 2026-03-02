@@ -1,4 +1,3 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
 import type React from 'react';
 
 export type MediaType = 'image' | 'video' | 'html';
@@ -10,13 +9,14 @@ export type TransportType = 'http' | 'ipfs';
 //    original
 export type Size = 'sm' | 'md' | 'original';
 
-export type MediaElementProps<As extends React.ElementType> = HTMLChakraProps<As> & {
+export type MediaElementProps<As extends React.ElementType> = React.ComponentPropsWithoutRef<As> & {
   src: string;
   srcSet?: string;
   transport: TransportType;
   onLoad?: () => void;
   onError?: () => void;
   onClick?: () => void;
+  className?: string;
 };
 
 // https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types
@@ -50,16 +50,7 @@ export function getPreliminaryMediaType(url: string): MediaType | undefined {
 }
 
 export const mediaStyleProps = {
-  transitionProperty: 'transform',
-  transitionDuration: 'normal',
-  transitionTimingFunction: 'ease',
-  cursor: 'pointer',
-  _hover: {
-    base: {},
-    lg: {
-      transform: 'scale(1.2)',
-    },
-  },
+  className: 'transition-transform duration-200 ease-in-out cursor-pointer lg:hover:scale-[1.2]',
 };
 
 export const videoPlayProps = {

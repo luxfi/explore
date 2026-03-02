@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TokenInfoApplication } from 'types/api/account';
 
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 interface Props {
   application?: TokenInfoApplication;
@@ -19,7 +19,7 @@ const TokenInfoFormStatusText = ({ application }: Props) => {
       return (
         <div>
           <div>Requests are sent to a moderator for review and approval. This process can take several days.</div>
-          <Alert status="warning" mt={ 6 }>Request in progress. Once an admin approves your request you can edit token info.</Alert>
+          <Alert status="warning" className="mt-6">Request in progress. Once an admin approves your request you can edit token info.</Alert>
         </div>
       );
     }

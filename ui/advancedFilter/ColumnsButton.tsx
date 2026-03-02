@@ -1,9 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import type { ColumnsIds } from 'ui/advancedFilter/constants';
 import { TABLE_COLUMNS } from 'ui/advancedFilter/constants';
 import IconSvg from 'ui/shared/IconSvg';
@@ -28,20 +27,18 @@ const ColumnsButton = ({ columns, onChange }: Props) => {
         <Button
           variant="dropdown"
           size="sm"
-          px={{ base: 1, lg: 3 }}
+          className="px-1 lg:px-3"
         >
-          <IconSvg name="columns" boxSize={ 5 } color="inherit"/>
-          <chakra.span hideBelow="lg">Columns</chakra.span>
+          <IconSvg name="columns" className="w-5 h-5 text-[inherit]"/>
+          <span className="hidden lg:inline">Columns</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        <PopoverBody px={ 4 } py={ 6 } display="flex" flexDir="column" rowGap={ 5 }>
+        <PopoverBody className="px-4 py-6 flex flex-col gap-y-5">
           <CheckboxGroup
             defaultValue={ Object.keys(columns).filter((key) => columns[key as ColumnsIds]) }
             onValueChange={ handleValueChange }
-            display="grid"
-            gridTemplateColumns="160px 160px"
-            gap={ 3 }
+            className="grid grid-cols-[160px_160px] gap-3"
           >
             { TABLE_COLUMNS.map(col => (
               <Checkbox

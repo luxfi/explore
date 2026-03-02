@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { GraphiQL } from 'graphiql';
 import React from 'react';
@@ -7,7 +6,7 @@ import config from 'configs/app';
 import buildUrl from 'lib/api/buildUrl';
 import 'graphiql/graphiql.css';
 import useApiQuery from 'lib/api/useApiQuery';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { ZERO_ADDRESS } from 'toolkit/utils/consts';
 import { isBrowser } from 'toolkit/utils/isBrowser';
@@ -84,11 +83,11 @@ const GraphQL = () => {
   });
 
   return (
-    <Box h="100vh" overflowX="scroll" css={ graphQLStyle }>
-      <Box h="100vh" minW="900px" css={ graphQLStyle }>
+    <div className="h-[100vh] overflow-x-scroll">
+      <div className="h-[100vh] min-w-[900px]">
         <GraphiQL fetcher={ fetcher } defaultQuery={ initialQuery } key={ colorModeState }/>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

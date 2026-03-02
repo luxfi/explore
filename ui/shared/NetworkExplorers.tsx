@@ -1,11 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NetworkExplorer as TNetworkExplorer } from 'types/networks';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import IconSvg from 'ui/shared/IconSvg';
 import VerifyWith from 'ui/shared/VerifyWith';
@@ -32,10 +31,10 @@ const NetworkExplorers = ({ className, type, pathParam }: Props) => {
         }
         const url = new URL(pathWithParam, explorer.baseUrl);
         return (
-          <Link external h="34px" key={ explorer.baseUrl } href={ url.toString() } alignItems="center" display="inline-flex" minW="120px">
+          <Link external key={ explorer.baseUrl } href={ url.toString() } className="h-[34px] items-center inline-flex min-w-[120px]">
             { explorer.logo ?
               <Image boxSize={ 5 } mr={ 2 } src={ explorer.logo } alt={ `${ explorer.title } icon` }/> :
-              <IconSvg name="explorer" boxSize={ 5 } color="icon.primary" mr={ 2 }/>
+              <IconSvg name="explorer" className="size-5 text-[var(--color-icon-primary)] mr-2"/>
             }
             { explorer.title }
           </Link>
@@ -58,4 +57,4 @@ const NetworkExplorers = ({ className, type, pathParam }: Props) => {
   );
 };
 
-export default React.memo(chakra(NetworkExplorers));
+export default React.memo(NetworkExplorers);

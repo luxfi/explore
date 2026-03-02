@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -27,4 +26,4 @@ const TxEntityZetaChainExternal = (props: Props) => {
   return <TxEntity.default { ...props } href={ props.href ?? defaultHref } link={{ external: true }}/>;
 };
 
-export default chakra(TxEntityZetaChainExternal);
+export default TxEntityZetaChainExternal;

@@ -1,14 +1,8 @@
-import {
-  Text,
-  chakra,
-  Box,
-  VStack,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -28,26 +22,26 @@ const MarketplaceAppGraphLinks = ({ className, links }: Props) => {
   }
 
   const content = (
-    <VStack gap={ 4 } align="start" textStyle="sm" w="260px">
-      <Text>{ `This dapp uses ${ links.length > 1 ? 'several subgraphs' : 'a subgraph' } powered by The Graph` }</Text>
+    <div className="flex flex-col gap-4 items-start text-sm w-[260px]">
+      <span>{ `This dapp uses ${ links.length > 1 ? 'several subgraphs' : 'a subgraph' } powered by The Graph` }</span>
       { links.map(link => (
         <Link external key={ link.url } href={ link.url }>{ link.title }</Link>
       )) }
-    </VStack>
+    </div>
   );
 
   return (
-    <Box position="relative" className={ className } display="inline-flex" alignItems="center" onClick={ handleButtonClick }>
+    <div className={ `relative inline-flex items-center ${ className ?? '' }`.trim() } onClick={ handleButtonClick }>
       <Tooltip
         variant="popover"
         content={ content }
-        positioning={{ placement: isMobile ? 'bottom-end' : 'bottom' }}
+        positioning={{ placement: 'bottom' }}
         interactive
       >
-        <IconSvg name="brands/graph" boxSize={ 5 } onClick={ handleButtonClick }/>
+        <IconSvg name="brands/graph" className="w-5 h-5" onClick={ handleButtonClick }/>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(MarketplaceAppGraphLinks));
+export default MarketplaceAppGraphLinks;

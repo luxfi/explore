@@ -1,13 +1,12 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ChainInfo } from 'types/api/interop';
 
 import { route } from 'nextjs-routes';
 
-import { Image } from 'toolkit/chakra/image';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -27,17 +26,14 @@ const IconStub = ({ isLoading }: { isLoading?: boolean }) => {
       minWidth="20px"
       h="20px"
       borderRadius="full"
-      background={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.100' }}
+      className="bg-[var(--color-blackAlpha-100)] dark:bg-[var(--color-whiteAlpha-100)]"
       alignItems="center"
       justifyContent="center"
       mr={ 2 }
     >
       <IconSvg
         name="networks/icon-placeholder"
-        width="16px"
-        height="16px"
-        color="icon.primary"
-        display="block"
+        className="block w-4 h-4 text-[var(--color-icon-primary)]"
       />
     </Skeleton>
   );
@@ -58,7 +54,7 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
     <TxEntity.Container { ...partsProps.container }>
       { chain && !props.noIcon && (
         <Tooltip content={ `${ chain.chain_name ? chain.chain_name : 'External chain' } (chain id ${ chain.chain_id })` }>
-          <Box>
+          <div>
             { chain.chain_logo ? (
               <Image
                 src={ chain.chain_logo }
@@ -71,7 +67,7 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
             ) : (
               <IconStub isLoading={ props.isLoading }/>
             ) }
-          </Box>
+          </div>
         </Tooltip>
       ) }
       { !chain && !props.noIcon && (
@@ -84,9 +80,9 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
               <TxEntity.Content { ...partsProps.content } hash={ hash }/>
             </TxEntity.Link>
           ) : (
-            <Box overflow="hidden">
+            <div className="overflow-hidden">
               <TxEntity.Content { ...partsProps.content } hash={ hash }/>
-            </Box>
+            </div>
           ) }
           <TxEntity.Copy { ...partsProps.copy } hash={ hash } noCopy/>
         </>
@@ -98,4 +94,4 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
   );
 };
 
-export default chakra(TxEntityInterop);
+export default TxEntityInterop;

@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import type { FC } from 'react';
 import React from 'react';
 
@@ -21,32 +20,32 @@ const NovesTokenTooltipContent: FC<Props> = ({ token, amount }) => {
   const showTokenAddress = HEX_REGEXP.test(token.address);
 
   return (
-    <Box color={{ _light: 'white', _dark: 'blackAlpha.900' }} display="flex" flexDir="column" alignItems="center" gap={ 1 }>
-      <Text as="p" color="inherit" fontWeight="semibold">
-        <Text color="inherit" as="span">
+    <div className="flex flex-col items-center gap-1 text-inherit">
+      <p className="font-semibold text-inherit">
+        <span className="text-inherit">
           { amount }
-        </Text>
-        <Text color="inherit" as="span" ml={ 1 }>
+        </span>
+        <span className="text-inherit ml-1">
           { token.symbol }
-        </Text>
-      </Text>
+        </span>
+      </p>
 
       { showTokenName && (
-        <Text as="p" color="inherit" fontWeight="semibold" mt="6px">
+        <p className="font-semibold text-inherit mt-1.5">
           { token.name }
-        </Text>
+        </p>
       ) }
 
       { showTokenAddress && (
-        <Box display="flex" alignItems="center">
-          <Text color="inherit" fontWeight="normal">
+        <div className="flex items-center">
+          <span className="font-normal text-inherit">
             { token.address }
-          </Text>
+          </span>
           <CopyToClipboard text={ token.address }/>
-        </Box>
+        </div>
       ) }
 
-    </Box>
+    </div>
   );
 };
 

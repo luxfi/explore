@@ -3,7 +3,7 @@ import React from 'react';
 import type { ArbitrumL2TxnWithdrawalsItem } from 'types/api/arbitrumL2';
 import type { TokenInfo } from 'types/api/token';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 import TokenValue from 'ui/shared/value/TokenValue';
 

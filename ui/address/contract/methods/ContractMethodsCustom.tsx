@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,8 +6,8 @@ import type { SmartContract } from 'types/api/contract';
 
 import useApiQuery, { getResourceKey } from 'lib/api/useApiQuery';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import CustomAbiModal from 'ui/customAbi/CustomAbiModal/CustomAbiModal';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
@@ -72,7 +71,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
   }, [ isLoading, modal.onOpen ]);
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       { currentInfo ? (
         <>
           <ContractMethodsAlerts
@@ -117,7 +116,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
         </>
       ) }
       <CustomAbiModal { ...modal } data={ modalData }/>
-    </Flex>
+    </div>
   );
 };
 

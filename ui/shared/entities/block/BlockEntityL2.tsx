@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -15,4 +14,4 @@ const BlockEntityL2 = (props: BlockEntity.EntityProps) => {
   return <BlockEntity.default { ...props } icon={{ name: 'txn_batches' }}/>;
 };
 
-export default chakra(BlockEntityL2);
+export default BlockEntityL2;

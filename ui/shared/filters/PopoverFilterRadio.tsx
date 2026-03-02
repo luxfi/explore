@@ -1,8 +1,7 @@
-import type { ListCollection } from '@chakra-ui/react';
 import React from 'react';
 
-import type { SelectOption } from 'toolkit/chakra/select';
-import { SelectContent, SelectItem, SelectRoot, SelectControl } from 'toolkit/chakra/select';
+import type { ListCollection, SelectOption } from '@luxfi/ui/select';
+import { SelectContent, SelectItem, SelectRoot, SelectControl } from '@luxfi/ui/select';
 import FilterButton from 'ui/shared/filters/FilterButton';
 
 interface Props {
@@ -30,7 +29,7 @@ const PopoverFilterRadio = ({ name, hasActiveFilter, collection, isLoading, onCh
       variant="plain"
     >
       <SelectControl
-        triggerProps={{ asChild: true, px: { base: 1, lg: 2 } }}
+        triggerProps={{ asChild: true, className: 'max-lg:px-1 lg:px-2' }}
         noIndicator
         defaultValue={ [ collection.items[0].value ] }
       >

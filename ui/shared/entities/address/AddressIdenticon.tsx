@@ -1,10 +1,9 @@
-import { Box } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import IdenticonGithub from 'ui/shared/IdenticonGithub';
 
 interface IconProps {
@@ -53,7 +52,7 @@ const Icon = dynamic(
 
         return (props: IconProps) => {
           const svg = GradientAvatar(props.hash, props.size, 'circle');
-          return <Box display="flex" dangerouslySetInnerHTML={{ __html: svg }}/>;
+          return <div className="flex" dangerouslySetInnerHTML={{ __html: svg }}/>;
         };
       }
 
@@ -77,9 +76,9 @@ type Props = IconProps;
 
 const AddressIdenticon = ({ size, hash }: Props) => {
   return (
-    <Box boxSize={ `${ size }px` } borderRadius="full" overflow="hidden">
+    <div className="rounded-full overflow-hidden" style={{ width: `${ size }px`, height: `${ size }px` }}>
       <Icon size={ size } hash={ hash }/>
-    </Box>
+    </div>
   );
 };
 

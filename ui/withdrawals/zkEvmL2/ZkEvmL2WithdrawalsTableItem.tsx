@@ -1,12 +1,11 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { ZkEvmL2WithdrawalsItem } from 'types/api/zkEvmL2';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
@@ -28,8 +27,7 @@ const ZkEvmL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntity
           number={ item.block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>
@@ -42,16 +40,14 @@ const ZkEvmL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
           truncation="constant_long"
           noIcon
         />
       </TableCell>
-      <TableCell verticalAlign="middle" pr={ 12 }>
+      <TableCell verticalAlign="middle">
         <TimeWithTooltip
           timestamp={ item.timestamp }
           isLoading={ isLoading }
-          color="text.secondary"
         />
       </TableCell>
       <TableCell verticalAlign="middle">
@@ -61,13 +57,12 @@ const ZkEvmL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
             hash={ item.l1_transaction_hash }
             truncation="constant_long"
             noIcon
-            textStyle="sm"
             noCopy
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>
@@ -77,7 +72,7 @@ const ZkEvmL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
         />
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } className="inline-block">
           <span>{ item.symbol }</span>
         </Skeleton>
       </TableCell>

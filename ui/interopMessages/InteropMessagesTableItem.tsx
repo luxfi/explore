@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressFromToIcon from 'ui/shared/address/AddressFromToIcon';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import AddressEntityInterop from 'ui/shared/entities/address/AddressEntityInterop';
@@ -48,7 +48,7 @@ const InteropMessagesTableItem = ({ item, isLoading }: Props) => {
             address={{ hash: item.target_address_hash }}
             isLoading={ isLoading } truncation="constant"
             chain={ item.init_chain }
-            w="min-content"
+            className="w-min"
           />
         ) :
           <AddressEntity address={{ hash: item.target_address_hash }} isLoading={ isLoading } truncation="constant"/>
@@ -67,7 +67,7 @@ const InteropMessagesTableItem = ({ item, isLoading }: Props) => {
             isLoading={ isLoading }
             truncation="constant"
             chain={ item.relay_chain }
-            w="min-content"
+            className="w-min"
           />
         ) :
           <AddressEntity address={{ hash: item.target_address_hash }} isLoading={ isLoading } truncation="constant"/>

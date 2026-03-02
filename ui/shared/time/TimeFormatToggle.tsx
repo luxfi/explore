@@ -1,16 +1,16 @@
-import type { StackProps } from '@chakra-ui/react';
-import { chakra, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
 import * as mixpanel from 'lib/mixpanel/index';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
-interface Props extends StackProps {}
+interface Props {
+  className?: string;
+}
 
-const TimeFormatToggle = (props: Props) => {
+const TimeFormatToggle = ({ className, ...props }: Props) => {
   const settings = useSettingsContext();
   const timeFormat = settings?.timeFormat || 'relative';
 
@@ -24,26 +24,24 @@ const TimeFormatToggle = (props: Props) => {
       return null;
     }
 
-    return <chakra.span color="icon.secondary">{ settings?.isLocalTime ? 'Local' : 'UTC' }</chakra.span>;
+    return <span className="text-[var(--color-icon-secondary)]">{ settings?.isLocalTime ? 'Local' : 'UTC' }</span>;
   })();
 
   return (
-    <HStack display="inline-flex" gap={ 1 } ml={ 2 } verticalAlign="bottom" { ...props }>
+    <div className={ `inline-flex gap-1 ml-2 align-bottom ${ className ?? '' }`.trim() } { ...props }>
       <Tooltip content="Toggle time format">
         <IconButton
           aria-label="Toggle time format"
           variant="icon_secondary"
           onClick={ handleClick }
-          boxSize={ 5 }
           selected={ timeFormat === 'absolute' }
-          borderRadius="sm"
-          verticalAlign="bottom"
+          className="size-5 rounded-sm align-bottom"
         >
-          <IconSvg name="clock-light" boxSize="14px"/>
+          <IconSvg name="clock-light" className="size-[14px]"/>
         </IconButton>
       </Tooltip>
       { text }
-    </HStack>
+    </div>
   );
 };
 

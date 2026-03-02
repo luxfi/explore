@@ -3,10 +3,10 @@ import React from 'react';
 import type { TokenInfoApplication, VerifiedAddress } from 'types/api/account';
 
 import dayjs from 'lib/date/dayjs';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import IconSvg from 'ui/shared/IconSvg';
@@ -39,7 +39,7 @@ const VerifiedAddressesListItem = ({ item, application, onAdd, onEdit, isLoading
 
   const tokenInfo = (() => {
     if (isLoading) {
-      return <Skeleton loading height={ 6 } width="140px"/>;
+      return <Skeleton loading className="h-6 w-[140px]"/>;
     }
 
     if (!item.metadata.tokenName) {
@@ -72,7 +72,7 @@ const VerifiedAddressesListItem = ({ item, application, onAdd, onEdit, isLoading
             aria-label="edit"
             variant="link"
             size="2xs"
-            borderRadius="none"
+            className="rounded-none"
             onClick={ handleEditClick }
           >
             <IconSvg name="edit"/>
@@ -89,14 +89,14 @@ const VerifiedAddressesListItem = ({ item, application, onAdd, onEdit, isLoading
         <AddressEntity
           address={{ hash: item.contractAddress, is_contract: true }}
           isLoading={ isLoading }
-          w="100%"
+          className="w-full"
         />
       </ListItemMobileGrid.Value>
 
       { item.metadata.tokenName && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Token Info</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value display="flex" alignItems="center">
+          <ListItemMobileGrid.Value className="flex items-center">
             { tokenInfo }
           </ListItemMobileGrid.Value>
         </>

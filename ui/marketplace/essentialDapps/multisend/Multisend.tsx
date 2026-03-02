@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { MultisenderWidget } from '@multisender.app/multisender-react-widget';
 import React from 'react';
 
@@ -12,13 +11,9 @@ import AdBanner from 'ui/shared/ad/AdBanner';
 const feature = getFeaturePayload(config.features.marketplace);
 const dappConfig = feature?.essentialDapps?.multisend;
 
-const Container = ({ children }: { children: React.ReactNode }) => (
-  <Box
-    w="full"
-    maxW="670px"
-    mx="auto"
-    css={{
-      '& > .multisenderTheme': {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const MULTISEND_CSS = {
+  '& > .multisenderTheme': {
         '--mw-color-brand': { _light: 'colors.blue.600', _dark: 'colors.blue.500' },
         '--mw-color-brand-stroke': { _light: 'colors.gray.200', _dark: 'colors.whiteAlpha.100' },
         '--mw-color-brand-text-secondary': 'colors.text.secondary',
@@ -142,7 +137,7 @@ const Container = ({ children }: { children: React.ReactNode }) => (
               marginTop: '12px',
             },
             '& span': {
-              '--loader-color': 'var(--chakra-colors-text-primary) !important',
+              '--loader-color': 'var(--color-text-primary) !important',
             },
           },
         },
@@ -491,12 +486,14 @@ const Container = ({ children }: { children: React.ReactNode }) => (
             },
           },
         },
-      },
-    }}
-  >{ children }</Box>
+  },
+};
+
+const Container = ({ children }: { children: React.ReactNode }) => (
+  <div className="w-full max-w-[670px] mx-auto">{ children }</div>
 );
 
-const widgetConfig = Object.fromEntries(dappConfig?.chains.map((chainId) => {
+const widgetConfig = Object.fromEntries((dappConfig?.chains ?? []).map((chainId) => {
   const chainConfig = essentialDappsChainsConfig()?.chains.find((chain) => chain.id === chainId);
   const explorerUrl = chainConfig?.app_config?.app?.baseUrl;
   const apiUrl = chainConfig?.app_config?.apis?.general?.endpoint;
@@ -509,10 +506,10 @@ const widgetConfig = Object.fromEntries(dappConfig?.chains.map((chainId) => {
         address: `${ explorerUrl }/address/`,
       },
       rpcUrls: [ `${ apiUrl }/api/eth-rpc` ],
-      blockScoutApiUrl: apiUrl,
+      explorerApiUrl: apiUrl,
     },
   ];
-}) || []);
+}));
 
 const Multisend = () => {
   const isMobile = useIsMobile();
@@ -523,8 +520,6 @@ const Multisend = () => {
         <MultisenderWidget
           config={ widgetConfig }
           logoType="minified"
-          posthogKey={ dappConfig?.posthogKey }
-          posthogHost={ dappConfig?.posthogHost }
           classNames={{
             theme: 'multisenderTheme',
             mantineProvider: 'multisenderMantineProvider',
@@ -534,11 +529,7 @@ const Multisend = () => {
       { (feature?.essentialDappsAdEnabled && !isMobile) && (
         <AdBanner
           format="desktop"
-          w="fit-content"
-          borderRadius="md"
-          overflow="hidden"
-          mx="auto"
-          mt={ 10 }
+          className="w-fit rounded-md overflow-hidden mx-auto mt-10"
         />
       ) }
     </>

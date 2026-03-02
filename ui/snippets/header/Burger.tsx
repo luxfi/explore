@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { DrawerBody, DrawerContent, DrawerRoot, DrawerTrigger } from 'toolkit/chakra/drawer';
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { DrawerBody, DrawerContent, DrawerRoot, DrawerTrigger } from '@luxfi/ui/drawer';
+import { IconButton } from '@luxfi/ui/icon-button';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 import NavigationMobile from 'ui/snippets/navigation/mobile/NavigationMobile';
@@ -20,23 +20,21 @@ const Burger = ({ isMarketplaceAppPage }: Props) => {
     <DrawerRoot
       open={ open }
       onOpenChange={ onOpenChange }
-      placement="start"
+      placement="left"
       lazyMount={ false }
     >
       <DrawerTrigger>
-        <IconButton onClick={ onOpen } p={ 2 } aria-label="Menu button">
+        <IconButton onClick={ onOpen } className="p-2" aria-label="Menu button">
           <IconSvg
             name="burger"
-            boxSize={ 6 }
-            display="block"
-            color={{ _light: 'gray.600', _dark: 'white' }}
+            className="w-6 h-6 block text-gray-600 dark:text-white"
           />
         </IconButton>
       </DrawerTrigger>
       <DrawerContent >
-        <DrawerBody display="flex" flexDirection="column" overflowX="hidden" overflowY="auto">
-          <TestnetBadge alignSelf="flex-start" mb={ 2 }/>
-          <RollupStageBadge alignSelf="flex-start" mb={ 2 }/>
+        <DrawerBody className="flex flex-col overflow-x-hidden overflow-y-auto">
+          <TestnetBadge className="self-start mb-2"/>
+          <RollupStageBadge className="self-start mb-2"/>
           <NetworkLogo/>
           <NavigationMobile onNavLinkClick={ onClose } isMarketplaceAppPage={ isMarketplaceAppPage }/>
         </DrawerBody>

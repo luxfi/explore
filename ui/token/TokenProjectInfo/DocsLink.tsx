@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -13,11 +13,9 @@ const DocsLink = ({ href }: Props) => {
       href={ href }
       external
       noIcon
-      display="inline-flex"
-      alignItems="center"
-      columnGap={ 1 }
+      className="inline-flex items-center gap-1"
     >
-      <IconSvg name="docs" boxSize={ 5 } color="icon.primary"/>
+      <IconSvg name="docs" className="w-5 h-5 text-[var(--color-icon-primary)]"/>
       <span>Documentation</span>
     </Link>
   );

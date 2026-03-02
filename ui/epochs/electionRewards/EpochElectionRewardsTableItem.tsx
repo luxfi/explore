@@ -2,9 +2,9 @@ import React from 'react';
 
 import type { CeloEpochDetails, CeloEpochElectionReward } from 'types/api/epochs';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import EpochRewardTypeTag from 'ui/shared/EpochRewardTypeTag';
 import IconSvg from 'ui/shared/IconSvg';
@@ -28,9 +28,9 @@ const EpochElectionRewardsTableItem = ({ isLoading, data, type }: Props) => {
     <>
       <TableRow
         onClick={ isLoading || !data.count ? undefined : section.onToggle }
-        cursor={ isLoading || !data.count ? undefined : 'pointer' }
+        className={ isLoading || !data.count ? undefined : 'cursor-pointer' }
       >
-        <TableCell borderColor={ mainRowBorderColor }>
+        <TableCell className={ section.open ? 'border-transparent' : undefined }>
           { Boolean(data.count) && (
             <Skeleton loading={ isLoading } display="flex" borderRadius="sm">
               <IconButton
@@ -39,23 +39,21 @@ const EpochElectionRewardsTableItem = ({ isLoading, data, type }: Props) => {
               >
                 <IconSvg
                   name="arrows/east-mini"
-                  boxSize={ 6 }
-                  transform={ section.open ? 'rotate(270deg)' : 'rotate(180deg)' }
-                  transitionDuration="faster"
+                  className={ `w-6 h-6 transition-transform duration-100 ${ section.open ? 'rotate-[270deg]' : 'rotate-180' }` }
                 />
               </IconButton>
             </Skeleton>
           ) }
         </TableCell>
-        <TableCell borderColor={ mainRowBorderColor }>
+        <TableCell className={ section.open ? 'border-transparent' : undefined }>
           <EpochRewardTypeTag type={ type } isLoading={ isLoading }/>
         </TableCell>
-        <TableCell borderColor={ mainRowBorderColor }>
-          <Skeleton loading={ isLoading } fontWeight={ 400 } my={ 1 }>
+        <TableCell className={ section.open ? 'border-transparent' : undefined }>
+          <Skeleton loading={ isLoading } fontWeight={ 400 } className="my-1">
             { getRewardNumText(type, data.count) }
           </Skeleton>
         </TableCell>
-        <TableCell borderColor={ mainRowBorderColor } textAlign="right">
+        <TableCell className={ section.open ? 'border-transparent' : undefined } textAlign="right">
           <TokenValue
             amount={ data.total }
             token={ data.token }

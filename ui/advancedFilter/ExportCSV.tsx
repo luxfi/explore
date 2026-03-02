@@ -7,9 +7,9 @@ import buildUrl from 'lib/api/buildUrl';
 import isNeedProxy from 'lib/api/isNeedProxy';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import dayjs from 'lib/date/dayjs';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { downloadBlob } from 'toolkit/utils/file';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
 import useReCaptcha from 'ui/shared/reCaptcha/useReCaptcha';
@@ -25,10 +25,7 @@ const ExportCSV = ({ filters }: Props) => {
   const [ isLoading, setIsLoading ] = React.useState(false);
 
   const apiFetchFactory = React.useCallback(async(recaptchaToken?: string) => {
-    const url = buildUrl('general:advanced_filter_csv', undefined, {
-      ...filters,
-      recaptcha_response: recaptchaToken,
-    }, undefined, multichainContext?.chain);
+    const url = buildUrl('general:advanced_filter_csv', undefined, filters, undefined, multichainContext?.chain);
 
     const response = await fetch(url, {
       headers: {
@@ -88,7 +85,7 @@ const ExportCSV = ({ filters }: Props) => {
           variant="outline"
           loading={ isLoading }
           size="sm"
-          mr={ 3 }
+          className="mr-3"
           disabled={ recaptcha.isInitError }
         >
           Export to CSV

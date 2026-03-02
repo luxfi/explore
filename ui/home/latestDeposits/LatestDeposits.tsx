@@ -1,16 +1,11 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { layerLabels } from 'lib/rollups/utils';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
@@ -43,13 +38,13 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
     <BlockEntityL1
       number={ item.l1BlockNumber }
       isLoading={ isLoading }
-      fontWeight={ 700 }
+      className="font-bold"
     />
   ) : (
     <BlockEntityL1
       number="TBD"
       isLoading={ isLoading }
-      fontWeight={ 700 }
+      className="font-bold"
       noLink
     />
   );
@@ -83,7 +78,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
     if (isMobile) {
       return (
         <>
-          <Flex justifyContent="space-between" alignItems="center" mb={ 1 }>
+          <div className="flex justify-between items-center mb-1">
             { l1BlockLink }
             { item.timestamp ? (
               <TimeWithTooltip
@@ -92,27 +87,27 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
                 isLoading={ isLoading }
                 color="text.secondary"
               />
-            ) : <GridItem/> }
-          </Flex>
-          <Grid gridTemplateColumns="56px auto">
-            <Skeleton loading={ isLoading } my="5px" w="fit-content">
-              L1 txn
+            ) : <div/> }
+          </div>
+          <div className="grid grid-cols-[56px_auto]">
+            <Skeleton loading={ isLoading } className="my-[5px] w-fit">
+              { layerLabels.parent } txn
             </Skeleton>
             { l1TxLink }
-            <Skeleton loading={ isLoading } my="3px" w="fit-content">
-              L2 txn
+            <Skeleton loading={ isLoading } className="my-[3px] w-fit">
+              { layerLabels.current } txn
             </Skeleton>
             { l2TxLink }
-          </Grid>
+          </div>
         </>
       );
     }
 
     return (
-      <Grid width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
+      <div className="grid w-full gap-x-4 gap-y-2 grid-cols-[max-content_max-content_auto]">
         { l1BlockLink }
-        <Skeleton loading={ isLoading } w="fit-content" h="fit-content" my="5px">
-          L1 txn
+        <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
+          { layerLabels.parent } txn
         </Skeleton>
         { l1TxLink }
         { item.timestamp ? (
@@ -125,26 +120,19 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
             h="fit-content"
             my="2px"
           />
-        ) : <GridItem/> }
-        <Skeleton loading={ isLoading } w="fit-content" h="fit-content" my="2px">
-          L2 txn
+        ) : <div/> }
+        <Skeleton loading={ isLoading } className="w-fit h-fit my-[2px]">
+          { layerLabels.current } txn
         </Skeleton>
         { l2TxLink }
-      </Grid>
+      </div>
     );
   })();
 
   return (
-    <Box
-      width="100%"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      py={ 4 }
-      px={{ base: 0, lg: 4 }}
-      textStyle="sm"
-    >
+    <div className="w-full border-b border-[var(--color-border-divider)] py-4 px-0 lg:px-4 text-sm">
       { content }
-    </Box>
+    </div>
   );
 };
 
@@ -153,14 +141,14 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
   return (
     <>
       <SocketNewItemsNotice
-        borderBottomRadius={ 0 }
+        className="rounded-b-none"
         url={ depositsUrl }
         num={ socketItemsNum }
         showErrorAlert={ showSocketErrorAlert }
         type="deposit"
         isLoading={ isLoading }
       />
-      <Box mb={{ base: 3, lg: 4 }}>
+      <div className="mb-3 lg:mb-4">
         { items.map(((item, index) => (
           <LatestDepositsItem
             key={ item.l1TxHash + item.l2TxHash + (isLoading ? index : '') }
@@ -168,10 +156,10 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
             isLoading={ isLoading }
           />
         ))) }
-      </Box>
-      <Flex justifyContent="center">
-        <Link textStyle="sm" href={ depositsUrl }>View all deposits</Link>
-      </Flex>
+      </div>
+      <div className="flex justify-center">
+        <Link className="text-sm" href={ depositsUrl }>View all deposits</Link>
+      </div>
     </>
   );
 };

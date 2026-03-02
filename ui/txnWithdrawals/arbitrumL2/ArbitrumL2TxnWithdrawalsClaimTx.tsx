@@ -1,4 +1,3 @@
-import { HStack, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { useWaitForTransactionReceipt } from 'wagmi';
 
@@ -33,10 +32,10 @@ const ArbitrumL2TxnWithdrawalsClaimTx = ({ isPending, hash, onSuccess, onError }
   }, [ status, error, onSuccess, onError ]);
 
   return (
-    <HStack columnGap={ 2 } lineHeight="32px">
-      { isPending && <Spinner size="sm"/> }
-      <TxEntityL1 hash={ hash } noIcon maxW="160px" noCopy/>
-    </HStack >
+    <div className="flex flex-row">
+      { isPending && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4"/> }
+      <TxEntityL1 hash={ hash } noIcon noCopy/>
+    </div>
   );
 };
 

@@ -1,11 +1,10 @@
-import type { ConditionalValue } from '@chakra-ui/react';
-import { Flex, Grid, chakra, useBreakpointValue } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EntityProps } from 'ui/shared/entities/address/AddressEntity';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import AddressEntityWithTokenFilter from 'ui/shared/entities/address/AddressEntityWithTokenFilter';
 
+import useIsMobile from 'lib/hooks/useIsMobile';
 import AddressEntityZetaChain from '../entities/address/AddressEntityZetaChain';
 import AddressFromToIcon from './AddressFromToIcon';
 import { getTxCourseType } from './utils';
@@ -16,7 +15,7 @@ interface Props {
   from: { hash: string } | { hash: string; chainId: string; chainType: 'zeta' };
   to: { hash: string } | { hash: string; chainId: string; chainType: 'zeta' } | null;
   current?: string;
-  mode?: Mode | ConditionalValue<Mode>;
+  mode?: Mode | { base?: Mode; lg?: Mode; xl?: Mode };
   className?: string;
   isLoading?: boolean;
   tokenHash?: string;
@@ -31,13 +30,13 @@ const AddressFromTo = ({
   current,
   mode: modeProp,
   className, isLoading, tokenHash = '', tokenSymbol = '', noIcon }: Props) => {
-  const mode = useBreakpointValue(
-    {
-      base: (typeof modeProp === 'object' && 'base' in modeProp ? modeProp.base : modeProp),
-      lg: (typeof modeProp === 'object' && 'lg' in modeProp ? modeProp.lg : modeProp),
-      xl: (typeof modeProp === 'object' && 'xl' in modeProp ? modeProp.xl : modeProp),
-    },
-  ) ?? 'long';
+  const isMobile = useIsMobile();
+  const mode = (() => {
+    if (typeof modeProp === 'object' && modeProp !== null) {
+      return isMobile ? (modeProp.base ?? 'long') : (modeProp.lg ?? modeProp.base ?? 'long');
+    }
+    return modeProp ?? 'long';
+  })();
 
   const EntityFrom = (() => {
     if ('chainType' in from && from.chainType === 'zeta') {
@@ -67,12 +66,12 @@ const AddressFromTo = ({
 
   if (mode === 'compact') {
     return (
-      <Flex className={ className } flexDir="column" rowGap={ 3 }>
-        <Flex alignItems="center" columnGap={ 2 }>
+      <div className={ `flex flex-col gap-y-3 ${ className || '' }` }>
+        <div className="flex items-center gap-x-2">
           <AddressFromToIcon
             isLoading={ isLoading }
             type={ getTxCourseType(from.hash, to?.hash, current) }
-            transform="rotate(90deg)"
+            className="rotate-90"
           />
           <EntityFrom
             address={ from }
@@ -83,11 +82,10 @@ const AddressFromTo = ({
             tokenHash={ tokenHash }
             tokenSymbol={ tokenSymbol }
             truncation="constant"
-            maxW="calc(100% - 28px)"
-            w="min-content"
+            className="max-w-[calc(100%-28px)] w-min"
             chainId={ fromChainId }
           />
-        </Flex>
+        </div>
         { to && (
           <EntityTo
             address={ to }
@@ -98,20 +96,18 @@ const AddressFromTo = ({
             tokenHash={ tokenHash }
             tokenSymbol={ tokenSymbol }
             truncation="constant"
-            maxW="calc(100% - 28px)"
-            w="min-content"
-            ml="28px"
+            className="max-w-[calc(100%-28px)] w-min ml-7"
             chainId={ toChainId }
           />
         ) }
-      </Flex>
+      </div>
     );
   }
 
   const iconSize = 20;
 
   return (
-    <Grid className={ className } alignItems="center" gridTemplateColumns={ `minmax(auto, min-content) ${ iconSize }px minmax(auto, min-content)` }>
+    <div className={ `grid items-center ${ className || '' }` } style={{ gridTemplateColumns: `minmax(auto, min-content) ${ iconSize }px minmax(auto, min-content)` }}>
       <EntityFrom
         address={ from }
         isLoading={ isLoading }
@@ -121,9 +117,8 @@ const AddressFromTo = ({
         tokenHash={ tokenHash }
         tokenSymbol={ tokenSymbol }
         truncation="constant"
-        mr={ isOutgoing ? 4 : 2 }
+        className={ `w-auto ${ isOutgoing ? 'mr-4' : 'mr-2' }` }
         chainId={ fromChainId }
-        w="auto"
       />
       <AddressFromToIcon
         isLoading={ isLoading }
@@ -139,13 +134,12 @@ const AddressFromTo = ({
           tokenHash={ tokenHash }
           tokenSymbol={ tokenSymbol }
           truncation="constant"
-          ml={ 3 }
+          className="ml-3 w-auto"
           chainId={ toChainId }
-          w="auto"
         />
       ) }
-    </Grid>
+    </div>
   );
 };
 
-export default chakra(AddressFromTo);
+export default AddressFromTo;

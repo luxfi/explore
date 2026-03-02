@@ -1,27 +1,23 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { Center } from '@chakra-ui/react';
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
-interface Props extends HTMLChakraProps<'div'> {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;
+  children?: React.ReactNode;
 }
 
-const LogIndex = ({ children, isLoading, ...props }: Props) => {
+const LogIndex = ({ children, isLoading, className, ...props }: Props) => {
   return (
     <Tooltip content="Log index">
-      <Skeleton loading={ isLoading } asChild>
-        <Center
-          color={ isLoading ? 'transparent' : { _light: 'gray.600', _dark: 'gray.50' } }
-          bgColor={ isLoading ? undefined : { _light: 'gray.100', _dark: 'gray.600' } }
-          borderRadius="base"
-          px={ 2 }
+      <Skeleton loading={ isLoading } className="inline-block">
+        <div
+          className={ `flex items-center justify-center rounded px-2 text-gray-600 dark:text-gray-50 bg-gray-100 dark:bg-gray-600 ${ className ?? '' }`.trim() }
           { ...props }
         >
           { children }
-        </Center>
+        </div>
       </Skeleton>
     </Tooltip>
   );

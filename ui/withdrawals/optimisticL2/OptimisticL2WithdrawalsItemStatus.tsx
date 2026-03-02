@@ -4,7 +4,7 @@ import React from 'react';
 import type { OptimisticL2WithdrawalsItem, OptimisticL2WithdrawalsResponse } from 'types/api/optimisticL2';
 
 import { getResourceKey } from 'lib/api/useApiQuery';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import OptimisticL2ClaimButton from './OptimisticL2ClaimButton';
 

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -13,9 +12,9 @@ import getErrorMessage from 'lib/errors/getErrorMessage';
 import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import getErrorProp from 'lib/errors/getErrorProp';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import { Button } from 'toolkit/chakra/button';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
+import { toaster } from '@luxfi/ui/toaster';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 
 const rollupFeature = config.features.rollup;
@@ -158,10 +157,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
       open
       onOpenChange={ onOpenChange }
       size={{ lgDown: 'full', lg: 'md' }}
-      trapFocus={ false }
-      preventScroll={ false }
       modal={ false }
-      closeOnInteractOutside={ false }
     >
       <DialogContent>
         <DialogHeader>
@@ -169,7 +165,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
         </DialogHeader>
         <DialogBody>
           <FormProvider { ...formApi }>
-            <chakra.form
+            <form
               noValidate
               onSubmit={ formApi.handleSubmit(onFormSubmit) }
             >
@@ -178,12 +174,12 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                 name="address"
                 required
                 placeholder="Address (0x...)"
-                bgColor="dialog.bg"
-                mt={ 6 }
+               
+                className="mt-6"
               />
               { isWeb3WalletConnected ? (
                 <Button
-                  mt={ 6 }
+                  className="mt-6"
                   type="submit"
                   disabled={ formApi.formState.isSubmitting || isTxPending }
                   loading={ formApi.formState.isSubmitting || isTxPending }
@@ -193,7 +189,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                 </Button>
               ) : (
                 <Button
-                  mt={ 6 }
+                  className="mt-6"
                   onClick={ connectWeb3Wallet }
                   disabled={ isWeb3WalletOpen }
                   loading={ isWeb3WalletOpen }
@@ -202,7 +198,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                   Connect wallet
                 </Button>
               ) }
-            </chakra.form>
+            </form>
           </FormProvider>
         </DialogBody>
       </DialogContent>

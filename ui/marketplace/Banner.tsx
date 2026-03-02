@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React from 'react';
 
@@ -57,18 +56,15 @@ const Banner = ({ apps = [], favoriteApps, isLoading, onInfoClick, onFavoriteCli
   }
 
   return (
-    <Flex gap={ 6 }>
+    <div className="flex gap-6">
       { content }
       { !isMobile && (
         <AdBanner
           format="mobile"
-          w="fit-content"
-          flexShrink={ 0 }
-          borderRadius="md"
-          overflow="hidden"
+          className="w-fit shrink-0 rounded-md overflow-hidden"
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 

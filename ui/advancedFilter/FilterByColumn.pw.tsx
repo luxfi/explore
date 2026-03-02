@@ -22,8 +22,8 @@ const filters = {
   methods: [ '0xa9059cbb' ],
   age: '7d' as const,
   address_relation: 'or' as const,
-  from_address_hashes_to_include: [ '0x123' ],
-  to_address_hashes_to_include: [ '0x456' ],
+  from_address_hashes_to_include: [ '0x1230000000000000000000000000000000000000' ],
+  to_address_hashes_to_include: [ '0x4560000000000000000000000000000000000000' ],
   amount_from: '100',
   token_contract_symbols_to_include: [ 'ETH' ],
   token_contract_address_hashes_to_include: [ 'native' ],
@@ -55,7 +55,7 @@ for (const column of columns) {
 
     const filterButton = page.locator('button');
     await filterButton.click();
-    const popover = page.locator('.chakra-popover__content');
+    const popover = page.locator('[data-radix-popper-content-wrapper]');
     await expect(popover).toBeVisible();
     await expect(popover).toHaveScreenshot();
   });

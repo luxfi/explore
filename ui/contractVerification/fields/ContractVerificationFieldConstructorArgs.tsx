@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FormFields } from '../types';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';

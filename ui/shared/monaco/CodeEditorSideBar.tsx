@@ -1,12 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import { throttle } from 'es-toolkit';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 
 import type { File, Monaco } from './types';
 
-import type { TabsTriggerProps } from 'toolkit/chakra/tabs';
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'toolkit/chakra/tabs';
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '@luxfi/ui/tabs';
 import { shift, cmd } from 'toolkit/utils/htmlEntities';
 
 import CodeEditorFileExplorer from './CodeEditorFileExplorer';
@@ -34,19 +32,10 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
 
   const themeColors = useThemeColors();
 
-  const tabProps: Partial<TabsTriggerProps> = {
-    fontFamily: 'heading',
-    textTransform: 'uppercase',
-    fontSize: '11px',
-    lineHeight: '35px',
-    fontWeight: 500,
-    color: themeColors['tab.inactiveForeground'],
-    _selected: {
-      color: themeColors['tab.activeForeground'],
-    },
-    px: 0,
-    letterSpacing: 0.3,
-  };
+  const tabClassName = 'font-heading uppercase text-[11px] leading-[35px] font-medium px-0 tracking-[0.3px]';
+  const tabStyle = (value: string): React.CSSProperties => ({
+    color: activeTab === value ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'],
+  });
 
   const handleScrollThrottled = React.useRef(throttle((event: React.SyntheticEvent) => {
     setIsStuck((event.target as HTMLDivElement).scrollTop > 0);
@@ -100,45 +89,30 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
 
   return (
     <>
-      <Box
-        w={ `${ CONTAINER_WIDTH }px` }
-        flexShrink={ 0 }
-        bgColor={ themeColors['sideBar.background'] }
-        fontSize="13px"
-        overflowY="scroll"
+      <div
+        className="shrink-0 text-[13px] z-[2] absolute lg:relative overflow-y-scroll rounded-br-md rounded-tr-md h-full"
+        style={{
+          width: `${ CONTAINER_WIDTH }px`,
+          backgroundColor: themeColors['sideBar.background'],
+          transitionProperty: 'right',
+          transitionDuration: '200ms',
+          transitionTimingFunction: 'ease-in-out',
+          right: isDrawerOpen ? '0' : `-${ CONTAINER_WIDTH }px`,
+          paddingBottom: '22px',
+          boxShadow: isDrawerOpen ? 'var(--shadow-md)' : 'none',
+        }}
         onScroll={ handleScrollThrottled.current }
-        position={{ base: 'absolute', lg: 'relative' }}
-        right={{ base: isDrawerOpen ? '0' : `-${ CONTAINER_WIDTH }px`, lg: '0' }}
-        top={{ base: 0, lg: undefined }}
-        h="100%"
-        pb="22px"
-        boxShadow={{ base: isDrawerOpen ? 'md' : 'none', lg: 'none' }}
-        zIndex={{ base: '2', lg: undefined }}
-        transitionProperty="right"
-        transitionDuration="normal"
-        transitionTimingFunction="ease-in-out"
-        borderTopRightRadius="md"
-        borderBottomRightRadius="md"
       >
         <TabsRoot unmountOnExit={ false } variant="unstyled" size="free" value={ activeTab } onValueChange={ handleTabChange }>
           <TabsList
-            columnGap={ 3 }
-            position="sticky"
-            top={ 0 }
-            left={ 0 }
-            bgColor={ themeColors['sideBar.background'] }
-            zIndex="1"
-            px={ 2 }
-            h="35px"
-            alignItems="center"
-            boxShadow={ isStuck ? 'md' : 'none' }
-            borderTopRightRadius="md"
+            className={ `gap-x-3 sticky top-0 left-0 z-[1] px-2 h-[35px] items-center rounded-tr-md ${ isStuck ? 'shadow-md' : 'shadow-none' }` }
+            style={{ backgroundColor: themeColors['sideBar.background'] }}
           >
-            <TabsTrigger value="explorer" { ...tabProps } title={ `File explorer (${ shift + cmd }E)` }>Explorer</TabsTrigger>
-            <TabsTrigger value="search" { ...tabProps } title={ `Search in files (${ shift + cmd }F)` }>Search</TabsTrigger>
+            <TabsTrigger value="explorer" className={ tabClassName } style={ tabStyle('explorer') } title={ `File explorer (${ shift + cmd }E)` }>Explorer</TabsTrigger>
+            <TabsTrigger value="search" className={ tabClassName } style={ tabStyle('search') } title={ `Search in files (${ shift + cmd }F)` }>Search</TabsTrigger>
             { actionBarRenderer?.() }
           </TabsList>
-          <TabsContent value="explorer" p={ 0 }>
+          <TabsContent value="explorer" className="p-0">
             <CodeEditorFileExplorer
               data={ data }
               onFileSelect={ handleFileSelect }
@@ -148,7 +122,7 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
               setActionBarRenderer={ setActionBarRenderer }
             />
           </TabsContent>
-          <TabsContent value="search" p={ 0 }>
+          <TabsContent value="search" className="p-0">
             <CodeEditorSearch
               data={ data }
               onFileSelect={ handleFileSelect }
@@ -160,32 +134,26 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
             />
           </TabsContent>
         </TabsRoot>
-      </Box>
-      <Box
-        boxSize="24px"
-        p="4px"
-        position="absolute"
-        display={{ base: 'block', lg: 'none' }}
-        right={ isDrawerOpen ? `${ CONTAINER_WIDTH - 1 }px` : '0' }
-        top="calc(50% - 12px)"
-        backgroundColor={ themeColors['sideBar.background'] }
-        borderTopLeftRadius="4px"
-        borderBottomLeftRadius="4px"
-        boxShadow="md"
+      </div>
+      <div
+        className="absolute rounded-tl rounded-bl z-[1] shadow-md block lg:hidden size-6 p-1 cursor-pointer"
+        style={{
+          right: isDrawerOpen ? `${ CONTAINER_WIDTH - 1 }px` : '0',
+          top: 'calc(50% - 12px)',
+          backgroundColor: themeColors['sideBar.background'],
+          transitionProperty: 'right',
+          transitionDuration: '200ms',
+          transitionTimingFunction: 'ease-in-out',
+        }}
         onClick={ handleSideBarButtonClick }
-        zIndex="1"
-        transitionProperty="right"
-        transitionDuration="normal"
-        transitionTimingFunction="ease-in-out"
         title={ isDrawerOpen ? 'Open sidebar' : 'Close sidebar' }
         aria-label={ isDrawerOpen ? 'Open sidebar' : 'Close sidebar' }
       >
-        <Box
-          className="codicon codicon-tree-item-expanded"
-          transform={ isDrawerOpen ? 'rotate(-90deg)' : 'rotate(+90deg)' }
-          boxSize="16px"
+        <div
+          className="codicon codicon-tree-item-expanded size-4"
+          style={{ transform: isDrawerOpen ? 'rotate(-90deg)' : 'rotate(+90deg)' }}
         />
-      </Box>
+      </div>
     </>
   );
 };

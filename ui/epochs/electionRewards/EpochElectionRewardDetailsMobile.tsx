@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -34,43 +33,35 @@ const CeloEpochElectionRewardDetailsMobile = ({ type, token }: Props) => {
   });
 
   return (
-    <Flex
-      flexDir="column"
-      rowGap={ 3 }
-      p={ 4 }
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      borderRadius="base"
-      maxH="360px"
-      overflowY="scroll"
-    >
+    <div className="flex flex-col gap-y-3 p-4 bg-black/5 dark:bg-white/5 rounded max-h-[360px] overflow-y-scroll">
 
       { query.data?.pages
         .map((page) => page.items)
         .flat()
         .map((item, index) => {
           return (
-            <Flex key={ index } flexDir="column" alignItems="flex-start" rowGap={ 1 } fontWeight={ 400 }>
-              <AddressEntity address={ item.account } noIcon w="100%"/>
+            <div key={ index } className="flex flex-col items-start gap-y-1 font-normal">
+              <AddressEntity address={ item.account } noIcon className="w-full"/>
               <TokenValue
                 amount={ item.amount }
                 token={ token }
-                tokenEntityProps={{ noIcon: true, ml: 1 }}
-                startElement={ <Box flexShrink={ 0 } color="text.secondary">got </Box> }
+                tokenEntityProps={{ noIcon: true }}
+                startElement={ <div className="shrink-0 text-[var(--color-text-secondary)]">got </div> }
               />
-              <Flex columnGap={ 1 } alignItems="center" w="100%">
-                <Box flexShrink={ 0 } color="text.secondary">on behalf of</Box>
+              <div className="flex gap-x-1 items-center w-full">
+                <div className="shrink-0 text-[var(--color-text-secondary)]">on behalf of</div>
                 <AddressEntity address={ item.associated_account } noIcon/>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           );
         }) }
 
-      { query.isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
+      { query.isFetching && <ContentLoader className="max-w-[200px] mt-3"/> }
 
-      { query.isError && <Text color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</Text> }
+      { query.isError && <span className="text-[var(--color-text-error)] mt-3">Something went wrong. Unable to load next page.</span> }
 
-      <Box h="0" w="100px" mt="-12px" ref={ cutRef }/>
-    </Flex>
+      <div className="h-0 w-[100px] -mt-3" ref={ cutRef }/>
+    </div>
   );
 };
 

@@ -1,11 +1,10 @@
-import { Text, Box, Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
 import type { ControllerRenderProps, FieldPathValue, ValidateResult } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import type { FormFields } from '../types';
 
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldError } from 'toolkit/components/forms/components/FormFieldError';
 import { DragAndDropArea } from 'toolkit/components/forms/inputs/file/DragAndDropArea';
 import { FileInput } from 'toolkit/components/forms/inputs/file/FileInput';
@@ -55,12 +54,12 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
 
   const renderUploadButton = React.useCallback(() => {
     return (
-      <VStack gap={ 3 }>
-        <Text fontWeight={ 500 }>{ title }</Text>
+      <div className="flex gap-3">
+        <span className="font-medium">{ title }</span>
         <Button size="sm" variant="outline">
           Drop file{ multiple ? 's' : '' } or click here
         </Button>
-      </VStack>
+      </div>
     );
   }, [ multiple, title ]);
 
@@ -68,26 +67,20 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
     const errorList = fileError?.message?.split(';');
 
     return (
-      <Box
-        display="grid"
-        gridTemplateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(0, 1fr) minmax(0, 1fr)' }}
-        columnGap={ 3 }
-        rowGap={ 3 }
-        w="100%"
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full">
         { files.map((file, index) => (
-          <Box key={ file.name + file.lastModified + index }>
+          <div key={ file.name + file.lastModified + index }>
             <FileSnippet
               file={ file }
-              maxW="initial"
+              className="max-w-none"
               onRemove={ handleFileRemove }
               index={ index }
               isDisabled={ formState.isSubmitting }
               error={ errorList?.[index] }
             />
-          </Box>
+          </div>
         )) }
-      </Box>
+      </div>
     );
   }, [ formState.isSubmitting, handleFileRemove, fileError ]);
 
@@ -110,22 +103,17 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
       <>
         <FileInput<FormFields, typeof name> accept={ fileTypes.join(',') } multiple={ multiple } field={ field }>
           { ({ onChange }) => (
-            <Flex
-              flexDir="column"
-              alignItems="flex-start"
-              rowGap={ 2 }
-              w="100%"
-            >
+            <div className="flex flex-col items-start gap-y-2 w-full">
               <DragAndDropArea
                 onDrop={ onChange }
                 fullFilePath={ fullFilePath }
-                p={{ base: 3, lg: 6 }}
+                className="p-3 lg:p-6"
                 isDisabled={ formState.isSubmitting }
                 isInvalid={ Boolean(error) }
               >
                 { hasValue ? renderFiles(field.value) : renderUploadButton() }
               </DragAndDropArea>
-            </Flex>
+            </div>
           ) }
         </FileInput>
         { errorElement }

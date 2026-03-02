@@ -1,4 +1,3 @@
-import { Flex, VStack, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PaginationParams } from 'ui/shared/pagination/types';
@@ -8,7 +7,8 @@ import {
   shouldShowActionBar,
 } from 'lib/clusters/actionBarUtils';
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
-import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
+import { cn } from 'lib/utils/cn';
+import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ActionBar from 'ui/shared/ActionBar';
 import Pagination from 'ui/shared/pagination/Pagination';
@@ -43,17 +43,17 @@ const ClustersActionBar = ({
   const showActionBarOnDesktop = shouldShowActionBar(pagination.isVisible, true);
 
   const filters = (
-    <Flex columnGap={ 3 } rowGap={ 3 } flexDir={{ base: 'column', lg: 'row' }}>
+    <div className="flex gap-x-3 gap-y-3 flex-col lg:flex-row">
       <ButtonGroupRadio
         defaultValue={ viewMode }
         onChange={ handleViewModeChange }
-        w={{ lg: 'fit-content' }}
+        className="lg:w-fit"
         loading={ isInitialLoading }
       >
-        <Button value="directory" size="sm" px={ 3 }>
+        <Button value="directory" size="sm" className="px-3">
           Directory
         </Button>
-        <Button value="leaderboard" size="sm" px={ 3 }>
+        <Button value="leaderboard" size="sm" className="px-3">
           Leaderboard
         </Button>
       </ButtonGroupRadio>
@@ -61,27 +61,29 @@ const ClustersActionBar = ({
         initialValue={ searchTerm }
         onChange={ onSearchChange }
         placeholder={ placeholder }
-        w={{ base: '100%', lg: '360px' }}
-        minW={{ base: 'auto', lg: '250px' }}
+        className="w-full lg:w-[360px] min-w-[auto] lg:min-w-[250px]"
         size="sm"
         loading={ isInitialLoading }
       />
-    </Flex>
+    </div>
   );
 
   return (
     <>
-      <VStack gap={ 3 } mb={ 6 } hideFrom="lg" align="stretch">
+      <div className="flex lg:hidden items-stretch mb-6 gap-3">
         { filters }
-      </VStack>
+      </div>
       <ActionBar
-        mt={ -6 }
-        display={{ base: showActionBarOnMobile ? 'flex' : 'none', lg: showActionBarOnDesktop ? 'flex' : 'none' }}
+        className={ cn(
+          '-mt-6',
+          showActionBarOnMobile ? 'flex' : 'hidden',
+          showActionBarOnDesktop ? 'lg:flex' : 'lg:hidden',
+        ) }
       >
-        <Box hideBelow="lg">
+        <div className="hidden lg:block">
           { filters }
-        </Box>
-        <Pagination { ...pagination } ml="auto"/>
+        </div>
+        <Pagination { ...pagination } className="ml-auto"/>
       </ActionBar>
     </>
   );

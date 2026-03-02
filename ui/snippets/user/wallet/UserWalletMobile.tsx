@@ -4,7 +4,7 @@ import config from 'configs/app';
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import { DrawerTrigger, DrawerRoot, DrawerContent, DrawerBody } from 'toolkit/chakra/drawer';
+import { DrawerTrigger, DrawerRoot, DrawerContent, DrawerBody } from '@luxfi/ui/drawer';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import UserWalletButton from './UserWalletButton';
@@ -55,8 +55,8 @@ const UserWalletMobile = () => {
           isPending={ isPending }
         />
       </DrawerTrigger>
-      <DrawerContent maxWidth="300px">
-        <DrawerBody p={ 6 }>
+      <DrawerContent className="max-w-[300px]">
+        <DrawerBody className="p-6">
           <UserWalletMenuContent
             address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }
             domain={ isWalletEnabled ? web3AccountWithDomain.domain : undefined }

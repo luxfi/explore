@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenHolder, TokenInfo } from 'types/api/token';
@@ -13,7 +12,7 @@ interface Props {
 
 const TokenHoldersList = ({ data, token, isLoading }: Props) => {
   return (
-    <Box>
+    <div>
       { data.map((item, index) => {
         const tokenId = 'token_id' in item ? item.token_id : null;
         return (
@@ -25,7 +24,7 @@ const TokenHoldersList = ({ data, token, isLoading }: Props) => {
           />
         );
       }) }
-    </Box>
+    </div>
   );
 };
 

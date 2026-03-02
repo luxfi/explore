@@ -1,11 +1,11 @@
-import { Box, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
 import type { SmartContractVerificationConfig } from 'types/client/contract';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { FormFieldSelectAsync } from 'toolkit/components/forms/fields/FormFieldSelectAsync';
+import { createListCollection } from '@luxfi/ui/select';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 
@@ -42,10 +42,10 @@ const ContractVerificationFieldZkCompiler = ({ config }: { config: SmartContract
         loadOptions={ loadOptions }
         required
       />
-      <Box>
+      <div>
         <Link external href="https://docs.zksync.io/zk-stack/components/compiler/specification#glossary">zksolc</Link>
         <span> compiler version.</span>
-      </Box>
+      </div>
     </ContractVerificationFormRow>
   );
 };

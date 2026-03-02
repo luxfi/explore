@@ -1,4 +1,3 @@
-import { chakra, Text } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -9,8 +8,8 @@ import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/errors/getErrorMessage';
 import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import * as mixpanel from 'lib/mixpanel';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { FormFieldEmail } from 'toolkit/components/forms/fields/FormFieldEmail';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
 import useReCaptcha from 'ui/shared/reCaptcha/useReCaptcha';
@@ -76,21 +75,20 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
-        <Text>Account email, used for transaction notifications from your watchlist.</Text>
+        <p>Account email, used for transaction notifications from your watchlist.</p>
         <FormFieldEmail<EmailFormFields>
           name="email"
           required
           placeholder="Email"
-          bgColor="dialog.bg"
-          mt={ 6 }
+          className="mt-6"
         />
         <ReCaptcha { ...recaptcha }/>
         <Button
-          mt={ 6 }
+          className="mt-6"
           type="submit"
           disabled={ formApi.formState.isSubmitting || recaptcha.isInitError }
           loading={ formApi.formState.isSubmitting }
@@ -98,7 +96,7 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
         >
           Send a code
         </Button>
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

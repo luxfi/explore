@@ -1,4 +1,3 @@
-import { chakra, Box, Flex } from '@chakra-ui/react';
 import type { Channel } from 'phoenix';
 import React from 'react';
 
@@ -9,8 +8,8 @@ import type { SmartContract } from 'types/api/contract';
 import { route } from 'nextjs-routes';
 
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Alert } from 'toolkit/chakra/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 import ContractDetailsAlertProxyPattern from './ContractDetailsAlertProxyPattern';
@@ -37,14 +36,14 @@ const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props)
   });
 
   return (
-    <Flex flexDir="column" rowGap={ 1 } mb={ 6 } _empty={{ display: 'none' }}>
+    <div className="flex flex-col gap-y-1 mb-6 empty:hidden">
       { data?.is_blueprint && (
-        <Box>
+        <div>
           <span>This is an </span>
           <Link external href="https://eips.ethereum.org/EIPS/eip-5202">
             ERC-5202 Blueprint contract
           </Link>
-        </Box>
+        </div>
       ) }
       <ContractDetailsAlertVerificationStatus data={ data } isLoading={ isLoading } addressData={ addressData }/>
       { addressData.proxy_type && (
@@ -65,17 +64,16 @@ const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props)
           <AddressEntity
             address={{ hash: data.verified_twin_address_hash, filecoin: { robust: data.verified_twin_filecoin_robust_address }, is_contract: true }}
             truncation="constant"
-            fontSize="sm"
-            fontWeight="500"
+            className="text-sm font-medium"
           />
-          <chakra.span mt={ 1 }>All functions displayed below are from ABI of that contract. In order to verify current contract, proceed with </chakra.span>
+          <span className="mt-1">All functions displayed below are from ABI of that contract. In order to verify current contract, proceed with </span>
           <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: addressData.hash } }) }>
             Verify & Publish
           </Link>
           <span> page</span>
         </Alert>
       ) }
-    </Flex>
+    </div>
   );
 };
 

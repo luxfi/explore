@@ -1,8 +1,8 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AuthModal from 'ui/snippets/auth/AuthModal';
 import useLinkEmail from 'ui/snippets/auth/linkEmail/useLinkEmail';
@@ -25,9 +25,8 @@ const WatchlistEmailAlert = () => {
     <>
       <Alert
         status="info"
-        descriptionProps={{ alignItems: 'center', gap: 2 }}
-        w="fit-content"
-        mb={ 6 }
+        descriptionProps={{ className: 'items-center gap-2' }}
+        className="w-fit mb-6"
       >
         To receive notifications you need to add an email to your profile.
         <Button variant="outline" size="sm" onClick={ handleButtonClick }>Add email</Button>

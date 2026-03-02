@@ -1,4 +1,3 @@
-import { chakra, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -9,8 +8,8 @@ import type { UserInfo } from 'types/api/account';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/errors/getErrorMessage';
 import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import IconSvg from 'ui/shared/IconSvg';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
 import useReCaptcha from 'ui/shared/reCaptcha/useReCaptcha';
@@ -104,29 +103,28 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
-        <Text mb={ 6 }>
+        <p className="mb-6">
           Please check{ ' ' }
-          <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
+          <span className="font-bold">{ email }</span>{ ' ' }
           and enter your code below.
-        </Text>
+        </p>
         <AuthModalFieldOtpCode isDisabled={ isCodeSending }/>
         <Button
           variant="link"
-          columnGap={ 2 }
-          mt={ 3 }
+          className="gap-x-2 mt-3"
           disabled={ isCodeSending || recaptcha.isInitError }
           onClick={ handleResendCodeClick }
         >
-          <IconSvg name="repeat" boxSize={ 5 }/>
-          <Box fontSize="sm">Resend code</Box>
+          <IconSvg name="repeat" className="w-5 h-5"/>
+          <span className="text-sm">Resend code</span>
         </Button>
         <ReCaptcha { ...recaptcha }/>
         <Button
-          mt={ 6 }
+          className="mt-6"
           type="submit"
           loading={ formApi.formState.isSubmitting }
           disabled={ formApi.formState.isSubmitting || isCodeSending || recaptcha.isInitError }
@@ -135,7 +133,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
         >
           Submit
         </Button>
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

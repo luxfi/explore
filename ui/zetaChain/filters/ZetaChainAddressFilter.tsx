@@ -1,12 +1,11 @@
-import { Flex, VStack } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
 import type { ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
 
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import AddButton from 'toolkit/components/buttons/AddButton';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import type { Props as ChainSelectBaseProps } from 'ui/shared/externalChains/ChainSelect';
@@ -38,20 +37,20 @@ type InputProps = {
 
 const AddressFilterInput = ({ address, onChange, onClear, isLast, onAddFieldClick, placeholder }: InputProps) => {
   return (
-    <Flex alignItems="center" w="100%">
+    <div className="flex w-full">
       <InputGroup
-        flexGrow={ 1 }
-        endElement={ <ClearButton onClick={ onClear } mx={ 2 } disabled={ !address }/> }
+        className="grow"
+        endElement={ <ClearButton onClick={ onClear } className="mx-2" disabled={ !address }/> }
       >
         <Input value={ address } onChange={ onChange } placeholder={ placeholder } size="sm" autoComplete="off"/>
       </InputGroup>
       { isLast && (
         <AddButton
-          ml={ 2 }
+          className="ml-2"
           onClick={ onAddFieldClick }
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 
@@ -68,7 +67,10 @@ const ChainSelect = ({ chainsConfig, value, onValueChange, ...props }: ChainSele
 
   const handleValueChange = React.useCallback(({ value }: { value: Array<string> }) => {
     const chainIds = value.filter(item => item !== 'all');
-    onValueChange?.({ value: chainIds, items: chainsConfig.filter(chain => chainIds.includes(chain.id)) });
+    const items = chainsConfig
+      .filter(chain => chainIds.includes(chain.id))
+      .map(chain => ({ value: chain.id, label: chain.name || `Chain ${ chain.id }` }));
+    onValueChange?.({ value: chainIds, items });
   }, [ chainsConfig, onValueChange ]);
   return (
     <ChainSelectBase
@@ -79,14 +81,12 @@ const ChainSelect = ({ chainsConfig, value, onValueChange, ...props }: ChainSele
       value={ formattedValue }
       onValueChange={ handleValueChange }
       size="sm"
-      w="full"
       positioning={{
-        placement: 'bottom-start',
         sameWidth: true,
         offset: { mainAxis: 4 },
       }}
       contentProps={{
-        zIndex: 'modal2',
+        className: 'z-[1500]',
       }}
     />
   );
@@ -169,14 +169,14 @@ const ZetaChainAddressFilter = ({
       onReset={ onReset }
       hasReset
     >
-      <VStack gap={ 3 } align="stretch">
+      <div className="flex flex-col gap-3">
         <ChainSelect
           value={ currentChainValue }
           onValueChange={ handleChainChange }
           chainsConfig={ chains }
           loading={ isChainsLoading }
         />
-        <VStack gap={ 2 } align="stretch">
+        <div className="flex flex-col gap-3">
           { currentValue.map((item, index) => (
             <AddressFilterInput
               key={ index }
@@ -188,8 +188,8 @@ const ZetaChainAddressFilter = ({
               placeholder={ placeholder }
             />
           )) }
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </TableColumnFilter>
   );
 };

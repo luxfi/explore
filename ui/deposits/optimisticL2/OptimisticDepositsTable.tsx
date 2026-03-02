@@ -3,7 +3,8 @@ import React from 'react';
 import type { OptimisticL2DepositsItem } from 'types/api/optimisticL2';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { layerLabels } from 'lib/rollups/utils';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import OptimisticDepositsTableItem from './OptimisticDepositsTableItem';
@@ -20,14 +21,14 @@ const OptimisticDepositsTable = ({ items, top, isLoading }: Props) => {
       <TableRoot tableLayout="auto" minW="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader>L1 block No</TableColumnHeader>
-            <TableColumnHeader>L2 txn hash</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.parent } block No</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.current } txn hash</TableColumnHeader>
             <TableColumnHeader>
               Timestamp
               <TimeFormatToggle/>
             </TableColumnHeader>
-            <TableColumnHeader>L1 txn hash</TableColumnHeader>
-            <TableColumnHeader>L1 txn origin</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.parent } txn hash</TableColumnHeader>
+            <TableColumnHeader>{ layerLabels.parent } txn origin</TableColumnHeader>
             <TableColumnHeader isNumeric>Gas limit</TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>

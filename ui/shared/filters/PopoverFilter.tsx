@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { PopoverContentProps } from 'toolkit/chakra/popover';
-import { PopoverBody, PopoverContent, PopoverTrigger, PopoverRoot } from 'toolkit/chakra/popover';
+import type { PopoverContentProps } from '@luxfi/ui/popover';
+import { PopoverBody, PopoverContent, PopoverTrigger, PopoverRoot } from '@luxfi/ui/popover';
 import FilterButton from 'ui/shared/filters/FilterButton';
 
 interface Props {
@@ -21,7 +21,7 @@ const PopoverFilter = ({ appliedFiltersNum, children, contentProps, isLoading }:
         />
       </PopoverTrigger>
       <PopoverContent { ...contentProps }>
-        <PopoverBody display="flex" flexDir="column" rowGap={ 5 }>
+        <PopoverBody className="flex flex-col gap-y-5">
           { children }
         </PopoverBody>
       </PopoverContent>

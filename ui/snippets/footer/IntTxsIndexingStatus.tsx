@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -9,7 +8,7 @@ import config from 'configs/app';
 import useApiQuery, { getResourceKey } from 'lib/api/useApiQuery';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { apos, nbsp, ndash } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -54,34 +53,26 @@ const IntTxsIndexingStatus = () => {
   }
 
   const hint = (
-    <Text textStyle="xs">
+    <span className="text-xs">
       { data.indexed_internal_transactions_ratio &&
         `${ Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) }% Blocks With Internal Transactions Indexed${ nbsp }${ ndash } ` }
       We{ apos }re indexing this chain right now. Some of the counts may be inaccurate.
-    </Text>
+    </span>
   );
 
   const trigger = (
-    <Flex
-      px={ 1 }
-      bg={{ base: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-      borderRadius="sm"
-      alignItems="center"
-      justifyContent="center"
-      color="green.400"
-      _hover={{ color: 'hover' }}
-    >
-      <IconSvg name="info" boxSize={ 5 }/>
+    <div className="flex px-1 bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)] rounded-sm items-center justify-center text-[var(--color-green-400)] hover:text-[var(--color-hover)]">
+      <IconSvg name="info" className="w-5 h-5"/>
       { data.indexed_internal_transactions_ratio && (
-        <Text fontWeight={ 600 } textStyle="xs" color="inherit">
+        <span className="font-semibold text-xs text-inherit">
           { Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) + '%' }
-        </Text>
+        </span>
       ) }
-    </Flex>
+    </div>
   );
 
   return (
-    <Tooltip content={ hint } interactive positioning={{ placement: 'bottom-start' }} lazyMount>
+    <Tooltip content={ hint } interactive positioning={{ placement: 'bottom' }} lazyMount>
       { trigger }
     </Tooltip>
   );

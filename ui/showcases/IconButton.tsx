@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { PopoverBody, PopoverContent, PopoverTrigger, PopoverRoot } from 'toolkit/chakra/popover';
+import { Checkbox } from '@luxfi/ui/checkbox';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { PopoverBody, PopoverContent, PopoverTrigger, PopoverRoot } from '@luxfi/ui/popover';
 import IconSvg from 'ui/shared/IconSvg';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
@@ -87,7 +87,7 @@ const IconButtonShowcase = () => {
                 </IconButton>
               </PopoverTrigger>
               <PopoverContent>
-                <PopoverBody display="flex" flexDirection="column" gap={ 2 }>
+                <PopoverBody className="flex flex-col gap-2">
                   <Checkbox defaultChecked>First option</Checkbox>
                   <Checkbox>Second option</Checkbox>
                 </PopoverBody>
@@ -110,17 +110,17 @@ const IconButtonShowcase = () => {
         <SectionHeader>Size</SectionHeader>
         <SamplesStack>
           <Sample label="size: 2xs">
-            <IconButton size="2xs" variant="icon_secondary" outline="1px dashed lightpink">
+            <IconButton size="2xs" variant="icon_secondary" style={{ outline: '1px dashed lightpink' }}>
               <IconSvg name="star_outline"/>
             </IconButton>
           </Sample>
           <Sample label="size: 2xs_alt">
-            <IconButton size="2xs_alt" variant="icon_secondary" outline="1px dashed lightpink">
+            <IconButton size="2xs_alt" variant="icon_secondary" style={{ outline: '1px dashed lightpink' }}>
               <IconSvg name="plus"/>
             </IconButton>
           </Sample>
           <Sample label="size: md">
-            <IconButton size="md" variant="icon_secondary" outline="1px dashed lightpink">
+            <IconButton size="md" variant="icon_secondary" style={{ outline: '1px dashed lightpink' }}>
               <IconSvg name="star_outline"/>
             </IconButton>
           </Sample>

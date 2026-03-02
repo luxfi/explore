@@ -1,7 +1,5 @@
-import { HStack, Text, Box } from '@chakra-ui/react';
-
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 import useNavLinkStyleProps from '../useNavLinkStyleProps';
 
@@ -21,17 +19,16 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
   }
 
   return 'text' in promoBanner ? (
-    <HStack
+    <div
       { ...navLinkStyleProps.itemProps }
-      minW={ isHorizontalNavigation ? 'auto' : 'full' }
-      maxW={ isHorizontalNavigation ? 'auto' : 'full' }
-      w={ isHorizontalNavigation ? 'auto' : '180px' }
-      gap={ 2 }
-      overflow="hidden"
-      whiteSpace="nowrap"
-      py={ isHorizontalNavigation ? 1.5 : 2 }
-      px={ isHorizontalNavigation ? 1.5 : { base: 3, lg: isExpanded ? 3 : '15px', xl: isCollapsed ? '15px' : 3 } }
-      bgColor={{ _light: promoBanner.bg_color.light, _dark: promoBanner.bg_color.dark }}
+      className={ `flex flex-row gap-2 overflow-hidden whitespace-nowrap ${ isHorizontalNavigation ? 'py-1.5 px-1.5' : 'py-2' }` }
+      style={{
+        minWidth: isHorizontalNavigation ? 'auto' : '100%',
+        maxWidth: isHorizontalNavigation ? 'auto' : '100%',
+        width: isHorizontalNavigation ? 'auto' : '180px',
+        padding: !isHorizontalNavigation ? undefined : undefined,
+        backgroundColor: `var(--color-${ promoBanner.bg_color.light })`,
+      }}
     >
       <Image
         src={ promoBanner.img_url }
@@ -39,20 +36,21 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
         boxSize={ isHorizontalNavigation ? '20px' : '30px' }
       />
       { !isHorizontalNavigation && (
-        <Text
+        <span
           { ...navLinkStyleProps.textProps }
-          fontWeight="medium"
-          color={{ _light: promoBanner.text_color.light, _dark: promoBanner.text_color.dark }}
-          overflow="hidden"
+          className="font-medium overflow-hidden"
+          style={{
+            color: `var(--color-${ promoBanner.text_color.light })`,
+          }}
         >
           { promoBanner.text }
-        </Text>
+        </span>
       ) }
-    </HStack>
+    </div>
   ) : (
-    <Box
-      position="relative"
-      minH={ isHorizontalNavigation ? 'auto' : '60px' }
+    <div
+      className="relative"
+      style={{ minHeight: isHorizontalNavigation ? 'auto' : '60px' }}
     >
       <Image
         src={ promoBanner.img_url.small }
@@ -62,25 +60,34 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
         position={ isHorizontalNavigation ? undefined : 'absolute' }
         top={ isHorizontalNavigation ? undefined : 'calc(50% - 30px)' }
         left={ isHorizontalNavigation ? undefined : 'calc(50% - 30px)' }
-        opacity={ isHorizontalNavigation ? 1 : { base: 0, lg: isExpanded ? 0 : 1, xl: isCollapsed ? 1 : 0 } }
-        transitionProperty="opacity"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
+        style={{
+          opacity: isHorizontalNavigation ? 1 : undefined,
+          transitionProperty: 'opacity',
+          transitionDuration: '0.2s',
+          transitionTimingFunction: 'ease',
+        }}
+        className={ !isHorizontalNavigation ? (
+          isExpanded ? 'opacity-0' : (isCollapsed ? 'opacity-100' : 'lg:opacity-100 xl:opacity-0')
+        ) : undefined }
       />
       <Image
         display={ isHorizontalNavigation ? 'none' : 'block' }
         src={ promoBanner.img_url.large }
         alt="Promo banner large"
         w="full"
-        maxW={{ base: 'full', lg: '180px' }}
+        maxW="180px"
         borderRadius="base"
-        aspectRatio={ 2 / 1 }
-        opacity={{ base: 1, lg: isExpanded ? 1 : 0, xl: isCollapsed ? 0 : 1 }}
-        transitionProperty="opacity"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
+        style={{
+          aspectRatio: '2 / 1',
+          transitionProperty: 'opacity',
+          transitionDuration: '0.2s',
+          transitionTimingFunction: 'ease',
+        }}
+        className={
+          isExpanded ? 'opacity-100' : (isCollapsed ? 'opacity-0' : 'lg:opacity-0 xl:opacity-100')
+        }
       />
-    </Box>
+    </div>
   );
 };
 

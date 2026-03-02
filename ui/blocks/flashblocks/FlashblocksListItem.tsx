@@ -1,11 +1,10 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FlashblockItem } from 'types/client/flashblocks';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import FlashblockEntity from 'ui/shared/entities/flashblock/FlashblockEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import Time from 'ui/shared/time/Time';
@@ -16,24 +15,24 @@ interface Props {
 
 const FlashblocksListItem = ({ data }: Props) => {
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Flex justifyContent="space-between" w="100%">
+    <ListItemMobile>
+      <div className="flex justify-between w-full">
         { data.block_number ? (
           <FlashblockEntity
             number={ data.block_number }
             index={ data.index }
-            fontWeight={ 600 }
+            className="font-semibold"
           />
-        ) : <Text color="text.secondary">N/A</Text> }
-      </Flex>
+        ) : <span className="text-[var(--color-text-secondary)]">N/A</span> }
+      </div>
       { data.timestamp && (
-        <Flex columnGap={ 2 }>
-          <Text fontWeight={ 500 }>Timestamp</Text>
-          <Time color="text.secondary" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/>
-        </Flex>
+        <div className="flex gap-x-2">
+          <span className="font-medium">Timestamp</span>
+          <Time className="text-[var(--color-text-secondary)]" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/>
+        </div>
       ) }
-      <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Txn</Text>
+      <div className="flex gap-x-2">
+        <span className="font-medium">Txn</span>
         { data.transactions_count > 0 ? (
           <Link href={ route({
             pathname: '/block/[height_or_hash]',
@@ -42,13 +41,13 @@ const FlashblocksListItem = ({ data }: Props) => {
             { data.transactions_count }
           </Link>
         ) :
-          <Text color="text.secondary">{ data.transactions_count }</Text>
+          <span className="text-[var(--color-text-secondary)]">{ data.transactions_count }</span>
         }
-      </Flex>
-      <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Gas used</Text>
-        <Text color="text.secondary">{ data.gas_used.toLocaleString() }</Text>
-      </Flex>
+      </div>
+      <div className="flex gap-x-2">
+        <span className="font-medium">Gas used</span>
+        <span className="text-[var(--color-text-secondary)]">{ data.gas_used.toLocaleString() }</span>
+      </div>
     </ListItemMobile>
   );
 };

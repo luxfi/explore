@@ -1,4 +1,3 @@
-import { Spinner, Center } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -11,9 +10,9 @@ import { getResourceKey } from 'lib/api/useApiQuery';
 import getErrorMessage from 'lib/errors/getErrorMessage';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Alert } from 'toolkit/chakra/alert';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Alert } from '@luxfi/ui/alert';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
+import { toaster } from '@luxfi/ui/toaster';
 import { MINUTE, SECOND } from 'toolkit/utils/consts';
 import ReCaptcha from 'ui/shared/reCaptcha/ReCaptcha';
 import useReCaptcha from 'ui/shared/reCaptcha/useReCaptcha';
@@ -163,19 +162,16 @@ const TokenInstanceMetadataFetcher = ({ hash, id }: Props) => {
       open={ status === 'MODAL_OPENED' }
       onOpenChange={ handleModalClose }
       size={{ lgDown: 'full', lg: 'sm' }}
-      trapFocus={ false }
-      preventScroll={ false }
       modal={ false }
-      closeOnInteractOutside={ false }
     >
       <DialogContent>
-        <DialogHeader mb={ 4 }>Sending request</DialogHeader>
-        <DialogBody mb={ 0 } minH="78px">
+        <DialogHeader className="mb-4">Sending request</DialogHeader>
+        <DialogBody className="mb-0 min-h-[78px]">
           { config.services.reCaptchaV2.siteKey ? (
             <>
-              <Center h="80px">
-                <Spinner size="lg"/>
-              </Center>
+              <div>
+                <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-8 w-8"/>
+              </div>
               <ReCaptcha { ...recaptcha } hideWarning/>
             </>
           ) : (

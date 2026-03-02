@@ -1,15 +1,14 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
-import type { IconProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
 
-import type { ImageProps } from 'toolkit/chakra/image';
-import { Image } from 'toolkit/chakra/image';
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link as LinkToolkit } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { cn } from 'lib/utils/cn';
+import type { ImageProps } from '@luxfi/ui/image';
+import { Image } from '@luxfi/ui/image';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link as LinkToolkit } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import type { Props as CopyToClipboardProps } from 'ui/shared/CopyToClipboard';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -49,18 +48,16 @@ export interface ContainerBaseProps extends Pick<EntityBaseProps, 'className'> {
   onMouseLeave?: (event: React.MouseEvent) => void;
 }
 
-const Container = chakra(({ className, children, ...props }: ContainerBaseProps) => {
+const Container = ({ className, children, ...props }: ContainerBaseProps) => {
   return (
-    <Flex
-      className={ className }
-      alignItems="center"
-      minWidth={ 0 } // for content truncation - https://css-tricks.com/flexbox-truncated-text/
+    <div
+      className={ cn('flex items-center min-w-0', className) }
       { ...props }
     >
       { children }
-    </Flex>
+    </div>
   );
-});
+};
 
 export interface LinkBaseProps extends Pick<EntityBaseProps, 'className' | 'onClick' | 'isLoading' | 'href' | 'noLink' | 'query' | 'chain'> {
   children: React.ReactNode;
@@ -69,7 +66,7 @@ export interface LinkBaseProps extends Pick<EntityBaseProps, 'className' | 'onCl
   external?: LinkProps['external'];
 }
 
-const Link = chakra(({ isLoading, children, external, onClick, href, noLink, variant, noIcon }: LinkBaseProps) => {
+const Link = ({ isLoading, children, external, onClick, href, noLink, variant, noIcon }: LinkBaseProps) => {
   const styles = {
     display: 'inline-flex',
     alignItems: 'center',
@@ -93,9 +90,25 @@ const Link = chakra(({ isLoading, children, external, onClick, href, noLink, var
       { children }
     </LinkToolkit>
   );
-});
+};
 
-type EntityIconProps = (ImageProps | IconSvgProps) & Pick<IconProps, 'color' | 'borderRadius' | 'marginRight' | 'boxSize'> & {
+// Common props for entity icons (Image or IconSvg based)
+type EntityIconCommonProps = {
+  src?: string;
+  alt?: string;
+  fallback?: React.ReactNode;
+  name?: IconSvgProps['name'];
+  className?: string;
+};
+
+type EntityIconProps = EntityIconCommonProps & {
+  color?: string;
+  borderRadius?: string | number;
+  marginRight?: string | number;
+  boxSize?: string | number;
+  mr?: string | number;
+  flexShrink?: number;
+  minW?: number;
   shield?: IconShieldProps | false;
   hint?: string;
   hintPostfix?: string;
@@ -116,9 +129,9 @@ const Icon = (props: IconBaseProps) => {
 
   const iconElement = (() => {
     const commonProps = {
-      marginRight: styles.marginRight,
+      marginRight: String(styles.marginRight),
       boxSize: boxSize ?? styles.boxSize,
-      borderRadius: borderRadius ?? 'base',
+      borderRadius: String(borderRadius ?? 'base'),
       flexShrink: 0,
       minW: 0,
     };
@@ -128,26 +141,43 @@ const Icon = (props: IconBaseProps) => {
     }
 
     if ('src' in props) {
-      return <Image { ...commonProps } { ...rest }/>;
+      return (
+        <Image
+          src={ rest.src }
+          alt={ rest.alt }
+          fallback={ rest.fallback }
+          className={ rest.className }
+          marginRight={ commonProps.marginRight as string }
+          boxSize={ commonProps.boxSize as string }
+          borderRadius={ commonProps.borderRadius as string }
+          flexShrink={ commonProps.flexShrink }
+        />
+      );
     }
-
-    const svgProps = rest as IconSvgProps;
 
     return (
       <IconSvg
-        display="block"
-        color={ color ?? 'icon.primary' }
-        { ...commonProps }
-        { ...svgProps }
+        name={ rest.name! }
+        className={ cn(
+          'block shrink-0',
+          rest.className,
+        ) }
+        style={{
+          marginRight: String(commonProps.marginRight),
+          width: typeof commonProps.boxSize === 'number' ? `${ commonProps.boxSize }px` : String(commonProps.boxSize),
+          height: typeof commonProps.boxSize === 'number' ? `${ commonProps.boxSize }px` : String(commonProps.boxSize),
+          borderRadius: String(commonProps.borderRadius),
+          color: `var(--color-${ (color ?? 'icon.primary').replace(/\./g, '-') })`,
+        }}
       />
     );
   })();
 
   const content = (
-    <Box position="relative" display="inline-flex" alignItems="center" flexShrink={ 0 }>
+    <span className="relative inline-flex items-center shrink-0">
       { iconElement }
       { shield && <IconShield isLoading={ isLoading } variant={ variant } { ...shield }/> }
-    </Box>
+    </span>
   );
 
   if (!hint) {
@@ -170,28 +200,40 @@ type IconShieldProps = (ImageProps | IconSvgProps) & { isLoading?: boolean; vari
 const IconShield = (props: IconShieldProps) => {
   const { variant, ...rest } = props;
 
-  const styles = {
+  const shieldStyle: React.CSSProperties = {
     position: 'absolute',
     top: variant === 'heading' ? '14px' : '6px',
     left: variant === 'heading' ? '18px' : '12px',
-    boxSize: '18px',
-    borderRadius: 'full',
+    width: '18px',
+    height: '18px',
+    borderRadius: '9999px',
     borderWidth: '1px',
     borderStyle: 'solid',
-    // The colors can be changed on hover, if address is highlighted
-    // Because the highlighted styles are described as CSS classes, we must do the same for the shield border color.
-    // borderColor: 'bg.primary',
-    // backgroundColor: 'bg.primary',
-    className: 'entity__shield',
   };
 
+  const shieldClassName = 'entity__shield';
+
   if ('src' in rest) {
-    return rest.isLoading ? <Skeleton loading { ...styles }/> : <Image { ...styles } { ...rest }/>;
+    const imageProps = {
+      boxSize: '18px',
+      borderRadius: 'full',
+      position: 'absolute' as const,
+      top: shieldStyle.top as string,
+      left: shieldStyle.left as string,
+      className: shieldClassName,
+    };
+    return rest.isLoading ? <Skeleton loading { ...imageProps }/> : <Image { ...imageProps } { ...rest }/>;
   }
 
   const svgProps = rest as IconSvgProps;
 
-  return <IconSvg { ...styles } { ...svgProps }/>;
+  return (
+    <IconSvg
+      { ...svgProps }
+      className={ cn(shieldClassName, svgProps.className) }
+      style={ shieldStyle }
+    />
+  );
 };
 
 export interface ContentBaseProps extends Pick<
@@ -202,7 +244,7 @@ export interface ContentBaseProps extends Pick<
   tooltipInteractive?: boolean;
 }
 
-const Content = chakra(({
+const Content = ({
   className,
   isLoading,
   asProp,
@@ -262,24 +304,25 @@ const Content = chakra(({
             tooltipInteractive={ tooltipInteractive }
           />
         );
-      case 'none':
-        return <chakra.span as={ asProp }>{ text }</chakra.span>;
+      case 'none': {
+        const Tag = asProp ?? 'span';
+        return <Tag>{ text }</Tag>;
+      }
     }
   })();
 
   return (
     <Skeleton
-      className={ className }
+      className={ cn(className, styles?.className) }
       loading={ isLoading }
       overflow="hidden"
       whiteSpace="nowrap"
       w={ !noLink ? '100%' : undefined }
-      { ...styles }
     >
       { children }
     </Skeleton>
   );
-});
+};
 
 export type CopyBaseProps =
   Pick<CopyToClipboardProps, 'isLoading' | 'text' | 'tooltipInteractive'> &

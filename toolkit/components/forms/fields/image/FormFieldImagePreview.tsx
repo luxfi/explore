@@ -1,9 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import type { ColorMode } from '../../../../chakra/color-mode';
-import { Image } from '../../../../chakra/image';
-import { Skeleton } from '../../../../chakra/skeleton';
+import type { ColorMode } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   src: string | undefined;
@@ -15,7 +14,7 @@ interface Props {
   colorMode?: ColorMode;
 }
 
-export const FormFieldImagePreview = chakra(React.memo(({
+export const FormFieldImagePreview = React.memo(({
   src,
   isInvalid,
   onError,
@@ -24,7 +23,7 @@ export const FormFieldImagePreview = chakra(React.memo(({
   fallback: fallbackProp,
   colorMode,
 }: Props) => {
-  const skeleton = <Skeleton loading className={ [ className, colorMode === 'dark' ? 'dark' : undefined ].filter(Boolean).join(' ') } w="100%" h="100%"/>;
+  const skeleton = <Skeleton loading className={ [ 'w-full h-full', className, colorMode === 'dark' ? 'dark' : undefined ].filter(Boolean).join(' ') }/>;
 
   const fallback = (() => {
     if (src && !isInvalid) {
@@ -46,4 +45,4 @@ export const FormFieldImagePreview = chakra(React.memo(({
       onLoad={ onLoad }
     />
   );
-}));
+});

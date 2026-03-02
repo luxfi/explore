@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import type { ApiKey } from 'types/api/account';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ApiKeySnippet from 'ui/shared/ApiKeySnippet';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
 

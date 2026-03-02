@@ -1,10 +1,9 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochListItem } from 'types/api/epochs';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import EpochEntity from 'ui/shared/entities/epoch/EpochEntity';
 import CeloEpochStatus from 'ui/shared/statusTag/CeloEpochStatus';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
@@ -19,17 +18,17 @@ const EpochsTableItem = ({ item, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <HStack gap={ 2 }>
-          <EpochEntity number={ String(item.number) } noIcon fontWeight={ 700 } isLoading={ isLoading }/>
+        <div className="flex gap-2">
+          <EpochEntity number={ String(item.number) } noIcon className="font-bold" isLoading={ isLoading }/>
           <Skeleton loading={ isLoading } color="text.secondary" fontWeight={ 500 }><span>{ item.type }</span></Skeleton>
           <TimeWithTooltip
             timestamp={ item.timestamp }
             isLoading={ isLoading }
             color="text.secondary"
             display="inline-block"
-            fontWeight={ 400 }
+            fontWeight="400"
           />
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <CeloEpochStatus

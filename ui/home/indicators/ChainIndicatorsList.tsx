@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TChainIndicator } from './types';
@@ -19,13 +18,8 @@ const ChainIndicatorsList = ({ indicators, isLoading, selectedId, onItemClick }:
   }
 
   return (
-    <Flex
-      flexShrink={ 0 }
-      flexDir="column"
-      as="ul"
-      borderRadius="lg"
-      rowGap="6px"
-      m={{ base: 'auto 0', lg: 0 }}
+    <ul
+      className="shrink-0 flex flex-col rounded-lg gap-y-[6px] my-auto lg:m-0"
     >
       { indicators.map((indicator) => {
         return (
@@ -38,7 +32,7 @@ const ChainIndicatorsList = ({ indicators, isLoading, selectedId, onItemClick }:
           />
         );
       }) }
-    </Flex>
+    </ul>
   );
 };
 

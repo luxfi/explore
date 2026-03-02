@@ -1,14 +1,12 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 
 import type { File, Monaco, SearchResult } from './types';
 
 import useDebounce from 'lib/hooks/useDebounce';
-import { AccordionRoot } from 'toolkit/chakra/accordion';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { AccordionRoot } from '@luxfi/ui/accordion';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 
 import CodeEditorSearchSection from './CodeEditorSearchSection';
 import CoderEditorCollapseButton from './CoderEditorCollapseButton';
@@ -129,15 +127,7 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
     isActive && setActionBarRenderer(() => renderActionBar);
   }, [ isActive, renderActionBar, setActionBarRenderer ]);
 
-  const buttonProps: HTMLChakraProps<'div'> = {
-    boxSize: '20px',
-    p: '1px',
-    cursor: 'pointer',
-    borderRadius: '3px',
-    borderWidth: '1px',
-    borderColor: 'transparent',
-    color: 'text.primary',
-  };
+  const buttonClassName = 'w-[20px] h-[20px] p-[1px] cursor-pointer rounded-[3px] border border-transparent text-[var(--color-text-primary)]';
 
   const searchResultNum = (() => {
     if (!debouncedSearchTerm) {
@@ -148,45 +138,36 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
 
     if (!totalResults) {
       return (
-        <Box px="8px" fontSize="13px" lineHeight="18px" mb="8px">
+        <div className="text-[13px] leading-[18px] px-[8px] mb-[8px]">
           No results found. Review your settings for configured exclusions.
-        </Box>
+        </div>
       );
     }
 
     return (
-      <Box px="8px" fontSize="13px" lineHeight="18px" mb="8px">
+      <div className="text-[13px] leading-[18px] px-[8px] mb-[8px]">
         { totalResults } result{ totalResults > 1 ? 's' : '' } in { searchResults.length } file{ searchResults.length > 1 ? 's' : '' }
-      </Box>
+      </div>
     );
   })();
 
   const inputEndElement = (
     <>
-      <Box
-        { ...buttonProps }
-        className="codicon codicon-case-sensitive"
-        onClick={ handleMatchCaseChange }
-        bgColor={ isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
-        _hover={{ bgColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
+      <div
+        className={ `${ buttonClassName } codicon codicon-case-sensitive` }
+        onClick={ handleMatchCaseChange } style={{ backgroundColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }}
         title="Match Case"
         aria-label="Match Case"
       />
-      <Box
-        { ...buttonProps }
-        className="codicon codicon-whole-word"
-        bgColor={ isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
-        onClick={ handleMatchWholeWordChange }
-        _hover={{ bgColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
+      <div
+        className={ `${ buttonClassName } codicon codicon-whole-word` }
+        onClick={ handleMatchWholeWordChange } style={{ backgroundColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }}
         title="Match Whole Word"
         aria-label="Match Whole Word"
       />
-      <Box
-        { ...buttonProps }
-        className="codicon codicon-regex"
-        bgColor={ isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
-        onClick={ handleMatchRegexChange }
-        _hover={{ bgColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
+      <div
+        className={ `${ buttonClassName } codicon codicon-regex` }
+        onClick={ handleMatchRegexChange } style={{ backgroundColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }}
         title="Use Regular Expression"
         aria-label="Use Regular Expression"
       />
@@ -196,36 +177,21 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
   return (
     <>
       <InputGroup
-        px="8px"
-        position="sticky"
-        top="35px"
-        left="0"
-        zIndex="2"
-        bgColor={ themeColors['sideBar.background'] }
-        pb="8px"
-        boxShadow={ isInputStuck ? '0px 6px 3px 0px rgba(0, 0, 0, 0.05)' : 'none' }
+        className={ `px-[8px] sticky top-[35px] left-0 z-[2] pb-[8px] ${ isInputStuck ? 'shadow-[0px_6px_3px_0px_rgba(0,0,0,0.05)]' : 'shadow-none' }` }
+        style={{ backgroundColor: themeColors['sideBar.background'] }}
         endElement={ inputEndElement }
-        endElementProps={{ height: '26px', pl: '0', right: '10px', columnGap: '2px' }}
+        endElementProps={{ className: 'h-[26px] pl-0 right-[10px] gap-x-[2px]' }}
       >
         <Input
           size="xs"
           onChange={ handleSearchTermChange }
           value={ searchTerm }
           placeholder="Search"
-          color={ themeColors['input.foreground'] }
-          bgColor={ themeColors['input.background'] }
-          borderRadius="none"
-          height="26px"
-          fontSize="13px"
-          lineHeight="20px"
-          borderWidth="1px"
-          borderColor={ themeColors['input.background'] }
-          py="2px"
-          pl="4px"
-          pr="75px"
-          transitionDuration="0"
-          _focus={{
-            borderColor: themeColors.focusBorder,
+          className="rounded-none h-[26px] text-[13px] leading-[20px] border py-[2px] pl-[4px] pr-[75px] transition-none"
+          style={{
+            color: themeColors['input.foreground'],
+            backgroundColor: themeColors['input.background'],
+            borderColor: themeColors['input.background'],
           }}
         />
 

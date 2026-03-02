@@ -1,12 +1,8 @@
-import {
-  Box,
-  Flex,
-  Grid,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { layerLabels } from 'lib/rollups/utils';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
@@ -27,9 +23,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     <BlockEntityL1
       number={ l1BlockNumber }
       isLoading={ isLoading }
-      fontSize="sm"
-      lineHeight={ 5 }
-      fontWeight={ 700 }
+      className="text-sm leading-5 font-bold"
     />
   );
 
@@ -37,8 +31,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     <TxEntityL1
       isLoading={ isLoading }
       hash={ l1TxHash }
-      fontSize="sm"
-      lineHeight={ 5 }
+      className="text-sm leading-5"
       truncation={ isMobile ? 'constant_long' : 'dynamic' }
     />
   );
@@ -47,8 +40,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     <TxEntity
       isLoading={ isLoading }
       hash={ l2TxHash }
-      fontSize="sm"
-      lineHeight={ 5 }
+      className="text-sm leading-5"
       truncation={ isMobile ? 'constant_long' : 'dynamic' }
     />
   ) : null;
@@ -57,7 +49,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     if (isMobile) {
       return (
         <>
-          <Flex justifyContent="space-between" alignItems="center" mb={ 1 }>
+          <div className="flex justify-between items-center mb-1">
             { l1BlockLink }
             <TimeWithTooltip
               timestamp={ timestamp }
@@ -65,26 +57,26 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
               isLoading={ isLoading }
               color="text.secondary"
             />
-          </Flex>
-          <Grid gridTemplateColumns="56px auto">
-            <Skeleton loading={ isLoading } my="5px" w="fit-content">
-              L1 txn
+          </div>
+          <div className="grid grid-cols-[56px_auto]">
+            <Skeleton loading={ isLoading } className="my-[5px] w-fit">
+              { layerLabels.parent } txn
             </Skeleton>
             { l1TxLink }
-            <Skeleton loading={ isLoading } my="3px" w="fit-content">
-              L2 txn
+            <Skeleton loading={ isLoading } className="my-[3px] w-fit">
+              { layerLabels.current } txn
             </Skeleton>
             { l2TxLink }
-          </Grid>
+          </div>
         </>
       );
     }
 
     return (
-      <Grid width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
+      <div className="grid w-full gap-x-4 gap-y-2 grid-cols-[max-content_max-content_auto]">
         { l1BlockLink }
-        <Skeleton loading={ isLoading } w="fit-content" h="fit-content" my="5px">
-          L1 txn
+        <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
+          { layerLabels.parent } txn
         </Skeleton>
         { l1TxLink }
         <TimeWithTooltip
@@ -96,27 +88,18 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
           h="fit-content"
           my="2px"
         />
-        <Skeleton loading={ isLoading } w="fit-content" h="fit-content" my="2px">
-          L2 txn
+        <Skeleton loading={ isLoading } className="w-fit h-fit my-[2px]">
+          { layerLabels.current } txn
         </Skeleton>
         { l2TxLink }
-      </Grid>
+      </div>
     );
   })();
 
   return (
-    <Box
-      width="100%"
-      borderTop="1px solid"
-      borderColor="border.divider"
-      py={ 4 }
-      px={{ base: 0, lg: 4 }}
-      _last={{ borderBottom: '1px solid', borderColor: 'border.divider' }}
-      fontSize="sm"
-      lineHeight={ 5 }
-    >
+    <div className="w-full border-t border-[var(--color-border-divider)] py-4 px-0 lg:px-4 last:border-b text-sm leading-5">
       { content }
-    </Box>
+    </div>
   );
 };
 

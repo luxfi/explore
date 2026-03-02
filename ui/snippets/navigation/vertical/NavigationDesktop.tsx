@@ -1,8 +1,8 @@
-import { Flex, Box, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { useAppContext } from 'lib/contexts/app';
 import * as cookies from 'lib/cookies';
+import { cn } from 'lib/utils/cn';
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
 import IconSvg from 'ui/shared/IconSvg';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
@@ -49,48 +49,34 @@ const NavigationDesktop = () => {
   const isExpanded = isCollapsed === false;
 
   return (
-    <Flex
-      display={{ base: 'none', lg: 'flex' }}
-      className="group"
-      position="relative"
-      flexDirection="column"
-      alignItems="stretch"
-      borderRight="1px solid"
-      borderColor="border.divider"
-      px={{ lg: isExpanded ? 6 : 4, xl: isCollapsed ? 4 : 6 }}
-      pt={ 12 }
-      pb={ 6 }
-      width={{ lg: isExpanded ? '229px' : '92px', xl: isCollapsed ? '92px' : '229px' }}
+    <div
+      className={ cn(
+        'hidden lg:flex group relative flex-col items-stretch border-r border-solid border-[var(--color-border-divider)] pt-12 pb-6',
+        'transition-[width,padding] duration-[var(--duration-normal)] ease-[var(--ease-ease)]',
+        isExpanded ? 'lg:px-6 lg:w-[229px]' : 'lg:px-4 lg:w-[92px]',
+        isCollapsed ? 'xl:px-4 xl:w-[92px]' : 'xl:px-6 xl:w-[229px]',
+      ) }
       onClick={ handleContainerClick }
-      transitionProperty="width, padding"
-      transitionDuration="normal"
-      transitionTimingFunction="ease"
     >
-      <TestnetBadge position="absolute" pl={ 3 } w="49px" top="34px"/>
-      <RollupStageBadge position="absolute" ml={{ lg: isExpanded ? 3 : '10px', xl: isCollapsed ? '10px' : 3 }} top="34px"/>
-      <Box
-        as="header"
-        display="flex"
-        justifyContent="flex-start"
-        alignItems="center"
-        flexDirection="row"
-        w="100%"
-        pl={{ lg: isExpanded ? 3 : '15px', xl: isCollapsed ? '15px' : 3 }}
-        pr={{ lg: isExpanded ? 0 : '15px', xl: isCollapsed ? '15px' : 0 }}
-        h={ 10 }
-        transitionProperty="padding"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
+      <TestnetBadge className="absolute pl-3 w-[49px] top-[34px]"/>
+      <RollupStageBadge className={ cn('absolute top-[34px]', isExpanded ? 'lg:ml-3' : 'lg:ml-[10px]', isCollapsed ? 'xl:ml-[10px]' : 'xl:ml-3') }/>
+      <header
+        className={ cn(
+          'flex justify-start items-center flex-row w-full h-10',
+          'transition-[padding] duration-[var(--duration-normal)] ease-[var(--ease-ease)]',
+          isExpanded ? 'lg:pl-3 lg:pr-0' : 'lg:pl-[15px] lg:pr-[15px]',
+          isCollapsed ? 'xl:pl-[15px] xl:pr-[15px]' : 'xl:pl-3 xl:pr-0',
+        ) }
       >
-        <Box display={{ base: 'none', lg: isCollapsed === false ? 'block' : 'none', xl: isCollapsed ? 'none' : 'block' }}>
+        <div className={ cn('hidden', isCollapsed === false ? 'lg:block' : 'lg:hidden', isCollapsed ? 'xl:hidden' : 'xl:block') }>
           <NetworkLogo/>
-        </Box>
-        <Box display={{ base: 'none', lg: isCollapsed === false ? 'none' : 'block', xl: isCollapsed ? 'block' : 'none' }}>
+        </div>
+        <div className={ cn('hidden', isCollapsed === false ? 'lg:hidden' : 'lg:block', isCollapsed ? 'xl:block' : 'xl:hidden') }>
           <NetworkIcon/>
-        </Box>
-      </Box>
-      <Box as="nav" mt={ 6 } w="100%">
-        <VStack as="ul" gap="1" alignItems="flex-start">
+        </div>
+      </header>
+      <nav className="mt-6 w-full">
+        <ul className="flex flex-col gap-1 items-start">
           { mainNavItems.map((item) => {
             if (isGroupItem(item)) {
               return <NavLinkGroup key={ item.text } item={ item } isCollapsed={ isCollapsed }/>;
@@ -98,42 +84,33 @@ const NavigationDesktop = () => {
               return <NavLink key={ item.text } item={ item } isCollapsed={ isCollapsed }/>;
             }
           }) }
-        </VStack>
-      </Box>
+        </ul>
+      </nav>
       { isAuth && (
-        <Box as="nav" borderTopWidth="1px" borderColor="border.divider" w="100%" mt={ 3 } pt={ 3 }>
-          <VStack as="ul" gap="1" alignItems="flex-start">
+        <nav className="border-t border-[var(--color-border-divider)] w-full mt-3 pt-3">
+          <ul className="flex flex-col gap-1 items-start">
             <NavLinkRewards isCollapsed={ isCollapsed }/>
             { accountNavItems.map((item) => <NavLink key={ item.text } item={ item } isCollapsed={ isCollapsed }/>) }
-          </VStack>
-        </Box>
+          </ul>
+        </nav>
       ) }
       <NavigationPromoBanner isCollapsed={ isCollapsed }/>
       <IconSvg
         name="arrows/east-mini"
-        width={ 6 }
-        height={ 6 }
-        _hover={{ color: 'hover' }}
-        borderRadius="base"
-        bgColor="bg.primary"
-        color={{ base: 'blackAlpha.400', _dark: 'whiteAlpha.400' }}
-        borderWidth="1px"
-        borderColor="border.divider"
-        transform={{ lg: isExpanded ? 'rotate(0)' : 'rotate(180deg)', xl: isCollapsed ? 'rotate(180deg)' : 'rotate(0)' }}
-        transformOrigin="center"
-        position="absolute"
-        top="104px"
-        left={{ lg: isExpanded ? '216px' : '80px', xl: isCollapsed ? '80px' : '216px' }}
-        cursor="pointer"
+        className={ cn(
+          'w-6 h-6 hover:text-[var(--color-hover)] rounded bg-[var(--color-bg-primary)]',
+          'text-[var(--color-blackAlpha-400)] dark:text-[var(--color-whiteAlpha-400)]',
+          'border border-[var(--color-border-divider)]',
+          'origin-center absolute top-[104px] cursor-pointer',
+          'hidden group-hover:block',
+          'transition-[transform,left] duration-200 ease-in-out',
+          isExpanded ? 'lg:rotate-0 lg:left-[216px]' : 'lg:rotate-180 lg:left-[80px]',
+          isCollapsed ? 'xl:rotate-180 xl:left-[80px]' : 'xl:rotate-0 xl:left-[216px]',
+        ) }
         onClick={ handleTogglerClick }
         aria-label="Expand/Collapse menu"
-        display="none"
-        _groupHover={{ display: 'block' }}
-        transitionProperty="transform, left"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
       />
-    </Flex>
+    </div>
   );
 };
 

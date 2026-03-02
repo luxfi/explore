@@ -3,7 +3,7 @@ import type { FieldValues } from 'react-hook-form';
 
 import type { FormFieldPropsBase } from './types';
 
-import type { InputProps } from '../../../chakra/input';
+import type { InputProps } from '@luxfi/ui/input';
 import { FormFieldText } from './FormFieldText';
 
 const FormFieldNumberContent = <FormFields extends FieldValues>(

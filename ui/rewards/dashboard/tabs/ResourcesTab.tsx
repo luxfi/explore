@@ -1,5 +1,3 @@
-import { Grid } from '@chakra-ui/react';
-
 import config from 'configs/app';
 import { apos } from 'toolkit/utils/htmlEntities';
 
@@ -7,29 +5,25 @@ import RewardsDashboardInfoCard from '../RewardsDashboardInfoCard';
 
 export default function ResourcesTab() {
   return (
-    <Grid
-      w="full"
-      gap={ 6 }
-      templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
-    >
+    <div className="grid w-full gap-6 grid-cols-1 md:grid-cols-2">
       <RewardsDashboardInfoCard
         title="Badges"
-        description={ `Collect limited and legendary badges by completing different Blockscout related tasks.
+        description={ `Collect limited and legendary badges by completing different explorer related tasks.
           Go to the badges website to see what${ apos }s available and start your collection today.` }
         imageSrc="/static/merits/badges.svg"
         imageWidth="180px"
         imageHeight="86px"
         linkText="View badges"
-        linkHref={ `https://merits.blockscout.com/?tab=badges&utm_source=${ config.chain.id }&utm_medium=badges` }
+        linkHref={ `https://merits.lux.network/?tab=badges&utm_source=${ config.chain.id }&utm_medium=badges` }
       />
       <RewardsDashboardInfoCard
-        title="Blockscout campaigns"
-        description="Join Blockscout activities to earn bonus Merits and exclusive rewards from our partners!"
+        title="{ config.chain.name || '' } Explorer campaigns"
+        description="Join { config.chain.name || '' } Explorer activities to earn bonus Merits and exclusive rewards from our partners!"
         imageSrc="/static/merits/campaigns.svg"
         imageWidth="180px"
         imageHeight="76px"
         linkText="Check campaigns"
-        linkHref={ `https://merits.blockscout.com/?tab=campaigns&utm_source=${ config.chain.id }&utm_medium=campaigns` }
+        linkHref={ `https://merits.lux.network/?tab=campaigns&utm_source=${ config.chain.id }&utm_medium=campaigns` }
       />
       <RewardsDashboardInfoCard
         title="Use your Merits"
@@ -38,8 +32,8 @@ export default function ResourcesTab() {
         imageWidth="180px"
         imageHeight="86px"
         linkText="Check offers"
-        linkHref={ `https://merits.blockscout.com/?tab=spend&utm_source=${ config.chain.id }&utm_medium=spend` }
+        linkHref={ `https://merits.lux.network/?tab=spend&utm_source=${ config.chain.id }&utm_medium=spend` }
       />
-    </Grid>
+    </div>
   );
 }

@@ -1,13 +1,14 @@
-import { Flex, Text, chakra, Separator } from '@chakra-ui/react';
 import { useCallback } from 'react';
 
 import type { Address3rdPartyWidget } from 'types/views/address';
 
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Image } from 'toolkit/chakra/image';
-import { LinkBox, LinkOverlay } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Image } from '@luxfi/ui/image';
+import { LinkBox, LinkOverlay } from 'toolkit/next/link';
+import { Separator } from '@luxfi/ui/separator';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { ndash } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
@@ -50,89 +51,70 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
     <>
       <Skeleton loading w="88px" h="40px" mb={ 1 }/>
       <Skeleton loading w="178px" h="20px"/>
-      <Separator mt={ 3 } mb={ 2 } borderColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}/>
-      <Flex alignItems="center" gap={ 2 }>
+      <Separator className="mt-3 mb-2 border-black/5 dark:border-white/10"/>
+      <div className="flex items-center gap-2">
         <Skeleton loading w="20px" h="20px"/>
         <Skeleton loading w="80px" h="20px"/>
-      </Flex>
+      </div>
     </>
   ) : (
     <>
-      <LinkOverlay href={ url } external onClick={ handleClick }/>
+      <LinkOverlay href={ url } external onClick={ handleClick } noIcon/>
       <Skeleton loading={ isDataLoading } minW="88px" alignSelf="flex-start">
         { data ? (
-          <Text
-            textStyle="heading.xl"
-            color={ integer === '0' && !decimal ? 'text.secondary' : 'text.primary' }
-            textOverflow="ellipsis"
-            whiteSpace="nowrap"
-            overflow="hidden"
+          <span
+            className={ cn(
+              'text-[32px] leading-[40px] font-medium tracking-[-0.5px] overflow-hidden text-ellipsis whitespace-nowrap block',
+              integer === '0' && !decimal ? 'text-[var(--color-text-secondary)]' : 'text-[var(--color-text-primary)]',
+            ) }
           >
             { integer }
             { decimal && (
               <>
                 .
-                <chakra.span color="text.secondary">
+                <span className="text-[var(--color-text-secondary)]">
                   { decimal }
-                </chakra.span>
+                </span>
               </>
             ) }
-          </Text>
+          </span>
         ) : (
-          <Text textStyle="heading.xl" color="text.secondary" opacity={ 0.2 }>{ ndash }</Text>
+          <span className="text-[32px] leading-[40px] font-medium tracking-[-0.5px] text-[var(--color-text-secondary)] opacity-20">{ ndash }</span>
         ) }
       </Skeleton>
-      <Flex alignItems="center" gap={ 1 } mt={ 1 }>
-        <Text textStyle="sm">{ config.title }</Text>
+      <div className="flex items-center gap-1 mt-1">
+        <span className="text-sm">{ config.title }</span>
         { config.hint && (
           <Hint
             label={ config.hint }
             tooltipProps={{ positioning: { placement: 'bottom' } }}
           />
         ) }
-      </Flex>
-      <Separator mt={ 3 } mb={ 2 } borderColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}/>
-      <Flex alignItems="center" gap={ 2 }>
+      </div>
+      <Separator className="mt-3 mb-2 border-black/5 dark:border-white/10"/>
+      <div className="flex items-center gap-2">
         <Image src={ config.icon } alt={ config.name } boxSize={ 5 }/>
-        <Flex
-          alignItems="center"
-          justifyContent="space-between"
-          flex={ 1 }
-        >
-          <Text
-            textStyle="xs"
-            color="text.secondary"
-            _groupHover={{ color: 'hover' }}
-          >
+        <div className="flex items-center justify-between flex-1">
+          <span className="text-xs text-[var(--color-text-secondary)] group-hover:text-[var(--color-hover)]">
             { config.name }
-          </Text>
+          </span>
           <IconSvg
             name="link_external"
-            boxSize={ 3 }
-            color="hover"
-            display="none"
-            _groupHover={{ display: 'block' }}
+            className="w-3 h-3 text-[var(--color-hover)] hidden group-hover:block"
           />
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </>
   );
 
   return (
     <LinkBox
-      as={ Flex }
-      className="group"
-      flexDirection="column"
-      p={ 3 }
-      cursor={ isLoading ? 'default' : 'pointer' }
-      borderRadius="md"
-      border="1px solid"
-      borderColor={ isLoading ? { _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' } : 'transparent' }
-      bgColor={ isLoading ? 'transparent' : { _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' } }
-      transition="border-color 0.2s ease-in-out"
-      _hover={ isLoading ? {} : {
-        borderColor: { _light: 'blackAlpha.200', _dark: 'whiteAlpha.200' },
-      } }
+      className={ cn(
+        'group flex flex-col p-3 rounded-md border border-solid transition-[border-color] duration-200',
+        isLoading
+          ? 'cursor-default border-black/5 dark:border-white/10 bg-transparent'
+          : 'cursor-pointer border-transparent bg-black/5 dark:bg-white/10 hover:border-black/20 dark:hover:border-white/20',
+      ) }
     >
       { content }
     </LinkBox>

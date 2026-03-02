@@ -1,10 +1,9 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import TokenTransfersCrossChainTableItem from './TokenTransfersCrossChainTableItem';
@@ -33,10 +32,10 @@ const TokenTransfersCrossChainTable = ({ data, isLoading, top, currentAddress }:
             <TableColumnHeader>Protocol</TableColumnHeader>
             <TableColumnHeader>Message</TableColumnHeader>
             <TableColumnHeader>
-              <Flex alignItems="center" flexWrap="nowrap">
+              <div className="flex items-center flex-nowrap">
                 Timestamp
                 <TimeFormatToggle/>
-              </Flex>
+              </div>
             </TableColumnHeader>
           </TableRow>
         </TableHeaderSticky>

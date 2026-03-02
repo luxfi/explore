@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -6,14 +5,15 @@ import type { AddressTokensErc20Item } from './types';
 
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
-import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
+import { getTokenTypeName, isConfidentialTokenType } from 'lib/token/tokenTypes';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
 import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import NativeTokenTag from 'ui/shared/celo/NativeTokenTag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
+import ConfidentialValue from 'ui/shared/value/ConfidentialValue';
 import SimpleValue from 'ui/shared/value/SimpleValue';
 import { DEFAULT_ACCURACY_USD } from 'ui/shared/value/utils';
 
@@ -50,30 +50,30 @@ const ERC20TokensTableItem = ({
   return (
     <TableRow className="group" >
       <TableCell verticalAlign={ cellVerticalAlign }>
-        <HStack gap={ 2 }>
+        <div className="flex flex-row gap-2">
           <TokenEntity
             token={ token }
             chain={ chainInfo }
             isLoading={ isLoading }
             noCopy
             jointSymbol
-            fontWeight="700"
-            width="auto"
+            className="font-bold w-auto"
+           
           />
           { isNativeToken && <NativeTokenTag/> }
-        </HStack>
-        { hasAdditionalTokenTypes && <Tag loading={ isLoading } mt={ 2 }>{ getTokenTypeName(token.type) }</Tag> }
+        </div>
+        { hasAdditionalTokenTypes && <Tag loading={ isLoading } className="mt-2">{ getTokenTypeName(token.type) }</Tag> }
       </TableCell>
       <TableCell verticalAlign={ cellVerticalAlign }>
-        <Flex alignItems="center" width="150px" justifyContent="space-between">
+        <div className="flex items-center justify-between w-[150px]">
           <AddressEntity
             address={{ hash: token.address_hash }}
             isLoading={ isLoading }
             truncation="constant"
             noIcon
           />
-          <AddressAddToWallet token={ token } ml={ 4 } isLoading={ isLoading } opacity="0" _groupHover={{ opacity: 1 }}/>
-        </Flex>
+          <AddressAddToWallet token={ token } className="ml-4 opacity-0" isLoading={ isLoading }/>
+        </div>
       </TableCell>
       <TableCell isNumeric verticalAlign={ cellVerticalAlign }>
         { token.exchange_rate ? (
@@ -86,14 +86,21 @@ const ERC20TokensTableItem = ({
         ) : null }
       </TableCell>
       <TableCell isNumeric verticalAlign={ cellVerticalAlign }>
-        <SimpleValue
-          value={ tokenQuantity }
-          color={ isNativeToken ? 'text.secondary' : undefined }
-          loading={ isLoading }
-        />
+        { isConfidentialTokenType(token.type) ? (
+          <ConfidentialValue loading={ isLoading }/>
+        ) : (
+          <SimpleValue
+            value={ tokenQuantity }
+            color={ isNativeToken ? 'text.secondary' : undefined }
+            loading={ isLoading }
+          />
+        ) }
       </TableCell>
       <TableCell isNumeric verticalAlign={ cellVerticalAlign }>
-        { token.exchange_rate && (
+        { isConfidentialTokenType(token.type) && (
+          <ConfidentialValue loading={ isLoading }/>
+        ) }
+        { !isConfidentialTokenType(token.type) && token.exchange_rate && (
           <SimpleValue
             value={ tokenValue }
             prefix="$"

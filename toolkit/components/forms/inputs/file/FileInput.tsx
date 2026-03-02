@@ -1,9 +1,8 @@
-import { Box, VisuallyHidden } from '@chakra-ui/react';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 import type { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 
-import { Input } from '../../../../chakra/input';
+import { Input } from '@luxfi/ui/input';
 
 interface InjectedProps {
   onChange: (files: Array<File>) => void;
@@ -55,12 +54,12 @@ const FileInputContent = <Values extends FieldValues, Names extends Path<Values>
   const content = typeof children === 'function' ? children(injectedProps) : children;
 
   return (
-    <Box onClick={ handleClick } >
-      <VisuallyHidden>
+    <div onClick={ handleClick }>
+      <span className="sr-only">
         <Input type="file" onChange={ handleInputChange } onBlur={ handleInputBlur } ref={ ref } accept={ accept } multiple={ multiple } name={ field.name }/>
-      </VisuallyHidden>
+      </span>
       { content }
-    </Box>
+    </div>
   );
 };
 

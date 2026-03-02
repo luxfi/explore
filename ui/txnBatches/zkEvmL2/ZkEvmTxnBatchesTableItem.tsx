@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZkEvmL2TxnBatchesItem } from 'types/api/zkEvmL2';
@@ -6,8 +5,8 @@ import type { ZkEvmL2TxnBatchesItem } from 'types/api/zkEvmL2';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Link } from 'toolkit/next/link';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import ZkEvmL2TxnBatchStatus from 'ui/shared/statusTag/ZkEvmL2TxnBatchStatus';
@@ -28,8 +27,7 @@ const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>
@@ -41,42 +39,38 @@ const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
           timestamp={ item.timestamp }
           fallbackText="Undefined"
           isLoading={ isLoading }
-          color="text.secondary"
         />
       </TableCell>
       <TableCell verticalAlign="middle">
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
-          minW="40px"
-          my={ 1 }
+          className="min-w-[40px] my-1"
           loading={ isLoading }
         >
           { item.transactions_count }
         </Link>
       </TableCell>
-      <TableCell pr={ 12 } verticalAlign="middle">
+      <TableCell verticalAlign="middle">
         { item.verify_transaction_hash ? (
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.verify_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noIcon
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </TableCell>
-      <TableCell pr={ 12 } verticalAlign="middle">
+      <TableCell verticalAlign="middle">
         { item.sequence_transaction_hash ? (
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.sequence_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noIcon
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </TableCell>
     </TableRow>
   );

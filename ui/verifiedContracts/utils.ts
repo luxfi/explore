@@ -1,6 +1,6 @@
 import type { VerifiedContractsSortingValue, VerifiedContractsSortingField } from 'types/api/verifiedContracts';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export const SORT_OPTIONS: Array<SelectOption<VerifiedContractsSortingValue>> = [
   { label: 'Default', value: 'default' },

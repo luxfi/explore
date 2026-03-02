@@ -1,12 +1,7 @@
-import {
-  chakra,
-  Flex,
-  Text,
-} from '@chakra-ui/react';
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverCloseTriggerWrapper } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { PopoverCloseTriggerWrapper } from '@luxfi/ui/popover';
 
 type Props = {
   title: string;
@@ -24,25 +19,25 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
   }, [ onFilter ]);
   return (
     <>
-      <Flex alignItems="center" justifyContent="space-between" columnGap={ 6 }>
-        <Text color="text.secondary" fontWeight="600">{ title }</Text>
+      <div className="flex items-center justify-between gap-x-6">
+        <span className="text-[var(--color-text-secondary)] font-semibold">{ title }</span>
         { hasReset && (
           <Button
             variant="link"
             onClick={ onReset }
             disabled={ !isFilled }
-            textStyle="sm"
+            className="text-sm"
           >
             Reset
           </Button>
         ) }
-      </Flex>
+      </div>
       { children }
       <PopoverCloseTriggerWrapper>
         <Button
           disabled={ !isTouched }
           onClick={ onFilterClick }
-          w="fit-content"
+          className="w-fit"
         >
           Filter
         </Button>
@@ -51,4 +46,4 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
   );
 };
 
-export default chakra(TableColumnFilter);
+export default TableColumnFilter;

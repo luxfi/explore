@@ -124,8 +124,8 @@ export const marketplaceSchema = yup
             multisend: yup.lazy(value => value ?
               yup.object<EssentialDappsConfig['multisend']>().shape({
                 chains: chainsSchema,
-                posthogKey: yup.string(),
-                posthogHost: yup.string().test(urlTest),
+                insightsKey: yup.string(),
+                insightsHost: yup.string().test(urlTest),
               }) :
               yup.object().nullable(),
             ),

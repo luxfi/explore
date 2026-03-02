@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import * as tac from '@luxfi/tac-operation-lifecycle-types';
@@ -61,4 +60,4 @@ const AddressEntityTacTon = (props: Props) => {
   );
 };
 
-export default chakra(AddressEntityTacTon);
+export default AddressEntityTacTon;

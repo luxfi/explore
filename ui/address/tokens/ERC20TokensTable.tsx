@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { AddressTokensErc20Item } from './types';
 
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 
 import ERC20TokensTableItem from './ERC20TokensTableItem';
 

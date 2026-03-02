@@ -35,7 +35,7 @@ const UserOpDetailsActions = ({ hash, isUserOpDataLoading }: Props) => {
             key={ index }
             summary={ action }
             isLoading={ isUserOpDataLoading || interpretationQuery.isPlaceholderData }
-            fontWeight="normal"
+            className="font-normal"
           />
         ),
         ) }

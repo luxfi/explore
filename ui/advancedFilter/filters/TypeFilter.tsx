@@ -1,13 +1,13 @@
-import { Flex } from '@chakra-ui/react';
 import { isEqual, without } from 'es-toolkit';
 import React from 'react';
 
 import type { AdvancedFilterParams, AdvancedFilterType } from 'types/api/advancedFilter';
 
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { useMultichainContext } from 'lib/contexts/multichain';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 
-import { ADVANCED_FILTER_TYPES_WITH_ALL } from '../constants';
+import { getAdvancedFilterTypes } from '../constants';
 
 const RESET_VALUE = 'all';
 
@@ -20,6 +20,8 @@ type Props = {
 
 const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
   const [ currentValue, setCurrentValue ] = React.useState<Array<AdvancedFilterType | typeof RESET_VALUE>>([ ...value ]);
+
+  const multichainContext = useMultichainContext();
 
   const handleChange = React.useCallback((value: Array<string>) => {
     setCurrentValue((prev) => {
@@ -43,6 +45,10 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
     handleFilterChange(FILTER_PARAM, value);
   }, [ handleFilterChange, currentValue ]);
 
+  const advancedFilterTypes = React.useMemo(() => {
+    return getAdvancedFilterTypes(multichainContext?.chain?.app_config, true);
+  }, [ multichainContext?.chain?.app_config ]);
+
   return (
     <TableColumnFilter
       title="Transaction type"
@@ -52,9 +58,9 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
       onReset={ onReset }
       hasReset
     >
-      <Flex display="flex" flexDir="column" rowGap={ 3 }>
+      <div className="flex flex-col flex gap-y-3">
         <CheckboxGroup value={ currentValue } onValueChange={ handleChange } orientation="vertical">
-          { ADVANCED_FILTER_TYPES_WITH_ALL.map(type => (
+          { advancedFilterTypes.map(type => (
             <Checkbox
               key={ type.id }
               value={ type.id }
@@ -63,7 +69,7 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
             </Checkbox>
           )) }
         </CheckboxGroup>
-      </Flex>
+      </div>
     </TableColumnFilter>
   );
 };

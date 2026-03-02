@@ -5,9 +5,9 @@ import type { OptimisticL2TxnBatchesItem } from 'types/api/optimisticL2';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import OptimisticL2TxnBatchDA from 'ui/shared/batch/OptimisticL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
@@ -33,9 +33,8 @@ const OptimisticL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <TimeWithTooltip
           timestamp={ item.l1_timestamp }
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block my-1"
           color="text.secondary"
-          my={ 1 }
         />
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>
@@ -47,8 +46,7 @@ const OptimisticL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'blocks' } }) }
           loading={ isLoading }
-          justifyContent="flex-end"
-          minW="40px"
+          className="justify-end min-w-[40px]"
         >
           { item.l2_end_block_number - item.l2_start_block_number + 1 }
         </Link>
@@ -57,8 +55,7 @@ const OptimisticL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          justifyContent="flex-end"
-          minW="40px"
+          className="justify-end min-w-[40px]"
         >
           { item.transactions_count }
         </Link>

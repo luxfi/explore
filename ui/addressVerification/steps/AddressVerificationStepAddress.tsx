@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -16,9 +15,9 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 import AdminSupportText from 'ui/shared/texts/AdminSupportText';
 
@@ -88,11 +87,11 @@ const AddressVerificationStepAddress = ({ defaultAddress, onContinue }: Props) =
       case 'SOURCE_CODE_NOT_VERIFIED_ERROR': {
         const href = route({ pathname: '/address/[hash]/contract-verification', query: { hash: address } });
         return (
-          <Box>
+          <div>
             <span>The contract source code you entered is not yet verified. Please follow these steps to </span>
             <Link href={ href }>verify the contract</Link>
             <span>.</span>
-          </Box>
+          </div>
         );
       }
       case undefined: {
@@ -107,21 +106,20 @@ const AddressVerificationStepAddress = ({ defaultAddress, onContinue }: Props) =
   return (
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ onSubmit }>
-        <Box>Enter the contract address you are verifying ownership for.</Box>
-        { rootError && <Alert status="warning" mt={ 3 }>{ rootError }</Alert> }
+        <div>Enter the contract address you are verifying ownership for.</div>
+        { rootError && <Alert status="warning" className="mt-3">{ rootError }</Alert> }
         <FormFieldAddress<Fields>
           name="address"
           required
-          bgColor="dialog.bg"
           placeholder="Smart contract address (0x...)"
-          mt={ 8 }
+          className="mt-8"
         />
-        <Flex alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>
-          <Button type="submit" loading={ formState.isSubmitting } loadingText="Continue" flexShrink={ 0 }>
+        <div className="flex gap-x-5 gap-y-2 mt-8 flex-col lg:flex-row items-start lg:items-center">
+          <Button type="submit" loading={ formState.isSubmitting } loadingText="Continue" className="shrink-0">
             Continue
           </Button>
           <AdminSupportText/>
-        </Flex>
+        </div>
       </form>
     </FormProvider>
   );

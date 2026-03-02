@@ -1,9 +1,8 @@
-import { Separator, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZilliqaNestedQuorumCertificate, ZilliqaQuorumCertificate } from 'types/api/block';
 
-import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemContent } from 'toolkit/chakra/accordion';
+import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@luxfi/ui/accordion';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { apos, ndash } from 'toolkit/utils/htmlEntities';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -43,68 +42,58 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
         { data.nested_quorum_certificates ? 'Aggregate quorum certificate' : 'Quorum certificate' }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
-        <Grid
-          textStyle="sm"
-          gridTemplateColumns="min-content 1fr"
-          columnGap={ 5 }
-          mt={{ base: 2, lg: 1.5 }}
+        <div
+          className="text-sm gap-x-5 grid mt-2 lg:mt-1.5"
+          style={{ gridTemplateColumns: 'min-content 1fr' }}
         >
-          <GridItem fontWeight={ 600 }>View</GridItem>
-          <GridItem>{ data.view }</GridItem>
-          <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <GridItem fontWeight={ 600 }>Signature</GridItem>
-          <GridItem whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
+          <div className="font-semibold">View</div>
+          <div>{ data.view }</div>
+          <DetailedInfo.ItemDivider className="my-2 lg:my-2 col-span-2"/>
+          <div className="font-semibold">Signature</div>
+          <div className="whitespace-pre-wrap break-words flex items-start">
             { data.signature }
             <CopyToClipboard text={ data.signature }/>
-          </GridItem>
-          <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <GridItem fontWeight={ 600 }>Signers</GridItem>
-          <GridItem whiteSpace="pre-wrap">{ formatSigners(data.signers) }</GridItem>
-        </Grid>
+          </div>
+          <DetailedInfo.ItemDivider className="my-2 lg:my-2 col-span-2"/>
+          <div className="font-semibold">Signers</div>
+          <div className="whitespace-pre-wrap">{ formatSigners(data.signers) }</div>
+        </div>
         { data.nested_quorum_certificates && data.nested_quorum_certificates.length > 0 && (
           <>
-            <Separator mt={ 2 } w="100%"/>
+            <hr className="mt-2 w-full"/>
             <AccordionRoot
               multiple
-              w="100%"
-              textStyle="sm"
+              className="w-full text-sm"
             >
               <AccordionItem
                 value="nested-quorum-certificates"
-                borderWidth={ 0 }
-                _last={{ borderBottomWidth: 0 }}
+                className="border-0 last:border-b-0"
               >
                 <AccordionItemTrigger
-                  textStyle="sm"
-                  fontWeight={ 600 }
+                  className="text-sm font-semibold"
                 >
                   <span>Nested quorum certificates</span>
                   <Hint label={ hint(true) }/>
                 </AccordionItemTrigger>
-                <AccordionItemContent display="flex" flexDirection="column" rowGap={ 2 } p={ 0 }>
+                <AccordionItemContent className="flex flex-col gap-2 p-0">
                   { data.nested_quorum_certificates?.map((item, index) => (
-                    <Grid
+                    <div
                       key={ index }
-                      gridTemplateColumns="90px minmax(0, 1fr)"
-                      columnGap={ 3 }
-                      rowGap={ 2 }
-                      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-                      p={ 4 }
-                      borderRadius="md"
-                      _first={{ borderTopRightRadius: 0, borderTopLeftRadius: 0 }}
+                      style={{ gridTemplateColumns: '90px minmax(0, 1fr)' }}
+                      className="grid gap-x-3 gap-y-2 p-4 rounded-md bg-[var(--color-bg-base)]"
                     >
-                      <GridItem>View</GridItem>
-                      <GridItem>{ item.view }</GridItem>
-                      <GridItem>Signature</GridItem>
-                      <GridItem whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
+                      <div>View</div>
+                      <div>{ item.view }</div>
+                      <div>Signature</div>
+                      <div className="whitespace-pre-wrap break-words flex items-start">
                         { item.signature }
                         <CopyToClipboard text={ item.signature }/>
-                      </GridItem>
-                      <GridItem>Signers</GridItem>
-                      <GridItem whiteSpace="pre-wrap">{ formatSigners(item.signers) }</GridItem>
-                      <GridItem whiteSpace="pre-wrap">Proposed by validator</GridItem>
-                      <GridItem >{ item.proposed_by_validator_index }</GridItem>
-                    </Grid>
+                      </div>
+                      <div>Signers</div>
+                      <div className="whitespace-pre-wrap">{ formatSigners(item.signers) }</div>
+                      <div className="whitespace-pre-wrap">Proposed by validator</div>
+                      <div >{ item.proposed_by_validator_index }</div>
+                    </div>
                   )) }
                 </AccordionItemContent>
               </AccordionItem>

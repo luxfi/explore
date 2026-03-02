@@ -1,11 +1,11 @@
-import { type ButtonProps } from '@chakra-ui/react';
+import type { ButtonProps } from '@luxfi/ui/button';
 import React from 'react';
 
 import config from 'configs/app';
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import UserWalletButton from './UserWalletButton';
@@ -60,7 +60,7 @@ const UserWalletDesktop = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           isAutoConnectDisabled={ isAutoConnectDisabled }
         />
       </PopoverTrigger>
-      <PopoverContent w="280px" bg={{ _light: 'white', _dark: 'gray.900' }}>
+      <PopoverContent className="w-[280px]">
         <PopoverBody>
           <UserWalletMenuContent
             address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }

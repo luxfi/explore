@@ -3,7 +3,7 @@ import type * as stats from '@luxfi/stats-types';
 
 export const MULTICHAIN_STATS_API_RESOURCES = {
   pages_main: {
-    path: '/api/v1/pages/multichain/main',
+    path: '/v1/pages/multichain/main',
   },
 } satisfies Record<string, ApiResource>;
 

@@ -1,10 +1,9 @@
-import { Center } from '@chakra-ui/react';
 import React from 'react';
 
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -34,7 +33,7 @@ const FooterLinkItemIconExternal = ({ iconUrl, text }: { iconUrl: Array<string>;
 
 const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props) => {
   if (isLoading) {
-    return <Skeleton loading my="3px">{ text }</Skeleton>;
+    return <Skeleton loading className="my-[3px]">{ text }</Skeleton>;
   }
 
   const iconElement = (() => {
@@ -48,9 +47,9 @@ const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props
 
     if (icon) {
       return (
-        <Center minW={ 6 }>
-          <IconSvg boxSize={ iconSize || 5 } name={ icon }/>
-        </Center>
+        <div className="flex items-center justify-center min-w-6">
+          <IconSvg name={ icon } style={{ width: iconSize || '20px', height: iconSize || '20px' }}/>
+        </div>
       );
     }
 
@@ -58,7 +57,7 @@ const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props
   })();
 
   return (
-    <Link href={ url } display="flex" alignItems="center" h="30px" variant="subtle" external noIcon textStyle="xs" columnGap={ 2 }>
+    <Link href={ url } className="flex items-center h-[30px] text-xs gap-x-2" variant="subtle" external noIcon>
       { iconElement }
       { text }
     </Link>

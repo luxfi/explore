@@ -1,4 +1,3 @@
-import { createListCollection, Flex, Text } from '@chakra-ui/react';
 import type { NextRouter } from 'next/router';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -10,19 +9,20 @@ import { StatsIntervalId } from 'types/client/stats';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
+import replaceNativeCoinName from 'lib/stats/replaceNativeCoinName';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as metadata from 'lib/metadata';
 import * as mixpanel from 'lib/mixpanel/index';
 import useRoutedChainSelect from 'lib/multichain/useRoutedChainSelect';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Button } from 'toolkit/chakra/button';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import type { SelectOption } from '@luxfi/ui/select';
+import { Select } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { ChartWidgetContent, useChartZoom } from 'toolkit/components/charts';
 import ChartMenu from 'toolkit/components/charts/parts/ChartMenu';
 import { isBrowser } from 'toolkit/utils/isBrowser';
-import ChainSelect from 'ui/optimismSuperchain/components/ChainSelect';
+import ChainSelect from 'ui/multichain/components/ChainSelect';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import ChartIntervalSelect from 'ui/shared/chart/ChartIntervalSelect';
 import { useChartsConfig } from 'ui/shared/chart/config';
@@ -31,6 +31,7 @@ import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import IconSvg from 'ui/shared/IconSvg';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import { STATS_RESOLUTIONS } from 'ui/stats/constants';
+import { createListCollection } from '@luxfi/ui/select';
 
 const DEFAULT_RESOLUTION = Resolution.DAY;
 
@@ -147,8 +148,8 @@ const Chart = () => {
     mixpanel.logEvent(mixpanel.EventTypes.PAGE_WIDGET, { Type: 'Share chart', Info: id });
     try {
       await window.navigator.share({
-        title: info?.title,
-        text: info?.description,
+        title: info?.title ? replaceNativeCoinName(info.title) : undefined,
+        text: info?.description ? replaceNativeCoinName(info.description) : undefined,
         url: window.location.href,
       });
     } catch (error) {}
@@ -169,10 +170,10 @@ const Chart = () => {
       size="sm"
       variant="outline"
       onClick={ onShare }
-      ml={ 6 }
+      className="ml-6"
       loadingSkeleton={ lineQuery.isPlaceholderData }
     >
-      <IconSvg name="share" w={ 4 } h={ 4 }/>
+      <IconSvg name="share" className="size-4"/>
       Share
     </Button>
   );
@@ -189,14 +190,14 @@ const Chart = () => {
   return (
     <>
       <PageTitle
-        title={ info?.title || lineQuery.data?.info?.title || '' }
-        mb={ 3 }
+        title={ replaceNativeCoinName(info?.title || lineQuery.data?.info?.title || '') }
+        className="mb-3"
         isLoading={ isInfoLoading }
-        secondRow={ info?.description || lineQuery.data?.info?.description }
+        secondRow={ replaceNativeCoinName(info?.description || lineQuery.data?.info?.description || '') || undefined }
         withTextAd
       />
-      <Flex alignItems="center" justifyContent="space-between">
-        <Flex alignItems="center" gap={{ base: 3, lg: 6 }} maxW="100%">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center max-w-full gap-3 lg:gap-6">
           { multichainContext?.chain && (
             <ChainSelect
               value={ chainSelect.value }
@@ -204,15 +205,15 @@ const Chart = () => {
               loading={ isInfoLoading }
             />
           ) }
-          <Flex alignItems="center" gap={ 3 }>
-            { !isMobile && <Text>Period</Text> }
+          <div className="flex items-center gap-3">
+            { !isMobile && <span>Period</span> }
             <ChartIntervalSelect interval={ interval } onIntervalChange={ onIntervalChange }/>
-          </Flex>
+          </div>
           { (
             (info?.resolutions && info?.resolutions.length > 1) ||
             (!info && lineQuery.data?.info?.resolutions && lineQuery.data?.info?.resolutions.length > 1)
           ) && (
-            <Flex alignItems="center" gap={ 3 }>
+            <div className="flex items-center gap-3">
               <Skeleton loading={ isInfoLoading }>
                 { isMobile ? 'Res.' : 'Resolution' }
               </Skeleton>
@@ -221,25 +222,23 @@ const Chart = () => {
                 placeholder="Select resolution"
                 defaultValue={ [ defaultResolution ] }
                 onValueChange={ onResolutionChange }
-                w={{ base: 'fit-content', lg: '160px' }}
+                className="w-fit lg:w-[160px]"
                 loading={ isInfoLoading }
               />
-            </Flex>
+            </div>
           ) }
           { (Boolean(zoomRange)) && (
             <Button
               variant="link"
               onClick={ handleReset }
-              display="flex"
-              alignItems="center"
-              gap={ 2 }
+              className="flex items-center gap-2"
             >
-              <IconSvg name="repeat" w={ 5 } h={ 5 }/>
+              <IconSvg name="repeat" className="size-5"/>
               { !isMobile && 'Reset' }
             </Button>
           ) }
-        </Flex>
-        <Flex alignItems="center" gap={ 3 }>
+        </div>
+        <div className="flex items-center gap-3">
           { /* TS thinks window.navigator.share can't be undefined, but it can */ }
           { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */ }
           { !isMobile && (isInBrowser && ((window.navigator.share as any) ?
@@ -248,19 +247,17 @@ const Chart = () => {
               <CopyToClipboard
                 text={ config.app.baseUrl + router.asPath }
                 type="link"
-                ml={ 0 }
-                borderRadius="base"
+                className="ml-0 rounded-base"
                 variant="icon_background"
                 size="md"
-                boxSize={ 8 }
               />
             )
           )) }
           { (hasItems || lineQuery.isPlaceholderData) && (
             <ChartMenu
               charts={ charts }
-              title={ info?.title || '' }
-              description={ info?.description || '' }
+              title={ replaceNativeCoinName(info?.title || '') }
+              description={ replaceNativeCoinName(info?.description || '') }
               isLoading={ lineQuery.isPlaceholderData }
               chartRef={ ref }
               resolution={ resolution }
@@ -270,15 +267,9 @@ const Chart = () => {
               chartUrl={ isMobile ? window.location.href : undefined }
             />
           ) }
-        </Flex>
-      </Flex>
-      <Flex
-        ref={ ref }
-        flexGrow={ 1 }
-        h="50vh"
-        mt={ 3 }
-        position="relative"
-      >
+        </div>
+      </div>
+      <div className="flex relative h-[50vh] mt-3 grow" ref={ ref }>
         <ChartWidgetContent
           isError={ lineQuery.isError }
           charts={ charts }
@@ -290,7 +281,7 @@ const Chart = () => {
           emptyText="No data for the selected resolution & interval."
           resolution={ resolution }
         />
-      </Flex>
+      </div>
     </>
   );
 };

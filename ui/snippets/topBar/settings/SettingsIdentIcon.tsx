@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -32,9 +31,9 @@ const SettingsIdentIcon = () => {
 
   return (
     <div>
-      <Box fontWeight={ 600 }>Address settings</Box>
-      <Box color="text.secondary" mt={ 1 } mb={ 2 }>{ activeIdenticon?.label }</Box>
-      <Flex>
+      <div className="font-semibold">Address settings</div>
+      <div className="text-[var(--color-text-secondary)] mt-1 mb-2">{ activeIdenticon?.label }</div>
+      <div className="flex">
         { IDENTICONS.map((identicon) => (
           <SettingsSample
             key={ identicon.id }
@@ -45,7 +44,7 @@ const SettingsIdentIcon = () => {
             onClick={ handleSelect }
           />
         )) }
-      </Flex>
+      </div>
     </div>
   );
 };

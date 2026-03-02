@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -8,9 +7,9 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
@@ -95,8 +94,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Registrant
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              columnGap={ 2 }
-              flexWrap="nowrap"
+              className="gap-x-2 flex-nowrap"
             >
               <AddressEntity
                 address={ query.data.registrant }
@@ -104,14 +102,13 @@ const NameDomainDetails = ({ query }: Props) => {
               />
               <Tooltip content="Lookup for related domain names">
                 <Link
-                  flexShrink={ 0 }
-                  display="inline-flex"
+                  className="shrink-0 inline-flex"
                   href={ route({
                     pathname: '/name-services',
                     query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: query.data.registrant.hash },
                   }) }
                 >
-                  <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+                  <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
                 </Link>
               </Tooltip>
             </DetailedInfo.ItemValue>
@@ -127,8 +124,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Owner
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              columnGap={ 2 }
-              flexWrap="nowrap"
+              className="gap-x-2 flex-nowrap"
             >
               <AddressEntity
                 address={ query.data.owner }
@@ -136,14 +132,13 @@ const NameDomainDetails = ({ query }: Props) => {
               />
               <Tooltip content="Lookup for related domain names">
                 <Link
-                  flexShrink={ 0 }
-                  display="inline-flex"
+                  className="shrink-0 inline-flex"
                   href={ route({
                     pathname: '/name-services',
                     query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: query.data.owner.hash },
                   }) }
                 >
-                  <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+                  <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
                 </Link>
               </Tooltip>
             </DetailedInfo.ItemValue>
@@ -159,8 +154,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Manager
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              columnGap={ 2 }
-              flexWrap="nowrap"
+              className="gap-x-2 flex-nowrap"
             >
               <AddressEntity
                 address={ query.data.wrapped_owner }
@@ -168,14 +162,13 @@ const NameDomainDetails = ({ query }: Props) => {
               />
               <Tooltip content="Lookup for related domain names">
                 <Link
-                  flexShrink={ 0 }
-                  display="inline-flex"
+                  className="shrink-0 inline-flex"
                   href={ route({
                     pathname: '/name-services',
                     query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: query.data.wrapped_owner.hash },
                   }) }
                 >
-                  <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+                  <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
                 </Link>
               </Tooltip>
             </DetailedInfo.ItemValue>
@@ -183,11 +176,11 @@ const NameDomainDetails = ({ query }: Props) => {
         ) }
 
         { query.data?.tokens.map((token) => {
-          const isProtocolBaseChain = stripTrailingSlash(query.data.protocol?.deployment_blockscout_base_url ?? '') === config.app.baseUrl;
+          const isProtocolBaseChain = stripTrailingSlash(query.data.protocol?.deployment_explorer_base_url ?? '') === config.app.baseUrl;
           const entityProps = {
             link: { external: !isProtocolBaseChain ? true : false },
             href: !isProtocolBaseChain ? (
-              stripTrailingSlash(query.data.protocol?.deployment_blockscout_base_url ?? '') +
+              stripTrailingSlash(query.data.protocol?.deployment_explorer_base_url ?? '') +
             route({ pathname: '/token/[hash]/instance/[id]', query: { hash: token.contract_hash, id: token.id } })
             ) : undefined,
           };
@@ -201,8 +194,7 @@ const NameDomainDetails = ({ query }: Props) => {
                 { token.type === bens.TokenType.WRAPPED_DOMAIN_TOKEN ? 'Wrapped token ID' : 'Token ID' }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue
-                wordBreak="break-all"
-                whiteSpace="pre-wrap"
+                className="break-all whitespace-pre-wrap"
               >
                 <NftEntity { ...entityProps } hash={ token.contract_hash } id={ token.id } isLoading={ isLoading } noIcon/>
               </DetailedInfo.ItemValue>
@@ -219,12 +211,11 @@ const NameDomainDetails = ({ query }: Props) => {
               Other addresses
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              flexDir="column"
-              alignItems="flex-start"
+              className="flex-col items-start"
               multiRow
             >
               { otherAddresses.map(([ type, address ]) => (
-                <Flex key={ type } columnGap={ 2 } minW="0" w="100%" overflow="hidden">
+                <div className="flex overflow-hidden w-full min-w-0 gap-x-2" key={ type }>
                   <Skeleton loading={ isLoading }>{ type }</Skeleton>
                   <AddressEntity
                     address={{ hash: address }}
@@ -232,7 +223,7 @@ const NameDomainDetails = ({ query }: Props) => {
                     noLink
                     noIcon
                   />
-                </Flex>
+                </div>
               )) }
             </DetailedInfo.ItemValue>
           </>

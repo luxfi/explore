@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ValidatorsZilliqaItem } from 'types/api/validators';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import ValidatorEntity from 'ui/shared/entities/validator/ValidatorEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';

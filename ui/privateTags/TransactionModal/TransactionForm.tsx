@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -10,7 +9,7 @@ import type { ResourceErrorAccount } from 'lib/api/resources';
 import { resourceKey } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/getErrorMessage';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 import { TRANSACTION_HASH_LENGTH, TRANSACTION_HASH_REGEXP } from 'toolkit/components/forms/validators/transaction';
 
@@ -96,7 +95,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
             pattern: TRANSACTION_HASH_REGEXP,
           }}
           bgColor="dialog.bg"
-          mb={ 5 }
+          className="mb-5"
         />
         <FormFieldText<Inputs>
           name="tag"
@@ -106,9 +105,9 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
             maxLength: TAG_MAX_LENGTH,
           }}
           bgColor="dialog.bg"
-          mb={ 8 }
+          className="mb-8"
         />
-        <Box marginTop={ 8 }>
+        <div className="mt-8">
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }
@@ -116,7 +115,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
           >
             { data ? 'Save changes' : 'Add tag' }
           </Button>
-        </Box>
+        </div>
       </form>
     </FormProvider>
   );

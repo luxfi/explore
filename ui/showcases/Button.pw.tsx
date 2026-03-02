@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ENVS_MAP } from 'playwright/fixtures/mockEnvs';
 import { test, expect } from 'playwright/lib';
-import { TabsRoot } from 'toolkit/chakra/tabs';
+import { TabsRoot } from '@luxfi/ui/tabs';
 
 import Button from './Button';
 

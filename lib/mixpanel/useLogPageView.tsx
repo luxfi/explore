@@ -8,7 +8,7 @@ import config from 'configs/app';
 import * as cookies from 'lib/cookies';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { getDefaultColorTheme } from 'lib/settings/colorTheme';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 
 import getPageType from './getPageType';
 import getTabName from './getTabName';

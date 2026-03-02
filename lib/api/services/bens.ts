@@ -4,32 +4,32 @@ import type { EnsAddressLookupFilters, EnsDomainLookupFilters, EnsLookupSorting 
 
 export const BENS_API_RESOURCES = {
   addresses_lookup: {
-    path: '/api/v1/addresses\\:lookup',
+    path: '/v1/addresses\\:lookup',
     filterFields: [ 'address' as const, 'resolved_to' as const, 'owned_by' as const, 'only_active' as const, 'protocols' as const ],
     paginated: true,
   },
   address_domain: {
-    path: '/api/v1/addresses/:address',
+    path: '/v1/addresses/:address',
     pathParams: [ 'address' as const ],
     filterFields: [ 'protocols' as const ],
   },
   domain_info: {
-    path: '/api/v1/domains/:name',
+    path: '/v1/domains/:name',
     pathParams: [ 'name' as const ],
     filterFields: [ 'protocols' as const ],
   },
   domain_events: {
-    path: '/api/v1/domains/:name/events',
+    path: '/v1/domains/:name/events',
     pathParams: [ 'name' as const ],
     filterFields: [ 'protocols' as const ],
   },
   domains_lookup: {
-    path: '/api/v1/domains\\:lookup',
+    path: '/v1/domains\\:lookup',
     filterFields: [ 'name' as const, 'only_active' as const, 'protocols' as const ],
     paginated: true,
   },
   protocols: {
-    path: '/api/v1/protocols',
+    path: '/v1/protocols',
   },
 } satisfies Record<string, ApiResource>;
 

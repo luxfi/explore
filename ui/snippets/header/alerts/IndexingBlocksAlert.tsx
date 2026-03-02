@@ -10,8 +10,8 @@ import { useAppContext } from 'lib/contexts/app';
 import * as cookies from 'lib/cookies';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Alert } from 'toolkit/chakra/alert';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Alert } from '@luxfi/ui/alert';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { nbsp, ndash } from 'toolkit/utils/htmlEntities';
 
 const IndexingBlocksAlert = () => {
@@ -64,15 +64,21 @@ const IndexingBlocksAlert = () => {
   }
 
   if (isPending) {
-    return hasAlertCookie ? <Skeleton loading h={{ base: '96px', lg: '48px' }} w="100%"/> : null;
+    return hasAlertCookie ? <Skeleton loading className="h-24 lg:h-12 w-full"/> : null;
   }
 
   if (data.finished_indexing_blocks !== false) {
     return null;
   }
 
+  // On pruned nodes, finished_indexing_blocks may be false with indexed_blocks_ratio "0.00"
+  // while finished_indexing is true. This is not real indexing — suppress the misleading banner.
+  if (data.finished_indexing && Number(data.indexed_blocks_ratio) === 0) {
+    return null;
+  }
+
   return (
-    <Alert status="info" py={ 3 } borderRadius="md" showIcon>
+    <Alert status="info" className="py-3 rounded-md" showIcon>
       { `${ data.indexed_blocks_ratio && `${ Math.floor(Number(data.indexed_blocks_ratio) * 100) }% Blocks Indexed${ nbsp }${ ndash } ` }
           We're indexing this chain right now. Some of the counts may be inaccurate.` }
     </Alert>

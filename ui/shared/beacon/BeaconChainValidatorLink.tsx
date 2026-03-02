@@ -1,9 +1,9 @@
-import { Text } from '@chakra-ui/react';
+
 import React from 'react';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedTextTooltip } from 'toolkit/components/truncation/TruncatedTextTooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
@@ -18,15 +18,9 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
 
   if (!feature.validatorUrlTemplate) {
     content = (
-      <Text
-        display="inline-block"
-        textOverflow="ellipsis"
-        overflow="hidden"
-        whiteSpace="nowrap"
-        maxW="100%"
-      >
+      <span className="inline-block text-ellipsis overflow-hidden whitespace-nowrap max-w-full">
         { pubkey }
-      </Text>
+      </span>
     );
   } else {
     content = (
@@ -34,12 +28,11 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
         href={ feature.validatorUrlTemplate.replace('{pk}', pubkey) }
         external
         loading={ isLoading }
-        overflow="hidden"
-        display="grid"
-        gridTemplateColumns="auto 20px"
+        className="grid overflow-hidden"
+        style={{ gridTemplateColumns: 'auto 20px' }}
       >
         <TruncatedTextTooltip label={ pubkey }>
-          <Text overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">{ pubkey }</Text>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">{ pubkey }</span>
         </TruncatedTextTooltip>
       </Link>
     );
@@ -57,7 +50,6 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
         text={ pubkey }
         type="text"
         isLoading={ isLoading }
-        ml={ 1 }
       />
     </Skeleton>
   );

@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -6,8 +5,8 @@ import type { AddressesItem } from 'types/api/addresses';
 
 import config from 'configs/app';
 import { currencyUnits } from 'lib/units';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import { ZERO } from 'toolkit/utils/consts';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
@@ -27,44 +26,47 @@ const AddressesListItem = ({
 }: Props) => {
 
   const addressBalance = BigNumber(item.coin_balance || 0).div(BigNumber(10 ** config.chain.currency.decimals));
+  // On pruned nodes, coin_balance may be null even for addresses with transactions.
+  // Show "Pending" instead of a misleading "0".
+  const isBalancePending = item.coin_balance === null && Number(item.transactions_count) > 0;
 
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Flex alignItems="center" justifyContent="space-between" w="100%">
+    <ListItemMobile className="!gap-y-3">
+      <div className="flex items-center justify-between w-full">
         <AddressEntity
           address={ item }
           isLoading={ isLoading }
-          fontWeight={ 700 }
-          mr={ 2 }
+          className="font-bold mr-2"
+         
           truncation="constant"
         />
         <Skeleton loading={ isLoading } fontSize="sm" ml="auto" minW={ 6 } color="text.secondary">
           <span>{ index }</span>
         </Skeleton>
-      </Flex>
+      </div>
       { item.public_tags !== null && item.public_tags.length > 0 && item.public_tags.map(tag => (
         <Tag key={ tag.label } loading={ isLoading } truncated>{ tag.display_name }</Tag>
       )) }
-      <HStack gap={ 3 } maxW="100%" alignItems="flex-start">
+      <div className="flex flex-row gap-3 max-w-full items-[flex-start]">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ `Balance ${ currencyUnits.ether }` }</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary" minW="0" whiteSpace="pre-wrap">
-          <span>{ addressBalance.dp(8).toFormat() }</span>
+          <span>{ isBalancePending ? 'Pending' : addressBalance.dp(8).toFormat() }</span>
         </Skeleton>
-      </HStack>
-      { !totalSupply.eq(ZERO) && (
-        <HStack gap={ 3 }>
+      </div>
+      { !totalSupply.eq(ZERO) && !isBalancePending && (
+        <div className="flex flex-row gap-3">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Percentage</Skeleton>
           <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
             <span>{ addressBalance.div(BigNumber(totalSupply)).multipliedBy(100).dp(8).toFormat() + '%' }</span>
           </Skeleton>
-        </HStack>
+        </div>
       ) }
-      <HStack gap={ 3 }>
+      <div className="flex flex-row gap-3">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Txn count</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>
         </Skeleton>
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

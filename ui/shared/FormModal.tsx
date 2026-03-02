@@ -1,8 +1,7 @@
-import type { DialogRootProps } from '@chakra-ui/react';
-import { Box, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import type { DialogRootProps } from '@luxfi/ui/dialog';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import FormSubmitAlert from 'ui/shared/FormSubmitAlert';
 
 interface Props<TData> extends Omit<DialogRootProps, 'children'> {
@@ -36,14 +35,14 @@ export default function FormModal<TData>({
         <DialogHeader>{ title }</DialogHeader>
         <DialogBody>
           { (isAlertVisible || text) && (
-            <Box marginBottom={{ base: 6, lg: 8 }}>
+            <div className="mb-6 lg:mb-8">
               { text && (
-                <Text lineHeight="30px" mb={ 3 }>
+                <span className="leading-[30px] mb-3">
                   { text }
-                </Text>
+                </span>
               ) }
               { isAlertVisible && <FormSubmitAlert/> }
-            </Box>
+            </div>
           ) }
           { renderForm() }
         </DialogBody>

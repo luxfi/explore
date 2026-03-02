@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -17,12 +15,12 @@ import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
 import * as mixpanel from 'lib/mixpanel/index';
 import { currencyUnits } from 'lib/units';
-import { Badge } from 'toolkit/chakra/badge';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Badge } from '@luxfi/ui/badge';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { SECOND } from 'toolkit/utils/consts';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';
@@ -42,14 +40,14 @@ import {
 
 const nameServicesFeature = config.features.nameServices;
 
-interface Props extends BoxProps {
+interface Props {
   summary?: TxInterpretationSummary;
   isLoading?: boolean;
   addressDataMap?: Record<string, AddressParam>;
   className?: string;
   isNoves?: boolean;
   chainData?: ClusterChainConfig;
-};
+}
 
 type NonStringTxInterpretationVariable = Exclude<TxInterpretationVariable, TxInterpretationVariableString>;
 
@@ -76,49 +74,41 @@ const TxInterpretationElementByType = (
   switch (type) {
     case 'address': {
       return (
-        <chakra.span display="inline-block" verticalAlign="top" _notFirst={{ marginLeft: 1 }}>
+        <span className="inline-block align-top [&:not(:first-child)]:ml-1">
           <AddressEntity
             address={ addressDataMap?.[value.hash] || value }
-            icon={{ marginRight: 1 }}
             truncation="constant"
             onClick={ onAddressClick }
-            whiteSpace="initial"
+            className="whitespace-normal"
           />
-        </chakra.span>
+        </span>
       );
     }
     case 'token':
       return (
-        <chakra.span display="inline-block" verticalAlign="top" _notFirst={{ marginLeft: 1 }}>
+        <span className="inline-block align-top [&:not(:first-child)]:ml-1">
           <TokenEntity
             token={ value }
-            icon={{ marginRight: 1 }}
             onlySymbol
             noCopy
-            width="fit-content"
-            _notFirst={{ marginLeft: 1 }}
-            mr={ 2 }
-            whiteSpace="initial"
+            className="w-fit mr-2 whitespace-normal [&:not(:first-child)]:ml-1"
             onClick={ onTokenClick }
           />
-        </chakra.span>
+        </span>
       );
     case 'domain': {
       if (nameServicesFeature.isEnabled && nameServicesFeature.ens.isEnabled) {
         return (
-          <chakra.span display="inline-block" verticalAlign="top" _notFirst={{ marginLeft: 1 }}>
+          <span className="inline-block align-top [&:not(:first-child)]:ml-1">
             <EnsEntity
               domain={ value }
-              icon={{ marginRight: 1 }}
-              width="fit-content"
-              _notFirst={{ marginLeft: 1 }}
-              whiteSpace="initial"
+              className="w-fit whitespace-normal [&:not(:first-child)]:ml-1"
               onClick={ onDomainClick }
             />
-          </chakra.span>
+          </span>
         );
       }
-      return <chakra.span color="text.secondary" whiteSpace="pre">{ value + ' ' }</chakra.span>;
+      return <span className="text-[var(--color-text-secondary)] whitespace-pre">{ value + ' ' }</span>;
     }
     case 'currency': {
       let numberString = '';
@@ -131,10 +121,10 @@ const TxInterpretationElementByType = (
       } else {
         numberString = BigNumber(value).dividedBy(1000000).toFormat(2) + 'M';
       }
-      return <chakra.span>{ numberString + ' ' }</chakra.span>;
+      return <span>{ numberString + ' ' }</span>;
     }
     case 'timestamp': {
-      return <chakra.span color="text.secondary" whiteSpace="pre">{ dayjs(Number(value) * SECOND).format('MMM DD YYYY') }</chakra.span>;
+      return <span className="text-[var(--color-text-secondary)] whitespace-pre">{ dayjs(Number(value) * SECOND).format('MMM DD YYYY') }</span>;
     }
     case 'external_link': {
       return <Link external href={ value.link }>{ value.name }</Link>;
@@ -144,9 +134,7 @@ const TxInterpretationElementByType = (
         <Badge
           colorPalette={ value === 'Multicall' ? 'teal' : 'gray' }
           truncated
-          ml={ 1 }
-          mr={ 2 }
-          verticalAlign="text-top"
+          className="ml-1 mr-2 align-text-top"
         >
           { value }
         </Badge>
@@ -175,10 +163,10 @@ const TxInterpretationElementByType = (
       })();
 
       return (
-        <chakra.span display="inline-flex" alignItems="center" verticalAlign="top" _notFirst={{ marginLeft: 1 }} gap={ 1 } mr={ 2 }>
+        <span className="inline-flex items-center align-top [&:not(:first-child)]:ml-1 gap-1 mr-2">
           { icon && <Image src={ icon } alt={ value.name } width={ 5 } height={ 5 }/> }
           { name }
-        </chakra.span>
+        </span>
       );
     }
     case 'link': {
@@ -187,7 +175,7 @@ const TxInterpretationElementByType = (
   }
 };
 
-const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chainData, isNoves, ...rest }: Props) => {
+const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chainData, isNoves }: Props) => {
   const novesLogoUrl = useColorModeValue('/static/noves-logo.svg', '/static/noves-logo-dark.svg');
   if (!summary) {
     return null;
@@ -208,33 +196,27 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
   const tooltipContent = 'Transaction summary' + (chainData ? `\n${ getChainTooltipText(chainData) }` : '');
 
   return (
-    <Skeleton loading={ isLoading } className={ className } fontWeight={ 500 } whiteSpace="pre-wrap" { ...rest }>
-      <Tooltip content={ tooltipContent } contentProps={{ whiteSpace: 'pre-wrap' }}>
-        <Box display="inline-flex" position="relative" mr={ chainData ? '14px' : 1 } verticalAlign="text-top">
-          <IconSvg name="lightning" boxSize={ 5 } color="icon.primary"/>
+    <Skeleton loading={ isLoading } className={ `${ className ?? '' } font-medium whitespace-pre-wrap`.trim() } fontWeight={ 500 }>
+      <Tooltip content={ tooltipContent } contentProps={{ className: 'whitespace-pre-wrap' }}>
+        <span className={ `inline-flex relative align-text-top ${ chainData ? 'mr-[14px]' : 'mr-1' }` }>
+          <IconSvg name="lightning" className="size-5 text-[var(--color-icon-primary)]"/>
           { chainData && (
-            <ChainIcon
-              data={ chainData }
-              boxSize="18px"
-              position="absolute"
-              top="6px"
-              left="12px"
-              borderRadius="full"
-              borderWidth="1px"
-              borderStyle="solid"
-              borderColor="bg.primary"
-              backgroundColor="bg.primary"
-              noTooltip
-            />
+            <span className="absolute top-[6px] left-[12px] rounded-full border border-solid border-[var(--color-bg-primary)] bg-[var(--color-bg-primary)]">
+              <ChainIcon
+                data={ chainData }
+                boxSize="18px"
+                noTooltip
+              />
+            </span>
           ) }
-        </Box>
+        </span>
       </Tooltip>
       { chunks.map((chunk, index) => {
         let content = null;
         if (variablesNames[index] === NATIVE_COIN_SYMBOL_VAR_NAME) {
-          content = <chakra.span>{ currencyUnits.ether + ' ' }</chakra.span>;
+          content = <span>{ currencyUnits.ether + ' ' }</span>;
         } else if (variablesNames[index] === WEI_VAR_NAME) {
-          content = <chakra.span>{ currencyUnits.wei + ' ' }</chakra.span>;
+          content = <span>{ currencyUnits.wei + ' ' }</span>;
         } else {
           content = (
             <TxInterpretationElementByType
@@ -244,15 +226,15 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
           );
         }
         return (
-          <chakra.span key={ chunk + index }>
-            <chakra.span color="text.secondary">{ chunk.trim() + (chunk.trim() && variablesNames[index] ? ' ' : '') }</chakra.span>
+          <span key={ chunk + index }>
+            <span className="text-[var(--color-text-secondary)]">{ chunk.trim() + (chunk.trim() && variablesNames[index] ? ' ' : '') }</span>
             { index < variablesNames.length && content }
-          </chakra.span>
+          </span>
         );
       }) }
       { isNoves && (
         <Tooltip content="Human readable transaction provided by Noves.fi">
-          <Badge ml={ 2 } verticalAlign="unset" transform="translateY(-2px)">
+          <Badge className="ml-2 align-baseline -translate-y-[2px]">
             by
             <Image src={ novesLogoUrl } alt="Noves logo" h="12px" ml={ 1.5 } display="inline"/>
           </Badge>
@@ -262,4 +244,4 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
   );
 };
 
-export default chakra(TxInterpretation);
+export default TxInterpretation;

@@ -1,11 +1,10 @@
-import { Stat, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { AddressCoinBalanceHistoryItem } from 'types/api/address';
 import type { ClusterChainConfig } from 'types/multichain';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { ZERO } from 'toolkit/utils/consts';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -26,48 +25,49 @@ const AddressCoinBalanceListItem = (props: Props) => {
   const isPositiveDelta = deltaBn.gte(ZERO);
 
   return (
-    <ListItemMobile rowGap={ 2 }>
-      <Flex justifyContent="space-between" w="100%">
+    <ListItemMobile className="gap-y-2">
+      <div className="flex justify-between w-full">
         <NativeCoinValue
           amount={ props.value }
           loading={ props.isLoading }
           fontWeight={ 600 }
         />
         <Skeleton loading={ props.isLoading }>
-          <Stat.Root flexGrow="0" positive={ isPositiveDelta } size="sm">
-            <Stat.ValueText fontWeight={ 600 }>
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="font-semibold text-sm">
               <SimpleValue
                 value={ deltaBn }
                 loading={ props.isLoading }
               />
-            </Stat.ValueText>
-            { isPositiveDelta ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-          </Stat.Root>
+            </span>
+            <span className={ isPositiveDelta ? 'text-green-500' : 'text-red-500' }>
+              { isPositiveDelta ? '\u25B2' : '\u25BC' }
+            </span>
+          </div>
         </Skeleton>
-      </Flex>
-      <Flex columnGap={ 2 } w="100%">
+      </div>
+      <div className="flex gap-x-2 w-full">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Block</Skeleton>
         <BlockEntity
           isLoading={ props.isLoading }
           number={ props.block_number }
           noIcon={ !props.chainData }
-          fontWeight={ 700 }
+          className="font-bold"
           chain={ props.chainData }
         />
-      </Flex>
+      </div>
       { props.transaction_hash && (
-        <Flex columnGap={ 2 } w="100%">
+        <div className="flex gap-x-2 w-full">
           <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txs</Skeleton>
           <TxEntity
             hash={ props.transaction_hash }
             isLoading={ props.isLoading }
             noIcon
-            fontWeight={ 700 }
-            maxW="150px"
+            className="font-bold max-w-[150px]"
           />
-        </Flex>
+        </div>
       ) }
-      <Flex columnGap={ 2 } w="100%">
+      <div className="flex gap-x-2 w-full">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Age</Skeleton>
         <TimeWithTooltip
           timestamp={ props.block_timestamp }
@@ -75,7 +75,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
           isLoading={ props.isLoading }
           color="text.secondary"
         />
-      </Flex>
+      </div>
     </ListItemMobile>
   );
 };

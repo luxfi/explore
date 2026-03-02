@@ -1,59 +1,39 @@
-import { Flex, Text } from '@chakra-ui/react';
-
 import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Heading } from 'toolkit/chakra/heading';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Heading } from '@luxfi/ui/heading';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
 
 export default function RewardsActivityPassCard() {
   const { rewardsConfigQuery } = useRewardsContext();
   const backgroundImage = useColorModeValue('/static/merits/cells.svg', '/static/merits/cells_dark.svg');
 
   const activityPassUrl = config.apis.rewards ?
-    // eslint-disable-next-line max-len
-    `${ config.apis.rewards.endpoint }/?tab=spend&id=${ rewardsConfigQuery.data?.rewards?.blockscout_activity_pass_id }&utm_source=blockscout&utm_medium=tasks` :
+
+    `${ config.apis.rewards.endpoint }/?tab=spend&id=${ rewardsConfigQuery.data?.rewards?.explorer_activity_pass_id }&utm_source=lux&utm_medium=tasks` :
     undefined;
 
   return (
-    <Flex
-      p={{ base: 1.5, md: 2 }}
-      border="1px solid"
-      borderColor={{ _light: 'gray.200', _dark: 'whiteAlpha.200' }}
-      borderRadius="lg"
-      gap={{ base: 1, md: 10 }}
-      flexDirection={{ base: 'column', md: 'row' }}
-    >
-      <Flex flex={ 1 } flexDirection="column" p={ 3 } gap={ 2 }>
+    <div className="flex p-1.5 md:p-2 border border-gray-200 dark:border-[var(--color-whiteAlpha-200)] rounded-lg gap-1 md:gap-10 flex-col md:flex-row">
+      <div className="flex flex-1 flex-col p-3 gap-2">
         <Heading level="3">
           Activity pass
         </Heading>
-        <Text textStyle="sm">
+        <p className="text-sm">
           Grab your{ ' ' }
           <Link external href={ activityPassUrl } loading={ rewardsConfigQuery.isLoading }>
             Activity pass
           </Link>{ ' ' }
-          then engage with various Lux Explorer products and features to earn Merits every day!{ ' ' }
-          <Link external href="https://docs.blockscout.com/using-blockscout/merits/activity-pass">
+          then engage with various { config.chain.name || '' } Explorer products and features to earn Merits every day!{ ' ' }
+          <Link external href="https://docs.lux.network/using-explorer/merits/activity-pass">
             Learn more
           </Link>
-        </Text>
-      </Flex>
-      <Flex
-        flex={{ base: 'none', md: 1 }}
-        flexDirection={{ base: 'column', md: 'row' }}
-        justifyContent="space-between"
-        alignItems="center"
-        h={{ base: '160px', md: '120px' }}
-        pr={{ base: 0, md: 8 }}
-        pl={{ base: 0, md: '86px' }}
-        pt={{ base: 4, md: 0 }}
-        pb={{ base: 3, md: 0 }}
-        borderRadius="base"
-        backgroundColor={{ _light: '#FFEFCE', _dark: '#E1910E' }}
-        overflow="hidden"
-        position="relative"
+        </p>
+      </div>
+      <div
+        className="flex flex-col md:flex-row justify-between items-center h-[160px] md:h-[120px] pr-0 md:pr-8 pl-0 md:pl-[86px] pt-4 md:pt-0 pb-3 md:pb-0 rounded-base overflow-hidden relative"
+        style={{ flex: 'none', backgroundColor: 'var(--color-light, #FFEFCE)' }}
       >
         <Image
           src={ backgroundImage }
@@ -75,17 +55,13 @@ export default function RewardsActivityPassCard() {
           external
           href={ activityPassUrl }
           variant="underlaid"
-          fontWeight="500"
-          backgroundColor={{ _light: '#FFD57C', _dark: '#FFBA0D' }}
-          color="#2B1A3F"
           iconColor="rgba(43, 26, 63, 0.3)"
-          _hover={{ color: 'hover' }}
-          flexShrink={ 0 }
-          zIndex={ 1 }
+          className="font-medium shrink-0 z-[1]"
+          style={{ backgroundColor: 'var(--color-bg-light, #FFD57C)', color: '#2B1A3F' }}
         >
           Grab Activity pass
         </Link>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 }

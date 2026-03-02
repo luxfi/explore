@@ -1,5 +1,6 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 interface Props {
   children: React.ReactNode;
@@ -7,26 +8,15 @@ interface Props {
   animation?: string;
 }
 
-const ListItemMobile = ({ children, className, animation }: Props) => {
+const ListItemMobile = ({ children, className }: Props) => {
   return (
-    <Flex
-      animation={ animation }
-      rowGap={ 6 }
-      alignItems="flex-start"
-      flexDirection="column"
-      paddingY={ 6 }
-      borderColor="border.divider"
-      borderTopWidth="1px"
-      _last={{
-        borderBottomWidth: '1px',
-      }}
-      className={ className }
-      fontSize="16px"
-      lineHeight="20px"
-    >
+    <div className={ cn(
+      'flex items-start flex-col gap-y-6 text-[16px] leading-[20px] border-t border-[var(--color-border-divider)] py-6',
+      className,
+    ) }>
       { children }
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(ListItemMobile);
+export default ListItemMobile;

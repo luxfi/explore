@@ -187,7 +187,7 @@ interface AChainVertex {
 
 async function fetchIndexerStats(): Promise<AChainStatsResponse | null> {
   try {
-    const res = await fetch(`${ ACHAIN_INDEXER_URL }/api/v2/stats`);
+    const res = await fetch(`${ ACHAIN_INDEXER_URL }/stats`);
     if (!res.ok) return null;
     return await res.json() as AChainStatsResponse;
   } catch {
@@ -197,7 +197,7 @@ async function fetchIndexerStats(): Promise<AChainStatsResponse | null> {
 
 async function fetchIndexerVertices(): Promise<ReadonlyArray<AChainVertex>> {
   try {
-    const res = await fetch(`${ ACHAIN_INDEXER_URL }/api/v2/vertices`);
+    const res = await fetch(`${ ACHAIN_INDEXER_URL }/vertices`);
     if (!res.ok) return [];
     const data = await res.json() as { items: ReadonlyArray<AChainVertex> | null };
     return data.items ?? [];

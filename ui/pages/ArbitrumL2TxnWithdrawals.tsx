@@ -1,8 +1,8 @@
-import { Box, chakra, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
+import { layerLabels } from 'lib/rollups/utils';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { ARBITRUM_L2_TXN_WITHDRAWALS_ITEM } from 'stubs/arbitrumL2';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
@@ -63,24 +63,25 @@ const ArbitrumL2TxnWithdrawals = () => {
 
   const content = data?.items ? (
     <>
-      <Box display={{ base: 'block', lg: 'none' }} mt={ 6 }>
+      <div className="mt-6 block lg:hidden">
         <ArbitrumL2TxnWithdrawalsList data={ data.items } txHash={ searchTerm } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box display={{ base: 'none', lg: 'block' }} mt={ 6 }>
+      </div>
+      <div className="mt-6 hidden lg:block">
         <ArbitrumL2TxnWithdrawalsTable data={ data.items } txHash={ searchTerm } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   return (
     <>
       <PageTitle title="Transaction withdrawals" withTextAd/>
-      <Text>L2 to L1 message relayer: search for your L2 transaction to execute a manual withdrawal.</Text>
-      <chakra.form onSubmit={ handleSubmit } noValidate>
+      <span>
+        { layerLabels.current } to { layerLabels.parent } message relayer: search for your { layerLabels.current } transaction to execute a manual withdrawal.
+      </span>
+      <form onSubmit={ handleSubmit } noValidate>
         <FilterInput
           name="tx_hash"
-          w={{ base: '100%', lg: '700px' }}
-          mt={ 6 }
+          className="w-full lg:w-[700px] mt-6"
           size="sm"
           placeholder="Search by transaction hash"
           initialValue={ searchTerm }
@@ -88,10 +89,10 @@ const ArbitrumL2TxnWithdrawals = () => {
           onFocus={ handleSearchInputFocus }
           onBlur={ handleSearchInputBlur }
         />
-      </chakra.form>
+      </form>
       { error && <FormFieldError message={ error }/> }
       <DataListDisplay
-        mt={ 6 }
+        className="mt-6"
         isError={ isError }
         itemsNum={ searchTerm ? data?.items.length : undefined }
         hasActiveFilters={ Boolean(searchTerm) }

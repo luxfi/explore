@@ -1,16 +1,10 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import EntityTag from 'ui/shared/EntityTags/EntityTag';
@@ -33,33 +27,24 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
   const protocolTag = tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
 
   return (
-    <Box
-      width="100%"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      py={ 4 }
-      display={{ base: 'block', lg: 'none' }}
-    >
-      <Flex justifyContent="space-between">
-        <HStack>
+    <div className={ cn(
+      'w-full border-b border-[var(--color-border-divider)] py-4 px-1 block lg:hidden',
+      'transition-colors hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+    ) }>
+      <div className="flex justify-between">
+        <div>
           <TxType types={ tx.transaction_types } isLoading={ isLoading }/>
           { tx.status !== 'ok' && <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/> }
           <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
           { protocolTag && <EntityTag data={ protocolTag } isLoading={ isLoading } minW="0" noColors/> }
-        </HStack>
+        </div>
         <TxAdditionalInfo tx={ tx } isMobile isLoading={ isLoading }/>
-      </Flex>
-      <Flex
-        mt={ 2 }
-        alignItems="center"
-        width="100%"
-        justifyContent="space-between"
-        mb={ 6 }
-      >
+      </div>
+      <div className="flex mt-2 items-center w-full justify-between mb-6">
         <TxEntity
           isLoading={ isLoading }
           hash={ tx.hash }
-          fontWeight="700"
+          className="font-bold"
           truncation="constant_long"
         />
         <TimeWithTooltip
@@ -71,18 +56,18 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           fontWeight="400"
           ml={ 3 }
         />
-      </Flex>
+      </div>
       <AddressFromTo
         from={ tx.from }
         to={ dataTo }
         isLoading={ isLoading }
-        fontWeight="500"
+        className="font-medium"
       />
       { !(config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee) ? (
-        <VStack rowGap={ 2 } mt={ 3 } alignItems="flex-start">
+        <div className="flex flex-col gap-y-2 mt-3 items-start">
           { !config.UI.views.tx.hiddenFields?.value && (
             <Skeleton loading={ isLoading } w="fit-content">
-              <Text as="span">Value </Text>
+              <span>Value </span>
               <NativeCoinValue
                 amount={ tx.value }
                 accuracy={ 5 }
@@ -92,14 +77,14 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
             </Skeleton>
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
-            <Skeleton loading={ isLoading } w="fit-content" display="flex" whiteSpace="pre">
-              <Text as="span">Fee </Text>
+            <Skeleton loading={ isLoading } w="fit-content" display="flex" className="whitespace-pre">
+              <span>Fee </span>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>
           ) }
-        </VStack>
+        </div>
       ) : null }
-    </Box>
+    </div>
   );
 };
 

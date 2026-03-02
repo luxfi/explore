@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -7,9 +5,10 @@ import type { TokenInfo } from 'types/api/token';
 import { route } from 'nextjs/routes';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import { useMultichainContext } from 'lib/contexts/multichain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { TruncatedTextTooltip } from 'toolkit/components/truncation/TruncatedTextTooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';
 import getChainTooltipText from 'ui/shared/externalChains/getChainTooltipText';
@@ -20,7 +19,7 @@ import { distributeEntityProps, getIconProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'token'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/token/[hash]', query: { ...props.query, hash: props.token.address_hash } },
     { chain: props.chain, external: props.external },
@@ -48,6 +47,16 @@ const Icon = (props: IconProps) => {
     borderRadius: props.token.type === 'ERC-20' ? 'full' : 'base',
   };
 
+  const shield = (() => {
+    if ('shield' in props) {
+      return props.shield;
+    }
+
+    if (props.chain) {
+      return props.chain.logo ? { src: props.chain.logo } : { name: 'networks/icon-placeholder' as const };
+    }
+  })();
+
   return (
     <EntityBase.Icon
       { ...styles }
@@ -55,16 +64,19 @@ const Icon = (props: IconProps) => {
       src={ props.token.icon_url ?? undefined }
       alt={ `${ props.token.name || 'token' } logo` }
       fallback={ <TokenLogoPlaceholder/> }
-      shield={ props.shield ?? (props.chain ? { src: props.chain.logo } : undefined) }
+      shield={ shield }
       hint={ props.chain && props.shield !== false ? getChainTooltipText(props.chain, 'Token on ') : undefined }
-      { ...props }
+      isLoading={ props.isLoading }
+      noIcon={ props.noIcon }
+      variant={ props.variant }
+      chain={ props.chain }
     />
   );
 };
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'token' | 'jointSymbol' | 'onlySymbol'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   const nameString = [
     !props.onlySymbol && (props.token.name ?? 'Unnamed token'),
     props.onlySymbol && (props.token.symbol ?? props.token.name ?? 'Unnamed token'),
@@ -100,15 +112,9 @@ const Symbol = (props: SymbolProps) => {
     >
       <div>(</div>
       <TruncatedTextTooltip label={ symbol }>
-        <chakra.span
-          display="inline-block"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          height="fit-content"
-        >
+        <span className="inline-block whitespace-nowrap overflow-hidden text-ellipsis h-fit">
           { symbol }
-        </chakra.span>
+        </span>
       </TruncatedTextTooltip>
       <div>)</div>
     </Skeleton>
@@ -128,20 +134,38 @@ const Copy = (props: CopyProps) => {
 
 const Container = EntityBase.Container;
 
-interface ReputationProps extends BoxProps {
+interface ReputationProps {
   value: TokenInfo['reputation'];
+  className?: string;
 }
 
-const Reputation = ({ value, ...rest }: ReputationProps) => {
+const Reputation = ({ value, className }: ReputationProps) => {
   if (config.UI.views.token.hideScamTokensEnabled && value === 'scam') {
     return (
       <Tooltip content="This token has been flagged as a potential scam. You enabled the display of flagged tokens in the explorer — proceed with caution.">
-        <IconSvg name="scam" boxSize={ 5 } ml={ 2 } { ...rest }/>
+        <IconSvg name="scam" className={ cn('w-5 h-5 ml-2', className) }/>
       </Tooltip>
     );
   }
 
   return null;
+};
+
+interface TestTokenBadgeProps {
+  readonly addressHash: string;
+  className?: string;
+}
+
+const TestTokenBadge = ({ addressHash, className }: TestTokenBadgeProps) => {
+  if (!config.UI.views.token.testTokenAddresses.has(addressHash.toLowerCase())) {
+    return null;
+  }
+
+  return (
+    <Tooltip content="This is a known test/fake token. It has no real value — do not trade or transfer real assets for it.">
+      <IconSvg name="status/warning" className={ cn('w-5 h-5 ml-2 text-[var(--color-orange-400)]', className) }/>
+    </Tooltip>
+  );
 };
 
 export interface EntityProps extends EntityBase.EntityBaseProps {
@@ -158,17 +182,18 @@ const TokenEntity = (props: EntityProps) => {
   const content = <Content { ...partsProps.content }/>;
 
   return (
-    <Container w="100%" { ...partsProps.container }>
+    <Container { ...partsProps.container } className={ `w-full ${ partsProps.container.className || '' }` }>
       <Icon { ...partsProps.icon }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
       <Symbol { ...partsProps.symbol }/>
       <Copy { ...partsProps.copy }/>
       <Reputation value={ props.token.reputation }/>
+      <TestTokenBadge addressHash={ props.token.address_hash }/>
     </Container>
   );
 };
 
-export default React.memo(chakra(TokenEntity));
+export default React.memo(TokenEntity);
 
 export {
   Container,
@@ -177,4 +202,5 @@ export {
   Content,
   Copy,
   Reputation,
+  TestTokenBadge,
 };

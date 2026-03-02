@@ -2,7 +2,7 @@ import React from 'react';
 
 import type * as bens from '@luxfi/bens-types';
 
-import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import NameDomainHistoryTableItem from './NameDomainHistoryTableItem';

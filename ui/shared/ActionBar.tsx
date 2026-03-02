@@ -1,6 +1,6 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { useIsSticky } from 'toolkit/hooks/useIsSticky';
 
 type Props = {
@@ -21,30 +21,19 @@ const ActionBar = ({ children, className, showShadow }: Props) => {
   }
 
   return (
-    <Flex
-      className={ className }
-      backgroundColor="bg.primary"
-      pt={ 6 }
-      mt={ -6 }
-      pb={{ base: 6, lg: 3 }}
-      mx={{ base: -3, lg: 0 }}
-      px={{ base: 3, lg: 0 }}
-      justifyContent="space-between"
-      width={{ base: '100vw', lg: 'unset' }}
-      position="sticky"
-      top={ 0 }
-      transitionProperty="top,box-shadow,background-color,color"
-      transitionDuration="normal"
-      zIndex={{ base: 'sticky2', lg: 'docked' }}
-      boxShadow={{
-        base: isSticky ? 'md' : 'none',
-        lg: isSticky && showShadow ? 'action_bar' : 'none',
-      }}
+    <div
+      className={ cn(
+        'flex bg-[var(--color-bg-primary)] pt-6 -mt-6 pb-6 lg:pb-3 -mx-3 lg:mx-0 px-3 lg:px-0',
+        'justify-between w-screen lg:w-auto sticky top-0 transition-all z-[var(--z-index-sticky2)] lg:z-[var(--z-index-docked)]',
+        isSticky ? 'shadow-md' : 'shadow-none',
+        isSticky && showShadow ? 'lg:shadow-[var(--shadow-action-bar)]' : 'lg:shadow-none',
+        className,
+      ) }
       ref={ ref }
     >
       { children }
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(ActionBar);
+export default ActionBar;

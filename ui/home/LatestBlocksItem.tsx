@@ -1,5 +1,5 @@
-import { Box, Flex, Grid } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -8,8 +8,9 @@ import config from 'configs/app';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { cn } from 'lib/utils/cn';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { thinsp } from 'toolkit/utils/htmlEntities';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
@@ -25,28 +26,34 @@ type Props = {
 
 const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
   const totalReward = getBlockTotalReward(block);
+  const router = useRouter();
+
+  const handleClick = React.useCallback(() => {
+    if (!isLoading) {
+      router.push({ pathname: '/block/[height_or_hash]', query: { height_or_hash: String(block.height) } });
+    }
+  }, [ router, block.height, isLoading ]);
+
   return (
-    <Box
-      animation={ animation }
-      borderRadius="md"
-      border="1px solid"
-      borderColor="border.divider"
-      p={ 3 }
-      minW="260px"
-      flex="1 0 0"
+    <div
+      className={ cn(
+        'rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]',
+        'p-4 min-w-[260px] flex-1 transition-colors duration-150',
+        isLoading ? 'cursor-default' : 'cursor-pointer hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]',
+      ) }
+      style={ animation ? { animation } : undefined }
+      onClick={ handleClick }
     >
-      <Flex alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
+      <div className="flex items-center overflow-hidden w-full mb-3">
         <BlockEntity
           isLoading={ isLoading }
           number={ block.height }
           tailLength={ 2 }
-          textStyle="md"
-          fontWeight={ 500 }
-          mr="auto"
+          className="text-base font-medium mr-auto"
         />
         { block.celo?.l1_era_finalized_epoch_number && (
           <Tooltip content={ `Finalized epoch #${ block.celo.l1_era_finalized_epoch_number }` }>
-            <IconSvg name="checkered_flag" boxSize={ 5 } p="1px" ml={ 2 } isLoading={ isLoading } flexShrink={ 0 }/>
+            <IconSvg name="checkered_flag" className="w-5 h-5 p-[1px] ml-2 shrink-0" isLoading={ isLoading }/>
           </Tooltip>
         ) }
         <TimeWithTooltip
@@ -54,20 +61,16 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           enableIncrement={ !isLoading }
           timeFormat="relative"
           isLoading={ isLoading }
-          color="text.secondary"
-          display="inline-block"
-          textStyle="sm"
-          flexShrink={ 0 }
-          ml={ 2 }
+          className="text-[var(--color-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
-      </Flex>
-      <Grid gridGap={ 2 } templateColumns="auto minmax(0, 1fr)" textStyle="sm">
-        <Skeleton loading={ isLoading }>Txn</Skeleton>
-        <Skeleton loading={ isLoading } color="text.secondary"><span>{ block.transactions_count }</span></Skeleton>
+      </div>
+      <div className="grid gap-2 grid-cols-[auto_minmax(0,1fr)] text-sm">
+        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">Txn</Skeleton>
+        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]"><span>{ block.transactions_count }</span></Skeleton>
 
         { !config.features.rollup.isEnabled && !config.UI.views.block.hiddenFields?.total_reward && (
           <>
-            <Skeleton loading={ isLoading }>Reward</Skeleton>
+            <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">Reward</Skeleton>
             <SimpleValue
               value={ totalReward }
               loading={ isLoading }
@@ -79,7 +82,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
 
         { !config.features.rollup.isEnabled && !config.UI.views.block.hiddenFields?.miner && (
           <>
-            <Skeleton loading={ isLoading }>{ capitalize(getNetworkValidatorTitle()) }</Skeleton>
+            <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">{ capitalize(getNetworkValidatorTitle()) }</Skeleton>
             <AddressEntity
               address={ block.miner }
               isLoading={ isLoading }
@@ -89,8 +92,8 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
             />
           </>
         ) }
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 };
 

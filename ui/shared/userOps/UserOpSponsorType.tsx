@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { UserOpSponsorType as TUserOpSponsorType } from 'types/api/userOps';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 type Props = {
   sponsorType: TUserOpSponsorType;

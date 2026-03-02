@@ -1,10 +1,9 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import TransactionsCrossChainTableItem from './TransactionsCrossChainTableItem';
@@ -29,10 +28,10 @@ const TransactionsCrossChainTable = ({ data, isLoading, top, stickyHeader, curre
             { currentAddress && <TableColumnHeader w="44px"/> }
             <TableColumnHeader>Message</TableColumnHeader>
             <TableColumnHeader>
-              <Flex alignItems="center" flexWrap="nowrap">
+              <div className="flex items-center flex-nowrap">
                 Timestamp
                 <TimeFormatToggle/>
-              </Flex>
+              </div>
             </TableColumnHeader>
             <TableColumnHeader>Msg sender</TableColumnHeader>
             <TableColumnHeader>Source tx</TableColumnHeader>

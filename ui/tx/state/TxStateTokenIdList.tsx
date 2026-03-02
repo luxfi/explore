@@ -1,7 +1,6 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { CollapsibleList } from 'toolkit/chakra/collapsible';
+import { CollapsibleList } from '@luxfi/ui/collapsible';
 import NftEntity from 'ui/shared/entities/nft/NftEntity';
 
 interface Props {
@@ -16,7 +15,7 @@ const TxStateTokenIdList = ({ items, tokenAddress, isLoading }: Props) => {
       return <NftEntity key={ index } hash={ tokenAddress } id={ item.total.token_id } isLoading={ isLoading }/>;
     }
 
-    return <Text key={ index } color="text.secondary">N/A</Text>;
+    return <span key={ index }>N/A</span>;
   }, [ isLoading, tokenAddress ]);
 
   return (
@@ -24,9 +23,9 @@ const TxStateTokenIdList = ({ items, tokenAddress, isLoading }: Props) => {
       items={ items }
       renderItem={ renderItem }
       triggerProps={{
-        pb: { base: '5px', md: 0 },
+        className: 'pb-[5px] md:pb-0',
       }}
-      rowGap={ 2 }
+      className="gap-y-2"
     />
   );
 };

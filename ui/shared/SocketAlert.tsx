@@ -1,8 +1,7 @@
-import { Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Alert } from '@luxfi/ui/alert';
+import { Link } from 'toolkit/next/link';
 
 interface Props {
   className?: string;
@@ -11,10 +10,10 @@ interface Props {
 const SocketAlert = ({ className }: Props) => {
   return (
     <Alert status="warning" className={ className }>
-      <Text whiteSpace="pre">Connection lost, click </Text>
+      <span className="whitespace-pre">Connection lost, click </span>
       <Link href={ window.document.location.href }>to load newer records</Link>
     </Alert>
   );
 };
 
-export default chakra(SocketAlert);
+export default SocketAlert;

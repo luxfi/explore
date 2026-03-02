@@ -18,11 +18,12 @@ const traceExporter = new OTLPTraceExporter();
 
 const sdk = new NodeSDK({
   resource: new Resource({
-    [SEMRESATTRS_SERVICE_NAME]: 'lux_explorer_frontend',
+    [SEMRESATTRS_SERVICE_NAME]: process.env.NEXT_PUBLIC_NETWORK_SHORT_NAME ?
+        `${ process.env.NEXT_PUBLIC_NETWORK_SHORT_NAME.toLowerCase() }_explorer_frontend` : 'explorer_frontend',
     [SEMRESATTRS_SERVICE_VERSION]: process.env.NEXT_PUBLIC_GIT_TAG || process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'unknown_version',
     [SEMRESATTRS_SERVICE_INSTANCE_ID]:
         process.env.NEXT_PUBLIC_APP_INSTANCE ||
-        process.env.NEXT_PUBLIC_APP_HOST?.replace('.lux.network', '').replaceAll('-', '_') ||
+        process.env.NEXT_PUBLIC_APP_HOST?.replace(/\.[^.]+\.[^.]+$/, '').replaceAll('-', '_') ||
         'unknown_app',
   }),
   spanProcessor: new SimpleSpanProcessor(traceExporter),

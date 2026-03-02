@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ValidatorStability } from 'types/api/validators';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobileGrid from 'ui/shared/ListItemMobile/ListItemMobileGrid';
 import ValidatorStatus from 'ui/shared/statusTag/ValidatorStabilityStatus';

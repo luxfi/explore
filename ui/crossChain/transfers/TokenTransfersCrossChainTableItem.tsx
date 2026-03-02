@@ -1,10 +1,9 @@
-import { chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
 
 import config from 'configs/app';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import AddressFromToIcon from 'ui/shared/address/AddressFromToIcon';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';
@@ -25,7 +24,7 @@ interface Props {
 
 const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: Props) => {
 
-  const dashElement = <chakra.span color="text.secondary" lineHeight="24px">{ mdash }</chakra.span>;
+  const dashElement = <span className="text-[var(--color-text-secondary)] leading-6">{ mdash }</span>;
 
   return (
     <TableRow>
@@ -41,14 +40,14 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
         </TableCell>
       ) }
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div className="flex flex-col items-start">
           { data.source_token && (
             <TokenValueInterchain
               token={ data.source_token }
               amount={ data.source_amount }
               chain={ data.source_chain }
               loading={ isLoading }
-              lineHeight="24px"
+              className="leading-6"
             />
           ) }
           {
@@ -60,24 +59,24 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
                 truncation="constant"
                 noIcon
                 currentAddress={ currentAddress }
-                textStyle="xs"
+                className="text-xs"
               />
             ) : dashElement
           }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <AddressFromToIcon type="unspecified" isLoading={ isLoading } mt={ 0.5 }/>
+        <AddressFromToIcon type="unspecified" isLoading={ isLoading } className="mt-0.5"/>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div className="flex flex-col items-start">
           { data.destination_token && (
             <TokenValueInterchain
               token={ data.destination_token }
               amount={ data.destination_amount }
               chain={ data.destination_chain }
               loading={ isLoading }
-              lineHeight="24px"
+              className="leading-6"
             />
           ) }
           {
@@ -89,14 +88,14 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
                 truncation="constant"
                 noIcon
                 currentAddress={ currentAddress }
-                textStyle="xs"
+                className="text-xs"
               />
             ) : dashElement
           }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div className="flex flex-col items-start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -104,20 +103,18 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
               isLoading={ isLoading }
               noIcon
               truncation="constant"
-              lineHeight="24px"
+              className="leading-6"
             />
           ) : dashElement }
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            gap={ 1 }
+            className="text-[var(--color-text-secondary)] text-xs gap-1"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div className="flex flex-col items-start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -125,31 +122,28 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
               isLoading={ isLoading }
               noIcon
               truncation="constant"
-              lineHeight="24px"
+              className="leading-6"
             />
           ) : dashElement }
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            gap={ 1 }
+            className="text-[var(--color-text-secondary)] text-xs gap-1"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } lineHeight="24px"/>
+        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>
       </TableCell>
       <TableCell>
-        <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } lineHeight="24px"/>
+        <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } className="leading-6"/>
       </TableCell>
       <TableCell>
         <TimeWithTooltip
           timestamp={ data.send_timestamp || data.receive_timestamp }
           isLoading={ isLoading }
           color="text.secondary"
-          lineHeight="24px"
-          whiteSpace="nowrap"
+          className="leading-6 whitespace-nowrap"
         />
       </TableCell>
     </TableRow>

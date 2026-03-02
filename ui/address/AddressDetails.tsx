@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -27,7 +26,6 @@ import AddressCeloAccount from './details/AddressCeloAccount';
 import AddressImplementations from './details/AddressImplementations';
 import AddressNameInfo from './details/AddressNameInfo';
 import AddressNetWorth from './details/AddressNetWorth';
-import AddressSaveOnGas from './details/AddressSaveOnGas';
 import FilecoinActorTag from './filecoin/FilecoinActorTag';
 import TokenSelect from './tokenSelect/TokenSelect';
 import type { AddressCountersQuery } from './utils/useAddressCountersQuery';
@@ -90,7 +88,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
 
   return (
     <>
-      { addressQuery.isDegradedData && <ServiceDegradationWarning isLoading={ isLoading } mb={ 6 }/> }
+      { addressQuery.isDegradedData && <ServiceDegradationWarning isLoading={ isLoading } className="mb-6"/> }
       <DetailedInfo.Container>
 
         { data.celo?.account && (
@@ -107,7 +105,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
               ID
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <Text>{ data.filecoin.id }</Text>
+              <span>{ data.filecoin.id }</span>
               <CopyToClipboard text={ data.filecoin.id }/>
             </DetailedInfo.ItemValue>
           </>
@@ -133,7 +131,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
             >
               Ethereum Address
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue flexWrap="nowrap">
+            <DetailedInfo.ItemValue className="flex-nowrap">
               <AddressEntity
                 address={{ hash: data.hash }}
                 noIcon
@@ -159,7 +157,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
                 truncation="constant"
                 noIcon
               />
-              <Text whiteSpace="pre"> at txn </Text>
+              <span className="whitespace-pre"> at txn </span>
               <TxEntity hash={ data.creation_transaction_hash } truncation="constant" noIcon/>
               { data.creation_status && <ContractCreationStatus status={ data.creation_status } ml={{ base: 0, lg: 2 }}/> }
             </DetailedInfo.ItemValue>
@@ -182,8 +180,8 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
             >
               Tokens
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue py={ addressQuery.data ? 0 : undefined }>
-              { addressQuery.data ? <TokenSelect/> : <Box>0</Box> }
+            <DetailedInfo.ItemValue className={ addressQuery.data ? 'py-0' : undefined }>
+              { addressQuery.data ? <TokenSelect/> : <span>0</span> }
             </DetailedInfo.ItemValue>
           </>
         ) }
@@ -263,12 +261,6 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
                 />
               ) :
                 0 }
-              { !countersQuery.isPlaceholderData && countersQuery.data?.gas_usage_count && (
-                <AddressSaveOnGas
-                  gasUsed={ countersQuery.data.gas_usage_count }
-                  address={ data.hash }
-                />
-              ) }
             </DetailedInfo.ItemValue>
           </>
         ) }

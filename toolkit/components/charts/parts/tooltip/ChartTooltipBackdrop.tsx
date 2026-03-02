@@ -1,4 +1,4 @@
-import { useToken } from '@chakra-ui/react';
+import { useToken } from '../../../../hooks/useToken';
 import * as d3 from 'd3';
 import React from 'react';
 

@@ -34,7 +34,7 @@ const TacOperation = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title="Operation details"
         contentAfter={ titleContentAfter }

@@ -1,24 +1,20 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NavLink } from './types';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 const UserProfileContentNavLink = ({ href, icon, text, onClick }: NavLink) => {
   return (
     <Link
       href={ href }
-      display="flex"
-      alignItems="center"
-      columnGap={ 3 }
-      py="14px"
+      className="flex items-center gap-3 py-3.5"
       onClick={ onClick }
       variant="menu"
     >
-      <IconSvg name={ icon } boxSize={ 5 } flexShrink={ 0 }/>
-      <Box textStyle="sm" fontWeight="500">{ text }</Box>
+      <IconSvg name={ icon }/>
+      <div>{ text }</div>
     </Link>
   );
 };

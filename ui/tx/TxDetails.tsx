@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -24,10 +23,10 @@ const TxDetails = ({ txQuery, tacOperationQuery }: Props) => {
 
   return (
     <>
-      <Flex rowGap={{ base: 1, lg: 2 }} mb={{ base: 3, lg: 6 }} flexDir="column">
+      <div className="flex flex-col gap-y-1 lg:gap-y-2 mb-3 lg:mb-6">
         <TestnetWarning isLoading={ txQuery.isPlaceholderData }/>
         { txQuery.data?.is_pending_update && <BlockPendingUpdateAlert view="tx"/> }
-      </Flex>
+      </div>
       <TxInfo
         data={ txQuery.data }
         tacOperations={ tacOperationQuery?.data?.items }

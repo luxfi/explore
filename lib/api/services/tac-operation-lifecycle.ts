@@ -3,20 +3,20 @@ import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 export const TAC_OPERATION_LIFECYCLE_API_RESOURCES = {
   operations: {
-    path: '/api/v1/tac/operations',
+    path: '/v1/tac/operations',
     paginated: true,
     filterFields: [ 'q' ],
   },
   operation: {
-    path: '/api/v1/tac/operations/:id',
+    path: '/v1/tac/operations/:id',
     pathParams: [ 'id' ],
   },
   operation_by_tx_hash: {
-    path: '/api/v1/tac/operations\\:byTx/:tx_hash',
+    path: '/v1/tac/operations\\:byTx/:tx_hash',
     pathParams: [ 'tx_hash' ],
   },
   stat_operations: {
-    path: '/api/v1/stat/operations',
+    path: '/v1/stat/operations',
   },
 } satisfies Record<string, ApiResource>;
 

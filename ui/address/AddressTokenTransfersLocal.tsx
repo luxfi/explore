@@ -1,8 +1,8 @@
-import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenType } from 'types/api/token';
 
+import { useMultichainContext } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -31,6 +31,7 @@ interface Props {
 const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, onAddressFilterChange, overloadCount }: Props) => {
   const { isError, isPlaceholderData, data, pagination } = query;
   const isMobile = useIsMobile();
+  const multichainContext = useMultichainContext();
 
   const { showSocketAlert, newItemsCount } = useAddressTokenTransfersSocket({
     filters,
@@ -44,7 +45,7 @@ const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, 
 
   const content = data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TokenTransferTable
           data={ data?.items }
           baseAddress={ addressHash }
@@ -56,8 +57,8 @@ const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, 
           socketInfoNum={ newItemsCount }
           isLoading={ isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { pagination.page === 1 && (
           <SocketNewItemsNotice.Mobile
             num={ newItemsCount }
@@ -73,13 +74,13 @@ const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, 
           enableTimeIncrement
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = isMobile ? (
     <ActionBar>
-      <HStack gap={ 2 }>
+      <div className="flex flex-row gap-2">
         <TokenTransferFilter
           defaultTypeFilters={ filters.type }
           onTypeFilterChange={ onTypeFilterChange }
@@ -88,6 +89,7 @@ const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, 
           onAddressFilterChange={ onAddressFilterChange }
           defaultAddressFilter={ filters.filter }
           isLoading={ query.isPlaceholderData }
+          chainConfig={ multichainContext?.chain?.app_config }
         />
         <AddressAdvancedFilterLink
           isLoading={ isPlaceholderData }
@@ -100,8 +102,8 @@ const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, 
           params={{ type: 'token-transfers', filterType: 'address', filterValue: filters.filter }}
           isLoading={ isPlaceholderData }
         />
-      </HStack>
-      <Pagination ml="auto" { ...pagination }/>
+      </div>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 

@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -9,12 +7,14 @@ import { thinsp } from 'toolkit/utils/htmlEntities';
 import SimpleValue from './SimpleValue';
 import { GWEI, WEI } from './utils';
 
-export interface Props extends Omit<BoxProps, 'prefix' | 'suffix'> {
+export interface Props {
   amount: string;
   asset?: string;
   accuracy?: number;
   noTooltip?: boolean;
   loading?: boolean;
+  className?: string;
+  [key: string]: unknown;
 }
 
 const GasPriceValue = ({
@@ -23,16 +23,12 @@ const GasPriceValue = ({
   accuracy = 0,
   noTooltip,
   loading,
+  className,
   ...rest
 }: Props) => {
   return (
-    <chakra.span
-      display="inline-flex"
-      flexWrap="wrap"
-      flexDirection="row"
-      alignItems="center"
-      maxW="100%"
-      columnGap={ 1 }
+    <span
+      className={ `inline-flex flex-wrap flex-row items-center max-w-full gap-x-1 ${ className ?? '' }`.trim() }
       { ...rest }
     >
       <SimpleValue
@@ -51,7 +47,7 @@ const GasPriceValue = ({
         loading={ loading }
         color="text.secondary"
       />
-    </chakra.span>
+    </span>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AccordionItemContent, AccordionItemTrigger, AccordionItem, AccordionRoot } from 'toolkit/chakra/accordion';
+import { AccordionItemContent, AccordionItemTrigger, AccordionItem, AccordionRoot } from '@luxfi/ui/accordion';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 
@@ -10,8 +10,8 @@ const items = [
   { value: 'third-item', title: 'Third Item', text: 'Some value 3...' },
 ];
 
-// https://eth-sepolia.k8s-dev.blockscout.com/address/0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC?tab=read_write_contract
-// https://base.blockscout.com/token/0x8f9C456C928a33a3859Fa283fb57B23c908fE843/instance/1924977?tab=metadata
+// https://eth-sepolia.k8s-dev.lux.network/address/0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC?tab=read_write_contract
+// https://base.lux.network/token/0x8f9C456C928a33a3859Fa283fb57B23c908fE843/instance/1924977?tab=metadata
 
 const AccordionShowcase = () => {
   return (
@@ -20,7 +20,7 @@ const AccordionShowcase = () => {
         <SectionHeader>Variant</SectionHeader>
         <SamplesStack>
           <Sample label="variant: outline">
-            <AccordionRoot w="400px">
+            <AccordionRoot className="w-[400px]">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger>{ item.title }</AccordionItemTrigger>
@@ -30,7 +30,7 @@ const AccordionShowcase = () => {
             </AccordionRoot>
           </Sample>
           <Sample label="variant: faq">
-            <AccordionRoot w="400px" variant="faq">
+            <AccordionRoot className="w-[400px]" variant="faq">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger variant="faq">{ item.title }</AccordionItemTrigger>
@@ -44,7 +44,7 @@ const AccordionShowcase = () => {
         <SectionHeader>Size</SectionHeader>
         <SamplesStack>
           <Sample label="size: md">
-            <AccordionRoot w="400px">
+            <AccordionRoot className="w-[400px]">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger>{ item.title }</AccordionItemTrigger>
@@ -54,7 +54,7 @@ const AccordionShowcase = () => {
             </AccordionRoot>
           </Sample>
           <Sample label="size: sm">
-            <AccordionRoot w="400px" size="sm">
+            <AccordionRoot className="w-[400px]" size="sm">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger indicatorPlacement="start">{ item.title }</AccordionItemTrigger>

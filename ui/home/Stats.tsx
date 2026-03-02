@@ -1,9 +1,9 @@
-import { Grid } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
+import { layerLabels } from 'lib/rollups/utils';
 import { HOMEPAGE_STATS, HOMEPAGE_STATS_MICROSERVICE } from 'stubs/stats';
 import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
 import GasPrice from 'ui/shared/gas/GasPrice';
@@ -11,6 +11,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import StatsWidget from 'ui/shared/stats/StatsWidget';
 import { WEI } from 'ui/shared/value/utils';
 
+import StatsDegraded from './fallbacks/StatsDegraded';
 import type { HomeStatsItem } from './utils';
 import { isHomeStatsItemEnabled, sortHomeStatsItems } from './utils';
 
@@ -84,8 +85,11 @@ const Stats = () => {
     }
   })();
 
-  if (apiQuery.isError || statsQuery.isError || latestBatchQuery?.isError) {
-    return null;
+  // Only fall back to degraded RPC-only view when the main stats API fails.
+  // The stats microservice and batch queries are supplementary — their failure
+  // should not hide data that the main API already provides.
+  if (apiQuery.isError) {
+    return <StatsDegraded/>;
   }
 
   const isLoading = isPlaceholderData || latestBatchQuery?.isPlaceholderData;
@@ -103,11 +107,7 @@ const Stats = () => {
         <IconSvg
           isLoading={ isLoading }
           name="info"
-          boxSize={ 5 }
-          flexShrink={ 0 }
-          cursor="pointer"
-          color="icon.secondary"
-          _hover={{ color: 'hover' }}
+          className="w-5 h-5 shrink-0 cursor-pointer text-[var(--color-icon-secondary)] hover:text-[var(--color-link-primary-hover)]"
         />
       </GasInfoTooltip>
     ) : null;
@@ -167,16 +167,16 @@ const Stats = () => {
       apiData?.last_output_root_size && {
         id: 'latest_l1_state_batch' as const,
         icon: 'txn_batches' as const,
-        label: 'Latest L1 state batch',
+        label: `Latest ${ layerLabels.parent } state batch`,
         value: apiData?.last_output_root_size,
         href: { pathname: '/batches' as const },
         isLoading,
       },
-      (statsData?.total_addresses?.value || apiData?.total_addresses) && {
+      (statsData?.total_addresses?.value !== undefined || apiData?.total_addresses !== undefined) && {
         id: 'wallet_addresses' as const,
         icon: 'wallet' as const,
         label: statsData?.total_addresses?.title || 'Wallet addresses',
-        value: Number(statsData?.total_addresses?.value || apiData?.total_addresses).toLocaleString(),
+        value: Number(statsData?.total_addresses?.value ?? apiData?.total_addresses ?? 0).toLocaleString(),
         isLoading,
       },
       hasGasTracker && apiData?.gas_prices && {
@@ -213,21 +213,16 @@ const Stats = () => {
   }
 
   return (
-    <Grid
-      gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
-      gridGap={{ base: 1, lg: 2 }}
-      flexBasis="50%"
-      flexGrow={ 1 }
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
       { items.map((item, index) => (
         <StatsWidget
           key={ item.id }
           { ...item }
           isLoading={ isLoading }
-          _last={ items.length % 2 === 1 && index === items.length - 1 ? { gridColumn: 'span 2' } : undefined }/>
+          className={ items.length % 2 === 1 && index === items.length - 1 ? 'sm:col-span-2 lg:col-span-1' : undefined }/>
       ),
       ) }
-    </Grid>
+    </div>
 
   );
 };

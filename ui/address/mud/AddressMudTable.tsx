@@ -1,12 +1,12 @@
-import { Box, HStack, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import type { AddressMudRecordsFilter, AddressMudRecordsSorting } from 'types/api/address';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -81,7 +81,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
   }
 
   const filtersTags = hasActiveFilters ? (
-    <HStack gap={ 3 } mb={ 1 } flexWrap="wrap">
+    <div className="flex flex-row flex-wrap gap-3 mb-1">
       { Object.entries(filters).map(([ key, value ]) => {
         const index = key as FilterKeys === 'filter_key0' ? 0 : 1;
         return (
@@ -91,13 +91,13 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
             label={ getNameTypeText(data?.schema.key_names[index] || '', data?.schema.key_types[index] || '') }
             closable
             onClose={ onRemoveFilterClick(key as FilterKeys) }
-            maxW="360px"
+            className="max-w-[360px]"
           >
             { value }
           </Tag>
         );
       }) }
-    </HStack>
+    </div>
   ) : null;
 
   const breadcrumbs = data ? (
@@ -105,17 +105,17 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
       hash={ hash }
       tableId={ tableId }
       tableName={ data?.table.table_full_name }
-      mb={ hasActiveFilters ? 4 : 0 }
+     
     />
   ) : null;
 
   const actionBar = (!isMobile || hasActiveFilters || pagination.isVisible) && (
-    <ActionBar mt={ -6 } showShadow={ tableHasHorizontalScroll } justifyContent="space-between" alignItems={ hasActiveFilters ? 'start' : 'center' }>
-      <Box>
+    <ActionBar className={ cn('-mt-6 justify-between', hasActiveFilters ? 'items-start' : 'items-center') } showShadow={ tableHasHorizontalScroll }>
+      <div>
         { !isMobile && breadcrumbs }
         { filtersTags }
-      </Box>
-      <Pagination ml={{ base: 0, lg: 8 }} { ...pagination }/>
+      </div>
+      <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 
@@ -134,15 +134,15 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
 
   const emptyText = (
     <>
-      <chakra.span>There are no records for </chakra.span>
-      { data?.table.table_full_name ? <chakra.span fontWeight={ 600 }>{ data?.table.table_full_name }</chakra.span> : 'this table' }
+      <span>There are no records for </span>
+      { data?.table.table_full_name ? <span className="font-semibold">{ data?.table.table_full_name }</span> : 'this table' }
     </>
   );
 
   return (
     <>
       { isMobile && (
-        <Box mb={ 6 }>{ breadcrumbs }</Box>
+        <div className="mb-6">{ breadcrumbs }</div>
       ) }
       <DataListDisplay
         isError={ isError }
@@ -154,7 +154,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
         }}
         actionBar={ actionBar }
         showActionBarIfEmpty={ !isMobile }
-        mt={ data?.items.length ? 0 : 2 }
+        className={ data?.items.length ? 'mt-0' : 'mt-2' }
       >
         { content }
       </DataListDisplay>

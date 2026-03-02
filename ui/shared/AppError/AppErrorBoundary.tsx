@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import getErrorCause from 'lib/errors/getErrorCause';
@@ -52,4 +51,4 @@ const AppErrorBoundary = ({ className, children, Container }: Props) => {
   );
 };
 
-export default React.memo(chakra(AppErrorBoundary));
+export default React.memo(AppErrorBoundary);

@@ -1,8 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface ChainRowProps {
   readonly name: string;
@@ -40,110 +40,64 @@ const ChainRow = ({
 }: ChainRowProps) => {
   const row = (
     <Skeleton loading={ isLoading }>
-      <Flex
-        alignItems="center"
-        py={ 3 }
-        px={ 4 }
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-        transition="background 0.15s"
-        gap={ 4 }
-        flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-        cursor={ href ? 'pointer' : 'default' }
+      <div
+        className={ cn(
+          'flex items-center py-3 px-4 border-b border-[var(--color-border-divider)]',
+          'hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+          'transition-colors duration-150 gap-4 flex-wrap lg:flex-nowrap',
+          href ? 'cursor-pointer' : 'cursor-default',
+        ) }
       >
         { /* Name column */ }
-        <Flex
-          direction="column"
-          minW={{ base: '100%', lg: '180px' }}
-          maxW={{ base: '100%', lg: '220px' }}
-          flexShrink={ 0 }
-        >
-          <Box fontWeight="600" fontSize="sm" color="text.primary">
+        <div className="flex flex-col min-w-full lg:min-w-[180px] lg:max-w-[220px] shrink-0">
+          <div className="font-semibold text-sm text-[var(--color-text-primary)]">
             { name }
-          </Box>
+          </div>
           { fullName && (
-            <Box fontSize="xs" color="text.secondary" mt={ 0.5 }>
+            <div className="text-xs text-[var(--color-text-secondary)] mt-0.5">
               { fullName }
-            </Box>
+            </div>
           ) }
-        </Flex>
+        </div>
 
         { /* Blockchain ID column */ }
-        <Box
-          flex={ 1 }
-          minW={ 0 }
-          fontFamily="mono"
-          fontSize="sm"
-          color="text.secondary"
+        <div
+          className="flex-1 min-w-0 font-mono text-sm text-[var(--color-text-secondary)] overflow-hidden text-ellipsis whitespace-nowrap"
           title={ blockchainId }
-          overflow="hidden"
-          textOverflow="ellipsis"
-          whiteSpace="nowrap"
         >
           { blockchainId ? truncateId(blockchainId) : '\u2014' }
-        </Box>
+        </div>
 
         { /* Subnet ID column */ }
-        <Box
-          flex={ 1 }
-          minW={ 0 }
-          fontFamily="mono"
-          fontSize="sm"
-          color="text.secondary"
+        <div
+          className="flex-1 min-w-0 font-mono text-sm text-[var(--color-text-secondary)] overflow-hidden text-ellipsis whitespace-nowrap hidden lg:block"
           title={ subnetId }
-          overflow="hidden"
-          textOverflow="ellipsis"
-          whiteSpace="nowrap"
-          display={{ base: 'none', lg: 'block' }}
         >
           { subnetId ? truncateId(subnetId) : '\u2014' }
-        </Box>
+        </div>
 
         { /* VM badge */ }
-        <Flex alignItems="center" gap={ 2 } flexShrink={ 0 }>
+        <div className="flex items-center gap-2 shrink-0">
           { vmLabel && (
-            <Box
-              bgColor={{ _light: 'gray.100', _dark: 'whiteAlpha.100' }}
-              color="text.secondary"
-              borderRadius="sm"
-              px={ 2 }
-              py={ 0.5 }
-              fontSize="xs"
-              fontFamily="mono"
-              whiteSpace="nowrap"
-            >
+            <div className="bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono whitespace-nowrap">
               { vmLabel }
-            </Box>
+            </div>
           ) }
           { chainId != null && (
-            <Box
-              bgColor={{ _light: 'gray.100', _dark: 'whiteAlpha.100' }}
-              color="text.secondary"
-              borderRadius="sm"
-              px={ 2 }
-              py={ 0.5 }
-              fontSize="xs"
-              fontFamily="mono"
-              whiteSpace="nowrap"
-            >
+            <div className="bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono whitespace-nowrap">
               { chainId }
-            </Box>
+            </div>
           ) }
-        </Flex>
+        </div>
 
         { /* Status indicator + arrow */ }
-        <Flex alignItems="center" gap={ 2 } flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
-          <Box
-            bgColor={ isActive ? 'green.400' : 'gray.400' }
-            borderRadius="full"
-            boxSize="8px"
-          />
+        <div className="flex items-center gap-2 shrink-0 ml-0 lg:ml-auto">
+          <div className={ cn('w-2 h-2 rounded-full', isActive ? 'bg-green-400' : 'bg-gray-400') }/>
           { href && (
-            <Box color="text.secondary" fontSize="sm">{ '\u2192' }</Box>
+            <div className="text-[var(--color-text-secondary)] text-sm">{ '\u2192' }</div>
           ) }
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </Skeleton>
   );
 

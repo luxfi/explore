@@ -1,4 +1,3 @@
-import { Flex, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -7,16 +6,14 @@ import type { SmartContract } from 'types/api/contract';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { CONTRACT_LICENSES } from 'lib/contracts/licenses';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { getGitHubOwnerAndRepo } from 'ui/contractVerification/utils';
-import ContainerWithScrollY from 'ui/shared/ContainerWithScrollY';
 import ContractCertifiedLabel from 'ui/shared/ContractCertifiedLabel';
-import AddressEntity from 'ui/shared/entities/address/AddressEntity';
-import TxEntity from 'ui/shared/entities/tx/TxEntity';
-import ContractCreationStatus from 'ui/shared/statusTag/ContractCreationStatus';
 import Time from 'ui/shared/time/Time';
 
 import ContractSecurityAudits from '../audits/ContractSecurityAudits';
+import ContractDetailsInfoCreator from './ContractDetailsInfoCreator';
+import ContractDetailsInfoImplementations from './ContractDetailsInfoImplementations';
 import ContractDetailsInfoItem from './ContractDetailsInfoItem';
 
 const rollupFeature = config.features.rollup;
@@ -31,10 +28,10 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
   const multichainContext = useMultichainContext();
 
   const contractNameWithCertifiedIcon = data ? (
-    <Flex alignItems="center">
+    <div className="flex items-center">
       { data.name }
-      { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 } ml={ 2 }/> }
-    </Flex>
+      { data.certified && <ContractCertifiedLabel iconSize={ 5 } className="ml-2"/> }
+    </div>
   ) : null;
 
   const licenseLink = (() => {
@@ -74,53 +71,27 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
   const isStylusContract = data.language === 'stylus_rust';
 
   return (
-    <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} rowGap={ 4 } columnGap={ 6 } mb={ 8 }>
+    <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr_auto_1fr] gap-y-4 gap-x-3 mb-8">
+      { addressData.creator_address_hash && addressData.creation_transaction_hash && multichainContext && (
+        <ContractDetailsInfoCreator
+          addressHash={ addressData.creator_address_hash }
+          txHash={ addressData.creation_transaction_hash }
+          creationStatus={ addressData.creation_status }
+          isLoading={ isLoading }
+        />
+      ) }
+      { addressData.implementations && addressData.implementations.length > 0 && multichainContext && !isLoading && (
+        <ContractDetailsInfoImplementations
+          implementations={ addressData.implementations }
+          proxyType={ addressData.proxy_type }
+        />
+      ) }
       { data.name && (
         <ContractDetailsInfoItem
           label="Contract name"
           isLoading={ isLoading }
         >
           { contractNameWithCertifiedIcon }
-        </ContractDetailsInfoItem>
-      ) }
-      { multichainContext && addressData.creator_address_hash && addressData.creation_transaction_hash && (
-        <ContractDetailsInfoItem
-          label="Creator"
-          isLoading={ isLoading }
-        >
-          <Flex alignItems="center" flexWrap="wrap">
-            <AddressEntity
-              address={{ hash: addressData.creator_address_hash }}
-              truncation="constant"
-              noIcon
-            />
-            <Text whiteSpace="pre" color="text.secondary"> at txn </Text>
-            <TxEntity hash={ addressData.creation_transaction_hash } truncation="constant" noIcon/>
-            { addressData.creation_status && <ContractCreationStatus status={ addressData.creation_status } ml={{ base: 0, lg: 2 }}/> }
-          </Flex>
-        </ContractDetailsInfoItem>
-      ) }
-      { !isLoading && multichainContext && addressData.implementations && addressData.implementations.length > 0 && (
-        <ContractDetailsInfoItem
-          label={ `${ addressData.proxy_type === 'eip7702' ? 'Delegated to' : `Implementation${ addressData.implementations.length > 1 ? 's' : '' }` }` }
-          isLoading={ isLoading }
-          contentProps={{ maxW: 'calc(100% - 194px)', position: 'relative' }}
-        >
-          <ContainerWithScrollY gradientHeight={ 48 } maxH="200px">
-            { addressData.implementations.map((item) => (
-              <AddressEntity
-                key={ item.address_hash }
-                address={{
-                  hash: item.address_hash,
-                  filecoin: { robust: item.filecoin_robust_address },
-                  name: item.name,
-                  is_contract: true,
-                }}
-                isLoading={ isLoading }
-                noIcon
-              />
-            )) }
-          </ContainerWithScrollY>
         </ContractDetailsInfoItem>
       ) }
       { data.compiler_version && (
@@ -142,8 +113,8 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       { data.evm_version && (
         <ContractDetailsInfoItem
           label="EVM version"
-          textTransform="capitalize"
           isLoading={ isLoading }
+          className="capitalize"
         >
           { data.evm_version }
         </ContractDetailsInfoItem>
@@ -184,7 +155,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       { data.verified_at && (
         <ContractDetailsInfoItem
           label="Verified at"
-          wordBreak="break-word"
+          className="break-words"
           isLoading={ isLoading }
         >
           <Time timestamp={ data.verified_at } format="lll_s"/>
@@ -193,7 +164,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       { data.file_path && !isStylusContract && (
         <ContractDetailsInfoItem
           label="Contract file path"
-          wordBreak="break-word"
+          className="break-words"
           isLoading={ isLoading }
         >
           { data.file_path }
@@ -215,7 +186,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
           <ContractSecurityAudits addressHash={ addressData.hash }/>
         </ContractDetailsInfoItem>
       ) }
-    </Grid>
+    </div>
   );
 };
 

@@ -1,11 +1,10 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
-import { Tag } from 'toolkit/chakra/tag';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Tag } from '@luxfi/ui/tag';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import type { BlockQuery } from './useBlockQuery';
 
@@ -40,17 +39,17 @@ const BlockCeloEpochTag = ({ blockQuery }: Props) => {
   }
 
   return (
-    <HStack gap={ 2 }>
+    <div className="gap-2">
       <Tooltip
         key="epoch-tag"
         content="Displays the epoch finalized by this block"
       >
         <Link href={ route({ pathname: '/epochs/[number]', query: { number: String(blockQuery.data.celo.l1_era_finalized_epoch_number) } }) }>
-          <Tag bgColor="celo" color="blackAlpha.800" variant="clickable"> Finalized epoch #{ blockQuery.data.celo.l1_era_finalized_epoch_number } </Tag>
+          <Tag variant="clickable" className="bg-[var(--color-celo)] text-[var(--color-blackAlpha-800)]"> Finalized epoch #{ blockQuery.data.celo.l1_era_finalized_epoch_number } </Tag>
         </Link>
       </Tooltip>
       <BlockCeloEpochTagRegular blockQuery={ blockQuery }/>
-    </HStack>
+    </div>
   );
 };
 

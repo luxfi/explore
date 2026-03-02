@@ -1,4 +1,3 @@
-import { Center, chakra } from '@chakra-ui/react';
 import { DappscoutIframeProvider, useDappscoutIframe } from 'dappscout-iframe';
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 
@@ -24,7 +23,7 @@ type ContentProps = {
   className?: string;
 };
 
-const Content = chakra(({ appUrl, address, message, isEssentialDapp, className }: ContentProps) => {
+const Content = ({ appUrl, address, message, isEssentialDapp, className }: ContentProps) => {
   const { iframeRef, isReady } = useDappscoutIframe();
   const web3Wallet = useWeb3Wallet({ source: 'Essential dapps' });
 
@@ -69,35 +68,30 @@ const Content = chakra(({ appUrl, address, message, isEssentialDapp, className }
   }, [ appUrl, isEssentialDapp, web3Wallet ]);
 
   return (
-    <Center
-      flexGrow={ 1 }
-      minH={ isEssentialDapp ? `${ iframeHeight }px` : undefined }
-      minW="100%"
-      className={ className }
+    <div
+      className={ `flex items-center justify-center grow min-w-full ${ className ?? '' }` }
+      style={{ minHeight: isEssentialDapp ? `${ iframeHeight }px` : undefined }}
     >
       { (isFrameLoading) && (
         <ContentLoader/>
       ) }
 
       { isReady && (
-        <chakra.iframe
+        <iframe
           key={ iframeKey }
           allow={ IFRAME_ALLOW_ATTRIBUTE }
           ref={ iframeRef }
           sandbox={ IFRAME_SANDBOX_ATTRIBUTE }
-          h="100%"
-          w="100%"
-          display={ isFrameLoading ? 'none' : 'block' }
+          className={ `h-full w-full bg-transparent ${ isFrameLoading ? 'hidden' : 'block' }` }
           src={ appUrl }
           title="Marketplace dapp"
           onLoad={ handleIframeLoad }
-          background="transparent"
           allowTransparency={ true }
         />
       ) }
-    </Center>
+    </div>
   );
-});
+};
 
 type Props = {
   appId: string;
@@ -156,4 +150,4 @@ const MarketplaceAppIframe = ({
   );
 };
 
-export default chakra(MarketplaceAppIframe);
+export default MarketplaceAppIframe;

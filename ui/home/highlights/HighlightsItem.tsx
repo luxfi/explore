@@ -1,24 +1,25 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
-import { Text, VStack, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { HighlightsBannerConfig } from 'types/homepage';
 
 import config from 'configs/app';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Heading } from 'toolkit/chakra/heading';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Heading } from '@luxfi/ui/heading';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
-interface ContainerProps extends Omit<Props, 'totalNum'>, JsxStyleProps {
+interface ContainerProps extends Omit<Props, 'totalNum'> {
   children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-const Container = ({ children, data, isLoading, ...rest }: ContainerProps) => {
+const Container = ({ children, data, isLoading, className, style }: ContainerProps) => {
   if ('page_path' in data) {
     return (
-      <Link href={ config.app.baseUrl + data.page_path } loading={ isLoading } { ...rest }>
+      <Link href={ config.app.baseUrl + data.page_path } loading={ isLoading } className={ className } style={ style }>
         { children }
       </Link>
     );
@@ -26,14 +27,14 @@ const Container = ({ children, data, isLoading, ...rest }: ContainerProps) => {
 
   if ('redirect_url' in data) {
     return (
-      <Link href={ data.redirect_url } loading={ isLoading } external noIcon { ...rest }>
+      <Link href={ data.redirect_url } loading={ isLoading } external noIcon className={ className } style={ style }>
         { children }
       </Link>
     );
   }
 
   return (
-    <Skeleton loading={ isLoading } { ...rest }>
+    <Skeleton loading={ isLoading } className={ className } style={ style }>
       { children }
     </Skeleton>
   );
@@ -52,48 +53,50 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
     data.side_img_url?.[1] || data.side_img_url?.[0],
   );
 
+  const bgColor = useColorModeValue(
+    data.background?.[0] || '#EFF7FF',
+    data.background?.[1] || data.background?.[0] || '#2A3340',
+  );
+
+  const titleColor = useColorModeValue(
+    data.title_color?.[0] || '#101112',
+    data.title_color?.[1] || data.title_color?.[0] || '#F8FCFF',
+  );
+
+  const descriptionColor = useColorModeValue(
+    data.description_color?.[0] || '#718096',
+    data.description_color?.[1] || data.description_color?.[0] || '#AEB1B6',
+  );
+
+  const containerStyle: React.CSSProperties = {
+    width: `calc((100% - ${ (totalNum - 1) * 12 }px) / ${ totalNum })`,
+    ...(!isLoading ? { backgroundColor: bgColor } : {}),
+  };
+
   return (
     <Container
       data={ data }
       isLoading={ isLoading }
-      display="flex"
-      alignItems="center"
-      minH="153px"
-      pl={ 6 }
-      w={ `calc((100% - ${ (totalNum - 1) * 12 }px) / ${ totalNum })` }
-      overflow="hidden"
-      borderRadius="md"
-      bg={ !isLoading ? {
-        _light: data.background?.[0] || '#EFF7FF',
-        _dark: data.background?.[1] || data.background?.[0] || '#2A3340',
-      } : undefined }
+      className={ cn(
+        'flex items-center min-h-[153px] pl-6 overflow-hidden rounded-md',
+      ) }
+      style={ containerStyle }
     >
-      <HStack overflow="hidden" w="100%" gap={ 3 }>
-        <VStack
-          alignItems="flex-start"
-          gap={ 3 }
-          w={ totalNum === 2 ? '294px' : '193px' }
-          flexShrink={ 0 }
-        >
+      <div className="flex overflow-hidden w-full gap-3">
+        <div className={ `flex flex-col items-start gap-3 shrink-0 ${ totalNum === 2 ? 'w-[294px]' : 'w-[193px]' }` }>
           <Heading
             level="3"
-            color={{
-              _light: data.title_color?.[0] || '#101112',
-              _dark: data.title_color?.[1] || data.title_color?.[0] || '#F8FCFF',
-            }}
+            style={{ color: titleColor }}
           >
             { data.title }
           </Heading>
-          <Text
-            textStyle="sm"
-            color={{
-              _light: data.description_color?.[0] || '#718096',
-              _dark: data.description_color?.[1] || data.description_color?.[0] || '#AEB1B6',
-            }}
+          <span
+            className="text-sm"
+            style={{ color: descriptionColor }}
           >
             { data.description }
-          </Text>
-        </VStack>
+          </span>
+        </div>
         { imageSrc && !isLoading && (
           <Image
             src={ imageSrc }
@@ -105,7 +108,7 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
             mr={ 6 }
           />
         ) }
-      </HStack>
+      </div>
     </Container>
   );
 };

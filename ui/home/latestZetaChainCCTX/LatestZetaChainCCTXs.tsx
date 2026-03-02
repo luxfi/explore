@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -16,10 +15,11 @@ import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { generateListStub } from 'stubs/utils';
 import { ZETA_CHAIN_CCTX_LIST_ITEM } from 'stubs/zetaChainCCTX';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import ZetaChainCCTXListItem from 'ui/zetaChain/cctxs/ZetaChainCCTXListItem';
 
+import LatestTxsFallback from '../fallbacks/LatestTxsFallback';
 import LatestZetaChainCCTXItem from './LatestZetaChainCCTXItem';
 
 const LatestZetaChainCCTXs = () => {
@@ -110,7 +110,7 @@ const LatestZetaChainCCTXs = () => {
   });
 
   if (isError) {
-    return <Text mt={ 4 }>No data. Please reload the page.</Text>;
+    return <LatestTxsFallback/>;
   }
 
   if (data) {
@@ -121,9 +121,9 @@ const LatestZetaChainCCTXs = () => {
           type="cross_chain_transaction"
           isLoading={ isPlaceholderData }
           showErrorAlert={ showSocketErrorAlert }
-          borderBottomRadius={ 0 }
+          className="rounded-b-none"
         />
-        <Box mb={ 3 } display={{ base: 'block', lg: 'none' }}>
+        <div className="mb-3 block lg:hidden">
           { data.items.slice(0, txsCount).map(((tx, index) => (
             <ZetaChainCCTXListItem
               key={ tx.index + (isPlaceholderData ? index : '') }
@@ -132,9 +132,9 @@ const LatestZetaChainCCTXs = () => {
               animation={ initialList.getAnimationProp(tx) }
             />
           ))) }
-        </Box>
+        </div>
         <AddressHighlightProvider>
-          <Box mb={ 3 } display={{ base: 'none', lg: 'block' }}>
+          <div className="mb-3 hidden lg:block">
             { data.items.slice(0, txsCount).map(((tx, index) => (
               <LatestZetaChainCCTXItem
                 key={ tx.index + (isPlaceholderData ? index : '') }
@@ -143,16 +143,16 @@ const LatestZetaChainCCTXs = () => {
                 animation={ initialList.getAnimationProp(tx) }
               />
             ))) }
-          </Box>
+          </div>
         </AddressHighlightProvider>
-        <Flex justifyContent="center">
-          <Link textStyle="sm" href={ cctxsUrl }>View all cross chain transactions</Link>
-        </Flex>
+        <div className="flex justify-center">
+          <Link className="text-sm" href={ cctxsUrl }>View all cross chain transactions</Link>
+        </div>
       </>
     );
   }
 
-  return null;
+  return <span>No latest cross chain transactions found.</span>;
 };
 
 export default LatestZetaChainCCTXs;

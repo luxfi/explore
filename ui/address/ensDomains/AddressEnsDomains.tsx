@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { clamp } from 'es-toolkit';
 import React from 'react';
@@ -9,11 +8,11 @@ import { route } from 'nextjs-routes';
 
 import type { ResourceError } from 'lib/api/resources';
 import dayjs from 'lib/date/dayjs';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';
 import IconSvg from 'ui/shared/IconSvg';
@@ -26,14 +25,12 @@ interface Props {
 
 const DomainsGrid = ({ data }: { data: Array<bens.Domain> }) => {
   return (
-    <Grid
-      templateColumns={{ base: `repeat(${ clamp(data.length, 1, 2) }, 1fr)`, lg: `repeat(${ clamp(data.length, 1, 3) }, 1fr)` }}
-      columnGap={ 8 }
-      rowGap={ 4 }
-      mt={ 2 }
+    <div
+      className="gap-x-8 gap-y-4 mt-2 grid"
+      style={{ gridTemplateColumns: `repeat(${ clamp(data.length, 1, 2) }, 1fr)` }}
     >
       { data.slice(0, 9).map((domain) => <EnsEntity key={ domain.id } domain={ domain.name } protocol={ domain.protocol } noCopy/>) }
-    </Grid>
+    </div>
   );
 };
 
@@ -46,7 +43,7 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
   }
 
   if (isPending) {
-    return <Skeleton loading h={ 8 } w={{ base: '50px', xl: '120px' }} borderRadius="base"/>;
+    return <Skeleton loading={ true } h="32px" w="50px" className="xl:w-[120px]" borderRadius="base"/>;
   }
 
   if (!data || data.items.length === 0) {
@@ -92,38 +89,36 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
               size="sm"
               variant="dropdown"
               aria-label="Address domains"
-              fontWeight={ 500 }
-              flexShrink={ 0 }
-              columnGap={ 1 }
+              className="font-medium shrink-0 gap-1"
             >
-              <IconSvg name="ENS" boxSize={ 5 }/>
-              <chakra.span hideBelow="xl">{ totalRecords } Domain{ data.items.length > 1 ? 's' : '' }</chakra.span>
-              <chakra.span hideFrom="xl">{ totalRecords }</chakra.span>
+              <IconSvg name="ENS" className="w-5 h-5"/>
+              <span className="hidden xl:inline">{ totalRecords } Domain{ data.items.length > 1 ? 's' : '' }</span>
+              <span className="xl:hidden">{ totalRecords }</span>
             </Button>
           </PopoverTrigger>
         </div>
       </Tooltip>
-      <PopoverContent w={{ lg: '500px' }}>
-        <PopoverBody textStyle="sm" display="flex" flexDir="column" rowGap={ 5 } alignItems="flex-start">
+      <PopoverContent className="lg:w-[500px]">
+        <PopoverBody className="text-sm flex flex-col gap-y-5 items-start">
           { mainDomain && (
-            <Box w="100%">
-              <chakra.span color="text.secondary" textStyle="xs">Primary*</chakra.span>
-              <Flex alignItems="center" textStyle="md" mt={ 2 }>
-                <EnsEntity domain={ mainDomain.name } protocol={ mainDomain.protocol } fontWeight={ 600 } noCopy/>
+            <div className="w-full">
+              <span className="text-[var(--color-text-secondary)] text-xs">Primary*</span>
+              <div className="flex items-center text-base mt-2">
+                <EnsEntity domain={ mainDomain.name } protocol={ mainDomain.protocol } className="font-semibold" noCopy/>
                 { mainDomain.expiry_date &&
-                    <chakra.span color="text.secondary" whiteSpace="pre"> (expires { dayjs(mainDomain.expiry_date).fromNow() })</chakra.span> }
-              </Flex>
-            </Box>
+                    <span className="text-[var(--color-text-secondary)] whitespace-pre"> (expires { dayjs(mainDomain.expiry_date).fromNow() })</span> }
+              </div>
+            </div>
           ) }
           { ownedDomains.length > 0 && (
             <div>
-              <chakra.span color="text.secondary" textStyle="xs">Owned by this address</chakra.span>
+              <span className="text-[var(--color-text-secondary)] text-xs">Owned by this address</span>
               <DomainsGrid data={ ownedDomains }/>
             </div>
           ) }
           { resolvedDomains.length > 0 && (
             <div>
-              <chakra.span color="text.secondary" textStyle="xs">Resolved to this address</chakra.span>
+              <span className="text-[var(--color-text-secondary)] text-xs">Resolved to this address</span>
               <DomainsGrid data={ resolvedDomains }/>
             </div>
           ) }
@@ -132,13 +127,13 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
               href={ route({ pathname: '/name-services', query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: addressHash } }) }
             >
               <span> More results</span>
-              <chakra.span color="text.secondary"> ({ totalRecords })</chakra.span>
+              <span className="text-[var(--color-text-secondary)]"> ({ totalRecords })</span>
             </Link>
           ) }
           { mainDomain && (
-            <chakra.span fontSize="xs" mt={ -1 }>
+            <span className="text-xs -mt-1">
               *A domain name is not necessarily held by a person popularly associated with the name
-            </chakra.span>
+            </span>
           ) }
         </PopoverBody>
       </PopoverContent>

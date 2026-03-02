@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -15,7 +14,7 @@ import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import BlockCeloEpochTag from 'ui/block/BlockCeloEpochTag';
 import BlockDeposits from 'ui/block/BlockDeposits';
@@ -75,10 +74,10 @@ const BlockPageContent = () => {
       title: 'Details',
       component: (
         <>
-          <Flex rowGap={{ base: 1, lg: 2 }} mb={{ base: 3, lg: 6 }} flexDir="column">
+          <div className="flex flex-col gap-y-1 lg:gap-y-2 mb-3 lg:mb-6">
             { blockQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockQuery.isPlaceholderData }/> }
             { blockQuery.data?.is_pending_update && <BlockPendingUpdateAlert/> }
-          </Flex>
+          </div>
           <BlockDetails query={ blockQuery }/>
         </>
       ),
@@ -88,7 +87,7 @@ const BlockPageContent = () => {
       title: 'Transactions',
       component: (
         <>
-          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
           <TxsWithFrontendSorting query={ blockTxsQuery } showBlockInfo={ false } top={ hasPagination ? TABS_HEIGHT : 0 }/>
         </>
       ),
@@ -98,7 +97,7 @@ const BlockPageContent = () => {
       title: 'Internal txns',
       component: (
         <>
-          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
           <BlockInternalTxs query={ blockInternalTxsQuery } top={ hasPagination ? TABS_HEIGHT : 0 }/>
         </>
       ),
@@ -117,7 +116,7 @@ const BlockPageContent = () => {
         title: 'Deposits',
         component: (
           <>
-            { blockDepositsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockDepositsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+            { blockDepositsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockDepositsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
             <BlockDeposits blockDepositsQuery={ blockDepositsQuery }/>
           </>
         ),
@@ -129,7 +128,7 @@ const BlockPageContent = () => {
         component: (
           <>
             { blockWithdrawalsQuery.isDegradedData &&
-              <ServiceDegradationWarning isLoading={ blockWithdrawalsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+              <ServiceDegradationWarning isLoading={ blockWithdrawalsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
             <BlockWithdrawals blockWithdrawalsQuery={ blockWithdrawalsQuery }/>
           </>
         ),
@@ -181,29 +180,28 @@ const BlockPageContent = () => {
       { !config.UI.views.block.hiddenFields?.miner && blockQuery.data?.miner && (
         <Skeleton
           loading={ blockQuery.isPlaceholderData }
-          fontFamily="heading"
           display="flex"
           minW={ 0 }
-          columnGap={ 2 }
           fontWeight={ 500 }
+          className="font-heading gap-x-2"
         >
-          <chakra.span flexShrink={ 0 }>
+          <span className="shrink-0">
             { capitalize(getNetworkValidatorTitle()) }
-          </chakra.span>
+          </span>
           <AddressEntity address={ blockQuery.data.miner }/>
         </Skeleton>
       ) }
       <NetworkExplorers
         type="block"
         pathParam={ heightOrHash }
-        ml={{ base: config.UI.views.block.hiddenFields?.miner ? 0 : 3, lg: 'auto' }}
+        className={ config.UI.views.block.hiddenFields?.miner ? 'ml-0 lg:ml-auto' : 'ml-3 lg:ml-auto' }
       />
     </>
   );
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ title }
         beforeTitle={ beforeTitleElement }

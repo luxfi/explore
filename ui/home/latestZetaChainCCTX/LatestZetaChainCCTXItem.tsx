@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
@@ -18,21 +17,15 @@ type Props = {
 
 const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
   return (
-    <Grid
-      gridTemplateColumns="18px 120px 80px 350px auto"
-      gridGap={ 3 }
-      width="100%"
-      minW="740px"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      alignItems="center"
-      p={ 4 }
-      fontSize="sm"
-      animation={ animation }
-
+    <div
+      className="grid gap-3 w-full min-w-[740px] border-b border-[var(--color-border-divider)] items-center p-4 text-sm"
+      style={{
+        gridTemplateColumns: '18px 120px 80px 350px auto',
+        animation: animation || undefined,
+      }}
     >
       <ZetaChainCCTXReducedStatus status={ tx.status_reduced } isLoading={ isLoading }/>
-      <TxEntityZetaChainCC truncation="constant" hash={ tx.index } isLoading={ isLoading } fontWeight={ 600 }/>
+      <TxEntityZetaChainCC truncation="constant" hash={ tx.index } isLoading={ isLoading } className="font-semibold"/>
       <TimeWithTooltip color="text.secondary" timestamp={ Number(tx.last_update_timestamp) * SECOND } isLoading={ isLoading } timeFormat="relative"/>
       <AddressFromTo
         from={{ hash: tx.sender_address, chainId: tx.source_chain_id.toString(), chainType: 'zeta' }}
@@ -46,7 +39,7 @@ const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
         decimals={ tx.decimals }
         isLoading={ isLoading }
       />
-    </Grid>
+    </div>
   );
 };
 

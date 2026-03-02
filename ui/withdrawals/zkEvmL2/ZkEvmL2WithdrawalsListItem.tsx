@@ -1,11 +1,11 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { ZkEvmL2WithdrawalsItem } from 'types/api/zkEvmL2';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { layerLabels } from 'lib/rollups/utils';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
@@ -30,24 +30,22 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <BlockEntity
           number={ item.block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } className="inline-block">
           { item.index }
         </Skeleton>
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>L2 txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } txn hash</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
           truncation="constant_long"
         />
       </ListItemMobileGrid.Value>
@@ -57,24 +55,23 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <TimeWithTooltip
           timestamp={ item.timestamp }
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block"
         />
       </ListItemMobileGrid.Value>
 
-      <ListItemMobileGrid.Label isLoading={ isLoading }>L1 txn hash</ListItemMobileGrid.Label>
+      <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } txn hash</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         { item.l1_transaction_hash ? (
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.l1_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noCopy
           />
         ) : (
-          <chakra.span>
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 
@@ -88,7 +85,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Token</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } className="inline-block">
           { item.symbol }
         </Skeleton>
       </ListItemMobileGrid.Value>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ScrollL2TxnBatch } from 'types/api/scrollL2';
 
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import ScrollL2TxnBatchesTableItem from './ScrollL2TxnBatchesTableItem';

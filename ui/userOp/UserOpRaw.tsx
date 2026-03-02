@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { UserOp } from 'types/api/userOps';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 // order is taken from the ERC-4337 standard

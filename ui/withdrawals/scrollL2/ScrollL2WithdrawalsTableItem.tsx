@@ -1,11 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ScrollL2MessageItem } from 'types/api/scrollL2';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
@@ -27,7 +26,7 @@ const ScrollL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntity
           number={ item.origination_transaction_block_number }
           isLoading={ isLoading }
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>
@@ -44,11 +43,10 @@ const ScrollL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
           noIcon
         />
       </TableCell>
-      <TableCell verticalAlign="middle" pr={ 12 }>
+      <TableCell verticalAlign="middle">
         <TimeWithTooltip
           timestamp={ item.origination_timestamp }
           isLoading={ isLoading }
-          color="text.secondary"
         />
       </TableCell>
       <TableCell verticalAlign="middle">
@@ -61,9 +59,9 @@ const ScrollL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
             noCopy
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>

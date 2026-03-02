@@ -1,14 +1,13 @@
-import { Box, Text, HStack, Flex } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
 
 import useApiFetch from 'lib/api/useApiFetch';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Switch } from 'toolkit/chakra/switch';
-import { Tag } from 'toolkit/chakra/tag';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Switch } from '@luxfi/ui/switch';
+import { Tag } from '@luxfi/ui/tag';
+import { toaster } from '@luxfi/ui/toaster';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
 
@@ -76,17 +75,17 @@ const WatchListItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }
 
   return (
     <ListItemMobile>
-      <Box maxW="100%">
+      <div>
         <WatchListAddressItem item={ item } isLoading={ isLoading }/>
-        <HStack gap={ 3 } mt={ 6 }>
-          <Text textStyle="sm" fontWeight={ 500 }>Private tag</Text>
+        <div className="flex flex-row">
+          <span className="font-medium">Private tag</span>
           <Tag loading={ isLoading } truncated>{ item.name }</Tag>
-        </HStack>
-      </Box>
-      <Flex alignItems="center" justifyContent="space-between" mt={ 6 } w="100%">
-        <HStack gap={ 3 }>
-          <Text textStyle="sm" fontWeight={ 500 }>Email notification</Text>
-          <Skeleton loading={ isLoading } display="inline-block">
+        </div>
+      </div>
+      <div className="flex w-full">
+        <div className="flex flex-row">
+          <span className="font-medium">Email notification</span>
+          <Skeleton loading={ isLoading } className="inline-block">
             <Switch
               checked={ notificationEnabled }
               onCheckedChange={ onSwitch }
@@ -94,9 +93,9 @@ const WatchListItem = ({ item, isLoading, onEditClick, onDeleteClick, hasEmail }
               disabled={ !hasEmail || switchDisabled }
             />
           </Skeleton>
-        </HStack>
+        </div>
         <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
-      </Flex>
+      </div>
     </ListItemMobile>
   );
 };

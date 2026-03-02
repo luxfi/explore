@@ -1,11 +1,10 @@
-import { Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
 
 import { currencyUnits } from 'lib/units';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ZERO } from 'toolkit/utils/consts';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import IconSvg from 'ui/shared/IconSvg';
@@ -54,7 +53,7 @@ const BlockDetailsBlobInfo = ({ data }: Props) => {
             Blob gas used
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Text>{ BigNumber(data.blob_gas_used).toFormat() }</Text>
+            <span>{ BigNumber(data.blob_gas_used).toFormat() }</span>
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -69,7 +68,7 @@ const BlockDetailsBlobInfo = ({ data }: Props) => {
             <NativeCoinValue
               amount={ burntBlobFees.toString() }
               accuracy={ 0 }
-              startElement={ <IconSvg name="flame" boxSize={ 5 } color="icon.primary" mr={{ base: 1, lg: 2 }}/> }
+              startElement={ <IconSvg name="flame" className="w-5 h-5 text-[var(--color-icon-primary)] mr-1 lg:mr-2"/> }
               mr={ 4 }
             />
             { !blobFees.isEqualTo(ZERO) && (

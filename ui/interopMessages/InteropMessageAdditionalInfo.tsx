@@ -1,9 +1,8 @@
-import { chakra, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
 
-import { PopoverBody, PopoverCloseTriggerWrapper, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverCloseTriggerWrapper, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import AdditionalInfoButton from 'ui/shared/AdditionalInfoButton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
@@ -19,21 +18,21 @@ const InteropMessageAdditionalInfo = ({ payload, isLoading, className }: Props) 
       <PopoverTrigger>
         <AdditionalInfoButton loading={ isLoading } className={ className }/>
       </PopoverTrigger>
-      <PopoverContent w="330px">
+      <PopoverContent className="w-[330px]">
         <PopoverBody>
-          <Flex alignItems="center" justifyContent="space-between" mb={ 3 }>
-            <Text color="text.secondary" fontWeight="600">Message payload</Text>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[var(--color-text-secondary)] font-semibold">Message payload</span>
             <PopoverCloseTriggerWrapper>
               <CopyToClipboard text={ payload }/>
             </PopoverCloseTriggerWrapper>
-          </Flex>
-          <Text>
+          </div>
+          <span>
             { payload }
-          </Text>
+          </span>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
   );
 };
 
-export default React.memo(chakra(InteropMessageAdditionalInfo));
+export default InteropMessageAdditionalInfo;

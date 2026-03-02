@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -50,7 +49,7 @@ const NameDomainHistory = ({ domain }: Props) => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data?.items.map((item, index) => (
           <NameDomainHistoryListItem
             key={ index }
@@ -59,8 +58,8 @@ const NameDomainHistory = ({ domain }: Props) => {
             isLoading={ isPlaceholderData }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <NameDomainHistoryTable
           history={ data }
           domain={ domain }
@@ -68,7 +67,7 @@ const NameDomainHistory = ({ domain }: Props) => {
           sort={ sort }
           onSortToggle={ handleSortToggle }
         />
-      </Box>
+      </div>
     </>
   );
 

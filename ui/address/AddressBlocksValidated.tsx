@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -14,7 +13,7 @@ import useSocketMessage from 'lib/socket/useSocketMessage';
 import { currencyUnits } from 'lib/units';
 import { BLOCK } from 'stubs/block';
 import { generateListStub } from 'stubs/utils';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import Pagination from 'ui/shared/pagination/Pagination';
@@ -103,7 +102,7 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
 
   const content = query.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot tableLayout="auto">
           <TableHeaderSticky top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <TableRow>
@@ -135,8 +134,8 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { query.pagination.page === 1 && (
           <SocketNewItemsNotice.Mobile
             num={ newItemsCount }
@@ -153,13 +152,13 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
             isLoading={ query.isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = query.pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...query.pagination }/>
+    <ActionBar className="-mt-6">
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 
