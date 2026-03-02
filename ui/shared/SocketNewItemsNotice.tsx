@@ -61,7 +61,7 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
     }
 
     if (!num) {
-      return `scanning new ${ name }s...`;
+      return null;
     }
 
     if (type === 'cross_chain_transaction') {
@@ -78,10 +78,14 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
     );
   })();
 
+  if (!alertContent && !isLoading) {
+    return null;
+  }
+
   const content = !isLoading ? (
     <Alert
       className={ className }
-      status={ showErrorAlert || !num ? 'warning_table' : 'info' }
+      status={ showErrorAlert ? 'warning_table' : 'info' }
       px={ 4 }
       py="6px"
       textStyle="sm"
