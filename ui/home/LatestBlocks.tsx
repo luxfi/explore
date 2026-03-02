@@ -30,9 +30,9 @@ const LatestBlocks = () => {
   // const blocksMaxCount = isMobile ? 2 : 3;
   let blocksMaxCount: number;
   if (config.features.rollup.isEnabled || config.UI.views.block.hiddenFields?.total_reward) {
-    blocksMaxCount = isMobile ? 4 : 5;
+    blocksMaxCount = isMobile ? 4 : 8;
   } else {
-    blocksMaxCount = isMobile ? 2 : 3;
+    blocksMaxCount = isMobile ? 4 : 6;
   }
   const { data, isPlaceholderData, isError } = useApiQuery('general:homepage_blocks', {
     queryOptions: {

@@ -60,7 +60,7 @@ const NavigationDesktop = () => {
             ) }
           </Flex>
         </chakra.nav>
-        <Flex gap={ 2 } ml={ 8 } _empty={{ display: 'none' }}>
+        <Flex gap={ 2 } ml={ 8 }>
           <NavigationPromoBanner/>
           { config.features.rewards.isEnabled && <RewardsButton size="sm"/> }
           <UserProfileDesktop buttonSize="sm"/>
