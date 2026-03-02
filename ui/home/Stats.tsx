@@ -214,7 +214,7 @@ const Stats = () => {
 
   return (
     <Grid
-      gridTemplateColumns="1fr 1fr"
+      gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
       gridGap={{ base: 1, lg: 2 }}
       flexBasis="50%"
       flexGrow={ 1 }
