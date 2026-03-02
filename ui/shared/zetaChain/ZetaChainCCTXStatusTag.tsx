@@ -10,12 +10,12 @@ type Props = {
 };
 
 const TagText: Record<CctxStatus, string> = {
-  [CctxStatus.PENDING_OUTBOUND]: 'Pending outbound',
-  [CctxStatus.PENDING_INBOUND]: 'Pending inbound',
-  [CctxStatus.OUTBOUND_MINED]: 'Outbound mined',
-  [CctxStatus.PENDING_REVERT]: 'Pending revert',
-  [CctxStatus.ABORTED]: 'Aborted',
-  [CctxStatus.REVERTED]: 'Reverted',
+  [CctxStatus.PendingOutbound]: 'Pending outbound',
+  [CctxStatus.PendingInbound]: 'Pending inbound',
+  [CctxStatus.OutboundMined]: 'Outbound mined',
+  [CctxStatus.PendingRevert]: 'Pending revert',
+  [CctxStatus.Aborted]: 'Aborted',
+  [CctxStatus.Reverted]: 'Reverted',
   [CctxStatus.UNRECOGNIZED]: 'Unknown Status',
 };
 

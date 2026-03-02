@@ -30,7 +30,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
 
   const gasDecimals = config.chain.currency.decimals;
 
-  if (tx.cctx_status?.status === CctxStatus.PENDING_INBOUND) {
+  if (tx.cctx_status?.status === CctxStatus.PendingInbound) {
     return null;
   }
 
@@ -67,7 +67,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     );
   })();
 
-  if (tx.cctx_status?.status === CctxStatus.OUTBOUND_MINED) {
+  if (tx.cctx_status?.status === CctxStatus.OutboundMined) {
     content = (
       <>
         { transactionOrCCTX }
@@ -96,7 +96,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     );
     text = `Sent tx to ${ chainTo?.name || 'Unknown chain' }`;
     color = 'text.success';
-  } else if (tx.cctx_status?.status === CctxStatus.PENDING_REVERT) {
+  } else if (tx.cctx_status?.status === CctxStatus.PendingRevert) {
     if (!isLast) {
       content = (
         <>
@@ -122,7 +122,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
       text = `Waiting for revert to ${ chainTo?.name || 'Unknown chain' }`;
       color = 'text.secondary';
     }
-  } else if (tx.cctx_status?.status === CctxStatus.PENDING_OUTBOUND) {
+  } else if (tx.cctx_status?.status === CctxStatus.PendingOutbound) {
     content = (
       <>
         <Text color="text.secondary" fontWeight="medium">Destination</Text>
@@ -138,7 +138,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     );
     text = `Waiting for outbound tx to ${ chainTo?.name || 'Unknown chain' }`;
     color = 'text.secondary';
-  } else if (tx.cctx_status?.status === CctxStatus.REVERTED) {
+  } else if (tx.cctx_status?.status === CctxStatus.Reverted) {
     if (!isLast) {
       content = (
         <>
@@ -179,7 +179,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
       text = `Reverted to ${ chainTo?.name || 'Unknown chain' }`;
       color = 'text.success';
     }
-  } else if (tx.cctx_status?.status === CctxStatus.ABORTED) {
+  } else if (tx.cctx_status?.status === CctxStatus.Aborted) {
     if (!isLast) {
       content = (
         <>

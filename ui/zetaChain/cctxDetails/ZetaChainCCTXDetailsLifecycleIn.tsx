@@ -30,7 +30,7 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
   const chainFrom = chainsConfig?.find((chain) => chain.id.toString() === chainFromId);
 
   const isCCTX = tx.related_cctxs.some((cctx) => cctx.index === inboundParams.observed_hash);
-  const color = inboundParams.status === InboundStatus.INBOUND_SUCCESS ? 'text.success' : 'text.error';
+  const color = inboundParams.status === InboundStatus.SUCCESS ? 'text.success' : 'text.error';
 
   return (
     <>
@@ -72,8 +72,8 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
           ) }
           <Text color="text.secondary" fontWeight="medium">Status</Text>
           <StatusTag
-            type={ inboundParams.status === InboundStatus.INBOUND_SUCCESS ? 'ok' : 'error' }
-            text={ inboundParams.status === InboundStatus.INBOUND_SUCCESS ? 'Success' : 'Failed' }
+            type={ inboundParams.status === InboundStatus.SUCCESS ? 'ok' : 'error' }
+            text={ inboundParams.status === InboundStatus.SUCCESS ? 'Success' : 'Failed' }
           />
           { inboundParams.sender && (
             <>
