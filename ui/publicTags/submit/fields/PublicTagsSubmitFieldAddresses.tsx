@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
@@ -38,14 +37,14 @@ const PublicTagsSubmitFieldAddresses = () => {
       { fields.map((field, index) => {
         return (
           <React.Fragment key={ field.id }>
-            <GridItem colSpan={{ base: 1, lg: 2 }}>
+            <div className="col-span-1 lg:col-span-2">
               <FormFieldAddress<FormFields>
                 name={ `addresses.${ index }.hash` }
                 required
                 placeholder="Smart contract / Address (0x...)"
               />
-            </GridItem>
-            <GridItem display="flex" alignItems="center" columnGap={ 3 } justifyContent={{ base: 'flex-end', lg: 'flex-start' }}>
+            </div>
+            <div className="flex items-center gap-x-3 justify-end lg:justify-start">
               { fields.length < LIMIT && index === fields.length - 1 && (
                 <AddButton
                   data-index={ index }
@@ -60,7 +59,7 @@ const PublicTagsSubmitFieldAddresses = () => {
                   disabled={ isDisabled }
                 />
               ) }
-            </GridItem>
+            </div>
           </React.Fragment>
         );
       }) }

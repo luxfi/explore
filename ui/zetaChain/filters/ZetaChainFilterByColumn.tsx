@@ -34,7 +34,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
           columnName="Age"
           isLoading={ isLoading }
           selected={ Boolean(value.age || value.from || value.to) }
-          w="382px"
+          className="w-[382px]"
         >
           <ZetaChainAgeFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>
@@ -47,7 +47,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
           columnName="Status"
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) }
-          w="200px"
+          className="w-[200px]"
         >
           <ZetaChainStatusFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>
@@ -61,7 +61,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
           columnName="Sender"
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) || Boolean(chainValue && chainValue.length) }
-          w="480px"
+          className="w-[480px]"
         >
           <ZetaChainSenderFilter { ...commonProps } value={ value } chainValue={ chainValue }/>
         </TableColumnFilterWrapper>
@@ -75,7 +75,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
           columnName="Receiver"
           isLoading={ isLoading }
           selected={ Boolean(value && value.length) || Boolean(chainValue && chainValue.length) }
-          w="480px"
+          className="w-[480px]"
         >
           <ZetaChainReceiverFilter { ...commonProps } value={ value } chainValue={ chainValue }/>
         </TableColumnFilterWrapper>
@@ -107,7 +107,7 @@ const ZetaChainFilterByColumn = ({ column, filters, columnName, handleFilterChan
           columnName="Asset"
           isLoading={ isLoading }
           selected={ Boolean(value) }
-          w="350px"
+          className="w-[350px]"
         >
           <ZetaChainAssetFilter { ...commonProps } value={ value }/>
         </TableColumnFilterWrapper>

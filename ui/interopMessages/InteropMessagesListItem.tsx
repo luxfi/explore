@@ -1,4 +1,3 @@
-import { Flex, HStack, Text, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
@@ -21,23 +20,23 @@ interface Props {
 
 const InteropMessagesListItem = ({ item, isLoading }: Props) => {
   return (
-    <ListItemMobile rowGap={ 2 }>
-      <Flex alignItems="center" justifyContent="space-between" w="100%">
+    <ListItemMobile className="!gap-y-2">
+      <div className="flex items-center justify-between w-full">
         <InteropMessageStatus status={ item.status } isLoading={ isLoading }/>
         <InteropMessageAdditionalInfo payload={ item.payload } isLoading={ isLoading }/>
-      </Flex>
-      <Flex alignItems="flex-start" flexDirection="column" gap={ 2 } w="100%">
-        <HStack w="100%">
-          <Text fontWeight={ 500 } flexGrow={ 1 }>#{ item.nonce }</Text>
+      </div>
+      <div className="flex flex-col items-start gap-2 w-full">
+        <div className="flex w-full">
+          <span className="font-medium grow">#{ item.nonce }</span>
           <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary"/>
-        </HStack>
-        <Grid templateColumns="120px 1fr" rowGap={ 2 }>
-          <Text as="span" color="text.secondary">Source tx</Text>
+        </div>
+        <div className="grid grid-cols-[120px_1fr] gap-y-2">
+          <span className="text-[var(--color-text-secondary)]">Source tx</span>
           <InteropMessageSourceTx { ...item } isLoading={ isLoading }/>
-          <Text as="span" color="text.secondary">Destination tx</Text>
+          <span className="text-[var(--color-text-secondary)]">Destination tx</span>
           <InteropMessageDestinationTx { ...item } isLoading={ isLoading }/>
-        </Grid>
-        <Flex gap={ 2 } justifyContent="space-between" mt={ 2 }>
+        </div>
+        <div className="flex gap-2 justify-between mt-2">
           { item.init_chain !== undefined ? (
             <AddressEntityInterop
               chain={ item.init_chain }
@@ -62,8 +61,8 @@ const InteropMessagesListItem = ({ item, isLoading }: Props) => {
           ) : (
             <AddressEntity address={{ hash: item.target_address_hash }} isLoading={ isLoading } truncation="constant"/>
           ) }
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </ListItemMobile>
   );
 };

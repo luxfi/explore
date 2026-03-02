@@ -1,15 +1,14 @@
-import { Flex, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Pool } from 'types/api/pools';
 
 import getItemIndex from 'lib/getItemIndex';
 import getPoolLinks from 'lib/pools/getPoolLinks';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import PoolEntity from 'ui/shared/entities/pool/PoolEntity';
@@ -33,12 +32,12 @@ const PoolsTableItem = ({
   return (
     <TableRow>
       <TableCell>
-        <Flex gap={ 2 } alignItems="start">
+        <div className="flex items-start gap-2">
           <Skeleton loading={ isLoading }>
-            <Text px={ 2 }>{ getItemIndex(index, page) }</Text>
+            <span className="px-2">{ getItemIndex(index, page) }</span>
           </Skeleton>
-          <Box overflow="hidden">
-            <PoolEntity pool={ item } fontWeight={ 700 } mb={ 2 } isLoading={ isLoading }/>
+          <div className="overflow-hidden">
+            <PoolEntity pool={ item } className="font-bold mb-2" isLoading={ isLoading }/>
             { item.is_contract ? (
               <AddressEntity
                 address={{ hash: item.pool_id }}
@@ -48,13 +47,13 @@ const PoolsTableItem = ({
                 link={{ variant: 'secondary' }}
               />
             ) : (
-              <Flex color="text.secondary" alignItems="center">
+              <div className="flex items-center text-[var(--color-text-secondary)]">
                 <HashStringShorten hash={ item.pool_id } type="long"/>
                 <CopyToClipboard text={ item.pool_id }/>
-              </Flex>
+              </div>
             ) }
-          </Box>
-        </Flex>
+          </div>
+        </div>
       </TableCell>
       <TableCell>
         <Skeleton loading={ isLoading }>{ item.dex.name }</Skeleton>
@@ -65,14 +64,14 @@ const PoolsTableItem = ({
         </Skeleton>
       </TableCell>
       <TableCell isNumeric>
-        <Skeleton loading={ isLoading } display="flex" gap={ 2 } justifyContent="center">
+        <Skeleton loading={ isLoading } display="flex" justifyContent="center" className="gap-2">
           { externalLinks.map((link) => (
             <Tooltip content={ link.title } key={ link.url }>
-              <Box display="inline-block">
-                <Link external noIcon href={ link.url } display="inline-flex">
+              <div className="inline-block">
+                <Link external noIcon href={ link.url } className="inline-flex">
                   <Image src={ link.image } alt={ link.title } boxSize={ 5 }/>
                 </Link>
-              </Box>
+              </div>
             </Tooltip>
           )) }
         </Skeleton>

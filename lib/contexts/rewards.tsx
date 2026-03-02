@@ -17,7 +17,7 @@ import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import removeQueryParam from 'lib/router/removeQueryParam';
 import useAccount from 'lib/web3/useAccount';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 import { YEAR } from 'toolkit/utils/consts';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 
@@ -73,8 +73,9 @@ const RewardsContext = createContext<TRewardsContext>(initialState);
 
 // Message to sign for the rewards program
 function getMessageToSign(address: string, nonce: string, isLogin?: boolean, refCode?: string) {
-  const signInText = 'Sign-In for the Lux Explorer Rewards program.';
-  const signUpText = 'Sign-Up for the Lux Explorer Rewards program. I accept Terms of Service: https://merits.blockscout.com/terms. I love capybaras.';
+  const networkName = config.chain.name || 'Explorer';
+  const signInText = `Sign-In for the ${ networkName } Explorer Rewards program.`;
+  const signUpText = `Sign-Up for the ${ networkName } Explorer Rewards program. I accept Terms of Service: https://merits.lux.network/terms. I love capybaras.`;
   const referralText = refCode ? ` Referral code: ${ refCode }` : '';
   const body = isLogin ? signInText : signUpText + referralText;
 

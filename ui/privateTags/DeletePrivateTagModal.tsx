@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 
@@ -47,7 +46,7 @@ const DeletePrivateTagModal: React.FC<Props> = ({ open, onOpenChange, data, type
 
   const renderText = useCallback(() => {
     return (
-      <Text>Tag<Text fontWeight="700" as="span">{ ` "${ tag || 'tag' }" ` }</Text>will be deleted</Text>
+      <span>Tag<span className="font-bold">{ ` "${ tag || 'tag' }" ` }</span>will be deleted</span>
     );
   }, [ tag ]);
 

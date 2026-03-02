@@ -4,27 +4,27 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 
 export const ADMIN_API_RESOURCES = {
   public_tag_application: {
-    path: '/api/v1/chains/:chainId/metadata-submissions/tag',
+    path: '/v1/chains/:chainId/metadata-submissions/tag',
     pathParams: [ 'chainId' as const ],
   },
   token_info_applications_config: {
-    path: '/api/v1/chains/:chainId/token-info-submissions/selectors',
+    path: '/v1/chains/:chainId/token-info-submissions/selectors',
     pathParams: [ 'chainId' as const ],
   },
   token_info_applications: {
-    path: '/api/v1/chains/:chainId/token-info-submissions{/:id}',
+    path: '/v1/chains/:chainId/token-info-submissions{/:id}',
     pathParams: [ 'chainId' as const, 'id' as const ],
   },
   marketplace_dapps: {
-    path: '/api/v1/chains/:chainId/marketplace/dapps',
+    path: '/v1/chains/:chainId/marketplace/dapps',
     pathParams: [ 'chainId' as const ],
   },
   marketplace_dapp: {
-    path: '/api/v1/chains/:chainId/marketplace/dapps/:dappId',
+    path: '/v1/chains/:chainId/marketplace/dapps/:dappId',
     pathParams: [ 'chainId' as const, 'dappId' as const ],
   },
   marketplace_rate_dapp: {
-    path: '/api/v1/chains/:chainId/marketplace/dapps/:dappId/ratings',
+    path: '/v1/chains/:chainId/marketplace/dapps/:dappId/ratings',
     pathParams: [ 'chainId' as const, 'dappId' as const ],
   },
 } satisfies Record<string, ApiResource>;

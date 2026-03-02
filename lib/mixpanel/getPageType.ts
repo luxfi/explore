@@ -87,11 +87,11 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/chain/[chain_slug]/token/[hash]/instance/[id]': 'Chain token NFT instance',
   '/chain/[chain_slug]/tx/[hash]': 'Chain transaction details',
   '/chain/[chain_slug]/visualize/sol2uml': 'Chain Solidity UML diagram',
+  '/ecosystems': 'Ecosystems',
 
   // service routes, added only to make typescript happy
   '/login': 'Login',
   '/sprite': 'Sprite',
-  '/chakra': 'Chakra UI showcase',
   '/api/metrics': 'Node API: Prometheus metrics',
   '/api/monitoring/invalid-api-schema': 'Node API: Prometheus metrics',
   '/api/log': 'Node API: Request log',
@@ -100,6 +100,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/api/csrf': 'Node API: CSRF token',
   '/api/healthz': 'Node API: Health check',
   '/api/config': 'Node API: App config',
+  '/api/pchain': 'Node API: P-chain proxy',
 };
 
 export default function getPageType(pathname: Route['pathname']) {

@@ -1,7 +1,6 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
-import { AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
+import { AccordionItemContent, AccordionItemTrigger } from '@luxfi/ui/accordion';
 
 import MetadataAccordionItem from './MetadataAccordionItem';
 import MetadataAccordionItemTitle from './MetadataAccordionItemTitle';
@@ -18,26 +17,15 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
   return (
     <MetadataAccordionItem
       value={ name }
-      flexDir={{ lg: 'column' }}
-      alignItems="stretch"
-      pl={{ base: 0, lg: 0 }}
-      py={ 0 }
+      className="lg:flex-col items-stretch pl-0 py-0"
     >
       <AccordionItemTrigger
-        px={ 0 }
-        py={ 2 }
-        _hover={{ bgColor: 'inherit' }}
-        fontSize="sm"
-        textAlign="left"
-        _expanded={{
-          borderColor: 'border.divider',
-          borderBottomWidth: '1px',
-        }}
+        className="px-0 py-2 hover:bg-inherit text-sm text-left data-[state=open]:border-[var(--color-border-divider)] data-[state=open]:border-b"
         indicatorPlacement="start"
       >
         <MetadataAccordionItemTitle name={ name }/>
       </AccordionItemTrigger>
-      <AccordionItemContent p={ 0 } ml={{ base: 6, lg: level === 0 ? '126px' : 6 }}>
+      <AccordionItemContent className={ `p-0 ${ level === 0 ? 'ml-6 lg:ml-[126px]' : 'ml-6' }` }>
         { value.map((item, index) => {
           const content = (() => {
             switch (typeof item) {
@@ -53,13 +41,13 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
                   } else {
                     return Object.entries(item).map(([ name, value ], index) => {
                       return (
-                        <Flex key={ index } columnGap={ 3 }>
-                          <MetadataAccordionItemTitle name={ name } fontWeight={ 400 } w={{ base: '90px' }}/>
+                        <div key={ index }>
+                          <MetadataAccordionItemTitle name={ name } className="w-[90px]"/>
                           <MetadataItemPrimitive
                             value={ typeof value === 'object' ? JSON.stringify(value, undefined, 2) : value }
                             level={ level }
                           />
-                        </Flex>
+                        </div>
                       );
                     });
                   }
@@ -74,15 +62,11 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
           })();
 
           return (
-            <Flex
+            <div
               key={ index }
-              py={ 2 }
-              _notFirst={{ borderColor: 'border.divider', borderTopWidth: '1px' }}
-              flexDir="column"
-              rowGap={ 2 }
             >
               { content }
-            </Flex>
+            </div>
           );
         }) }
       </AccordionItemContent>

@@ -1,9 +1,8 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
 
-interface Props extends HTMLChakraProps<'div'> {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   isFavorite: boolean;
 };
 

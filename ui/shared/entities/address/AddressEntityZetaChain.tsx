@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -6,7 +5,7 @@ import type { ExternalChain } from 'types/externalChains';
 import { route } from 'nextjs/routes';
 
 import config from 'configs/app';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { unknownAddress } from 'ui/shared/address/utils';
 import getChainTooltipText from 'ui/shared/externalChains/getChainTooltipText';
 import IconSvg from 'ui/shared/IconSvg';
@@ -46,8 +45,7 @@ const AddressEntityZetaChain = ({ chainId, address, ...props }: Props) => {
   const iconStub = (
     <IconSvg
       name="networks/icon-placeholder"
-      color="icon.primary"
-      display="inline-block"
+      className="inline-block text-[var(--color-icon-primary)]"
     />
   );
 
@@ -65,4 +63,4 @@ const AddressEntityZetaChain = ({ chainId, address, ...props }: Props) => {
   );
 };
 
-export default chakra(AddressEntityZetaChain);
+export default AddressEntityZetaChain;

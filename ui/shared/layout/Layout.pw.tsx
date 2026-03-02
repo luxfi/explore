@@ -12,7 +12,7 @@ test.skip('base view +@mobile', async({ render, mockEnvs, mockApiResponse }) => 
   await mockEnvs([
     [
       'NEXT_PUBLIC_MAINTENANCE_ALERT_MESSAGE',
-      'We are currently lacking pictures of <i>ducks</i>. Please <a href="mailto:duck@blockscout.com">send</a> us one.',
+      'We are currently lacking pictures of <i>ducks</i>. Please <a href="mailto:duck@lux.network">send</a> us one.',
     ],
   ]);
   await mockApiResponse('general:homepage_indexing_status', indexingStatus);

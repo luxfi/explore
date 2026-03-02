@@ -1,7 +1,7 @@
-import { chakra, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 
 interface Props {
   children: [React.JSX.Element, React.JSX.Element | null] | (React.JSX.Element | null);
@@ -16,10 +16,10 @@ const ContractVerificationFormRow = ({ children, className }: Props) => {
 
   return (
     <>
-      <GridItem className={ className } _notFirst={{ mt: { base: 3, lg: 0 } }}>{ firstChildren }</GridItem>
-      { isMobile && !secondChildren ? null : <GridItem fontSize="sm" className={ className } color="text.secondary">{ secondChildren }</GridItem> }
+      <div className={ cn('[&:not(:first-child)]:mt-3 lg:[&:not(:first-child)]:mt-0', className) }>{ firstChildren }</div>
+      { isMobile && !secondChildren ? null : <div className={ cn('text-sm text-[var(--color-text-secondary)]', className) }>{ secondChildren }</div> }
     </>
   );
 };
 
-export default React.memo(chakra(ContractVerificationFormRow));
+export default React.memo(ContractVerificationFormRow);

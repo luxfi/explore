@@ -85,7 +85,7 @@ const UserOp = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title="User operation details"
         secondRow={ titleSecondRow }

@@ -1,14 +1,14 @@
-import { chakra, Flex, Text } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
 
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Image } from 'toolkit/chakra/image';
-import { Link, LinkBox } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Image } from '@luxfi/ui/image';
+import { Link, LinkBox } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { isBrowser } from 'toolkit/utils/isBrowser';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
@@ -64,25 +64,14 @@ const MarketplaceAppCard = ({
 
   return (
     <LinkBox
-      className={ className }
-      _hover={{
-        boxShadow: isLoading ? 'none' : 'md',
-      }}
-      _focusWithin={{
-        boxShadow: isLoading ? 'none' : 'md',
-      }}
-      borderRadius="base"
-      padding={ 3 }
-      borderWidth="1px"
-      borderColor={{ _light: 'blackAlpha.300', _dark: 'whiteAlpha.300' }}
+      className={ cn(
+        'rounded-[var(--radius-base,8px)] p-3 border border-solid border-black/30 dark:border-white/30',
+        !isLoading && 'hover:shadow-md focus-within:shadow-md',
+        className,
+      ) }
     >
-      <Flex
-        flexDirection="column"
-        height="100%"
-        alignContent="start"
-        gap={ 2 }
-      >
-        <Flex gap={ 4 }>
+      <div className="flex flex-col h-full content-start gap-2">
+        <div className="flex gap-4">
           <Skeleton
             loading={ isLoading }
             w="64px"
@@ -99,7 +88,7 @@ const MarketplaceAppCard = ({
             />
           </Skeleton>
 
-          <Flex flexDirection="column" gap={ 2 } pt={ 1 }>
+          <div className="flex flex-col gap-2 pt-1">
             <Skeleton
               loading={ isLoading }
               display="inline-flex"
@@ -111,55 +100,44 @@ const MarketplaceAppCard = ({
                 external={ external }
                 title={ title }
                 onClick={ onAppClick }
-                textStyle="sm"
-                fontWeight="semibold"
+                className="text-sm font-semibold"
               />
               <MarketplaceAppIntegrationIcon external={ external } internalWallet={ internalWallet }/>
               <MarketplaceAppGraphLinks
                 links={ graphLinks }
-                ml={ 2 }
-                verticalAlign="middle"
+                className="ml-2 align-middle"
               />
             </Skeleton>
 
             <Skeleton
               loading={ isLoading }
               color="text.secondary"
-              fontSize="xs"
-              lineHeight="16px"
+              className="text-xs leading-4"
             >
               <span>{ categoriesLabel }</span>
             </Skeleton>
-          </Flex>
-        </Flex>
+          </div>
+        </div>
 
         <Skeleton
           loading={ isLoading }
           asChild
         >
-          <Text lineClamp={ 2 } textStyle="sm">
+          <span className="line-clamp-2 text-sm">
             { shortDescription }
-          </Text>
+          </span>
         </Skeleton>
 
         { !isLoading && (
-          <Flex
-            alignItems="center"
-            justifyContent="space-between"
-            marginTop="auto"
-            h="30px"
-          >
+          <div className="flex items-center justify-between mt-auto h-[30px]">
             <Link
-              textStyle="sm"
-              fontWeight="500"
-              paddingRight={ 3 }
-              h="full"
+              className="text-sm font-medium pr-3 h-full"
               href="#"
               onClick={ handleInfoClick }
             >
               Info
             </Link>
-            <Flex alignItems="center" gap={ 3 }>
+            <div className="flex items-center gap-3">
               <Rating
                 appId={ id }
                 rating={ rating }
@@ -168,7 +146,7 @@ const MarketplaceAppCard = ({
                 isLoading={ isLoading }
                 source="Discovery"
               />
-              <Flex gap={ 2 }>
+              <div className="flex gap-2">
                 <IconButton
                   aria-label="Mark as favorite"
                   title="Mark as favorite"
@@ -184,17 +162,15 @@ const MarketplaceAppCard = ({
                   type="share"
                   variant="icon_background"
                   size="md"
-                  borderRadius="base"
-                  ml={ 0 }
-                  boxSize={ 8 }
+                  className="rounded-[var(--radius-base,8px)] ml-0"
                 />
-              </Flex>
-            </Flex>
-          </Flex>
+              </div>
+            </div>
+          </div>
         ) }
-      </Flex>
+      </div>
     </LinkBox>
   );
 };
 
-export default React.memo(chakra(MarketplaceAppCard));
+export default MarketplaceAppCard;

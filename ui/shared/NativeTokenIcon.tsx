@@ -1,11 +1,10 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Image } from 'toolkit/chakra/image';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import TokenLogoPlaceholder from './TokenLogoPlaceholder';
 
@@ -24,7 +23,7 @@ const NativeTokenIcon = ({ isLoading, className, type }: Props) => {
   });
 
   if (isLoading || statsQueryResult.isPlaceholderData) {
-    return <Skeleton borderRadius="base" loading className={ className }/>;
+    return <Skeleton borderRadius="base" loading={ true } className={ className }/>;
   }
 
   const src = type === 'secondary' ? statsQueryResult.data?.secondary_coin_image : statsQueryResult.data?.coin_image;
@@ -40,4 +39,4 @@ const NativeTokenIcon = ({ isLoading, className, type }: Props) => {
   );
 };
 
-export default chakra(NativeTokenIcon);
+export default NativeTokenIcon;

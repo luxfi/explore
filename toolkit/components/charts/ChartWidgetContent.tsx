@@ -1,13 +1,11 @@
-import { Box, Center, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AxesConfigFn, Resolution, TimeChartData } from './types';
 
-import { Link } from '../../chakra/link';
-import { Skeleton } from '../../chakra/skeleton';
+import { Link } from '@luxfi/ui/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { apos } from '../../utils/htmlEntities';
 import { Chart } from './Chart';
-import { ChartWatermark } from './parts/ChartWatermark';
 
 export interface ChartWidgetContentProps {
   charts: TimeChartData;
@@ -21,7 +19,6 @@ export interface ChartWidgetContentProps {
   noAnimation?: boolean;
   resolution?: Resolution;
   axesConfig?: AxesConfigFn;
-  noWatermark?: boolean;
 };
 
 export const ChartWidgetContent = React.memo(({
@@ -36,25 +33,15 @@ export const ChartWidgetContent = React.memo(({
   noAnimation,
   resolution,
   axesConfig,
-  noWatermark,
 }: ChartWidgetContentProps) => {
   if (isError) {
     return (
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        flexGrow={ 1 }
-        py={ 4 }
-      >
-        <Text
-          color="text.secondary"
-          fontSize="sm"
-          textAlign="center"
-        >
+      <div className="flex items-center justify-center grow py-4">
+        <span className="text-[var(--color-text-secondary)] text-sm text-center">
           { `The data didn${ apos }t load. Please, ` }
           <Link href={ window.document.location.href }>try to reload the page.</Link>
-        </Text>
-      </Flex>
+        </span>
+      </div>
     );
   }
 
@@ -64,14 +51,14 @@ export const ChartWidgetContent = React.memo(({
 
   if (empty || charts.length === 0) {
     return (
-      <Center flexGrow={ 1 }>
-        <Text color="text.secondary" fontSize="sm">{ emptyText || 'No data' }</Text>
-      </Center>
+      <div className="flex items-center justify-center grow">
+        <span className="text-[var(--color-text-secondary)] text-sm">{ emptyText || 'No data' }</span>
+      </div>
     );
   }
 
   return (
-    <Box flexGrow={ 1 } maxW="100%" position="relative" h="100%">
+    <div className="grow max-w-full relative h-full">
       <Chart
         charts={ charts }
         zoomRange={ zoomRange }
@@ -81,7 +68,7 @@ export const ChartWidgetContent = React.memo(({
         resolution={ resolution }
         axesConfig={ axesConfig }
       />
-      { !noWatermark && <ChartWatermark w="162px" h="15%"/> }
-    </Box>
+      { /* watermark disabled for white-label branding */ }
+    </div>
   );
 });

@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { type AdvancedFilterParams } from 'types/api/advancedFilter';
 
-import { Radio, RadioGroup } from 'toolkit/chakra/radio';
+import { Radio, RadioGroup } from '@luxfi/ui/radio';
 
 const FILTER_PARAM = 'address_relation';
 
@@ -30,12 +29,12 @@ const AddressRelationFilter = ({ value = DEFAULT_VALUE, handleFilterChange, onCl
   }, [ handleFilterChange, onClose ]);
 
   return (
-    <Box w="120px">
+    <div className="w-[120px]">
       <RadioGroup onValueChange={ onFilter } value={ value } orientation="vertical">
         <Radio value="or">OR</Radio>
         <Radio value="and">AND</Radio>
       </RadioGroup>
-    </Box>
+    </div>
   );
 };
 

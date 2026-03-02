@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NFTTokenType } from 'types/api/token';
@@ -28,18 +27,15 @@ const AddressNFTs = ({ tokensQuery, tokenTypes, onTokenTypesChange }: Props) => 
   const hasActiveFilters = Boolean(tokenTypes?.length);
 
   const actionBar = isMobile && pagination.isVisible && (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <AddressNftTypeFilter value={ tokenTypes } onChange={ onTokenTypesChange }/>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   );
 
   const content = data?.items ? (
-    <Grid
-      w="100%"
-      columnGap={{ base: 3, lg: 6 }}
-      rowGap={{ base: 3, lg: 6 }}
-      gridTemplateColumns={{ base: 'repeat(2, calc((100% - 12px)/2))', lg: 'repeat(auto-fill, minmax(210px, 1fr))' }}
+    <div className="grid w-full gap-x-3 lg:gap-x-6 gap-y-3 lg:gap-y-6"
+
     >
       { data.items.map((item, index) => {
         const key = item.token.address_hash + '_' + (item.id && !isPlaceholderData ? `id_${ item.id }` : `index_${ index }`);
@@ -54,7 +50,7 @@ const AddressNFTs = ({ tokensQuery, tokenTypes, onTokenTypesChange }: Props) => 
           />
         );
       }) }
-    </Grid>
+    </div>
   ) : null;
 
   return (

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import * as tokenInstanceMock from 'mocks/tokens/tokenInstance';
@@ -22,6 +21,7 @@ const data = [
   tokenTransferMock.erc1155B,
   tokenTransferMock.erc1155C,
   tokenTransferMock.erc1155D,
+  tokenTransferMock.erc7984,
 ];
 
 test('without tx info', async({ render, mockAssetResponse }) => {

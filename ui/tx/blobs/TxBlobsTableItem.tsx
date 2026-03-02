@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { TxBlob } from 'types/api/blobs';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BlobDataType from 'ui/shared/blob/BlobDataType';
 import BlobEntity from 'ui/shared/entities/blob/BlobEntity';
 

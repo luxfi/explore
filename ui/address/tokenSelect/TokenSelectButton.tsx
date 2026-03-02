@@ -1,10 +1,10 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormattedData } from './types';
 
 import * as mixpanel from 'lib/mixpanel/index';
-import { Button } from 'toolkit/chakra/button';
+import { cn } from 'lib/utils/cn';
+import { Button } from '@luxfi/ui/button';
 import { space, thinsp } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -30,33 +30,30 @@ const TokenSelectButton = ({ isOpen, isLoading, data, ...rest }: Props, ref: Rea
   }, [ isLoading, isOpen ]);
 
   return (
-    <Box position="relative" className="group">
+    <div className="relative group">
       <Button
         ref={ ref }
         size="sm"
         variant="dropdown"
         onClick={ handleClick }
-        gap={ 0 }
+        className="gap-0"
         aria-label="Token select"
         loadingSkeleton={ isLoading && !isOpen }
         { ...rest }
       >
-        <IconSvg name="tokens" boxSize={ 4 } mr={ 2 }/>
-        <chakra.span fontWeight={ 600 }>{ prefix }{ num }</chakra.span>
-        <chakra.span
-          whiteSpace="pre"
-          color={ isOpen ? 'inherit' : 'text.secondary' }
-          fontWeight={ 400 }
-          maxW={{ base: 'calc(100vw - 230px)', lg: '500px' }}
-          _groupHover={{ color: 'inherit' }}
-          overflow="hidden"
-          textOverflow="ellipsis"
+        <IconSvg name="tokens" className="w-4 h-4 mr-2"/>
+        <span className="font-semibold">{ prefix }{ num }</span>
+        <span
+          className={ cn(
+            'whitespace-pre text-ellipsis font-normal overflow-hidden max-w-[calc(100vw-230px)] lg:max-w-[500px]',
+            isOpen ? 'text-inherit' : 'text-[var(--color-text-secondary)] group-hover:text-inherit',
+          ) }
         >
           { space }({ prefix }${ usd.toFormat(2) })
-        </chakra.span>
-        <IconSvg name="arrows/east-mini" transform={ isOpen ? 'rotate(90deg)' : 'rotate(-90deg)' } transitionDuration="faster" boxSize={ 5 } ml={ 3 }/>
+        </span>
+        <IconSvg name="arrows/east-mini" style={{ transform:  isOpen ? 'rotate(90deg)' : 'rotate(-90deg)'  }} className="transition-transform duration-150 w-5 h-5 ml-3"/>
       </Button>
-    </Box>
+    </div>
   );
 };
 

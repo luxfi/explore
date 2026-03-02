@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,7 +6,7 @@ import type { ItemProps } from '../types';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { PAGE_TYPE_DICT } from 'lib/mixpanel/getPageType';
-import { MenuItem } from 'toolkit/chakra/menu';
+import { MenuItem } from '@luxfi/ui/menu';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AddressVerificationModal from 'ui/addressVerification/AddressVerificationModal';
 import IconSvg from 'ui/shared/IconSvg';
@@ -69,7 +68,7 @@ const TokenInfoMenuItem = ({ hash, type }: ItemProps) => {
 
     switch (type) {
       case 'button': {
-        const icon = <IconSvg name="edit" boxSize={ 6 } p={ 0.5 }/>;
+        const icon = <IconSvg name="edit" className="w-6 h-6 p-0.5"/>;
 
         return (
           <AuthGuard onAuthSuccess={ onAuthSuccess } ensureEmail>
@@ -80,14 +79,14 @@ const TokenInfoMenuItem = ({ hash, type }: ItemProps) => {
         );
       }
       case 'menu_item': {
-        const icon = <IconSvg name="edit" boxSize={ 6 } p={ 1 }/>;
+        const icon = <IconSvg name="edit" className="w-6 h-6 p-1"/>;
 
         return (
           <AuthGuard onAuthSuccess={ onAuthSuccess } ensureEmail>
             { ({ onClick }) => (
               <MenuItem onClick={ onClick } value="add-token-info">
                 { icon }
-                <chakra.span>{ label }</chakra.span>
+                <span>{ label }</span>
               </MenuItem>
             ) }
           </AuthGuard>

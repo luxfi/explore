@@ -1,11 +1,9 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { Flex, Box } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 import useFetch from 'lib/hooks/useFetch';
-import { EmptyState } from 'toolkit/chakra/empty-state';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { useClipboard } from 'toolkit/hooks/useClipboard';
@@ -21,7 +19,7 @@ interface IconInfo {
   file_size: number;
 }
 
-const Item = ({ name, file_size: fileSize, bgColor }: IconInfo & HTMLChakraProps<'div'>) => {
+const Item = ({ name, file_size: fileSize, className }: IconInfo & { className?: string }) => {
   const { hasCopied, copy } = useClipboard(name, 1000);
   const [ copied, setCopied ] = React.useState(false);
 
@@ -34,22 +32,13 @@ const Item = ({ name, file_size: fileSize, bgColor }: IconInfo & HTMLChakraProps
   }, [ hasCopied ]);
 
   return (
-    <Flex
-      flexDir="column"
-      alignItems="center"
-      whiteSpace="pre-wrap"
-      wordBreak="break-word"
-      maxW="100px"
-      textAlign="center"
-      onClick={ copy }
-      cursor="pointer"
-    >
-      <IconSvg name={ name.replace('.svg', '') as IconName } boxSize="100px" bgColor={ bgColor } borderRadius="base"/>
+    <div className="flex flex-col items-center text-center whitespace-pre-wrap break-words cursor-pointer max-w-[100px]" onClick={ copy }>
+      <IconSvg name={ name.replace('.svg', '') as IconName } className={ `w-[100px] h-[100px] rounded ${ className ?? '' }`.trim() }/>
       <Tooltip content={ copied ? 'Copied' : 'Copy to clipboard' } open={ copied }>
-        <Box fontWeight={ 500 } mt={ 2 }>{ name }</Box>
+        <div className="mt-2 font-medium">{ name }</div>
       </Tooltip>
-      <Box color="text.secondary">{ formatFileSize(fileSize) }</Box>
-    </Flex>
+      <div className="text-[var(--color-text-secondary)]">{ formatFileSize(fileSize) }</div>
+    </div>
   );
 };
 
@@ -82,9 +71,9 @@ const Sprite = () => {
     }
 
     return (
-      <Flex flexWrap="wrap" fontSize="sm" columnGap={ 5 } rowGap={ 5 } justifyContent="flex-start">
-        { items.map((item) => <Item key={ item.name } { ...item } bgColor={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.100' }}/>) }
-      </Flex>
+      <div className="flex justify-start flex-wrap text-sm gap-x-5 gap-y-5">
+        { items.map((item) => <Item key={ item.name } { ...item } className="bg-black/10 dark:bg-white/10"/>) }
+      </div>
     );
   })();
 
@@ -99,8 +88,8 @@ const Sprite = () => {
     }, { num: 0, fileSize: 0 });
   }, [ data ]);
 
-  const searchInput = <FilterInput placeholder="Search by name..." onChange={ setSearchTerm } loading={ isFetching } minW={{ base: '100%', lg: '300px' }}/>;
-  const totalEl = total ? <Box ml="auto">Items: { total.num } / Size: { formatFileSize(total.fileSize) }</Box> : null;
+  const searchInput = <FilterInput placeholder="Search by name..." onChange={ setSearchTerm } loading={ isFetching } className="min-w-full lg:min-w-[300px]"/>;
+  const totalEl = total ? <div className="ml-auto">Items: { total.num } / Size: { formatFileSize(total.fileSize) }</div> : null;
 
   const contentAfter = (
     <>

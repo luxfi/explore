@@ -104,8 +104,8 @@ export default function useCallMethodWalletClient(): (params: Params) => Promise
       // It lacks a "method_id" field to uniquely identify the correct method and instead attempts to find a method based on its name.
       // But the name is not unique in the contract ABI and this behavior in the "viem" could result in calling the wrong method.
       // See related issues:
-      //    - https://github.com/blockscout/frontend/issues/1032,
-      //    - https://github.com/blockscout/frontend/issues/1327
+      //    - https://github.com/luxfi/explore/issues/1032,
+      //    - https://github.com/luxfi/explore/issues/1327
       abi: [ item ] as Abi,
       functionName: methodName,
       address,

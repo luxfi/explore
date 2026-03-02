@@ -1,12 +1,12 @@
-import { chakra, Code, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import type { FormFields } from '../types';
 import type { SmartContractVerificationConfig } from 'types/client/contract';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
+import { Checkbox } from '@luxfi/ui/checkbox';
 import { FormFieldSelectAsync } from 'toolkit/components/forms/fields/FormFieldSelectAsync';
+import { createListCollection } from '@luxfi/ui/select';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 
@@ -64,7 +64,7 @@ const ContractVerificationFieldCompiler = ({ isVyper, isStylus, config }: Props)
 
   const extraControls = !isVyper && !isStylus ? (
     <Checkbox
-      mt={ 2 }
+      className="mt-2"
       checked={ isNightly }
       onCheckedChange={ handleCheckboxChange }
       disabled={ formState.isSubmitting }
@@ -84,13 +84,13 @@ const ContractVerificationFieldCompiler = ({ isVyper, isStylus, config }: Props)
         required
       />
       { isVyper || isStylus ? null : (
-        <chakra.div>
+        <div>
           <span >The compiler version is specified in </span>
-          <Code color="text.secondary">pragma solidity X.X.X</Code>
+          <code className="text-[var(--color-text-secondary)]">pragma solidity X.X.X</code>
           <span>. Use the compiler version rather than the nightly build. If using the Solidity compiler, run </span>
-          <Code color="text.secondary">solc —version</Code>
+          <code className="text-[var(--color-text-secondary)]">solc —version</code>
           <span> to check.</span>
-        </chakra.div>
+        </div>
       ) }
     </ContractVerificationFormRow>
   );

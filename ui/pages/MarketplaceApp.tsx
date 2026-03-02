@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
@@ -15,7 +14,7 @@ import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useFetch from 'lib/hooks/useFetch';
 import * as metadata from 'lib/metadata';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
 
 import MarketplaceAppIframe from '../marketplace/MarketplaceAppIframe';
@@ -66,14 +65,14 @@ export default function MarketplaceApp() {
   const appUrl = useMemo(() => getAppUrl(data?.url, router), [ data?.url, router ]);
 
   const message = useMemo(() => ({
-    blockscoutColorMode: colorMode,
-    blockscoutRootUrl: config.app.baseUrl + route({ pathname: '/' }),
-    blockscoutAddressExplorerUrl: config.app.baseUrl + route({ pathname: '/address/[hash]', query: { hash: '' } }),
-    blockscoutTransactionExplorerUrl: config.app.baseUrl + route({ pathname: '/tx/[hash]', query: { hash: '' } }),
-    blockscoutNetworkName: config.chain.name,
-    blockscoutNetworkId: Number(config.chain.id),
-    blockscoutNetworkCurrency: config.chain.currency,
-    blockscoutNetworkRpc: config.chain.rpcUrls[0],
+    explorerColorMode: colorMode,
+    explorerRootUrl: config.app.baseUrl + route({ pathname: '/' }),
+    explorerAddressExplorerUrl: config.app.baseUrl + route({ pathname: '/address/[hash]', query: { hash: '' } }),
+    explorerTransactionExplorerUrl: config.app.baseUrl + route({ pathname: '/tx/[hash]', query: { hash: '' } }),
+    explorerNetworkName: config.chain.name,
+    explorerNetworkId: Number(config.chain.id),
+    explorerNetworkCurrency: config.chain.currency,
+    explorerNetworkRpc: config.chain.rpcUrls[0],
   }), [ colorMode ]);
 
   useEffect(() => {
@@ -89,7 +88,7 @@ export default function MarketplaceApp() {
   throwOnResourceLoadError(query);
 
   return (
-    <Flex flexDirection="column" h="100%">
+    <div className="flex flex-col h-full">
       <MarketplaceAppTopBar
         appId={ id }
         data={ data }
@@ -99,8 +98,8 @@ export default function MarketplaceApp() {
         appId={ id }
         appUrl={ appUrl }
         message={ message }
-        mx={{ base: -4, lg: -6 }}
+        className="-mx-4 lg:-mx-6"
       />
-    </Flex>
+    </div>
   );
 };

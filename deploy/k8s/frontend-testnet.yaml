@@ -1,0 +1,109 @@
+# Testnet frontend deployment
+# Deploy: kubectl apply -f deploy/k8s/frontend-testnet.yaml -n lux-testnet
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lux-frontend-testnet
+  labels:
+    app: lux-frontend-testnet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lux-frontend-testnet
+  template:
+    metadata:
+      labels:
+        app: lux-frontend-testnet
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/luxfi/explore:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NEXT_PUBLIC_NETWORK_NAME
+              value: "LUX Testnet"
+            - name: NEXT_PUBLIC_NETWORK_SHORT_NAME
+              value: "LUX"
+            - name: NEXT_PUBLIC_NETWORK_ID
+              value: "96368"
+            - name: NEXT_PUBLIC_NETWORK_CURRENCY_NAME
+              value: "LUX"
+            - name: NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL
+              value: "LUX"
+            - name: NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS
+              value: "18"
+            - name: NEXT_PUBLIC_API_HOST
+              value: "api-explore-testnet.lux.network"
+            - name: NEXT_PUBLIC_API_PROTOCOL
+              value: "https"
+            - name: NEXT_PUBLIC_API_BASE_PATH
+              value: "/"
+            - name: NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL
+              value: "wss"
+            - name: NEXT_PUBLIC_APP_HOST
+              value: "explore-testnet.lux.network"
+            - name: NEXT_PUBLIC_APP_PROTOCOL
+              value: "https"
+            - name: NEXT_PUBLIC_IS_TESTNET
+              value: "true"
+            - name: NEXT_PUBLIC_NETWORK_RPC_URL
+              value: "https://api.lux-test.network/ext/bc/C/rpc"
+            - name: NEXT_PUBLIC_COLOR_THEME_DEFAULT
+              value: "dark"
+            - name: NEXT_PUBLIC_HOMEPAGE_CHARTS
+              value: '["daily_txs"]'
+            - name: NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED
+              value: "true"
+            - name: NEXT_PUBLIC_PROMOTE_BLOCKSCOUT_IN_TITLE
+              value: "false"
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lux-frontend-testnet
+spec:
+  selector:
+    app: lux-frontend-testnet
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lux-frontend-testnet
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - explore-testnet.lux.network
+      secretName: explore-testnet-lux-tls
+  rules:
+    - host: explore-testnet.lux.network
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lux-frontend-testnet
+                port:
+                  number: 3000

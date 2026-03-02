@@ -5,8 +5,8 @@ import { useController, useFormContext } from 'react-hook-form';
 import type { FormFieldPropsBase } from './types';
 import type { ExcludeUndefined } from 'types/utils';
 
-import type { RadioGroupProps, RadioProps } from '../../../chakra/radio';
-import { Radio, RadioGroup } from '../../../chakra/radio';
+import type { RadioGroupProps, RadioProps } from '@luxfi/ui/radio';
+import { Radio, RadioGroup } from '@luxfi/ui/radio';
 
 export interface FormFieldRadioProps<
   FormFields extends FieldValues,

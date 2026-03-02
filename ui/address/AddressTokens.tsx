@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -118,12 +117,12 @@ const AddressTokens = ({ shouldRender = true, isQueryEnabled = true }: Props) =>
 
   const rightSlot = (
     <>
-      <HStack gap={ 3 }>
+      <div className="flex flex-row gap-3">
         { isNftTab && (hasNftData || hasActiveFilters) &&
           <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange }/> }
         { isNftTab && (hasNftData || hasActiveFilters) && !(isMobile && pagination.isVisible) &&
           <AddressNftTypeFilter value={ nftTokenTypes } onChange={ onTokenTypesChange }/> }
-      </HStack>
+      </div>
       { pagination.isVisible && !isMobile && <Pagination { ...pagination }/> }
     </>
   );
@@ -132,14 +131,14 @@ const AddressTokens = ({ shouldRender = true, isQueryEnabled = true }: Props) =>
     <>
       <TokenBalances/>
       { /* should stay before tabs to scroll up with pagination */ }
-      <Box ref={ scrollRef }></Box>
+      <div ref={ scrollRef }></div>
       <RoutedTabs
         tabs={ tabs }
         variant="secondary"
         size="sm"
         listProps={ isMobile ? TAB_LIST_PROPS_MOBILE : TAB_LIST_PROPS }
         rightSlot={ rightSlot }
-        rightSlotProps={ tab === 'tokens_nfts' && !isMobile ? { display: 'flex', justifyContent: 'space-between', ml: 8, widthAllocation: 'available' } : {} }
+        rightSlotProps={ tab === 'tokens_nfts' && !isMobile ? { className: 'flex justify-between ml-8', widthAllocation: 'available' } : {} }
         stickyEnabled={ !isMobile }
       />
     </>

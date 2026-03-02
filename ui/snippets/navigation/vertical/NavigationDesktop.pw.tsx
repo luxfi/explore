@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import type { BrowserContext, Locator } from '@playwright/test';
 import React from 'react';
 

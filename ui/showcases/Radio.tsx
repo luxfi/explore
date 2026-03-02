@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Radio, RadioGroup } from 'toolkit/chakra/radio';
+import { Radio, RadioGroup } from '@luxfi/ui/radio';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

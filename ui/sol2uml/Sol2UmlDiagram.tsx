@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as visualizer from '@luxfi/visualizer-types';
@@ -8,7 +7,7 @@ import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import throwOnAbsentParamError from 'lib/errors/throwOnAbsentParamError';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 
 interface Props {
@@ -77,12 +76,11 @@ const Sol2UmlDiagram = ({ addressHash }: Props) => {
 
   return (
     <Tooltip content="Click on image to zoom" positioning={{ placement: 'top' }}>
-      <chakra.img
+      <img
         src={ imgUrl }
         alt={ `Contract ${ contractQuery.data.name } UML diagram` }
         onClick={ handleClick }
-        cursor="pointer"
-        filter={{ _light: 'invert(0)', _dark: 'invert(1)' }}
+        className="dark:invert"
       />
     </Tooltip>
   );

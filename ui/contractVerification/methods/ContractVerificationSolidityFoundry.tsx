@@ -1,11 +1,10 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import type { FormFields } from '../types';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import ContractVerificationFormCodeSnippet from '../ContractVerificationFormCodeSnippet';
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
@@ -19,7 +18,7 @@ const ContractVerificationSolidityFoundry = () => {
 
   const codeSnippet = `forge verify-contract \\
   --rpc-url ${ config.chain.rpcUrls[0] || (generalApiEndpoint ? `${ generalApiEndpoint }/api/eth-rpc` : '') } \\
-  --verifier blockscout \\
+  --verifier explorer \\
   --verifier-url '${ generalApiEndpoint ? `${ generalApiEndpoint }/api/` : '' }' \\
   ${ address || '<address>' } \\
   [contractFile]:[contractName]`;
@@ -27,15 +26,15 @@ const ContractVerificationSolidityFoundry = () => {
   return (
     <ContractVerificationMethod title="Contract verification via Foundry">
       <ContractVerificationFormRow>
-        <Flex flexDir="column">
+        <div className="flex flex-col">
           <ContractVerificationFormCodeSnippet code={ codeSnippet }/>
-        </Flex>
-        <Box whiteSpace="pre-wrap">
+        </div>
+        <div className="whitespace-pre-wrap">
           <span>Full tutorial about contract verification via Foundry is available </span>
-          <Link href="https://docs.blockscout.com/devs/verification/foundry-verification" external>
+          <Link href="https://docs.lux.network/devs/verification/foundry-verification" external>
             here
           </Link>
-        </Box>
+        </div>
       </ContractVerificationFormRow>
     </ContractVerificationMethod>
   );

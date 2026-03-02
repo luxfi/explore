@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenType } from 'types/api/token';
@@ -18,7 +17,7 @@ const TokenTransfersLocal = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { query.data?.items.map((item, index) => (
           <TokenTransfersListItem
             key={ item.transaction_hash + item.log_index + (query.isPlaceholderData ? index : '') }
@@ -26,25 +25,25 @@ const TokenTransfersLocal = () => {
             item={ item }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <TokenTransfersTable
           items={ query.data?.items }
           top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ query.isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   );
 
   const filter = (
-    <PopoverFilter contentProps={{ w: '200px' }} appliedFiltersNum={ typeFilter.length }>
+    <PopoverFilter contentProps={{ className: 'w-[200px]' }} appliedFiltersNum={ typeFilter.length }>
       <TokenTypeFilter<TokenType> onChange={ onTokenTypesChange } defaultValue={ typeFilter } nftOnly={ false }/>
     </PopoverFilter>
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar>
       { filter }
       <Pagination { ...query.pagination }/>
     </ActionBar>

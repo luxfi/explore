@@ -1,4 +1,3 @@
-import { Flex, Text, Spinner, createListCollection } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import React from 'react';
 
@@ -7,9 +6,9 @@ import type { TokenInfo } from 'types/api/token';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import useDebounce from 'lib/hooks/useDebounce';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
-import { Select } from 'toolkit/chakra/select';
-import { Tag } from 'toolkit/chakra/tag';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
+import { createListCollection, Select } from '@luxfi/ui/select';
+import { Tag } from '@luxfi/ui/tag';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';
@@ -104,7 +103,7 @@ const AssetFilter = ({ value = [], handleFilterChange }: Props) => {
         initialValue={ searchTerm }
       />
       { !searchTerm && currentValue.map((item, index) => (
-        <Flex key={ item.token.address_hash } alignItems="center">
+        <div className="flex items-center" key={ item.token.address_hash }>
           <Select
             collection={ collection }
             placeholder="Select mode"
@@ -113,17 +112,17 @@ const AssetFilter = ({ value = [], handleFilterChange }: Props) => {
             portalled={ false }
             w="105px"
             minW="105px"
-            mr={ 3 }
+            className="mr-3"
           />
-          <TokenEntity.default token={ item.token } noLink noCopy flexGrow={ 1 }/>
+          <TokenEntity.default token={ item.token } noLink noCopy className="grow"/>
           <ClearButton onClick={ handleRemove(index) }/>
-        </Flex>
+        </div>
       )) }
-      { tokensQuery.isLoading && <Spinner display="block" mt={ 3 }/> }
+      { tokensQuery.isLoading && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5 block mt-3"/> }
       { tokensQuery.data && !searchTerm && (
         <>
-          <Text color="text.secondary" fontWeight="600" mt={ 3 }>Popular</Text>
-          <Flex rowGap={ 3 } flexWrap="wrap" gap={ 3 } mb={ 2 }>
+          <span className="text-[var(--color-text-secondary)] font-semibold mt-3">Popular</span>
+          <div className="flex flex-wrap gap-3 gap-y-3 mb-2">
             { [ NATIVE_TOKEN, ...tokensQuery.data.items ].map(token => (
               <Tag
                 key={ token.address_hash }
@@ -131,18 +130,18 @@ const AssetFilter = ({ value = [], handleFilterChange }: Props) => {
                 onClick={ onTokenClick(token) }
                 variant="select"
               >
-                <Flex flexGrow={ 1 } alignItems="center">
-                  { token.address_hash === NATIVE_TOKEN.address_hash ? <NativeTokenIcon boxSize={ 5 } mr={ 2 }/> : <TokenEntity.Icon token={ token }/> }
+                <div className="flex items-center grow">
+                  { token.address_hash === NATIVE_TOKEN.address_hash ? <NativeTokenIcon className="w-5 h-5 mr-2"/> : <TokenEntity.Icon token={ token }/> }
                   { token.symbol || token.name || token.address_hash }
-                </Flex>
+                </div>
               </Tag>
             )) }
-          </Flex>
+          </div>
         </>
       ) }
-      { searchTerm && tokensQuery.data && !tokensQuery.data?.items.length && <Text>No tokens found</Text> }
+      { searchTerm && tokensQuery.data && !tokensQuery.data?.items.length && <span>No tokens found</span> }
       { searchTerm && tokensQuery.data && Boolean(tokensQuery.data?.items.length) && (
-        <Flex display="flex" flexDir="column" rowGap={ 3 } maxH="250px" overflowY="scroll" mt={ 3 } ml="-4px">
+        <div className="flex flex-col overflow-y-scroll flex gap-y-3 mt-3 ml-[-4px] max-h-[250px]">
           <CheckboxGroup value={ currentValue.map(i => i.token.address_hash) } orientation="vertical">
             { tokensQuery.data.items.map(token => (
               <Checkbox
@@ -150,15 +149,13 @@ const AssetFilter = ({ value = [], handleFilterChange }: Props) => {
                 value={ token.address_hash }
                 id={ token.address_hash }
                 onChange={ onTokenClick(token) }
-                overflow="hidden"
-                w="100%"
-                pl={ 1 }
+                className="overflow-hidden w-full pl-1"
               >
                 <TokenEntity.default token={ token } noLink noCopy/>
               </Checkbox>
             )) }
           </CheckboxGroup>
-        </Flex>
+        </div>
       ) }
     </TableColumnFilter>
   );

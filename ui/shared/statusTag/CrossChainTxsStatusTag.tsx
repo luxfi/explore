@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MessageStatus } from '@luxfi/interchain-indexer-types';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
+import type { BadgeProps } from '@luxfi/ui/badge';
 
 import StatusTag, { type Props as StatusTagProps } from './StatusTag';
 

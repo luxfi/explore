@@ -1,10 +1,9 @@
-import type { StackProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Step } from './types';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import VerificationStep from './VerificationStep';
 
@@ -15,10 +14,9 @@ export interface Props {
   isLoading?: boolean;
   rightSlot?: React.ReactNode;
   className?: string;
-  itemProps?: StackProps;
 }
 
-const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, rightSlot, className, itemProps }: Props) => {
+const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, rightSlot, className }: Props) => {
   const currentStepIndex = steps.findIndex((step) => {
     const label = typeof step === 'string' ? step : step.label;
     return label === currentStep;
@@ -26,12 +24,8 @@ const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, 
 
   return (
     <Skeleton
-      className={ className }
+      className={ cn('flex gap-x-2 items-center flex-wrap', className) }
       loading={ isLoading }
-      display="flex"
-      columnGap={ 2 }
-      alignItems="center"
-      flexWrap="wrap"
     >
       { steps.map((step, index) => (
         <VerificationStep
@@ -41,7 +35,6 @@ const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, 
           isPassed={ index <= currentStepIndex }
           isPending={ index === currentStepIndex && currentStepPending }
           noIcon={ typeof step !== 'string' && index === currentStepIndex }
-          { ...itemProps }
         />
       )) }
       { rightSlot }
@@ -49,4 +42,4 @@ const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, 
   );
 };
 
-export default chakra(VerificationSteps);
+export default VerificationSteps;

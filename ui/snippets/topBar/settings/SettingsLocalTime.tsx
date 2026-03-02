@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 
 const SettingsLocalTime = () => {
   const settingsContext = useSettingsContext();
@@ -18,9 +18,7 @@ const SettingsLocalTime = () => {
       defaultChecked={ isLocalTime }
       onChange={ toggleIsLocalTime }
       direction="rtl"
-      justifyContent="space-between"
-      w="100%"
-      minH="34px"
+      className="justify-between w-full min-h-[34px]"
     >
       Local time format
     </Switch>

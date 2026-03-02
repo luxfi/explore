@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
-import { Checkbox } from 'toolkit/chakra/checkbox';
-import { Link } from 'toolkit/chakra/link';
-import { PopoverContent, PopoverRoot, PopoverTrigger, PopoverBody } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
+import { Checkbox } from '@luxfi/ui/checkbox';
+import { Link } from 'toolkit/next/link';
+import { PopoverContent, PopoverRoot, PopoverTrigger, PopoverBody } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { BACKGROUND_DEFAULT } from 'ui/home/HeroBanner';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -43,12 +43,28 @@ const ButtonShowcase = () => {
             <Button variant="solid" loadingSkeleton>Loading Skeleton</Button>
           </Sample>
 
+          <Sample label="variant: solid_danger">
+            <Button variant="solid_danger">Default</Button>
+            <Button variant="solid_danger" data-hover>Hovered</Button>
+            <Button variant="solid_danger" disabled>Disabled</Button>
+            <Button variant="solid_danger" loading>Loading</Button>
+            <Button variant="solid_danger" loadingSkeleton>Loading Skeleton</Button>
+          </Sample>
+
           <Sample label="variant: outline">
             <Button variant="outline">Default</Button>
             <Button variant="outline" data-hover>Hovered</Button>
             <Button variant="outline" disabled>Disabled</Button>
             <Button variant="outline" loading>Loading</Button>
             <Button variant="outline" loadingSkeleton>Loading Skeleton</Button>
+          </Sample>
+
+          <Sample label="variant: outline_danger">
+            <Button variant="outline_danger">Default</Button>
+            <Button variant="outline_danger" data-hover>Hovered</Button>
+            <Button variant="outline_danger" disabled>Disabled</Button>
+            <Button variant="outline_danger" loading>Loading</Button>
+            <Button variant="outline_danger" loadingSkeleton>Loading Skeleton</Button>
           </Sample>
 
           <Sample label="variant: link">
@@ -94,7 +110,7 @@ const ButtonShowcase = () => {
                 <Button variant="dropdown" selected>Selected</Button>
               </PopoverTrigger>
               <PopoverContent>
-                <PopoverBody display="flex" flexDirection="column" gap={ 2 }>
+                <PopoverBody className="flex flex-col gap-2">
                   <Checkbox defaultChecked>First option</Checkbox>
                   <Checkbox>Second option</Checkbox>
                 </PopoverBody>
@@ -108,8 +124,8 @@ const ButtonShowcase = () => {
               <Tooltip content="Tooltip content">
                 <div>
                   <PopoverTrigger>
-                    <Button variant="dropdown" size="md" px={ 2 }>
-                      <IconSvg name="explorer" boxSize={ 5 }/>
+                    <Button variant="dropdown" size="md" className="px-2">
+                      <IconSvg name="explorer" className="w-5 h-5"/>
                       With tooltip
                     </Button>
                   </PopoverTrigger>

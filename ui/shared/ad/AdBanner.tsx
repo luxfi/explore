@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { BannerFormat } from './types';
@@ -36,4 +35,4 @@ const AdBanner = ({ className, isLoading, format }: Props) => {
   );
 };
 
-export default chakra(AdBanner);
+export default AdBanner;

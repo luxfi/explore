@@ -1,11 +1,10 @@
-import { createListCollection, Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
 
 import hexToAddress from 'lib/hexToAddress';
 import hexToUtf8 from 'lib/hexToUtf8';
-import { SelectContent, SelectControl, SelectItem, SelectRoot, SelectValueText } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { createListCollection, SelectContent, SelectControl, SelectItem, SelectRoot, SelectValueText } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
@@ -51,7 +50,7 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
       case 'text': {
         return (
           <>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-nowrap">
               <HashStringShortenDynamic hash={ value }/>
             </Skeleton>
             <CopyToClipboard text={ value } isLoading={ isLoading }/>
@@ -71,13 +70,10 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
   })();
 
   return (
-    <Flex alignItems="center" px={{ base: 0, lg: 3 }} _notFirst={{ mt: 3 }} overflow="hidden" maxW="100%">
+    <div className="flex items-center overflow-hidden px-0 lg:px-3 max-w-full">
       <LogIndex
         isLoading={ isLoading }
-        textStyle="xs"
-        mr={ 3 }
-        minW={ 6 }
-        height={ 6 }
+        className="text-xs mr-3 min-w-6 h-6"
       >
         { index }
       </LogIndex>
@@ -87,11 +83,9 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
           variant="outline"
           value={ [ selectedDataType ] }
           onValueChange={ handleSelectChange }
-          mr={ 3 }
-          flexShrink={ 0 }
-          width="fit-content"
+          className="mr-3 shrink-0 w-fit"
         >
-          <SelectControl w="105px" loading={ isLoading }>
+          <SelectControl className="w-[105px]" loading={ isLoading }>
             <SelectValueText placeholder="Data type"/>
           </SelectControl>
           <SelectContent>
@@ -104,7 +98,7 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
         </SelectRoot>
       ) }
       { content }
-    </Flex>
+    </div>
   );
 };
 

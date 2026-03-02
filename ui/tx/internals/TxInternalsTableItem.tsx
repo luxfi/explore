@@ -1,10 +1,9 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Badge } from '@luxfi/ui/badge';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxStatus from 'ui/shared/statusTag/TxStatus';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
@@ -19,32 +18,32 @@ const TxInternalTableItem = ({ type, from, to, value, success, error, gas_limit:
   const toData = to ? to : createdContract;
 
   return (
-    <TableRow alignItems="top">
+    <TableRow>
       <TableCell>
-        <Flex rowGap={ 2 } flexWrap="wrap">
+        <div>
           { typeTitle && (
-            <Box w="126px" display="inline-block">
-              <Badge colorPalette="cyan" mr={ 5 } loading={ isLoading }>{ typeTitle }</Badge>
-            </Box>
+            <div>
+              <Badge colorPalette="cyan" className="mr-5" loading={ isLoading }>{ typeTitle }</Badge>
+            </div>
           ) }
           { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
-        </Flex>
+        </div>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <AddressFromTo
           from={ from }
           to={ toData }
           isLoading={ isLoading }
         />
       </TableCell>
-      <TableCell isNumeric verticalAlign="middle">
+      <TableCell isNumeric>
         <NativeCoinValue
           amount={ value }
           noSymbol
           loading={ isLoading }
         />
       </TableCell>
-      <TableCell isNumeric verticalAlign="middle">
+      <TableCell isNumeric>
         <NativeCoinValue
           amount={ gasLimit }
           units="wei"

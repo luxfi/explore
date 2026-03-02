@@ -9,31 +9,31 @@ import type { VerifiedContractsSorting } from 'types/api/verifiedContracts';
 
 export const GENERAL_API_CONTRACT_RESOURCES = {
   contract: {
-    path: '/api/v2/smart-contracts/:hash',
+    path: '/smart-contracts/:hash',
     pathParams: [ 'hash' as const ],
   },
   contract_verification_config: {
-    path: '/api/v2/smart-contracts/verification/config',
+    path: '/smart-contracts/verification/config',
   },
   contract_verification_via: {
-    path: '/api/v2/smart-contracts/:hash/verification/via/:method',
+    path: '/smart-contracts/:hash/verification/via/:method',
     pathParams: [ 'hash' as const, 'method' as const ],
   },
   contract_solidity_scan_report: {
-    path: '/api/v2/proxy/3rdparty/solidityscan/smart-contracts/:hash/report',
+    path: '/proxy/3rdparty/solidityscan/smart-contracts/:hash/report',
     pathParams: [ 'hash' as const ],
   },
   contract_security_audits: {
-    path: '/api/v2/smart-contracts/:hash/audit-reports',
+    path: '/smart-contracts/:hash/audit-reports',
     pathParams: [ 'hash' as const ],
   },
   verified_contracts: {
-    path: '/api/v2/smart-contracts',
+    path: '/smart-contracts',
     filterFields: [ 'q' as const, 'filter' as const ],
     paginated: true,
   },
   verified_contracts_counters: {
-    path: '/api/v2/smart-contracts/counters',
+    path: '/smart-contracts/counters',
   },
 } satisfies Record<string, ApiResource>;
 

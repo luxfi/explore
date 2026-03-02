@@ -1,9 +1,8 @@
-import { chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';
 import CrossChainMessageEntity from 'ui/shared/entities/crossChainMessage/CrossChainMessageEntity';
@@ -25,13 +24,13 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading }/>
       </TableCell>
       <TableCell>
-        <VStack alignItems="start">
-          <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } lineHeight="24px" fontWeight={ 700 }/>
+        <div className="flex flex-col items-start">
+          <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } className="leading-6 font-bold"/>
           <TimeWithTooltip timestamp={ data.send_timestamp || data.receive_timestamp } isLoading={ isLoading } color="text.secondary" timeFormat="absolute"/>
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <VStack alignItems="start">
+        <div className="flex flex-col items-start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -40,21 +39,20 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
               noIcon
               noCopy
               truncation="constant"
-              lineHeight="24px"
+              className="leading-6"
             />
           ) : (
-            <chakra.span color="text.secondary">{ mdash }</chakra.span>
+            <span className="text-[var(--color-text-secondary)]">{ mdash }</span>
           ) }
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
+            className="text-[var(--color-text-secondary)] text-xs"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <VStack alignItems="start">
+        <div className="flex flex-col items-start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -63,21 +61,20 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
               noIcon
               noCopy
               truncation="constant"
-              lineHeight="24px"
+              className="leading-6"
             />
           ) : (
-            <chakra.span color="text.secondary">{ mdash }</chakra.span>
+            <span className="text-[var(--color-text-secondary)]">{ mdash }</span>
           ) }
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
+            className="text-[var(--color-text-secondary)] text-xs"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } lineHeight="24px"/>
+        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>
       </TableCell>
     </TableRow>
   );

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -6,12 +5,12 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Image } from 'toolkit/chakra/image';
-import { Link } from 'toolkit/chakra/link';
+import { Image } from '@luxfi/ui/image';
+import { Link } from 'toolkit/next/link';
 const getGasFeature = config.features.getGasButton;
 
 const GetGasButton = () => {
-  const isMobile = useIsMobile(false);
+  const isMobile = useIsMobile();
 
   const onGetGasClick = React.useCallback(() => {
     mixpanel.logEvent(mixpanel.EventTypes.BUTTON_CLICK, { Content: 'Get gas', Source: 'address' });
@@ -30,13 +29,11 @@ const GetGasButton = () => {
 
       return (
         <>
-          <Box h="1px" w="8px" bg="border.divider" mx={ 1 }/>
+          <div className="h-px w-2 bg-[var(--color-border-divider)] mx-1"/>
           <Link
             href={ isInternal ? route({ pathname: '/apps/[id]', query: { id: dappId, url } }) : url }
             external={ !isInternal }
-            display="flex"
-            alignItems="center"
-            textStyle="xs"
+            className="flex items-center text-xs"
             onClick={ onGetGasClick }
           >
             { getGasFeature.logoUrl && (

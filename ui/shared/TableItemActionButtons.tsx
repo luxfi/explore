@@ -1,9 +1,8 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {
@@ -16,7 +15,7 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
   const onFocusCapture = usePreventFocusAfterModalClosing();
 
   return (
-    <HStack gap={ 6 } alignSelf="flex-end">
+    <div className="flex flex-row gap-6 self-end">
       <Tooltip content="Edit" disableOnMobile>
         <IconButton
           aria-label="edit"
@@ -25,7 +24,7 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
           onClick={ onEditClick }
           onFocusCapture={ onFocusCapture }
           loadingSkeleton={ isLoading }
-          borderRadius="none"
+          className="rounded-none"
         >
           <IconSvg name="edit"/>
         </IconButton>
@@ -38,12 +37,12 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
           onClick={ onDeleteClick }
           onFocusCapture={ onFocusCapture }
           loadingSkeleton={ isLoading }
-          borderRadius="none"
+          className="rounded-none"
         >
           <IconSvg name="delete"/>
         </IconButton>
       </Tooltip>
-    </HStack>
+    </div>
   );
 };
 

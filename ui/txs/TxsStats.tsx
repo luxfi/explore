@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -12,7 +10,7 @@ import { thinsp } from 'toolkit/utils/htmlEntities';
 import StatsWidget from 'ui/shared/stats/StatsWidget';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
 
-interface Props extends BoxProps {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 const TxsStats = (props: Props) => {
   const multichainContext = useMultichainContext();
@@ -79,12 +77,9 @@ const TxsStats = (props: Props) => {
   ].filter(item => item !== null && item !== undefined).length;
 
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns={{ base: '1fr', lg: `repeat(${ itemsCount }, calc(${ 100 / itemsCount }% - 9px))` }}
-      rowGap={ 3 }
-      columnGap={ 3 }
-      mb={ 6 }
+    <div
+      className="grid gap-3 mb-6"
+      style={{ gridTemplateColumns: `repeat(${ itemsCount }, minmax(0, 1fr))` }}
       { ...props }
     >
       { txCount24h && (
@@ -165,7 +160,7 @@ const TxsStats = (props: Props) => {
           }
         />
       ) }
-    </Box>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 
 import { Resolution } from '@luxfi/stats-types';
@@ -64,7 +63,6 @@ const ChartWidgetContainer = ({
       title={ title }
       description={ description }
       isLoading={ lineQuery.isPlaceholderData }
-      minH="230px"
       className={ className }
       href={ href ? route(href) : undefined }
       chartUrl={ href ? `${ config.app.baseUrl }${ route(href) }` : undefined }
@@ -72,4 +70,4 @@ const ChartWidgetContainer = ({
   );
 };
 
-export default chakra(ChartWidgetContainer);
+export default React.memo(ChartWidgetContainer);

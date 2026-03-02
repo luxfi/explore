@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -17,7 +16,7 @@ const FtTokenTransferSnippet = ({ token, value, decimals }: Props) => {
       token={ token }
       decimals={ decimals }
       accuracy={ 0 }
-      startElement={ <chakra.span color="text.secondary">for </chakra.span> }
+      startElement={ <span className="text-[var(--color-text-secondary)]">for </span> }
     />
   );
 };

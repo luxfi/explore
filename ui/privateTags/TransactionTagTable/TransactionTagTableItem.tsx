@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import type { TransactionTag } from 'types/api/account';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
 
@@ -29,7 +29,7 @@ const TransactionTagTableItem = ({ item, isLoading, onEditClick, onDeleteClick }
         <TxEntity
           hash={ item.transaction_hash }
           isLoading={ isLoading }
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </TableCell>
       <TableCell>

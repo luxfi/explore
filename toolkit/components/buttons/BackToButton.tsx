@@ -1,12 +1,11 @@
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
 
 import ArrowIcon from 'icons/arrows/east.svg';
 
-import type { IconButtonProps } from '../../chakra/icon-button';
-import { IconButton } from '../../chakra/icon-button';
-import { Link } from '../../chakra/link';
-import { Tooltip } from '../../chakra/tooltip';
+import type { IconButtonProps } from '@luxfi/ui/icon-button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from '@luxfi/ui/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 export interface BackToButtonProps extends IconButtonProps {
   href?: string;
@@ -17,18 +16,13 @@ export const BackToButton = ({ href, hint, boxSize = 6, ...rest }: BackToButtonP
 
   const button = (
     <IconButton { ...rest } boxSize={ boxSize } variant="icon_secondary">
-      <Icon
-        transform="rotate(180deg)"
-        boxSize={ boxSize }
-      >
-        <ArrowIcon/>
-      </Icon>
+      <ArrowIcon className="w-6 h-6 rotate-180"/>
     </IconButton>
   );
 
   return (
     <Tooltip content={ hint } disabled={ !hint }>
-      { href ? <Link href={ href } asChild>{ button }</Link> : button }
+      { href ? <Link href={ href }>{ button }</Link> : button }
     </Tooltip>
   );
 };

@@ -1,10 +1,9 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
 import type { SmartContract } from 'types/api/contract';
 
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 import ContractDetailsDeployedByteCode from './ContractDetailsDeployedByteCode';
@@ -31,7 +30,7 @@ const ContractDetailsByteCode = ({ data, isLoading, addressData }: Props) => {
   })();
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       { data?.creation_bytecode && (
         <RawDataSnippet
           data={ data.creation_bytecode }
@@ -61,7 +60,7 @@ const ContractDetailsByteCode = ({ data, isLoading, addressData }: Props) => {
           showVerificationButton={ !data?.creation_bytecode && canBeVerified }
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 

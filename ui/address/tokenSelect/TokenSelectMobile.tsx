@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FormattedData } from './types';
 
-import { DialogBody, DialogContent, DialogHeader, DialogRoot, DialogTrigger } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot, DialogTrigger } from '@luxfi/ui/dialog';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import TokenSelectButton from './TokenSelectButton';

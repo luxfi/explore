@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import IconSvg from 'ui/shared/IconSvg';
 import NetworkMenuContent from 'ui/snippets/networkMenu/NetworkMenuContent';
 import useNetworkMenu from 'ui/snippets/networkMenu/useNetworkMenu';
@@ -26,11 +26,11 @@ const NetworkMenu = () => {
           aria-label="Network menu"
           onClick={ menu.onToggle }
           size="2xs"
-          fontWeight={ 500 }
+          className="font-medium"
         >
-          <IconSvg name="networks" boxSize="14px"/>
+          <IconSvg name="networks" className="w-3.5 h-3.5"/>
           <span>Chains</span>
-          <IconSvg name="arrows/east-mini" boxSize={ 4 } transform="rotate(-90deg)"/>
+          <IconSvg name="arrows/east-mini" className="w-4 h-4 -rotate-90"/>
         </Button>
       </PopoverTrigger>
       <NetworkMenuContent items={ menu.data } tabs={ menu.availableTabs }/>

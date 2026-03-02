@@ -1,7 +1,7 @@
 import type { HotContractsSortingValue, HotContractsSortingField, HotContractsInterval } from 'types/api/contracts';
 
 import getQueryParamString from 'lib/router/getQueryParamString';
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export const SORT_OPTIONS: Array<SelectOption<HotContractsSortingValue>> = [
   { label: 'Default', value: 'default' },

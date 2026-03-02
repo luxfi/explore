@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { getEnsAddress } from '@wagmi/core';
 import { useRouter } from 'next/router';
 import React, { useMemo, useCallback, useEffect, useState } from 'react';
@@ -15,9 +14,9 @@ import getQueryParamString from 'lib/router/getQueryParamString';
 import { useQueryParams } from 'lib/router/useQueryParams';
 import useWeb3Wallet from 'lib/web3/useWallet';
 import wagmiConfig from 'lib/web3/wagmiConfig';
-import { Button } from 'toolkit/chakra/button';
-import { EmptyState } from 'toolkit/chakra/empty-state';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import AddressEntity from './components/AddressEntity';
 import ChainSelect from './components/ChainSelect';
@@ -124,30 +123,21 @@ const Revoke = () => {
   }
 
   return (
-    <Flex flexDir="column" w="full" gap={{ base: 6, lg: 12 }}>
-      <Flex flexDir="column" w="full" gap={ 3 }>
+    <div className="flex flex-col w-full gap-6 lg:gap-12">
+      <div className="flex flex-col w-full gap-3">
         <SearchInput
           value={ searchInputValue }
           onChange={ setSearchInputValue }
           onSubmit={ handleSearch }
         />
-        <Flex flexDir={{ base: 'column', md: 'row' }} gap={ 3 } justifyContent="space-between">
-          <Flex
-            gap={ 3 }
-            alignItems="center"
-            h="32px"
-            overflowX="auto"
-            css={{
-              '-ms-overflow-style': 'none',
-              scrollbarWidth: 'none',
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
-            }}
+        <div className="flex flex-col md:flex-row gap-3 justify-between">
+          <div
+            className="flex gap-3 items-center h-8 overflow-x-auto"
+            style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
           >
-            <Text textStyle="sm" fontWeight="500" color="text.secondary">
+            <span className="text-sm font-medium text-[var(--color-text-secondary)]">
               Examples
-            </Text>
+            </span>
             { [
               '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
               '0xFe89cc7aBB2C4183683ab71653C4cdc9B02D44b7',
@@ -157,7 +147,7 @@ const Revoke = () => {
                 key={ address }
                 variant="plain"
                 size="sm"
-                p={ 0 }
+                className="p-0"
                 onClick={ handleAddressClick(address) }
               >
                 <AddressEntity
@@ -165,21 +155,20 @@ const Revoke = () => {
                   truncation="constant"
                   noLink
                   noCopy
-                  textStyle="sm"
-                  fontWeight="600"
+                  className="text-sm font-semibold"
                 />
               </Button>
             )) }
-          </Flex>
-          <Flex gap={ 3 } w={{ base: 'full', md: 'auto' }}>
+          </div>
+          <div className="flex gap-3 w-full md:w-auto">
             { connectedAddress ? (
-              <Flex gap={ 2 } alignItems="center" flexShrink={ 0 }>
-                <Text textStyle="sm" fontWeight="500" color="text.secondary">My wallet</Text>
+              <div className="flex gap-2 items-center shrink-0">
+                <span className="text-sm font-medium text-[var(--color-text-secondary)]">My wallet</span>
                 <Tooltip content="Click to see your approvals" disableOnMobile>
                   <Button
                     variant="plain"
                     size="sm"
-                    p={ 0 }
+                    className="p-0"
                     onClick={ handleAddressClick(connectedAddress) }
                   >
                     <AddressEntity
@@ -188,12 +177,11 @@ const Revoke = () => {
                       noTooltip
                       noLink
                       noCopy
-                      textStyle="sm"
-                      fontWeight="600"
+                      className="text-sm font-semibold"
                     />
                   </Button>
                 </Tooltip>
-              </Flex>
+              </div>
             ) : (
               <Button
                 size="sm"
@@ -201,7 +189,7 @@ const Revoke = () => {
                 onClick={ web3Wallet.connect }
                 loading={ web3Wallet.isOpen }
                 loadingText="Connect wallet"
-                flexShrink={ 0 }
+                className="shrink-0"
               >
                 Connect wallet
               </Button>
@@ -211,11 +199,11 @@ const Revoke = () => {
               onValueChange={ handleChainValueChange }
               mode="default"
             />
-          </Flex>
-        </Flex>
-      </Flex>
+          </div>
+        </div>
+      </div>
       { content }
-    </Flex>
+    </div>
   );
 };
 

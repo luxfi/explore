@@ -1,15 +1,18 @@
 import React from 'react';
 
 import config from 'configs/app';
+import { layerLabels } from 'lib/rollups/utils';
 import { SocketProvider } from 'lib/socket/context';
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 import AdaptiveTabs from 'toolkit/components/AdaptiveTabs/AdaptiveTabs';
 import LatestOptimisticDeposits from 'ui/home/latestDeposits/LatestOptimisticDeposits';
 import LatestTxs from 'ui/home/LatestTxs';
 import LatestWatchlistTxs from 'ui/home/LatestWatchlistTxs';
 import LatestZetaChainCCTXs from 'ui/home/latestZetaChainCCTX/LatestZetaChainCCTXs';
+import FallbackRpcIcon from 'ui/shared/fallbacks/FallbackRpcIcon';
 import useAuth from 'ui/snippets/auth/useIsAuth';
 
+import { useHomeRpcDataContext } from './fallbacks/rpcDataContext';
 import LatestCrossChainTxs from './latestCrossChainTxs/LatestCrossChainTxs';
 import LatestArbitrumDeposits from './latestDeposits/LatestArbitrumDeposits';
 
@@ -18,7 +21,10 @@ const zetachainFeature = config.features.zetachain;
 const crossChainTxsFeature = config.features.crossChainTxs;
 
 const Transactions = () => {
+
   const isAuth = useAuth();
+  const rpcDataContext = useHomeRpcDataContext();
+  const isRpcData = rpcDataContext.isEnabled && !rpcDataContext.isLoading && !rpcDataContext.isError && rpcDataContext.subscriptions.includes('latest-txs');
 
   if ((rollupFeature.isEnabled && (rollupFeature.type === 'optimistic' || rollupFeature.type === 'arbitrum')) || isAuth || zetachainFeature.isEnabled) {
     const tabs = [
@@ -33,14 +39,17 @@ const Transactions = () => {
       },
       { id: 'txn', title: zetachainFeature.isEnabled ? 'ZetaChain EVM' : 'Latest txn', component: <LatestTxs/> },
       rollupFeature.isEnabled && rollupFeature.type === 'optimistic' &&
-        { id: 'deposits', title: 'Deposits (L1→L2 txn)', component: <LatestOptimisticDeposits/> },
+        { id: 'deposits', title: `Deposits (${ layerLabels.parent }→${ layerLabels.current } txn)`, component: <LatestOptimisticDeposits/> },
       rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' &&
-        { id: 'deposits', title: 'Deposits (L1→L2 txn)', component: <LatestArbitrumDeposits/> },
+        { id: 'deposits', title: `Deposits (${ layerLabels.parent }→${ layerLabels.current } txn)`, component: <LatestArbitrumDeposits/> },
       isAuth && { id: 'watchlist', title: 'Watch list', component: <LatestWatchlistTxs/> },
     ].filter(Boolean);
     return (
       <>
-        <Heading level="3" mb={ 3 }>Transactions</Heading>
+        <div className="flex mb-3">
+          <Heading level="3" >Transactions</Heading>
+          { isRpcData && <FallbackRpcIcon/> }
+        </div>
         <AdaptiveTabs tabs={ tabs } unmountOnExit={ false } listProps={{ mb: 3 }}/>
       </>
     );
@@ -54,7 +63,10 @@ const Transactions = () => {
 
     return (
       <>
-        <Heading level="3" mb={ 3 }>Latest transactions</Heading>
+        <div className="flex mb-3">
+          <Heading level="3" >Latest transactions</Heading>
+          { isRpcData && <FallbackRpcIcon/> }
+        </div>
         <AdaptiveTabs tabs={ tabs } unmountOnExit={ false } listProps={{ mb: 3 }}/>
       </>
     );
@@ -62,7 +74,10 @@ const Transactions = () => {
 
   return (
     <>
-      <Heading level="3" mb={ 3 }>Latest transactions</Heading>
+      <div className="flex mb-3">
+        <Heading level="3" >Latest transactions</Heading>
+        { isRpcData && <FallbackRpcIcon/> }
+      </div>
       <LatestTxs/>
     </>
   );

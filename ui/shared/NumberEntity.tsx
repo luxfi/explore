@@ -1,4 +1,3 @@
-import { chakra, Text } from '@chakra-ui/react';
 
 type Props = {
   value: string;
@@ -9,12 +8,12 @@ type Props = {
 export default function NumberEntity({ value, suffix, postfix }: Props) {
   const [ integer, decimal ] = value.split('.');
   return (
-    <Text>
+    <span>
       { suffix }
       { Number(integer) ? Number(integer).toLocaleString() : integer }
       { decimal && '.' }
-      <chakra.span color="text.secondary">{ decimal }</chakra.span>
+      <span className="text-[var(--color-text-secondary)]">{ decimal }</span>
       { postfix && ` ${ postfix }` }
-    </Text>
+    </span>
   );
 }

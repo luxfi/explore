@@ -28,7 +28,7 @@ const UserOpDecodedCallData = ({ data }: Props) => {
       id="call-data-switch"
       onChange={ handleSwitchChange }
       initialValue={ false }
-      ml={{ base: 3, lg: 'auto' }}
+      className="ml-3 lg:ml-auto"
     />
   ) : null;
 
@@ -38,7 +38,7 @@ const UserOpDecodedCallData = ({ data }: Props) => {
     <>
       <DetailedInfo.ItemLabel
         hint="Data that’s passed to the sender for execution"
-        mb={{ base: 1, lg: 0 }}
+        className="mb-1 lg:mb-0"
       >
         { labelText }
       </DetailedInfo.ItemLabel>

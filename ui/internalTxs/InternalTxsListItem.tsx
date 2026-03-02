@@ -1,12 +1,11 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import { currencyUnits } from 'lib/units';
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -38,16 +37,16 @@ const InternalTxsListItem = ({
   const toData = to ? to : createdContract;
 
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Flex columnGap={ 2 }>
+    <ListItemMobile className="!gap-y-3">
+      <div className="flex gap-x-2">
         { typeTitle && <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge> }
         { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
-      </Flex>
-      <Flex justifyContent="space-between" width="100%">
+      </div>
+      <div className="flex justify-between w-full">
         <TxEntity
           hash={ txnHash }
           isLoading={ isLoading }
-          fontWeight={ 700 }
+          className="font-bold"
           truncation="constant_long"
           chain={ chainData }
         />
@@ -58,27 +57,27 @@ const InternalTxsListItem = ({
           fontWeight="400"
           fontSize="sm"
         />
-      </Flex>
+      </div>
       { showBlockInfo && (
-        <HStack gap={ 1 }>
-          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Block</Skeleton>
+        <div className="flex gap-1">
+          <Skeleton loading={ isLoading } className="text-sm font-medium">Block</Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ blockNumber }
             noIcon
-            textStyle="sm"
+            className="text-sm"
           />
-        </HStack>
+        </div>
       ) }
       <AddressFromTo
         from={ from }
         to={ toData }
         current={ currentAddress }
         isLoading={ isLoading }
-        w="100%"
+        className="w-full"
       />
-      <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value { currencyUnits.ether }</Skeleton>
+      <div className="flex gap-3">
+        <Skeleton loading={ isLoading } className="text-sm font-medium">Value { currencyUnits.ether }</Skeleton>
         <NativeCoinValue
           amount={ value }
           noSymbol
@@ -88,7 +87,7 @@ const InternalTxsListItem = ({
           fontSize="sm"
           color="text.secondary"
         />
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { DepositsItem } from 'types/api/deposits';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BeaconChainDepositSignature from 'ui/shared/beacon/BeaconChainDepositSignature';
 import BeaconChainDepositStatusTag from 'ui/shared/beacon/BeaconChainDepositStatusTag';
 import BeaconChainValidatorLink from 'ui/shared/beacon/BeaconChainValidatorLink';
@@ -35,7 +35,7 @@ const BeaconChainDepositsTableItem = ({ item, view, isLoading }: Props) => {
             number={ item.block_number }
             hash={ item.block_hash }
             isLoading={ isLoading }
-            textStyle="sm"
+            className="text-sm"
             noIcon
           />
         </TableCell>
@@ -62,10 +62,10 @@ const BeaconChainDepositsTableItem = ({ item, view, isLoading }: Props) => {
           />
         </TableCell>
       ) }
-      <TableCell verticalAlign="middle" maxW="200px" overflow="hidden">
+      <TableCell verticalAlign="middle" className="max-w-[200px] overflow-hidden">
         <BeaconChainValidatorLink pubkey={ item.pubkey } isLoading={ isLoading }/>
       </TableCell>
-      <TableCell verticalAlign="middle" maxW="200px" overflow="hidden">
+      <TableCell verticalAlign="middle" className="max-w-[200px] overflow-hidden">
         <BeaconChainDepositSignature signature={ item.signature } isLoading={ Boolean(isLoading) }/>
       </TableCell>
       <TableCell verticalAlign="middle">

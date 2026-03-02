@@ -43,7 +43,9 @@ const TxDetailsBurntFees = ({ data, isLoading }: Props) => {
       <DetailedInfoNativeCoinValue
         amount={ value.toString() }
         exchangeRate={ data.exchange_rate }
-        startElement={ <IconSvg name="flame" boxSize={ 5 } color="icon.primary" isLoading={ isLoading } mr={{ base: 0, lg: 1 }}/> }
+        historicalExchangeRate={ data.historic_exchange_rate }
+        hasExchangeRateToggle
+        startElement={ <IconSvg name="flame" className="size-5 text-[var(--color-icon-primary)] mr-0 lg:mr-1" isLoading={ isLoading }/> }
         loading={ isLoading }
       />
     </>

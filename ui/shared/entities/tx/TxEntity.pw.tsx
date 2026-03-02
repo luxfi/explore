@@ -64,9 +64,7 @@ test('customization', async({ render }) => {
     <TxEntity
       hash={ hash }
       truncation="constant"
-      p={ 3 }
-      borderWidth="1px"
-      borderColor="blue.700"
+      className="p-3 border border-blue-700"
     />,
   );
 

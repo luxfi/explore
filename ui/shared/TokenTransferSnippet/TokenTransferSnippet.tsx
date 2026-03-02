@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type {
@@ -9,8 +8,10 @@ import type {
   Erc404TotalPayload,
 } from 'types/api/tokenTransfer';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { isConfidentialTokenType } from 'lib/token/tokenTypes';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
+import ConfidentialTokenValue from 'ui/shared/value/ConfidentialTokenValue';
 
 import TokenTransferSnippetFiat from './TokenTransferSnippetFiat';
 import TokenTransferSnippetNft from './TokenTransferSnippetNft';
@@ -26,7 +27,11 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
   const content = (() => {
 
     if (isLoading) {
-      return <Skeleton loading w="250px" h={ 6 }/>;
+      return <Skeleton loading={ true } w="250px" h="24px"/>;
+    }
+
+    if (data.token && isConfidentialTokenType(data.token.type)) {
+      return <ConfidentialTokenValue token={ data.token } loading={ false }/>;
     }
 
     switch (data.token?.type) {
@@ -85,6 +90,7 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
           return <TokenTransferSnippetFiat token={ data.token } value={ total.value } decimals={ total.decimals }/>;
         }
       }
+
       default: {
         return null;
       }
@@ -92,24 +98,17 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
   })();
 
   return (
-    <Flex
-      alignItems="center"
-      flexWrap="wrap"
-      columnGap={ 2 }
-      rowGap={ 0 }
-      flexDir="row"
-      w="100%"
-    >
+    <div className="flex items-center flex-wrap gap-x-2 gap-y-0 flex-row w-full">
       <AddressFromTo
         from={ data.from }
         to={ data.to }
         truncation="constant"
         noIcon={ noAddressIcons }
         isLoading={ isLoading }
-        lineHeight={{ lg: '24px' }}
+        className="lg:leading-6"
       />
       { content }
-    </Flex>
+    </div>
   );
 };
 

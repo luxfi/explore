@@ -1,0 +1,115 @@
+# Stats microservice deployment for LUX Explorer
+# Provides /api/v1/pages/main, /api/v1/counters, /api/v1/lines chart data
+# Deploy: kubectl apply -f deploy/k8s/stats.yaml -n lux-mainnet
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lux-stats
+  labels:
+    app: lux-stats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lux-stats
+  template:
+    metadata:
+      labels:
+        app: lux-stats
+    spec:
+      containers:
+        - name: stats
+          image: ghcr.io/luxfi/explorer-stats:latest
+          ports:
+            - containerPort: 8050
+              protocol: TCP
+          env:
+            - name: STATS__SERVER__HTTP__ENABLED
+              value: "true"
+            - name: STATS__SERVER__HTTP__ADDR
+              value: "0.0.0.0:8050"
+            - name: STATS__CREATE_DATABASE
+              value: "true"
+            - name: STATS__RUN_MIGRATIONS
+              value: "true"
+            - name: STATS__FORCE_UPDATE_ON_START
+              value: "true"
+            - name: STATS__DEFAULT_SCHEDULE
+              value: "0 0 1 * * * *"
+            - name: STATS__BLOCKSCOUT_API_URL
+              value: "http://lux-backend-mainnet:4000"
+          envFrom:
+            - secretRef:
+                name: lux-stats-secrets
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8050
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8050
+            initialDelaySeconds: 30
+            periodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lux-stats
+  labels:
+    app: lux-stats
+spec:
+  selector:
+    app: lux-stats
+  ports:
+    - port: 8050
+      targetPort: 8050
+      protocol: TCP
+---
+# Secret template — apply with actual DB credentials before deploying
+# kubectl create secret generic lux-stats-secrets -n lux-mainnet \
+#   --from-literal=STATS__DB_URL='postgresql://USER:PASS@HOST:5432/stats_luxnet' \
+#   --from-literal=STATS__BLOCKSCOUT_DB_URL='postgresql://USER:PASS@HOST:5432/explorer_luxnet'
+apiVersion: v1
+kind: Secret
+metadata:
+  name: lux-stats-secrets
+type: Opaque
+stringData:
+  STATS__DB_URL: "postgresql://blockscout:CHANGE_ME@postgres:5432/stats_luxnet"
+  STATS__BLOCKSCOUT_DB_URL: "postgresql://blockscout:CHANGE_ME@postgres:5432/explorer_luxnet"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lux-stats-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api-explore.lux.network
+      secretName: api-explore-lux-tls
+  rules:
+    - host: api-explore.lux.network
+      http:
+        paths:
+          - path: /api/stats(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lux-stats
+                port:
+                  number: 8050

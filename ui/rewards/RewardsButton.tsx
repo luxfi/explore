@@ -1,13 +1,13 @@
-import { chakra } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import type { ButtonProps } from 'toolkit/chakra/button';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {
@@ -26,36 +26,29 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
 
   return (
     <Tooltip
-      content="Earn Merits for using Blockscout"
+      content={ `Earn Merits for using ${ config.chain.name || '' } Explorer`.trim() }
       openDelay={ 500 }
       disabled={ isMobile || isLoading || isAuth }
     >
       <Button
         variant={ variant }
         selected={ !isLoading && isAuth }
-        flexShrink={ 0 }
-        as={ isAuth ? 'a' : 'button' }
+        className="shrink-0 px-[10px] lg:px-3 hover:no-underline"
         { ...(isAuth ? { href: route({ pathname: '/account/merits' }) } : {}) }
         onClick={ isAuth ? undefined : openLoginModal }
         onFocus={ handleFocus }
         size={ size }
-        px={{ base: '10px', lg: 3 }}
         loading={ isLoading }
-        _hover={{
-          textDecoration: 'none',
-        }}
       >
         <IconSvg
           name={ dailyRewardQuery.data?.available ? 'merits_with_dot' : 'merits' }
-          boxSize={ variant === 'hero' ? 6 : 5 }
-          flexShrink={ 0 }
+          className={ `shrink-0 ${ variant === 'hero' ? 'w-6 h-6' : 'w-5 h-5' }` }
         />
-        <chakra.span
-          display={{ base: 'none', md: 'inline' }}
-          fontWeight={ isAuth ? '700' : '600' }
+        <span
+          className={ `hidden md:inline ${ isAuth ? 'font-bold' : 'font-semibold' }` }
         >
           { isAuth ? (balancesQuery.data?.total || 'N/A') : 'Merits' }
-        </chakra.span>
+        </span>
       </Button>
     </Tooltip>
   );

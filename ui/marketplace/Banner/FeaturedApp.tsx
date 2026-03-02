@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
@@ -6,12 +5,12 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Heading } from 'toolkit/chakra/heading';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Image } from 'toolkit/chakra/image';
-import { Link, LinkBox } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Heading } from '@luxfi/ui/heading';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Image } from '@luxfi/ui/image';
+import { Link, LinkBox } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import FavoriteIcon from '../FavoriteIcon';
 import MarketplaceAppCardLink from '../MarketplaceAppCardLink';
@@ -62,13 +61,7 @@ const FeaturedApp = ({
 
   return (
     <LinkBox>
-      <Flex
-        gap={ 4 }
-        borderRadius="md"
-        height="100px"
-        padding={ 3 }
-        background={{ _light: 'purple.50', _dark: 'whiteAlpha.100' }}
-      >
+      <div className="flex gap-4 rounded-md h-[100px] p-3 bg-purple-50 dark:bg-white/10">
         <Skeleton
           loading={ isLoading }
           w="76px"
@@ -84,8 +77,8 @@ const FeaturedApp = ({
           />
         </Skeleton>
 
-        <Flex flexDirection="column" flex={ 1 } gap={ 1 }>
-          <Flex alignItems="center" gap={ 3 }>
+        <div className="flex flex-col flex-1 gap-1">
+          <div className="flex items-center gap-3">
             <Skeleton loading={ isLoading } display="flex" alignItems="center">
               <Heading level="3">
                 <MarketplaceAppCardLink
@@ -102,16 +95,14 @@ const FeaturedApp = ({
             <Skeleton
               loading={ isLoading }
               color="text.secondary"
-              fontSize="xs"
-              flex={ 1 }
+              className="text-xs flex-1"
             >
               <span>{ categoriesLabel }</span>
             </Skeleton>
 
             { !isLoading && (
               <Link
-                fontSize="sm"
-                fontWeight="500"
+                className="text-sm font-medium"
                 href="#"
                 onClick={ handleInfoClick }
               >
@@ -131,18 +122,18 @@ const FeaturedApp = ({
                 <FavoriteIcon isFavorite={ isFavorite }/>
               </IconButton>
             ) }
-          </Flex>
+          </div>
 
           <Skeleton
             loading={ isLoading }
             asChild
           >
-            <Text lineClamp={ 2 } textStyle="sm">
+            <span className="line-clamp-2 text-sm">
               { shortDescription }
-            </Text>
+            </span>
           </Skeleton>
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </LinkBox>
   );
 };

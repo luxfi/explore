@@ -1,10 +1,10 @@
-import { Grid, Text, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InteropTransactionInfo } from 'types/api/transaction';
 
 import config from 'configs/app';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
+import { layerLabels } from 'lib/rollups/utils';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
 import InteropMessageDestinationTx from 'ui/interopMessages/InteropMessageDestinationTx';
 import InteropMessageSourceTx from 'ui/interopMessages/InteropMessageSourceTx';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -28,24 +28,16 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
   }
 
   const details = (
-    <Grid
-      gridTemplateColumns="100px 1fr"
-      textStyle="sm"
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      px={ 4 }
-      py={ 2 }
-      mt={ 3 }
-      w="100%"
-      rowGap={ 4 }
-      borderRadius="md"
+    <div
+     
     >
-      <Text color="text.secondary">Message id</Text>
-      <Text>{ data.nonce }</Text>
-      <Text color="text.secondary">Interop status</Text>
-      <Box>
+      <span className="text-[var(--color-text-secondary)]">Message id</span>
+      <span>{ data.nonce }</span>
+      <span className="text-[var(--color-text-secondary)]">Interop status</span>
+      <div>
         <InteropMessageStatus status={ data.status }/>
-      </Box>
-      <Text color="text.secondary">Sender</Text>
+      </div>
+      <span className="text-[var(--color-text-secondary)]">Sender</span>
       { data.init_chain !== undefined ? (
         <AddressEntityInterop
           chain={ data.init_chain }
@@ -56,7 +48,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       ) : (
         <AddressEntity address={{ hash: data.sender_address_hash }} isLoading={ isLoading } truncation="constant"/>
       ) }
-      <Text color="text.secondary">Target</Text>
+      <span className="text-[var(--color-text-secondary)]">Target</span>
       { data.relay_chain !== undefined ? (
         <AddressEntityInterop
           chain={ data.relay_chain }
@@ -67,33 +59,29 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       ) : (
         <AddressEntity address={{ hash: data.target_address_hash }} isLoading={ isLoading } truncation="constant"/>
       ) }
-      <Text color="text.secondary">Payload</Text>
-      <Flex overflow="hidden">
-        <Text
-          wordBreak="break-all"
-          whiteSpace="normal"
-          overflow="hidden"
-          flex="1"
+      <span className="text-[var(--color-text-secondary)]">Payload</span>
+      <div>
+        <span className="flex-1"
         >
           { data.payload }
-        </Text>
+        </span>
         <CopyToClipboard text={ data.payload }/>
-      </Flex>
-    </Grid>
+      </div>
+    </div>
   );
 
   if (data.init_chain !== undefined) {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="The originating transaction that initiated the cross-L2 message on the source chain"
+          hint={ `The originating transaction that initiated the cross-${ layerLabels.current } message on the source chain` }
           isLoading={ isLoading }
         >
           Interop source tx
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
+        <DetailedInfo.ItemValue>
           <InteropMessageSourceTx { ...data } isLoading={ isLoading }/>
-          <CollapsibleDetails variant="secondary" noScroll ml={ 3 }>
+          <CollapsibleDetails variant="secondary" noScroll className="ml-3">
             { details }
           </CollapsibleDetails>
         </DetailedInfo.ItemValue>
@@ -105,14 +93,14 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="The transaction that relays the cross-L2 message to its destination chain"
+          hint={ `The transaction that relays the cross-${ layerLabels.current } message to its destination chain` }
           isLoading={ isLoading }
         >
           Interop relay tx
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
+        <DetailedInfo.ItemValue>
           <InteropMessageDestinationTx { ...data } isLoading={ isLoading }/>
-          <CollapsibleDetails variant="secondary" noScroll ml={ 3 }>
+          <CollapsibleDetails variant="secondary" noScroll className="ml-3">
             { details }
           </CollapsibleDetails>
         </DetailedInfo.ItemValue>

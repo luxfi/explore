@@ -1,16 +1,9 @@
-import {
-  Box,
-  Text,
-  chakra,
-  Flex,
-  HStack,
-} from '@chakra-ui/react';
 import { omit } from 'es-toolkit';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import type { AdvancedFilterParams } from 'types/api/advancedFilter';
-import { ADVANCED_FILTER_TYPES, ADVANCED_FILTER_AGES, ADVANCED_FILTER_ADDRESS_RELATION } from 'types/api/advancedFilter';
+import { ADVANCED_FILTER_AGES, ADVANCED_FILTER_ADDRESS_RELATION } from 'types/api/advancedFilter';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
@@ -22,12 +15,12 @@ import getValuesArrayFromQuery from 'lib/getValuesArrayFromQuery';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { ADVANCED_FILTER_ITEM } from 'stubs/advancedFilter';
 import { generateListStub } from 'stubs/utils';
-import { Link } from 'toolkit/chakra/link';
-import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
+import { Link } from 'toolkit/next/link';
+import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
 import ColumnsButton from 'ui/advancedFilter/ColumnsButton';
 import type { ColumnsIds } from 'ui/advancedFilter/constants';
-import { TABLE_COLUMNS } from 'ui/advancedFilter/constants';
+import { getAdvancedFilterTypes, TABLE_COLUMNS } from 'ui/advancedFilter/constants';
 import ExportCSV from 'ui/advancedFilter/ExportCSV';
 import FilterByColumn from 'ui/advancedFilter/FilterByColumn';
 import ItemByColumn from 'ui/advancedFilter/ItemByColumn';
@@ -52,7 +45,10 @@ const AdvancedFilter = () => {
     const age = getFilterValueFromQuery(ADVANCED_FILTER_AGES, router.query.age);
     const addressRelation = getFilterValueFromQuery(ADVANCED_FILTER_ADDRESS_RELATION, router.query.address_relation);
     return {
-      transaction_types: getFilterValuesFromQuery(ADVANCED_FILTER_TYPES, router.query.transaction_types),
+      transaction_types: getFilterValuesFromQuery(
+        getAdvancedFilterTypes(multichainContext?.chain?.app_config).map(t => t.id),
+        router.query.transaction_types,
+      ),
       methods: getValuesArrayFromQuery(router.query.methods),
       methods_names: getValuesArrayFromQuery(router.query.methods_names),
       amount_from: getQueryParamString(router.query.amount_from),
@@ -139,11 +135,11 @@ const AdvancedFilter = () => {
     return null;
   }
 
-  const filterTags = getFilterTags(filters);
+  const filterTags = getFilterTags(filters, multichainContext?.chain?.app_config);
 
   const content = (
     <AddressHighlightProvider>
-      <Box maxW="100%" display="grid" overflowX="scroll" whiteSpace="nowrap">
+      <div className="overflow-x-scroll whitespace-nowrap grid max-w-full">
         <TableRoot tableLayout="fixed" minWidth="950px" w="100%">
           <TableHeaderSticky>
             <TableRow>
@@ -159,9 +155,9 @@ const AdvancedFilter = () => {
                     whiteSpace="normal"
                   >
                     { Boolean(column.name) && (
-                      <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
+                      <span className="mr-2 leading-[24px] align-middle">
                         { column.id === 'age' ? 'Timestamp' : column.name }
-                      </chakra.span>
+                      </span>
                     ) }
                     <FilterByColumn
                       column={ column.id }
@@ -171,7 +167,7 @@ const AdvancedFilter = () => {
                       searchParams={ data?.search_params }
                       isLoading={ isPlaceholderData }
                     />
-                    { column.id === 'age' && <TimeFormatToggle ml={ 1 } verticalAlign="middle"/> }
+                    { column.id === 'age' && <TimeFormatToggle className="ml-1 align-middle"/> }
                   </TableColumnHeader>
                 );
               }) }
@@ -203,12 +199,14 @@ const AdvancedFilter = () => {
                       minW={ column.width }
                       maxW={ column.width }
                       w={ column.width }
-                      wordBreak="break-word"
-                      whiteSpace="nowrap"
-                      overflow="hidden"
-                      textAlign={ textAlign }
+                      className={ `break-words whitespace-nowrap overflow-hidden text-${ textAlign }` }
                     >
-                      <ItemByColumn item={ item } column={ column.id } isLoading={ isPlaceholderData }/>
+                      <ItemByColumn
+                        item={ item }
+                        column={ column.id }
+                        isLoading={ isPlaceholderData }
+                        chainConfig={ multichainContext?.chain?.app_config }
+                      />
                     </TableCell>
                   );
                 }) }
@@ -216,15 +214,15 @@ const AdvancedFilter = () => {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
+      </div>
     </AddressHighlightProvider>
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <ExportCSV filters={ filters }/>
       <ColumnsButton columns={ columns } onChange={ setColumns }/>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   );
 
@@ -234,16 +232,16 @@ const AdvancedFilter = () => {
         title="Advanced filter"
         withTextAd
       />
-      <Flex mb={ 4 } justifyContent="space-between" alignItems="start">
-        <Text fontSize="lg" mr={ 3 } lineHeight="24px" w="100px">Filtered by:</Text>
+      <div className="flex items-start justify-between mb-4">
+        <span className="text-lg w-[100px] mr-3 leading-[24px]">Filtered by:</span>
         { filterTags.length !== 0 && (
-          <Link onClick={ clearAllFilters } display="flex" alignItems="center" justifyContent="end" gap={ 2 } fontSize="sm" w="150px">
-            <IconSvg name="repeat" boxSize={ 5 }/>
+          <Link onClick={ clearAllFilters } className="flex items-center justify-end gap-2 text-sm w-[150px]">
+            <IconSvg name="repeat" className="size-5"/>
             Reset filters
           </Link>
         ) }
-      </Flex>
-      <HStack gap={ 2 } flexWrap="wrap" mb={ 6 }>
+      </div>
+      <div className="flex flex-wrap mb-6 gap-2">
         { multichainContext?.chain && (
           <Tag variant="filter" label="Chain">
             { multichainContext.chain.app_config.chain.name }
@@ -264,7 +262,7 @@ const AdvancedFilter = () => {
             </Tag>
           </>
         ) }
-      </HStack>
+      </div>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }

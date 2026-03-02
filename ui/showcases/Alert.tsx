@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Link } from 'toolkit/chakra/link';
-import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { Alert } from '@luxfi/ui/alert';
+import { Link } from 'toolkit/next/link';
+import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from '@luxfi/ui/table';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import TxPendingAlert from 'ui/tx/TxPendingAlert';
 
@@ -117,17 +116,17 @@ const AlertShowcase = () => {
         <SectionSubHeader>Multiple lines</SectionSubHeader>
         <SamplesStack>
           <Sample label="multiple lines, with title, inline=false">
-            <Alert status="warning" title="Warning" inline={ false } maxWidth="500px" showIcon closable>
-              <Box>
-                Participated in our recent Blockscout activities? Check your eligibility and claim your NFT Scout badges. More exciting things are coming soon!
-              </Box>
+            <Alert status="warning" title="Warning" inline={ false } className="max-w-[500px]" showIcon closable>
+              <div>
+                Participated in our recent activities? Check your eligibility and claim your NFT Scout badges. More exciting things coming soon!
+              </div>
             </Alert>
           </Sample>
           <Sample label="multiple lines, no title">
-            <Alert status="warning" maxWidth="500px">
-              <Box>
-                Participated in our recent Blockscout activities? Check your eligibility and claim your NFT Scout badges. More exciting things are coming soon!
-              </Box>
+            <Alert status="warning" className="max-w-[500px]">
+              <div>
+                Participated in our recent activities? Check your eligibility and claim your NFT Scout badges. More exciting things coming soon!
+              </div>
             </Alert>
           </Sample>
           <Sample label="with spinner">

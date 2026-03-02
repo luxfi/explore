@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import React from 'react';
@@ -64,17 +63,19 @@ const AdbutlerBanner = ({ className, format = 'responsive' }: BannerProps) => {
   const getElementId = (id: string) => id + (format ? `_${ format }` : '');
 
   return (
-    <Flex
-      className={ className }
+    <div
+      className={ `flex ${ className || '' }` }
       id={ getElementId('adBanner') }
-      h={ isMobile ? `${ MOBILE_BANNER_HEIGHT }px` : `${ DESKTOP_BANNER_HEIGHT }px` }
-      w={ isMobile ? `${ MOBILE_BANNER_WIDTH }px` : `${ DESKTOP_BANNER_WIDTH }px` }
+      style={{
+        height: isMobile ? `${ MOBILE_BANNER_HEIGHT }px` : `${ DESKTOP_BANNER_HEIGHT }px`,
+        width: isMobile ? `${ MOBILE_BANNER_WIDTH }px` : `${ DESKTOP_BANNER_WIDTH }px`,
+      }}
     >
       <Script strategy="lazyOnload" id="ad-butler-1">{ connectAdbutler }</Script>
       <Script strategy="lazyOnload" id="ad-butler-2">{ placeAd(isMobile) }</Script>
       <div id="ad-banner"></div>
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(AdbutlerBanner);
+export default AdbutlerBanner;

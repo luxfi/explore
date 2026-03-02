@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -9,7 +8,7 @@ import * as pwConfig from 'playwright/utils/config';
 import Marketplace from './Marketplace';
 
 const ESSENTIAL_DAPPS_CONFIG = JSON.stringify({
-  swap: { chains: [ config.chain.id ], fee: '0.004', integrator: 'blockscout' },
+  swap: { chains: [ config.chain.id ], fee: '0.004', integrator: 'explorer' },
   revoke: { chains: [ config.chain.id ] },
   multisend: { chains: [ config.chain.id ] },
 });

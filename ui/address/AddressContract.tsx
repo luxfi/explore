@@ -52,7 +52,7 @@ const AddressContract = ({ addressData, isLoading = false, hasMudTab, ...rest }:
 
   const contractTabs = useContractTabs({
     addressData,
-    isEnabled: isQueryEnabled,
+    isEnabled: isQueryEnabled && !isLoading,
     hasMudTab,
     channel,
   });
@@ -82,10 +82,6 @@ const AddressContract = ({ addressData, isLoading = false, hasMudTab, ...rest }:
   useSocketMessage({ channel, event: 'smart_contract_was_verified', handler: handleContractWasVerifiedMessage });
   useSocketMessage({ channel, event: 'smart_contract_was_not_verified', handler: handleContractWasNotVerifiedMessage });
 
-  if (isLoading) {
-    return null;
-  }
-
   const rightSlot = autoVerificationStatus && !contractTabs.isPartiallyVerified ?
     <ContractAutoVerificationStatus status={ autoVerificationStatus } mode={ isMobile && contractTabs.tabs.length > 1 ? 'tooltip' : 'inline' }/> :
     null;
@@ -97,7 +93,7 @@ const AddressContract = ({ addressData, isLoading = false, hasMudTab, ...rest }:
       size="sm"
       isLoading={ contractTabs.isLoading }
       rightSlot={ rightSlot }
-      rightSlotProps={{ ml: contractTabs.tabs.length > 1 ? { base: 'auto', md: 6 } : 0 }}
+      rightSlotProps={{ className: contractTabs.tabs.length > 1 ? 'ml-auto md:ml-6' : 'ml-0' }}
       { ...rest }
     />
   );

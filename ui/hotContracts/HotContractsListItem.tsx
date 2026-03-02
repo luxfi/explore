@@ -1,10 +1,9 @@
-import { HStack } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { HotContract } from 'types/api/contracts';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import { Reputation } from 'ui/shared/entities/token/TokenEntity';
 import EntityTags from 'ui/shared/EntityTags/EntityTags';
@@ -21,14 +20,14 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
   const protocolTags = data?.contract_address?.metadata?.tags?.filter(tag => tag.tagType === 'protocol');
 
   return (
-    <ListItemMobile rowGap={ 3 } py={ 4 } textStyle="sm">
-      <HStack justifyContent="space-between" width="100%">
+    <ListItemMobile className="!gap-y-3 !py-4 text-sm">
+      <div className="flex justify-between w-full">
         <AddressEntity
           address={ data.contract_address }
           isLoading={ isLoading }
         />
         <Reputation value={ data.contract_address.reputation ?? null }/>
-      </HStack>
+      </div>
       { protocolTags && protocolTags.length > 0 && (
         <EntityTags
           isLoading={ isLoading }
@@ -36,19 +35,19 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
           noColors
         />
       ) }
-      <HStack>
+      <div>
         <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Txn count</Skeleton>
         <Skeleton loading={ isLoading }>
           <span>{ Number(data.transactions_count).toLocaleString() }</span>
         </Skeleton>
-      </HStack>
-      <HStack>
+      </div>
+      <div>
         <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Gas used</Skeleton>
         <Skeleton loading={ isLoading }>
           <span>{ BigNumber(data.total_gas_used || 0).toFormat() }</span>
         </Skeleton>
-      </HStack>
-      <HStack alignItems="flex-start">
+      </div>
+      <div className="flex items-start">
         <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Balance</Skeleton>
         <NativeCoinValue
           amount={ data.balance }
@@ -56,7 +55,7 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
           exchangeRate={ exchangeRate }
           flexWrap="wrap"
         />
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

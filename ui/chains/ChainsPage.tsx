@@ -1,9 +1,10 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { useBlockchains } from 'lib/api/pchain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 import ChainRow from './ChainRow';
@@ -14,18 +15,19 @@ import ChainRow from './ChainRow';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 
-// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
-// Core: C (EVM), P (PlatformVM), X (ExchangeVM)
-// Extended (allvms build): A, B, D, G, I, K, O, Q, R, T, Z
+// All 15 primary network chains from ~/work/lux/node/node/vms_allvms.go
+// Core: C (EVM), P (PlatformVM), X (XVM)
+// Extended (allvms build): A, B, D, G, I, K, M, O, Q, R, T, Z
 const PRIMARY_CHAINS = [
   { name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', chainId: 96369, slug: 'c-chain' },
   { name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', chainId: null, slug: 'p-chain' },
-  { name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', chainId: null, slug: 'x-chain' },
+  { name: 'X-Chain', fullName: 'UTXO Chain', vm: 'XVM', chainId: null, slug: 'x-chain' },
   { name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', chainId: null, slug: 'd-chain' },
   { name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', chainId: null, slug: 'a-chain' },
   { name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', chainId: null, slug: 'b-chain' },
   { name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', chainId: null, slug: 'q-chain' },
   { name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', chainId: null, slug: 't-chain' },
+  { name: 'M-Chain', fullName: 'MPC Chain', vm: 'MPCVM', chainId: null, slug: 'm-chain' },
   { name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', chainId: null, slug: 'z-chain' },
   { name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', chainId: null, slug: 'g-chain' },
   { name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', chainId: null, slug: 'k-chain' },
@@ -59,41 +61,25 @@ interface TableHeaderProps {
 }
 
 const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
-  <Flex
-    px={ 4 }
-    py={ 2 }
-    gap={ 4 }
-    borderBottom="1px solid"
-    borderColor="border.divider"
-    display={{ base: 'none', lg: 'flex' }}
-  >
-    <Box
-      minW="180px"
-      maxW="220px"
-      flexShrink={ 0 }
-      color="text.secondary"
-      fontWeight="600"
-      fontSize="xs"
-      textTransform="uppercase"
-      letterSpacing="wider"
-    >
+  <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
+    <div className="min-w-[180px] max-w-[220px] shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       Chain
-    </Box>
-    <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+    </div>
+    <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       Blockchain ID
-    </Box>
+    </div>
     { showSubnetId && (
-      <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+      <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
         Subnet ID
-      </Box>
+      </div>
     ) }
-    <Box flexShrink={ 0 } w="120px" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+    <div className="shrink-0 w-[120px] text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       VM
-    </Box>
-    <Box flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" ml="auto">
+    </div>
+    <div className="shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider ml-auto">
       Status
-    </Box>
-  </Flex>
+    </div>
+  </div>
 );
 
 // ---------------------------------------------------------------------------
@@ -107,23 +93,15 @@ interface TabButtonProps {
 }
 
 const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
-  <Box
-    as="button"
-    px={ 4 }
-    py={ 2 }
-    fontSize="sm"
-    fontWeight={ isActive ? '600' : '400' }
-    color={ isActive ? 'text.primary' : 'text.secondary' }
-    borderBottom="2px solid"
-    borderColor={ isActive ? 'text.primary' : 'transparent' }
-    bg="transparent"
-    cursor="pointer"
-    transition="all 0.15s"
-    _hover={{ color: 'text.primary' }}
+  <button
+    className={ cn(
+      'px-4 py-2 text-sm bg-transparent cursor-pointer transition-all duration-150 border-b-2 hover:text-[var(--color-text-primary)]',
+      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+    ) }
     onClick={ onClick }
   >
     { label }
-  </Box>
+  </button>
 );
 
 // ---------------------------------------------------------------------------
@@ -154,19 +132,14 @@ const ChainsPage = () => {
       <PageTitle
         title="Chains"
         secondRow={ (
-          <Box fontSize="sm" color="text.secondary">
-            All blockchains on the Lux Network
-          </Box>
+          <div className="text-sm text-[var(--color-text-secondary)]">
+            All blockchains on { config.chain.name || 'the network' }
+          </div>
         ) }
       />
 
       { /* Tabs */ }
-      <Flex
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        mb={ 4 }
-        gap={ 0 }
-      >
+      <div className="flex border-b border-[var(--color-border-divider)] mb-4">
         <TabButton
           label="Primary Network"
           isActive={ activeTab === TAB_IDS.primary }
@@ -177,16 +150,11 @@ const ChainsPage = () => {
           isActive={ activeTab === TAB_IDS.subnets }
           onClick={ handleSubnetsClick }
         />
-      </Flex>
+      </div>
 
       { /* Primary Network tab */ }
       { activeTab === TAB_IDS.primary && (
-        <Box
-          border="1px solid"
-          borderColor="border.divider"
-          borderRadius="md"
-          overflow="hidden"
-        >
+        <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId={ false }/>
           { PRIMARY_CHAINS.map((chain) => (
             <ChainRow
@@ -199,30 +167,25 @@ const ChainsPage = () => {
               href={ `/chains/${ chain.slug }` }
             />
           )) }
-        </Box>
+        </div>
       ) }
 
       { /* L1/L2/L3 tab */ }
       { activeTab === TAB_IDS.subnets && (
-        <Box
-          border="1px solid"
-          borderColor="border.divider"
-          borderRadius="md"
-          overflow="hidden"
-        >
+        <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId/>
           { isLoading && (
-            <Box px={ 4 } py={ 6 }>
+            <div className="px-4 py-6">
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px"/>
-            </Box>
+            </div>
           ) }
           { !isLoading && l1Chains.length === 0 && (
-            <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+            <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
               No L1/L2/L3 chains found
-            </Box>
+            </div>
           ) }
           { !isLoading && l1Chains.map((chain) => (
             <ChainRow
@@ -237,7 +200,7 @@ const ChainsPage = () => {
               href={ `/chains/${ chain.name.toLowerCase() }` }
             />
           )) }
-        </Box>
+        </div>
       ) }
     </>
   );
@@ -249,8 +212,8 @@ const ChainsPage = () => {
 
 const KNOWN_VM_IDS: Readonly<Record<string, string>> = {
   mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6: 'EVM',
-  ag3GReYPNuSR17rUP8acMdZipQBikdXNRKDyFszAysmy3vDXE: 'Subnet EVM',
-  jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq: 'AVM',
+  ag3GReYPNuSR17rUP8acMdZipQBikdXNRKDyFszAysmy3vDXE: 'L2',
+  jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq: 'XVM',
   rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWsBY6MALT: 'PVM',
 };
 

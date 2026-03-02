@@ -1,15 +1,16 @@
-import { createListCollection, Flex, VStack } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
 import type { AdvancedFilterParams } from 'types/api/advancedFilter';
 
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
-import { Select } from 'toolkit/chakra/select';
+import { Field } from '@luxfi/ui/field';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import AddButton from 'toolkit/components/buttons/AddButton';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
+import { ADDRESS_REGEXP } from 'toolkit/utils/regexp';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 
 const FILTER_PARAM_TO_INCLUDE = 'to_address_hashes_to_include';
@@ -42,8 +43,10 @@ type InputProps = {
   isLast: boolean;
   onModeChange: ({ value }: { value: Array<string> }) => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: () => void;
   onClear: () => void;
   onAddFieldClick: () => void;
+  isInvalid: boolean;
 };
 
 type AddressFilter = {
@@ -55,9 +58,9 @@ function addressFilterToKey(filter: AddressFilter) {
   return `${ filter.address.toLowerCase() }-${ filter.mode }`;
 }
 
-const AddressFilterInput = ({ address, mode, onModeChange, onChange, onClear, isLast, onAddFieldClick }: InputProps) => {
+const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onClear, isLast, onAddFieldClick, isInvalid }: InputProps) => {
   return (
-    <Flex alignItems="center" w="100%">
+    <div className="flex w-full items-[flex-start]">
       <Select
         collection={ collection }
         placeholder="Select mode"
@@ -65,22 +68,26 @@ const AddressFilterInput = ({ address, mode, onModeChange, onChange, onClear, is
         onValueChange={ onModeChange }
         portalled={ false }
         w="105px"
-        flexShrink={ 0 }
-        mr={ 3 }
+        className="shrink-0 mr-3"
       />
-      <InputGroup
-        flexGrow={ 1 }
-        endElement={ <ClearButton onClick={ onClear } mx={ 2 } disabled={ !address }/> }
+      <Field
+        className="grow"
+        invalid={ isInvalid }
+        errorText="Invalid address format"
       >
-        <Input value={ address } onChange={ onChange } placeholder="Smart contract / Address (0x...)*" size="sm" autoComplete="off"/>
-      </InputGroup>
+        <InputGroup
+          endElement={ <ClearButton onClick={ onClear } className="mx-2" disabled={ !address }/> }
+        >
+          <Input value={ address } onChange={ onChange } onBlur={ onBlur } placeholder="Smart contract / Address (0x...)*" size="sm" autoComplete="off"/>
+        </InputGroup>
+      </Field>
       { isLast && (
         <AddButton
-          ml={ 2 }
+          className="ml-2"
           onClick={ onAddFieldClick }
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 
@@ -89,6 +96,7 @@ const emptyItem = { address: '', mode: 'include' as AddressFilterMode };
 const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
   const [ currentValue, setCurrentValue ] =
     React.useState<Array<AddressFilter>>([ ...value, emptyItem ]);
+  const [ touched, setTouched ] = React.useState<Array<boolean>>(value.map(() => true).concat(false));
 
   const handleModeSelectChange = React.useCallback((index: number) => ({ value }: { value: Array<string> }) => {
     setCurrentValue(prev => {
@@ -103,6 +111,11 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
       newVal[index] = { ...newVal[index], address: '' };
       return newVal;
     });
+    setTouched(prev => {
+      const newTouched = [ ...prev ];
+      newTouched[index] = false;
+      return newTouched;
+    });
   }, []);
 
   const handleAddressChange = React.useCallback((index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,11 +128,23 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
     });
   }, []);
 
-  const onAddFieldClick = React.useCallback(() => {
-    setCurrentValue(prev => [ ...prev, emptyItem ]);
+  const handleAddressBlur = React.useCallback((index: number) => () => {
+    setTouched(prev => {
+      const newTouched = [ ...prev ];
+      newTouched[index] = true;
+      return newTouched;
+    });
   }, []);
 
-  const onReset = React.useCallback(() => setCurrentValue([ emptyItem ]), []);
+  const onAddFieldClick = React.useCallback(() => {
+    setCurrentValue(prev => [ ...prev, emptyItem ]);
+    setTouched(prev => [ ...prev, false ]);
+  }, []);
+
+  const onReset = React.useCallback(() => {
+    setCurrentValue([ emptyItem ]);
+    setTouched([ false ]);
+  }, []);
 
   const onFilter = React.useCallback(() => {
     const includeFilterParam = type === 'from' ? FILTER_PARAM_FROM_INCLUDE : FILTER_PARAM_TO_INCLUDE;
@@ -131,16 +156,19 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
     handleFilterChange(excludeFilterParam, excludeValue.length ? excludeValue : undefined);
   }, [ handleFilterChange, currentValue, type ]);
 
+  const hasErrors = currentValue.some(i => Boolean(i.address) && !ADDRESS_REGEXP.test(i.address));
+  const isTouched = !isEqual(currentValue.filter(i => i.address).map(addressFilterToKey).sort(), value.map(addressFilterToKey).sort());
+
   return (
     <TableColumnFilter
       title={ type === 'from' ? 'From address' : 'To address' }
       isFilled={ Boolean(currentValue[0].address) }
-      isTouched={ !isEqual(currentValue.filter(i => i.address).map(addressFilterToKey).sort(), value.map(addressFilterToKey).sort()) }
+      isTouched={ isTouched && !hasErrors }
       onFilter={ onFilter }
       onReset={ onReset }
       hasReset
     >
-      <VStack gap={ 2 }>
+      <div className="flex flex-col gap-2">
         { currentValue.map((item, index) => (
           <AddressFilterInput
             key={ index }
@@ -149,11 +177,13 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
             isLast={ index === currentValue.length - 1 }
             onModeChange={ handleModeSelectChange(index) }
             onChange={ handleAddressChange(index) }
+            onBlur={ handleAddressBlur(index) }
             onClear={ handleAddressClear(index) }
             onAddFieldClick={ onAddFieldClick }
+            isInvalid={ Boolean(touched[index]) && Boolean(item.address) && !ADDRESS_REGEXP.test(item.address) }
           />
         )) }
-      </VStack>
+      </div>
     </TableColumnFilter>
   );
 };

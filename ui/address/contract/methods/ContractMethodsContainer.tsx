@@ -16,7 +16,7 @@ interface Props {
 const ContractMethodsContainer = ({ isLoading, isError, isEmpty, type, children }: Props) => {
 
   if (isLoading) {
-    return <ContentLoader w="fit-content"/>;
+    return <ContentLoader className="w-fit"/>;
   }
 
   if (isError) {

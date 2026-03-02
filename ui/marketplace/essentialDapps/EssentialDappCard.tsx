@@ -1,11 +1,10 @@
-import { Text } from '@chakra-ui/react';
 
 import { route } from 'nextjs-routes';
 
-import { Button } from 'toolkit/chakra/button';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
-import { LinkOverlay, LinkBox } from 'toolkit/chakra/link';
+import { Button } from '@luxfi/ui/button';
+import { useColorModeValue } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
+import { LinkOverlay, LinkBox } from 'toolkit/next/link';
 
 type Props = {
   id: string;
@@ -21,30 +20,16 @@ const EssentialDappCard = ({ id, title, description, buttonText, imageUrl, darkI
 
   return (
     <LinkBox
-      display="flex"
-      flexDirection="column"
-      alignItems="flex-start"
-      flex={{ base: 1, md: 'unset' }}
-      minW="130px"
-      maxW={{ base: '160px', md: '200px' }}
-      w={{ base: 'auto', md: '200px' }}
-      p={{ base: 3, md: 5 }}
-      border="1px solid"
-      borderColor={{ _light: 'blackAlpha.300', _dark: 'whiteAlpha.300' }}
-      borderRadius="base"
-      _hover={{ boxShadow: 'md' }}
-      _focusWithin={{ boxShadow: 'md' }}
-      className="group"
+      className="flex flex-col items-start flex-1 md:flex-none min-w-[130px] max-w-[160px] md:max-w-[200px] w-auto md:w-[200px] p-3 md:p-5 border border-solid border-black/30 dark:border-white/30 rounded-[var(--radius-base,8px)] hover:shadow-md focus-within:shadow-md group"
     >
       <Image src={ imageSrc } alt={ title } h={{ base: '37px', md: '50px' }} mb={ 6 }/>
-      <Text textStyle={{ base: 'sm', md: 'xl' }} fontWeight="600" mb={ 2 }>{ title }</Text>
-      <Text textStyle={{ base: 'xs', md: 'sm' }} mb={ 3 }>{ description }</Text>
+      <span className="text-sm md:text-xl font-semibold mb-2">{ title }</span>
+      <span className="text-xs md:text-sm mb-3">{ description }</span>
       <LinkOverlay
         href={ route({ pathname: '/essential-dapps/[id]', query: { id } }) }
-        w={{ base: 'full', md: 'auto' }}
-        mt="auto"
+        className="w-full md:w-auto mt-auto"
       >
-        <Button size="sm" variant="outline" w="full" _groupHover={{ borderColor: 'hover', color: 'hover' }}>
+        <Button size="sm" variant="outline" className="w-full group-hover:border-[var(--color-hover)] group-hover:text-[var(--color-hover)]">
           { buttonText }
         </Button>
       </LinkOverlay>

@@ -3,7 +3,7 @@ import React from 'react';
 import type * as bens from '@luxfi/bens-types';
 
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import NameDomainExpiryStatus from 'ui/nameDomain/NameDomainExpiryStatus';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';
@@ -26,14 +26,14 @@ const NameDomainsListItem = ({
     <ListItemMobileGrid.Container>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Domain</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <EnsEntity domain={ name } protocol={ protocol } isLoading={ isLoading } fontWeight={ 500 }/>
+        <EnsEntity domain={ name } protocol={ protocol } isLoading={ isLoading } className="font-medium"/>
       </ListItemMobileGrid.Value>
 
       { resolvedAddress && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <AddressEntity address={ resolvedAddress } isLoading={ isLoading } fontWeight={ 500 }/>
+            <AddressEntity address={ resolvedAddress } isLoading={ isLoading } className="font-medium"/>
           </ListItemMobileGrid.Value>
         </>
       ) }
@@ -54,7 +54,7 @@ const NameDomainsListItem = ({
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Expiration date</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <Skeleton loading={ isLoading } whiteSpace="pre-wrap">
+            <Skeleton loading={ isLoading } className="whitespace-pre-wrap">
               <Time timestamp={ expiryDate } display="block"/>
               <NameDomainExpiryStatus date={ expiryDate }/>
             </Skeleton>

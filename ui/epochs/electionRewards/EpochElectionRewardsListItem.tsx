@@ -1,10 +1,9 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochElectionReward, CeloEpochDetails } from 'types/api/epochs';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import EpochRewardTypeTag from 'ui/shared/EpochRewardTypeTag';
 import IconSvg from 'ui/shared/IconSvg';
@@ -23,31 +22,26 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
   const section = useDisclosure();
 
   return (
-    <Box
-      py={ 3 }
-      borderBottomWidth="1px"
-      borderColor="border.divider"
-      fontSize="sm"
+    <div
+      className="py-3 border-b border-[var(--color-border-divider)] text-sm"
       onClick={ isLoading || !data.count ? undefined : section.onToggle }
-      cursor={ isLoading || !data.count ? undefined : 'pointer' }
+      style={{ cursor: isLoading || !data.count ? undefined : 'pointer' }}
     >
-      <Flex my="3px" columnGap={ 3 } alignItems="center" flexWrap="wrap" rowGap={ 2 }>
+      <div className="flex my-[3px] gap-x-3 items-center flex-wrap gap-y-2">
         { data.count ? (
           <Skeleton loading={ isLoading } display="flex" borderRadius="sm">
             <IconButton
               aria-label={ section.open ? 'Collapse section' : 'Expand section' }
               variant="link"
-              boxSize={ 6 }
+              className="size-6"
             >
               <IconSvg
                 name="arrows/east-mini"
-                boxSize={ 6 }
-                transform={ section.open ? 'rotate(270deg)' : 'rotate(180deg)' }
-                transitionDuration="faster"
+                className={ `w-6 h-6 transition-transform duration-100 ${ section.open ? 'rotate-[270deg]' : 'rotate-180' }` }
               />
             </IconButton>
           </Skeleton>
-        ) : <Box boxSize={ 6 }/> }
+        ) : <div className="w-6 h-6"/> }
         <EpochRewardTypeTag type={ type } isLoading={ isLoading }/>
         <Skeleton loading={ isLoading } ml="auto">{ getRewardNumText(type, data.count) }</Skeleton>
         <TokenValue
@@ -55,15 +49,15 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
           token={ data.token }
           accuracy={ 0 }
           loading={ isLoading }
-          fontWeight={ 500 }
+          className="font-medium"
         />
-      </Flex>
+      </div>
       { section.open && (
-        <Box mt={ 2 }>
+        <div className="mt-2">
           <EpochElectionRewardDetailsMobile type={ type } token={ data.token }/>
-        </Box>
+        </div>
       ) }
-    </Box>
+    </div>
   );
 };
 

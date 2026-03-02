@@ -13,33 +13,33 @@ import type { TTxsWithBlobsFilters } from 'types/api/txsFilters';
 
 export const GENERAL_API_BLOCK_RESOURCES = {
   blocks: {
-    path: '/api/v2/blocks',
+    path: '/blocks',
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   block: {
-    path: '/api/v2/blocks/:height_or_hash',
+    path: '/blocks/:height_or_hash',
     pathParams: [ 'height_or_hash' as const ],
   },
   block_txs: {
-    path: '/api/v2/blocks/:height_or_hash/transactions',
+    path: '/blocks/:height_or_hash/transactions',
     pathParams: [ 'height_or_hash' as const ],
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   block_internal_txs: {
-    path: '/api/v2/blocks/:height_or_hash/internal-transactions',
+    path: '/blocks/:height_or_hash/internal-transactions',
     pathParams: [ 'height_or_hash' as const ],
     paginated: true,
   },
   block_deposits: {
-    path: '/api/v2/blocks/:height_or_hash/beacon/deposits',
+    path: '/blocks/:height_or_hash/beacon/deposits',
     pathParams: [ 'height_or_hash' as const ],
     filterFields: [],
     paginated: true,
   },
   block_withdrawals: {
-    path: '/api/v2/blocks/:height_or_hash/withdrawals',
+    path: '/blocks/:height_or_hash/withdrawals',
     pathParams: [ 'height_or_hash' as const ],
     filterFields: [],
     paginated: true,

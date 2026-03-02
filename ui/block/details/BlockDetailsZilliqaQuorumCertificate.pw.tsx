@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZilliqaQuorumCertificate } from 'types/api/block';

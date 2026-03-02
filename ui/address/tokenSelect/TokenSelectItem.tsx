@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -6,8 +5,8 @@ import { route } from 'nextjs/routes';
 
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
-import { isFungibleTokenType } from 'lib/token/tokenTypes';
-import { Link } from 'toolkit/chakra/link';
+import { isConfidentialTokenType, isFungibleTokenType } from 'lib/token/tokenTypes';
+import { Link } from 'toolkit/next/link';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import NativeTokenTag from 'ui/shared/celo/NativeTokenTag';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
@@ -35,6 +34,17 @@ const TokenSelectItem = ({ data }: Props) => {
   }, [ data.chain_values ]);
 
   const secondRow = (() => {
+    if (isConfidentialTokenType(data.token.type)) {
+      const text = `••••• ${ data.token.symbol || '' }`;
+
+      return (
+        <>
+          <TruncatedText text={ text }/>
+          { data.token.exchange_rate && <span className="ml-2">@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
+        </>
+      );
+    }
+
     const isFungibleToken = isFungibleTokenType(data.token.type);
 
     if (isFungibleToken) {
@@ -44,7 +54,7 @@ const TokenSelectItem = ({ data }: Props) => {
       return (
         <>
           <TruncatedText text={ text }/>
-          { data.token.exchange_rate && <chakra.span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</chakra.span> }
+          { data.token.exchange_rate && <span className="ml-2">@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
         </>
       );
     }
@@ -57,9 +67,9 @@ const TokenSelectItem = ({ data }: Props) => {
       case 'ERC-1155': {
         return (
           <>
-            <chakra.span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
+            <span className="text-ellipsis mr-6 overflow-hidden">
               #{ data.token_id || 0 }
-            </chakra.span>
+            </span>
             <span>
               { BigNumber(data.value).toFormat() }
             </span>
@@ -70,9 +80,9 @@ const TokenSelectItem = ({ data }: Props) => {
         return (
           <>
             { data.token_id !== null && (
-              <chakra.span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
+              <span className="text-ellipsis mr-6 overflow-hidden">
                 #{ data.token_id || 0 }
-              </chakra.span>
+              </span>
             ) }
             { data.value !== null && (
               <span>
@@ -92,46 +102,30 @@ const TokenSelectItem = ({ data }: Props) => {
 
   return (
     <Link
-      px={ 1 }
-      py="10px"
-      display="flex"
-      flexDir="column"
-      rowGap={ 2 }
-      borderColor="border.divider"
-      borderBottomWidth="1px"
-      _hover={{
-        bgColor: { _light: 'blue.50', _dark: 'gray.800' },
-      }}
-      color="unset"
-      fontSize="sm"
+      className="px-1 py-2.5 flex flex-col gap-y-2 border-b border-[var(--color-border-divider)] hover:bg-blue-50 dark:hover:bg-gray-800 text-inherit text-sm"
       href={ url }
     >
-      <Flex alignItems="center" w="100%">
+      <div className="flex items-center w-full">
         <TokenEntity
           token={ data.token }
           chain={ chain }
           noSymbol
           noCopy
           noLink
-          fontWeight={ 700 }
-          width="auto"
-          mr={ 2 }
+          className="font-bold w-auto mr-2"
+
         />
-        { isNativeToken && <NativeTokenTag mr={ 2 }/> }
+        { isNativeToken && <NativeTokenTag className="mr-2"/> }
         { data.usd && (
           <TruncatedText
             text={ `$${ data.usd.toFormat(2) }` }
-            fontWeight={ 700 }
-            minW="120px"
-            ml="auto"
-            textAlign="right"
-            color={ isNativeToken ? 'text.secondary' : undefined }
+            className={ `font-bold min-w-[120px] ml-auto text-right ${ isNativeToken ? 'text-[var(--color-text-secondary)]' : '' }` }
           />
         ) }
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between" w="100%" whiteSpace="nowrap" color={ isNativeToken ? 'text.secondary' : undefined }>
+      </div>
+      <div className="flex items-center justify-between whitespace-nowrap w-full" color={ isNativeToken ? 'text.secondary' : undefined }>
         { secondRow }
-      </Flex>
+      </div>
     </Link>
   );
 };

@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -56,8 +55,8 @@ const TxDetailsAction = ({ action }: Props) => {
       };
 
       return (
-        <Flex flexWrap="wrap" columnGap={ 2 } rowGap={ 2 } alignItems="center" fontWeight={ 500 }>
-          <chakra.span color="text.secondary">{ text0 }</chakra.span>
+        <div>
+          <span className="text-[var(--color-text-secondary)]">{ text0 }</span>
 
           <span>{ amount0 }</span>
 
@@ -67,12 +66,10 @@ const TxDetailsAction = ({ action }: Props) => {
             noCopy
             noIcon
             noSymbol
-            w="auto"
-            maxW="200px"
-            flexShrink={ 0 }
+            className="w-auto"
           />
 
-          <chakra.span color="text.secondary">{ type === 'swap' ? 'for' : 'and' }</chakra.span>
+          <span className="text-[var(--color-text-secondary)]">{ type === 'swap' ? 'for' : 'and' }</span>
 
           <span>{ amount1 }</span>
 
@@ -82,18 +79,16 @@ const TxDetailsAction = ({ action }: Props) => {
             noIcon
             noCopy
             noSymbol
-            w="auto"
-            maxW="200px"
-            flexShrink={ 0 }
+            className="w-auto"
           />
 
-          <chakra.span color="text.secondary">{ text1 }</chakra.span>
+          <span className="text-[var(--color-text-secondary)]">{ text1 }</span>
 
-          <Flex columnGap={ 2 }>
-            <IconSvg name="uniswap" boxSize={ 5 } color="white" bgColor="#ff007a" borderRadius="full" p="2px"/>
-            <chakra.span>Uniswap V3</chakra.span>
-          </Flex>
-        </Flex>
+          <div>
+            <IconSvg name="uniswap" className="text-white p-[2px]"/>
+            <span>Uniswap V3</span>
+          </div>
+        </div>
       );
     }
 
@@ -109,17 +104,16 @@ const TxDetailsAction = ({ action }: Props) => {
 
       return (
         <div>
-          <Flex rowGap={ 2 } columnGap={ 2 } flexWrap="wrap" alignItems="center" whiteSpace="pre-wrap" fontWeight={ 500 }>
-            <chakra.span color="text.secondary">Minted</chakra.span>
+          <div>
+            <span className="text-[var(--color-text-secondary)]">Minted</span>
 
             <TokenEntity
               token={ token }
               noCopy
-              w="auto"
-              rowGap={ 2 }
+              className="w-auto"
             />
 
-            <chakra.span color="text.secondary">to</chakra.span>
+            <span className="text-[var(--color-text-secondary)]">to</span>
 
             <AddressEntity
               address={{ hash: data.to }}
@@ -127,21 +121,21 @@ const TxDetailsAction = ({ action }: Props) => {
               noIcon
               noCopy
             />
-          </Flex>
+          </div>
 
-          <Flex columnGap={ 1 } rowGap={ 2 } pl={ 3 } flexDirection="column" mt={ 2 } fontWeight={ 500 }>
+          <div>
             {
               data.ids.map((id: string) => {
                 return (
-                  <Flex key={ data.address + id } whiteSpace="pre-wrap" columnGap={ 2 }>
-                    <chakra.span flexShrink={ 0 }>1</chakra.span>
-                    <chakra.span color="text.secondary" flexShrink={ 0 }>of token ID</chakra.span>
-                    <NftEntity hash={ data.address } id={ id } w="min-content" variant="content"/>
-                  </Flex>
+                  <div key={ data.address + id }>
+                    <span>1</span>
+                    <span className="text-[var(--color-text-secondary)]">of token ID</span>
+                    <NftEntity hash={ data.address } id={ id } className="w-min" variant="content"/>
+                  </div>
                 );
               })
             }
-          </Flex>
+          </div>
         </div>
       );
     }

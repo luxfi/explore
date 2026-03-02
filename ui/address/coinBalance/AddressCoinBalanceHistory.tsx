@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -8,7 +7,7 @@ import type { PaginationParams } from 'ui/shared/pagination/types';
 import type { ResourceError } from 'lib/api/resources';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { currencyUnits } from 'lib/units';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 import Pagination from 'ui/shared/pagination/Pagination';
@@ -29,7 +28,7 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
 
   const content = query.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot>
           <TableHeaderSticky top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <TableRow>
@@ -56,8 +55,8 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { query.data.items.map((item, index) => (
           <AddressCoinBalanceListItem
             key={ item.block_number + (query.isPlaceholderData ? String(index) : '') }
@@ -67,19 +66,19 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
             chainData={ chainData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = query.pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...query.pagination }/>
+    <ActionBar className="-mt-6">
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 
   return (
     <DataListDisplay
-      mt={ 8 }
+      className="mt-8"
       isError={ query.isError }
       itemsNum={ query.data?.items.length }
       emptyText="There is no coin balance history for this address."

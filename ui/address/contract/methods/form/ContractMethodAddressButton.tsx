@@ -1,8 +1,8 @@
 import React from 'react';
 
 import useAccount from 'lib/web3/useAccount';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props {
   onClick: (address: string) => void;
@@ -21,9 +21,7 @@ const ContractMethodAddressButton = ({ onClick, isDisabled }: Props) => {
       <Button
         variant="subtle"
         size="xs"
-        textStyle="md"
-        fontWeight={ 500 }
-        ml={ 1 }
+        className="text-base font-medium ml-1"
         onClick={ handleClick }
         disabled={ isDisabled || !address }
       >

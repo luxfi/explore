@@ -1,4 +1,3 @@
-import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -36,30 +35,21 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
   const titles = getRewardDetailsTableTitles(type);
 
   return (
-    <Box
-      p={ 4 }
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      borderRadius="base"
-      maxH="360px"
-      overflowY="scroll"
-      fontWeight={ 400 }
-      textStyle="sm"
-    >
+    <div className="p-4 bg-black/5 dark:bg-white/5 rounded max-h-[360px] overflow-y-scroll font-normal text-sm">
       { query.data && (
-        <Grid
-          gridTemplateColumns="min-content min-content min-content"
-          rowGap={ 5 }
-          columnGap={ 5 }
+        <div
+          className="grid gap-5"
+          style={{ gridTemplateColumns: 'min-content min-content min-content' }}
         >
-          <GridItem fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
+          <div className="font-semibold mb-1 whitespace-nowrap">
             { titles[0] }
-          </GridItem>
-          <GridItem fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap" textAlign="right">
+          </div>
+          <div className="font-semibold mb-1 whitespace-nowrap text-right">
             Amount { token.symbol }
-          </GridItem>
-          <GridItem fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
+          </div>
+          <div className="font-semibold mb-1 whitespace-nowrap">
             { titles[1] }
-          </GridItem>
+          </div>
 
           { query.data?.pages
             .map((page) => page.items)
@@ -67,30 +57,30 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
             .map((item, index) => {
               return (
                 <React.Fragment key={ index }>
-                  <GridItem>
+                  <div>
                     <AddressEntity address={ item.account } noIcon truncation="constant"/>
-                  </GridItem>
-                  <GridItem textAlign="right">
+                  </div>
+                  <div className="text-right">
                     <AssetValue
                       amount={ item.amount }
                       decimals={ token.decimals }
                     />
-                  </GridItem>
-                  <GridItem>
+                  </div>
+                  <div>
                     <AddressEntity address={ item.associated_account } noIcon truncation="constant"/>
-                  </GridItem>
+                  </div>
                 </React.Fragment>
               );
             }) }
-        </Grid>
+        </div>
       ) }
 
-      { query.isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
+      { query.isFetching && <ContentLoader className="max-w-[200px] mt-3"/> }
 
-      { query.isError && <Text color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</Text> }
+      { query.isError && <span className="text-[var(--color-text-error)] mt-3">Something went wrong. Unable to load next page.</span> }
 
-      <Box h="0" w="100px" ref={ cutRef }/>
-    </Box>
+      <div className="h-0 w-[100px]" ref={ cutRef }/>
+    </div>
   );
 };
 

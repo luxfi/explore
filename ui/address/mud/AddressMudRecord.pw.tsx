@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { mudRecord } from 'mocks/mud/mudTables';

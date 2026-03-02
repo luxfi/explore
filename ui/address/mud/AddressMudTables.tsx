@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -45,8 +44,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
 
   const searchInput = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
-      minW={{ base: 'auto', lg: '250px' }}
+      className="w-full lg:w-[360px] lg:min-w-[250px]"
       size="sm"
       onChange={ setSearchTerm }
       placeholder="Search by name, namespace or table ID..."
@@ -56,23 +54,23 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 } showShadow justifyContent="space-between">
+    <ActionBar className="-mt-6 justify-between" showShadow>
       { searchInput }
-      <Pagination ml={{ base: 0, lg: 8 }} { ...pagination }/>
+      <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 
   const content = data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <AddressMudTablesTable
           items={ data.items }
           isLoading={ isPlaceholderData }
           top={ ACTION_BAR_HEIGHT_DESKTOP }
           hash={ hash }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { data.items.map((item, index) => (
           <AddressMudTablesListItem
             key={ item.table.table_id + (isPlaceholderData ? String(index) : '') }
@@ -81,7 +79,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
             hash={ hash }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

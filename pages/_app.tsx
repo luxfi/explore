@@ -1,12 +1,13 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { GrowthBookProvider } from '@growthbook/growthbook-react';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AppProvider } from '@luxfi/ui/provider';
+import { Toaster } from '@luxfi/ui/toaster';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
 import type { NextPageWithLayout } from 'nextjs/types';
+
+import type { Route } from 'nextjs-routes';
+import PageMetadata from 'nextjs/PageMetadata';
 
 import config from 'configs/app';
 import getSocketUrl from 'lib/api/getSocketUrl';
@@ -15,13 +16,10 @@ import { AppContextProvider } from 'lib/contexts/app';
 import { FallbackProvider } from 'lib/contexts/fallback';
 import { MarketplaceContextProvider } from 'lib/contexts/marketplace';
 import { SettingsContextProvider } from 'lib/contexts/settings';
-import { initGrowthBook } from 'lib/growthbook/init';
-import useLoadFeatures from 'lib/growthbook/useLoadFeatures';
 import useChainFavicon from 'lib/hooks/useChainFavicon';
 import { clientConfig as rollbarConfig, Provider as RollbarProvider } from 'lib/rollbar';
 import { SocketProvider } from 'lib/socket/context';
-import { Provider as ChakraProvider } from 'toolkit/chakra/provider';
-import { Toaster } from 'toolkit/chakra/toaster';
+import { Provider as ThemeProvider } from 'toolkit/next/provider';
 import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer';
 import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
@@ -40,28 +38,87 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const ERROR_SCREEN_STYLES: HTMLChakraProps<'div'> = {
-  h: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  width: 'fit-content',
-  maxW: '800px',
-  margin: { base: '0 auto', lg: '0 auto' },
-  p: { base: 4, lg: 0 },
+const ERROR_SCREEN_STYLES = {
+  className: 'h-screen flex flex-col items-start justify-center w-fit max-w-[800px] mx-auto p-4 lg:p-0',
 };
 
-const CONSOLE_SCAM_WARNING = `⚠️WARNING: Do not paste or execute any scripts here!
+const CONSOLE_SCAM_WARNING = `\u26A0\uFE0FWARNING: Do not paste or execute any scripts here!
 Anyone asking you to run code here might be trying to scam you and steal your data.
 If you don't understand what this console is for, close it now and stay safe.`;
 
 const CONSOLE_SCAM_WARNING_DELAY_MS = 500;
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+// Outer error boundary that catches crashes from providers or @hanzogui init.
+// Uses zero external UI libraries so it always renders.
 
-  const growthBook = initGrowthBook(pageProps.uuid);
-  useLoadFeatures(growthBook);
+function handleReload() {
+  window.location.reload();
+}
+
+// eslint-disable-next-line react/require-optimization
+class OuterErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { error: Error | null }
+> {
+  state: { error: Error | null } = { error: null };
+
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+
+  componentDidCatch(error: Error) {
+    // eslint-disable-next-line no-console
+    console.error('[OuterErrorBoundary]', error);
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{
+          maxWidth: 600,
+          margin: '80px auto',
+          padding: 24,
+          fontFamily: 'Geist, system-ui, sans-serif',
+        }}>
+          <h1 style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>
+            Something went wrong
+          </h1>
+          <p style={{ color: '#666', marginBottom: 16 }}>
+            An unexpected error occurred while loading the explorer.
+          </p>
+          <pre style={{
+            background: '#f5f5f5',
+            padding: 12,
+            borderRadius: 4,
+            fontSize: 13,
+            overflow: 'auto',
+            maxHeight: 200,
+          }}>
+            { this.state.error.message }
+          </pre>
+          <button
+            onClick={ handleReload }
+            style={{
+              marginTop: 16,
+              padding: '8px 16px',
+              border: '1px solid #ccc',
+              borderRadius: 4,
+              cursor: 'pointer',
+              background: '#fff',
+            }}
+          >
+            Reload page
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
+
   useChainFavicon();
 
   const queryClient = useQueryClientConfig();
@@ -95,19 +152,20 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   const RewardsProvider = config.features.rewards.isEnabled ? RewardsContextProvider : FallbackProvider;
 
-  const socketUrl = !config.features.opSuperchain.isEnabled ? getSocketUrl() : undefined;
+  const socketUrl = !config.features.multichain.isEnabled ? getSocketUrl() : undefined;
 
   return (
-    <ChakraProvider>
-      <RollbarProvider config={ rollbarConfig }>
-        <AppErrorBoundary
-          { ...ERROR_SCREEN_STYLES }
-          Container={ AppErrorGlobalContainer }
-        >
-          <QueryClientProvider client={ queryClient }>
-            <Web3Provider>
-              <AppContextProvider pageProps={ pageProps }>
-                <GrowthBookProvider growthbook={ growthBook }>
+    <OuterErrorBoundary>
+      <PageMetadata pathname={ router.pathname as Route['pathname'] } query={ pageProps.query } apiData={ pageProps.apiData }/>
+      <ThemeProvider>
+        <RollbarProvider config={ rollbarConfig }>
+          <AppErrorBoundary
+            { ...ERROR_SCREEN_STYLES }
+            Container={ AppErrorGlobalContainer }
+          >
+            <AppProvider queryClient={ queryClient }>
+              <Web3Provider>
+                <AppContextProvider pageProps={ pageProps }>
                   <SocketProvider url={ socketUrl }>
                     <RewardsProvider>
                       <MarketplaceContextProvider>
@@ -117,15 +175,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                       </MarketplaceContextProvider>
                     </RewardsProvider>
                   </SocketProvider>
-                </GrowthBookProvider>
-                <ReactQueryDevtools buttonPosition="bottom-left" position="left"/>
-                <GoogleAnalytics/>
-              </AppContextProvider>
-            </Web3Provider>
-          </QueryClientProvider>
-        </AppErrorBoundary>
-      </RollbarProvider>
-    </ChakraProvider>
+                  <GoogleAnalytics/>
+                </AppContextProvider>
+              </Web3Provider>
+            </AppProvider>
+          </AppErrorBoundary>
+        </RollbarProvider>
+      </ThemeProvider>
+    </OuterErrorBoundary>
   );
 }
 

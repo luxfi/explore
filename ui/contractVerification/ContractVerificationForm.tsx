@@ -1,4 +1,3 @@
-import { Grid, Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -18,8 +17,8 @@ import useRewardsActivity from 'lib/hooks/useRewardsActivity';
 import * as mixpanel from 'lib/mixpanel/index';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { useUpdateEffect } from 'toolkit/hooks/useUpdateEffect';
 
 import ContractVerificationFieldAddress from './fields/ContractVerificationFieldAddress';
@@ -193,30 +192,30 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ handleSubmit(onFormSubmit) }
         onChange={ handleFormChange }
       >
-        <Grid as="section" columnGap="30px" rowGap={{ base: 2, lg: 5 }} templateColumns={{ base: '1fr', lg: 'minmax(auto, 680px) minmax(0, 340px)' }}>
+        <section className="grid gap-x-[30px] gap-y-2 lg:gap-y-5 grid-cols-1 lg:grid-cols-[minmax(auto,680px)_minmax(0,340px)]">
           { !hash && <ContractVerificationFieldAddress/> }
           <ContractVerificationFieldLicenseType/>
           <ContractVerificationFieldMethod methods={ config.verification_options }/>
-        </Grid>
+        </section>
         { content }
-        { formState.errors.root?.message && <Text color="text.error" mt={ 4 } fontSize="sm" whiteSpace="pre-wrap">{ formState.errors.root.message }</Text> }
+        { formState.errors.root?.message && <span className="text-[var(--color-text-error)] mt-4 text-sm whitespace-pre-wrap">{ formState.errors.root.message }</span> }
         { Boolean(method) && methodValue !== 'solidity-hardhat' && methodValue !== 'solidity-foundry' && methodValue !== 'sourcify' && (
           <Button
             size="md"
             type="submit"
-            mt={ 12 }
+            className="mt-12"
             loading={ formState.isSubmitting }
             loadingText="Verify & publish"
           >
             Verify & publish
           </Button>
         ) }
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

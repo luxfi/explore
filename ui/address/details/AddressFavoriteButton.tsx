@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,8 +6,8 @@ import config from 'configs/app';
 import { getResourceKey } from 'lib/api/useApiQuery';
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
 import * as mixpanel from 'lib/mixpanel/index';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 import AuthGuard from 'ui/snippets/auth/guard/AuthGuard';
@@ -94,4 +93,4 @@ const AddressFavoriteButton = ({ className, hash, watchListId }: Props) => {
   );
 };
 
-export default chakra(AddressFavoriteButton);
+export default AddressFavoriteButton;

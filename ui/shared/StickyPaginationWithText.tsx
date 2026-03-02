@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PaginationParams } from './pagination/types';
@@ -13,19 +12,19 @@ type Props = {
 
 const StickyPaginationWithText = ({ pagination, text }: Props) => {
   if (!pagination.isVisible) {
-    return <Box mb={ 6 }>{ text }</Box>;
+    return <div className="mb-6">{ text }</div>;
   }
 
   return (
     <>
-      <Box mb={ 6 } display={{ base: 'block', lg: 'none' }}>
+      <div className="mb-6 block lg:hidden">
         { text }
-      </Box>
-      <ActionBar mt={ -6 } alignItems="center">
-        <Box display={{ base: 'none', lg: 'block' }}>
+      </div>
+      <ActionBar className="-mt-6 items-center">
+        <div className="hidden lg:block">
           { text }
-        </Box>
-        { pagination.isVisible && <Pagination ml="auto" { ...pagination }/> }
+        </div>
+        { pagination.isVisible && <Pagination className="ml-auto" { ...pagination }/> }
       </ActionBar>
     </>
   );

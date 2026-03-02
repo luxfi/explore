@@ -1,4 +1,4 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
+
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -8,7 +8,7 @@ import { stripTrailingSlash } from 'toolkit/utils/url';
 import type { EntityProps } from './AddressEntity';
 import AddressEntity from './AddressEntity';
 
-interface Props extends EntityProps, JsxStyleProps {
+interface Props extends EntityProps {
   chain: ExternalChain | undefined;
 }
 

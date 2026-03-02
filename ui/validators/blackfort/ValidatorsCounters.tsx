@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -19,14 +18,14 @@ const ValidatorsCounters = () => {
   }
 
   return (
-    <Box columnGap={ 3 } rowGap={ 3 } mb={ 6 } display="grid" gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}>
+    <div className="grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
       <StatsWidget
         label="Total validators"
         value={ Number(countersQuery.data.validators_count).toLocaleString() }
         diff={ Number(countersQuery.data.new_validators_count_24h).toLocaleString() }
         isLoading={ countersQuery.isPlaceholderData }
       />
-    </Box>
+    </div>
   );
 };
 

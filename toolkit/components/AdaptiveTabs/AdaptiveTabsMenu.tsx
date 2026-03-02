@@ -1,14 +1,13 @@
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TabItem } from './types';
 
 import DotsIcon from 'icons/dots.svg';
 
-import { IconButton } from '../../chakra/icon-button';
-import type { IconButtonProps } from '../../chakra/icon-button';
-import { PopoverBody, PopoverCloseTriggerWrapper, PopoverContent, PopoverRoot, PopoverTrigger } from '../../chakra/popover';
-import { TabsCounter, TabsTrigger } from '../../chakra/tabs';
+import { IconButton } from '@luxfi/ui/icon-button';
+import type { IconButtonProps } from '@luxfi/ui/icon-button';
+import { PopoverBody, PopoverCloseTriggerWrapper, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { TabsCounter, TabsTrigger } from '@luxfi/ui/tabs';
 import { getTabValue } from './utils';
 
 interface Props extends IconButtonProps {
@@ -40,7 +39,7 @@ const AdaptiveTabsMenu = ({ tabs, tabsCut, isActive, ...props }: Props, ref: Rea
           aria-label="Open tabs menu"
           { ...props }
         >
-          <Icon boxSize={ 5 }><DotsIcon/></Icon>
+          <DotsIcon className="w-5 h-5"/>
         </IconButton>
       </PopoverTrigger>
       <PopoverContent>

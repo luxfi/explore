@@ -3,7 +3,7 @@ import React from 'react';
 import type { ShibariumDepositsItem } from 'types/api/shibarium';
 
 import config from 'configs/app';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressStringOrParam from 'ui/shared/entities/address/AddressStringOrParam';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -26,8 +26,7 @@ const DepositsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntityL1
           number={ item.l1_block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="text-sm font-semibold"
         />
       </TableCell>
       <TableCell verticalAlign="middle">
@@ -35,7 +34,7 @@ const DepositsTableItem = ({ item, isLoading }: Props) => {
           isLoading={ isLoading }
           hash={ item.l1_transaction_hash }
           truncation="constant_long"
-          textStyle="sm"
+          className="text-sm"
           noCopy
         />
       </TableCell>
@@ -43,7 +42,7 @@ const DepositsTableItem = ({ item, isLoading }: Props) => {
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
+          className="text-sm"
           truncation="constant_long"
         />
       </TableCell>

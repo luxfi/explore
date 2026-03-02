@@ -29,140 +29,140 @@ import type { TransactionsSorting } from 'types/api/transaction';
 export const GENERAL_API_ADDRESS_RESOURCES = {
   // ADDRESSES
   addresses: {
-    path: '/api/v2/addresses/',
+    path: '/addresses/',
     filterFields: [ ],
     paginated: true,
   },
   addresses_metadata_search: {
-    path: '/api/v2/proxy/metadata/addresses',
+    path: '/proxy/metadata/addresses',
     filterFields: [ 'slug' as const, 'tag_type' as const ],
     paginated: true,
   },
 
   // ADDRESS INFO
   address: {
-    path: '/api/v2/addresses/:hash',
+    path: '/addresses/:hash',
     pathParams: [ 'hash' as const ],
   },
   address_counters: {
-    path: '/api/v2/addresses/:hash/counters',
+    path: '/addresses/:hash/counters',
     pathParams: [ 'hash' as const ],
   },
   address_tabs_counters: {
-    path: '/api/v2/addresses/:hash/tabs-counters',
+    path: '/addresses/:hash/tabs-counters',
     pathParams: [ 'hash' as const ],
   },
   address_txs: {
-    path: '/api/v2/addresses/:hash/transactions',
+    path: '/addresses/:hash/transactions',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'filter' as const ],
     paginated: true,
   },
   address_internal_txs: {
-    path: '/api/v2/addresses/:hash/internal-transactions',
+    path: '/addresses/:hash/internal-transactions',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'filter' as const ],
     paginated: true,
   },
   address_token_transfers: {
-    path: '/api/v2/addresses/:hash/token-transfers',
+    path: '/addresses/:hash/token-transfers',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'filter' as const, 'type' as const, 'token' as const ],
     paginated: true,
   },
   address_blocks_validated: {
-    path: '/api/v2/addresses/:hash/blocks-validated',
+    path: '/addresses/:hash/blocks-validated',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
     paginated: true,
   },
   address_coin_balance: {
-    path: '/api/v2/addresses/:hash/coin-balance-history',
+    path: '/addresses/:hash/coin-balance-history',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
     paginated: true,
   },
   address_coin_balance_chart: {
-    path: '/api/v2/addresses/:hash/coin-balance-history-by-day',
+    path: '/addresses/:hash/coin-balance-history-by-day',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
   },
   address_logs: {
-    path: '/api/v2/addresses/:hash/logs',
+    path: '/addresses/:hash/logs',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
     paginated: true,
   },
   address_tokens: {
-    path: '/api/v2/addresses/:hash/tokens',
+    path: '/addresses/:hash/tokens',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   address_token_balances: {
-    path: '/api/v2/addresses/:hash/token-balances',
+    path: '/addresses/:hash/token-balances',
     pathParams: [ 'hash' as const ],
     filterFields: [ ],
   },
   address_nfts: {
-    path: '/api/v2/addresses/:hash/nft',
+    path: '/addresses/:hash/nft',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   address_collections: {
-    path: '/api/v2/addresses/:hash/nft/collections',
+    path: '/addresses/:hash/nft/collections',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'type' as const ],
     paginated: true,
   },
   address_deposits: {
-    path: '/api/v2/addresses/:hash/beacon/deposits',
+    path: '/addresses/:hash/beacon/deposits',
     pathParams: [ 'hash' as const ],
     filterFields: [],
     paginated: true,
   },
   address_withdrawals: {
-    path: '/api/v2/addresses/:hash/withdrawals',
+    path: '/addresses/:hash/withdrawals',
     pathParams: [ 'hash' as const ],
     filterFields: [],
     paginated: true,
   },
   address_epoch_rewards: {
-    path: '/api/v2/addresses/:hash/celo/election-rewards',
+    path: '/addresses/:hash/celo/election-rewards',
     pathParams: [ 'hash' as const ],
     filterFields: [],
     paginated: true,
   },
   address_xstar_score: {
-    path: '/api/v2/proxy/3rdparty/xname/addresses/:hash',
+    path: '/proxy/3rdparty/xname/addresses/:hash',
     pathParams: [ 'hash' as const ],
   },
   address_3rd_party_info: {
-    path: '/api/v2/proxy/3rdparty/:name',
+    path: '/proxy/3rdparty/:name',
     pathParams: [ 'name' as const ],
     filterFields: [ 'address' as const, 'chain_id' as const ],
   },
 
   // CSV EXPORTS
   address_csv_export_txs: {
-    path: '/api/v2/addresses/:hash/transactions/csv',
+    path: '/addresses/:hash/transactions/csv',
     pathParams: [ 'hash' as const ],
   },
   address_csv_export_internal_txs: {
-    path: '/api/v2/addresses/:hash/internal-transactions/csv',
+    path: '/addresses/:hash/internal-transactions/csv',
     pathParams: [ 'hash' as const ],
   },
   address_csv_export_token_transfers: {
-    path: '/api/v2/addresses/:hash/token-transfers/csv',
+    path: '/addresses/:hash/token-transfers/csv',
     pathParams: [ 'hash' as const ],
   },
   address_csv_export_logs: {
-    path: '/api/v2/addresses/:hash/logs/csv',
+    path: '/addresses/:hash/logs/csv',
     pathParams: [ 'hash' as const ],
   },
   address_csv_export_celo_election_rewards: {
-    path: '/api/v2/addresses/:hash/celo/election-rewards/csv',
+    path: '/addresses/:hash/celo/election-rewards/csv',
     pathParams: [ 'hash' as const ],
   },
 } satisfies Record<string, ApiResource>;

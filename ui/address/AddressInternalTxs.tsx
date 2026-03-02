@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMounted from 'lib/hooks/useIsMounted';
@@ -28,17 +27,17 @@ const AddressInternalTxs = ({ shouldRender = true, isQueryEnabled = true }: Prop
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <InternalTxsList data={ data.items } currentAddress={ hash } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <InternalTxsTable data={ data.items } currentAddress={ hash } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null ;
 
   const actionBar = (
-    <ActionBar mt={ -6 } justifyContent="left">
+    <ActionBar className="-mt-6 justify-start">
       <AddressTxsFilter
         initialValue={ filterValue }
         onFilterChange={ onFilterChange }
@@ -51,7 +50,7 @@ const AddressInternalTxs = ({ shouldRender = true, isQueryEnabled = true }: Prop
         params={{ type: 'internal-transactions', filterType: 'address', filterValue }}
         ml={{ base: 2, lg: 'auto' }}
       />
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...pagination }/>
+      <Pagination className="ml-auto lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

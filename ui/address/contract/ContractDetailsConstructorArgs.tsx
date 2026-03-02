@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContract } from 'types/api/contract';
@@ -32,8 +31,7 @@ const DecodedItemValue = ({ value, type, addressTruncation = 'dynamic' }: Decode
       <AddressEntity
         address={{ hash: value }}
         noIcon
-        display="inline-flex"
-        maxW="100%"
+        className="inline-flex max-w-full"
         truncation={ addressTruncation }
       />
     );
@@ -73,10 +71,10 @@ const ContractDetailsConstructorArgs = ({ data, isLoading }: Props) => {
     const decoded = data.decoded_constructor_args
       .map(([ value, { name, type } ], index) => {
         return (
-          <Box key={ index }>
+          <div key={ index }>
             <span>Arg [{ index }] { name || '' } ({ type }): </span>
             <DecodedItemValue value={ value } type={ type }/>
-          </Box>
+          </div>
         );
       });
 

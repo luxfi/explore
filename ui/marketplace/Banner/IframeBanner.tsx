@@ -1,9 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import * as mixpanel from 'lib/mixpanel/index';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 const IframeBanner = ({ contentUrl, linkUrl }: { contentUrl: string; linkUrl: string }) => {
   const [ isFrameLoading, setIsFrameLoading ] = useState(true);
@@ -19,27 +18,19 @@ const IframeBanner = ({ contentUrl, linkUrl }: { contentUrl: string; linkUrl: st
   return (
     <Skeleton
       loading={ isFrameLoading }
-      position="relative"
+      className="relative overflow-hidden rounded-md"
       h="100px"
       w="100%"
-      borderRadius="md"
-      overflow="hidden"
     >
       <Link
         href={ linkUrl }
         external
         noIcon
         onClick={ handleClick }
-        position="absolute"
-        w="100%"
-        h="100%"
-        top={ 0 }
-        left={ 0 }
-        zIndex={ 1 }
+        className="absolute w-full h-full top-0 left-0 z-[1]"
       />
-      <chakra.iframe
-        h="100%"
-        w="100%"
+      <iframe
+        className="h-full w-full"
         src={ contentUrl }
         title="Marketplace banner"
         onLoad={ handleIframeLoad }

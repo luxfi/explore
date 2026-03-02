@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { AddressesItem } from 'types/api/addresses';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 
@@ -23,8 +23,8 @@ const AddressesLabelSearchTableItem = ({
         <AddressEntity
           address={ item }
           isLoading={ isLoading }
-          fontWeight={ 700 }
-          my="2px"
+          className="font-bold my-[2px]"
+         
         />
       </TableCell>
       <TableCell isNumeric>

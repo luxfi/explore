@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
@@ -10,22 +9,13 @@ interface Props {
 
 const BlockCountdownTimerItem = ({ label, value }: Props) => {
   return (
-    <Box
-      minW={{ base: '70px', lg: '100px' }}
-      textAlign="center"
-      overflow="hidden"
-      flex="1 1 auto"
-    >
+    <div className="min-w-[70px] lg:min-w-[100px] text-center flex-[1_1_auto] overflow-hidden">
       <TruncatedText
         text={ value }
-        fontFamily="heading"
-        fontSize={{ base: '40px', lg: '48px' }}
-        lineHeight="48px"
-        fontWeight={ 600 }
-        w="100%"
+        className="font-heading text-[40px] lg:text-[48px] leading-[48px] font-semibold w-full"
       />
-      <Box fontSize="sm" lineHeight="20px" mt={ 1 } color="text.secondary">{ label }</Box>
-    </Box>
+      <div className="text-sm mt-1 leading-[20px] text-[var(--color-text-secondary)]">{ label }</div>
+    </div>
   );
 };
 

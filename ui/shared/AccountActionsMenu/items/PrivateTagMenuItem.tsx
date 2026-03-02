@@ -8,7 +8,7 @@ import type { Transaction } from 'types/api/transaction';
 
 import { getResourceKey } from 'lib/api/useApiQuery';
 import getPageType from 'lib/mixpanel/getPageType';
-import { MenuItem } from 'toolkit/chakra/menu';
+import { MenuItem } from '@luxfi/ui/menu';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AddressModal from 'ui/privateTags/AddressModal/AddressModal';
 import TransactionModal from 'ui/privateTags/TransactionModal/TransactionModal';
@@ -70,7 +70,7 @@ const PrivateTagMenuItem = ({ hash, entityType = 'address', type }: Props) => {
             { ({ onClick }) => (
               <MenuItem onClick={ onClick } value="add-private-tag">
                 { /* FIXME use non-navigation icon */ }
-                <IconSvg name="navigation/private_tags" boxSize={ 6 }/>
+                <IconSvg name="navigation/private_tags" className="w-6 h-6"/>
                 <span>Add private tag</span>
               </MenuItem>
             ) }

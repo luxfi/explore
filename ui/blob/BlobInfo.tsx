@@ -1,10 +1,9 @@
-import { GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Blob } from 'types/api/blobs';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Alert } from '@luxfi/ui/alert';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoSponsoredItem from 'ui/shared/DetailedInfo/DetailedInfoSponsoredItem';
@@ -23,11 +22,11 @@ const BlobInfo = ({ data, isLoading }: Props) => {
       templateColumns={{ base: 'minmax(0, 1fr)', lg: '216px minmax(728px, auto)' }}
     >
       { !data.blob_data && (
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mb={ 3 }>
+        <div className="lg:col-span-2 mb-3">
           <Skeleton loading={ isLoading }>
             <Alert status="warning">This blob is not yet indexed</Alert>
           </Skeleton>
-        </GridItem>
+        </div>
       ) }
 
       { data.kzg_proof && (
@@ -39,7 +38,7 @@ const BlobInfo = ({ data, isLoading }: Props) => {
             Proof
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="pre-wrap" wordBreak="break-all">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-pre-wrap break-all">
               { data.kzg_proof }
               <CopyToClipboard text={ data.kzg_proof } isLoading={ isLoading }/>
             </Skeleton>
@@ -56,7 +55,7 @@ const BlobInfo = ({ data, isLoading }: Props) => {
             Commitment
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="pre-wrap" wordBreak="break-all">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-pre-wrap break-all">
               { data.kzg_commitment }
               <CopyToClipboard text={ data.kzg_commitment } isLoading={ isLoading }/>
             </Skeleton>
@@ -73,7 +72,7 @@ const BlobInfo = ({ data, isLoading }: Props) => {
             Size, bytes
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="pre-wrap" wordBreak="break-all">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-pre-wrap break-all">
               { (data.blob_data.replace('0x', '').length / 2).toLocaleString() }
             </Skeleton>
           </DetailedInfo.ItemValue>

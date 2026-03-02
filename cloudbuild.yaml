@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/kaniko-project/executor:latest'
+    args:
+      - '--destination=us-docker.pkg.dev/$PROJECT_ID/backend/explore:white-label'
+      - '--cache=true'
+      - '--cache-ttl=168h'
+      - '--snapshotMode=redo'
+      - '--use-new-run'
+options:
+  machineType: 'E2_HIGHCPU_32'
+  diskSizeGb: 100
+timeout: '1800s'

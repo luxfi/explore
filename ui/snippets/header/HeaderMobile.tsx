@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
@@ -45,41 +44,31 @@ const HeaderMobile = ({ hideSearchButton, onGoToSearchResults }: Props) => {
   })();
 
   return (
-    <Box
+    <div
       ref={ ref }
-      bgColor="bg.primary"
-      display={{ base: 'block', lg: 'none' }}
-      position="sticky"
-      top="-1px"
-      left={ 0 }
-      zIndex="sticky2"
-      pt="1px"
-      height="56px"
+      className="block lg:hidden sticky top-[-1px] left-0 z-[var(--zIndex-sticky2)] pt-[1px] h-[56px]"
+      style={{ backgroundColor: 'var(--color-bg-primary)' }}
     >
-      <Flex
-        as="header"
-        paddingX={ 3 }
-        paddingY={ 2 }
-        bgColor="bg.primary"
-        width="100%"
-        alignItems="center"
-        transitionProperty="box-shadow"
-        transitionDuration="slow"
-        boxShadow={ isSticky ? 'md' : 'none' }
+      <header
+        className="flex px-3 py-2 w-full items-center transition-shadow duration-[var(--duration-slow)]"
+        style={{
+          backgroundColor: 'var(--color-bg-primary)',
+          boxShadow: isSticky ? 'var(--shadow-md)' : 'none',
+        }}
       >
         <Burger/>
-        <Flex alignItems="center" flexGrow={ 1 } mx={ 2 }>
+        <div className="flex items-center grow mx-2">
           <NetworkIcon/>
-          <TestnetBadge ml={ 2 }/>
-          <RollupStageBadge ml={ 2 }/>
-        </Flex>
-        <Flex columnGap={ 2 }>
+          <TestnetBadge className="ml-2"/>
+          <RollupStageBadge className="ml-2"/>
+        </div>
+        <div className="flex gap-x-2">
           { !hideSearchButton && <SearchBarMobile onGoToSearchResults={ onGoToSearchResults }/> }
           { config.features.rewards.isEnabled && <RewardsButton/> }
           { userProfile }
-        </Flex>
-      </Flex>
-    </Box>
+        </div>
+      </header>
+    </div>
   );
 };
 

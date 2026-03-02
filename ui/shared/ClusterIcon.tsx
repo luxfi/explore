@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/react';
+
 import React from 'react';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
-import type { ImageProps } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
+import type { ImageProps } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface ClusterIconProps extends Omit<ImageProps, 'src' | 'alt'> {
@@ -23,22 +23,12 @@ const ClusterIcon = ({
   const clustersFeature = nameServicesFeature.isEnabled && nameServicesFeature.clusters.isEnabled ? nameServicesFeature.clusters : undefined;
 
   const fallbackElement = (
-    <Box
-      display="inline-flex"
-      alignItems="center"
-      justifyContent="center"
-      boxSize={ boxSize }
-      backgroundColor="clusters"
-      borderRadius={ borderRadius }
-      mr={ mr }
-      flexShrink={ flexShrink }
-    >
+    <span className="inline-flex items-center justify-center bg-[var(--color-clusters)] rounded-base mr-2 shrink-0" style={{ width: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : boxSize, height: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : boxSize }}>
       <IconSvg
         name="clusters"
-        boxSize={ 3 }
-        color="white"
+        className="w-3 h-3 text-white"
       />
-    </Box>
+    </span>
   );
 
   if (!clustersFeature) {

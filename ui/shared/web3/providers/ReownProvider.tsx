@@ -5,7 +5,7 @@ import React from 'react';
 import config from 'configs/app';
 import { chains } from 'lib/web3/chains';
 import wagmiConfig from 'lib/web3/wagmiConfig';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 import colors from 'toolkit/theme/foundations/colors';
 import { BODY_TYPEFACE } from 'toolkit/theme/foundations/typography';
 import zIndex from 'toolkit/theme/foundations/zIndex';

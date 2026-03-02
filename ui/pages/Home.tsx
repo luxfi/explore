@@ -1,8 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { HomeRpcDataContextProvider } from 'ui/home/fallbacks/rpcDataContext';
 import HeroBanner from 'ui/home/HeroBanner';
 import Highlights from 'ui/home/Highlights';
 import ChainIndicators from 'ui/home/indicators/ChainIndicators';
@@ -32,21 +32,23 @@ const Home = () => {
   })();
 
   return (
-    <Box as="main">
-      <HeroBanner/>
-      <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 2 } rowGap={ 1 } mt={ 3 } _empty={{ mt: 0 }}>
-        <Stats/>
-        <ChainIndicators/>
-      </Flex>
-      { !isMobile && config.UI.homepage.highlights && <Highlights mt={ 3 }/> }
-      { isMobile && <AdBanner mt={ 6 } mx="auto" justifyContent="center" format="mobile"/> }
-      <Flex mt={ 8 } direction={{ base: 'column', lg: 'row' }} columnGap={ 12 } rowGap={ 6 }>
-        { leftWidget }
-        <Box flexGrow={ 1 }>
-          <Transactions/>
-        </Box>
-      </Flex>
-    </Box>
+    <HomeRpcDataContextProvider>
+      <main>
+        <HeroBanner/>
+        <div className="flex mt-3 gap-x-2 gap-y-1 flex-col lg:flex-row">
+          <Stats/>
+          <ChainIndicators/>
+        </div>
+        { !isMobile && config.UI.homepage.highlights && <Highlights className="mt-3"/> }
+        { isMobile && <AdBanner className="mt-6 mx-auto justify-center" format="mobile"/> }
+        <div className="flex mt-8 gap-x-12 gap-y-6 flex-col lg:flex-row">
+          { leftWidget }
+          <div className="flex grow">
+            <Transactions/>
+          </div>
+        </div>
+      </main>
+    </HomeRpcDataContextProvider>
   );
 };
 

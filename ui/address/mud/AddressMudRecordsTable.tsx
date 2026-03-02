@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,11 +6,12 @@ import type { AddressMudRecords, AddressMudRecordsFilter, AddressMudRecordsSorti
 import { route } from 'nextjs-routes';
 
 import capitalizeFirstLetter from 'lib/capitalizeFirstLetter';
+import { cn } from 'lib/utils/cn';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Link } from 'toolkit/chakra/link';
-import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
-import type { TableColumnHeaderProps } from 'toolkit/chakra/table';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
+import type { TableColumnHeaderProps } from '@luxfi/ui/table';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { middot } from 'toolkit/utils/htmlEntities';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import IconSvg from 'ui/shared/IconSvg';
@@ -49,7 +49,7 @@ const AddressMudRecordsTable = ({
   hash,
 }: Props) => {
   const totalColsCut = data.schema.key_names.length + data.schema.value_names.length;
-  const isMobile = useIsMobile(false);
+  const isMobile = useIsMobile();
   const [ colsCutCount, setColsCutCount ] = React.useState<number>(isMobile ? MIN_CUT_COUNT : 0);
   const [ isOpened, setIsOpened ] = React.useState(false);
   const [ hasCut, setHasCut ] = React.useState(isMobile ? totalColsCut > MIN_CUT_COUNT : true);
@@ -126,7 +126,7 @@ const AddressMudRecordsTable = ({
   const hasHorizontalScroll = isMobile || isOpened;
 
   if (hasCut && !colsCutCount) {
-    return <Box w="100%" ref={ containerRef }></Box>;
+    return <div className="w-full" ref={ containerRef }></div>;
   }
 
   const cutButton = (
@@ -139,7 +139,7 @@ const AddressMudRecordsTable = ({
 
   return (
     // can't implement both horizontal table scroll and sticky header
-    <Box maxW="100%" overflowX={ hasHorizontalScroll ? 'scroll' : 'unset' } whiteSpace="nowrap" ref={ tableRef }>
+    <div className={ cn('max-w-full whitespace-nowrap', hasHorizontalScroll ? 'overflow-x-scroll' : 'overflow-x-visible') } ref={ tableRef }>
       <TableRoot style={{ tableLayout: 'fixed' }}>
         <TableHeaderSticky top={ hasHorizontalScroll ? 0 : top } display={ hasHorizontalScroll ? 'table' : 'table-header-group' } w="100%">
           <TableRow>
@@ -148,35 +148,32 @@ const AddressMudRecordsTable = ({
               return (
                 <TableColumnHeader key={ keyName } { ...tdStyles }>
                   { index < 2 ? (
-                    <Flex alignItems="center">
+                    <div className="flex items-center">
                       <Link
                         onClick={ onKeySortClick }
                         data-id={ index }
-                        display="flex"
-                        alignItems="start"
-                        lineHeight="20px"
-                        mr={ 2 }
+                        className="flex items-start leading-5 mr-2"
                       >
                         { sorting?.sort === `key${ index }` && sorting.order && (
-                          <Box minW="24px" w="24px" mr={ 2 }>
+                          <div className="min-w-[24px] w-[24px] mr-2">
                             <IconSvg
                               name="arrows/east"
-                              boxSize={ 5 }
-                              transform={ sorting.order === 'asc' ? 'rotate(-90deg)' : 'rotate(90deg)' }
+                              className="w-5 h-5"
+                              style={{ transform:  sorting.order === 'asc' ? 'rotate(-90deg)' : 'rotate(90deg)'  }}
                             />
-                          </Box>
+                          </div>
                         ) }
                         { text }
                       </Link>
-                      <Box minW="20px" w="20px">
+                      <div className="min-w-[20px] w-[20px]">
                         <AddressMudRecordsKeyFilter
                           value={ filters[index === 0 ? 'filter_key0' : 'filter_key1'] }
                           title={ text }
                           columnName={ keyName }
                           handleFilterChange={ handleFilterChange(index === 0 ? 'filter_key0' : 'filter_key1') }
                         />
-                      </Box>
-                    </Flex>
+                      </div>
+                    </div>
                   ) : text }
                 </TableColumnHeader>
               );
@@ -200,9 +197,8 @@ const AddressMudRecordsTable = ({
                     <Link
                       onClick={ onRecordClick }
                       data-id={ item.id }
-                      fontWeight={ 700 }
+                      className="font-bold inline"
                       href={ route({ pathname: '/address/[hash]', query: { hash, tab: 'mud', table_id: data.table.table_id, record_id: item.id } }) }
-                      display="inline"
                     >
                       { getValueString(item.decoded[keyName]) }
                     </Link>
@@ -219,7 +215,7 @@ const AddressMudRecordsTable = ({
           )) }
         </TableBody>
       </TableRoot>
-    </Box>
+    </div>
   );
 };
 

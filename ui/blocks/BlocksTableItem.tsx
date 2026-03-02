@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -9,10 +8,10 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import BlockPendingUpdateHint from 'ui/shared/block/BlockPendingUpdateHint';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -47,10 +46,10 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
         </TableCell>
       ) }
       <TableCell >
-        <Flex columnGap={ 2 } alignItems="center" mb={ 2 }>
+        <div className="flex gap-x-2 items-center mb-2">
           { data.celo?.l1_era_finalized_epoch_number && (
             <Tooltip content={ `Finalized epoch #${ data.celo.l1_era_finalized_epoch_number }` }>
-              <IconSvg name="checkered_flag" boxSize={ 5 } p="1px" isLoading={ isLoading } flexShrink={ 0 }/>
+              <IconSvg name="checkered_flag" className="w-5 h-5 p-px shrink-0" isLoading={ isLoading }/>
             </Tooltip>
           ) }
           { data.is_pending_update && <BlockPendingUpdateHint/> }
@@ -61,17 +60,17 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
                 number={ data.height }
                 hash={ data.type !== 'block' ? data.hash : undefined }
                 noIcon
-                fontWeight={ 600 }
+                className="font-semibold"
               />
             </span>
           </Tooltip>
-        </Flex>
+        </div>
         <TimeWithTooltip
           timestamp={ data.timestamp }
           enableIncrement={ enableTimeIncrement }
           isLoading={ isLoading }
           color="text.secondary"
-          fontWeight={ 400 }
+          fontWeight="400"
           display="inline-block"
         />
       </TableCell>
@@ -103,14 +102,14 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
       </TableCell>
       <TableCell >
         <Skeleton loading={ isLoading } display="inline-block">{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
-        <Flex mt={ 2 }>
+        <div className="mt-2">
           <BlockGasUsed
             gasUsed={ data.gas_used || undefined }
             gasLimit={ data.gas_limit }
             isLoading={ isLoading }
             gasTarget={ data.gas_target_percentage || undefined }
           />
-        </Flex>
+        </div>
       </TableCell>
       { !isRollup && !config.UI.views.block.hiddenFields?.total_reward && (
         <TableCell >
@@ -122,12 +121,12 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
           <NativeCoinValue
             amount={ data.burnt_fees }
             noSymbol
-            startElement={ <IconSvg name="flame" mr={ 2 } boxSize={ 5 } color={{ _light: 'gray.500', _dark: 'inherit' }} isLoading={ isLoading }/> }
+            startElement={ <IconSvg name="flame" className="mr-2 w-5 h-5" isLoading={ isLoading }/> }
             loading={ isLoading }
             display="flex"
           />
           <Tooltip content="Burnt fees / Txn fees * 100%" disabled={ isLoading }>
-            <Utilization mt={ 2 } w="min-content" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
+            <Utilization className="mt-2 w-min" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
           </Tooltip>
         </TableCell>
       ) }

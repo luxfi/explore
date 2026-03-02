@@ -7,7 +7,7 @@ import type {
 } from 'types/api/validators';
 
 import { currencyUnits } from 'lib/units';
-import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import getNextSortValue from 'ui/shared/sort/getNextSortValue';
 
 import { VALIDATORS_BLACKFORT_SORT_SEQUENCE } from './utils';

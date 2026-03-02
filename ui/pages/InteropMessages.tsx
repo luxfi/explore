@@ -1,10 +1,9 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { INTEROP_MESSAGE } from 'stubs/interop';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import InteropMessagesListItem from 'ui/interopMessages/InteropMessagesListItem';
 import InteropMessagesTable from 'ui/interopMessages/InteropMessagesTable';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -47,7 +46,7 @@ const InteropMessages = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { interopMessagesQuery.data?.items.map((item, index) => (
           <InteropMessagesListItem
             key={ item.init_transaction_hash + (interopMessagesQuery.isPlaceholderData ? index : '') }
@@ -55,14 +54,14 @@ const InteropMessages = () => {
             isLoading={ interopMessagesQuery.isPlaceholderData }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <InteropMessagesTable
           items={ interopMessagesQuery.data?.items }
           top={ interopMessagesQuery.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ interopMessagesQuery.isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   );
 

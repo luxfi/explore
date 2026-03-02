@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,9 +6,9 @@ import type { ItemProps } from './types';
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { MenuContent, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { MenuContent, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 import MetadataUpdateMenuItem from './items/MetadataUpdateMenuItem';
@@ -64,9 +63,9 @@ const AccountActionsMenu = ({ isLoading, className, showUpdateMetadataItem }: Pr
 
   if (items.length === 1) {
     return (
-      <Box className={ className }>
+      <div className={ className }>
         { items[0].render({ type: 'button', hash }) }
-      </Box>
+      </div>
     );
   }
 
@@ -88,4 +87,4 @@ const AccountActionsMenu = ({ isLoading, className, showUpdateMetadataItem }: Pr
   );
 };
 
-export default React.memo(chakra(AccountActionsMenu));
+export default React.memo(AccountActionsMenu);

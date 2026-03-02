@@ -13,6 +13,5 @@ README.md
 /playwright-report/
 /blob-report/
 /.vscode/
-/playwright/
 CHANGELOG.md
 .env.local

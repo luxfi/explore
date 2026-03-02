@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FormattedData } from './types';
 
-import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from 'toolkit/chakra/popover';
+import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import TokenSelectButton from './TokenSelectButton';
@@ -24,7 +24,7 @@ const TokenSelectDesktop = ({ data, isLoading }: Props) => {
       <PopoverTrigger>
         <TokenSelectButton data={ result.data } isLoading={ isLoading } isOpen={ open }/>
       </PopoverTrigger>
-      <PopoverContent w="355px" maxH="450px" overflowY="scroll">
+      <PopoverContent className="w-[355px] max-h-[450px] overflow-y-scroll">
         <PopoverBody>
           <TokenSelectMenu { ...result }/>
         </PopoverBody>

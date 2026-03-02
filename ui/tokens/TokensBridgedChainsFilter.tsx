@@ -1,9 +1,8 @@
-import { Text, Flex, useCheckboxGroup, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Button } from '@luxfi/ui/button';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 
 const feature = config.features.bridgedTokens;
 
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const TokensBridgedChainsFilter = ({ onChange, defaultValue }: Props) => {
-  const { value, setValue } = useCheckboxGroup({ defaultValue });
+  const [ value, setValue ] = React.useState<Array<string>>(defaultValue ?? []);
 
   const handleReset = React.useCallback(() => {
     if (value.length === 0) {
@@ -21,12 +20,12 @@ const TokensBridgedChainsFilter = ({ onChange, defaultValue }: Props) => {
     }
     setValue([]);
     onChange([]);
-  }, [ onChange, setValue, value ]);
+  }, [ onChange, value ]);
 
   const handleChange = React.useCallback((nextValue: Array<string>) => {
     setValue(nextValue);
     onChange(nextValue);
-  }, [ onChange, setValue ]);
+  }, [ onChange ]);
 
   if (!feature.isEnabled) {
     return null;
@@ -34,22 +33,22 @@ const TokensBridgedChainsFilter = ({ onChange, defaultValue }: Props) => {
 
   return (
     <>
-      <Flex justifyContent="space-between" textStyle="sm">
-        <Text fontWeight={ 600 } color="text.secondary">Show bridged tokens from</Text>
+      <div className="flex justify-between text-sm">
+        <span className="font-semibold text-[var(--color-text-secondary)]">Show bridged tokens from</span>
         <Button
           variant="link"
           onClick={ handleReset }
           disabled={ value.length === 0 }
-          textStyle="sm"
+          className="text-sm"
         >
           Reset
         </Button>
-      </Flex>
+      </div>
       <CheckboxGroup defaultValue={ defaultValue } onValueChange={ handleChange } value={ value } name="bridged_token_chain">
         { feature.chains.map(({ title, id, short_title: shortTitle }) => (
-          <Checkbox key={ id } value={ id } whiteSpace="pre-wrap">
+          <Checkbox key={ id } value={ id } className="whitespace-pre-wrap">
             <span>{ title }</span>
-            <chakra.span color="text.secondary"> ({ shortTitle })</chakra.span>
+            <span className="text-[var(--color-text-secondary)]"> ({ shortTitle })</span>
           </Checkbox>
         )) }
       </CheckboxGroup>

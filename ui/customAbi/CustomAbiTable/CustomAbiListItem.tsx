@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { CustomAbi } from 'types/api/account';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
@@ -27,16 +26,16 @@ const CustomAbiListItem = ({ item, isLoading, onEditClick, onDeleteClick }: Prop
 
   return (
     <ListItemMobile>
-      <Box maxW="100%">
+      <div className="max-w-full">
         <AddressEntity
           address={ item.contract_address }
-          fontWeight="600"
+          className="font-semibold"
           isLoading={ isLoading }
         />
         <Skeleton textStyle="sm" color="text.secondary" mt={ 0.5 } ml={ 8 } display="inline-block" loading={ isLoading }>
           <span>{ item.name }</span>
         </Skeleton>
-      </Box>
+      </div>
       <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
     </ListItemMobile>
   );

@@ -1,11 +1,10 @@
-import { Text, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
 
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import TextSeparator from 'ui/shared/TextSeparator';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
 import SimpleValue from 'ui/shared/value/SimpleValue';
@@ -50,9 +49,9 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
     multichainItems = (
       <>
         <TextSeparator/>
-        <HStack columnGap={ 2 }>
-          <Text>Multichain</Text>
-          <HStack gap={{ base: 2, lg: 3 }}>
+        <div className="flex flex-row gap-x-2">
+          <span>Multichain</span>
+          <div className="flex flex-row gap-2 lg:gap-3">
             { providers.map((item, index) => (
               <AddressMultichainButton
                 key={ item.name }
@@ -64,14 +63,14 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
               />
             ))
             }
-          </HStack>
-        </HStack>
+          </div>
+        </div>
       </>
     );
   }
 
   return (
-    <Skeleton display="flex" alignItems="center" flexWrap="wrap" loading={ isLoading && !(addressData?.has_tokens && isPending) }>
+    <Skeleton className="flex items-center flex-wrap" loading={ isLoading && !(addressData?.has_tokens && isPending) }>
       { (isError || !addressData?.exchange_rate) ?
         <span>N/A</span> :
         <SimpleValue value={ totalUsd } accuracy={ DEFAULT_ACCURACY_USD } prefix="$" overflowed={ isOverflow }/> }

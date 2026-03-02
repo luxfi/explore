@@ -1,11 +1,10 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import IconSvg from 'ui/shared/IconSvg';
 import TokenTransferSnippet from 'ui/shared/TokenTransferSnippet/TokenTransferSnippet';
@@ -44,19 +43,16 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
             >
               { title }
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue position="relative" multiRow>
-              <Flex
-                flexDirection="column"
-                alignItems="flex-start"
-                rowGap={ 1 }
-                w="100%"
+            <DetailedInfo.ItemValue className="relative" multiRow>
+              <div
+               
               >
                 { items.map((item, index) => <TokenTransferSnippet key={ index } data={ item }/>) }
-              </Flex>
+              </div>
               { isOverflow && (
                 <>
                   { /* FIXME use non-navigation icon */ }
-                  <IconSvg name="navigation/tokens" boxSize={ 6 }/>
+                  <IconSvg name="navigation/tokens"/>
                   <Link href={ viewAllUrl }>
                     View all
                   </Link>

@@ -1,10 +1,11 @@
-import { Text, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TChainIndicator } from './types';
 import type { ChainIndicatorId } from 'types/homepage';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { cn } from 'lib/utils/cn';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { mdash } from 'toolkit/utils/htmlEntities';
 interface Props {
   indicator: TChainIndicator;
   isSelected: boolean;
@@ -19,7 +20,7 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
 
   const valueContent = (() => {
     if (indicator.value.includes('N/A')) {
-      return <Text color="text.secondary" fontWeight={ 400 }>no data</Text>;
+      return <span className="opacity-40 font-normal">{ mdash }</span>;
     }
 
     return (
@@ -30,7 +31,7 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
   })();
 
   const valueDiffContent = (() => {
-    if (indicator.valueDiff === undefined) {
+    if (indicator.valueDiff === undefined || (!isLoading && indicator.value.includes('N/A'))) {
       return null;
     }
 
@@ -39,41 +40,30 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
     return (
       <Skeleton loading={ isLoading } ml={ 1 } display="flex" alignItems="center" color={ diffColor }>
         <span>{ indicator.valueDiff >= 0 ? '+' : '-' }</span>
-        <Text color={ diffColor } fontWeight={ 600 }>{ Math.abs(indicator.valueDiff) }%</Text>
+        <span className={ cn('font-semibold', indicator.valueDiff >= 0 ? 'text-green-500' : 'text-red-500') }>{ Math.abs(indicator.valueDiff) }%</span>
       </Skeleton>
     );
   })();
 
   return (
-    <Flex
-      alignItems="center"
-      columnGap={ 2 }
-      flexGrow={{ base: 0, lg: 1 }}
-      px={{ base: '6px', lg: 2 }}
-      py="6px"
-      as="li"
-      borderRadius="base"
-      cursor="pointer"
-      color={ isSelected ? 'text.secondary' : 'link.primary' }
-      bgColor={ isSelected ? 'bg.primary' : undefined }
+    <li
+      className={ cn(
+        'flex items-center gap-x-2 grow-0 lg:grow px-[6px] lg:px-2 py-[6px] rounded cursor-pointer text-xs font-medium',
+        isSelected ? 'text-[var(--color-text-secondary)] bg-[var(--color-bg-primary)]' : 'text-[var(--color-link-primary)]',
+        'hover:bg-[var(--color-bg-primary)] hover:z-[1]',
+        !isSelected && 'hover:text-[var(--color-link-primary-hover)]',
+      ) }
       onClick={ handleClick }
-      fontSize="xs"
-      fontWeight={ 500 }
-      _hover={{
-        bgColor: 'bg.primary',
-        color: isSelected ? 'text.secondary' : 'hover',
-        zIndex: 1,
-      }}
     >
       { indicator.icon }
-      <Box display={{ base: 'none', lg: 'block' }}>
+      <div className="hidden lg:block">
         <span>{ indicator.titleShort || indicator.title }</span>
-        <Flex alignItems="center" color="text.primary">
+        <div className="flex items-center text-[var(--color-text-primary)]">
           { valueContent }
           { valueDiffContent }
-        </Flex>
-      </Box>
-    </Flex>
+        </div>
+      </div>
+    </li>
   );
 };
 

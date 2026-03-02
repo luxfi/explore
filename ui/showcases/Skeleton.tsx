@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

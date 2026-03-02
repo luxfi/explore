@@ -28,12 +28,12 @@ const DefaultView = () => {
 
   const contentAfter = (
     <>
-      <IconSvg name="certified" color="green.500" boxSize={ 6 } cursor="pointer"/>
+      <IconSvg name="certified" className="size-6 text-[var(--color-green-500)] cursor-pointer"/>
       <EntityTags
+        className="grow"
         tags={ [
           { slug: 'example', name: 'Example label', tagType: 'custom', ordinal: 0 },
         ] }
-        flexGrow={ 1 }
       />
     </>
   );
@@ -44,7 +44,7 @@ const DefaultView = () => {
         address={{ ...addressMock.token, name: '' }}
         variant="subheading"
       />
-      <NetworkExplorers type="token" pathParam={ addressMock.hash } ml="auto"/>
+      <NetworkExplorers type="token" pathParam={ addressMock.hash } className="ml-auto"/>
     </>
   );
 

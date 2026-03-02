@@ -1,12 +1,11 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractSecurityAuditSubmission } from 'types/api/contract';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import dayjs from 'lib/date/dayjs';
-import { Button } from 'toolkit/chakra/button';
-import { Link } from 'toolkit/chakra/link';
+import { Button } from '@luxfi/ui/button';
+import { Link } from 'toolkit/next/link';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import ContainerWithScrollY from 'ui/shared/ContainerWithScrollY';
 import FormModal from 'ui/shared/FormModal';
@@ -38,13 +37,10 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
   return (
     <>
       { data?.items && data.items.length > 0 && (
-        <Box position="relative">
+        <div className="relative">
           <ContainerWithScrollY
             gradientHeight={ 24 }
-            rowGap={ 1 }
-            w="100%"
-            maxH="80px"
-            mb={ 2 }
+            className="gap-y-1 w-full max-h-[80px] mb-2"
           >
             { data.items.map(item => (
               <Link external href={ item.audit_report_url } key={ item.audit_company_name + item.audit_publish_date } loading={ isPlaceholderData }>
@@ -52,7 +48,7 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
               </Link>
             )) }
           </ContainerWithScrollY>
-        </Box>
+        </div>
       ) }
       <Button variant="outline" size="sm" onClick={ modalProps.onOpen }>Submit audit</Button>
       <FormModal<SmartContractSecurityAuditSubmission>

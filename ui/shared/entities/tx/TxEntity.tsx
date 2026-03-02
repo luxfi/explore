@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs/routes';
@@ -12,7 +11,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'hash'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/tx/[hash]', query: { hash: props.hash } },
     { chain: props.chain, external: props.external },
@@ -77,7 +76,7 @@ const Icon = (props: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'hash' | 'text'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
@@ -121,7 +120,7 @@ const TxEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(TxEntity));
+export default React.memo(TxEntity);
 
 export {
   Container,

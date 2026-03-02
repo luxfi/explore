@@ -1,11 +1,9 @@
-import type { ButtonProps } from '@chakra-ui/react';
-import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button, type ButtonProps } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../UserIdenticon';
@@ -27,18 +25,18 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
     if (address) {
       const text = domain || shortenString(address);
       return (
-        <HStack gap={ 2 }>
+        <div>
           <UserIdenticon address={ address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-          <Box display={{ base: 'none', md: 'block' }}>{ text }</Box>
-        </HStack>
+          <div>{ text }</div>
+        </div>
       );
     }
 
     return (
-      <HStack gap={ 2 }>
-        <IconSvg name="profile" boxSize={ 5 }/>
-        <Box display={{ base: 'none', md: 'block' }}>Menu</Box>
-      </HStack>
+      <div>
+        <IconSvg name="profile"/>
+        <div>Menu</div>
+      </div>
     );
   })();
 
@@ -56,8 +54,7 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
           variant={ variant }
           selected={ Boolean(address) }
           highlighted={ isAutoConnectDisabled }
-          px={{ base: 2.5, lg: 3 }}
-          fontWeight={ address ? 700 : 600 }
+          className={ `px-2.5 lg:px-3 ${ address ? 'font-bold' : 'font-semibold' }` }
           loading={ isPending }
           loadingText={ isMobile ? undefined : 'Connecting' }
           { ...rest }

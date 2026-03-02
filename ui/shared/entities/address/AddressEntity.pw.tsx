@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import type { BrowserContext } from '@playwright/test';
 import React from 'react';
 
@@ -262,9 +261,7 @@ test('customization', async({ render }) => {
     <AddressEntity
       address={ addressMock.withoutName }
       truncation="constant"
-      p={ 3 }
-      borderWidth="1px"
-      borderColor="blue.700"
+      className="p-3 border border-blue-700"
     />,
   );
 

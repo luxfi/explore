@@ -1,11 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
 
-import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Link } from 'toolkit/next/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { SECOND } from 'toolkit/utils/consts';
 import IconSvg from 'ui/shared/IconSvg';
 import NovesFromTo from 'ui/shared/Noves/NovesFromTo';
@@ -32,19 +31,15 @@ const AddressAccountHistoryTableItem = (props: Props) => {
           timestamp={ props.tx.rawTransactionData.timestamp * SECOND }
           isLoading={ props.isPlaceholderData }
           color="text.secondary"
-          borderRadius="sm"
-          flexShrink={ 0 }
+          className="shrink-0"
         />
       </TableCell>
       <TableCell px={ 3 } py="18px" fontSize="sm" >
         <Skeleton borderRadius="sm" loading={ props.isPlaceholderData }>
-          <Box display="flex">
+          <div className="flex">
             <IconSvg
               name="lightning"
-              height="5"
-              width="5"
-              color="icon.primary"
-              mr="8px"
+              className="w-5 h-5 text-[var(--color-icon-primary)] mr-2"
             />
 
             <Link
@@ -55,13 +50,13 @@ const AddressAccountHistoryTableItem = (props: Props) => {
             >
               { parsedDescription }
             </Link>
-          </Box>
+          </div>
         </Skeleton>
       </TableCell>
       <TableCell px={ 3 } py="18px" fontSize="sm">
-        <Box flexShrink={ 0 } >
+        <div className="shrink-0">
           <NovesFromTo txData={ props.tx } currentAddress={ props.currentAddress } isLoaded={ !props.isPlaceholderData }/>
-        </Box>
+        </div>
       </TableCell>
     </TableRow>
   );

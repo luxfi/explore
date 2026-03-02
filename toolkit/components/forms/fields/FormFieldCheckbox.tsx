@@ -3,14 +3,19 @@ import { useController, useFormContext, type FieldValues, type Path } from 'reac
 
 import type { FormFieldPropsBase } from './types';
 
-import { Checkbox } from '../../../chakra/checkbox';
-import type { CheckboxProps } from '../../../chakra/checkbox';
+import { Checkbox } from '@luxfi/ui/checkbox';
+import type { CheckboxProps } from '@luxfi/ui/checkbox';
 
 export interface FormFieldCheckboxProps<
   FormFields extends FieldValues,
   Name extends Path<FormFields> = Path<FormFields>,
-> extends Pick<FormFieldPropsBase<FormFields, Name>, 'rules' | 'name' | 'onChange' | 'readOnly' | 'controllerProps'>, Omit<CheckboxProps, 'name' | 'onChange'> {
+> extends Pick<FormFieldPropsBase<FormFields, Name>, 'rules' | 'name' | 'onChange' | 'controllerProps'> {
   label: string;
+  readOnly?: boolean;
+  checked?: boolean | 'indeterminate';
+  disabled?: boolean;
+  size?: 'sm' | 'md';
+  className?: string;
 }
 
 const FormFieldCheckboxContent = <

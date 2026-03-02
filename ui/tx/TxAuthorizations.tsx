@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -21,12 +20,12 @@ const TxAuthorizations = ({ txQuery }: Props) => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="block lg:hidden">
         <TxAuthorizationsList data={ txQuery.data?.authorization_list } isLoading={ txQuery.isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <TxAuthorizationsTable data={ txQuery.data?.authorization_list } isLoading={ txQuery.isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   );
 

@@ -4,46 +4,46 @@ import type { CrossChainMessageFilters, CrossChainTransferFilters } from 'types/
 
 export const INTERCHAIN_INDEXER_API_RESOURCES = {
   messages: {
-    path: '/api/v1/interchain/messages',
+    path: '/v1/interchain/messages',
     filterFields: [ 'q' as const ],
     paginated: true,
   },
   message: {
-    path: '/api/v1/interchain/messages/:id',
+    path: '/v1/interchain/messages/:id',
     pathParams: [ 'id' as const ],
   },
   tx_messages: {
-    path: '/api/v1/interchain/messages\\:byTx/:hash',
+    path: '/v1/interchain/messages\\:byTx/:hash',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'q' as const ],
     paginated: true,
   },
   address_messages: {
-    path: '/api/v1/interchain/messages\\:byAddress/:hash',
+    path: '/v1/interchain/messages\\:byAddress/:hash',
     pathParams: [ 'hash' as const ],
     paginated: true,
   },
   transfers: {
-    path: '/api/v1/interchain/transfers',
+    path: '/v1/interchain/transfers',
     filterFields: [ 'q' as const ],
     paginated: true,
   },
   tx_transfers: {
-    path: '/api/v1/interchain/transfers\\:byTx/:hash',
+    path: '/v1/interchain/transfers\\:byTx/:hash',
     pathParams: [ 'hash' as const ],
     filterFields: [ 'q' as const ],
     paginated: true,
   },
   address_transfers: {
-    path: '/api/v1/interchain/transfers\\:byAddress/:hash',
+    path: '/v1/interchain/transfers\\:byAddress/:hash',
     pathParams: [ 'hash' as const ],
     paginated: true,
   },
   stats_daily: {
-    path: '/api/v1/stats/daily',
+    path: '/v1/stats/daily',
   },
   stats_common: {
-    path: '/api/v1/stats/common',
+    path: '/v1/stats/common',
   },
 } satisfies Record<string, ApiResource>;
 

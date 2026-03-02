@@ -96,7 +96,7 @@ const TxCrossChainDetails = ({ data, isLoading }: Props) => {
       >
         Lifecycle
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue py={ 1 }>
+      <DetailedInfo.ItemValue className="py-1">
         <TxCrossChainDetailsLifecycle data={ data } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
       { data.payload && (

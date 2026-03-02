@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -9,12 +8,12 @@ import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 
 const SearchBarSuggestBlob = ({ data }: ItemsProps<SearchResultBlob>) => {
   return (
-    <Flex alignItems="center" minW={ 0 }>
+    <div className="flex items-center min-w-0">
       <BlobEntity.Icon/>
-      <chakra.mark overflow="hidden" whiteSpace="nowrap" fontWeight={ 700 }>
+      <mark className="overflow-hidden whitespace-nowrap font-bold">
         <HashStringShortenDynamic hash={ data.blob_hash } noTooltip/>
-      </chakra.mark>
-    </Flex>
+      </mark>
+    </div>
   );
 };
 
