@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
-import { CctxStatusReduced, type CctxListItem, type ListCctxsResponse } from '@blockscout/zetachain-cctx-types';
+import { CctxStatusReduced, type CctxListItem, type ListCctxsResponse } from '@luxfi/zetachain-cctx-types';
 import type { SocketMessage } from 'lib/socket/types';
 import type { ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
 import type { PaginationParams } from 'ui/shared/pagination/types';

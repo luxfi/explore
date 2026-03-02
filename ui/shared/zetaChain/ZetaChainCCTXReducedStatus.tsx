@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CctxStatusReduced } from '@blockscout/zetachain-cctx-types';
+import { CctxStatusReduced } from '@luxfi/zetachain-cctx-types';
 
 import StatusTag, { type StatusTagType } from 'ui/shared/statusTag/StatusTag';
 

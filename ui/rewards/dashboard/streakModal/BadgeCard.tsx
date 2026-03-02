@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
+import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
 import { Image } from 'toolkit/chakra/image';
 import { Link } from 'toolkit/chakra/link';

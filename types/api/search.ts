@@ -1,5 +1,5 @@
-import type * as bens from '@blockscout/bens-types';
-import type * as tac from '@blockscout/tac-operation-lifecycle-types';
+import type * as bens from '@luxfi/bens-types';
+import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 import type { TokenReputation, TokenType } from 'types/api/token';
 
 import type { AddressMetadataTagApi } from './addressMetadata';

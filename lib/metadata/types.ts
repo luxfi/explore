@@ -1,4 +1,4 @@
-import type { LineChart } from '@blockscout/stats-types';
+import type { LineChart } from '@luxfi/stats-types';
 import type { TokenInfo } from 'types/api/token';
 
 import type { Route } from 'nextjs-routes';

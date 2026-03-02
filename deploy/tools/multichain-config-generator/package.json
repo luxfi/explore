@@ -1,5 +1,5 @@
 {
-  "name": "@blockscout/multichain-config-generator",
+  "name": "@luxfi/multichain-config-generator",
   "version": "1.0.0",
   "private": true,
   "type": "module",

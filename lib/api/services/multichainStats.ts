@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as stats from '@blockscout/stats-types';
+import type * as stats from '@luxfi/stats-types';
 
 export const MULTICHAIN_STATS_API_RESOURCES = {
   pages_main: {

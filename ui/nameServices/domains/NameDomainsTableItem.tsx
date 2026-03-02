@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as bens from '@blockscout/bens-types';
+import type * as bens from '@luxfi/bens-types';
 
 import dayjs from 'lib/date/dayjs';
 import { TableCell, TableRow } from 'toolkit/chakra/table';

@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 
 import multichainConfig from 'configs/multichain';
 import NativeTokenIcon from 'ui/optimismSuperchain/components/NativeTokenIcon';

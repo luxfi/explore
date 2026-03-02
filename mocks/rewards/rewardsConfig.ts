@@ -1,4 +1,4 @@
-import type { GetConfigResponse } from '@blockscout/points-types';
+import type { GetConfigResponse } from '@luxfi/points-types';
 
 export const base: GetConfigResponse = {
   rewards: {
