@@ -22,6 +22,7 @@ export function useBlockchains() {
     queryKey: [ BLOCKCHAINS_QUERY_KEY ],
     queryFn: fetchBlockchains,
     staleTime: BLOCKCHAINS_STALE_TIME_MS,
+    retry: 2,
   });
 
   const blockchains = React.useMemo(
