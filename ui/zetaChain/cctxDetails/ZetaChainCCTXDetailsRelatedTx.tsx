@@ -22,10 +22,10 @@ const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
   const chainsTo = tx.outbound_params.map((p) => chainsConfig?.find((chain) => chain.id === p.chain_id.toString()));
 
   const color = (() => {
-    if (tx.status_reduced === CctxStatusReduced.SUCCESS) {
+    if (tx.status_reduced === CctxStatusReduced.Success) {
       return 'text.success';
     }
-    if (tx.status_reduced === CctxStatusReduced.FAILED) {
+    if (tx.status_reduced === CctxStatusReduced.Failed) {
       return 'text.error';
     }
     return 'text.secondary';
