@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
-import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
+import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import { TableBody, TableColumnHeader, TableHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';

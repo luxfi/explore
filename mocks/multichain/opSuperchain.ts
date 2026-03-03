@@ -1,4 +1,4 @@
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { AddressTokenItem } from 'types/client/multichain-aggregator';
 import type { ClusterChainConfig } from 'types/multichain';
 

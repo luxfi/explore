@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
+import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';

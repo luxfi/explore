@@ -2,7 +2,7 @@ import { Flex, Text, Spinner } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import React from 'react';
 
-import type { Token } from '@blockscout/zetachain-cctx-types';
+import type { Token } from '@luxfi/zetachain-cctx-types';
 import type { TokenInfo } from 'types/api/token';
 import { ZETA_CHAIN_CCTX_COIN_TYPE_FILTER, type ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type * as bens from '@blockscout/bens-types';
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as bens from '@luxfi/bens-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 
 import { route } from 'nextjs/routes';
 

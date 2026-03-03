@@ -1,7 +1,7 @@
 import { Grid, VStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import type { CctxListItem } from '@blockscout/zetachain-cctx-types';
+import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
 
 import dayjs from 'lib/date/dayjs';
 import { Skeleton } from 'toolkit/chakra/skeleton';

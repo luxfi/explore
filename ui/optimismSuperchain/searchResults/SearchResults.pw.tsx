@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { GetAddressResponse } from '@blockscout/multichain-aggregator-types';
+import type { GetAddressResponse } from '@luxfi/multichain-aggregator-types';
 
 import * as opSuperchainMock from 'mocks/multichain/opSuperchain';
 import { ENVS_MAP } from 'playwright/fixtures/mockEnvs';

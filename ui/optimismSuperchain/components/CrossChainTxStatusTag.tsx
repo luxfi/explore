@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as multichain from '@blockscout/multichain-aggregator-types';
+import * as multichain from '@luxfi/multichain-aggregator-types';
 
 import type { BadgeProps } from 'toolkit/chakra/badge';
 import StatusTag from 'ui/shared/statusTag/StatusTag';
