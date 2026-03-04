@@ -17,7 +17,8 @@ async function fetchChainHeights(): Promise<{ pChain: number; cChain: number }> 
   const base = getApiBase();
 
   const [ pRes, cRes ] = await Promise.allSettled([
-    fetch(`${ base }/ext/bc/P`, {
+    // P-chain: use server-side proxy to bypass CORS
+    fetch('/api/pchain', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', method: 'platform.getHeight', params: {}, id: 1 }),
