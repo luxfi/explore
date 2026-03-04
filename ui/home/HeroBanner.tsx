@@ -9,7 +9,6 @@ import RewardsButton from 'ui/rewards/RewardsButton';
 import AdBanner from 'ui/shared/ad/AdBanner';
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 import SearchBarMobile from 'ui/snippets/searchBar/SearchBarMobile';
-import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
 export const BACKGROUND_DEFAULT = 'var(--chakra-colors-whiteAlpha-50)';
 const TEXT_COLOR_DEFAULT = 'white';
@@ -73,10 +72,9 @@ const HeroBanner = () => {
                 `${ config.chain.name } explorer`
             }
           </Heading>
-          { config.UI.navigation.layout === 'vertical' && (
+          { config.UI.navigation.layout === 'vertical' && config.features.rewards.isEnabled && (
             <Box display={{ base: 'none', lg: 'flex' }} gap={ 2 }>
-              { config.features.rewards.isEnabled && <RewardsButton variant="hero"/> }
-              <UserProfileDesktop buttonVariant="hero"/>
+              <RewardsButton variant="hero"/>
             </Box>
           ) }
         </Flex>

@@ -60,7 +60,7 @@ const UserWalletDesktop = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           isAutoConnectDisabled={ isAutoConnectDisabled }
         />
       </PopoverTrigger>
-      <PopoverContent w="280px">
+      <PopoverContent w="280px" bg={{ _light: 'white', _dark: 'gray.900' }}>
         <PopoverBody>
           <UserWalletMenuContent
             address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }

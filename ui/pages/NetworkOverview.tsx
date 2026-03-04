@@ -305,15 +305,15 @@ const NetworkOverview = () => {
         <Stats/>
       </Box>
 
-      { /* ── Two-column: Latest blocks (left) + Latest transactions (right) ── */ }
-      <Flex mt={ 8 } direction={{ base: 'column', lg: 'row' }} columnGap={ 12 } rowGap={ 6 }>
-        <Box flexGrow={ 1 } flexBasis="50%" overflow="hidden">
-          <LatestBlocks/>
-        </Box>
-        <Box flexGrow={ 1 } flexBasis="50%" overflow="hidden">
-          <Transactions/>
-        </Box>
-      </Flex>
+      { /* ── Latest blocks (full-width horizontal scroll) ── */ }
+      <Box mt={ 8 }>
+        <LatestBlocks/>
+      </Box>
+
+      { /* ── Latest transactions (full-width below blocks) ── */ }
+      <Box mt={ 6 }>
+        <Transactions/>
+      </Box>
 
       { /* ── Chain Health section (below blocks/txns) ── */ }
       <Grid
