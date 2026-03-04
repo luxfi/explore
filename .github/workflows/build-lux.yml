@@ -76,15 +76,19 @@ jobs:
         env:
           DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         run: |
-          # Install doctl + kubectl if not present
+          INSTALL_DIR="$HOME/.local/bin"
+          mkdir -p "$INSTALL_DIR"
+          export PATH="$INSTALL_DIR:$PATH"
           if ! command -v doctl &>/dev/null; then
-            curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-1.119.1-linux-amd64.tar.gz | tar xz -C /usr/local/bin 2>/dev/null || true
+            curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-1.119.1-linux-amd64.tar.gz | tar xz -C "$INSTALL_DIR"
           fi
           if ! command -v kubectl &>/dev/null; then
             curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            chmod +x kubectl && mv kubectl /usr/local/bin/kubectl
+            chmod +x kubectl && mv kubectl "$INSTALL_DIR/kubectl"
           fi
           doctl auth init -t "$DIGITALOCEAN_ACCESS_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
-          kubectl rollout restart deployment/explorer-frontend -n lux-explorer
+          for dep in explorer-frontend explorer-zoo explorer-hanzo explorer-spc explorer-pars; do
+            kubectl rollout restart deployment/$dep -n lux-explorer || true
+          done
           kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s
