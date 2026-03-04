@@ -2,21 +2,16 @@
 # *** STAGE 1: Dependencies ***
 # *****************************
 FROM node:22.14.0-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat python3 make g++ git
-RUN ln -sf /usr/bin/python3 /usr/bin/python
-RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
-
-# Global pnpm config for all work directories (shamefully-hoist for compat)
-# Use Yarn registry as fallback for npm 403 errors from GitHub Actions
-RUN echo "shamefully-hoist=true" > /root/.npmrc && \
+RUN apk add --no-cache libc6-compat python3 make g++ git && \
+    ln -sf /usr/bin/python3 /usr/bin/python && \
+    corepack enable && corepack prepare pnpm@10.11.0 --activate && \
+    echo "shamefully-hoist=true" > /root/.npmrc && \
     echo "strict-peer-dependencies=false" >> /root/.npmrc && \
     echo "auto-install-peers=true" >> /root/.npmrc && \
     echo "registry=https://registry.yarnpkg.com/" >> /root/.npmrc && \
     echo "fetch-retries=5" >> /root/.npmrc
 
 ### APP
-# Install dependencies
 WORKDIR /app
 COPY package.json pnpm-lock.yaml .npmrc ./
 COPY stubs ./stubs
@@ -27,149 +22,84 @@ COPY configs/app ./configs/app
 COPY toolkit/theme ./toolkit/theme
 COPY toolkit/utils ./toolkit/utils
 COPY toolkit/components/forms/validators/url.ts ./toolkit/components/forms/validators/url.ts
-RUN pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
 
-
-### FEATURE REPORTER
-# Install dependencies
-WORKDIR /feature-reporter
-COPY ./deploy/tools/feature-reporter/package.json ./
-RUN pnpm install --no-lockfile
-
-
-### ENV VARIABLES CHECKER
-# Install dependencies
-WORKDIR /envs-validator
-COPY ./deploy/tools/envs-validator/package.json ./
-RUN pnpm install --no-lockfile
-
-### FAVICON GENERATOR
-# Install dependencies
-WORKDIR /favicon-generator
-COPY ./deploy/tools/favicon-generator/package.json ./
-RUN pnpm install --no-lockfile
-
-### SITEMAP GENERATOR
-# Install dependencies
-WORKDIR /sitemap-generator
-COPY ./deploy/tools/sitemap-generator/package.json ./
-RUN pnpm install --no-lockfile
-
-### MULTICHAIN CONFIG GENERATOR
-# Install dependencies
-WORKDIR /multichain-config-generator
-COPY ./deploy/tools/multichain-config-generator/package.json ./
-RUN pnpm install --no-lockfile
-
-### ESSENTIAL DAPPS CHAINS CONFIG GENERATOR
-# Install dependencies
-WORKDIR /essential-dapps-chains-config-generator
-COPY ./deploy/tools/essential-dapps-chains-config-generator/package.json ./
-RUN pnpm install --no-lockfile
-
-### llms.txt GENERATOR
-# Install dependencies
-WORKDIR /llms-txt-generator
-COPY ./deploy/tools/llms-txt-generator/package.json ./
-RUN pnpm install --no-lockfile
+### TOOLS (all in one layer)
+COPY ./deploy/tools/feature-reporter/package.json /feature-reporter/package.json
+COPY ./deploy/tools/envs-validator/package.json /envs-validator/package.json
+COPY ./deploy/tools/favicon-generator/package.json /favicon-generator/package.json
+COPY ./deploy/tools/sitemap-generator/package.json /sitemap-generator/package.json
+COPY ./deploy/tools/multichain-config-generator/package.json /multichain-config-generator/package.json
+COPY ./deploy/tools/essential-dapps-chains-config-generator/package.json /essential-dapps-chains-config-generator/package.json
+COPY ./deploy/tools/llms-txt-generator/package.json /llms-txt-generator/package.json
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+    cd /feature-reporter && pnpm install --no-lockfile && \
+    cd /envs-validator && pnpm install --no-lockfile && \
+    cd /favicon-generator && pnpm install --no-lockfile && \
+    cd /sitemap-generator && pnpm install --no-lockfile && \
+    cd /multichain-config-generator && pnpm install --no-lockfile && \
+    cd /essential-dapps-chains-config-generator && pnpm install --no-lockfile && \
+    cd /llms-txt-generator && pnpm install --no-lockfile
 
 
 # *****************************
 # ****** STAGE 2: Build *******
 # *****************************
 FROM node:22.14.0-alpine AS builder
-RUN apk add --no-cache --upgrade libc6-compat bash jq
-RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
+RUN apk add --no-cache --upgrade libc6-compat bash jq && \
+    corepack enable && corepack prepare pnpm@10.11.0 --activate
 
-# pass build args to env variables
 ARG GIT_COMMIT_SHA
 ENV NEXT_PUBLIC_GIT_COMMIT_SHA=$GIT_COMMIT_SHA
 ARG GIT_TAG
 ENV NEXT_PUBLIC_GIT_TAG=$GIT_TAG
 ARG NEXT_OPEN_TELEMETRY_ENABLED
 ENV NEXT_OPEN_TELEMETRY_ENABLED=$NEXT_OPEN_TELEMETRY_ENABLED
-
-ENV NODE_ENV production
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 ### APP
-# Copy dependencies and source code
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build SVG sprite and generate .env.registry with ENVs list and save build args into .env file
+# Build SVG sprite + collect envs + build Next.js (with persistent .next/cache)
 RUN set -a && \
     source ./deploy/scripts/build_sprite.sh && \
     ./deploy/scripts/collect_envs.sh ./docs/ENVS.md && \
     set +a
+RUN --mount=type=cache,id=nextjs-cache,target=/app/.next/cache \
+    pnpm build
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-# Build app for production
-ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN pnpm build
-
-
-### FEATURE REPORTER
-# Copy dependencies and source code, then build
+### TOOLS (build all in fewer layers)
 COPY --from=deps /feature-reporter/node_modules ./deploy/tools/feature-reporter/node_modules
-RUN cd ./deploy/tools/feature-reporter && pnpm compile_config
-RUN cd ./deploy/tools/feature-reporter && pnpm build
-
-
-### ENV VARIABLES CHECKER
-# Copy dependencies and source code, then build
 COPY --from=deps /envs-validator/node_modules ./deploy/tools/envs-validator/node_modules
-RUN cd ./deploy/tools/envs-validator && pnpm build
-
-
-### FAVICON GENERATOR
-# Copy dependencies and source code
 COPY --from=deps /favicon-generator/node_modules ./deploy/tools/favicon-generator/node_modules
-
-
-### SITEMAP GENERATOR
-# Copy dependencies and source code
 COPY --from=deps /sitemap-generator/node_modules ./deploy/tools/sitemap-generator/node_modules
-
-### MULTICHAIN CONFIG GENERATOR
-# Copy dependencies and source code, then build
 COPY --from=deps /multichain-config-generator/node_modules ./deploy/tools/multichain-config-generator/node_modules
-RUN cd ./deploy/tools/multichain-config-generator && pnpm build
-
-### ESSENTIAL DAPPS CHAINS CONFIG GENERATOR
-# Copy dependencies and source code, then build
 COPY --from=deps /essential-dapps-chains-config-generator/node_modules ./deploy/tools/essential-dapps-chains-config-generator/node_modules
-RUN cd ./deploy/tools/essential-dapps-chains-config-generator && pnpm build
-
-### llms.txt GENERATOR
-# Copy dependencies and source code, then build
 COPY --from=deps /llms-txt-generator/node_modules ./deploy/tools/llms-txt-generator/node_modules
-RUN cd ./deploy/tools/llms-txt-generator && pnpm build
+RUN cd ./deploy/tools/feature-reporter && pnpm compile_config && pnpm build && \
+    cd /app/deploy/tools/envs-validator && pnpm build && \
+    cd /app/deploy/tools/multichain-config-generator && pnpm build && \
+    cd /app/deploy/tools/essential-dapps-chains-config-generator && pnpm build && \
+    cd /app/deploy/tools/llms-txt-generator && pnpm build
 
 
 # *****************************
 # ******* STAGE 3: Run ********
 # *****************************
-# Production image, copy all the files and run next
 FROM node:22.14.0-alpine AS runner
-RUN apk add --no-cache --upgrade bash curl jq unzip
+RUN apk add --no-cache --upgrade bash curl jq unzip && \
+    addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
-### APP
+ENV NEXT_TELEMETRY_DISABLED=1
+
 WORKDIR /app
-
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN mkdir .next && chown nextjs:nodejs .next
 
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
