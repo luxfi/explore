@@ -30,7 +30,11 @@ export default function useLogout() {
 
   return React.useCallback(async() => {
     try {
-      await apiFetch('general:auth_logout');
+      const accountFeature = config.features.account;
+      const isOidc = accountFeature.isEnabled && accountFeature.authProvider === 'oidc';
+      if (!isOidc) {
+        await apiFetch('general:auth_logout');
+      }
       cookies.remove(cookies.NAMES.API_TOKEN);
 
       if (config.features.rewards.isEnabled) {
@@ -50,6 +54,9 @@ export default function useLogout() {
       queryClient.resetQueries({
         queryKey: getResourceKey('general:user_info'),
         exact: true,
+      });
+      queryClient.resetQueries({
+        queryKey: [ 'oidc_profile' ],
       });
       queryClient.resetQueries({
         queryKey: getResourceKey('general:custom_abi'),

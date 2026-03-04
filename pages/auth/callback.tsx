@@ -51,7 +51,7 @@ const OidcCallback: NextPage = () => {
         const { serverUrl, clientId } = oidc;
         const redirectUri = `${ window.location.origin }/auth/callback`;
 
-        const tokenResponse = await fetch(`${ serverUrl }/oauth/token`, {
+        const tokenResponse = await fetch(`${ serverUrl }/api/login/oauth/access_token`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams({
