@@ -281,17 +281,13 @@ const NetworkOverview = () => {
         flexWrap="wrap"
         overflow="hidden"
       >
-        <Metric label="C-Chain" value={ cChainHeight > 0 ? `#${ cChainHeight.toLocaleString() }` : '\u2014' } isLoading={ heightsLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="P-Chain" value={ pChainHeight > 0 ? `#${ pChainHeight.toLocaleString() }` : '\u2014' } isLoading={ heightsLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric label="Validators" value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' } isLoading={ validatorsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' } isLoading={ validatorsLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric label="Uptime" value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' } isLoading={ validatorsLoading }/>
+        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+        <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
         <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
         <Metric
           label="Connected"
