@@ -61,6 +61,7 @@ const config: Feature<{
           serverUrl: oidcServerUrl,
           clientId: oidcClientId,
         },
+        apiKeysButton,
       });
     }
 
@@ -83,6 +84,7 @@ const config: Feature<{
           serverUrl: oidcServerUrl,
           clientId: oidcClientId,
         },
+        apiKeysButton,
       });
     }
   }
