@@ -215,7 +215,7 @@ const TopBar = () => {
         <Box flex={ 1 } display={{ base: 'block', lg: 'none' }}/>
 
         { /* ── User profile / Sign in ── */ }
-        <Box flexShrink={ 0 }>
+        <Box flexShrink={ 0 } ml="auto">
           <UserProfileDesktop buttonSize="sm"/>
         </Box>
       </Flex>
