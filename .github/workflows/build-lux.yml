@@ -80,7 +80,8 @@ jobs:
           mkdir -p "$INSTALL_DIR"
           export PATH="$INSTALL_DIR:$PATH"
           if ! command -v doctl &>/dev/null; then
-            curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-1.119.1-linux-amd64.tar.gz | tar xz -C "$INSTALL_DIR"
+            DOCTL_VERSION=$(curl -sI https://github.com/digitalocean/doctl/releases/latest | grep -i '^location:' | sed 's|.*/v||;s/\r//')
+            curl -sL "https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz" | tar xz -C "$INSTALL_DIR"
           fi
           if ! command -v kubectl &>/dev/null; then
             curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -88,7 +89,7 @@ jobs:
           fi
           doctl auth init -t "$DIGITALOCEAN_ACCESS_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
-          for dep in explorer-frontend explorer-zoo explorer-hanzo explorer-spc explorer-pars; do
+          for dep in explorer-frontend explorer-mainnet explorer-zoo explorer-hanzo explorer-spc explorer-pars; do
             kubectl rollout restart deployment/$dep -n lux-explorer || true
           done
           kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s
