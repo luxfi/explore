@@ -53,6 +53,7 @@ const CARD_BORDER = '1px solid';
 
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
+  if (lux >= 1_000_000_000) return `${ (lux / 1_000_000_000).toFixed(1) }B`;
   if (lux >= 1_000_000) return `${ (lux / 1_000_000).toFixed(1) }M`;
   if (lux >= 1_000) return `${ (lux / 1_000).toFixed(1) }K`;
   return lux.toFixed(0);
