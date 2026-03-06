@@ -13,7 +13,7 @@ import Stats from 'ui/home/Stats';
 import Transactions from 'ui/home/Transactions';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
-const LUX_DECIMALS = 9;
+const LUX_DECIMALS = 6;
 
 const PRIMARY_CHAINS = [
   { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/' },
