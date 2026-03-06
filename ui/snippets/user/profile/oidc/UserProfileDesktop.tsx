@@ -44,7 +44,7 @@ function buildOidcLoginUrl(): string {
     state,
   });
 
-  return `${ serverUrl }/login/oauth/authorize?${ params.toString() }`;
+  return `${ serverUrl }/oauth/authorize?${ params.toString() }`;
 }
 
 interface Props {
