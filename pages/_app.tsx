@@ -95,7 +95,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   const RewardsProvider = config.features.rewards.isEnabled ? RewardsContextProvider : FallbackProvider;
 
-  const socketUrl = !config.features.opSuperchain.isEnabled ? getSocketUrl() : undefined;
+  const socketUrl = !config.features.multichain.isEnabled ? getSocketUrl() : undefined;
 
   return (
     <ChakraProvider>

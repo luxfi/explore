@@ -56,6 +56,10 @@ const DEFAULT_THEME_COLORS = {
     primary: {
       _light: { value: '{colors.gray.900}' },
       _dark: { value: '{colors.whiteAlpha.900}' },
+      text: {
+        _light: { value: '{colors.white}' },
+        _dark: { value: '{colors.black}' },
+      },
     },
   },
   link: {

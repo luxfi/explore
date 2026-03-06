@@ -63,6 +63,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/deposits">
     | StaticRoute<"/dex">
     | StaticRoute<"/dispute-games">
+    | StaticRoute<"/ecosystems">
     | DynamicRoute<"/epochs/[number]", { "number": string }>
     | StaticRoute<"/epochs">
     | DynamicRoute<"/essential-dapps/[id]", { "id": string }>
