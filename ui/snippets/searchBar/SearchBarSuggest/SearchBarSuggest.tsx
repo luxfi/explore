@@ -3,7 +3,7 @@ import type { UseQueryResult } from '@tanstack/react-query';
 import { debounce } from 'es-toolkit';
 import React from 'react';
 
-import type { ListCctxsResponse } from '@luxfi/zetachain-cctx-types';
+import type { ListCctxsResponse } from '@blockscout/zetachain-cctx-types';
 import type { QuickSearchResultItem } from 'types/client/search';
 
 import config from 'configs/app';

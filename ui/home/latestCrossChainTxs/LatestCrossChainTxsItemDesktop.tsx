@@ -1,7 +1,7 @@
 import { chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
-import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
+import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
 
 import { TableCell, TableRow } from 'toolkit/chakra/table';
 import { mdash } from 'toolkit/utils/htmlEntities';

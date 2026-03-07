@@ -1,7 +1,7 @@
 import type * as d3 from 'd3';
 
-export { Resolution } from '@luxfi/stats-types';
-import { Resolution as ResolutionEnum } from '@luxfi/stats-types';
+export { Resolution } from '@blockscout/stats-types';
+import { Resolution as ResolutionEnum } from '@blockscout/stats-types';
 
 export const RESOLUTION_LABELS: Array<{ id: ResolutionEnum; title: string }> = [
   {

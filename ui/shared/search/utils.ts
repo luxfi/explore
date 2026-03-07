@@ -1,4 +1,4 @@
-import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
+import type { CctxListItem } from '@blockscout/zetachain-cctx-types';
 import { getFeaturePayload } from 'configs/app/features/types';
 import type { TokenType } from 'types/api/token';
 import type { MarketplaceApp } from 'types/client/marketplace';

@@ -1,4 +1,4 @@
-import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
+import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
 
 export const base: GetAvailableBadgesResponse = {
   items: [

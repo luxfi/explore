@@ -1,4 +1,4 @@
-import type * as bens from '@luxfi/bens-types';
+import type * as bens from '@blockscout/bens-types';
 
 import getNextSortValueShared from 'ui/shared/sort/getNextSortValue';
 

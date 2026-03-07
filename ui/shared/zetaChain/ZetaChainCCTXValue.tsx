@@ -1,7 +1,7 @@
 import { Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import { CoinType } from '@luxfi/zetachain-cctx-types';
+import { CoinType } from '@blockscout/zetachain-cctx-types';
 
 import config from 'configs/app';
 import { Skeleton } from 'toolkit/chakra/skeleton';

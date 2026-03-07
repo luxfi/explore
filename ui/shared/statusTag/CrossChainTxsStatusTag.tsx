@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MessageStatus } from '@luxfi/interchain-indexer-types';
+import { MessageStatus } from '@blockscout/interchain-indexer-types';
 
 import type { BadgeProps } from 'toolkit/chakra/badge';
 

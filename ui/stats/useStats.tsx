@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react';
 
-import type * as stats from '@luxfi/stats-types';
+import type * as stats from '@blockscout/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 import type { ExternalChainExtended } from 'types/externalChains';
 

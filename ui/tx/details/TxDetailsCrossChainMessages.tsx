@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
+import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { INTERCHAIN_MESSAGE } from 'stubs/interchainIndexer';

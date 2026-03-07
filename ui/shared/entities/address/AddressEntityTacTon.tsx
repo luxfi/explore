@@ -1,7 +1,7 @@
 import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
-import * as tac from '@luxfi/tac-operation-lifecycle-types';
+import * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import { route } from 'nextjs-routes';
 

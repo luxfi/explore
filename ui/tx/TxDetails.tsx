@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
-import type * as tac from '@luxfi/tac-operation-lifecycle-types';
+import type * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import type { ResourceError } from 'lib/api/resources';
 import TestnetWarning from 'ui/shared/alerts/TestnetWarning';

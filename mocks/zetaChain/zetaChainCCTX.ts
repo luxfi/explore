@@ -1,4 +1,4 @@
-import * as zetaChainCCTXType from '@luxfi/zetachain-cctx-types';
+import * as zetaChainCCTXType from '@blockscout/zetachain-cctx-types';
 
 export const zetaChainCCTXItem: zetaChainCCTXType.CctxListItem = {
   index: '0xaea405aa63353312727dcc471e3242d3b8de0a181d6e35fe905fff4084bd3cc1',

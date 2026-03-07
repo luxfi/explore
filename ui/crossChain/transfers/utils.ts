@@ -1,4 +1,4 @@
-import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
+import type { InterchainTransfer } from '@blockscout/interchain-indexer-types';
 
 export const getItemKey = (data: InterchainTransfer, index?: number) => {
   return [

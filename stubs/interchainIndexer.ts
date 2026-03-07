@@ -4,8 +4,8 @@ import type {
   GetDailyStatisticsResponse,
   InterchainMessage,
   InterchainTransfer,
-} from '@luxfi/interchain-indexer-types';
-import { MessageStatus } from '@luxfi/interchain-indexer-types';
+} from '@blockscout/interchain-indexer-types';
+import { MessageStatus } from '@blockscout/interchain-indexer-types';
 
 import { ADDRESS_HASH } from './addressParams';
 import { TX_HASH } from './tx';

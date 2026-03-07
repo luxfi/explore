@@ -1,5 +1,5 @@
-import type * as bens from '@luxfi/bens-types';
-import type * as multichain from '@luxfi/multichain-aggregator-types';
+import type * as bens from '@blockscout/bens-types';
+import type * as multichain from '@blockscout/multichain-aggregator-types';
 import type { TokenType } from 'types/api/token';
 
 // ts-proto generates the wrong token types for AggregatedTokenInfo

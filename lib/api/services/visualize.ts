@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as visualizer from '@luxfi/visualizer-types';
+import type * as visualizer from '@blockscout/visualizer-types';
 
 export const VISUALIZE_API_RESOURCES = {
   solidity_contract: {

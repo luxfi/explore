@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { createContext, useContext, useEffect, useMemo, useCallback, useState } from 'react';
 import { useSignMessage, useSwitchChain } from 'wagmi';
 
-import type * as rewards from '@luxfi/points-types';
+import type * as rewards from '@blockscout/points-types';
 
 import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';

@@ -86,7 +86,7 @@ const Footer = () => {
       url: 'https://docs.lux.network',
     },
     {
-      icon: 'AI' as const,
+      icon: 'docs' as const,
       iconSize: '20px',
       text: 'llms.txt',
       url: `${ config.app.baseUrl }/llms.txt`,

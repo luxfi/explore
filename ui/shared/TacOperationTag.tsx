@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as tac from '@luxfi/tac-operation-lifecycle-types';
+import type * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import { getTacOperationStatus } from 'lib/operations/tac';
 import type { BadgeProps } from 'toolkit/chakra/badge';

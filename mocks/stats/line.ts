@@ -1,4 +1,4 @@
-import type * as stats from '@luxfi/stats-types';
+import type * as stats from '@blockscout/stats-types';
 
 export const averageGasPrice: stats.LineChart = {
   chart: [

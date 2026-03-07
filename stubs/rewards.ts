@@ -1,4 +1,4 @@
-import type { GetActivityRewardsResponse } from '@luxfi/points-types';
+import type { GetActivityRewardsResponse } from '@blockscout/points-types';
 
 export const USER_ACTIVITY: GetActivityRewardsResponse = {
   items: [

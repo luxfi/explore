@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
-import { MessageStatus } from '@luxfi/interchain-indexer-types';
+import type { InterchainMessage } from '@blockscout/interchain-indexer-types';
+import { MessageStatus } from '@blockscout/interchain-indexer-types';
 
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
 import TxEntityInterchain from 'ui/shared/entities/tx/TxEntityInterchain';

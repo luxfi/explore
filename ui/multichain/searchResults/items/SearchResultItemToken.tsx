@@ -2,7 +2,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { mapValues } from 'es-toolkit';
 import React from 'react';
 
-import type * as multichain from '@luxfi/multichain-aggregator-types';
+import type * as multichain from '@blockscout/multichain-aggregator-types';
 import type { TokenType } from 'types/api/token';
 import type { ClusterChainConfig } from 'types/multichain';
 

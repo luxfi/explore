@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-import * as tac from '@luxfi/tac-operation-lifecycle-types';
+import * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import DetailedInfoTimestamp from 'ui/shared/DetailedInfo/DetailedInfoTimestamp';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';

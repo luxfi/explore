@@ -3,7 +3,7 @@ import type { NextRouter } from 'next/router';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Resolution } from '@luxfi/stats-types';
+import { Resolution } from '@blockscout/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 import { StatsIntervalId } from 'types/client/stats';
 

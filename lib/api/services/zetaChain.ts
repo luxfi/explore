@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as zetaChainCCTXType from '@luxfi/zetachain-cctx-types';
+import type * as zetaChainCCTXType from '@blockscout/zetachain-cctx-types';
 import type { ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
 
 export const ZETA_CHAIN_API_RESOURCES = {

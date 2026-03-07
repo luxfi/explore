@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as tac from '@luxfi/tac-operation-lifecycle-types';
+import type * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import { TableCell, TableRow } from 'toolkit/chakra/table';
 import AddressEntityTacTon from 'ui/shared/entities/address/AddressEntityTacTon';

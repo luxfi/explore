@@ -1,4 +1,4 @@
-import * as bens from '@luxfi/bens-types';
+import * as bens from '@blockscout/bens-types';
 
 const domainTokenA: bens.Token = {
   id: '97352314626701792030827861137068748433918254309635329404916858191911576754327',

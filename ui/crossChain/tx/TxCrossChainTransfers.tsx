@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 
-import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
+import type { InterchainTransfer } from '@blockscout/interchain-indexer-types';
 
 import DataListDisplay from 'ui/shared/DataListDisplay';
 

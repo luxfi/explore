@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as zetaChainCCTXType from '@luxfi/zetachain-cctx-types';
+import * as zetaChainCCTXType from '@blockscout/zetachain-cctx-types';
 
 import { zetaChainCCTXList } from 'mocks/zetaChain/zetaChainCCTX';
 import { zetaChainCCTXConfig } from 'mocks/zetaChain/zetaChainCCTXConfig';

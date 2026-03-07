@@ -1,4 +1,4 @@
-import type { GetUserBalancesResponse } from '@luxfi/points-types';
+import type { GetUserBalancesResponse } from '@blockscout/points-types';
 
 export const base: GetUserBalancesResponse = {
   total: '250',

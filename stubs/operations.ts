@@ -1,4 +1,4 @@
-import * as tac from '@luxfi/tac-operation-lifecycle-types';
+import * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import { ADDRESS_HASH } from './addressParams';
 

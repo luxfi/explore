@@ -1,7 +1,7 @@
 import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
-import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
+import type { CctxListItem } from '@blockscout/zetachain-cctx-types';
 
 import { SECOND } from 'toolkit/utils/consts';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';

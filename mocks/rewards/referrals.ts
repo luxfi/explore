@@ -1,4 +1,4 @@
-import type { GetReferralDataResponse } from '@luxfi/points-types';
+import type { GetReferralDataResponse } from '@blockscout/points-types';
 
 export const base: GetReferralDataResponse = {
   code: 'QWERTY',

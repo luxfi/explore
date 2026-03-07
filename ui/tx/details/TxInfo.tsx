@@ -10,7 +10,7 @@ import {
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
-import type * as tac from '@luxfi/tac-operation-lifecycle-types';
+import type * as tac from '@blockscout/tac-operation-lifecycle-types';
 import { SCROLL_L2_BLOCK_STATUSES } from 'types/api/scrollL2';
 import type { Transaction } from 'types/api/transaction';
 import { ZKEVM_L2_TX_STATUSES } from 'types/api/transaction';

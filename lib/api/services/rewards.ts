@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as rewards from '@luxfi/points-types';
+import type * as rewards from '@blockscout/points-types';
 
 export const REWARDS_API_RESOURCES = {
   config: {

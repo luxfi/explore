@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as tac from '@luxfi/tac-operation-lifecycle-types';
+import type * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import { sortStatusHistory } from 'lib/operations/tac';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';

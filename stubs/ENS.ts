@@ -1,4 +1,4 @@
-import * as bens from '@luxfi/bens-types';
+import * as bens from '@blockscout/bens-types';
 
 import { ADDRESS_PARAMS, ADDRESS_HASH } from './addressParams';
 import { TX_HASH } from './tx';

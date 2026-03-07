@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type * as bens from '@luxfi/bens-types';
+import type * as bens from '@blockscout/bens-types';
 
 import { Alert } from 'toolkit/chakra/alert';
 import { Link } from 'toolkit/chakra/link';

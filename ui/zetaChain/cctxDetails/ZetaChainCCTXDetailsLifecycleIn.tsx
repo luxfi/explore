@@ -1,8 +1,8 @@
 import { Flex, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import type { CrossChainTx } from '@luxfi/zetachain-cctx-types';
-import { InboundStatus } from '@luxfi/zetachain-cctx-types';
+import type { CrossChainTx } from '@blockscout/zetachain-cctx-types';
+import { InboundStatus } from '@blockscout/zetachain-cctx-types';
 
 import config from 'configs/app';
 import { Skeleton } from 'toolkit/chakra/skeleton';

@@ -1,7 +1,7 @@
 import { Flex, Text, Separator } from '@chakra-ui/react';
 import React from 'react';
 
-import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
+import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
 
 import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
 import { Heading } from 'toolkit/chakra/heading';

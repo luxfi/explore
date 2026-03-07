@@ -2,7 +2,7 @@ import { capitalize, omit } from 'es-toolkit/compat';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { Direction } from '@luxfi/zetachain-cctx-types';
+import { Direction } from '@blockscout/zetachain-cctx-types';
 import type { TabItemRegular } from 'toolkit/components/AdaptiveTabs/types';
 import { ADVANCED_FILTER_AGES, type AdvancedFilterAge } from 'types/api/advancedFilter';
 import { ZETA_CHAIN_CCTX_COIN_TYPE_FILTER, ZETA_CHAIN_CCTX_STATUS_REDUCED_FILTERS } from 'types/client/zetaChain';

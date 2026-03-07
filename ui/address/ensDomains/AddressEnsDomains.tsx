@@ -3,7 +3,7 @@ import type { UseQueryResult } from '@tanstack/react-query';
 import { clamp } from 'es-toolkit';
 import React from 'react';
 
-import type * as bens from '@luxfi/bens-types';
+import type * as bens from '@blockscout/bens-types';
 
 import { route } from 'nextjs-routes';
 

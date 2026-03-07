@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
+import type { GetAvailableBadgesResponse } from '@blockscout/points-types';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
