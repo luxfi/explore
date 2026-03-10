@@ -6,6 +6,24 @@ export interface ChainBranding {
   /** Display name in the header (e.g. "Lux Network", "Zoo Chain") */
   readonly brandName: string;
 
+  /** Organization name for copyright (e.g. "Lux Industries Inc.") */
+  readonly orgName: string;
+
+  /** Primary website URL */
+  readonly websiteUrl: string;
+
+  /** One-line description for footer */
+  readonly description: string;
+
+  /** GitHub org URL */
+  readonly githubUrl: string;
+
+  /** Twitter/X URL */
+  readonly twitterUrl: string;
+
+  /** Discord invite URL */
+  readonly discordUrl: string;
+
   /** viewBox for the inline logo SVG */
   readonly logoViewBox: string;
 
@@ -41,6 +59,12 @@ export interface NetworkEntry {
 /** Lux — downward-pointing triangle (~/work/lux/logo/) */
 const LUX_BRANDING: ChainBranding = {
   brandName: 'Lux Network',
+  orgName: 'Lux Industries Inc.',
+  websiteUrl: 'https://lux.network',
+  description: 'High-performance blockchain for decentralized applications.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/luxdefi',
+  discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 100 100',
   logoContent: '<path d="M50 85 L15 25 L85 25 Z" fill="currentColor"/>',
   faviconContent: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="m256 410 179-308H77z"/>',
@@ -49,6 +73,12 @@ const LUX_BRANDING: ChainBranding = {
 /** Zoo — three overlapping circles (~/work/zoo/logo/) */
 const ZOO_BRANDING: ChainBranding = {
   brandName: 'Zoo Chain',
+  orgName: 'Zoo Labs Foundation',
+  websiteUrl: 'https://zoo.ngo',
+  description: 'Open AI research network — decentralized AI and science.',
+  githubUrl: 'https://github.com/zoolabs',
+  twitterUrl: 'https://x.com/zoolabs',
+  discordUrl: 'https://discord.gg/zoolabs',
   logoViewBox: '0 0 64 64',
   logoContent:
     '<circle cx="32" cy="22" r="12" fill="#00A652"/>' +
@@ -64,6 +94,12 @@ const ZOO_BRANDING: ChainBranding = {
 /** Hanzo — geometric H logo (~/work/hanzo/logo/) */
 const HANZO_BRANDING: ChainBranding = {
   brandName: 'Hanzo AI',
+  orgName: 'Hanzo Industries Inc.',
+  websiteUrl: 'https://hanzo.ai',
+  description: 'AI blockchain — decentralized compute and inference.',
+  githubUrl: 'https://github.com/hanzoai',
+  twitterUrl: 'https://x.com/hanaboratory',
+  discordUrl: 'https://discord.gg/hanzoai',
   logoViewBox: '0 0 67 67',
   logoContent:
     '<path d="M22.21 67V44.64H0V67H22.21Z" fill="currentColor"/>' +
@@ -85,6 +121,12 @@ const HANZO_BRANDING: ChainBranding = {
 /** SPC — unicorn */
 const SPC_BRANDING: ChainBranding = {
   brandName: 'SPC Chain',
+  orgName: 'Sparkle Pony Club',
+  websiteUrl: 'https://sparkleponyclub.com',
+  description: 'SPC chain on Lux Network.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/luxdefi',
+  discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 64 64',
   logoContent:
     '<text x="32" y="46" text-anchor="middle" font-size="42" fill="currentColor">&#x1F984;</text>',
@@ -101,6 +143,12 @@ const PARS_STAR_INNER = 'M0-65 20-39 65-26 39 0 65 26 20 39 0 65-20 39-65 26-39 
 
 const PARS_BRANDING: ChainBranding = {
   brandName: 'Pars Network',
+  orgName: 'Parsis Foundation',
+  websiteUrl: 'https://pars.network',
+  description: 'Pars blockchain — financial infrastructure for the Persian-speaking world.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/parsnetwork',
+  discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '-120 -120 240 240',
   logoContent:
     `<path d="${ PARS_STAR_OUTER }" fill="none"` +
@@ -123,7 +171,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'mainnet',
-    hostnames: [ 'explore.lux.network', 'localhost' ],
+    hostnames: [ 'explore.lux.network', 'explore.lux.build', 'localhost' ],
     explorerUrl: 'https://explore.lux.network',
     apiUrl: 'https://api-explore.lux.network',
     branding: LUX_BRANDING,
@@ -133,7 +181,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Zoo Chain',
     vm: 'Subnet EVM',
     network: 'mainnet',
-    hostnames: [ 'explore-zoo.lux.network' ],
+    hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
     branding: ZOO_BRANDING,
@@ -143,7 +191,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Hanzo AI',
     vm: 'Subnet EVM',
     network: 'mainnet',
-    hostnames: [ 'explore-hanzo.lux.network' ],
+    hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
     branding: HANZO_BRANDING,
@@ -163,7 +211,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Pars Network',
     vm: 'Subnet EVM',
     network: 'mainnet',
-    hostnames: [ 'explore-pars.lux.network' ],
+    hostnames: [ 'explore-pars.lux.network', 'explore.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',
     apiUrl: 'https://api-explore-pars.lux.network',
     branding: PARS_BRANDING,
@@ -174,9 +222,9 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'testnet',
-    hostnames: [ 'explore.lux-test.network' ],
-    explorerUrl: 'https://explore.lux-test.network',
-    apiUrl: 'https://api-explore.lux-test.network',
+    hostnames: [ 'explore-test.lux.network', 'explore.lux-test.network' ],
+    explorerUrl: 'https://explore-test.lux.network',
+    apiUrl: 'https://api-explore-test.lux.network',
     branding: LUX_BRANDING,
   },
   // Devnet chains
@@ -185,9 +233,9 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'devnet',
-    hostnames: [ 'explore.lux-dev.network' ],
-    explorerUrl: 'https://explore.lux-dev.network',
-    apiUrl: 'https://api-explore.lux-dev.network',
+    hostnames: [ 'explore-dev.lux.network', 'explore.lux-dev.network' ],
+    explorerUrl: 'https://explore-dev.lux.network',
+    apiUrl: 'https://api-explore-dev.lux.network',
     branding: LUX_BRANDING,
   },
 ];

@@ -6,13 +6,13 @@ import React from 'react';
 import type { CustomLinksGroup } from 'types/footerLinks';
 
 import config from 'configs/app';
+import { getCurrentChain } from 'configs/app/chainRegistry';
 import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import useFetch from 'lib/hooks/useFetch';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { copy } from 'toolkit/utils/htmlEntities';
-import IconSvg from 'ui/shared/IconSvg';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
 
@@ -36,54 +36,34 @@ const Footer = () => {
   });
   const apiVersionUrl = getApiVersionUrl(backendVersionData?.backend_version);
 
-  const LUX_LINKS = [
+  const currentChain = getCurrentChain();
+
+  const branding = currentChain.branding;
+
+  const FOOTER_LINKS = [
     {
       icon: 'social/git' as const,
       iconSize: '20px',
       text: 'Contribute',
-      url: 'https://github.com/luxfi',
-    },
-    {
-      icon: 'brands/pro_api' as const,
-      iconSize: '20px',
-      text: 'PRO API',
-      url: 'https://dev.blockscout.com',
-    },
-    {
-      icon: 'brands/autoscout' as const,
-      iconSize: '20px',
-      text: 'Autoscout',
-      url: 'https://autoscout.blockscout.com',
-    },
-    {
-      icon: 'docs' as const,
-      iconSize: '20px',
-      text: 'Docs',
-      url: 'https://docs.blockscout.com',
+      url: branding.githubUrl,
     },
     {
       icon: 'social/twitter' as const,
       iconSize: '24px',
       text: 'X (Twitter)',
-      url: 'https://x.com/luxaboratory',
+      url: branding.twitterUrl,
     },
     {
       icon: 'social/discord' as const,
       iconSize: '24px',
       text: 'Discord',
-      url: 'https://discord.gg/luxnetwork',
+      url: branding.discordUrl,
     },
     {
       icon: 'globe' as const,
       iconSize: '18px',
-      text: 'Lux Network',
-      url: 'https://lux.network',
-    },
-    {
-      icon: 'docs' as const,
-      iconSize: '20px',
-      text: 'Documentation',
-      url: 'https://docs.lux.network',
+      text: branding.brandName,
+      url: branding.websiteUrl,
     },
     {
       icon: 'docs' as const,
@@ -140,15 +120,11 @@ const Footer = () => {
 
     return (
       <Box gridArea={ gridArea }>
-        <Link href="https://lux.network" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
-          <IconSvg
-            name="networks/logo-placeholder"
-            width="80px"
-            height={ 4 }
-          />
+        <Link href={ branding.websiteUrl } external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
+          <Text fontWeight="700" fontSize="lg">{ branding.brandName }</Text>
         </Link>
         <Text mt={ 3 } fontSize="xs">
-          Lux Network is a high-performance blockchain platform for decentralized applications and custom blockchain networks.
+          { branding.description }
         </Text>
         <Box mt={ 6 } alignItems="start" textStyle="xs">
           { apiVersionUrl && (
@@ -162,12 +138,12 @@ const Footer = () => {
             </Text>
           ) }
           <Text>
-            { copy } { (new Date()).getFullYear() } Lux Industries Inc. All rights reserved.
+            { copy } { (new Date()).getFullYear() } { branding.orgName }
           </Text>
         </Box>
       </Box>
     );
-  }, [ apiVersionUrl, backendVersionData?.backend_version, frontendLink ]);
+  }, [ apiVersionUrl, backendVersionData?.backend_version, frontendLink, branding ]);
 
   const containerProps: HTMLChakraProps<'div'> = {
     as: 'footer',
@@ -222,7 +198,7 @@ const Footer = () => {
           >
             {
               ([
-                { title: 'Lux Network', links: LUX_LINKS },
+                { title: currentChain.branding.brandName, links: FOOTER_LINKS },
                 ...(linksData || []),
               ])
                 .slice(0, colNum)
@@ -276,7 +252,7 @@ const Footer = () => {
           justifyContent={{ lg: 'flex-end' }}
           mt={{ base: 8, lg: 0 }}
         >
-          { LUX_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
+          { FOOTER_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
         </Grid>
       </Grid>
     </Box>
