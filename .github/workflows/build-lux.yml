@@ -89,7 +89,12 @@ jobs:
           fi
           doctl auth init -t "$DIGITALOCEAN_ACCESS_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
-          for dep in explorer-frontend explorer-mainnet explorer-zoo explorer-hanzo explorer-spc explorer-pars; do
-            kubectl rollout restart deployment/$dep -n lux-explorer || true
+          # Mainnet frontends
+          for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
+            kubectl rollout restart deployment/$dep -n lux-mainnet || true
           done
-          kubectl rollout status deployment/explorer-frontend -n lux-explorer --timeout=300s
+          # Testnet & devnet frontends
+          kubectl rollout restart deployment/lux-frontend-testnet -n lux-testnet || true
+          kubectl rollout restart deployment/lux-frontend-devnet -n lux-devnet || true
+          # Wait for mainnet rollout
+          kubectl rollout status deployment/lux-frontend-mainnet -n lux-mainnet --timeout=300s
