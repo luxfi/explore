@@ -7,6 +7,7 @@ import { Heading } from 'toolkit/chakra/heading';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tag } from 'toolkit/chakra/tag';
+import { HomeRpcDataContextProvider } from 'ui/home/fallbacks/rpcDataContext';
 import HeroBanner from 'ui/home/HeroBanner';
 import LatestBlocks from 'ui/home/LatestBlocks';
 import Stats from 'ui/home/Stats';
@@ -264,174 +265,176 @@ const NetworkOverview = () => {
   const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
   return (
-    <Box as="main">
-      { /* ── Hero search ── */ }
-      <HeroBanner/>
+    <HomeRpcDataContextProvider>
+      <Box as="main">
+        { /* ── Hero search ── */ }
+        <HeroBanner/>
 
-      { /* ── Metrics strip ── */ }
-      <Flex
-        justify="center"
-        align="center"
-        py={ 3 }
-        mt={ 4 }
-        borderRadius="lg"
-        border={ CARD_BORDER }
-        borderColor="border.divider"
-        bgColor={ CARD_BG }
-        gap={ 0 }
-        flexWrap="wrap"
-        overflow="hidden"
-      >
-        <Metric label="Validators" value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' } isLoading={ validatorsLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' } isLoading={ validatorsLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Uptime" value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' } isLoading={ validatorsLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
-        <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-        <Metric
-          label="Connected"
-          value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
-          isLoading={ validatorsLoading }
-        />
-      </Flex>
-
-      { /* ── Stats widgets ── */ }
-      <Box mt={ 5 }>
-        <Stats/>
-      </Box>
-
-      { /* ── Latest blocks (full-width horizontal scroll) ── */ }
-      <Box mt={ 8 }>
-        <LatestBlocks/>
-      </Box>
-
-      { /* ── Latest transactions (full-width below blocks) ── */ }
-      <Box mt={ 6 }>
-        <Transactions/>
-      </Box>
-
-      { /* ── Chain Health section (below blocks/txns) ── */ }
-      <Grid
-        templateColumns={{ base: '1fr', lg: 'repeat(3, 1fr)' }}
-        gap={ 4 }
-        mt={ 8 }
-      >
-        { /* Primary Network chains */ }
-        <SidebarCard
-          title="Primary Network"
-          count={ PRIMARY_CHAINS.length }
+        { /* ── Metrics strip ── */ }
+        <Flex
+          justify="center"
+          align="center"
+          py={ 3 }
+          mt={ 4 }
+          borderRadius="lg"
+          border={ CARD_BORDER }
+          borderColor="border.divider"
+          bgColor={ CARD_BG }
+          gap={ 0 }
+          flexWrap="wrap"
+          overflow="hidden"
         >
-          <Flex direction="column" gap={ 0 }>
-            { PRIMARY_CHAINS.map((chain) => {
-              const chainHeight = (() => {
-                if (chain.id === 'C') return cChainHeight;
-                if (chain.id === 'P') return pChainHeight;
-                return undefined;
-              })();
-              return (
-                <ChainRow
-                  key={ chain.id }
-                  name={ chain.name }
-                  fullName={ chain.fullName }
-                  vm={ chain.vm }
-                  href={ chain.href }
-                  height={ chainHeight }
-                  heightLoading={ heightsLoading }
-                />
-              );
-            }) }
-          </Flex>
-        </SidebarCard>
+          <Metric label="Validators" value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' } isLoading={ validatorsLoading }/>
+          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' } isLoading={ validatorsLoading }/>
+          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <Metric label="Uptime" value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' } isLoading={ validatorsLoading }/>
+          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
+          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <Metric
+            label="Connected"
+            value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
+            isLoading={ validatorsLoading }
+          />
+        </Flex>
 
-        { /* Subnet / L1 chains */ }
-        <SidebarCard
-          title="Chains"
-          count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
-          isLoading={ chainsLoading }
-          action={{ label: 'View all', href: '/chains' }}
+        { /* ── Stats widgets ── */ }
+        <Box mt={ 5 }>
+          <Stats/>
+        </Box>
+
+        { /* ── Latest blocks (full-width horizontal scroll) ── */ }
+        <Box mt={ 8 }>
+          <LatestBlocks/>
+        </Box>
+
+        { /* ── Latest transactions (full-width below blocks) ── */ }
+        <Box mt={ 6 }>
+          <Transactions/>
+        </Box>
+
+        { /* ── Chain Health section (below blocks/txns) ── */ }
+        <Grid
+          templateColumns={{ base: '1fr', lg: 'repeat(3, 1fr)' }}
+          gap={ 4 }
+          mt={ 8 }
         >
-          { chainsLoading && (
-            <Flex direction="column" gap={ 1 }>
-              { Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={ i } loading h="40px" borderRadius="md"/>
-              )) }
-            </Flex>
-          ) }
-          { !chainsLoading && hasL1Data && (
+          { /* Primary Network chains */ }
+          <SidebarCard
+            title="Primary Network"
+            count={ PRIMARY_CHAINS.length }
+          >
             <Flex direction="column" gap={ 0 }>
-              { l1Chains.map((chain) => (
-                <L1ChainRow key={ chain.id } chain={ chain }/>
-              )) }
+              { PRIMARY_CHAINS.map((chain) => {
+                const chainHeight = (() => {
+                  if (chain.id === 'C') return cChainHeight;
+                  if (chain.id === 'P') return pChainHeight;
+                  return undefined;
+                })();
+                return (
+                  <ChainRow
+                    key={ chain.id }
+                    name={ chain.name }
+                    fullName={ chain.fullName }
+                    vm={ chain.vm }
+                    href={ chain.href }
+                    height={ chainHeight }
+                    heightLoading={ heightsLoading }
+                  />
+                );
+              }) }
             </Flex>
-          ) }
-          { showFallbackL1 && (
-            <Flex direction="column" gap={ 0 }>
-              { KNOWN_L1_CHAINS.map((chain) => (
-                <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
-              )) }
-            </Flex>
-          ) }
-        </SidebarCard>
+          </SidebarCard>
 
-        { /* Validators summary card */ }
-        <SidebarCard title="Validators">
-          { !hasValidatorData && !validatorsLoading ? (
-            <Flex direction="column" align="center" py={ 3 }>
-              <Text color="text.secondary" fontSize="sm">
-                { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
-              </Text>
-              <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }} mt={ 2 }>
-                View validators
-              </Link>
-            </Flex>
-          ) : (
-            <>
-              <Grid templateColumns="1fr 1fr" gap={ 3 }>
-                <Box>
-                  <Skeleton loading={ validatorsLoading }>
-                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { hasValidatorData ? stats.validatorCount : '\u2014' }
-                    </Text>
-                  </Skeleton>
-                  <Text fontSize="2xs" color="text.secondary">Active</Text>
-                </Box>
-                <Box>
-                  <Skeleton loading={ validatorsLoading }>
-                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
-                    </Text>
-                  </Skeleton>
-                  <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
-                </Box>
-                <Box>
-                  <Skeleton loading={ validatorsLoading }>
-                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { hasValidatorData ? stats.delegatorCount : '\u2014' }
-                    </Text>
-                  </Skeleton>
-                  <Text fontSize="2xs" color="text.secondary">Delegators</Text>
-                </Box>
-                <Box>
-                  <Skeleton loading={ validatorsLoading }>
-                    <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
-                      { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
-                    </Text>
-                  </Skeleton>
-                  <Text fontSize="2xs" color="text.secondary">Connected</Text>
-                </Box>
-              </Grid>
-              <Flex justify="center" mt={ 3 }>
-                <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+          { /* Subnet / L1 chains */ }
+          <SidebarCard
+            title="Chains"
+            count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
+            isLoading={ chainsLoading }
+            action={{ label: 'View all', href: '/chains' }}
+          >
+            { chainsLoading && (
+              <Flex direction="column" gap={ 1 }>
+                { Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={ i } loading h="40px" borderRadius="md"/>
+                )) }
+              </Flex>
+            ) }
+            { !chainsLoading && hasL1Data && (
+              <Flex direction="column" gap={ 0 }>
+                { l1Chains.map((chain) => (
+                  <L1ChainRow key={ chain.id } chain={ chain }/>
+                )) }
+              </Flex>
+            ) }
+            { showFallbackL1 && (
+              <Flex direction="column" gap={ 0 }>
+                { KNOWN_L1_CHAINS.map((chain) => (
+                  <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
+                )) }
+              </Flex>
+            ) }
+          </SidebarCard>
+
+          { /* Validators summary card */ }
+          <SidebarCard title="Validators">
+            { !hasValidatorData && !validatorsLoading ? (
+              <Flex direction="column" align="center" py={ 3 }>
+                <Text color="text.secondary" fontSize="sm">
+                  { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
+                </Text>
+                <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }} mt={ 2 }>
                   View validators
                 </Link>
               </Flex>
-            </>
-          ) }
-        </SidebarCard>
-      </Grid>
-    </Box>
+            ) : (
+              <>
+                <Grid templateColumns="1fr 1fr" gap={ 3 }>
+                  <Box>
+                    <Skeleton loading={ validatorsLoading }>
+                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                        { hasValidatorData ? stats.validatorCount : '\u2014' }
+                      </Text>
+                    </Skeleton>
+                    <Text fontSize="2xs" color="text.secondary">Active</Text>
+                  </Box>
+                  <Box>
+                    <Skeleton loading={ validatorsLoading }>
+                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                        { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
+                      </Text>
+                    </Skeleton>
+                    <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
+                  </Box>
+                  <Box>
+                    <Skeleton loading={ validatorsLoading }>
+                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                        { hasValidatorData ? stats.delegatorCount : '\u2014' }
+                      </Text>
+                    </Skeleton>
+                    <Text fontSize="2xs" color="text.secondary">Delegators</Text>
+                  </Box>
+                  <Box>
+                    <Skeleton loading={ validatorsLoading }>
+                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                        { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
+                      </Text>
+                    </Skeleton>
+                    <Text fontSize="2xs" color="text.secondary">Connected</Text>
+                  </Box>
+                </Grid>
+                <Flex justify="center" mt={ 3 }>
+                  <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+                    View validators
+                  </Link>
+                </Flex>
+              </>
+            ) }
+          </SidebarCard>
+        </Grid>
+      </Box>
+    </HomeRpcDataContextProvider>
   );
 };
 
