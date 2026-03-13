@@ -59,8 +59,8 @@ export type EssentialDappsConfig = {
   };
   multisend?: {
     chains: Array<string>;
-    posthogKey?: string;
-    posthogHost?: string;
+    insightsKey?: string;
+    insightsHost?: string;
   };
 };
 

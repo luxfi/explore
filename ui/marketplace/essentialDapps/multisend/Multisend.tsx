@@ -523,8 +523,8 @@ const Multisend = () => {
         <MultisenderWidget
           config={ widgetConfig }
           logoType="minified"
-          posthogKey={ dappConfig?.posthogKey }
-          posthogHost={ dappConfig?.posthogHost }
+          posthogKey={ dappConfig?.insightsKey }
+          posthogHost={ dappConfig?.insightsHost }
           classNames={{
             theme: 'multisenderTheme',
             mantineProvider: 'multisenderMantineProvider',

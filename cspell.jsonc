@@ -25,7 +25,7 @@
         "f410f[a-z2-7]{39}",
         // Specify publisher key
         "spk_\\w+",
-        // Posthog project key
+        // Insights project key
         "phc_\\w+",
         // GitHub account names
         "@(\\w|-)+"
@@ -195,7 +195,7 @@
         "peekers",
         "pino",
         "pjpeg",
-        "posthog",
+        "insights",
         "procs",
         "PWDEBUG",
         "pwstory",

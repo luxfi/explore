@@ -16,7 +16,7 @@ export function marketplace(): CspDev.DirectiveDescriptor {
 
   const liFiHost = feature.essentialDapps?.swap ? 'li.quest' : '';
   const multisenderHost = feature.essentialDapps?.multisend ? '*.multisender.app' : '';
-  const posthogHost = feature.essentialDapps?.multisend?.posthogHost ? '*.posthog.com' : '';
+  const insightsHost = feature.essentialDapps?.multisend?.insightsHost ? '*.insights.hanzo.ai' : '';
 
   return {
     'connect-src': [
@@ -24,7 +24,7 @@ export function marketplace(): CspDev.DirectiveDescriptor {
       ...(feature.essentialDapps ? [
         liFiHost,
         multisenderHost,
-        posthogHost,
+        insightsHost,
         ...(externalApiEndpoints ?? []),
         ...(defaultRpcUrls ?? []),
       ] : []),
@@ -35,7 +35,7 @@ export function marketplace(): CspDev.DirectiveDescriptor {
     ],
 
     'script-src': [
-      posthogHost,
+      insightsHost,
     ],
   };
 }
