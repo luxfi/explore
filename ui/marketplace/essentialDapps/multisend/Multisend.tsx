@@ -523,6 +523,9 @@ const Multisend = () => {
         <MultisenderWidget
           config={ widgetConfig }
           logoType="minified"
+          // Props named posthogKey/posthogHost are required by the external
+          // @multisender.app/multisender-react-widget API — cannot be renamed.
+          // Values come from our Insights (insightsKey/insightsHost) config.
           posthogKey={ dappConfig?.insightsKey }
           posthogHost={ dappConfig?.insightsHost }
           classNames={{
