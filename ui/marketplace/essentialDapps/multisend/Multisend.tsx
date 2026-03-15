@@ -496,7 +496,7 @@ const Container = ({ children }: { children: React.ReactNode }) => (
   >{ children }</Box>
 );
 
-const widgetConfig = Object.fromEntries(dappConfig?.chains.map((chainId) => {
+const widgetConfig = Object.fromEntries((dappConfig?.chains ?? []).map((chainId) => {
   const chainConfig = essentialDappsChainsConfig()?.chains.find((chain) => chain.id === chainId);
   const explorerUrl = chainConfig?.app_config?.app?.baseUrl;
   const apiUrl = chainConfig?.app_config?.apis?.general?.endpoint;
@@ -512,7 +512,7 @@ const widgetConfig = Object.fromEntries(dappConfig?.chains.map((chainId) => {
       blockScoutApiUrl: apiUrl,
     },
   ];
-}) || []);
+}));
 
 const Multisend = () => {
   const isMobile = useIsMobile();

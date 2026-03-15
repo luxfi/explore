@@ -40,6 +40,25 @@ const relativeTimeConfig = {
   ],
 };
 
+const LUX_RELATIVE_TIME = {
+  s: '1s',
+  ss: '%ds',
+  future: 'in %s',
+  past: '%s ago',
+  m: '1m',
+  mm: '%dm',
+  h: '1h',
+  hh: '%dh',
+  d: '1d',
+  dd: '%dd',
+  w: '1w',
+  ww: '%dw',
+  M: '1mo',
+  MM: '%dmo',
+  y: '1y',
+  yy: '%dy',
+};
+
 // Safety plugin: @reown/appkit-common sets the global dayjs locale to 'en-web3-modal'
 // which has no `formats` property. The localizedFormat plugin crashes with
 // "Cannot read properties of undefined (reading 'replace')" when lowercase format
@@ -58,10 +77,42 @@ const safeFormats: dayjs.PluginFunc = (_option, dayjsClass: any) => {
   };
 };
 
+// Safety plugin: the 'en-web3-modal' locale from @reown/appkit-common defines
+// relativeTime WITHOUT 'w' and 'ww' (week) keys. Our custom thresholds include
+// week entries, so when fromNow()/from() hits the 'w' threshold and looks up
+// relativeTime['w'], it gets undefined and crashes with "TypeError: b is not a
+// function". This plugin patches fromNow/from/toNow/to to ensure the locale's
+// relativeTime always contains the required keys before the call proceeds.
+// Must be registered AFTER relativeTime.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const safeRelativeTime: dayjs.PluginFunc = (_option, dayjsClass: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function ensureRelativeTimeKeys(instance: any): void {
+    const locale = instance.$locale();
+    if (locale && locale.relativeTime) {
+      const rt = locale.relativeTime;
+      if (!rt.w || !rt.ww) {
+        locale.relativeTime = { ...LUX_RELATIVE_TIME, ...rt };
+      }
+    }
+  }
+
+  for (const method of [ 'fromNow', 'from', 'toNow', 'to' ] as const) {
+    const original = dayjsClass.prototype[method];
+    if (original) {
+      dayjsClass.prototype[method] = function(...args: Array<unknown>) {
+        ensureRelativeTimeKeys(this);
+        return original.apply(this, args);
+      };
+    }
+  }
+};
+
 dayjs.extend(relativeTime, relativeTimeConfig);
 dayjs.extend(updateLocale);
 dayjs.extend(localizedFormat);
 dayjs.extend(safeFormats);
+dayjs.extend(safeRelativeTime);
 dayjs.extend(duration);
 dayjs.extend(weekOfYear);
 dayjs.extend(minMax);
@@ -69,24 +120,7 @@ dayjs.extend(utc);
 
 dayjs.updateLocale('en', {
   formats: LUX_FORMATS,
-  relativeTime: {
-    s: '1s',
-    ss: '%ds',
-    future: 'in %s',
-    past: '%s ago',
-    m: '1m',
-    mm: '%dm',
-    h: '1h',
-    hh: '%dh',
-    d: '1d',
-    dd: '%dd',
-    w: '1w',
-    ww: '%dw',
-    M: '1mo',
-    MM: '%dmo',
-    y: '1y',
-    yy: '%dy',
-  },
+  relativeTime: LUX_RELATIVE_TIME,
 });
 
 dayjs.locale('en');

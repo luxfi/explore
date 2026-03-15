@@ -24,7 +24,7 @@ env:
   IMAGE_NAME: luxfi/explore
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: lux-build-linux-amd64
     permissions:
       contents: read
@@ -71,8 +71,19 @@ jobs:
             GIT_COMMIT_SHA=${{ github.sha }}
             GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
 
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: lux-build-linux-amd64
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+
       - name: Fetch deploy credentials from KMS
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         id: kms
         env:
           KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
@@ -92,14 +103,15 @@ jobs:
             token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="DO_API_TOKEN") | .secretValue // empty')
           fi
           if [ -z "${token:-}" ]; then
-            echo "::error::Deploy credentials not found. Set HANZO_API_KEY with KMS access."
-            exit 1
+            echo "::warning::Deploy credentials not found. Image was pushed but deployment skipped."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
           echo "::add-mask::${token}"
           echo "token=${token}" >> "$GITHUB_OUTPUT"
 
       - name: Deploy to production
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: steps.kms.outputs.skip != 'true'
         env:
           DO_TOKEN: ${{ steps.kms.outputs.token }}
         run: |
