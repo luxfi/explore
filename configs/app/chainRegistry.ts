@@ -144,12 +144,7 @@ const SPC_BRANDING: ChainBranding = {
     '<text x="256" y="350" text-anchor="middle" font-size="320">&#x1F984;</text>',
 };
 
-/** Pars — 8-pointed star with gold/blue gradients (~/work/pars/logo/) */
-
-const PARS_STAR_OUTER = 'M0-100 30-60 100-40 60 0 100 40 30 60 0 100-30 60-100 40-60 0-100-40-30-60Z';
-
-const PARS_STAR_INNER = 'M0-65 20-39 65-26 39 0 65 26 20 39 0 65-20 39-65 26-39 0-65-26-20-39Z';
-
+/** Pars — Persian 8-pointed star from ~/work/pars/logo/docs/assets/pars-logo-mono.svg */
 const PARS_BRANDING: ChainBranding = {
   brandName: 'Pars Network',
   orgName: 'Parsis Foundation',
@@ -160,18 +155,37 @@ const PARS_BRANDING: ChainBranding = {
   discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '-120 -120 240 240',
   logoContent:
-    `<path d="${ PARS_STAR_OUTER }" fill="none"` +
-    ' stroke="currentColor" stroke-width="8"/>' +
-    `<path d="${ PARS_STAR_INNER }" fill="currentColor"/>` +
-    '<circle r="12" fill="currentColor"/>',
+    // Outer 8-pointed star
+    '<path d="M0,-100 L30,-60 L100,-40 L60,0 L100,40 L30,60 L0,100 L-30,60 L-100,40 L-60,0 L-100,-40 L-30,-60 Z"' +
+    ' fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>' +
+    // Inner star
+    '<path d="M0,-70 L22,-42 L70,-28 L42,0 L70,28 L22,42 L0,70 L-22,42 L-70,28 L-42,0 L-70,-28 L-22,-42 Z"' +
+    ' fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>' +
+    // Recursive inner star
+    '<path d="M0,-45 L14,-27 L45,-18 L27,0 L45,18 L14,27 L0,45 L-14,27 L-45,18 L-27,0 L-45,-18 L-14,-27 Z"' +
+    ' fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity="0.6"/>' +
+    // Interlaced circles
+    '<circle r="55" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>' +
+    '<circle r="35" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>' +
+    // Center rosette
+    '<circle r="8" fill="currentColor"/>' +
+    '<path d="M0,-20 L6,-6 L20,0 L6,6 L0,20 L-6,6 L-20,0 L-6,-6 Z"' +
+    ' fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.8"/>',
   faviconContent:
-    '<rect width="512" height="512" rx="64" fill="#003355"/>' +
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
     '<g transform="translate(256,256) scale(2)">' +
-    `<path d="${ PARS_STAR_OUTER }" fill="none"` +
-    ' stroke="#f5d06f" stroke-width="8"/>' +
-    `<path d="${ PARS_STAR_INNER }"` +
-    ' fill="#00abff" stroke="#f5d06f" stroke-width="6"/>' +
-    '<circle r="12" fill="#f5d06f"/></g>',
+    '<path d="M0,-100 L30,-60 L100,-40 L60,0 L100,40 L30,60 L0,100 L-30,60 L-100,40 L-60,0 L-100,-40 L-30,-60 Z"' +
+    ' fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>' +
+    '<path d="M0,-70 L22,-42 L70,-28 L42,0 L70,28 L22,42 L0,70 L-22,42 L-70,28 L-42,0 L-70,-28 L-22,-42 Z"' +
+    ' fill="#fff" fill-opacity="0.15" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M0,-45 L14,-27 L45,-18 L27,0 L45,18 L14,27 L0,45 L-14,27 L-45,18 L-27,0 L-45,-18 L-14,-27 Z"' +
+    ' fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" opacity="0.6"/>' +
+    '<circle r="55" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.4"/>' +
+    '<circle r="35" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.4"/>' +
+    '<circle r="8" fill="#fff"/>' +
+    '<path d="M0,-20 L6,-6 L20,0 L6,6 L0,20 L-6,6 L-20,0 L-6,-6 Z"' +
+    ' fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" opacity="0.8"/>' +
+    '</g>',
 };
 
 export const CHAINS: ReadonlyArray<ChainEntry> = [
