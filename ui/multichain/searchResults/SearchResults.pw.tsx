@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { GetAddressResponse } from '@blockscout/multichain-aggregator-types';
+import type { GetAddressResponse } from '@luxfi/multichain-aggregator-types';
 
 import * as chainDataMock from 'mocks/multichain/chains';
 import * as searchMock from 'mocks/multichain/search';

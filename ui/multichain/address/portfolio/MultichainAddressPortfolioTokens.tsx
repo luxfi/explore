@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 
 import multichainConfig from 'configs/multichain';
 import useApiQuery from 'lib/api/useApiQuery';

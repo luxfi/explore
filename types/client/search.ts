@@ -1,4 +1,4 @@
-import type { CctxListItem } from '@blockscout/zetachain-cctx-types';
+import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
 import type * as api from 'types/api/search';
 import type * as multichain from 'types/client/multichainAggregator';
 

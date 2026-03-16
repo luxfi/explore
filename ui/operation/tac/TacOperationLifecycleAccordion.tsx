@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as tac from '@blockscout/tac-operation-lifecycle-types';
+import * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { STATUS_LABELS } from 'lib/operations/tac';
 import { Root, Item, Trigger } from 'ui/shared/lifecycle/LifecycleAccordion';

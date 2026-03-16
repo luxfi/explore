@@ -1,7 +1,7 @@
 import { Box, HStack, VStack } from '@chakra-ui/react';
 import React from 'react';
 
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import useIsMobile from 'lib/hooks/useIsMobile';

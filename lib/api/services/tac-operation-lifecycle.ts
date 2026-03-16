@@ -1,5 +1,5 @@
 import type { ApiResource } from '../types';
-import type * as tac from '@blockscout/tac-operation-lifecycle-types';
+import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 export const TAC_OPERATION_LIFECYCLE_API_RESOURCES = {
   operations: {

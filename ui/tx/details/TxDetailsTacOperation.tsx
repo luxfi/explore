@@ -1,7 +1,7 @@
 import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
-import type * as tac from '@blockscout/tac-operation-lifecycle-types';
+import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { getTacOperationStage } from 'lib/operations/tac';
 import { Tag } from 'toolkit/chakra/tag';

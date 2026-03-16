@@ -2,7 +2,7 @@ import { Box, chakra, Flex, Grid, Text } from '@chakra-ui/react';
 import { clamp } from 'es-toolkit';
 import React from 'react';
 
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 
 import { Button } from 'toolkit/chakra/button';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';

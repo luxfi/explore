@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import type { GetInstancesResponse } from '@blockscout/points-types';
+import type { GetInstancesResponse } from '@luxfi/points-types';
 
 import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
 import { Image } from 'toolkit/chakra/image';

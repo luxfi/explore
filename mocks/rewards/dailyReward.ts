@@ -1,4 +1,4 @@
-import type { DailyRewardCheckResponse } from '@blockscout/points-types';
+import type { DailyRewardCheckResponse } from '@luxfi/points-types';
 
 export const base: DailyRewardCheckResponse = {
   available: true,

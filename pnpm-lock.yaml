@@ -18,30 +18,6 @@ importers:
 
   .:
     dependencies:
-      '@blockscout/bens-types':
-        specifier: 1.4.1
-        version: 1.4.1
-      '@blockscout/interchain-indexer-types':
-        specifier: 0.0.10
-        version: 0.0.10
-      '@blockscout/multichain-aggregator-types':
-        specifier: 2.1.2
-        version: 2.1.2
-      '@blockscout/points-types':
-        specifier: 1.4.0-alpha.1
-        version: 1.4.0-alpha.1
-      '@blockscout/stats-types':
-        specifier: 2.11.1
-        version: 2.11.1
-      '@blockscout/tac-operation-lifecycle-types':
-        specifier: 1.1.0
-        version: 1.1.0
-      '@blockscout/visualizer-types':
-        specifier: 0.2.0
-        version: 0.2.0
-      '@blockscout/zetachain-cctx-types':
-        specifier: ^1.0.0-rc.6
-        version: 1.0.0-rc.6
       '@chakra-ui/react':
         specifier: 3.33.0
         version: 3.33.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -63,6 +39,30 @@ importers:
       '@helia/verified-fetch':
         specifier: 2.6.12
         version: 2.6.12(bufferutil@4.0.9)(react-native@0.84.0(@babel/core@7.28.5)(@types/react@19.2.14)(bufferutil@4.0.9)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
+      '@luxfi/bens-types':
+        specifier: npm:@blockscout/bens-types@1.4.1
+        version: '@blockscout/bens-types@1.4.1'
+      '@luxfi/interchain-indexer-types':
+        specifier: npm:@blockscout/interchain-indexer-types@0.0.10
+        version: '@blockscout/interchain-indexer-types@0.0.10'
+      '@luxfi/multichain-aggregator-types':
+        specifier: npm:@blockscout/multichain-aggregator-types@2.1.2
+        version: '@blockscout/multichain-aggregator-types@2.1.2'
+      '@luxfi/points-types':
+        specifier: npm:@blockscout/points-types@1.4.0-alpha.1
+        version: '@blockscout/points-types@1.4.0-alpha.1'
+      '@luxfi/stats-types':
+        specifier: npm:@blockscout/stats-types@2.11.1
+        version: '@blockscout/stats-types@2.11.1'
+      '@luxfi/tac-operation-lifecycle-types':
+        specifier: npm:@blockscout/tac-operation-lifecycle-types@1.1.0
+        version: '@blockscout/tac-operation-lifecycle-types@1.1.0'
+      '@luxfi/visualizer-types':
+        specifier: npm:@blockscout/visualizer-types@0.2.0
+        version: '@blockscout/visualizer-types@0.2.0'
+      '@luxfi/zetachain-cctx-types':
+        specifier: npm:@blockscout/zetachain-cctx-types@1.0.0-rc.6
+        version: '@blockscout/zetachain-cctx-types@1.0.0-rc.6'
       '@metamask/post-message-stream':
         specifier: ^7.0.0
         version: 7.0.0

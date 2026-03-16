@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { clamp } from 'es-toolkit';
 import React from 'react';
 
-import type * as multichain from '@blockscout/multichain-aggregator-types';
+import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import multichainConfig from 'configs/multichain';
