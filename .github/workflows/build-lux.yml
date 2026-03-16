@@ -128,15 +128,28 @@ jobs:
           fi
           doctl auth init -t "$DO_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
-          # Ensure stats microservice is deployed
+
+          # Ensure namespaces exist
+          for ns in lux-mainnet lux-testnet lux-devnet; do
+            kubectl create namespace $ns 2>/dev/null || true
+          done
+
+          # Deploy shared services (stats) — mainnet only for now
           kubectl apply -f deploy/k8s/stats.yaml -n lux-mainnet || true
-          kubectl rollout restart deployment/lux-stats -n lux-mainnet || true
+          kubectl rollout restart deployment/lux-stats -n lux-mainnet 2>/dev/null || true
+
+          # Deploy testnet & devnet frontends (creates if not exists)
+          kubectl apply -f deploy/k8s/frontend-testnet.yaml -n lux-testnet || true
+          kubectl apply -f deploy/k8s/frontend-devnet.yaml -n lux-devnet || true
+
           # Mainnet frontends
           for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
             kubectl rollout restart deployment/$dep -n lux-mainnet || true
           done
+
           # Testnet & devnet frontends
           kubectl rollout restart deployment/lux-frontend-testnet -n lux-testnet || true
           kubectl rollout restart deployment/lux-frontend-devnet -n lux-devnet || true
+
           # Wait for mainnet rollout
           kubectl rollout status deployment/lux-frontend-mainnet -n lux-mainnet --timeout=300s
