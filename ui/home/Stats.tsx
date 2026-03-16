@@ -86,7 +86,10 @@ const Stats = () => {
     }
   })();
 
-  if (apiQuery.isError || statsQuery.isError || latestBatchQuery?.isError) {
+  // Only fall back to degraded RPC-only view when the main stats API fails.
+  // The stats microservice and batch queries are supplementary — their failure
+  // should not hide data that the main API already provides.
+  if (apiQuery.isError) {
     return <StatsDegraded/>;
   }
 

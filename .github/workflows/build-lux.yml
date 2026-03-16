@@ -128,6 +128,9 @@ jobs:
           fi
           doctl auth init -t "$DO_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
+          # Ensure stats microservice is deployed
+          kubectl apply -f deploy/k8s/stats.yaml -n lux-mainnet || true
+          kubectl rollout restart deployment/lux-stats -n lux-mainnet || true
           # Mainnet frontends
           for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
             kubectl rollout restart deployment/$dep -n lux-mainnet || true

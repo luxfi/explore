@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -47,7 +47,7 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
 
   return (
     <>
-      <VStack gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
+      <Flex gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
         { items.map(((block, index) => (
           <LatestBlocksItem
             key={ block.height + (isLoading ? String(index) : '') }
@@ -56,7 +56,7 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
             animation={ initialList.getAnimationProp(block) }
           />
         ))) }
-      </VStack>
+      </Flex>
       <Flex justifyContent="center">
         <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>View all blocks</Link>
       </Flex>

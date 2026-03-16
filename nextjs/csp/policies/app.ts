@@ -76,6 +76,11 @@ export function app(isPrivateMode = false): CspDev.DirectiveDescriptor {
 
       // CapybaraRunner
       '\'sha256-5+YTmTcBwCYdJ8Jetbr6kyjGp0Ry/H7ptpoun6CrSwQ=\'',
+
+      // Lux analytics / inline scripts
+      '\'sha256-YiC5bd+aSY6gJKgwwD9kRRZCdn/qi++mRW6ERR4uZ3c=\'',
+      '\'sha256-wMOeDjJaOTjCfNjluteV+tSqHW547T89sgxd8W6tQJM=\'',
+      '\'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\'',
     ],
 
     'style-src': [

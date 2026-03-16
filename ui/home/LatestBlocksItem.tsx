@@ -1,5 +1,6 @@
 import { Box, Flex, Grid } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -25,6 +26,14 @@ type Props = {
 
 const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
   const totalReward = getBlockTotalReward(block);
+  const router = useRouter();
+
+  const handleClick = React.useCallback(() => {
+    if (!isLoading) {
+      router.push({ pathname: '/block/[height_or_hash]', query: { height_or_hash: String(block.height) } });
+    }
+  }, [ router, block.height, isLoading ]);
+
   return (
     <Box
       animation={ animation }
@@ -34,6 +43,10 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
       p={ 3 }
       minW="260px"
       flex="1 0 0"
+      cursor={ isLoading ? 'default' : 'pointer' }
+      transition="background 0.15s"
+      _hover={ isLoading ? undefined : { bg: { _light: 'gray.50', _dark: 'whiteAlpha.100' } } }
+      onClick={ handleClick }
     >
       <Flex alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
         <BlockEntity

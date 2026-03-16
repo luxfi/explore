@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    image: ghcr.io/blockscout/frontend:latest
+    image: ghcr.io/luxfi/explore:latest
     container_name: lux-explorer-frontend
     restart: unless-stopped
     ports:

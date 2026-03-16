@@ -20,7 +20,6 @@ export function middleware(req: NextRequest) {
   }
 
   const res = NextResponse.next();
-<<<<<<< HEAD
 
   middlewares.colorTheme(req, res);
   middlewares.addressFormat(req, res);
@@ -28,10 +27,8 @@ export function middleware(req: NextRequest) {
   const end = Date.now();
 
   res.headers.append('Content-Security-Policy', cspPolicy);
-=======
-  //res.headers.append('Content-Security-Policy', cspPolicy);
->>>>>>> cfcfbe585 (lux fonts)
   res.headers.append('Server-Timing', `middleware;dur=${ end - start }`);
+  // eslint-disable-next-line no-restricted-properties
   res.headers.append('Docker-ID', process.env.HOSTNAME || '');
 
   return res;
@@ -42,7 +39,4 @@ export function middleware(req: NextRequest) {
  */
 export const config = {
   matcher: [ '/', '/:notunderscore((?!_next).+)' ],
-  // matcher: [
-  //   '/((?!.*\\.|api\\/|node-api\\/).*)', // exclude all static + api + node-api routes
-  // ],
 };

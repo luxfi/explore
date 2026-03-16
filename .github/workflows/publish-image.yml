@@ -57,11 +57,7 @@ jobs:
             -   name: Set image name based on private flag
                 id: image-name
                 run: |
-                    if [ "${{ inputs.private }}" = "true" ]; then
-                        echo "image-name=ghcr.io/blockscout/frontend-private" >> $GITHUB_OUTPUT
-                    else
-                        echo "image-name=ghcr.io/blockscout/frontend" >> $GITHUB_OUTPUT
-                    fi
+                    echo "image-name=ghcr.io/luxfi/explore" >> $GITHUB_OUTPUT
 
             # Will automatically make nice tags, see the table here https://github.com/docker/metadata-action#basic
             -   name: Docker meta

@@ -1,4 +1,4 @@
-import { chakra, Box, Flex, Text, VStack, HStack } from '@chakra-ui/react';
+import { chakra, Box, Flex, Text, HStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
@@ -91,7 +91,7 @@ const LatestBlocks = () => {
 
       return (
         <>
-          <VStack gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
+          <Flex gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
             { dataToShow.map(((block, index) => (
               <LatestBlocksItem
                 key={ block.height + (isPlaceholderData ? String(index) : '') }
@@ -100,7 +100,7 @@ const LatestBlocks = () => {
                 animation={ initialList.getAnimationProp(block) }
               />
             ))) }
-          </VStack>
+          </Flex>
           <Flex justifyContent="center">
             <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
           </Flex>
