@@ -349,7 +349,7 @@ export default function useNavItems(): ReturnType {
     const otherNavItems: Array<NavItem> | Array<Array<NavItem>> = [
       config.features.multichain.isEnabled ? {
         text: 'Verify contract',
-        url: 'https://vera.blockscout.com',
+        url: 'https://verify.lux.network',
       } : {
         text: 'Verify contract',
         nextRoute: { pathname: '/contract-verification' as const },

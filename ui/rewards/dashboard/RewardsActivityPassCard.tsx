@@ -12,8 +12,8 @@ export default function RewardsActivityPassCard() {
   const backgroundImage = useColorModeValue('/static/merits/cells.svg', '/static/merits/cells_dark.svg');
 
   const activityPassUrl = config.apis.rewards ?
-    // eslint-disable-next-line max-len
-    `${ config.apis.rewards.endpoint }/?tab=spend&id=${ rewardsConfigQuery.data?.rewards?.blockscout_activity_pass_id }&utm_source=blockscout&utm_medium=tasks` :
+
+    `${ config.apis.rewards.endpoint }/?tab=spend&id=${ rewardsConfigQuery.data?.rewards?.blockscout_activity_pass_id }&utm_source=lux&utm_medium=tasks` :
     undefined;
 
   return (
@@ -35,7 +35,7 @@ export default function RewardsActivityPassCard() {
             Activity pass
           </Link>{ ' ' }
           then engage with various Lux Explorer products and features to earn Merits every day!{ ' ' }
-          <Link external href="https://docs.blockscout.com/using-blockscout/merits/activity-pass">
+          <Link external href="https://docs.lux.network/using-blockscout/merits/activity-pass">
             Learn more
           </Link>
         </Text>

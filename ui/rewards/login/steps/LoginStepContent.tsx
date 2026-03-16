@@ -122,7 +122,7 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
       />
       <Box mb={ 6 }>
         Merits are awarded for a variety of different Lux Explorer activities. Connect a wallet to get started.
-        <Link external href="https://docs.blockscout.com/using-blockscout/merits" ml={ 1 } fontWeight="500">
+        <Link external href="https://docs.lux.network/using-blockscout/merits" ml={ 1 } fontWeight="500">
           More about Lux Explorer Merits
         </Link>
       </Box>

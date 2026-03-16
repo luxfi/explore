@@ -60,7 +60,7 @@ const RestApi = () => {
     }
 
     return REST_API_SECTIONS.map((section) => {
-      if (section.id === 'blockscout-core-api') {
+      if (section.id === 'lux-core-api') {
         return {
           ...section,
           swagger: {

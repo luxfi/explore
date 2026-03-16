@@ -57,7 +57,7 @@ const ContractVerificationSolidityHardhat = ({ config: formConfig }: { config: S
         </Flex>
         <Box whiteSpace="pre-wrap">
           <span>Full tutorial about contract verification via Hardhat is available </span>
-          <Link href="https://docs.blockscout.com/devs/verification/hardhat-verification-plugin" external>
+          <Link href="https://docs.lux.network/devs/verification/hardhat-verification-plugin" external>
             here
           </Link>
         </Box>

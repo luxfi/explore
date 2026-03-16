@@ -119,7 +119,7 @@ export default function ActivityTab() {
               external={ !marketplaceFeature?.essentialDapps }
               href={ marketplaceFeature?.essentialDapps ?
                 route({ pathname: '/apps' }) :
-                'https://eth.blockscout.com/apps?utm_source=blockscout&utm_medium=transactions-task'
+                'https://explore.lux.network/apps?utm_source=lux&utm_medium=transactions-task'
               }
             >
               Essential dapps
@@ -231,7 +231,7 @@ export default function ActivityTab() {
               </Button>
               <Link
                 external
-                href="https://docs.blockscout.com/using-blockscout/merits/activity-pass"
+                href="https://docs.lux.network/using-blockscout/merits/activity-pass"
                 fontSize="md"
                 fontWeight="500"
                 textAlign="center"
@@ -357,7 +357,7 @@ export default function ActivityTab() {
             <Text textStyle="xs" color="text.secondary" fontWeight="500">
               Metrics are not updated in real time. Please allow up to one hour for your Performance Rank and earned Merits to reflect recent activity.
               If you experience any issues, feel free to reach out on{ ' ' }
-              <Link external href="https://discord.gg/blockscout">
+              <Link external href="https://discord.gg/luxnetwork">
                 Discord
               </Link>
             </Text>
