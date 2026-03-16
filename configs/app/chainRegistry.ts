@@ -70,7 +70,7 @@ const LUX_BRANDING: ChainBranding = {
   faviconContent: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="m256 410 179-308H77z"/>',
 };
 
-/** Zoo — three overlapping circles (~/work/zoo/logo/) */
+/** Zoo — interlocking rings (~/work/zoo/logo/) */
 const ZOO_BRANDING: ChainBranding = {
   brandName: 'Zoo Chain',
   orgName: 'Zoo Labs Foundation',
@@ -79,16 +79,25 @@ const ZOO_BRANDING: ChainBranding = {
   githubUrl: 'https://github.com/zoolabs',
   twitterUrl: 'https://x.com/zoolabs',
   discordUrl: 'https://discord.gg/zoolabs',
-  logoViewBox: '0 0 64 64',
+  logoViewBox: '0 0 1024 1024',
   logoContent:
-    '<circle cx="32" cy="22" r="12" fill="#00A652"/>' +
-    '<circle cx="21" cy="40" r="12" fill="#ED1C24"/>' +
-    '<circle cx="43" cy="40" r="12" fill="#2E3192"/>',
+    '<defs><clipPath id="zooClip"><circle cx="508" cy="510" r="283"/></clipPath></defs>' +
+    '<g clip-path="url(#zooClip)">' +
+    '<circle cx="513" cy="369" r="234" fill="none" stroke="currentColor" stroke-width="33"/>' +
+    '<circle cx="365" cy="595" r="234" fill="none" stroke="currentColor" stroke-width="33"/>' +
+    '<circle cx="643" cy="595" r="234" fill="none" stroke="currentColor" stroke-width="33"/>' +
+    '<circle cx="508" cy="510" r="265" fill="none" stroke="currentColor" stroke-width="36"/>' +
+    '</g>',
   faviconContent:
     '<rect width="512" height="512" rx="64" fill="#000"/>' +
-    '<circle cx="256" cy="176" r="96" fill="#00A652"/>' +
-    '<circle cx="168" cy="320" r="96" fill="#ED1C24"/>' +
-    '<circle cx="344" cy="320" r="96" fill="#2E3192"/>',
+    '<g transform="translate(0,-10) scale(0.5)">' +
+    '<defs><clipPath id="zooFavClip"><circle cx="508" cy="510" r="283"/></clipPath></defs>' +
+    '<g clip-path="url(#zooFavClip)">' +
+    '<circle cx="513" cy="369" r="234" fill="none" stroke="#fff" stroke-width="33"/>' +
+    '<circle cx="365" cy="595" r="234" fill="none" stroke="#fff" stroke-width="33"/>' +
+    '<circle cx="643" cy="595" r="234" fill="none" stroke="#fff" stroke-width="33"/>' +
+    '<circle cx="508" cy="510" r="265" fill="none" stroke="#fff" stroke-width="36"/>' +
+    '</g></g>',
 };
 
 /** Hanzo — geometric H logo (~/work/hanzo/logo/) */
@@ -179,7 +188,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Zoo',
     label: 'Zoo Chain',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
     hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
@@ -189,7 +198,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Hanzo',
     label: 'Hanzo AI',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
     hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
@@ -199,7 +208,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'SPC',
     label: 'SPC Chain',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
     hostnames: [ 'explore-spc.lux.network' ],
     explorerUrl: 'https://explore-spc.lux.network',
@@ -209,7 +218,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Pars',
     label: 'Pars Network',
-    vm: 'Subnet EVM',
+    vm: 'L2',
     network: 'mainnet',
     hostnames: [ 'explore-pars.lux.network', 'explore.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',

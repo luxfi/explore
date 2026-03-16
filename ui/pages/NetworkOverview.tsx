@@ -347,7 +347,7 @@ const NetworkOverview = () => {
             </Flex>
           </SidebarCard>
 
-          { /* Subnet / L1 chains */ }
+          { /* L2 chains */ }
           <SidebarCard
             title="Chains"
             count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
