@@ -40,29 +40,29 @@ importers:
         specifier: 2.6.12
         version: 2.6.12(bufferutil@4.0.9)(react-native@0.84.0(@babel/core@7.28.5)(@types/react@19.2.14)(bufferutil@4.0.9)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
       '@luxfi/bens-types':
-        specifier: npm:@blockscout/bens-types@1.4.1
-        version: '@blockscout/bens-types@1.4.1'
+        specifier: 1.4.3
+        version: 1.4.3
       '@luxfi/interchain-indexer-types':
-        specifier: npm:@blockscout/interchain-indexer-types@0.0.10
-        version: '@blockscout/interchain-indexer-types@0.0.10'
+        specifier: 0.0.10
+        version: 0.0.10
       '@luxfi/multichain-aggregator-types':
-        specifier: npm:@blockscout/multichain-aggregator-types@2.1.2
-        version: '@blockscout/multichain-aggregator-types@2.1.2'
+        specifier: 2.1.2
+        version: 2.1.2
       '@luxfi/points-types':
-        specifier: npm:@blockscout/points-types@1.4.0-alpha.1
-        version: '@blockscout/points-types@1.4.0-alpha.1'
+        specifier: 1.4.2
+        version: 1.4.2
       '@luxfi/stats-types':
-        specifier: npm:@blockscout/stats-types@2.11.1
-        version: '@blockscout/stats-types@2.11.1'
+        specifier: 2.11.1
+        version: 2.11.1
       '@luxfi/tac-operation-lifecycle-types':
-        specifier: npm:@blockscout/tac-operation-lifecycle-types@1.1.0
-        version: '@blockscout/tac-operation-lifecycle-types@1.1.0'
+        specifier: 1.1.0
+        version: 1.1.0
       '@luxfi/visualizer-types':
-        specifier: npm:@blockscout/visualizer-types@0.2.0
-        version: '@blockscout/visualizer-types@0.2.0'
+        specifier: 0.2.0
+        version: 0.2.0
       '@luxfi/zetachain-cctx-types':
-        specifier: npm:@blockscout/zetachain-cctx-types@1.0.0-rc.6
-        version: '@blockscout/zetachain-cctx-types@1.0.0-rc.6'
+        specifier: 1.0.1
+        version: 1.0.1
       '@metamask/post-message-stream':
         specifier: ^7.0.0
         version: 7.0.0
@@ -1208,30 +1208,6 @@ packages:
 
   '@base-org/account@2.4.0':
     resolution: {integrity: sha512-A4Umpi8B9/pqR78D1Yoze4xHyQaujioVRqqO3d6xuDFw9VRtjg6tK3bPlwE0aW+nVH/ntllCpPa2PbI8Rnjcug==}
-
-  '@blockscout/bens-types@1.4.1':
-    resolution: {integrity: sha512-TlZ1HVdZ2Cswm/CcvNoxS+Ydiht/YGaLo//PJR/UmkmihlEFoY4HfVJvVcUnOQXi+Si7FwJ486DPii889nTJsQ==}
-
-  '@blockscout/interchain-indexer-types@0.0.10':
-    resolution: {integrity: sha512-VxdTHLZ+x+rNQqYZxqm+hSqIwFiOEB4lgWY9gXQKVb2aRrGESHPxM+E9XdpKu3SDAoXYTwL/y4QHR/A6PVV8ng==}
-
-  '@blockscout/multichain-aggregator-types@2.1.2':
-    resolution: {integrity: sha512-Eo5iCIsrfzTbPgfJfZT4TzuIU5FXxB2/thbc+3lkfUCUuSPP/VZPxDEXai773iSra+ctX4LGobFF8osPKZGy5g==}
-
-  '@blockscout/points-types@1.4.0-alpha.1':
-    resolution: {integrity: sha512-DaN42ulieCLjoKyDqVc5jCuho/A8g1k7OUpOMnVgc7k8D1esSlCg+LclJ7vrcigdUXsJ5cx2nlCkySKUOfr4mA==}
-
-  '@blockscout/stats-types@2.11.1':
-    resolution: {integrity: sha512-Ti9RbekRfLR7dUnOp2dWU0VBu7uRkutnkFqKphvfxvbrY9fiXUJ/tT6Qg+OTNewK3RbuQ0O1ZPxbqMX5eRr0OQ==}
-
-  '@blockscout/tac-operation-lifecycle-types@1.1.0':
-    resolution: {integrity: sha512-DwbfBiOEyAqy6cR3iH/842JhVhlM5eHI341S5AwwsmZSBzg/mtGwQgoN0BTUR74XydzuwmKYKa7bcIrIuZguSA==}
-
-  '@blockscout/visualizer-types@0.2.0':
-    resolution: {integrity: sha512-gasqbEL89iH8YnH/TIEk0MBSG9SwhEJegY9tnQ1c/jFZOCYjiVkgNwm4oH0ncwCKoNX1GoKAregbkEUwDDw7FQ==}
-
-  '@blockscout/zetachain-cctx-types@1.0.0-rc.6':
-    resolution: {integrity: sha512-IRRGRGOGryWWLLpEFfHY74AGCd6HjAeeFBFf3AIH84Vb7PDkGHCGBMLhmV5EA2oH63XvPzUXdqNcivVWYzWHJg==}
 
   '@chainsafe/as-chacha20poly1305@0.1.0':
     resolution: {integrity: sha512-BpNcL8/lji/GM3+vZ/bgRWqJ1q5kwvTFmGPk7pxm/QQZDbaMI98waOHjEymTjq2JmdD/INdNBFOVSyJofXg7ew==}
@@ -2830,6 +2806,30 @@ packages:
 
   '@lit/reactive-element@2.1.1':
     resolution: {integrity: sha512-N+dm5PAYdQ8e6UlywyyrgI2t++wFGXfHx+dSJ1oBrg6FAxUj40jId++EaRm80MKX5JnlH1sBsyZ5h0bcZKemCg==}
+
+  '@luxfi/bens-types@1.4.3':
+    resolution: {integrity: sha512-BphVx+hdOJ7gce45Hvo0ecyXDJ4JaH7pjmesiiv1aTqbyAae4EiowZGxfs/xtYThFFBroBw55QvXEUsWgvimcg==}
+
+  '@luxfi/interchain-indexer-types@0.0.10':
+    resolution: {integrity: sha512-kW5diTYEeiNy82+OhWijqG2kw2eX5fFxuTFlhYiDEdoKTPxTKRTAOsUBkjQOHbUFJFMqisjiIpiSSln/721s2w==}
+
+  '@luxfi/multichain-aggregator-types@2.1.2':
+    resolution: {integrity: sha512-NyZHKBnG6OVWCu700CJmA2BPLvyC9RNkLSCI+ItFsXkVAsLXwH5s4PCSzGorL7Yd/qdsw6wgOPGwRjO1Ge5wNA==}
+
+  '@luxfi/points-types@1.4.2':
+    resolution: {integrity: sha512-R70pya0zCXC3iIyHjExL38Q0JhMNVhXAuIexam692b+Tgq/5snKcWeIABXhQJz8KSEZDTqcx7J+gEp4cHqNiFQ==}
+
+  '@luxfi/stats-types@2.11.1':
+    resolution: {integrity: sha512-kF2K7kzJHqj/zfr+97GhG7S9u/kVuCmbaS8ZN2MLIwFaX7DgjofhpUuaUrnJ95un1MgxjphkajvzQMuvgHYDZQ==}
+
+  '@luxfi/tac-operation-lifecycle-types@1.1.0':
+    resolution: {integrity: sha512-XdF6Cb+ZSm55lQZxKz1PREFgw9pkkoCmKt4/85pLSt+C6S+eXmC1+icPqwJKRXVifU0ik71NDDwa9erv7CUNvQ==}
+
+  '@luxfi/visualizer-types@0.2.0':
+    resolution: {integrity: sha512-TI11VmhKNV7D6BVWex7L3SakP25ifVmgJatm4RdvZJv3oBHOT3iUkVxbxJZqeRl14iTe0X1lzb15nQMr1jExsw==}
+
+  '@luxfi/zetachain-cctx-types@1.0.1':
+    resolution: {integrity: sha512-C/JPCz2clka3pYjHt/uZqzdw2Iu0pDale+3QOGtGA8jFJBwOziMw8Ycits/gwGGd2s2JZUOUJU3BfsJSJDfSGQ==}
 
   '@mantine/core@8.3.2':
     resolution: {integrity: sha512-uIHC9ooEZ9E+/pw8ag4f8pi0GmwSQ1DYnETjr4a4ZNVKJHfVv5NSkjprBxPrKJq9oox/SdcrAWy5XlKTwBzRag==}
@@ -13861,22 +13861,6 @@ snapshots:
       - ws
       - zod
 
-  '@blockscout/bens-types@1.4.1': {}
-
-  '@blockscout/interchain-indexer-types@0.0.10': {}
-
-  '@blockscout/multichain-aggregator-types@2.1.2': {}
-
-  '@blockscout/points-types@1.4.0-alpha.1': {}
-
-  '@blockscout/stats-types@2.11.1': {}
-
-  '@blockscout/tac-operation-lifecycle-types@1.1.0': {}
-
-  '@blockscout/visualizer-types@0.2.0': {}
-
-  '@blockscout/zetachain-cctx-types@1.0.0-rc.6': {}
-
   '@chainsafe/as-chacha20poly1305@0.1.0': {}
 
   '@chainsafe/as-sha256@1.0.1': {}
@@ -16626,6 +16610,22 @@ snapshots:
   '@lit/reactive-element@2.1.1':
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.4.0
+
+  '@luxfi/bens-types@1.4.3': {}
+
+  '@luxfi/interchain-indexer-types@0.0.10': {}
+
+  '@luxfi/multichain-aggregator-types@2.1.2': {}
+
+  '@luxfi/points-types@1.4.2': {}
+
+  '@luxfi/stats-types@2.11.1': {}
+
+  '@luxfi/tac-operation-lifecycle-types@1.1.0': {}
+
+  '@luxfi/visualizer-types@0.2.0': {}
+
+  '@luxfi/zetachain-cctx-types@1.0.1': {}
 
   '@mantine/core@8.3.2(@mantine/hooks@8.3.2(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
