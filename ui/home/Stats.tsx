@@ -177,11 +177,11 @@ const Stats = () => {
         href: { pathname: '/batches' as const },
         isLoading,
       },
-      (statsData?.total_addresses?.value || apiData?.total_addresses) && {
+      (statsData?.total_addresses?.value !== undefined || apiData?.total_addresses !== undefined) && {
         id: 'wallet_addresses' as const,
         icon: 'wallet' as const,
         label: statsData?.total_addresses?.title || 'Wallet addresses',
-        value: Number(statsData?.total_addresses?.value || apiData?.total_addresses).toLocaleString(),
+        value: Number(statsData?.total_addresses?.value ?? apiData?.total_addresses ?? 0).toLocaleString(),
         isLoading,
       },
       hasGasTracker && apiData?.gas_prices && {

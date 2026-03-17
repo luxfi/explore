@@ -71,6 +71,12 @@ const IndexingBlocksAlert = () => {
     return null;
   }
 
+  // On pruned nodes, finished_indexing_blocks may be false with indexed_blocks_ratio "0.00"
+  // while finished_indexing is true. This is not real indexing — suppress the misleading banner.
+  if (data.finished_indexing && Number(data.indexed_blocks_ratio) === 0) {
+    return null;
+  }
+
   return (
     <Alert status="info" py={ 3 } borderRadius="md" showIcon>
       { `${ data.indexed_blocks_ratio && `${ Math.floor(Number(data.indexed_blocks_ratio) * 100) }% Blocks Indexed${ nbsp }${ ndash } ` }

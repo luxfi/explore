@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -28,6 +28,9 @@ const AddressesTableItem = ({
 }: Props) => {
 
   const addressBalance = BigNumber(item.coin_balance || 0).div(BigNumber(10 ** config.chain.currency.decimals));
+  // On pruned nodes, coin_balance may be null even for addresses with transactions.
+  // Show "Pending" instead of a misleading "0".
+  const isBalancePending = item.coin_balance === null && Number(item.transactions_count) > 0;
 
   return (
     <TableRow>
@@ -50,20 +53,32 @@ const AddressesTableItem = ({
         </Flex>
       </TableCell>
       <TableCell isNumeric>
-        <SimpleValue
-          value={ addressBalance }
-          loading={ isLoading }
-          lineHeight="24px"
-        />
+        { isBalancePending ? (
+          <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
+            <Text color="text.secondary" fontSize="sm">Pending</Text>
+          </Skeleton>
+        ) : (
+          <SimpleValue
+            value={ addressBalance }
+            loading={ isLoading }
+            lineHeight="24px"
+          />
+        ) }
       </TableCell>
       { hasPercentage && (
         <TableCell isNumeric>
-          <SimpleValue
-            value={ addressBalance.div(totalSupply).multipliedBy(100) }
-            loading={ isLoading }
-            postfix="%"
-            lineHeight="24px"
-          />
+          { isBalancePending ? (
+            <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
+              <Text color="text.secondary" fontSize="sm">Pending</Text>
+            </Skeleton>
+          ) : (
+            <SimpleValue
+              value={ addressBalance.div(totalSupply).multipliedBy(100) }
+              loading={ isLoading }
+              postfix="%"
+              lineHeight="24px"
+            />
+          ) }
         </TableCell>
       ) }
       <TableCell isNumeric>

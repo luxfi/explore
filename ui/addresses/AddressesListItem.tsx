@@ -27,6 +27,9 @@ const AddressesListItem = ({
 }: Props) => {
 
   const addressBalance = BigNumber(item.coin_balance || 0).div(BigNumber(10 ** config.chain.currency.decimals));
+  // On pruned nodes, coin_balance may be null even for addresses with transactions.
+  // Show "Pending" instead of a misleading "0".
+  const isBalancePending = item.coin_balance === null && Number(item.transactions_count) > 0;
 
   return (
     <ListItemMobile rowGap={ 3 }>
@@ -48,10 +51,10 @@ const AddressesListItem = ({
       <HStack gap={ 3 } maxW="100%" alignItems="flex-start">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ `Balance ${ currencyUnits.ether }` }</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary" minW="0" whiteSpace="pre-wrap">
-          <span>{ addressBalance.dp(8).toFormat() }</span>
+          <span>{ isBalancePending ? 'Pending' : addressBalance.dp(8).toFormat() }</span>
         </Skeleton>
       </HStack>
-      { !totalSupply.eq(ZERO) && (
+      { !totalSupply.eq(ZERO) && !isBalancePending && (
         <HStack gap={ 3 }>
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Percentage</Skeleton>
           <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">

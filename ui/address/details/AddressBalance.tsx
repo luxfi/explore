@@ -1,3 +1,4 @@
+import { Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -8,6 +9,7 @@ import { getResourceKey } from 'lib/api/useApiQuery';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { currencyUnits } from 'lib/units';
+import { Skeleton } from 'toolkit/chakra/skeleton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import NativeTokenIcon from 'ui/shared/NativeTokenIcon';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
@@ -64,6 +66,10 @@ const AddressBalance = ({ data, isLoading }: Props) => {
     handler: handleNewCoinBalanceMessage,
   });
 
+  // On pruned nodes, coin_balance may be null while the address is known to exist.
+  // Show "Pending" instead of a misleading "0 LUX".
+  const isBalancePending = data.coin_balance === null;
+
   return (
     <>
       <DetailedInfo.ItemLabel
@@ -73,12 +79,19 @@ const AddressBalance = ({ data, isLoading }: Props) => {
         Balance
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
-        <NativeCoinValue
-          amount={ data.coin_balance || '0' }
-          exchangeRate={ data.exchange_rate }
-          startElement={ <NativeTokenIcon boxSize={ 5 } isLoading={ isLoading } mr={ 2 }/> }
-          loading={ isLoading }
-        />
+        { isBalancePending ? (
+          <Skeleton loading={ isLoading } display="inline-flex" alignItems="center">
+            <NativeTokenIcon boxSize={ 5 } mr={ 2 }/>
+            <Text color="text.secondary">Pending</Text>
+          </Skeleton>
+        ) : (
+          <NativeCoinValue
+            amount={ data.coin_balance || '0' }
+            exchangeRate={ data.exchange_rate }
+            startElement={ <NativeTokenIcon boxSize={ 5 } isLoading={ isLoading } mr={ 2 }/> }
+            loading={ isLoading }
+          />
+        ) }
       </DetailedInfo.ItemValue>
     </>
   );
