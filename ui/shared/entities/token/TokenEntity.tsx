@@ -154,6 +154,22 @@ const Reputation = ({ value, ...rest }: ReputationProps) => {
   return null;
 };
 
+interface TestTokenBadgeProps extends BoxProps {
+  readonly addressHash: string;
+}
+
+const TestTokenBadge = ({ addressHash, ...rest }: TestTokenBadgeProps) => {
+  if (!config.UI.views.token.testTokenAddresses.has(addressHash.toLowerCase())) {
+    return null;
+  }
+
+  return (
+    <Tooltip content="This is a known test/fake token. It has no real value — do not trade or transfer real assets for it.">
+      <IconSvg name="status/warning" boxSize={ 5 } ml={ 2 } color="orange.400" { ...rest }/>
+    </Tooltip>
+  );
+};
+
 export interface EntityProps extends EntityBase.EntityBaseProps {
   token: Pick<TokenInfo, 'address_hash' | 'icon_url' | 'name' | 'symbol' | 'type' | 'reputation'>;
   noSymbol?: boolean;
@@ -174,6 +190,7 @@ const TokenEntity = (props: EntityProps) => {
       <Symbol { ...partsProps.symbol }/>
       <Copy { ...partsProps.copy }/>
       <Reputation value={ props.token.reputation }/>
+      <TestTokenBadge addressHash={ props.token.address_hash }/>
     </Container>
   );
 };
@@ -187,4 +204,5 @@ export {
   Content,
   Copy,
   Reputation,
+  TestTokenBadge,
 };
