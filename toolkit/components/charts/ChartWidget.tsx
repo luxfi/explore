@@ -29,7 +29,6 @@ export interface ChartWidgetProps extends FlexProps {
   chartUrl?: string;
   axesConfig?: AxesConfigFn;
   menuItemIds?: Array<ChartMenuItemId>;
-  noWatermark?: boolean;
 };
 
 export const ChartWidget = React.memo(({
@@ -44,7 +43,6 @@ export const ChartWidget = React.memo(({
   chartUrl,
   axesConfig,
   menuItemIds,
-  noWatermark,
   ...rest
 }: ChartWidgetProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -100,7 +98,6 @@ export const ChartWidget = React.memo(({
       zoomRange={ zoomRange }
       noAnimation={ noAnimation }
       axesConfig={ axesConfig }
-      noWatermark={ noWatermark }
     />
   );
 

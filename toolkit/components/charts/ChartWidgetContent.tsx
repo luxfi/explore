@@ -7,7 +7,6 @@ import { Link } from '../../chakra/link';
 import { Skeleton } from '../../chakra/skeleton';
 import { apos } from '../../utils/htmlEntities';
 import { Chart } from './Chart';
-import { ChartWatermark } from './parts/ChartWatermark';
 
 export interface ChartWidgetContentProps {
   charts: TimeChartData;
@@ -21,7 +20,6 @@ export interface ChartWidgetContentProps {
   noAnimation?: boolean;
   resolution?: Resolution;
   axesConfig?: AxesConfigFn;
-  noWatermark?: boolean;
 };
 
 export const ChartWidgetContent = React.memo(({
@@ -36,7 +34,6 @@ export const ChartWidgetContent = React.memo(({
   noAnimation,
   resolution,
   axesConfig,
-  noWatermark,
 }: ChartWidgetContentProps) => {
   if (isError) {
     return (
@@ -81,7 +78,7 @@ export const ChartWidgetContent = React.memo(({
         resolution={ resolution }
         axesConfig={ axesConfig }
       />
-      { !noWatermark && <ChartWatermark w="162px" h="15%"/> }
+      { /* watermark disabled for white-label branding */ }
     </Box>
   );
 });
