@@ -31,7 +31,11 @@ const AdaptiveTabs = (props: Props) => {
     if (isLoading) {
       return;
     }
-    onValueChange ? onValueChange({ value }) : setActiveTab(value);
+    if (onValueChange) {
+      (onValueChange as (details: { value: string }) => void)({ value });
+    } else {
+      setActiveTab(value);
+    }
   }, [ isLoading, onValueChange ]);
 
   const viewportSize = useViewportSize();
@@ -44,7 +48,7 @@ const AdaptiveTabs = (props: Props) => {
 
   return (
     <TabsRoot
-      position="relative"
+      className="relative"
       value={ activeTab }
       onValueChange={ handleTabChange }
       size={ size }
@@ -72,7 +76,7 @@ const AdaptiveTabs = (props: Props) => {
       { tabs.map((tab) => {
         const value = getTabValue(tab);
         return (
-          <TabsContent padding={ 0 } key={ value } value={ value }>
+          <TabsContent className="pt-0" key={ value } value={ value }>
             { tab.component }
           </TabsContent>
         );

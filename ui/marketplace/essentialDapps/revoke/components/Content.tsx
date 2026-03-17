@@ -118,8 +118,8 @@ const Content = ({
           <Flex gap={ 3 } alignItems="center" flexWrap="wrap">
             <Skeleton
               loading={ coinBalanceQuery.isPlaceholderData }
-              as={ Flex }
-              gap={ 3 }
+              display="flex"
+              className="gap-3"
             >
               { (coinBalanceQuery.isPlaceholderData ||
                 coinBalanceQuery.data) && (
@@ -145,8 +145,7 @@ const Content = ({
             <Link
               href={ route({ pathname: '/address/[hash]', query: { hash: searchAddress } }, { chain: selectedChain, external: true }) }
               external
-              textStyle="sm"
-              fontWeight="500"
+              className="text-sm font-medium"
               noIcon
             >
               View details
@@ -172,7 +171,7 @@ const Content = ({
             <Skeleton
               loading={ approvalsQuery.isPlaceholderData }
               minW="40px"
-              textAlign="center"
+              className="text-center"
             >
               <Heading level="3">
                 { approvals?.length || 0 }
@@ -196,7 +195,7 @@ const Content = ({
             <Skeleton
               loading={ approvalsQuery.isPlaceholderData }
               minW="40px"
-              textAlign="center"
+              className="text-center"
             >
               <Heading level="3">
                 ${ totalValueAtRiskUsd }

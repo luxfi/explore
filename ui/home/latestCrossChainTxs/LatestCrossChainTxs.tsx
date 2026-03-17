@@ -64,7 +64,7 @@ const LatestCrossChainTxs = () => {
         </TableRoot>
       </Box>
       <Flex justifyContent="center">
-        <Link textStyle="sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
+        <Link className="text-sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
       </Flex>
     </>
   );

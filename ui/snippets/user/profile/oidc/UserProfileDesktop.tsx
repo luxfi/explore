@@ -2,7 +2,7 @@
 // Login redirects to lux.id; popover shows account, wallet, settings, and logout.
 
 import { Box, Flex, HStack, VStack } from '@chakra-ui/react';
-import type { ButtonProps } from '@chakra-ui/react';
+import type { ButtonProps } from 'toolkit/chakra/button';
 import React from 'react';
 
 import config from 'configs/app';
@@ -127,13 +127,12 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           variant={ buttonVariant }
           loading={ isLoading }
           selected={ Boolean(data) }
-          px={{ base: 2.5, lg: 3 }}
-          fontWeight={ data ? 700 : 600 }
+          className={ `px-2.5 lg:px-3 ${ data ? 'font-bold' : 'font-semibold' }` }
         >
           { buttonLabel }
         </Button>
       </PopoverTrigger>
-      <PopoverContent w="280px" bg={{ _light: 'white', _dark: 'gray.900' }}>
+      <PopoverContent className="w-[280px]">
         <PopoverBody>
           { /* Account section — shown when logged in */ }
           { data && (
@@ -149,10 +148,10 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                   { data.email }
                 </Box>
               ) }
-              <Link href="/auth/profile" display="block" textStyle="sm" px={ 0 } py={ 1 } color="text.primary" _hover={{ color: 'link.primary.hover' }}>
+              <Link href="/auth/profile" className="block text-sm px-0 py-1 text-[var(--color-text-primary)] hover:text-[var(--color-link-primary-hover)]" variant="plain">
                 My profile
               </Link>
-              <Separator my={ 3 }/>
+              <Separator className="my-3"/>
             </>
           ) }
 
@@ -161,14 +160,13 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
             <>
               <Button
                 size="sm"
-                width="full"
+                className="w-full font-semibold"
                 onClick={ handleLoginClick }
                 variant="outline"
-                fontWeight={ 600 }
               >
                 Sign in with Lux ID
               </Button>
-              <Separator my={ 3 }/>
+              <Separator className="my-3"/>
             </>
           ) }
 
@@ -186,18 +184,18 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                   fontWeight={ 700 }
                 />
               </Flex>
-              <Button size="sm" width="full" variant="outline" onClick={ handleDisconnectWallet }>
+              <Button size="sm" className="w-full" variant="outline" onClick={ handleDisconnectWallet }>
                 Disconnect wallet
               </Button>
-              <Separator my={ 3 }/>
+              <Separator className="my-3"/>
             </>
           ) }
           { isWalletEnabled && !walletAddress && (
             <>
-              <Button size="sm" width="full" variant="outline" onClick={ handleConnectWallet }>
+              <Button size="sm" className="w-full" variant="outline" onClick={ handleConnectWallet }>
                 Connect wallet
               </Button>
-              <Separator my={ 3 }/>
+              <Separator className="my-3"/>
             </>
           ) }
 
@@ -206,10 +204,10 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
             Settings
           </Box>
           <SettingsColorTheme onSelect={ profileMenu.onClose }/>
-          <Separator my={ 3 }/>
+          <Separator className="my-3"/>
           <SettingsIdentIcon/>
           <SettingsAddressFormat/>
-          <Separator my={ 3 }/>
+          <Separator className="my-3"/>
           <VStack gap={ 1 }>
             <SettingsScamTokens/>
             <SettingsLocalTime/>
@@ -218,15 +216,12 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           { /* Sign out */ }
           { data && (
             <>
-              <Separator my={ 3 }/>
+              <Separator className="my-3"/>
               <Button
                 size="sm"
-                width="full"
-                variant="outline"
+                className="w-full"
+                variant="outline_danger"
                 onClick={ handleLogout }
-                color="red.400"
-                borderColor="red.400"
-                _hover={{ bg: 'red.400', color: 'white' }}
               >
                 Sign out
               </Button>

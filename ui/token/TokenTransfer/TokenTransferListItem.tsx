@@ -67,14 +67,8 @@ const TokenTransferListItem = ({
       { total && 'value' in total && token && (hasTokenTransferValue(token.type)) && !isConfidentialTokenType(token.type) && (
         <Flex alignItems="center" columnGap={ 2 } maxW="100%" w="full">
           <Skeleton
-            display="inline-flex"
-            alignItems="center"
+            className="inline-flex items-center shrink-0 font-medium max-w-1/2 whitespace-pre overflow-hidden"
             loading={ isLoading }
-            flexShrink={ 0 }
-            fontWeight={ 500 }
-            maxW="50%"
-            whiteSpace="pre"
-            overflow="hidden"
           >
             <span>Value </span>
             { token.symbol && <TruncatedText text={ token.symbol } loading={ isLoading }/> }
@@ -91,14 +85,8 @@ const TokenTransferListItem = ({
       { token && isConfidentialTokenType(token.type) && (
         <Flex alignItems="center" columnGap={ 2 } maxW="100%" w="full">
           <Skeleton
-            display="inline-flex"
-            alignItems="center"
+            className="inline-flex items-center shrink-0 font-medium max-w-1/2 whitespace-pre overflow-hidden"
             loading={ isLoading }
-            flexShrink={ 0 }
-            fontWeight={ 500 }
-            maxW="50%"
-            whiteSpace="pre"
-            overflow="hidden"
           >
             <span>Value </span>
             { token.symbol && <TruncatedText text={ token.symbol } loading={ isLoading }/> }
@@ -106,9 +94,7 @@ const TokenTransferListItem = ({
           <ConfidentialValue
             loading={ isLoading }
             color="text.secondary"
-            wordBreak="break-all"
-            overflow="hidden"
-            flexGrow={ 1 }
+            className="break-all overflow-hidden grow"
           />
         </Flex>
       ) }

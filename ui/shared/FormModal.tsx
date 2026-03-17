@@ -1,7 +1,7 @@
-import type { DialogRootProps } from '@chakra-ui/react';
 import { Box, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
+import type { DialogRootProps } from 'toolkit/chakra/dialog';
 import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
 import FormSubmitAlert from 'ui/shared/FormSubmitAlert';
 

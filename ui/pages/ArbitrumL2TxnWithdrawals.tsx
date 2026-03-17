@@ -82,8 +82,7 @@ const ArbitrumL2TxnWithdrawals = () => {
       <chakra.form onSubmit={ handleSubmit } noValidate>
         <FilterInput
           name="tx_hash"
-          w={{ base: '100%', lg: '700px' }}
-          mt={ 6 }
+          className="w-full lg:w-[700px] mt-6"
           size="sm"
           placeholder="Search by transaction hash"
           initialValue={ searchTerm }

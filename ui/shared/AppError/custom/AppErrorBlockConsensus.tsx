@@ -17,9 +17,9 @@ const AppErrorBlockConsensus = ({ hash }: Props) => {
     <>
       <AppErrorIcon statusCode={ 404 }/>
       <AppErrorTitle title="Block removed due to chain reorganization"/>
-      <Link href={ hash ? route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: hash } }) : route({ pathname: '/' }) } asChild>
+      <Link href={ hash ? route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: hash } }) : route({ pathname: '/' }) }>
         <Button
-          mt={ 8 }
+          className="mt-8"
           variant="outline"
         >
           { hash ? 'View reorg' : 'Back to home' }

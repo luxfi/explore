@@ -34,9 +34,7 @@ const GetGasButton = () => {
           <Link
             href={ isInternal ? route({ pathname: '/apps/[id]', query: { id: dappId, url } }) : url }
             external={ !isInternal }
-            display="flex"
-            alignItems="center"
-            textStyle="xs"
+            className="flex items-center text-xs"
             onClick={ onGetGasClick }
           >
             { getGasFeature.logoUrl && (

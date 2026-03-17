@@ -109,9 +109,8 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           name="contract_address_hash"
           placeholder="Smart contract address (0x...)"
           required
-          bgColor="dialog.bg"
           readOnly={ Boolean(data && 'contract_address_hash' in data) }
-          mb={ 5 }
+          className="mb-5 [&_input]:bg-[var(--color-dialog-bg)]"
         />
         <FormFieldText<Inputs>
           name="name"
@@ -120,18 +119,14 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           rules={{
             maxLength: NAME_MAX_LENGTH,
           }}
-          bgColor="dialog.bg"
-          mb={ 5 }
+          className="mb-5 [&_input]:bg-[var(--color-dialog-bg)]"
         />
         <FormFieldText<Inputs>
           name="abi"
           placeholder="Custom ABI [{...}] (JSON format)"
           required
           asComponent="Textarea"
-          bgColor="dialog.bg"
-          size="2xl"
-          minH="300px"
-          mb={ 8 }
+          className="mb-8 min-h-[300px] [&_textarea]:bg-[var(--color-dialog-bg)]"
         />
         <Box>
           <Button

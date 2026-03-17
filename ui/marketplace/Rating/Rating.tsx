@@ -2,6 +2,7 @@ import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import type { EventTypes, EventPayload } from 'lib/mixpanel/index';
 import type { PopoverContentProps } from 'toolkit/chakra/popover';
 import { PopoverBody, PopoverContent, PopoverRoot } from 'toolkit/chakra/popover';
@@ -59,7 +60,7 @@ const Rating = ({
           canRate={ isAuth }
         />
         { isAuth ? (
-          <PopoverContent w="250px" { ...popoverContentProps }>
+          <PopoverContent className={ cn('w-[250px]', popoverContentProps?.className) } { ...popoverContentProps }>
             <PopoverBody>
               <Content
                 appId={ appId }

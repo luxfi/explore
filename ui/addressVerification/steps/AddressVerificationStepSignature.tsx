@@ -196,7 +196,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
   return (
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ onSubmit }>
-        { rootError && <Alert status="warning" mb={ 6 }>{ rootError }</Alert> }
+        { rootError && <Alert status="warning" className="mb-6">{ rootError }</Alert> }
         <Box mb={ 8 }>
           <span>Please select the address to sign and copy the message and sign it using the Lux Explorer message provider of your choice. </span>
           <Link href="https://docs.lux.network/using-lux-explorer/my-account/verified-addresses/copy-and-sign-message" external noIcon>
@@ -224,7 +224,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
         ) }
         <Flex rowGap={ 5 } flexDir="column">
           <Flex flexDir="column">
-            <CopyToClipboard text={ signingMessage } ml="auto"/>
+            <CopyToClipboard text={ signingMessage } className="ml-auto"/>
             <FormFieldText<Fields>
               name="message"
               placeholder="Message to sign"
@@ -232,8 +232,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
               asComponent="Textarea"
               readOnly
               inputProps={{
-                h: { base: '175px', lg: '100px' },
-                minH: 'auto',
+                className: 'h-[175px] lg:h-[100px] min-h-auto',
               }}
             />
           </Flex>
@@ -241,9 +240,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
             <RadioGroup
               onValueChange={ handleSignMethodChange }
               value={ signMethod }
-              display="flex"
-              flexDir="column"
-              rowGap={ 4 }
+              className="flex flex-col gap-y-4"
             >
               <Radio value="wallet">Sign via Web3 wallet</Radio>
               <Radio value="manual">Sign manually</Radio>

@@ -99,7 +99,7 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', noTooltip, tailLen
     return (
       <Tooltip
         content={ hash }
-        contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
+        contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' }}
         interactive={ tooltipInteractive }
       >
         { content }

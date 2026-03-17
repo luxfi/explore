@@ -64,7 +64,7 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
         isLoading={ pagination.isLoading }
       />
 
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...pagination }/>
+      <Pagination className="ml-auto lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

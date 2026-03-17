@@ -82,7 +82,7 @@ const PopoverContent = ({ appId, userRating, source }: Props) => {
         defaultValue={ ratingValue }
         onValueChange={ handleValueChange }
         label={ ratingDescriptions }
-        h="32px"
+        className="h-8"
       />
     </>
   );

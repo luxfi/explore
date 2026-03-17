@@ -49,7 +49,7 @@ const NetworkSelector = () => {
         </Box>
       </PopoverTrigger>
       <PopoverContent w="200px">
-        <PopoverBody p={ 1 }>
+        <PopoverBody className="p-1">
           { NETWORKS.map((network) => {
             const isCurrent = network.network === current.network;
             return (

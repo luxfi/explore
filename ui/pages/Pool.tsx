@@ -73,7 +73,7 @@ const Pool = () => {
     return externalLinks
       .map((link) => {
         return (
-          <Link external h="34px" key={ link.url } href={ link.url } alignItems="center" display="inline-flex" minW="120px">
+          <Link external key={ link.url } href={ link.url } className="h-[34px] items-center inline-flex min-w-[120px]">
             <Image boxSize={ 5 } mr={ 2 } src={ link.image } alt={ `${ link.title } icon` }/>
             { link.title }
           </Link>
@@ -86,7 +86,7 @@ const Pool = () => {
       return <AddressEntity address={ addressQuery.data } isLoading={ addressQuery.isPlaceholderData }/>;
     } else if (data?.pool_id) {
       return (
-        <Skeleton loading={ isPlaceholderData } display="flex" alignItems="center" overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } display="flex" alignItems="center" className="overflow-hidden">
           <Flex overflow="hidden">
             <HashStringShortenDynamic hash={ data?.pool_id }/>
           </Flex>

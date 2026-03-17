@@ -1,9 +1,9 @@
 import type { StackProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Step } from './types';
 
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
 import VerificationStep from './VerificationStep';
@@ -26,12 +26,8 @@ const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, 
 
   return (
     <Skeleton
-      className={ className }
+      className={ cn('flex gap-x-2 items-center flex-wrap', className) }
       loading={ isLoading }
-      display="flex"
-      columnGap={ 2 }
-      alignItems="center"
-      flexWrap="wrap"
     >
       { steps.map((step, index) => (
         <VerificationStep
@@ -49,4 +45,4 @@ const VerificationSteps = ({ currentStep, currentStepPending, steps, isLoading, 
   );
 };
 
-export default chakra(VerificationSteps);
+export default VerificationSteps;

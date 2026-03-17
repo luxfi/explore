@@ -94,11 +94,11 @@ const MultichainAddressPortfolio = ({ addressData, isLoading }: Props) => {
             { (hasData || hasActiveFilters) && !(isMobile && query.pagination.isVisible) &&
               <AddressNftTypeFilter value={ nftTokenTypes } onChange={ onTokenTypesChange }/> }
             { (hasData || hasActiveFilters) && isMobile &&
-                <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange } ml={{ base: 0, lg: 6 }}/> }
+                <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange } className="ml-0 lg:ml-6"/> }
             { chainSelect }
           </HStack>
-          { (hasData || hasActiveFilters) && !isMobile && <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange } ml={ 6 }/> }
-          { query.pagination.isVisible && !isMobile && <Pagination { ...query.pagination } ml="auto"/> }
+          { (hasData || hasActiveFilters) && !isMobile && <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange } className="ml-6"/> }
+          { query.pagination.isVisible && !isMobile && <Pagination { ...query.pagination } className="ml-auto"/> }
         </>
       );
     }

@@ -9,11 +9,11 @@ interface Props {
 
 const GasTrackerFaqItem = ({ question, answer }: Props) => {
   return (
-    <AccordionItem as="section" value={ question }>
+    <AccordionItem value={ question }>
       <AccordionItemTrigger variant="faq" >
         { question }
       </AccordionItemTrigger>
-      <AccordionItemContent pb={ 4 } px={ 0 }>
+      <AccordionItemContent className="pb-4 px-0">
         <Text color="text.secondary">{ answer }</Text>
       </AccordionItemContent>
     </AccordionItem>

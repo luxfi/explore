@@ -99,6 +99,16 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 
   /** Polymorphic element type (e.g. "div") */
   as?: React.ElementType;
+
+  // Legacy Chakra style-prop shims
+  boxSize?: number | string;
+  color?: string;
+  px?: string | number;
+  borderRadius?: string;
+  ml?: number | string;
+  mr?: number | string;
+  _hover?: Record<string, string>;
+  _expanded?: Record<string, string>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -119,8 +129,36 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       className,
       children,
       as: Comp = 'button',
+      style: styleProp,
+      // Strip Chakra style props
+      boxSize: _boxSize,
+      color: _color,
+      px: _px,
+      borderRadius: _borderRadius,
+      ml: _ml,
+      mr: _mr,
+      _hover,
+      _expanded,
       ...rest
     } = props;
+
+    const SP = 4;
+    const shimStyle: React.CSSProperties = { ...styleProp };
+    if (_boxSize !== undefined) {
+      const bs = typeof _boxSize === 'number' ? `${ _boxSize * SP }px` : _boxSize;
+      shimStyle.width = bs;
+      shimStyle.height = bs;
+    }
+    if (_color) shimStyle.color = _color;
+    if (_px !== undefined) {
+      const v = typeof _px === 'number' ? `${ _px * SP }px` : _px;
+      shimStyle.paddingLeft = v;
+      shimStyle.paddingRight = v;
+    }
+    if (_borderRadius) shimStyle.borderRadius = _borderRadius;
+    if (_ml !== undefined) shimStyle.marginLeft = typeof _ml === 'number' ? `${ _ml * SP }px` : _ml;
+    if (_mr !== undefined) shimStyle.marginRight = typeof _mr === 'number' ? `${ _mr * SP }px` : _mr;
+    const mergedBtnStyle = Object.keys(shimStyle).length > 0 ? shimStyle : undefined;
 
     const button = (
       <Comp
@@ -128,6 +166,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         type={ Comp === 'button' ? 'button' : undefined }
         disabled={ !loadingSkeleton && (loading || disabled) }
         className={ cn(iconButtonVariants({ variant, size }), className) }
+        style={ mergedBtnStyle }
         { ...(expanded ? { 'data-expanded': true } : {}) }
         { ...(selected ? { 'data-selected': true } : {}) }
         { ...(highlighted ? { 'data-highlighted': true } : {}) }

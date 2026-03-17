@@ -46,7 +46,7 @@ const BlockCeloEpochTag = ({ blockQuery }: Props) => {
         content="Displays the epoch finalized by this block"
       >
         <Link href={ route({ pathname: '/epochs/[number]', query: { number: String(blockQuery.data.celo.l1_era_finalized_epoch_number) } }) }>
-          <Tag bgColor="celo" color="blackAlpha.800" variant="clickable"> Finalized epoch #{ blockQuery.data.celo.l1_era_finalized_epoch_number } </Tag>
+          <Tag variant="clickable" className="bg-[var(--color-celo)] text-[var(--color-blackAlpha-800)]"> Finalized epoch #{ blockQuery.data.celo.l1_era_finalized_epoch_number } </Tag>
         </Link>
       </Tooltip>
       <BlockCeloEpochTagRegular blockQuery={ blockQuery }/>

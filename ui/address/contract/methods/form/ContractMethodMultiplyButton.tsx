@@ -1,8 +1,9 @@
-import { chakra, List, Input, ListItem } from '@chakra-ui/react';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { Button } from 'toolkit/chakra/button';
 import { IconButton } from 'toolkit/chakra/icon-button';
+import { Input } from 'toolkit/chakra/input';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { times } from 'toolkit/utils/htmlEntities';
@@ -47,82 +48,62 @@ const ContractMethodMultiplyButton = ({ onClick, isDisabled, initialValue, onCha
     <>
       { Boolean(value) && (
         <Button
-          px={ 1 }
-          textStyle="md"
+          className="px-1 text-base font-medium ml-1 inline-flex rounded-r-none"
           size="xs"
-          fontWeight={ 500 }
-          ml={ 1 }
           variant="subtle"
-          display="inline"
           onClick={ handleButtonClick }
           disabled={ isDisabled }
-          borderBottomRightRadius={ 0 }
-          borderTopRightRadius={ 0 }
         >
           { times }
-          <chakra.span>10</chakra.span>
-          <chakra.span fontSize="xs" lineHeight="16px" verticalAlign="super">{ value }</chakra.span>
+          <span>10</span>
+          <span className="text-xs leading-4 align-super">{ value }</span>
         </Button>
       ) }
       <PopoverRoot open={ open } onOpenChange={ onOpenChange } positioning={{ placement: 'bottom-end' }}>
         <PopoverTrigger>
           <IconButton
-            variant="subtle"
-            cursor="pointer"
-            boxSize={ 6 }
-            p={ 0 }
+            variant="icon_secondary"
+            className={ cn(
+              'cursor-pointer size-6 p-0 rounded-l-none border-l border-[var(--color-border-divider)]',
+            ) }
             disabled={ isDisabled }
-            borderBottomLeftRadius={ 0 }
-            borderTopLeftRadius={ 0 }
-            borderLeftWidth="1px"
-            borderLeftColor="border.divider"
           >
             <IconSvg
               name="arrows/east-mini"
-              transitionDuration="fast"
-              transitionProperty="transform"
-              transitionTimingFunction="ease-in-out"
-              transform={ open ? 'rotate(90deg)' : 'rotate(-90deg)' }
-              boxSize={ 6 }
+              className={ cn(
+                'size-6 transition-transform duration-150 ease-in-out',
+                open ? 'rotate-90' : '-rotate-90',
+              ) }
             />
           </IconButton>
         </PopoverTrigger>
-        <PopoverContent w="110px">
-          <PopoverBody textStyle="md" py={ 2 }>
-            <List.Root>
+        <PopoverContent className="w-[110px]">
+          <PopoverBody className="text-base py-2">
+            <ul>
               { [ 8, 12, 16, 18, 20 ].map((id) => (
-                <List.Item
+                <li
                   key={ id }
-                  py={ 2 }
+                  className="py-2 flex justify-between items-center cursor-pointer"
                   data-id={ id }
                   onClick={ handleOptionClick }
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  cursor="pointer"
                 >
                   <span>10*{ id }</span>
                   { selectedOption === id && <IconSvg name="check" boxSize={ 6 }/> }
-                </List.Item>
+                </li>
               )) }
-              <ListItem
-                py={ 2 }
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
+              <li className="py-2 flex justify-between items-center">
                 <span>10*</span>
                 <Input
                   type="number"
                   min={ 0 }
                   max={ 100 }
-                  ml={ 3 }
+                  className="ml-3"
                   size="sm"
                   onChange={ handleInputChange }
                   value={ customValue || '' }
                 />
-              </ListItem>
-            </List.Root>
+              </li>
+            </ul>
           </PopoverBody>
         </PopoverContent>
       </PopoverRoot>

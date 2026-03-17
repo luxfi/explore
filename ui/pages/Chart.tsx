@@ -169,7 +169,7 @@ const Chart = () => {
       size="sm"
       variant="outline"
       onClick={ onShare }
-      ml={ 6 }
+      className="ml-6"
       loadingSkeleton={ lineQuery.isPlaceholderData }
     >
       <IconSvg name="share" w={ 4 } h={ 4 }/>
@@ -221,7 +221,7 @@ const Chart = () => {
                 placeholder="Select resolution"
                 defaultValue={ [ defaultResolution ] }
                 onValueChange={ onResolutionChange }
-                w={{ base: 'fit-content', lg: '160px' }}
+                className="w-fit lg:w-[160px]"
                 loading={ isInfoLoading }
               />
             </Flex>
@@ -230,9 +230,7 @@ const Chart = () => {
             <Button
               variant="link"
               onClick={ handleReset }
-              display="flex"
-              alignItems="center"
-              gap={ 2 }
+              className="flex items-center gap-2"
             >
               <IconSvg name="repeat" w={ 5 } h={ 5 }/>
               { !isMobile && 'Reset' }
@@ -248,11 +246,9 @@ const Chart = () => {
               <CopyToClipboard
                 text={ config.app.baseUrl + router.asPath }
                 type="link"
-                ml={ 0 }
-                borderRadius="base"
+                className="ml-0 rounded-base"
                 variant="icon_background"
                 size="md"
-                boxSize={ 8 }
               />
             )
           )) }

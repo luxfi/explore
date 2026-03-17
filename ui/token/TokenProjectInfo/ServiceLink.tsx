@@ -21,8 +21,7 @@ const ServiceLink = ({ href, title, icon }: Props) => {
       title={ title }
       external
       noIcon
-      display="inline-flex"
-      alignItems="center"
+      className="inline-flex items-center"
     >
       <IconSvg name={ icon } boxSize={ 5 } mr={ 2 } color="icon.primary"/>
       <span>{ title }</span>

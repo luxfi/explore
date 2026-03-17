@@ -207,17 +207,22 @@ export interface MenuItemProps extends React.ComponentPropsWithoutRef<'div'> {
   readonly value?: string;
   readonly disabled?: boolean;
   readonly asChild?: boolean;
+
+  /** Chakra compat - accepted but not used by Radix */
+  readonly closeOnSelect?: boolean;
 }
 
 export const MenuItem = React.forwardRef<
   HTMLDivElement,
   MenuItemProps
 >(function MenuItem(props, ref) {
-  const { className, value: _value, asChild, ...rest } = props;
+  const { className, value: _value, asChild, closeOnSelect: _closeOnSelect, disabled, children, onClick, ...rest } = props;
   return (
     <DropdownMenu.Item
       ref={ ref }
       asChild={ asChild }
+      disabled={ disabled }
+      onClick={ onClick }
       className={ cn(
         'relative flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-sm',
         'outline-none transition-colors',
@@ -226,8 +231,10 @@ export const MenuItem = React.forwardRef<
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       ) }
-      { ...rest }
-    />
+      { ...(rest as React.ComponentPropsWithoutRef<typeof DropdownMenu.Item>) }
+    >
+      { children }
+    </DropdownMenu.Item>
   );
 });
 
@@ -331,12 +338,13 @@ export const MenuCheckboxItem = React.forwardRef<
   HTMLDivElement,
   MenuCheckboxItemProps
 >(function MenuCheckboxItem(props, ref) {
-  const { className, children, checked, onCheckedChange, ...rest } = props;
+  const { className, children, checked, onCheckedChange, onClick, ...rest } = props;
   return (
     <DropdownMenu.CheckboxItem
       ref={ ref }
       checked={ checked }
       onCheckedChange={ onCheckedChange }
+      onClick={ onClick }
       className={ cn(
         'relative flex cursor-pointer select-none items-center rounded-md py-1.5 pr-2 pl-8 text-sm',
         'outline-none transition-colors',
@@ -344,7 +352,7 @@ export const MenuCheckboxItem = React.forwardRef<
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       ) }
-      { ...rest }
+      { ...(rest as React.ComponentPropsWithoutRef<typeof DropdownMenu.CheckboxItem>) }
     >
       <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
         <DropdownMenu.ItemIndicator>
@@ -388,11 +396,14 @@ export const MenuRadioItem = React.forwardRef<
   HTMLDivElement,
   MenuRadioItemProps
 >(function MenuRadioItem(props, ref) {
-  const { className, children, value, ...rest } = props;
+  const { className, children, value, onClick, ...rest } = props;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { value: _v, ...radixRest } = rest as Record<string, unknown>;
   return (
     <DropdownMenu.RadioItem
       ref={ ref }
       value={ value }
+      onClick={ onClick }
       className={ cn(
         'relative flex cursor-pointer select-none items-center rounded-md py-1.5 pr-2 pl-8 text-sm',
         'outline-none transition-colors',
@@ -400,7 +411,6 @@ export const MenuRadioItem = React.forwardRef<
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       ) }
-      { ...rest }
     >
       <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
         <DropdownMenu.ItemIndicator>

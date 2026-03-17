@@ -120,7 +120,7 @@ const Footer = () => {
 
     return (
       <Box gridArea={ gridArea }>
-        <Link href={ branding.websiteUrl } external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
+        <Link href={ branding.websiteUrl } external noIcon className="inline-flex" style={{ color: 'inherit' }}>
           <Text fontWeight="700" fontSize="lg">{ branding.brandName }</Text>
         </Link>
         <Text mt={ 3 } fontSize="xs">
@@ -204,7 +204,7 @@ const Footer = () => {
                 .slice(0, colNum)
                 .map(linkGroup => (
                   <Box key={ linkGroup.title }>
-                    <Skeleton fontWeight={ 500 } mb={ 3 } display="inline-block" loading={ isPlaceholderData }>{ linkGroup.title }</Skeleton>
+                    <Skeleton className="font-medium mb-3 inline-block" loading={ isPlaceholderData }>{ linkGroup.title }</Skeleton>
                     <VStack gap={ 1 } alignItems="start">
                       { linkGroup.links.map(link => <FooterLinkItem { ...link } key={ link.text } isLoading={ isPlaceholderData }/>) }
                     </VStack>

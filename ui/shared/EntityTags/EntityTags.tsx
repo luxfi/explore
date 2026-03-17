@@ -58,11 +58,11 @@ const EntityTags = ({ tags, addressHash, className, isLoading, noColors }: Props
           { metaSuitesPlaceholder }
           <PopoverRoot>
             <PopoverTrigger>
-              <Badge loading={ isLoading } cursor="pointer" as="button" _hover={{ color: 'hover' }}>
+              <Badge loading={ isLoading } className="cursor-pointer hover:text-[var(--color-hover)]">
                 +{ tags.length - visibleNum }
               </Badge>
             </PopoverTrigger>
-            <PopoverContent maxW="300px" w="fit-content">
+            <PopoverContent className="max-w-[300px] w-fit">
               <PopoverBody>
                 <Flex columnGap={ 2 } rowGap={ 2 } flexWrap="wrap">
                   { tags.slice(visibleNum).map((tag) => <EntityTag key={ tag.slug } data={ tag } addressHash={ addressHash } noColors={ noColors }/>) }

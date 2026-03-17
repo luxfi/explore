@@ -78,7 +78,7 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
         onClick={ handleConnectWalletClick }
         loading={ web3Wallet.isOpen }
         loadingText="Connect Wallet"
-        w="100%"
+        className="w-full"
       >
         Connect
       </Button>

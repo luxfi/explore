@@ -20,11 +20,11 @@ const Burger = ({ isMarketplaceAppPage }: Props) => {
     <DrawerRoot
       open={ open }
       onOpenChange={ onOpenChange }
-      placement="start"
+      placement="left"
       lazyMount={ false }
     >
       <DrawerTrigger>
-        <IconButton onClick={ onOpen } p={ 2 } aria-label="Menu button">
+        <IconButton onClick={ onOpen } className="p-2" aria-label="Menu button">
           <IconSvg
             name="burger"
             boxSize={ 6 }
@@ -34,9 +34,9 @@ const Burger = ({ isMarketplaceAppPage }: Props) => {
         </IconButton>
       </DrawerTrigger>
       <DrawerContent >
-        <DrawerBody display="flex" flexDirection="column" overflowX="hidden" overflowY="auto">
-          <TestnetBadge alignSelf="flex-start" mb={ 2 }/>
-          <RollupStageBadge alignSelf="flex-start" mb={ 2 }/>
+        <DrawerBody className="flex flex-col overflow-x-hidden overflow-y-auto">
+          <TestnetBadge className="self-start mb-2"/>
+          <RollupStageBadge className="self-start mb-2"/>
           <NetworkLogo/>
           <NavigationMobile onNavLinkClick={ onClose } isMarketplaceAppPage={ isMarketplaceAppPage }/>
         </DrawerBody>

@@ -39,7 +39,7 @@ const RoutedTabs = (props: RoutedTabsProps) => {
       { shallow: true },
     );
 
-    onValueChange?.({ value });
+    (onValueChange as ((details: { value: string }) => void) | undefined)?.({ value });
   }, [ tabs, router, onValueChange, preservedParams ]);
 
   React.useEffect(() => {

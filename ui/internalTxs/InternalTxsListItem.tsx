@@ -61,7 +61,7 @@ const InternalTxsListItem = ({
       </Flex>
       { showBlockInfo && (
         <HStack gap={ 1 }>
-          <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Block</Skeleton>
+          <Skeleton loading={ isLoading } className="text-sm font-medium">Block</Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ blockNumber }
@@ -78,7 +78,7 @@ const InternalTxsListItem = ({
         w="100%"
       />
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value { currencyUnits.ether }</Skeleton>
+        <Skeleton loading={ isLoading } className="text-sm font-medium">Value { currencyUnits.ether }</Skeleton>
         <NativeCoinValue
           amount={ value }
           noSymbol

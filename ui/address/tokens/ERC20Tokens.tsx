@@ -28,7 +28,7 @@ const ERC20Tokens = ({ items, isLoading, pagination, isError, top }: Props) => {
 
   const actionBar = isMobile && pagination.isVisible && (
     <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   );
 

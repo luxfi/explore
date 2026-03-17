@@ -80,28 +80,24 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
           { beforeTitle }
           <Skeleton
             loading={ isLoading }
-            overflow="hidden"
+            className="overflow-hidden"
           >
             <Tooltip
               content={ title }
               open={ tooltip.open }
               onOpenChange={ handleTooltipOpenChange }
-              contentProps={{ maxW: { base: 'calc(100vw - 32px)', lg: '500px' } }}
-              closeOnScroll={ isMobile ? true : false }
+              contentProps={{ className: 'max-w-[calc(100vw-32px)] lg:max-w-[500px]' }}
               disabled={ !isTextTruncated }
             >
               <Heading
                 ref={ headingRef }
                 level="1"
-                whiteSpace="normal"
-                wordBreak="break-all"
+                className="whitespace-normal break-all overflow-hidden text-ellipsis"
                 style={{
                   WebkitLineClamp: TEXT_MAX_LINES,
                   WebkitBoxOrient: 'vertical',
                   display: '-webkit-box',
                 }}
-                overflow="hidden"
-                textOverflow="ellipsis"
                 onMouseEnter={ tooltip.onOpen }
                 onMouseLeave={ tooltip.onClose }
                 onClick={ isMobile ? tooltip.onToggle : undefined }
@@ -118,7 +114,7 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
         { withTextAd && <TextAd order={{ base: -1, lg: 100 }} mb={{ base: 6, lg: 0 }} ml="auto" w={{ base: '100%', lg: 'auto' }}/> }
       </Flex>
       { secondRow && (
-        <Skeleton loading={ isLoading } alignItems="center" minH={ 10 } overflow="hidden" display="flex" _empty={{ display: 'none' }}>
+        <Skeleton loading={ isLoading } alignItems="center" display="flex" className="min-h-10 overflow-hidden empty:hidden">
           { secondRow }
         </Skeleton>
       ) }

@@ -141,7 +141,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemValue
         flexWrap="nowrap"
       >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.global_exit_root }/>
         </Skeleton>
         <CopyToClipboard text={ data.global_exit_root } isLoading={ isPlaceholderData }/>
@@ -155,7 +155,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemValue
         flexWrap="nowrap"
       >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.acc_input_hash }/>
         </Skeleton>
         <CopyToClipboard text={ data.acc_input_hash } isLoading={ isPlaceholderData }/>
@@ -185,7 +185,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
       <DetailedInfo.ItemValue
         flexWrap="nowrap"
       >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.state_root }/>
         </Skeleton>
         <CopyToClipboard text={ data.state_root } isLoading={ isPlaceholderData }/>

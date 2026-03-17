@@ -90,7 +90,7 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
         <>
           { isMobile && crossChainQuery.pagination.isVisible && (
             <ActionBar>
-              <Pagination ml="auto" { ...crossChainQuery.pagination }/>
+              <Pagination className="ml-auto" { ...crossChainQuery.pagination }/>
             </ActionBar>
           ) }
           <TokenTransfersCrossChainContent
@@ -140,7 +140,7 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
               isLoading={ localQuery.query.isPlaceholderData }
             />
           </HStack>
-          <Pagination ml={{ base: 'auto', lg: 8 }} { ...localQuery.query.pagination }/>
+          <Pagination className="ml-auto lg:ml-8" { ...localQuery.query.pagination }/>
         </>
       );
     }
@@ -149,7 +149,7 @@ const AddressTokenTransfers = ({ shouldRender = true, overloadCount, isQueryEnab
       if (isMobile) {
         return null;
       }
-      return <Pagination ml="auto" { ...crossChainQuery.pagination }/>;
+      return <Pagination className="ml-auto" { ...crossChainQuery.pagination }/>;
     }
 
     return null;

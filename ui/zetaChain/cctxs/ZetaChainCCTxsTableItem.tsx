@@ -56,7 +56,7 @@ const ZetaChainCCTxsTableItem = ({ tx, enableTimeIncrement, isLoading, animation
           amount={ tx.amount }
           decimals={ tx.decimals }
           isLoading={ isLoading }
-          justifyContent="flex-end"
+          className="justify-end"
         />
       </TableCell>
     </TableRow>

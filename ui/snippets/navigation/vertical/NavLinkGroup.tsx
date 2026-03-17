@@ -55,7 +55,7 @@ const NavLinkGroup = ({ item, isCollapsed }: Props) => {
     <Box as="li" listStyleType="none" w="100%">
       <Tooltip
         content={ content }
-        positioning={{ placement: 'right-start', offset: { crossAxis: 0, mainAxis: 8 } }}
+        positioning={{ placement: 'right', offset: { crossAxis: 0, mainAxis: 8 } }}
         // should not be lazy to help google indexing pages
         lazyMount={ false }
         variant="popover"

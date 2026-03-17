@@ -185,11 +185,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
             defaultValue={ currentTab }
             variant="secondary"
             size="sm"
-            pb={ 5 }
-            w="100%"
-            overflowX="hidden"
-            minH="52px"
-            h="52px"
+            className="pb-5 w-full overflow-x-hidden min-h-[52px] h-[52px]"
             listProps={{
               overflowX: 'auto',
               mb: 0,

@@ -56,11 +56,6 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
           placeholder="Search by Node ID..."
           value={ search }
           onChange={ handleSearchChange }
-          border="1px solid"
-          borderColor="border.divider"
-          borderRadius="md"
-          bgColor="transparent"
-          color="text.primary"
           size="md"
         />
       </Box>

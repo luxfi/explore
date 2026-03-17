@@ -14,14 +14,11 @@ interface Props extends LinkProps {
   adaptive?: boolean;
 }
 
-const AdvancedFilterLink = ({ query, routeParams, adaptive = true, ...rest }: Props) => {
+const AdvancedFilterLink = ({ query, routeParams, adaptive = true, className, ...rest }: Props) => {
   return (
     <Link
       href={ route({ pathname: '/advanced-filter', query }, routeParams) }
-      display="flex"
-      alignItems="center"
-      gap={ 1 }
-      textStyle="sm"
+      className={ `flex items-center gap-1 text-sm ${ className ?? '' }`.trim() }
       { ...rest }
     >
       <IconSvg name="advanced-filter" boxSize={ 5 }/>

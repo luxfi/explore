@@ -5,6 +5,7 @@ import type { Address3rdPartyWidget } from 'types/views/address';
 
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
+import { cn } from 'lib/utils/cn';
 import { Image } from 'toolkit/chakra/image';
 import { LinkBox, LinkOverlay } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -120,19 +121,12 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
 
   return (
     <LinkBox
-      as={ Flex }
-      className="group"
-      flexDirection="column"
-      p={ 3 }
-      cursor={ isLoading ? 'default' : 'pointer' }
-      borderRadius="md"
-      border="1px solid"
-      borderColor={ isLoading ? { _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' } : 'transparent' }
-      bgColor={ isLoading ? 'transparent' : { _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' } }
-      transition="border-color 0.2s ease-in-out"
-      _hover={ isLoading ? {} : {
-        borderColor: { _light: 'blackAlpha.200', _dark: 'whiteAlpha.200' },
-      } }
+      className={ cn(
+        'group flex flex-col p-3 rounded-md border border-solid transition-[border-color] duration-200',
+        isLoading
+          ? 'cursor-default border-black/5 dark:border-white/10 bg-transparent'
+          : 'cursor-pointer border-transparent bg-black/5 dark:bg-white/10 hover:border-black/20 dark:hover:border-white/20',
+      ) }
     >
       { content }
     </LinkBox>

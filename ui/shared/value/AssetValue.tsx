@@ -75,7 +75,8 @@ const AssetValue = ({
         tooltipContent={ tooltipContent }
         noTooltip={ noTooltip }
         loading={ loading }
-        { ...rest }
+        className={ (rest as Record<string, unknown>).className as string }
+        color={ (rest as Record<string, unknown>).color as string }
       />
     );
   }

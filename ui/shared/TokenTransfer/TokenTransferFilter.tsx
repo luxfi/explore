@@ -42,7 +42,7 @@ const TokenTransferFilter = ({
   }, [ onAddressFilterChange ]);
 
   return (
-    <PopoverFilter appliedFiltersNum={ appliedFiltersNum } contentProps={{ w: '220px' }} isLoading={ isInitialLoading }>
+    <PopoverFilter appliedFiltersNum={ appliedFiltersNum } contentProps={{ className: 'w-[220px]' }} isLoading={ isInitialLoading }>
       { withAddressFilter && (
         <>
           <Text color="text.secondary" fontWeight={ 600 }>Address</Text>
@@ -50,9 +50,7 @@ const TokenTransferFilter = ({
             size="lg"
             onValueChange={ handleAddressFilterChange }
             defaultValue={ defaultAddressFilter || 'all' }
-            paddingBottom={ 4 }
-            borderBottom="1px solid"
-            borderColor="border.divider"
+            className="pb-4 border-b border-solid border-[var(--color-border-divider)]"
           >
             <Stack gap={ 4 }>
               <Radio value="all"><Text fontSize="md">All</Text></Radio>

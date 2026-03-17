@@ -65,10 +65,10 @@ export const FileSnippet = chakra(({ file, className, index, onRemove, isDisable
           >
             { file.name }
           </Text>
-          { Boolean(error) && <Hint label={ error } ml={ 1 } color="text.error"/> }
+          { Boolean(error) && <Hint label={ error } ml={ 1 } color="var(--color-text-error)"/> }
           <CloseButton
             aria-label="Remove"
-            ml={ 2 }
+            className="ml-2"
             onClick={ handleRemove }
             disabled={ isDisabled }
           />

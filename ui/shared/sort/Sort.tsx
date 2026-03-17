@@ -37,8 +37,6 @@ const Sort = (props: Props) => {
     return (
       <SelectControl
         loading={ isInitialLoading }
-        _hover={{ color: 'hover' }}
-        _open={{ color: 'hover' }}
       >
         <chakra.span
           flexShrink={ 0 }
@@ -50,9 +48,7 @@ const Sort = (props: Props) => {
           Sort by
         </chakra.span>
         <SelectValueText
-          color={{ _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' }}
-          _groupHover={{ color: 'inherit' }}
-          _groupExpanded={{ color: 'inherit' }}
+          className="text-[var(--color-text-secondary)] group-hover:text-inherit"
         />
       </SelectControl>
     );
@@ -62,7 +58,7 @@ const Sort = (props: Props) => {
     <SelectRoot collection={ collection } w="fit-content" variant="plain" disabled={ isLoading } { ...rest }>
       { trigger }
       <SelectContent>
-        { collection.items.map((item) => (
+        { collection?.items.map((item) => (
           <SelectItem item={ item } key={ item.value }>
             { item.label }
           </SelectItem>

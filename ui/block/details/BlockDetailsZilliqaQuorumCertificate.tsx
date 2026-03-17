@@ -66,22 +66,19 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
             <Separator mt={ 2 } w="100%"/>
             <AccordionRoot
               multiple
-              w="100%"
-              textStyle="sm"
+              className="w-full text-sm"
             >
               <AccordionItem
                 value="nested-quorum-certificates"
-                borderWidth={ 0 }
-                _last={{ borderBottomWidth: 0 }}
+                className="border-0 last:border-b-0"
               >
                 <AccordionItemTrigger
-                  textStyle="sm"
-                  fontWeight={ 600 }
+                  className="text-sm font-semibold"
                 >
                   <span>Nested quorum certificates</span>
                   <Hint label={ hint(true) }/>
                 </AccordionItemTrigger>
-                <AccordionItemContent display="flex" flexDirection="column" rowGap={ 2 } p={ 0 }>
+                <AccordionItemContent className="flex flex-col gap-2 p-0">
                   { data.nested_quorum_certificates?.map((item, index) => (
                     <Grid
                       key={ index }

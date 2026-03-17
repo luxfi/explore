@@ -30,7 +30,7 @@ const AddressCounterItem = ({ prop, query, address, isAddressQueryLoading, isDeg
   }, []);
 
   if (query.isPlaceholderData || isAddressQueryLoading) {
-    return <Skeleton loading h={ 5 } w="80px" borderRadius="full"/>;
+    return <Skeleton loading h="20px" w="80px" borderRadius="full"/>;
   }
 
   const data = query.data?.[prop];

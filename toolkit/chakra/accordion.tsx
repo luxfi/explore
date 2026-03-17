@@ -35,6 +35,11 @@ interface AccordionRootProps extends Omit<React.ComponentPropsWithoutRef<'div'>,
   /** Accepted for compatibility; Radix defers rendering internally. */
   readonly lazyMount?: boolean;
   readonly children?: React.ReactNode;
+  // Legacy Chakra style-prop shims
+  readonly position?: string;
+  readonly w?: string;
+  readonly bgColor?: string | Record<string, string>;
+  readonly borderRadius?: string;
 }
 
 export const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionRootProps>(
@@ -50,6 +55,10 @@ export const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionRootProps
       lazyMount: _lazyMount,
       className,
       children,
+      position: _position,
+      w: _w,
+      bgColor: _bgColor,
+      borderRadius: _borderRadius,
       ...rest
     } = props;
 
@@ -89,11 +98,17 @@ export const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionRootProps
 // AccordionItem
 // ---------------------------------------------------------------------------
 
-interface AccordionItemProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> {}
+interface AccordionItemProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> {
+  // Legacy Chakra style-prop shims
+  as?: string;
+  _first?: Record<string, unknown>;
+  _last?: Record<string, unknown>;
+  display?: string;
+}
 
 export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
   function AccordionItem(props, ref) {
-    const { className, ...rest } = props;
+    const { className, as: _as, _first, _last, display: _display, ...rest } = props;
     return (
       <AccordionPrimitive.Item
         ref={ ref }
@@ -111,17 +126,33 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
 // AccordionItemTrigger
 // ---------------------------------------------------------------------------
 
-interface AccordionItemTriggerProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
+interface AccordionItemTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>, 'dir'> {
   readonly indicatorPlacement?: 'start' | 'end';
   readonly noIndicator?: boolean;
   readonly variant?: 'outline' | 'faq';
+  // Legacy Chakra style-prop shims
+  px?: number | string;
+  py?: number | string;
+  _hover?: Record<string, string>;
+  wordBreak?: string;
+  textAlign?: string;
+  cursor?: string;
+  display?: string;
+  alignItems?: string;
+  columnGap?: number | string;
 }
 
 export const AccordionItemTrigger = React.forwardRef<
   HTMLButtonElement,
   AccordionItemTriggerProps
 >(function AccordionItemTrigger(props, ref) {
-  const { children, indicatorPlacement: indicatorPlacementProp, variant, noIndicator, className, ...rest } = props;
+  const {
+    children, indicatorPlacement: indicatorPlacementProp, variant, noIndicator, className,
+    // Strip Chakra style props
+    px: _px, py: _py, _hover, wordBreak: _wordBreak, textAlign: _textAlign,
+    cursor: _cursor, display: _display, alignItems: _alignItems, columnGap: _columnGap,
+    ...rest
+  } = props;
 
   const indicatorPlacement = variant === 'faq' ? 'start' : (indicatorPlacementProp ?? 'end');
 
@@ -177,13 +208,22 @@ export const AccordionItemTrigger = React.forwardRef<
 // AccordionItemContent
 // ---------------------------------------------------------------------------
 
-export interface AccordionItemContentProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> {}
+export interface AccordionItemContentProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> {
+  // Legacy Chakra style-prop shims
+  pb?: number | string;
+  pr?: number | string;
+  pl?: string;
+  w?: string;
+  display?: string;
+  flexDir?: string;
+  rowGap?: number | string;
+}
 
 export const AccordionItemContent = React.forwardRef<
   HTMLDivElement,
   AccordionItemContentProps
 >(function AccordionItemContent(props, ref) {
-  const { className, children, ...rest } = props;
+  const { className, children, pb: _pb, pr: _pr, pl: _pl, w: _w, display: _display, flexDir: _flexDir, rowGap: _rowGap, ...rest } = props;
   return (
     <AccordionPrimitive.Content
       ref={ ref }

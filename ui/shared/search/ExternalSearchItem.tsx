@@ -30,7 +30,7 @@ const ExternalSearchItem = ({ item }: Props) => {
       <Text color="text.secondary">
         It looks like you are searching for { getIndefiniteArticle(item.name) } { item.name }. This information is best served by the external explorer.
       </Text>
-      <Link href={ url } external mt={ 4 }>
+      <Link href={ url } external className="mt-4">
         Click here to be redirected
       </Link>
     </>

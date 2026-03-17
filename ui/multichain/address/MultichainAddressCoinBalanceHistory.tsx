@@ -36,7 +36,7 @@ const MultichainAddressCoinBalanceHistory = ({ addressData, isLoading }: Props) 
         onValueChange={ chainSelect.onValueChange }
         chainIds={ chainIds }
         loading={ isLoading }
-        mb={ 3 }
+        className="mb-3"
       />
       { !isLoading && chainSelect.value?.[0] && chainConfig && (
         <MultichainProvider chainId={ chainSelect.value?.[0] }>

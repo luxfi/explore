@@ -34,7 +34,7 @@ const MarketplaceAppIntegrationIcon = ({ external, internalWallet }: Props) => {
     <Tooltip
       content={ text }
       openDelay={ 300 }
-      contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
+      contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' }}
     >
       <IconSvg
         name={ icon }

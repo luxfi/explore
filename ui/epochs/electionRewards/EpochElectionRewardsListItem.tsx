@@ -37,7 +37,7 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
             <IconButton
               aria-label={ section.open ? 'Collapse section' : 'Expand section' }
               variant="link"
-              boxSize={ 6 }
+              className="size-6"
             >
               <IconSvg
                 name="arrows/east-mini"

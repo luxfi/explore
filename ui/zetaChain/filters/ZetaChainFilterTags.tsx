@@ -143,7 +143,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
         </HStack>
       </Flex>
       { filterTags.length !== 0 && (
-        <Link onClick={ onClearAll } display="flex" alignItems="center" justifyContent="end" gap={ 2 } fontSize="sm" w="150px">
+        <Link onClick={ onClearAll } className="flex items-center justify-end gap-2 text-sm w-[150px]">
           <IconSvg name="repeat" boxSize={ 5 }/>
           Reset filters
         </Link>

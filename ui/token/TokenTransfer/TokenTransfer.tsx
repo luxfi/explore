@@ -104,7 +104,7 @@ const TokenTransfer = ({ transfersQuery, tokenId, tokenQuery, tabsHeight = TABS_
   const actionBar = isMobile && pagination.isVisible ? (
     <ActionBar mt={ -6 }>
       <TokenAdvancedFilterLink token={ token }/>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 

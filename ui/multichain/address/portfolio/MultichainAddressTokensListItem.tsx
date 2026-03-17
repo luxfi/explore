@@ -77,7 +77,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
               value={ BigNumber(data.token.exchange_rate) }
               prefix="$"
               loading={ isLoading }
-              color={ isNativeToken ? 'text.secondary' : undefined }
+              className={ isNativeToken ? 'text-[var(--color-text-secondary)]' : undefined }
             />
           </>
         ) : null }
@@ -87,7 +87,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
         <SimpleValue
           value={ tokenQuantity }
           loading={ isLoading }
-          color={ isNativeToken ? 'text.secondary' : undefined }
+          className={ isNativeToken ? 'text-[var(--color-text-secondary)]' : undefined }
         />
         { data.token.exchange_rate && (
           <>
@@ -98,7 +98,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
               value={ tokenValue }
               prefix="$"
               loading={ isLoading }
-              color={ isNativeToken ? 'text.secondary' : undefined }
+              className={ isNativeToken ? 'text-[var(--color-text-secondary)]' : undefined }
             />
           </>
         ) }

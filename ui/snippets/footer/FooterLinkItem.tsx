@@ -34,7 +34,7 @@ const FooterLinkItemIconExternal = ({ iconUrl, text }: { iconUrl: Array<string>;
 
 const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props) => {
   if (isLoading) {
-    return <Skeleton loading my="3px">{ text }</Skeleton>;
+    return <Skeleton loading className="my-[3px]">{ text }</Skeleton>;
   }
 
   const iconElement = (() => {
@@ -58,7 +58,7 @@ const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props
   })();
 
   return (
-    <Link href={ url } display="flex" alignItems="center" h="30px" variant="subtle" external noIcon textStyle="xs" columnGap={ 2 }>
+    <Link href={ url } className="flex items-center h-[30px] text-xs gap-x-2" variant="subtle" external noIcon>
       { iconElement }
       { text }
     </Link>

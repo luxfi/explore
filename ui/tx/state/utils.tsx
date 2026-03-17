@@ -22,7 +22,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
     if (data.is_miner) {
       return (
         <Tooltip content="A block producer who successfully included the block into the blockchain">
-          <Badge textTransform="capitalize" colorPalette="yellow" loading={ isLoading }>
+          <Badge className="capitalize" colorPalette="yellow" loading={ isLoading }>
             { getNetworkValidatorTitle() }
           </Badge>
         </Tooltip>
@@ -42,7 +42,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
         const text = changeDirection === 'from' ? 'Mint' : 'Burn';
         return (
           <Tooltip content="Address used in tokens mintings and burnings">
-            <Badge textTransform="capitalize" colorPalette="yellow" loading={ isLoading }>{ text } address</Badge>
+            <Badge className="capitalize" colorPalette="yellow" loading={ isLoading }>{ text } address</Badge>
           </Tooltip>
         );
       }
@@ -61,17 +61,17 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
 
       return {
         before: (
-          <Skeleton loading={ isLoading } wordBreak="break-all" display="inline-block">
+          <Skeleton loading={ isLoading } display="inline-block" className="break-all">
             { beforeBn.toFormat() } { currencyUnits.ether }
           </Skeleton>
         ),
         after: (
-          <Skeleton loading={ isLoading } wordBreak="break-all" display="inline-block">
+          <Skeleton loading={ isLoading } display="inline-block" className="break-all">
             { afterBn.toFormat() } { currencyUnits.ether }
           </Skeleton>
         ),
         change: (
-          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor }>
+          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor } className="break-all">
             <span>{ changeSign }{ nbsp }{ differenceBn.abs().toFormat() }</span>
           </Skeleton>
         ),
@@ -107,7 +107,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
         const changeSign = differenceBn.isGreaterThanOrEqualTo(0) ? '+' : '-';
 
         return (
-          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor } wordBreak="break-all">
+          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor } className="break-all">
             <span>{ changeSign }{ nbsp }{ differenceBn.abs().toFormat() }</span>
           </Skeleton>
         );
@@ -134,14 +134,14 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
       return {
         before: data.balance_before ? (
           <Flex whiteSpace="pre-wrap" justifyContent={{ base: 'flex-start', lg: 'flex-end' }} flexWrap="wrap">
-            <Skeleton loading={ isLoading } wordBreak="break-all">{ beforeBn.toFormat() }</Skeleton>
+            <Skeleton loading={ isLoading } className="break-all">{ beforeBn.toFormat() }</Skeleton>
             <span>{ space }</span>
             { tokenLink }
           </Flex>
         ) : null,
         after: data.balance_after ? (
           <Flex whiteSpace="pre-wrap" justifyContent={{ base: 'flex-start', lg: 'flex-end' }} flexWrap="wrap">
-            <Skeleton loading={ isLoading } wordBreak="break-all">{ afterBn.toFormat() }</Skeleton>
+            <Skeleton loading={ isLoading } className="break-all">{ afterBn.toFormat() }</Skeleton>
             <span>{ space }</span>
             { tokenLink }
           </Flex>

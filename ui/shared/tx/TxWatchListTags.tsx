@@ -27,7 +27,7 @@ const TxWatchListTags = ({ tx, isLoading }: Props) => {
           key={ tag.label }
           loading={ isLoading }
           truncated
-          maxW={{ base: '115px', lg: '100%' }}
+          className="max-w-[115px] lg:max-w-full"
           colorPalette="gray"
         >
           { tag.display_name }

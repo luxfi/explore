@@ -75,15 +75,12 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
           ) }
           showArrow={ false }
           positioning={{
-            placement: isHorizontalNavigation ? 'bottom' : 'right-end',
+            placement: isHorizontalNavigation ? 'bottom' : 'right',
             offset: { crossAxis: 0, mainAxis: isHorizontalNavigation ? 8 : 5 },
           }}
           contentProps={{
-            p: 0,
-            borderRadius: 'base',
-            bgColor: 'transparent',
-            boxShadow: isHorizontalNavigation ? '2xl' : 'none',
-            cursor: 'default',
+            className: 'p-0 rounded-base bg-transparent cursor-default',
+            style: { boxShadow: isHorizontalNavigation ? 'var(--shadow-2xl)' : 'none' },
           }}
           interactive
         >

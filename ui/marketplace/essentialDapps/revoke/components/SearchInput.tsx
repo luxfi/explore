@@ -46,9 +46,9 @@ export default function SearchInput({ value, onChange, onSubmit }: Props) {
     >
       <InputGroup
         startElement={ startElement }
-        startElementProps={{ px: 2 }}
+        startElementProps={{ className: 'px-2' }}
         endElement={ endElement }
-        endElementProps={{ w: '32px' }}
+        endElementProps={{ className: 'w-8' }}
       >
         <Input
           ref={ inputRef }
@@ -56,9 +56,7 @@ export default function SearchInput({ value, onChange, onSubmit }: Props) {
           value={ value }
           onChange={ handleValueChange }
           placeholder="Search accounts by address or domain..."
-          borderWidth="2px"
-          textOverflow="ellipsis"
-          whiteSpace="nowrap"
+          className="border-2 text-ellipsis whitespace-nowrap"
         />
       </InputGroup>
     </chakra.form>

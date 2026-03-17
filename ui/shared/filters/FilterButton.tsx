@@ -1,4 +1,3 @@
-import { Box, Circle } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ButtonProps } from 'toolkit/chakra/button';
@@ -13,41 +12,28 @@ interface Props extends ButtonProps {
 
 const FilterButton = ({ isLoading, appliedFiltersNum, ...rest }: Props, ref: React.ForwardedRef<HTMLButtonElement>) => {
   if (isLoading) {
-    return <Skeleton loading w={{ base: 9, lg: '78px' }} h={ 8 } borderRadius="base" flexShrink={ 0 }/>;
+    return <Skeleton loading w="78px" h="32px" borderRadius="base" className="shrink-0 max-lg:w-9"/>;
   }
 
   const numElement = appliedFiltersNum ? (
-    <Circle
-      className="AppliedFiltersNum"
-      size={ 5 }
-      bg="selected.control.text"
-      color={{ _light: 'white', _dark: 'black' }}
-      _groupHover={{
-        bg: 'hover',
-      }}
-      _groupExpanded={{
-        bg: 'hover',
-      }}
+    <span
+      className="AppliedFiltersNum flex items-center justify-center size-5 rounded-full bg-[var(--color-selected-control-text)] text-white dark:text-black group-hover:bg-[var(--color-hover)] group-data-[expanded]:bg-[var(--color-hover)]"
     >
       { appliedFiltersNum }
-    </Circle>
+    </span>
   ) : null;
 
   return (
     <Button
       ref={ ref }
       size="sm"
-      fontWeight="medium"
-      gap={ 1 }
       variant="dropdown"
       selected={ Boolean(appliedFiltersNum) }
-      flexShrink={ 0 }
-      pointerEvents="all"
-      px={{ base: 1, lg: 3 }}
+      className="shrink-0 pointer-events-auto font-medium gap-1 max-lg:px-1 lg:px-3"
       { ...rest }
     >
       <IconSvg name="filter" boxSize={ 5 }/>
-      <Box display={{ base: 'none', lg: 'block' }}>Filter</Box>
+      <span className="hidden lg:block">Filter</span>
       { numElement }
     </Button>
   );

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useAppContext } from 'lib/contexts/app';
 import * as cookies from 'lib/cookies';
+import { cn } from 'lib/utils/cn';
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
 import IconSvg from 'ui/shared/IconSvg';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
@@ -66,8 +67,8 @@ const NavigationDesktop = () => {
       transitionDuration="normal"
       transitionTimingFunction="ease"
     >
-      <TestnetBadge position="absolute" pl={ 3 } w="49px" top="34px"/>
-      <RollupStageBadge position="absolute" ml={{ lg: isExpanded ? 3 : '10px', xl: isCollapsed ? '10px' : 3 }} top="34px"/>
+      <TestnetBadge className="absolute pl-3 w-[49px] top-[34px]"/>
+      <RollupStageBadge className={ cn('absolute top-[34px]', isExpanded ? 'lg:ml-3' : 'lg:ml-[10px]', isCollapsed ? 'xl:ml-[10px]' : 'xl:ml-3') }/>
       <Box
         as="header"
         display="flex"

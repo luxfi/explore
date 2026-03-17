@@ -57,7 +57,7 @@ const FormFieldTextContent = <
     <Textarea
       { ...field }
       autoComplete="off"
-      flexGrow={ 1 }
+      className="grow"
       { ...inputProps as TextareaProps }
       onBlur={ handleBlur }
     />

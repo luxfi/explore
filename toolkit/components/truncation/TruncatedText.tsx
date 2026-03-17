@@ -3,12 +3,12 @@
 import type { Placement } from '@floating-ui/dom';
 import React from 'react';
 
-import type { SkeletonTextProps } from '../../chakra/skeleton';
+import type { SkeletonProps } from '../../chakra/skeleton';
 import { Skeleton } from '../../chakra/skeleton';
 import { Tooltip } from '../../chakra/tooltip';
 import { TruncatedTextTooltip } from './TruncatedTextTooltip';
 
-export interface TruncatedTextProps extends Omit<SkeletonTextProps, 'loading'> {
+export interface TruncatedTextProps extends Omit<SkeletonProps, 'loading'> {
   text: string;
   loading?: boolean;
   // tooltipContent is used to display the tooltip value different from the truncated value
@@ -21,11 +21,7 @@ export const TruncatedText = ({ text, tooltipPlacement, tooltipInteractive, tool
   const valueElement = (
     <Skeleton
       loading={ loading }
-      display="inline-block"
-      whiteSpace="nowrap"
-      overflow="hidden"
-      textOverflow="ellipsis"
-      height="fit-content"
+      className="inline-block whitespace-nowrap overflow-hidden text-ellipsis h-fit"
       { ...rest }
     >
       <span>{ text }</span>
@@ -37,7 +33,7 @@ export const TruncatedText = ({ text, tooltipPlacement, tooltipInteractive, tool
     return (
       <Tooltip
         content={ tooltipContent }
-        positioning={{ placement: tooltipPlacement }}
+        positioning={{ placement: tooltipPlacement as 'top' | 'bottom' | 'left' | 'right' | undefined }}
         interactive={ tooltipInteractive }
       >
         { valueElement }

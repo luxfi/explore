@@ -26,7 +26,7 @@ const OptimisticL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
 
   return (
     <TableRow>
-      <TableCell verticalAlign="middle" fontWeight={ 600 }>
+      <TableCell verticalAlign="middle" className="font-semibold">
         <Skeleton loading={ isLoading } display="inline-block">{ item.msg_nonce_version + '-' + item.msg_nonce }</Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle">
@@ -72,7 +72,7 @@ const OptimisticL2WithdrawalsTableItem = ({ item, isLoading }: Props) => {
         }
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Skeleton loading={ isLoading } color="text.secondary" minW="50px" minH="20px" display="inline-block">{ timeToEnd }</Skeleton>
+        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] min-w-[50px] min-h-[20px] inline-block">{ timeToEnd }</Skeleton>
       </TableCell>
     </TableRow>
   );

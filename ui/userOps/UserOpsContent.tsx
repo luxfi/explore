@@ -48,7 +48,7 @@ const UserOpsContent = ({ query, showTx = true, showSender = true }: Props) => {
 
   const actionBar = query.pagination.isVisible ? (
     <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...query.pagination }/>
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 

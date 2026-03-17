@@ -69,7 +69,7 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => 
       lazyMount
       interactive
       showArrow={ false }
-      contentProps={{ p: 4, borderRadius: 'md' }}
+      contentProps={{ className: 'p-4 rounded-md' }}
     >
       { children }
     </Tooltip>

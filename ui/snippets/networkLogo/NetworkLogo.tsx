@@ -42,9 +42,9 @@ const NetworkLogo = ({ className }: Props) => {
         src={ logoSrc }
         alt={ `${ config.chain.name } network logo` }
         fallback={ <LogoFallback/> }
-        filter={{ _dark: !config.UI.navigation.logo.dark ? INVERT_FILTER : undefined }}
         objectFit="contain"
         objectPosition="left"
+        className={ !config.UI.navigation.logo.dark ? 'dark:brightness-0 dark:invert' : undefined }
       />
     </chakra.a>
   );

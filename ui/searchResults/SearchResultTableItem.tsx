@@ -71,9 +71,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                 <TokenEntity.Icon token={{ ...data, type: data.token_type }} isLoading={ isLoading }/>
                 <Link
                   href={ route({ pathname: '/token/[hash]', query: { hash: data.address_hash } }) }
-                  fontWeight={ 700 }
-                  wordBreak="break-all"
-                  overflow="hidden"
+                  className="font-bold break-all overflow-hidden"
                   loading={ isLoading }
                   onClick={ handleLinkClick }
                 >
@@ -189,8 +187,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                 <IconSvg name="publictags" boxSize={ 6 } mr={ 2 } color="icon.primary"/>
                 <Link
                   href={ route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) }
-                  fontWeight={ 700 }
-                  wordBreak="break-all"
+                  className="font-bold break-all"
                   loading={ isLoading }
                   onClick={ handleLinkClick }
                 >
@@ -229,8 +226,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                     route({ pathname: '/apps', query: { selectedAppId: data.app.id } }) :
                     route({ pathname: '/apps/[id]', query: { id: data.app.id } })
                   }
-                  fontWeight={ 700 }
-                  wordBreak="break-all"
+                  className="font-bold break-all"
                   loading={ isLoading }
                   onClick={ handleLinkClick }
                 >
@@ -283,8 +279,8 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                 <Skeleton loading={ isLoading }>Learn estimated time for this block to be created.</Skeleton>
               ) : (
                 <Flex columnGap={ 2 } alignItems="center">
-                  { data.block_type === 'reorg' && !isLoading && <Tag flexShrink={ 0 }>Reorg</Tag> }
-                  { data.block_type === 'uncle' && !isLoading && <Tag flexShrink={ 0 }>Uncle</Tag> }
+                  { data.block_type === 'reorg' && !isLoading && <Tag className="shrink-0">Reorg</Tag> }
+                  { data.block_type === 'uncle' && !isLoading && <Tag className="shrink-0">Uncle</Tag> }
                   <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap" display="block">
                     <HashStringShortenDynamic hash={ data.block_hash } as={ shouldHighlightHash ? 'mark' : 'span' }/>
                   </Skeleton>
@@ -449,11 +445,9 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                     route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) :
                     route({ pathname: '/name-services/domains/[name]', query: { name: data.ens_info.name } })
                   }
-                  fontWeight={ 700 }
-                  wordBreak="break-all"
+                  className="font-bold break-all overflow-hidden"
                   loading={ isLoading }
                   onClick={ handleLinkClick }
-                  overflow="hidden"
                 >
                   <Skeleton
                     loading={ isLoading }

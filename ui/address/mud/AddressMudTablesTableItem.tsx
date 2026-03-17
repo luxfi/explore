@@ -51,7 +51,7 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
       <TableRow borderBottomStyle={ isOpened ? 'hidden' : 'unset' }>
         <TableCell verticalAlign="middle">
           <Skeleton loading={ isLoading }>
-            <Link display="block">
+            <Link className="block">
               <IconSvg
                 name="arrows/east-mini"
                 transform={ isOpened ? 'rotate(270deg)' : 'rotate(180deg)' }
@@ -70,7 +70,7 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
               href={ route({ pathname: '/address/[hash]', query: { hash, tab: 'mud', table_id: item.table.table_id } }) }
               data-id={ item.table.table_id }
               onClick={ onTableClick }
-              fontWeight={ 700 }
+              className="font-bold"
             >
               { item.table.table_full_name }
             </Link>

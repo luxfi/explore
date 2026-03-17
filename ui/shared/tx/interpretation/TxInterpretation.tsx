@@ -144,9 +144,7 @@ const TxInterpretationElementByType = (
         <Badge
           colorPalette={ value === 'Multicall' ? 'teal' : 'gray' }
           truncated
-          ml={ 1 }
-          mr={ 2 }
-          verticalAlign="text-top"
+          className="ml-1 mr-2 align-text-top"
         >
           { value }
         </Badge>
@@ -208,24 +206,18 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
   const tooltipContent = 'Transaction summary' + (chainData ? `\n${ getChainTooltipText(chainData) }` : '');
 
   return (
-    <Skeleton loading={ isLoading } className={ className } fontWeight={ 500 } whiteSpace="pre-wrap" { ...rest }>
-      <Tooltip content={ tooltipContent } contentProps={{ whiteSpace: 'pre-wrap' }}>
+    <Skeleton loading={ isLoading } className={ `${ className ?? '' } font-medium whitespace-pre-wrap`.trim() } fontWeight={ 500 }>
+      <Tooltip content={ tooltipContent } contentProps={{ className: 'whitespace-pre-wrap' }}>
         <Box display="inline-flex" position="relative" mr={ chainData ? '14px' : 1 } verticalAlign="text-top">
           <IconSvg name="lightning" boxSize={ 5 } color="icon.primary"/>
           { chainData && (
-            <ChainIcon
-              data={ chainData }
-              boxSize="18px"
-              position="absolute"
-              top="6px"
-              left="12px"
-              borderRadius="full"
-              borderWidth="1px"
-              borderStyle="solid"
-              borderColor="bg.primary"
-              backgroundColor="bg.primary"
-              noTooltip
-            />
+            <span className="absolute top-[6px] left-[12px] rounded-full border border-solid border-[var(--color-bg-primary)] bg-[var(--color-bg-primary)]">
+              <ChainIcon
+                data={ chainData }
+                boxSize="18px"
+                noTooltip
+              />
+            </span>
           ) }
         </Box>
       </Tooltip>
@@ -252,7 +244,7 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
       }) }
       { isNoves && (
         <Tooltip content="Human readable transaction provided by Noves.fi">
-          <Badge ml={ 2 } verticalAlign="unset" transform="translateY(-2px)">
+          <Badge className="ml-2 align-baseline -translate-y-[2px]">
             by
             <Image src={ novesLogoUrl } alt="Noves logo" h="12px" ml={ 1.5 } display="inline"/>
           </Badge>

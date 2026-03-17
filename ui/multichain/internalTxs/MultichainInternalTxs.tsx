@@ -21,12 +21,11 @@ const MultichainInternalTxs = () => {
 
   const filterInput = (
     <FilterInput
-      w={{ base: '100%', lg: '350px' }}
+      className="w-full lg:w-[350px] ml-0 lg:ml-2"
       size="sm"
       onChange={ onSearchTermChange }
       placeholder="Search by transaction hash"
       initialValue={ searchTerm }
-      ml={{ base: 0, lg: 2 }}
     />
   );
 
@@ -47,7 +46,7 @@ const MultichainInternalTxs = () => {
       <ActionBar mt={ -6 } justifyContent="flex-start">
         { chainSelect }
         { !isMobile && filterInput }
-        <Pagination ml="auto" { ...pagination }/>
+        <Pagination className="ml-auto" { ...pagination }/>
       </ActionBar>
     </>
   );

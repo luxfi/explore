@@ -54,6 +54,12 @@ interface ChakraStyleProps {
   backgroundColor?: React.CSSProperties['backgroundColor'] | Record<string, string>;
   boxShadow?: React.CSSProperties['boxShadow'];
   alignItems?: React.CSSProperties['alignItems'];
+  fontWeight?: React.CSSProperties['fontWeight'];
+  color?: React.CSSProperties['color'] | string;
+  overflow?: React.CSSProperties['overflow'];
+  borderBottomStyle?: React.CSSProperties['borderBottomStyle'];
+  borderRadius?: React.CSSProperties['borderRadius'];
+  display?: React.CSSProperties['display'];
   // Chakra pseudo-prop pass-throughs (ignored in Tailwind)
   _first?: Record<string, unknown>;
   _last?: Record<string, unknown>;
@@ -202,6 +208,26 @@ function extractStyles(props: Record<string, unknown>): { style: React.CSSProper
       case 'alignItems':
         style.alignItems = value as React.CSSProperties['alignItems'];
         break;
+      case 'fontWeight':
+        style.fontWeight = value as React.CSSProperties['fontWeight'];
+        break;
+      case 'color':
+        if (typeof value === 'string') {
+          style.color = value;
+        }
+        break;
+      case 'overflow':
+        style.overflow = value as React.CSSProperties['overflow'];
+        break;
+      case 'borderBottomStyle':
+        style.borderBottomStyle = value as React.CSSProperties['borderBottomStyle'];
+        break;
+      case 'borderRadius':
+        style.borderRadius = value as React.CSSProperties['borderRadius'];
+        break;
+      case 'display':
+        style.display = value as React.CSSProperties['display'];
+        break;
       // Chakra pseudo-props: silently drop
       case '_first':
       case '_last':
@@ -235,7 +261,7 @@ function resolveResponsive(value: unknown): string | undefined {
 // TableRoot
 // ---------------------------------------------------------------------------
 
-export interface TableRootProps extends ChakraStyleProps, Omit<React.HTMLAttributes<HTMLTableElement>, 'color'> {
+export interface TableRootProps extends Omit<ChakraStyleProps, 'minWidth' | 'minW'>, Omit<React.HTMLAttributes<HTMLTableElement>, 'color'> {
   children?: React.ReactNode;
   minWidth?: React.CSSProperties['minWidth'] | Record<string, string>;
   minW?: React.CSSProperties['minWidth'] | Record<string, string>;
@@ -354,9 +380,11 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
 // TableCell (td)
 // ---------------------------------------------------------------------------
 
-export interface TableCellProps extends ChakraStyleProps, Omit<React.TdHTMLAttributes<HTMLTableCellElement>, 'color'> {
+export interface TableCellProps extends Omit<ChakraStyleProps, 'width' | 'height'>, Omit<React.TdHTMLAttributes<HTMLTableCellElement>, 'color'> {
   isNumeric?: boolean;
   children?: React.ReactNode;
+  display?: string;
+  justifyContent?: string;
 }
 
 export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
@@ -443,7 +471,7 @@ export const TableColumnHeaderSortable = <F extends string>(props: TableColumnHe
 
   return (
     <TableColumnHeader { ...rest }>
-      <Link onClick={ disabled ? undefined : handleSortToggle } position="relative">
+      <Link onClick={ disabled ? undefined : handleSortToggle } className="relative">
         { isActive && (
           <span
             className={ cn(
@@ -475,7 +503,7 @@ export const TableHeaderSticky = (props: TableHeaderProps) => {
   const [ isStuck, setIsStuck ] = React.useState(false);
 
   const handleScroll = React.useCallback(() => {
-    if (Number(ref.current?.getBoundingClientRect().y) <= (top || 0)) {
+    if (Number(ref.current?.getBoundingClientRect().y) <= (Number(top) || 0)) {
       setIsStuck(true);
     } else {
       setIsStuck(false);

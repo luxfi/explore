@@ -1,8 +1,8 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
 
+import { cn } from 'lib/utils/cn';
 import type { AlertProps } from 'toolkit/chakra/alert';
 import { Alert } from 'toolkit/chakra/alert';
 
@@ -20,7 +20,7 @@ const AddressAlerts = ({ tags, isScamToken, className }: Props) => {
   }
 
   return (
-    <Flex flexDir="column" rowGap={{ base: 1, lg: 2 }} mb={ 3 } className={ className }>
+    <div className={ cn('flex flex-col gap-y-1 lg:gap-y-2 mb-3', className) }>
       { isScamToken && (
         <Alert status="error">
           This token has been flagged as a potential scam.
@@ -30,24 +30,17 @@ const AddressAlerts = ({ tags, isScamToken, className }: Props) => {
         <Alert
           key={ noteTag.name }
           status={ noteTag.meta?.alertStatus as AlertProps['status'] ?? 'error' }
-          bgColor={ noteTag.meta?.alertBgColor }
-          color={ noteTag.meta?.alertTextColor }
-          whiteSpace="pre-wrap"
-          display="inline-block"
-          css={{
-            '& a': {
-              color: 'link.primary',
-              _hover: {
-                color: 'link.primary.hover',
-              },
-            },
+          className="whitespace-pre-wrap inline-block [&_a]:text-[var(--color-link-primary)] [&_a:hover]:text-[var(--color-link-primary-hover)]"
+          style={{
+            backgroundColor: noteTag.meta?.alertBgColor || undefined,
+            color: noteTag.meta?.alertTextColor || undefined,
           }}
         >
           <div dangerouslySetInnerHTML={{ __html: noteTag.meta?.data ?? '' }}/>
         </Alert>
       )) }
-    </Flex>
+    </div>
   );
 };
 
-export default React.memo(chakra(AddressAlerts));
+export default React.memo(AddressAlerts);

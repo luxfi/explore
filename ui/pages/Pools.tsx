@@ -60,7 +60,7 @@ const Pools = () => {
 
   const filter = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
+      className="w-full lg:w-[360px]"
       size="sm"
       onChange={ handleSearchTermChange }
       placeholder="Pair, token symbol or token address"
@@ -80,7 +80,7 @@ const Pools = () => {
         <Box hideBelow="lg">
           { filter }
         </Box>
-        <Pagination { ...poolsQuery.pagination } ml="auto"/>
+        <Pagination { ...poolsQuery.pagination } className="ml-auto"/>
       </ActionBar>
     </>
   );

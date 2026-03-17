@@ -31,7 +31,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue whiteSpace="pre-wrap" wordBreak="break-all" alignItems={{ base: 'flex-start', lg: 'center' }}>
         { data.data_hash }
-        <CopyToClipboard text={ data.data_hash } ml={ 2 }/>
+        <CopyToClipboard text={ data.data_hash } className="ml-2"/>
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemLabel
         hint="Expiration timeout for the data blob"
@@ -70,7 +70,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
             <>
               <Flex justifyContent="space-between">
                 <Text wordBreak="break-all" whiteSpace="break-spaces">{ signer.key }</Text>
-                <CopyToClipboard text={ signer.key } ml={ 2 }/>
+                <CopyToClipboard text={ signer.key } className="ml-2"/>
               </Flex>
               <Box justifySelf="center">
                 { signer.trusted ? <IconSvg name="check" boxSize={ 6 }/> : <IconSvg name="cross" boxSize={ 6 }/> }
@@ -78,7 +78,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
               { signer.proof ? (
                 <Flex>
                   <HashStringShorten hash={ signer.proof }/>
-                  <CopyToClipboard text={ signer.proof } ml={ 2 }/>
+                  <CopyToClipboard text={ signer.proof } className="ml-2"/>
                 </Flex>
               ) : '-' }
             </>
@@ -103,7 +103,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
                   { signer.proof ? (
                     <Flex>
                       <HashStringShorten hash={ signer.proof }/>
-                      <CopyToClipboard text={ signer.proof } ml={ 2 }/>
+                      <CopyToClipboard text={ signer.proof } className="ml-2"/>
                     </Flex>
                   ) : '-' }
                 </Flex>

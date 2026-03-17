@@ -42,7 +42,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
             href={ chainInfo?.explorer_url }
             external
             loading={ isLoading }
-            maxW="100%"
+            className="max-w-full"
           >
             <TruncatedText text={ chainInfo?.name ?? 'Unknown chain' } loading={ isLoading }/>
           </Link>

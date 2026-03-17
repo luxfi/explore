@@ -42,7 +42,7 @@ const TokenTypeFilter = <T extends TokenType | NFTTokenType>({ nftOnly, onChange
           variant="link"
           onClick={ handleReset }
           disabled={ value.length === 0 }
-          textStyle="sm"
+          className="text-sm"
         >
           Reset
         </Button>

@@ -53,7 +53,7 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         />
       </Flex>
       <Flex columnGap={ 3 } w="100%">
-        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">Balance { currencyUnits.ether }</Skeleton>
+        <Skeleton loading={ isLoading } className="font-medium shrink-0">Balance { currencyUnits.ether }</Skeleton>
         <NativeCoinValue
           amount={ data.coin_balance }
           noSymbol
@@ -68,16 +68,16 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
         </Skeleton>
       </Flex>
       <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">Language</Skeleton>
-        <Skeleton loading={ isLoading } display="flex" flexWrap="wrap">
+        <Skeleton loading={ isLoading } className="font-medium shrink-0">Language</Skeleton>
+        <Skeleton loading={ isLoading } className="flex flex-wrap">
           <Box>{ formatLanguageName(data.language) }</Box>
           <Box color="text.secondary" wordBreak="break-all" whiteSpace="pre-wrap"> ({ data.compiler_version })</Box>
         </Skeleton>
       </Flex>
       { data.zk_compiler_version && (
         <Flex columnGap={ 3 }>
-          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink="0">ZK compiler</Skeleton>
-          <Skeleton loading={ isLoading } color="text.secondary" wordBreak="break-all" whiteSpace="pre-wrap">
+          <Skeleton loading={ isLoading } className="font-medium shrink-0">ZK compiler</Skeleton>
+          <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] break-all whitespace-pre-wrap">
             { data.zk_compiler_version }
           </Skeleton>
         </Flex>

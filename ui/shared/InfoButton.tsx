@@ -18,14 +18,11 @@ const InfoButton = ({ children, isLoading }: Props) => {
     <Button
       size="sm"
       variant="dropdown"
-      gap={ 0 }
       aria-label="Show info"
-      fontWeight={ 500 }
-      pl={ 1 }
-      pr={ isMobile ? 1 : 2 }
+      className="gap-0 font-medium pl-1 pr-2 max-lg:pr-1"
       loadingSkeleton={ isLoading }
     >
-      <IconSvg name="info" boxSize={ 6 } mr={ isMobile ? 0 : 1 }/>
+      <IconSvg name="info" boxSize={ 6 } className={ isMobile ? '' : 'mr-1' }/>
       { !isMobile && <span>Info</span> }
     </Button>
   );
@@ -49,7 +46,7 @@ const InfoButton = ({ children, isLoading }: Props) => {
       <PopoverTrigger>
         { triggerButton }
       </PopoverTrigger>
-      <PopoverContent w="500px">
+      <PopoverContent className="w-[500px]">
         <PopoverBody>
           { children }
         </PopoverBody>

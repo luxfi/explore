@@ -55,8 +55,8 @@ const UserWalletMobile = () => {
           isPending={ isPending }
         />
       </DrawerTrigger>
-      <DrawerContent maxWidth="300px">
-        <DrawerBody p={ 6 }>
+      <DrawerContent className="max-w-[300px]">
+        <DrawerBody className="p-6">
           <UserWalletMenuContent
             address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }
             domain={ isWalletEnabled ? web3AccountWithDomain.domain : undefined }

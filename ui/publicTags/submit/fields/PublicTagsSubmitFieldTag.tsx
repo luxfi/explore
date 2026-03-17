@@ -87,9 +87,9 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
             <FormFieldText<FormFields>
               name={ `tags.${ index }.tooltipDescription` }
               placeholder="Label description (max 80 characters)"
-              maxH="160px"
               rules={{ maxLength: 80 }}
               asComponent="Textarea"
+              className="max-h-[160px]"
             />
           </GridItem>
         </Grid>

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { MethodType } from './types';
@@ -27,15 +26,15 @@ const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange
   }, [ onChange ]);
 
   return (
-    <Flex columnGap={ 3 } rowGap={ 3 } flexDir={{ base: 'column', lg: 'row' }}>
+    <div className="flex flex-col lg:flex-row gap-3">
       <ButtonGroupRadio
         defaultValue={ defaultMethodType }
         onChange={ handleTypeChange }
-        w={{ lg: 'fit-content' }}
+        className="lg:w-fit"
         loading={ isLoading }
       >
         { TYPE_FILTER_OPTIONS.map((option) => (
-          <Button key={ option.value } value={ option.value } size="sm" px={ 3 }>
+          <Button key={ option.value } value={ option.value } size="sm" className="px-3">
             { option.title }
           </Button>
         )) }
@@ -44,11 +43,11 @@ const ContractMethodsFilters = ({ defaultMethodType, defaultSearchTerm, onChange
         initialValue={ defaultSearchTerm }
         onChange={ handleSearchTermChange }
         placeholder="Search by method name"
-        w={{ base: '100%', lg: '450px' }}
+        className="w-full lg:w-[450px]"
         size="sm"
         loading={ isLoading }
       />
-    </Flex>
+    </div>
   );
 };
 

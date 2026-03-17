@@ -93,7 +93,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
     <CopyToClipboard
       text={ data.source_code }
       isLoading={ isLoading }
-      ml={{ base: 'auto', lg: diagramLink ? '0' : 'auto' }}
+      ml={ diagramLink ? '0' : 'auto' }
     />
   ) :
     null;

@@ -68,11 +68,11 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
             />
           </Flex>
           <Grid gridTemplateColumns="56px auto">
-            <Skeleton loading={ isLoading } my="5px" w="fit-content">
+            <Skeleton loading={ isLoading } className="my-[5px] w-fit">
               { layerLabels.parent } txn
             </Skeleton>
             { l1TxLink }
-            <Skeleton loading={ isLoading } my="3px" w="fit-content">
+            <Skeleton loading={ isLoading } className="my-[3px] w-fit">
               { layerLabels.current } txn
             </Skeleton>
             { l2TxLink }
@@ -84,7 +84,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     return (
       <Grid width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
         { l1BlockLink }
-        <Skeleton loading={ isLoading } w="fit-content" h="fit-content" my="5px">
+        <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
           { layerLabels.parent } txn
         </Skeleton>
         { l1TxLink }
@@ -97,7 +97,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
           h="fit-content"
           my="2px"
         />
-        <Skeleton loading={ isLoading } w="fit-content" h="fit-content" my="2px">
+        <Skeleton loading={ isLoading } className="w-fit h-fit my-[2px]">
           { layerLabels.current } txn
         </Skeleton>
         { l2TxLink }

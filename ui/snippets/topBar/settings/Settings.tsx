@@ -43,7 +43,7 @@ const Settings = () => {
             <IconButton
               variant="link"
               size="2xs"
-              borderRadius="sm"
+              className="rounded-sm"
               aria-label="User settings"
             >
               <IconSvg name="gear"/>
@@ -51,7 +51,7 @@ const Settings = () => {
           </PopoverTrigger>
         </Flex>
       </Tooltip>
-      <PopoverContent overflowY="hidden" w="auto" fontSize="sm">
+      <PopoverContent className="overflow-y-hidden text-sm" style={{ width: 'auto' }}>
         <PopoverBody>
           <SettingsColorTheme onSelect={ popover.onClose }/>
           <Separator my={ 3 }/>

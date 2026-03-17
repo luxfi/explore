@@ -37,9 +37,9 @@ const NetworkIcon = ({ className }: Props) => {
         src={ iconSrc }
         alt={ `${ config.chain.name } network icon` }
         fallback={ <IconFallback/> }
-        filter={{ _dark: !config.UI.navigation.icon.dark ? INVERT_FILTER : undefined }}
         objectFit="contain"
         objectPosition="left"
+        className={ !config.UI.navigation.icon.dark ? 'dark:brightness-0 dark:invert' : undefined }
       />
     </chakra.a>
   );

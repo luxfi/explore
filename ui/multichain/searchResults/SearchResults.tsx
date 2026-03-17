@@ -79,9 +79,7 @@ const SearchResults = () => {
       onValueChange={ chainSelect.onValueChange }
       mode="default"
       withAllOption
-      w={{ base: 'full', lg: 'fit-content' }}
-      mt={{ base: -3, lg: 0 }}
-      mb={{ base: 6, lg: 0 }}
+      className="w-full lg:w-fit -mt-3 lg:mt-0 mb-6 lg:mb-0"
     />
   );
 

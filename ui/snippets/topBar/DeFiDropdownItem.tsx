@@ -23,8 +23,7 @@ const DeFiDropdownItem = ({ item }: Props) => {
         item.url
       }
       external={ !item.dappId }
-      w="100%"
-      h="34px"
+      className="w-full h-[34px]"
       variant="menu"
       onClick={ item.onClick }
     >

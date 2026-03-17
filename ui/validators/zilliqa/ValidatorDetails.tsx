@@ -55,7 +55,7 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <Flex alignItems="center" w="100%" minWidth={ 0 }>
-          <Skeleton loading={ isLoading } maxW="calc(100% - 28px)" overflow="hidden">
+          <Skeleton loading={ isLoading } className="max-w-[calc(100%-28px)] overflow-hidden">
             <HashStringShortenDynamic hash={ data.peer_id }/>
           </Skeleton>
           <CopyToClipboard text={ data.peer_id } isLoading={ isLoading }/>

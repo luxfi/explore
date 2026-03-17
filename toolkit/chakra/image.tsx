@@ -2,6 +2,7 @@ import React from 'react';
 
 import { cn } from 'lib/utils/cn';
 
+import type { SkeletonProps } from './skeleton';
 import { Skeleton } from './skeleton';
 
 type CSSValue = string | number | undefined;
@@ -13,7 +14,7 @@ interface StyleProps {
   boxSize?: CSSValue;
   borderRadius?: CSSValue;
   width?: CSSValue;
-  w?: CSSValue;
+  w?: ResponsiveValue<CSSValue>;
   height?: CSSValue;
   h?: ResponsiveValue<CSSValue>;
   maxW?: CSSValue;
@@ -37,6 +38,7 @@ interface StyleProps {
   objectPosition?: CSSValue;
   flexShrink?: CSSValue;
   overflow?: CSSValue;
+  cursor?: CSSValue;
 }
 
 export interface ImageProps extends StyleProps {
@@ -45,6 +47,7 @@ export interface ImageProps extends StyleProps {
   readonly alt?: string;
   readonly style?: React.CSSProperties;
   readonly fallback?: React.ReactNode;
+  readonly onClick?: React.MouseEventHandler<HTMLImageElement>;
   readonly onLoad?: React.ReactEventHandler<HTMLImageElement>;
   readonly onError?: React.ReactEventHandler<HTMLImageElement>;
   // for the case where the image dimensions are not known before the image is loaded
@@ -118,7 +121,7 @@ function buildStyle(props: StyleProps): React.CSSProperties {
     s.height = size;
   }
 
-  const w = resolveSize(props.width ?? props.w);
+  const w = resolveSize(props.width ?? baseValue(props.w) as CSSValue);
   if (w) s.width = w;
 
   const hVal = baseValue(props.height ?? props.h);
@@ -260,7 +263,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
 
     return (
       <>
-        { loading && <Skeleton loading { ...skeletonProps }/> }
+        { loading && <Skeleton loading { ...skeletonProps as Partial<SkeletonProps> }/> }
         <img
           ref={ ref }
           src={ src }

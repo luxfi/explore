@@ -107,11 +107,11 @@ const Tokens = () => {
   const hasMultipleTabs = bridgedTokensFeature.isEnabled;
 
   const filter = tab === 'bridged' ? (
-    <PopoverFilter contentProps={{ maxW: '350px' }} appliedFiltersNum={ bridgeChains?.length }>
+    <PopoverFilter contentProps={{ className: 'max-w-[350px]' }} appliedFiltersNum={ bridgeChains?.length }>
       <TokensBridgedChainsFilter onChange={ handleBridgeChainsChange } defaultValue={ bridgeChains }/>
     </PopoverFilter>
   ) : (
-    <PopoverFilter contentProps={{ w: '200px' }} appliedFiltersNum={ tokenTypes?.length }>
+    <PopoverFilter contentProps={{ className: 'w-[200px]' }} appliedFiltersNum={ tokenTypes?.length }>
       <TokenTypeFilter<TokenType> onChange={ handleTokenTypesChange } defaultValue={ tokenTypes } nftOnly={ false }/>
     </PopoverFilter>
   );

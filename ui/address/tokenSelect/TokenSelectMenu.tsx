@@ -30,7 +30,7 @@ const TokenSelectMenu = ({ getSort, filteredData, onInputChange, onSortClick, se
       <FilterInput
         placeholder="Search by token name"
         size="sm"
-        inputProps={{ bgColor: 'dialog.bg' }}
+        inputProps={{ className: 'bg-[var(--color-dialog-bg)]' }}
         mb={ 5 }
         onChange={ onInputChange }
       />

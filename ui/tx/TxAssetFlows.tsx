@@ -66,7 +66,7 @@ export default function TxAssetFlows(props: FlowViewProps) {
           isLoading={ isPlaceholderData }
         />
       </Box>
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...paginationProps }/>
+      <Pagination className="ml-auto lg:ml-8" { ...paginationProps }/>
     </ActionBar>
   );
 

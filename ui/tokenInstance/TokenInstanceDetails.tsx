@@ -76,7 +76,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Flex alignItems="center" overflow="hidden">
-              <Skeleton loading={ isLoading } overflow="hidden" display="inline-block" w="100%">
+              <Skeleton loading={ isLoading } className="overflow-hidden" display="inline-block" w="100%">
                 <HashStringShortenDynamic hash={ data.id }/>
               </Skeleton>
               <CopyToClipboard text={ data.id } isLoading={ isLoading }/>

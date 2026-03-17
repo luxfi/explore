@@ -66,9 +66,9 @@ const AppErrorTxNotFound = () => {
         </List.Item>
       </List.Root>
       { isPuzzleOpen && <Puzzle15/> }
-      <Link href={ route({ pathname: '/' }) } asChild>
+      <Link href={ route({ pathname: '/' }) }>
         <Button
-          mt={ 8 }
+          className="mt-8"
           variant="outline"
         >
           Back to home

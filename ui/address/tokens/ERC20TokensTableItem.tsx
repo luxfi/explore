@@ -63,7 +63,7 @@ const ERC20TokensTableItem = ({
           />
           { isNativeToken && <NativeTokenTag/> }
         </HStack>
-        { hasAdditionalTokenTypes && <Tag loading={ isLoading } mt={ 2 }>{ getTokenTypeName(token.type) }</Tag> }
+        { hasAdditionalTokenTypes && <Tag loading={ isLoading } className="mt-2">{ getTokenTypeName(token.type) }</Tag> }
       </TableCell>
       <TableCell verticalAlign={ cellVerticalAlign }>
         <Flex alignItems="center" width="150px" justifyContent="space-between">

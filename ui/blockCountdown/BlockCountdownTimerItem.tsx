@@ -18,11 +18,7 @@ const BlockCountdownTimerItem = ({ label, value }: Props) => {
     >
       <TruncatedText
         text={ value }
-        fontFamily="heading"
-        fontSize={{ base: '40px', lg: '48px' }}
-        lineHeight="48px"
-        fontWeight={ 600 }
-        w="100%"
+        className="font-heading text-[40px] lg:text-[48px] leading-[48px] font-semibold w-full"
       />
       <Box fontSize="sm" lineHeight="20px" mt={ 1 } color="text.secondary">{ label }</Box>
     </Box>

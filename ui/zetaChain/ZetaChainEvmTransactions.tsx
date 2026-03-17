@@ -105,7 +105,7 @@ const ZetaChainEvmTransactions = () => {
     return (
       <Flex alignItems="center" gap={ 6 }>
         { isAdvancedFilterEnabled && <AdvancedFilterLink/> }
-        { pagination.isVisible && <Pagination my={ 1 } { ...pagination }/> }
+        { pagination.isVisible && <Pagination className="my-1" { ...pagination }/> }
       </Flex>
     );
   })();

@@ -1,4 +1,4 @@
-import { Box, chakra, Grid } from '@chakra-ui/react';
+import { Box, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -27,21 +27,19 @@ const VerifyWith = ({ className, links, label, longText, shortText }: Props) => 
               size="sm"
               variant="dropdown"
               aria-label={ label }
-              fontWeight={ 500 }
-              px={ shortText ? 2 : 1 }
-              flexShrink={ 0 }
-              columnGap={ 1 }
+              className="font-medium shrink-0 gap-x-1"
+              style={{ padding: shortText ? '0 0.5rem' : '0 0.25rem' }}
             >
               <IconSvg name="explorer" boxSize={ 5 }/>
-              <chakra.span hideBelow="xl">{ longText }</chakra.span>
-              { shortText && <chakra.span hideFrom="xl">{ shortText }</chakra.span> }
+              <span className="hidden xl:inline">{ longText }</span>
+              { shortText && <span className="xl:hidden">{ shortText }</span> }
             </Button>
           </PopoverTrigger>
         </Box>
       </Tooltip>
-      <PopoverContent w="auto">
-        <PopoverBody >
-          <chakra.span color="text.secondary" textStyle="xs">{ label }</chakra.span>
+      <PopoverContent style={{ width: 'auto' }}>
+        <PopoverBody>
+          <span className="text-[var(--color-text-secondary)] text-xs">{ label }</span>
           <Grid
             alignItems="center"
             templateColumns={ links.length > 1 ? 'auto auto' : '1fr' }
@@ -57,4 +55,4 @@ const VerifyWith = ({ className, links, label, longText, shortText }: Props) => 
   );
 };
 
-export default chakra(VerifyWith);
+export default VerifyWith;

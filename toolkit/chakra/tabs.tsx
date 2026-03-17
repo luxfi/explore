@@ -14,7 +14,7 @@ type TabsSize = 'sm' | 'md' | 'free';
 // TabsRoot
 // ---------------------------------------------------------------------------
 
-export interface TabsProps extends React.ComponentPropsWithoutRef<typeof RadixTabs.Root> {
+export interface TabsProps extends Omit<React.ComponentPropsWithoutRef<typeof RadixTabs.Root>, 'onValueChange'> {
 
   /** Visual variant. Default: "solid". */
   variant?: TabsVariant;
@@ -98,20 +98,54 @@ export const TabsRoot = React.forwardRef<HTMLDivElement, TabsProps>(
 // TabsList
 // ---------------------------------------------------------------------------
 
-export interface TabsListProps extends React.ComponentPropsWithoutRef<typeof RadixTabs.List> {}
+export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Radix pass-through
+  asChild?: boolean;
+  loop?: boolean;
+  // Legacy Chakra style-prop shims
+  flexWrap?: string;
+  alignItems?: string;
+  whiteSpace?: string;
+  bgColor?: string;
+  marginBottom?: number | string;
+  mx?: string | Record<string, string>;
+  px?: string | Record<string, string>;
+  w?: string | Record<string, string>;
+  overflowX?: string | Record<string, string>;
+  overscrollBehaviorX?: string;
+  css?: Record<string, unknown>;
+  position?: string;
+  boxShadow?: string | Record<string, string>;
+  top?: number | string;
+  zIndex?: string | Record<string, string>;
+}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   function TabsList(props, ref) {
-    const { className, ...rest } = props;
+    const {
+      className,
+      // Strip Chakra style props
+      flexWrap: _flexWrap, alignItems: _alignItems, whiteSpace: _whiteSpace,
+      bgColor: _bgColor, marginBottom: _marginBottom, mx: _mx, px: _px,
+      w: _w, overflowX: _overflowX, overscrollBehaviorX: _overscrollBehaviorX,
+      css: _css, position: _position, boxShadow: _boxShadow, top: _top,
+      zIndex: _zIndex,
+      style: styleProp,
+      asChild, loop,
+      ...rest
+    } = props;
 
     return (
       <RadixTabs.List
         ref={ ref }
+        asChild={ asChild }
+        loop={ loop }
         className={ cn(
           'inline-flex w-full relative isolate flex-row',
           'min-h-[var(--tabs-height,2.5rem)]',
           className,
         ) }
+        style={ styleProp }
         { ...rest }
       />
     );
@@ -122,7 +156,22 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
 // TabsTrigger
 // ---------------------------------------------------------------------------
 
-export interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof RadixTabs.Trigger> {}
+export interface TabsTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof RadixTabs.Trigger>, 'dir'> {
+  // Legacy Chakra style-prop shims
+  scrollSnapAlign?: string;
+  flexShrink?: number;
+  bgColor?: string | Record<string, string>;
+  w?: string;
+  py?: string;
+  borderRadius?: string;
+  fontWeight?: string;
+  color?: string;
+  _hover?: Record<string, string>;
+  position?: string;
+  top?: string;
+  left?: string;
+  visibility?: string;
+}
 
 const TRIGGER_BASE =
   'outline-none min-w-[var(--tabs-height,2.5rem)] h-[var(--tabs-height,2.5rem)]' +
@@ -163,7 +212,15 @@ const TRIGGER_VARIANT_CLASSES: Record<TabsVariant, string> = {
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
   function TabsTrigger(props, ref) {
-    const { className, ...rest } = props;
+    const {
+      className,
+      // Strip Chakra style props
+      scrollSnapAlign: _scrollSnapAlign, flexShrink: _flexShrink, bgColor: _bgColor,
+      w: _w, py: _py, borderRadius: _borderRadius, fontWeight: _fontWeight,
+      color: _color, _hover, position: _position, top: _top, left: _left,
+      visibility: _visibility,
+      ...rest
+    } = props;
 
     // Read variant / size from the closest TabsRoot via DOM data attributes.
     // We could use React context, but reading from data-* keeps the API surface
@@ -193,11 +250,14 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
 // TabsContent
 // ---------------------------------------------------------------------------
 
-export interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof RadixTabs.Content> {}
+export interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof RadixTabs.Content> {
+  // Legacy Chakra style-prop shims
+  padding?: number | string;
+}
 
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   function TabsContent(props, ref) {
-    const { className, ...rest } = props;
+    const { className, padding: _padding, ...rest } = props;
 
     return (
       <RadixTabs.Content

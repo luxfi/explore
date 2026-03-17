@@ -1,4 +1,4 @@
-import { type ButtonProps } from '@chakra-ui/react';
+import type { ButtonProps } from 'toolkit/chakra/button';
 import React from 'react';
 
 import config from 'configs/app';
@@ -60,7 +60,7 @@ const UserWalletDesktop = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           isAutoConnectDisabled={ isAutoConnectDisabled }
         />
       </PopoverTrigger>
-      <PopoverContent w="280px" bg={{ _light: 'white', _dark: 'gray.900' }}>
+      <PopoverContent className="w-[280px]">
         <PopoverBody>
           <UserWalletMenuContent
             address={ isWalletEnabled ? web3AccountWithDomain.address : undefined }

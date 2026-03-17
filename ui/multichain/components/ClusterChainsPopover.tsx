@@ -40,10 +40,7 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
             size="sm"
             variant="dropdown"
             aria-label="Chains this address has interacted with"
-            px={ 2 }
-            fontWeight={ 500 }
-            flexShrink={ 0 }
-            columnGap={ 1 }
+            className="px-2 font-medium shrink-0 gap-x-1"
             loadingSkeleton={ isLoading }
           >
             <IconSvg name="pie_chart" boxSize={ 5 }/>
@@ -51,7 +48,7 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
           </Button>
         </PopoverTrigger>
       </Box>
-      <PopoverContent w="auto" maxH="400px" overflowY="auto">
+      <PopoverContent className="w-auto max-h-[400px] overflow-y-auto">
         <PopoverBody >
           <chakra.span color="text.secondary" textStyle="xs">Chains this address has interacted with</chakra.span>
           <VStack gap={ 2 } mt={ 1 } alignItems="flex-start">
@@ -67,9 +64,7 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
                   },
                 }, { chain, external: true }) }
                 external
-                display="flex"
-                alignItems="center"
-                py="7px"
+                className="flex items-center py-[7px]"
               >
                 <ChainIcon data={ chain } mr={ 2 }/>
                 { chain.name }

@@ -1,6 +1,8 @@
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
+
 import type { MultichainProviderConfigParsed } from 'types/client/multichainProviderConfig';
 
 import { route } from 'nextjs-routes';
@@ -31,9 +33,9 @@ const AddressMultichainButton = ({ item, addressHash, onClick, isFirst, isLast }
       src={ item.logoUrl }
       alt={ item.name }
       boxSize={ 5 }
-      mr={ isOnlyOne ? { base: 1, lg: 2 } : 0 }
+      mr={ isOnlyOne ? 1 : 0 }
+      className={ cn(isOnlyOne && 'lg:mr-2', 'rounded overflow-hidden') }
       borderRadius="4px"
-      overflow="hidden"
     />
   );
 
@@ -59,12 +61,10 @@ const AddressMultichainButton = ({ item, addressHash, onClick, isFirst, isLast }
     return (
       <>
         <Link
-          className={ item.promo ? styles.promo : undefined }
+          className={ cn(item.promo ? styles.promo : undefined, 'text-sm font-medium') }
           external={ isExternal }
           href={ isExternal ? portfolioUrl.toString() : route({ pathname: '/apps/[id]', query: { id: dappId, url: portfolioUrl.toString() } }) }
           variant={ isOnlyOne ? 'underlaid' : undefined }
-          textStyle="sm"
-          fontWeight="medium"
           onClick={ onClick }
           noIcon={ !isOnlyOne }
         >

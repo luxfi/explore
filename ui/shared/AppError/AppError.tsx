@@ -95,10 +95,9 @@ const AppError = ({ error, className }: Props) => {
             <Text color="text.secondary" mt={ 3 }>{ text }</Text>
             <Link
               href={ route({ pathname: '/' }) }
-              asChild
             >
               <Button
-                mt={ 8 }
+                className="mt-8"
                 variant="outline"
               >
                 Back to home

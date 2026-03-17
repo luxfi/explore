@@ -35,9 +35,9 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="text.primary">
-        <Skeleton loading={ isLoading } display="flex" overflow="hidden" w="100%" alignItems="center">
+        <Skeleton loading={ isLoading } display="flex" w="100%" alignItems="center" className="overflow-hidden">
           <HashStringShorten hash={ item.contract_address_hash } type="long"/>
-          <CopyToClipboard text={ item.contract_address_hash } ml={ 2 } isLoading={ isLoading }/>
+          <CopyToClipboard text={ item.contract_address_hash } className="ml-2" isLoading={ isLoading }/>
         </Skeleton>
       </ListItemMobileGrid.Value>
 

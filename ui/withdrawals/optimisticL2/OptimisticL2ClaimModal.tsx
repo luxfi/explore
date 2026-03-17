@@ -158,10 +158,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
       open
       onOpenChange={ onOpenChange }
       size={{ lgDown: 'full', lg: 'md' }}
-      trapFocus={ false }
-      preventScroll={ false }
       modal={ false }
-      closeOnInteractOutside={ false }
     >
       <DialogContent>
         <DialogHeader>
@@ -179,11 +176,11 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                 required
                 placeholder="Address (0x...)"
                 bgColor="dialog.bg"
-                mt={ 6 }
+                className="mt-6"
               />
               { isWeb3WalletConnected ? (
                 <Button
-                  mt={ 6 }
+                  className="mt-6"
                   type="submit"
                   disabled={ formApi.formState.isSubmitting || isTxPending }
                   loading={ formApi.formState.isSubmitting || isTxPending }
@@ -193,7 +190,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                 </Button>
               ) : (
                 <Button
-                  mt={ 6 }
+                  className="mt-6"
                   onClick={ connectWeb3Wallet }
                   disabled={ isWeb3WalletOpen }
                   loading={ isWeb3WalletOpen }

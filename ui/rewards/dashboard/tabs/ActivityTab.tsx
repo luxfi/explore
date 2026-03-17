@@ -218,7 +218,7 @@ export default function ActivityTab() {
           pr={ 0 }
         >
           <Flex flexDirection="column" p={{ base: 1.5, md: 0 }} pb={ 0 }>
-            <Heading level="3" mb={ 2 }>Your activity</Heading>
+            <Heading level="3" className="mb-2">Your activity</Heading>
             <Text textStyle="sm" mb={{ base: 2, md: 4 }}>
               Use Lux Explorer and related products daily to earn Merits. Check each task for details and how to get started.
             </Text>
@@ -232,9 +232,7 @@ export default function ActivityTab() {
               <Link
                 external
                 href="https://docs.lux.network/using-blockscout/merits/activity-pass"
-                fontSize="md"
-                fontWeight="500"
-                textAlign="center"
+                className="text-base font-medium text-center"
               >
                 Learn more
               </Link>
@@ -297,8 +295,7 @@ export default function ActivityTab() {
                     { item.title }
                   </Text>
                   <Link
-                    textStyle={{ base: 'sm', md: 'xs' }}
-                    fontWeight={{ base: '400', md: '500' }}
+                    className="text-sm md:text-xs font-normal md:font-medium"
                     onClick={ openTaskDetails(index) }
                   >
                     Task details
@@ -330,13 +327,13 @@ export default function ActivityTab() {
                       alignItems="center"
                     >
                       <MeritsIcon boxSize={ 6 } mr={ 2 }/>
-                      <Heading level="3" mr={{ base: 0, md: 2 }}>
+                      <Heading level="3" className="mr-0 md:mr-2">
                         { item.amount }
                       </Heading>
                       <Text textStyle="sm" color="gray.400" fontWeight="500" alignSelf="flex-end" display={{ base: 'none', md: 'inline' }}>
                         /{ item.maxAmount }
                       </Text>
-                      <Heading level="3" display={{ base: 'inline', md: 'none' }} color="text.secondary">
+                      <Heading level="3" className="inline md:hidden text-[var(--color-text-secondary)]">
                         /{ item.maxAmount }
                       </Heading>
                     </Skeleton>

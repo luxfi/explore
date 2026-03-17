@@ -177,7 +177,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       <DetailedInfo.ItemValue multiRow={ config.features.externalTxs.isEnabled && externalTxsQuery.data && externalTxsQuery.data.length > 0 }>
         <Flex flexWrap="nowrap" alignItems="center" overflow="hidden">
           { data.status === null && <Spinner mr={ 2 } size="sm" flexShrink={ 0 }/> }
-          <Skeleton loading={ isLoading } overflow="hidden">
+          <Skeleton loading={ isLoading } className="overflow-hidden">
             <HashStringShortenDynamic hash={ data.hash }/>
           </Skeleton>
           <CopyToClipboard text={ data.hash } isLoading={ isLoading }/>
@@ -189,7 +189,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           ) }
         </Flex>
         { config.features.externalTxs.isEnabled && externalTxsQuery.data && externalTxsQuery.data.length > 0 && (
-          <Skeleton loading={ isLoading || externalTxsQuery.isPlaceholderData } display={{ base: 'block', lg: 'inline-flex' }} alignItems="center">
+          <Skeleton loading={ isLoading || externalTxsQuery.isPlaceholderData } className="block lg:inline-flex lg:items-center">
             { !isMobile && <TextSeparator flexShrink={ 0 }/> }
             <TxExternalTxs data={ externalTxsQuery.data }/>
           </Skeleton>
@@ -210,13 +210,13 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       <DetailedInfo.ItemValue>
         <TxStatus status={ data.status } errorText={ data.status === 'error' ? data.result : undefined } isLoading={ isLoading }/>
         { data.method && (
-          <Badge colorPalette={ data.method === 'Multicall' ? 'teal' : 'gray' } loading={ isLoading } truncated ml={ 3 }>
+          <Badge colorPalette={ data.method === 'Multicall' ? 'teal' : 'gray' } loading={ isLoading } truncated className="ml-3">
             { data.method }
           </Badge>
         ) }
         { data.arbitrum?.contains_message && (
           <Skeleton loading={ isLoading } onClick={ showAssociatedL1Tx }>
-            <Link truncate ml={ 3 }>
+            <Link className="truncate ml-3">
               { data.arbitrum?.contains_message === 'incoming' ? 'Incoming message' : 'Outgoing message' }
             </Link>
           </Skeleton>
@@ -560,7 +560,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.commitment_transaction.hash } isLoading={ isLoading }/>
-                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" ml={ 2 }/> }
+                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" className="ml-2"/> }
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -574,7 +574,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.confirmation_transaction.hash } isLoading={ isLoading }/>
-                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" ml={ 2 }/> }
+                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" className="ml-2"/> }
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -590,7 +590,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             Sequence tx hash
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue flexWrap="nowrap">
-            <Skeleton loading={ isLoading } overflow="hidden">
+            <Skeleton loading={ isLoading } className="overflow-hidden">
               <HashStringShortenDynamic hash={ data.zkevm_sequence_hash }/>
             </Skeleton>
             <CopyToClipboard text={ data.zkevm_sequence_hash } isLoading={ isLoading }/>
@@ -607,7 +607,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             Verify tx hash
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue flexWrap="nowrap">
-            <Skeleton loading={ isLoading } overflow="hidden">
+            <Skeleton loading={ isLoading } className="overflow-hidden">
               <HashStringShortenDynamic hash={ data.zkevm_verify_hash }/>
             </Skeleton>
             <CopyToClipboard text={ data.zkevm_verify_hash } isLoading={ isLoading }/>
@@ -864,7 +864,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       ) }
       <TxInfoScrollFees data={ data } isLoading={ isLoading }/>
 
-      <CollapsibleDetails loading={ isLoading } mt={ 6 } gridColumn={{ base: undefined, lg: '1 / 3' }} isExpanded={ isExpanded } onClick={ handleCutLinkClick }>
+      <CollapsibleDetails loading={ isLoading } className="mt-6 lg:col-span-2" isExpanded={ isExpanded } onClick={ handleCutLinkClick }>
         <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 
         <TxDetailsSetMaxGasLimit data={ data }/>

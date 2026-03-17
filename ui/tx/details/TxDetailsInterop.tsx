@@ -94,7 +94,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
           <InteropMessageSourceTx { ...data } isLoading={ isLoading }/>
-          <CollapsibleDetails variant="secondary" noScroll ml={ 3 }>
+          <CollapsibleDetails variant="secondary" noScroll className="ml-3">
             { details }
           </CollapsibleDetails>
         </DetailedInfo.ItemValue>
@@ -113,7 +113,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
           <InteropMessageDestinationTx { ...data } isLoading={ isLoading }/>
-          <CollapsibleDetails variant="secondary" noScroll ml={ 3 }>
+          <CollapsibleDetails variant="secondary" noScroll className="ml-3">
             { details }
           </CollapsibleDetails>
         </DetailedInfo.ItemValue>

@@ -68,6 +68,11 @@ export interface BadgeProps
   readonly endElement?: React.ReactNode;
   readonly truncated?: boolean;
   readonly colorPalette?: ColorPalette;
+  // Legacy Chakra style-prop shims
+  readonly flexShrink?: number;
+  readonly gap?: number | string;
+  readonly ml?: number | string | Record<string, number>;
+  readonly mr?: number | string;
 }
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
@@ -82,8 +87,27 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       size,
       colorPalette = 'gray',
       className,
+      flexShrink: _flexShrink,
+      gap: _gap,
+      ml: _ml,
+      mr: _mr,
+      style: styleProp,
       ...rest
     } = props;
+
+    const shimStyle: React.CSSProperties = { ...styleProp };
+    if (_flexShrink !== undefined) shimStyle.flexShrink = _flexShrink;
+    if (_gap !== undefined) shimStyle.gap = typeof _gap === 'number' ? `${ _gap * 4 }px` : _gap;
+    if (_ml !== undefined) {
+      if (typeof _ml === 'object') {
+        const obj = _ml as Record<string, number>;
+        shimStyle.marginLeft = `${ (obj.base ?? obj.lg ?? 0) * 4 }px`;
+      } else {
+        shimStyle.marginLeft = typeof _ml === 'number' ? `${ _ml * 4 }px` : _ml;
+      }
+    }
+    if (_mr !== undefined) shimStyle.marginRight = typeof _mr === 'number' ? `${ _mr * 4 }px` : _mr;
+    const badgeStyle = Object.keys(shimStyle).length > 0 ? shimStyle : undefined;
 
     const child = children ? (
       <span className="overflow-hidden text-ellipsis">{ children }</span>
@@ -103,6 +127,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           COLOR_PALETTE_CLASSES[colorPalette],
           className,
         ) }
+        style={ badgeStyle }
         { ...rest }
       >
         { startElement }

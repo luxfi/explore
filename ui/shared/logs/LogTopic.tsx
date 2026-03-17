@@ -51,7 +51,7 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
       case 'text': {
         return (
           <>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-nowrap">
               <HashStringShortenDynamic hash={ value }/>
             </Skeleton>
             <CopyToClipboard text={ value } isLoading={ isLoading }/>
@@ -87,11 +87,9 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
           variant="outline"
           value={ [ selectedDataType ] }
           onValueChange={ handleSelectChange }
-          mr={ 3 }
-          flexShrink={ 0 }
-          width="fit-content"
+          className="mr-3 shrink-0 w-fit"
         >
-          <SelectControl w="105px" loading={ isLoading }>
+          <SelectControl className="w-[105px]" loading={ isLoading }>
             <SelectValueText placeholder="Data type"/>
           </SelectControl>
           <SelectContent>

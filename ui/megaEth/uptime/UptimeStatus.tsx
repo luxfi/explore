@@ -31,7 +31,7 @@ const UptimeStatus = ({ status, onReconnect }: Props) => {
   return (
     <HStack ml="auto" columnGap={ 3 }>
       { statusTag }
-      <Button variant="link" gap={ 1 } onClick={ onReconnect } disabled={ status === 'connected' }>
+      <Button variant="link" className="gap-1" onClick={ onReconnect } disabled={ status === 'connected' }>
         <IconSvg name="refresh" boxSize={ 5 }/>
         <chakra.span hideBelow="lg" fontSize="sm">Refresh</chakra.span>
       </Button>

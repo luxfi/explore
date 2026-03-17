@@ -26,7 +26,7 @@ const EpochsListItem = ({ item, isLoading }: Props) => {
         <CeloEpochStatus isFinalized={ item.is_finalized } loading={ isLoading }/>
       </HStack>
       { item.timestamp && (
-        <Skeleton loading={ isLoading } display="flex" alignItems="center" minH="30px" color="text.secondary">
+        <Skeleton loading={ isLoading } display="flex" alignItems="center" color="text.secondary" className="min-h-[30px]">
           <div>{ dayjs(item.timestamp).fromNow() }</div>
           <TextSeparator/>
           <Time timestamp={ item.timestamp } format="lll_s"/>

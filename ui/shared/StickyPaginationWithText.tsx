@@ -25,7 +25,7 @@ const StickyPaginationWithText = ({ pagination, text }: Props) => {
         <Box display={{ base: 'none', lg: 'block' }}>
           { text }
         </Box>
-        { pagination.isVisible && <Pagination ml="auto" { ...pagination }/> }
+        { pagination.isVisible && <Pagination className="ml-auto" { ...pagination }/> }
       </ActionBar>
     </>
   );

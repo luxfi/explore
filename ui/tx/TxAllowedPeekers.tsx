@@ -25,7 +25,7 @@ const TxAllowedPeekers = ({ items }: Props) => {
           items={ items }
           renderItem={ renderItem }
           cutLength={ 2 }
-          rowGap={ 3 }
+          className="gap-y-3"
         />
       </DetailedInfo.ItemValue>
     </>

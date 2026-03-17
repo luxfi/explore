@@ -37,7 +37,7 @@ const CapybaraRunner = () => {
 
   return (
     <>
-      <Heading level="2" mt={ 12 } mb={ 2 }>Score 1000 to win a special prize!</Heading>
+      <Heading level="2" className="mt-12 mb-2">Score 1000 to win a special prize!</Heading>
       <Box mb={ 4 }>{ isMobile ? 'Tap below to start' : 'Press space to start' }</Box>
       <Script strategy="lazyOnload" src="/static/capybara/index.js"/>
       <Box width={{ base: '100%', lg: '600px' }} height="300px" p="50px 0">

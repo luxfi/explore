@@ -40,14 +40,14 @@ const TokensBridgedChainsFilter = ({ onChange, defaultValue }: Props) => {
           variant="link"
           onClick={ handleReset }
           disabled={ value.length === 0 }
-          textStyle="sm"
+          className="text-sm"
         >
           Reset
         </Button>
       </Flex>
       <CheckboxGroup defaultValue={ defaultValue } onValueChange={ handleChange } value={ value } name="bridged_token_chain">
         { feature.chains.map(({ title, id, short_title: shortTitle }) => (
-          <Checkbox key={ id } value={ id } whiteSpace="pre-wrap">
+          <Checkbox key={ id } value={ id } className="whitespace-pre-wrap">
             <span>{ title }</span>
             <chakra.span color="text.secondary"> ({ shortTitle })</chakra.span>
           </Checkbox>

@@ -2,6 +2,7 @@ import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
+import { cn } from 'lib/utils/cn';
 import shortenString from 'lib/shortenString';
 import useAccountWithDomain from 'lib/web3/useAccountWithDomain';
 import { Button, type ButtonProps } from 'toolkit/chakra/button';
@@ -14,7 +15,7 @@ interface Props extends ButtonProps {
   email?: string;
 }
 
-const UserProfileButton = ({ selected, email, ...rest }: Props) => {
+const UserProfileButton = ({ selected, email, className, ...rest }: Props) => {
   const { isAutoConnectDisabled } = useMarketplaceContext();
   const accountWithDomain = useAccountWithDomain(true);
 
@@ -42,10 +43,9 @@ const UserProfileButton = ({ selected, email, ...rest }: Props) => {
 
   return (
     <Button
-      px={{ base: 2.5, lg: 3 }}
+      className={ cn('px-2.5 lg:px-3', selected && 'font-bold', className) }
       selected={ selected }
       highlighted={ isAutoConnectDisabled }
-      fontWeight={ selected ? 700 : undefined }
       loading={ isLoading }
       { ...rest }
     >

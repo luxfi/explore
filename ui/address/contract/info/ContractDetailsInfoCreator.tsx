@@ -21,7 +21,7 @@ const ContractDetailsInfoCreator = ({ addressHash, txHash, creationStatus, isLoa
     <ContractDetailsInfoItem
       label="Creator"
       isLoading={ isLoading }
-      contentProps={{ gridColumn: { lg: '2 / span 3' } }}
+      contentProps={{ className: 'lg:[grid-column:2/span_3]' }}
     >
       <Flex alignItems="center" flexWrap="wrap" columnGap={ 2 } rowGap={ 2 }>
         <AddressEntity

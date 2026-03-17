@@ -42,19 +42,16 @@ const TokenInventoryItem = ({ item, token, isLoading }: Props) => {
       textStyle="sm"
       fontWeight={ 500 }
     >
-      <Link href={ isLoading ? undefined : url } display="inline">
+      <Link href={ isLoading ? undefined : url } className="inline">
         { mediaElement }
       </Link>
       { item.id && (
         <Flex mb={ 2 } ml={ 1 }>
           <Text whiteSpace="pre" color="text.secondary">ID# </Text>
           <TruncatedTextTooltip label={ item.id }>
-            <Skeleton loading={ isLoading } overflow="hidden">
+            <Skeleton loading={ isLoading } className="overflow-hidden">
               <Link
-                overflow="hidden"
-                textOverflow="ellipsis"
-                whiteSpace="nowrap"
-                display="block"
+                className="overflow-hidden text-ellipsis whitespace-nowrap block"
                 loading={ isLoading }
                 href={ url }
               >

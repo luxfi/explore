@@ -5,7 +5,6 @@ import React from 'react';
 
 import type { File, Monaco } from './types';
 
-import type { TabsTriggerProps } from 'toolkit/chakra/tabs';
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'toolkit/chakra/tabs';
 import { shift, cmd } from 'toolkit/utils/htmlEntities';
 
@@ -34,19 +33,10 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
 
   const themeColors = useThemeColors();
 
-  const tabProps: Partial<TabsTriggerProps> = {
-    fontFamily: 'heading',
-    textTransform: 'uppercase',
-    fontSize: '11px',
-    lineHeight: '35px',
-    fontWeight: 500,
-    color: themeColors['tab.inactiveForeground'],
-    _selected: {
-      color: themeColors['tab.activeForeground'],
-    },
-    px: 0,
-    letterSpacing: 0.3,
-  };
+  const tabClassName = `font-heading uppercase text-[11px] leading-[35px] font-medium px-0 tracking-[0.3px]`;
+  const tabStyle = (value: string): React.CSSProperties => ({
+    color: activeTab === value ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'],
+  });
 
   const handleScrollThrottled = React.useRef(throttle((event: React.SyntheticEvent) => {
     setIsStuck((event.target as HTMLDivElement).scrollTop > 0);
@@ -122,23 +112,14 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
       >
         <TabsRoot unmountOnExit={ false } variant="unstyled" size="free" value={ activeTab } onValueChange={ handleTabChange }>
           <TabsList
-            columnGap={ 3 }
-            position="sticky"
-            top={ 0 }
-            left={ 0 }
-            bgColor={ themeColors['sideBar.background'] }
-            zIndex="1"
-            px={ 2 }
-            h="35px"
-            alignItems="center"
-            boxShadow={ isStuck ? 'md' : 'none' }
-            borderTopRightRadius="md"
+            className={ `gap-x-3 sticky top-0 left-0 z-[1] px-2 h-[35px] items-center rounded-tr-md ${ isStuck ? 'shadow-md' : 'shadow-none' }` }
+            style={{ backgroundColor: themeColors['sideBar.background'] }}
           >
-            <TabsTrigger value="explorer" { ...tabProps } title={ `File explorer (${ shift + cmd }E)` }>Explorer</TabsTrigger>
-            <TabsTrigger value="search" { ...tabProps } title={ `Search in files (${ shift + cmd }F)` }>Search</TabsTrigger>
+            <TabsTrigger value="explorer" className={ tabClassName } style={ tabStyle('explorer') } title={ `File explorer (${ shift + cmd }E)` }>Explorer</TabsTrigger>
+            <TabsTrigger value="search" className={ tabClassName } style={ tabStyle('search') } title={ `Search in files (${ shift + cmd }F)` }>Search</TabsTrigger>
             { actionBarRenderer?.() }
           </TabsList>
-          <TabsContent value="explorer" p={ 0 }>
+          <TabsContent value="explorer" className="p-0">
             <CodeEditorFileExplorer
               data={ data }
               onFileSelect={ handleFileSelect }
@@ -148,7 +129,7 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
               setActionBarRenderer={ setActionBarRenderer }
             />
           </TabsContent>
-          <TabsContent value="search" p={ 0 }>
+          <TabsContent value="search" className="p-0">
             <CodeEditorSearch
               data={ data }
               onFileSelect={ handleFileSelect }

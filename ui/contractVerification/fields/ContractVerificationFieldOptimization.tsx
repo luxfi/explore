@@ -22,7 +22,7 @@ const ContractVerificationFieldOptimization = () => {
           name="is_optimization_enabled"
           label="Optimization enabled"
           onChange={ handleCheckboxChange }
-          flexShrink={ 0 }
+          className="shrink-0"
         />
         { isEnabled && (
           <FormFieldText<FormFields, 'optimization_runs'>
@@ -32,10 +32,7 @@ const ContractVerificationFieldOptimization = () => {
             inputProps={{
               type: 'number',
             }}
-            size="sm"
-            minW="100px"
-            maxW="200px"
-            flexShrink={ 1 }
+            className="min-w-[100px] max-w-[200px] shrink text-sm"
           />
         ) }
       </Flex>

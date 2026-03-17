@@ -72,15 +72,11 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
             { item.error && (
               <Link
                 href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }
-                asChild
               >
                 <Button
                   variant="outline"
                   size="sm"
-                  flexShrink={ 0 }
-                  mt={{ base: 1, lg: 6 }}
-                  ml={{ base: 0, lg: 6 }}
-                  w="min-content"
+                  className="shrink-0 mt-1 lg:mt-6 ml-0 lg:ml-6 w-min"
                 >
                   Start  over
                 </Button>

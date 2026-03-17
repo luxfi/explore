@@ -110,7 +110,7 @@ const ButtonShowcase = () => {
                 <Button variant="dropdown" selected>Selected</Button>
               </PopoverTrigger>
               <PopoverContent>
-                <PopoverBody display="flex" flexDirection="column" gap={ 2 }>
+                <PopoverBody className="flex flex-col gap-2">
                   <Checkbox defaultChecked>First option</Checkbox>
                   <Checkbox>Second option</Checkbox>
                 </PopoverBody>
@@ -124,7 +124,7 @@ const ButtonShowcase = () => {
               <Tooltip content="Tooltip content">
                 <div>
                   <PopoverTrigger>
-                    <Button variant="dropdown" size="md" px={ 2 }>
+                    <Button variant="dropdown" size="md" className="px-2">
                       <IconSvg name="explorer" boxSize={ 5 }/>
                       With tooltip
                     </Button>

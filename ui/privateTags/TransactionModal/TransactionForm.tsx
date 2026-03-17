@@ -96,7 +96,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
             pattern: TRANSACTION_HASH_REGEXP,
           }}
           bgColor="dialog.bg"
-          mb={ 5 }
+          className="mb-5"
         />
         <FormFieldText<Inputs>
           name="tag"
@@ -106,7 +106,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
             maxLength: TAG_MAX_LENGTH,
           }}
           bgColor="dialog.bg"
-          mb={ 8 }
+          className="mb-8"
         />
         <Box marginTop={ 8 }>
           <Button

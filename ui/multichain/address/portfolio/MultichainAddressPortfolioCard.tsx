@@ -60,7 +60,7 @@ const MultichainAddressPortfolioCard = ({ chain, value, share, isLoading, isSele
     >
       <ChainIcon data={ chain } boxSize="30px" flexShrink={ 0 } isLoading={ isLoading } noTooltip/>
       <VStack alignItems="flex-start" gap={ 1 } overflow="hidden">
-        <TruncatedText text={ chain.name } loading={ isLoading } color="text.secondary" maxW="100%"/>
+        <TruncatedText text={ chain.name } loading={ isLoading } className="text-[var(--color-text-secondary)] max-w-full"/>
         <HStack gap={ 1 } maxW="100%">
           <SimpleValue value={ value } prefix="$" loading={ isLoading } noTooltip accuracy={ DEFAULT_ACCURACY_USD }/>
           { share !== undefined && share > 0 && (

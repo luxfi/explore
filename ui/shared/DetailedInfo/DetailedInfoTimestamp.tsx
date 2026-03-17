@@ -72,15 +72,15 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
           w="fit-content"
         >
           <SelectControl
-            triggerProps={{ asChild: true, minH: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            triggerProps={{ asChild: true, className: 'min-h-0 flex items-center justify-center' }}
             noIndicator
             defaultValue={ format }
           >
             <IconButton
               aria-label="Toggle time format"
               variant="icon_secondary"
-              boxSize={ 5 }
-              borderRadius="sm"
+              size="2xs"
+              className="rounded-sm"
               selected={ !isLoading }
               loadingSkeleton={ isLoading }
             >

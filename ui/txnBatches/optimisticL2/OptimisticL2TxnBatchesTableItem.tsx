@@ -47,8 +47,7 @@ const OptimisticL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'blocks' } }) }
           loading={ isLoading }
-          justifyContent="flex-end"
-          minW="40px"
+          className="justify-end min-w-[40px]"
         >
           { item.l2_end_block_number - item.l2_start_block_number + 1 }
         </Link>
@@ -57,8 +56,7 @@ const OptimisticL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          justifyContent="flex-end"
-          minW="40px"
+          className="justify-end min-w-[40px]"
         >
           { item.transactions_count }
         </Link>

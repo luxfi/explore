@@ -23,11 +23,7 @@ const ListCounterText = ({ isLoading, value, type }: Props) => {
     <TruncatedText
       text={ text }
       loading={ isInitialLoading }
-      textStyle={{ base: 'md', lg: 'sm' }}
-      color="text.secondary"
-      ml={{ base: 0, lg: 4 }}
-      mr={{ base: 0, lg: 8 }}
-      mb={{ base: 4, lg: 0 }}
+      className="text-base lg:text-sm text-[var(--color-text-secondary)] ml-0 lg:ml-4 mr-0 lg:mr-8 mb-4 lg:mb-0"
     />
   );
 };

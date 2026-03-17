@@ -21,9 +21,7 @@ const ContractMethodAddressButton = ({ onClick, isDisabled }: Props) => {
       <Button
         variant="subtle"
         size="xs"
-        textStyle="md"
-        fontWeight={ 500 }
-        ml={ 1 }
+        className="text-base font-medium ml-1"
         onClick={ handleClick }
         disabled={ isDisabled || !address }
       >

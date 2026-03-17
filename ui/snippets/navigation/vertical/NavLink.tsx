@@ -7,6 +7,7 @@ import { route } from 'nextjs-routes';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { isInternalItem } from 'lib/hooks/useNavItems';
+import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 
@@ -39,19 +40,16 @@ const NavLink = ({ item, onClick, isCollapsed, isDisabled }: Props) => {
       <Link
         href={ isInternalLink ? route(item.nextRoute) : item.url }
         external={ !isInternalLink }
-        { ...styleProps.itemProps }
-        w={{ base: '100%', lg: isExpanded ? '100%' : '60px', xl: isCollapsed ? '60px' : '100%' }}
-        display="flex"
-        position="relative"
-        px={{ base: 2, lg: isExpanded ? 2 : '15px', xl: isCollapsed ? '15px' : 2 }}
+        variant="navigation"
+        { ...(isInternalLink && item.isActive ? { 'data-selected': true } : {}) }
+        className={ cn(
+          'flex relative whitespace-nowrap py-[9px] rounded-base',
+          'transition-[width,padding] duration-200 ease-in-out',
+          isExpanded ? 'w-full px-2' : 'lg:w-[60px] lg:px-[15px]',
+          isCollapsed ? 'xl:w-[60px] xl:px-[15px]' : 'xl:w-full xl:px-2',
+        ) }
         aria-label={ `${ item.text } link` }
-        whiteSpace="nowrap"
         onClick={ onClick }
-        _hover={{
-          [`& *:not(.${ LIGHTNING_LABEL_CLASS_NAME }, .${ LIGHTNING_LABEL_CLASS_NAME } *)`]: {
-            color: isDisabled ? 'inherit' : 'link.navigation.fg.hover',
-          },
-        }}
       >
         <Tooltip
           content={ item.text }

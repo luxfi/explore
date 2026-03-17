@@ -47,8 +47,7 @@ const ZkEvmTxnBatchesTableItem = ({ item, isLoading }: Props) => {
       <TableCell verticalAlign="middle">
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
-          minW="40px"
-          my={ 1 }
+          className="min-w-[40px] my-1"
           loading={ isLoading }
         >
           { item.transactions_count }

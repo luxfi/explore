@@ -44,8 +44,8 @@ const Label = chakra(({ children, className, isLoading }: LabelProps) => {
       className={ className }
       loading={ isLoading }
       fontWeight={ 500 }
-      my="5px"
-      justifySelf="start"
+      alignSelf="start"
+      style={{ marginTop: '5px', marginBottom: '5px' }}
     >
       { children }
     </Skeleton>

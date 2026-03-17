@@ -54,8 +54,7 @@ const NameDomainsActionBar = ({
 
   const searchInput = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
-      minW={{ base: 'auto', lg: '250px' }}
+      className="w-full lg:w-[360px] min-w-[auto] lg:min-w-[250px]"
       size="sm"
       onChange={ onSearchChange }
       placeholder="Search by name or address"
@@ -81,7 +80,7 @@ const NameDomainsActionBar = ({
   const appliedFiltersNum = filterValue.length + (protocolsData && protocolsData.length > 1 ? protocolsFilterValue.length : 0);
 
   const filter = (
-    <PopoverFilter appliedFiltersNum={ appliedFiltersNum } contentProps={{ minW: '220px', w: 'fit-content' }} isLoading={ isInitialLoading }>
+    <PopoverFilter appliedFiltersNum={ appliedFiltersNum } contentProps={{ className: 'min-w-[220px] w-fit' }} isLoading={ isInitialLoading }>
       <div>
         { protocolsData && protocolsData.length > 1 && (
           <>
@@ -91,7 +90,7 @@ const NameDomainsActionBar = ({
                 variant="link"
                 onClick={ handleProtocolReset }
                 disabled={ protocolsFilterValue.length === 0 }
-                textStyle="sm"
+                className="text-sm"
               >
                 Reset
               </Button>
@@ -129,7 +128,7 @@ const NameDomainsActionBar = ({
               </Checkbox>
               <Checkbox
                 value="resolved_to"
-                mt={ 3 }
+                className="mt-3"
                 disabled={ !isAddressSearch }
               >
                 Resolved to address
@@ -171,7 +170,7 @@ const NameDomainsActionBar = ({
           { filter }
           { searchInput }
         </HStack>
-        <Pagination { ...pagination } ml="auto"/>
+        <Pagination { ...pagination } className="ml-auto"/>
       </ActionBar>
     </>
   );

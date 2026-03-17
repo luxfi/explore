@@ -40,14 +40,14 @@ const AddressFilterInput = ({ address, onChange, onClear, isLast, onAddFieldClic
   return (
     <Flex alignItems="center" w="100%">
       <InputGroup
-        flexGrow={ 1 }
-        endElement={ <ClearButton onClick={ onClear } mx={ 2 } disabled={ !address }/> }
+        className="grow"
+        endElement={ <ClearButton onClick={ onClear } className="mx-2" disabled={ !address }/> }
       >
         <Input value={ address } onChange={ onChange } placeholder={ placeholder } size="sm" autoComplete="off"/>
       </InputGroup>
       { isLast && (
         <AddButton
-          ml={ 2 }
+          className="ml-2"
           onClick={ onAddFieldClick }
         />
       ) }
@@ -68,7 +68,10 @@ const ChainSelect = ({ chainsConfig, value, onValueChange, ...props }: ChainSele
 
   const handleValueChange = React.useCallback(({ value }: { value: Array<string> }) => {
     const chainIds = value.filter(item => item !== 'all');
-    onValueChange?.({ value: chainIds, items: chainsConfig.filter(chain => chainIds.includes(chain.id)) });
+    const items = chainsConfig
+      .filter(chain => chainIds.includes(chain.id))
+      .map(chain => ({ value: chain.id, label: chain.name || `Chain ${ chain.id }` }));
+    onValueChange?.({ value: chainIds, items });
   }, [ chainsConfig, onValueChange ]);
   return (
     <ChainSelectBase
@@ -81,12 +84,11 @@ const ChainSelect = ({ chainsConfig, value, onValueChange, ...props }: ChainSele
       size="sm"
       w="full"
       positioning={{
-        placement: 'bottom-start',
         sameWidth: true,
         offset: { mainAxis: 4 },
       }}
       contentProps={{
-        zIndex: 'modal2',
+        className: 'z-[1500]',
       }}
     />
   );

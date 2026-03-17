@@ -24,7 +24,7 @@ const MudWorldsTableItem = ({ item, isLoading }: Props) => {
         />
       </TableCell>
       <TableCell isNumeric>
-        <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
+        <Skeleton loading={ isLoading } display="inline-block" className="leading-6">
           { Number(item.transactions_count).toLocaleString() }
         </Skeleton>
       </TableCell>

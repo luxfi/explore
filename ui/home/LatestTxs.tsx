@@ -59,7 +59,7 @@ const LatestTxs = () => {
           </Box>
         </AddressHighlightProvider>
         <Flex justifyContent="center">
-          <Link textStyle="sm" loading={ isPlaceholderData } href={ txsUrl }>View all transactions</Link>
+          <Link className="text-sm" loading={ isPlaceholderData } href={ txsUrl }>View all transactions</Link>
         </Flex>
       </>
     );

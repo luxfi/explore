@@ -19,12 +19,12 @@ const Utilization = ({ value, colorScheme = 'green', isLoading, ...rest }: Props
 
   return (
     <Flex alignItems="center" columnGap={ 2 } { ...rest } ref={ ref }>
-      <Skeleton loading={ isLoading } w={ `${ WIDTH }px` } h="4px" borderRadius="full" overflow="hidden">
+      <Skeleton loading={ isLoading } w={ `${ WIDTH }px` } h="4px" borderRadius="full" className="overflow-hidden">
         <Box bg={{ _light: 'blackAlpha.200', _dark: 'whiteAlpha.200' }} h="100%">
           <Box bg={ color } w={ valueString } h="100%"/>
         </Box>
       </Skeleton>
-      <Skeleton loading={ isLoading } color={ color } fontWeight="bold">
+      <Skeleton loading={ isLoading } color={ color } fontWeight="bold" className="font-bold">
         <span>
           { valueString }
         </span>

@@ -24,7 +24,7 @@ const TokenSelectDesktop = ({ data, isLoading }: Props) => {
       <PopoverTrigger>
         <TokenSelectButton data={ result.data } isLoading={ isLoading } isOpen={ open }/>
       </PopoverTrigger>
-      <PopoverContent w="355px" maxH="450px" overflowY="scroll">
+      <PopoverContent className="w-[355px] max-h-[450px] overflow-y-scroll">
         <PopoverBody>
           <TokenSelectMenu { ...result }/>
         </PopoverBody>

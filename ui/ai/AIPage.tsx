@@ -141,11 +141,11 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
 // Attestation status tag
 // ---------------------------------------------------------------------------
 
-function attestationStatusColor(status: AIAttestation['status']): 'green' | 'yellow' | 'red' {
+function attestationStatusClassName(status: AIAttestation['status']): string {
   switch (status) {
-    case 'verified': return 'green';
-    case 'pending': return 'yellow';
-    case 'rejected': return 'red';
+    case 'verified': return 'bg-badge-green-bg text-badge-green-fg';
+    case 'pending': return 'bg-badge-yellow-bg text-badge-yellow-fg';
+    case 'rejected': return 'bg-badge-red-bg text-badge-red-fg';
   }
 }
 
@@ -264,9 +264,9 @@ const DashboardTab = ({ stats, attestations, isLoading }: DashboardTabProps) => 
         { /* Rows */ }
         { isLoading && (
           <Box px={ 4 } py={ 6 }>
-            <Skeleton loading h="16px" mb={ 3 }/>
-            <Skeleton loading h="16px" mb={ 3 }/>
-            <Skeleton loading h="16px"/>
+            <Skeleton loading={ true } h="16px" mb={ 3 }/>
+            <Skeleton loading={ true } h="16px" mb={ 3 }/>
+            <Skeleton loading={ true } h="16px"/>
           </Box>
         ) }
 
@@ -287,7 +287,7 @@ const DashboardTab = ({ stats, attestations, isLoading }: DashboardTabProps) => 
               { att.id }
             </Box>
             <Box minW="100px" flexShrink={ 0 }>
-              <Tag size="sm" colorPalette="gray">{ attestationTypeLabel(att.type) }</Tag>
+              <Tag size="sm">{ attestationTypeLabel(att.type) }</Tag>
             </Box>
             <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.secondary" title={ att.provider }>
               { truncateAddress(att.provider) }
@@ -299,7 +299,7 @@ const DashboardTab = ({ stats, attestations, isLoading }: DashboardTabProps) => 
               { formatTimestamp(att.timestamp) }
             </Box>
             <Box minW="100px" flexShrink={ 0 } textAlign={{ base: 'left', lg: 'right' }}>
-              <Tag size="sm" colorPalette={ attestationStatusColor(att.status) }>
+              <Tag size="sm" className={ attestationStatusClassName(att.status) }>
                 { att.status }
               </Tag>
             </Box>
@@ -348,9 +348,9 @@ const ModelsTab = ({ isLoading }: ModelsTabProps) => {
       { /* Rows */ }
       { isLoading && (
         <Box px={ 4 } py={ 6 }>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px"/>
+          <Skeleton loading={ true } h="16px" mb={ 3 }/>
+          <Skeleton loading={ true } h="16px" mb={ 3 }/>
+          <Skeleton loading={ true } h="16px"/>
         </Box>
       ) }
 
@@ -380,7 +380,7 @@ const ModelsTab = ({ isLoading }: ModelsTabProps) => {
             </Box>
           </Box>
           <Box minW="80px" flexShrink={ 0 }>
-            <Tag size="sm" colorPalette="gray">v{ model.version }</Tag>
+            <Tag size="sm">v{ model.version }</Tag>
           </Box>
           <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.secondary">
             { model.framework }
@@ -438,9 +438,9 @@ const ProvidersTab = ({ isLoading }: ProvidersTabProps) => {
       { /* Rows */ }
       { isLoading && (
         <Box px={ 4 } py={ 6 }>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px"/>
+          <Skeleton loading={ true } h="16px" mb={ 3 }/>
+          <Skeleton loading={ true } h="16px" mb={ 3 }/>
+          <Skeleton loading={ true } h="16px"/>
         </Box>
       ) }
 
@@ -479,7 +479,7 @@ const ProvidersTab = ({ isLoading }: ProvidersTabProps) => {
             { formatEarnings(provider.totalEarnings) }
           </Box>
           <Box minW="80px" flexShrink={ 0 } textAlign={{ base: 'left', lg: 'right' }}>
-            <Tag size="sm" colorPalette={ provider.isActive ? 'green' : 'gray' }>
+            <Tag size="sm" className={ provider.isActive ? 'bg-badge-green-bg text-badge-green-fg' : undefined }>
               { provider.isActive ? 'Active' : 'Offline' }
             </Tag>
           </Box>
@@ -525,9 +525,9 @@ const AttestationsTab = ({ attestations, isLoading }: AttestationsTabProps) => (
     { /* Rows */ }
     { isLoading && (
       <Box px={ 4 } py={ 6 }>
-        <Skeleton loading h="16px" mb={ 3 }/>
-        <Skeleton loading h="16px" mb={ 3 }/>
-        <Skeleton loading h="16px"/>
+        <Skeleton loading={ true } h="16px" mb={ 3 }/>
+        <Skeleton loading={ true } h="16px" mb={ 3 }/>
+        <Skeleton loading={ true } h="16px"/>
       </Box>
     ) }
 
@@ -554,7 +554,7 @@ const AttestationsTab = ({ attestations, isLoading }: AttestationsTabProps) => (
           { att.id }
         </Box>
         <Box minW="100px" flexShrink={ 0 }>
-          <Tag size="sm" colorPalette="gray">{ attestationTypeLabel(att.type) }</Tag>
+          <Tag size="sm">{ attestationTypeLabel(att.type) }</Tag>
         </Box>
         <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.secondary" title={ att.provider }>
           { truncateAddress(att.provider) }
@@ -566,7 +566,7 @@ const AttestationsTab = ({ attestations, isLoading }: AttestationsTabProps) => (
           { formatTimestamp(att.timestamp) }
         </Box>
         <Box minW="100px" flexShrink={ 0 } textAlign={{ base: 'left', lg: 'right' }}>
-          <Tag size="sm" colorPalette={ attestationStatusColor(att.status) }>
+          <Tag size="sm" className={ attestationStatusClassName(att.status) }>
             { att.status }
           </Tag>
         </Box>

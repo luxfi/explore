@@ -54,7 +54,7 @@ const LatestWatchlistTxs = () => {
           ))) }
         </Box>
         <Flex justifyContent="center">
-          <Link textStyle="sm" href={ txsUrl }>View all watch list transactions</Link>
+          <Link className="text-sm" href={ txsUrl }>View all watch list transactions</Link>
         </Flex>
       </>
     );

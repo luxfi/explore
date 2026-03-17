@@ -1,4 +1,3 @@
-import { type LinkProps } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { clamp } from 'es-toolkit';
 import React from 'react';
@@ -9,14 +8,14 @@ import type { ClusterChainConfig } from 'types/multichain';
 import multichainConfig from 'configs/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { CollapsibleList } from 'toolkit/chakra/collapsible';
+import type { LinkProps } from 'toolkit/chakra/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 import MultichainAddressPortfolioCard from './MultichainAddressPortfolioCard';
 
 const TRIGGER_PROPS: LinkProps = {
   variant: 'secondary',
-  textStyle: { base: 'xs', lg: 'sm' },
-  py: { base: 1, lg: '2px' },
+  className: 'text-xs lg:text-sm py-1 lg:py-[2px]',
 };
 
 interface Props {
@@ -107,11 +106,7 @@ const MultichainAddressPortfolioCards = ({ isLoading, selectedChainId, onChange,
       text={ text }
       triggerProps={ TRIGGER_PROPS }
       defaultExpanded={ initialActiveIndex !== undefined ? initialActiveIndex > cutLength : undefined }
-      flexDir="row"
-      alignItems="center"
-      gap={ 2 }
-      flexWrap="wrap"
-      mt={ 2 }
+      className="flex-row items-center gap-2 flex-wrap mt-2"
     />
   );
 };

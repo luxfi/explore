@@ -117,14 +117,14 @@ const AlertShowcase = () => {
         <SectionSubHeader>Multiple lines</SectionSubHeader>
         <SamplesStack>
           <Sample label="multiple lines, with title, inline=false">
-            <Alert status="warning" title="Warning" inline={ false } maxWidth="500px" showIcon closable>
+            <Alert status="warning" title="Warning" inline={ false } className="max-w-[500px]" showIcon closable>
               <Box>
                 Participated in our recent activities? Check your eligibility and claim your NFT Scout badges. More exciting things coming soon!
               </Box>
             </Alert>
           </Sample>
           <Sample label="multiple lines, no title">
-            <Alert status="warning" maxWidth="500px">
+            <Alert status="warning" className="max-w-[500px]">
               <Box>
                 Participated in our recent activities? Check your eligibility and claim your NFT Scout badges. More exciting things coming soon!
               </Box>

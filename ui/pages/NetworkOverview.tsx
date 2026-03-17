@@ -225,7 +225,7 @@ const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardP
   >
     <Flex align="center" justify="space-between" mb={ 3 }>
       <Flex align="center" gap={ 2 }>
-        <Heading level="3" fontSize="sm">{ title }</Heading>
+        <Heading level="3" className="text-sm">{ title }</Heading>
         { count !== undefined && (
           <Skeleton loading={ isLoading }>
             <Tag size="sm" variant="subtle">{ count }</Tag>
@@ -233,7 +233,7 @@ const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardP
         ) }
       </Flex>
       { action && (
-        <Link href={ action.href } textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+        <Link href={ action.href } className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
           { action.label }
         </Link>
       ) }
@@ -384,7 +384,7 @@ const NetworkOverview = () => {
                 <Text color="text.secondary" fontSize="sm">
                   { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
                 </Text>
-                <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }} mt={ 2 }>
+                <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] mt-2">
                   View validators
                 </Link>
               </Flex>
@@ -425,7 +425,7 @@ const NetworkOverview = () => {
                   </Box>
                 </Grid>
                 <Flex justify="center" mt={ 3 }>
-                  <Link href="/validators" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+                  <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
                     View validators
                   </Link>
                 </Flex>

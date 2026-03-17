@@ -13,9 +13,7 @@ const DocsLink = ({ href }: Props) => {
       href={ href }
       external
       noIcon
-      display="inline-flex"
-      alignItems="center"
-      columnGap={ 1 }
+      className="inline-flex items-center gap-1"
     >
       <IconSvg name="docs" boxSize={ 5 } color="icon.primary"/>
       <span>Documentation</span>

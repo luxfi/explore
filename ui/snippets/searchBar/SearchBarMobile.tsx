@@ -118,8 +118,7 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
     trigger = (
       <Button
         variant="header"
-        flexShrink={ 0 }
-        p={ 0 }
+        className="shrink-0 p-0"
       >
         <IconSvg
           name="search"
@@ -135,12 +134,12 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
       <DrawerTrigger asChild>
         { trigger }
       </DrawerTrigger>
-      <DrawerContent h="75vh" overflowY="hidden">
+      <DrawerContent className="h-[75vh] overflow-y-hidden">
         <DrawerHeader>
           <DrawerTitle>Search</DrawerTitle>
           <DrawerCloseTrigger/>
         </DrawerHeader>
-        <DrawerBody overflow="hidden" display="flex" flexDirection="column">
+        <DrawerBody className="overflow-hidden flex flex-col">
           <SearchBarInput
             ref={ inputRef }
             onChange={ handleSearchTermChange }
@@ -164,16 +163,11 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
         </DrawerBody>
         { (query.data && query.data?.length > 0) && (
           <DrawerFooter
-            borderTop="1px solid"
-            borderColor="border.divider"
-            pt={ 3 }
-            px={ 5 }
-            pb={ 5 }
-            justifyContent="center"
+            className="border-t border-[var(--color-border-divider)] pt-3 px-5 pb-5 justify-center"
           >
             <Link
               onClick={ handleViewAllResultsClick }
-              textStyle="sm"
+              className="text-sm"
             >
               View all results
             </Link>

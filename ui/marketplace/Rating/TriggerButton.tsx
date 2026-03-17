@@ -5,6 +5,7 @@ import { getFeaturePayload } from 'configs/app/features/types';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
 import type { ButtonProps } from 'toolkit/chakra/button';
 import { Button } from 'toolkit/chakra/button';
@@ -45,13 +46,12 @@ const TriggerButton = (
             ref={ ref }
             size="xs"
             variant="link"
-            p={ 0 }
-            fontSize={ fullView ? 'md' : 'sm' }
-            fontWeight={ fullView ? '400' : '500' }
-            lineHeight="21px"
-            ml={ fullView ? 3 : 0 }
+            className={ cn(
+              'p-0 leading-[21px]',
+              fullView ? 'text-base font-normal ml-3' : 'text-sm font-medium ml-0',
+              canRate ? 'cursor-pointer' : 'cursor-default',
+            ) }
             onFocusCapture={ onFocusCapture }
-            cursor={ canRate ? 'pointer' : 'default' }
             { ...rest }
           >
             { !fullView && (

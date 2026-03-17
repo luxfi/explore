@@ -170,7 +170,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
         Before acc
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="nowrap" >
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.before_acc_hash }/>
         </Skeleton>
         <CopyToClipboard text={ data.before_acc_hash } isLoading={ isPlaceholderData }/>
@@ -183,7 +183,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
         After acc
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="nowrap">
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.after_acc_hash }/>
         </Skeleton>
         <CopyToClipboard text={ data.after_acc_hash } isLoading={ isPlaceholderData }/>
@@ -192,8 +192,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
       { (data.data_availability.batch_data_container === 'in_anytrust' || data.data_availability.batch_data_container === 'in_celestia') && (
         <CollapsibleDetails
           loading={ isPlaceholderData }
-          mt={ 6 }
-          gridColumn={{ base: undefined, lg: '1 / 3' }}
+          className="mt-6 lg:col-[1/3]"
           text={ [ 'Show data availability info', 'Hide data availability info' ] }
         >
           <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>

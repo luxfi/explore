@@ -12,7 +12,7 @@ const TxSocketAlert = ({ status }: Props) => {
     'An error has occurred while fetching transaction info. Please click here to update.';
 
   return (
-    <Link href={ window.document.location.href } asChild>
+    <Link href={ window.document.location.href }>
       <Alert status="warning">{ text }</Alert>
     </Link>
   );

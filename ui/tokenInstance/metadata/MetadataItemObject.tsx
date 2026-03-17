@@ -27,27 +27,17 @@ const MetadataItemObject = ({ name, value, level }: Props) => {
   return (
     <MetadataAccordionItem
       value={ name }
-      flexDir={{ lg: 'column' }}
-      alignItems="stretch"
-      py={ 0 }
+      className="lg:flex-col items-stretch py-0"
       isFlat
       level={ level }
     >
       <AccordionItemTrigger
-        px={ 0 }
-        py={ 2 }
-        _hover={{ bgColor: 'inherit' }}
-        fontSize="sm"
-        textAlign="left"
-        _expanded={{
-          borderColor: 'border.divider',
-          borderBottomWidth: '1px',
-        }}
+        className="px-0 py-2 hover:bg-inherit text-sm text-left data-[state=open]:border-[var(--color-border-divider)] data-[state=open]:border-b"
         indicatorPlacement="start"
       >
         <MetadataAccordionItemTitle name={ name }/>
       </AccordionItemTrigger>
-      <AccordionItemContent p={ 0 }>
+      <AccordionItemContent className="p-0">
         <MetadataAccordion data={ value as Record<string, unknown> } level={ level + 1 }/>
       </AccordionItemContent>
     </MetadataAccordionItem>

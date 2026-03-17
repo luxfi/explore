@@ -29,7 +29,7 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
           email. Use for the next login.
         </Text>
         <Button
-          mt={ 6 }
+          className="mt-6"
           variant="outline"
           onClick={ onClose }
         >
@@ -48,12 +48,12 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
       { !profile?.address_hash && config.features.blockchainInteraction.isEnabled ? (
         <>
           <Text mt={ 6 }>Add your web3 wallet to safely interact with smart contracts and dapps inside Lux Explorer.</Text>
-          <Button mt={ 6 } onClick={ handleConnectWalletClick }>Connect wallet</Button>
+          <Button className="mt-6" onClick={ handleConnectWalletClick }>Connect wallet</Button>
         </>
       ) : (
         <Button
           variant="outline"
-          mt={ 6 }
+          className="mt-6"
           onClick={ onClose }
         >
           Got it!

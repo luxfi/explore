@@ -38,7 +38,7 @@ type RadioSize = keyof typeof SIZE_CLASSES;
 const RadioSizeContext = React.createContext<RadioSize>('md');
 
 // ─── RadioGroup ─────────────────────────────────────────────────────
-export interface RadioGroupProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'defaultValue'> {
+export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'dir'> {
   name?: string;
   required?: boolean;
   disabled?: boolean;

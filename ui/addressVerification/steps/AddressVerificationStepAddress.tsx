@@ -108,16 +108,15 @@ const AddressVerificationStepAddress = ({ defaultAddress, onContinue }: Props) =
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ onSubmit }>
         <Box>Enter the contract address you are verifying ownership for.</Box>
-        { rootError && <Alert status="warning" mt={ 3 }>{ rootError }</Alert> }
+        { rootError && <Alert status="warning" className="mt-3">{ rootError }</Alert> }
         <FormFieldAddress<Fields>
           name="address"
           required
-          bgColor="dialog.bg"
           placeholder="Smart contract address (0x...)"
-          mt={ 8 }
+          className="mt-8"
         />
         <Flex alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>
-          <Button type="submit" loading={ formState.isSubmitting } loadingText="Continue" flexShrink={ 0 }>
+          <Button type="submit" loading={ formState.isSubmitting } loadingText="Continue" className="shrink-0">
             Continue
           </Button>
           <AdminSupportText/>

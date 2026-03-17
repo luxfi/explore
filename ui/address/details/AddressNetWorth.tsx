@@ -71,7 +71,7 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
   }
 
   return (
-    <Skeleton display="flex" alignItems="center" flexWrap="wrap" loading={ isLoading && !(addressData?.has_tokens && isPending) }>
+    <Skeleton className="flex items-center flex-wrap" loading={ isLoading && !(addressData?.has_tokens && isPending) }>
       { (isError || !addressData?.exchange_rate) ?
         <span>N/A</span> :
         <SimpleValue value={ totalUsd } accuracy={ DEFAULT_ACCURACY_USD } prefix="$" overflowed={ isOverflow }/> }

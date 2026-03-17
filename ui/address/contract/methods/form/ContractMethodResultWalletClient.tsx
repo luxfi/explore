@@ -1,4 +1,3 @@
-import { chakra, Spinner, Box } from '@chakra-ui/react';
 import React from 'react';
 import type { UseWaitForTransactionReceiptReturnType } from 'wagmi';
 import { useWaitForTransactionReceipt } from 'wagmi';
@@ -52,7 +51,7 @@ export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }:
   const content = (() => {
     if (isErrorResult) {
       return (
-        <Alert status="error" textStyle="sm">
+        <Alert status="error" className="text-sm">
           { data.message }
         </Alert>
       );
@@ -71,18 +70,18 @@ export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }:
       case 'pending': {
         return (
           <>
-            <Spinner size="sm" mr={ 3 }/>
-            <chakra.span verticalAlign="text-bottom">
+            <span className="inline-block size-4 animate-spin rounded-full border-2 border-current border-b-transparent border-l-transparent mr-3"/>
+            <span className="align-text-bottom">
               { 'Waiting for transaction\'s confirmation. ' }
               { txLink }
-            </chakra.span>
+            </span>
           </>
         );
       }
 
       case 'error': {
         return (
-          <Alert status="error" textStyle="sm" descriptionProps={{ flexDir: 'column', alignItems: 'flex-start', rowGap: 1 }}>
+          <Alert status="error" className="text-sm" descriptionProps={{ className: 'flex flex-col items-start gap-y-1' }}>
             Error: { txInfo.error ? txInfo.error.message : 'Something went wrong' } { txLink }
           </Alert>
         );
@@ -91,14 +90,9 @@ export const ContractMethodResultWalletClientDumb = ({ data, onSettle, txInfo }:
   })();
 
   return (
-    <Box
-      textStyle="sm"
-      alignItems="center"
-      whiteSpace="pre-wrap"
-      wordBreak="break-all"
-    >
+    <div className="text-sm flex items-center whitespace-pre-wrap break-all">
       { content }
-    </Box>
+    </div>
   );
 };
 

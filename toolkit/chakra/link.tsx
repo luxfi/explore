@@ -20,6 +20,20 @@ export interface LinkProps
   readonly noIcon?: boolean;
   readonly disabled?: boolean;
   readonly variant?: LinkVariant;
+  readonly asChild?: boolean;
+  // Legacy Chakra style-prop shims
+  readonly fontWeight?: string | number;
+  readonly whiteSpace?: string;
+  readonly wordBreak?: string;
+  readonly textStyle?: string;
+  readonly ml?: number | string | Record<string, string | number>;
+  readonly mr?: number | string;
+  readonly display?: string;
+  readonly alignItems?: string;
+  readonly flexShrink?: number;
+  readonly minW?: number | string;
+  readonly justifyContent?: string;
+  readonly position?: string;
 }
 
 const VARIANT_CLASSES: Record<LinkVariant, string> = {
@@ -93,6 +107,22 @@ const splitProps = (props: LinkProps): {
   };
 };
 
+const SPACING = 4;
+
+function resolveSpacing(v: number | string | Record<string, string | number> | undefined): string | undefined {
+  if (v === undefined) return undefined;
+  if (typeof v === 'number') return `${ v * SPACING }px`;
+  if (typeof v === 'string') return v;
+  // Responsive object - use base value
+  if (typeof v === 'object' && v !== null) {
+    const base = (v as Record<string, string | number>).base;
+    if (base !== undefined) return typeof base === 'number' ? `${ base * SPACING }px` : base;
+    const lg = (v as Record<string, string | number>).lg;
+    if (lg !== undefined) return typeof lg === 'number' ? `${ lg * SPACING }px` : lg;
+  }
+  return undefined;
+}
+
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {
     const { own, next } = splitProps(props);
@@ -106,10 +136,39 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       iconColor,
       variant = 'primary',
       className,
+      asChild: _asChild,
+      // Strip Chakra style props
+      fontWeight: _fontWeight,
+      whiteSpace: _whiteSpace,
+      wordBreak: _wordBreak,
+      textStyle: _textStyle,
+      ml: _ml,
+      mr: _mr,
+      display: _display,
+      alignItems: _alignItems,
+      flexShrink: _flexShrink,
+      minW: _minW,
+      justifyContent: _justifyContent,
+      position: _position,
       ...rest
     } = own;
 
+    // Build inline style from Chakra style props
+    const shimStyle: React.CSSProperties = {};
+    if (_fontWeight !== undefined) shimStyle.fontWeight = _fontWeight;
+    if (_whiteSpace) shimStyle.whiteSpace = _whiteSpace as React.CSSProperties['whiteSpace'];
+    if (_wordBreak) shimStyle.wordBreak = _wordBreak as React.CSSProperties['wordBreak'];
+    if (_ml !== undefined) shimStyle.marginLeft = resolveSpacing(_ml);
+    if (_mr !== undefined) shimStyle.marginRight = resolveSpacing(_mr);
+    if (_display) shimStyle.display = _display;
+    if (_alignItems) shimStyle.alignItems = _alignItems;
+    if (_flexShrink !== undefined) shimStyle.flexShrink = _flexShrink;
+    if (_minW !== undefined) shimStyle.minWidth = typeof _minW === 'number' ? `${ _minW * SPACING }px` : _minW;
+    if (_justifyContent) shimStyle.justifyContent = _justifyContent;
+    if (_position) shimStyle.position = _position as React.CSSProperties['position'];
+
     const linkClasses = cn(BASE_CLASSES, VARIANT_CLASSES[variant], className);
+    const linkStyle = Object.keys(shimStyle).length > 0 ? shimStyle : undefined;
 
     if (external) {
       const processedHref = typeof href === 'string' ? stripUtmParams(href) : href;
@@ -119,6 +178,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           <a
             href={ processedHref }
             className={ cn('group', linkClasses) }
+            style={ linkStyle }
             target="_blank"
             rel="noopener noreferrer"
             { ...(disabled ? { 'data-disabled': true } : {}) }
@@ -137,6 +197,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           <NextLink
             { ...next }
             className={ linkClasses }
+            style={ linkStyle }
             { ...(disabled ? { 'data-disabled': true } : {}) }
             { ...rest }
           >
@@ -181,6 +242,11 @@ export const LinkOverlay = React.forwardRef<HTMLAnchorElement, LinkProps>(
       iconColor,
       variant = 'primary',
       className,
+      disabled,
+      asChild: _asChild2,
+      fontWeight: _fw2, whiteSpace: _ws2, wordBreak: _wb2, textStyle: _ts2,
+      ml: _ml2, mr: _mr2, display: _d2, alignItems: _ai2, flexShrink: _fs2,
+      minW: _mw2, justifyContent: _jc2, position: _p2,
       ...rest
     } = own;
 
@@ -222,12 +288,14 @@ export const LinkOverlay = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ) : null;
 
     if (next.href) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const anchorRest = rest as any;
       return (
         <NextLink
           ref={ ref }
           { ...next }
           className={ overlayClasses }
-          { ...rest }
+          { ...anchorRest }
         >
           { content }
         </NextLink>

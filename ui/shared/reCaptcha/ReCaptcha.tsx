@@ -55,9 +55,9 @@ const ReCaptchaInvisible = ({ onInitError, hideWarning = false }: Props, ref: Re
         onErrored={ handleError }
       />
       { isError && !hideWarning && (
-        <Alert status="warning" whiteSpace="pre-wrap" w="fit-content" mt={ 3 } descriptionProps={{ display: 'block' }}>
+        <Alert status="warning" className="whitespace-pre-wrap w-fit mt-3" descriptionProps={{ className: 'block' }}>
           This feature is not available due to a reCAPTCHA initialization error. Please contact the project team on Discord to report this issue.
-          Click <Link onClick={ handleClick } display="inline">here</Link> to show/hide reCAPTCHA widget content.
+          Click <Link onClick={ handleClick } className="inline">here</Link> to show/hide reCAPTCHA widget content.
         </Alert>
       ) }
     </>

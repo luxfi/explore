@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ContractAbiItemInput } from '../types';
 
+import { cn } from 'lib/utils/cn';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 import { getFieldLabel } from './utils';
@@ -15,18 +15,15 @@ interface Props {
 
 const ContractMethodFieldLabel = ({ data, isOptional, level }: Props) => {
   return (
-    <Box
-      w="250px"
-      textStyle="sm"
-      py="6px"
-      flexShrink={ 0 }
-      fontWeight={ 500 }
-      color={ level > 1 ? { _light: 'blackAlpha.600', _dark: 'whiteAlpha.600' } : undefined }
-      wordBreak="break-all"
+    <div
+      className={ cn(
+        'w-[250px] text-sm py-1.5 shrink-0 font-medium break-all',
+        level > 1 && 'text-black/60 dark:text-white/60',
+      ) }
     >
       { getFieldLabel(data, !isOptional) }
-      { data.type === 'string' && <Hint label={ `The "" string will be treated as an empty string` } ml={ 2 }/> }
-    </Box>
+      { data.type === 'string' && <Hint label={ `The "" string will be treated as an empty string` } className="ml-2"/> }
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ import type { BannerFormat } from './types';
 import type { AdBannerProviders } from 'types/client/adProviders';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import useAccount from 'lib/web3/useAccount';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
@@ -53,10 +54,9 @@ const AdBannerContent = ({ className, isLoading, provider, format }: Props) => {
 
   return (
     <Skeleton
-      className={ className }
+      className={ cn(className, `max-w-[${MOBILE_BANNER_WIDTH}px] lg:max-w-[${DESKTOP_BANNER_WIDTH}px]`) }
       loading={ isLoading }
       borderRadius="none"
-      maxW={{ base: `${ MOBILE_BANNER_WIDTH }px`, lg: `${ DESKTOP_BANNER_WIDTH }px` }}
       w="100%"
     >
       { content }

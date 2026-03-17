@@ -26,7 +26,7 @@ const NetworkMenu = () => {
           aria-label="Network menu"
           onClick={ menu.onToggle }
           size="2xs"
-          fontWeight={ 500 }
+          className="font-medium"
         >
           <IconSvg name="networks" boxSize="14px"/>
           <span>Chains</span>

@@ -144,7 +144,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
         CCTX hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isLoading } display="flex" flexWrap="nowrap" alignItems="center" overflow="hidden">
+        <Skeleton loading={ isLoading } className="flex flex-nowrap items-center overflow-hidden">
           <TxEntityZetaChainCC hash={ data.index } isLoading={ isLoading } noIcon noLink/>
         </Skeleton>
       </DetailedInfo.ItemValue>
@@ -160,7 +160,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
           { data.cctx_status?.status && <ZetaChainCCTXStatusTag status={ data.cctx_status.status } isLoading={ isLoading }/> }
         </Flex>
         { data.cctx_status?.error_message && (
-          <CollapsibleDetails ml={ 2 } variant="secondary">
+          <CollapsibleDetails className="ml-2">
             <RawDataSnippet data={ data.cctx_status.error_message } minW="100%"/>
           </CollapsibleDetails>
         ) }

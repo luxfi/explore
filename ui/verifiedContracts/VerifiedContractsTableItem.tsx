@@ -70,15 +70,15 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         />
       </TableCell>
       <TableCell isNumeric>
-        <Skeleton loading={ isLoading } display="inline-block" my={ 1 }>
+        <Skeleton loading={ isLoading } className="inline-block my-1">
           { data.transactions_count ? data.transactions_count.toLocaleString() : '0' }
         </Skeleton>
       </TableCell>
       <TableCell>
         <Flex flexWrap="wrap" columnGap={ 2 }>
-          <Skeleton loading={ isLoading } my={ 1 }>{ formatLanguageName(data.language) }</Skeleton>
+          <Skeleton loading={ isLoading } className="my-1">{ formatLanguageName(data.language) }</Skeleton>
           { data.compiler_version && (
-            <Skeleton loading={ isLoading } color="text.secondary" wordBreak="break-all" my={ 1 } cursor="pointer">
+            <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] break-all my-1 cursor-pointer">
               <Tooltip content={ data.compiler_version }>
                 <span>{ data.compiler_version.split('+')[0] }</span>
               </Tooltip>
@@ -87,8 +87,8 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         </Flex>
         { data.zk_compiler_version && (
           <Flex flexWrap="wrap" columnGap={ 2 } my={ 1 }>
-            <Skeleton loading={ isLoading } >ZK compiler</Skeleton>
-            <Skeleton loading={ isLoading } color="text.secondary" wordBreak="break-all">
+            <Skeleton loading={ isLoading }>ZK compiler</Skeleton>
+            <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] break-all">
               <span>{ data.zk_compiler_version }</span>
             </Skeleton>
           </Flex>
@@ -121,7 +121,7 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         </Flex>
       </TableCell>
       <TableCell>
-        <Skeleton loading={ isLoading } my={ 1 } display="inline-block">
+        <Skeleton loading={ isLoading } className="my-1 inline-block">
           { license }
         </Skeleton>
       </TableCell>

@@ -24,9 +24,9 @@ const TxStateTokenIdList = ({ items, tokenAddress, isLoading }: Props) => {
       items={ items }
       renderItem={ renderItem }
       triggerProps={{
-        pb: { base: '5px', md: 0 },
+        className: 'pb-[5px] md:pb-0',
       }}
-      rowGap={ 2 }
+      className="gap-y-2"
     />
   );
 };

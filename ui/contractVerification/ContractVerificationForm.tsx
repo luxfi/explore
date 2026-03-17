@@ -209,7 +209,7 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
           <Button
             size="md"
             type="submit"
-            mt={ 12 }
+            className="mt-12"
             loading={ formState.isSubmitting }
             loadingText="Verify & publish"
           >

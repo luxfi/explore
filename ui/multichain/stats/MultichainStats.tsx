@@ -49,7 +49,7 @@ const MultichainStats = () => {
         onValueChange={ chainSelect.onValueChange }
         chainIds={ chainIds }
         mode="default"
-        mb={ 3 }
+        className="mb-3"
       />
       <MultichainProvider chainId={ chainSelect.value?.[0] }>
         <Box mb={{ base: 6, sm: 8 }}>

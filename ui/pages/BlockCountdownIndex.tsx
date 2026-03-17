@@ -37,18 +37,13 @@ const BlockCountdownIndex = () => {
         { multichainContext?.chain && (
           <ChainIcon
             data={ multichainContext.chain }
-            position="absolute"
-            bottom={{ base: '15px', lg: '22px' }}
-            left={{ base: '105px', lg: '150px' }}
-            boxSize={{ lg: '60px' }}
-            bgColor="bg.primary"
-            borderRadius="full"
+            className="absolute bottom-[15px] lg:bottom-[22px] left-[105px] lg:left-[150px] lg:w-[60px] lg:h-[60px] bg-[var(--color-bg-primary)] rounded-full"
           />
         ) }
       </Box>
       <Heading
         level="1"
-        mt={{ base: 3, lg: 6 }}
+        className="mt-3 lg:mt-6"
       >
         Block countdown
       </Heading>

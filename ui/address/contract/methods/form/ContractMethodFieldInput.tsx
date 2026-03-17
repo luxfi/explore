@@ -1,10 +1,10 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
 
 import type { ContractAbiItemInput } from '../types';
 
+import { cn } from 'lib/utils/cn';
 import { Button } from 'toolkit/chakra/button';
 import { Field } from 'toolkit/chakra/field';
 import { Input } from 'toolkit/chakra/input';
@@ -46,8 +46,6 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
 
   const { control, setValue, getValues } = useFormContext();
   const { field, fieldState } = useController({ control, name, rules: { validate } });
-
-  const nativeCoinRowBgColor = { _light: 'gray.100', _dark: 'gray.700' };
 
   const hasMultiplyButton = argTypeMatchInt && Number(argTypeMatchInt.power) >= 64;
 
@@ -129,16 +127,14 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
   const error = fieldState.error;
 
   const inputEndElement = (
-    <Flex alignItems="center">
+    <div className="flex items-center">
       <ClearButton onClick={ handleClear } disabled={ isDisabled } visible={ field.value !== undefined && field.value !== '' }/>
       { data.type === 'address' && <ContractMethodAddressButton onClick={ handleAddressButtonClick } isDisabled={ isDisabled }/> }
       { argTypeMatchInt && !isNativeCoin && (hasTimestampButton ? (
         <Button
           variant="subtle"
           size="xs"
-          textStyle="md"
-          fontWeight={ 500 }
-          ml={ 1 }
+          className="text-base font-medium ml-1"
           onClick={ handleTimestampButtonClick }
           disabled={ isDisabled }
         >
@@ -148,9 +144,7 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
         <Button
           variant="subtle"
           size="xs"
-          textStyle="md"
-          fontWeight={ 500 }
-          ml={ 1 }
+          className="text-base font-medium ml-1"
           onClick={ handleMaxIntButtonClick }
           disabled={ isDisabled }
         >
@@ -165,17 +159,16 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
           onChange={ setIntPower }
         />
       ) }
-    </Flex>
+    </div>
   );
 
   const inputProps = {
     ...field,
     size: 'sm' as const,
-    bgColor: 'bg.primary',
     onChange: handleChange,
     required: !isOptional,
     placeholder: data.type,
-    autoComplete: 'off',
+    autoComplete: 'off' as const,
     'data-1p-ignore': true,
   };
 
@@ -184,22 +177,18 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
   }, []);
 
   return (
-    <Flex
-      className={ className }
-      flexDir={{ base: 'column', md: 'row' }}
-      alignItems="flex-start"
-      columnGap={ 3 }
-      w="100%"
-      bgColor={ isNativeCoin ? nativeCoinRowBgColor : undefined }
-      borderRadius="base"
-      px="6px"
-      py={ isNativeCoin ? 1 : 0 }
+    <div
+      className={ cn(
+        'flex flex-col md:flex-row items-start gap-x-3 w-full rounded-base px-1.5',
+        isNativeCoin && 'bg-gray-100 dark:bg-gray-700 py-1',
+        className,
+      ) }
     >
       { !hideLabel && <ContractMethodFieldLabel data={ data } isOptional={ isOptional } level={ level }/> }
       <Field invalid={ Boolean(error) } errorText={ error?.message } disabled={ isDisabled }>
         <InputGroup
           endElement={ inputEndElement }
-          endElementProps={{ pl: 0, pr: 1 }}
+          endElementProps={{ className: 'pl-0 pr-1' }}
         >
           { argTypeMatchInt ? (
             <Input
@@ -207,7 +196,6 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
               { ...(error ? { 'data-invalid': true } : {}) }
               onPaste={ handlePaste }
               disabled={ isDisabled }
-              asChild
             >
               <NumericFormat
                 thousandSeparator=" "
@@ -219,8 +207,8 @@ const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDi
           ) : <Input { ...inputProps } ref={ ref as React.LegacyRef<HTMLInputElement> | undefined }/> }
         </InputGroup>
       </Field>
-    </Flex>
+    </div>
   );
 };
 
-export default React.memo(chakra(ContractMethodFieldInput));
+export default React.memo(ContractMethodFieldInput);

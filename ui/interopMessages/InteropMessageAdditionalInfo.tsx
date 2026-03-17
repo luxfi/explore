@@ -19,7 +19,7 @@ const InteropMessageAdditionalInfo = ({ payload, isLoading, className }: Props) 
       <PopoverTrigger>
         <AdditionalInfoButton loading={ isLoading } className={ className }/>
       </PopoverTrigger>
-      <PopoverContent w="330px">
+      <PopoverContent className="w-[330px]">
         <PopoverBody>
           <Flex alignItems="center" justifyContent="space-between" mb={ 3 }>
             <Text color="text.secondary" fontWeight="600">Message payload</Text>

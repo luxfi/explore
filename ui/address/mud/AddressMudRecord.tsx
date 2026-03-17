@@ -61,7 +61,7 @@ const AddressMudRecord = ({ tableId, recordId, isQueryEnabled = true }: Props) =
               </TableCell>
               <TableCell colSpan={ 2 } fontSize="sm">
                 <Flex justifyContent="space-between">
-                  <TruncatedText text={ getValueString(data.record.decoded[keyName]) } mr={ 2 }/>
+                  <TruncatedText text={ getValueString(data.record.decoded[keyName]) } className="mr-2"/>
                   { index === 0 && <Time color="text.secondary" timestamp={ data.record.timestamp }/> }
                 </Flex>
               </TableCell>

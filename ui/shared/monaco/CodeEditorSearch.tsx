@@ -196,36 +196,21 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
   return (
     <>
       <InputGroup
-        px="8px"
-        position="sticky"
-        top="35px"
-        left="0"
-        zIndex="2"
-        bgColor={ themeColors['sideBar.background'] }
-        pb="8px"
-        boxShadow={ isInputStuck ? '0px 6px 3px 0px rgba(0, 0, 0, 0.05)' : 'none' }
+        className={ `px-[8px] sticky top-[35px] left-0 z-[2] pb-[8px] ${ isInputStuck ? 'shadow-[0px_6px_3px_0px_rgba(0,0,0,0.05)]' : 'shadow-none' }` }
+        style={{ backgroundColor: themeColors['sideBar.background'] }}
         endElement={ inputEndElement }
-        endElementProps={{ height: '26px', pl: '0', right: '10px', columnGap: '2px' }}
+        endElementProps={{ className: 'h-[26px] pl-0 right-[10px] gap-x-[2px]' }}
       >
         <Input
           size="xs"
           onChange={ handleSearchTermChange }
           value={ searchTerm }
           placeholder="Search"
-          color={ themeColors['input.foreground'] }
-          bgColor={ themeColors['input.background'] }
-          borderRadius="none"
-          height="26px"
-          fontSize="13px"
-          lineHeight="20px"
-          borderWidth="1px"
-          borderColor={ themeColors['input.background'] }
-          py="2px"
-          pl="4px"
-          pr="75px"
-          transitionDuration="0"
-          _focus={{
-            borderColor: themeColors.focusBorder,
+          className="rounded-none h-[26px] text-[13px] leading-[20px] border py-[2px] pl-[4px] pr-[75px] transition-none"
+          style={{
+            color: themeColors['input.foreground'],
+            backgroundColor: themeColors['input.background'],
+            borderColor: themeColors['input.background'],
           }}
         />
 

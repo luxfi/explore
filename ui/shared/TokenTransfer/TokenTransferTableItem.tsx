@@ -101,7 +101,7 @@ const TokenTransferTableItem = ({
               truncation="constant_long"
             />
           ) : (
-            <Skeleton loading={ isLoading } mt={ 1 }>-</Skeleton>
+            <Skeleton loading={ isLoading } mt="4px">-</Skeleton>
           ) }
           <TimeWithTooltip
             timestamp={ timestamp }

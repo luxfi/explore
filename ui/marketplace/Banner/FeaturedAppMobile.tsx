@@ -45,10 +45,8 @@ const FeaturedAppMobile = ({
 
   return (
     <LinkBox
-      borderRadius="md"
-      padding={{ base: 3, sm: '20px' }}
+      className="rounded-md p-3 sm:p-5 group bg-[var(--color-purple-50)] dark:bg-white/10"
       role="group"
-      background={{ _light: 'purple.50', _dark: 'whiteAlpha.100' }}
     >
       <Flex
         flexDirection="row"
@@ -63,8 +61,7 @@ const FeaturedAppMobile = ({
         >
           <Skeleton
             loading={ isLoading }
-            w={{ base: '64px', sm: '96px' }}
-            h={{ base: '64px', sm: '96px' }}
+            className="w-16 sm:w-24 h-16 sm:h-24"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -83,9 +80,7 @@ const FeaturedAppMobile = ({
               top={{ base: 0, sm: '24px' }}
             >
               <Link
-                fontSize={{ base: 'xs', sm: 'sm' }}
-                fontWeight="500"
-                paddingRight={{ sm: 2 }}
+                className="text-xs sm:text-sm font-medium sm:pr-2"
                 href="#"
                 onClick={ onInfoClick }
               >
@@ -98,7 +93,7 @@ const FeaturedAppMobile = ({
         <Flex flexDirection="column" gap={ 2 }>
           <Skeleton
             loading={ isLoading }
-            paddingRight={{ base: '25px', sm: '110px' }}
+            className="pr-[25px] sm:pr-[110px]"
             display="flex"
             alignItems="center"
           >
@@ -134,12 +129,7 @@ const FeaturedAppMobile = ({
 
         { !isLoading && (
           <IconButton
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            position="absolute"
-            right={{ base: 1, sm: '10px' }}
-            top={{ base: 1, sm: '18px' }}
+            className="flex items-center justify-center absolute right-1 sm:right-[10px] top-1 sm:top-[18px]"
             aria-label="Mark as favorite"
             title="Mark as favorite"
             variant="icon_background"

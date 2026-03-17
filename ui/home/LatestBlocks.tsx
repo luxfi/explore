@@ -102,7 +102,7 @@ const LatestBlocks = () => {
             ))) }
           </Flex>
           <Flex justifyContent="center">
-            <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
+            <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
           </Flex>
         </>
       );

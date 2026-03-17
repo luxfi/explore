@@ -86,7 +86,7 @@ const AddressForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAlertV
           name="address"
           required
           bgColor="dialog.bg"
-          mb={ 5 }
+          className="mb-5"
         />
         <FormFieldText<Inputs>
           name="tag"
@@ -96,7 +96,7 @@ const AddressForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAlertV
             maxLength: TAG_MAX_LENGTH,
           }}
           bgColor="dialog.bg"
-          mb={ 8 }
+          className="mb-8"
         />
         <Button
           type="submit"

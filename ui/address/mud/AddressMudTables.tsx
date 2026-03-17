@@ -45,8 +45,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
 
   const searchInput = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
-      minW={{ base: 'auto', lg: '250px' }}
+      className="w-full lg:w-[360px] lg:min-w-[250px]"
       size="sm"
       onChange={ setSearchTerm }
       placeholder="Search by name, namespace or table ID..."
@@ -58,7 +57,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
   const actionBar = (
     <ActionBar mt={ -6 } showShadow justifyContent="space-between">
       { searchInput }
-      <Pagination ml={{ base: 0, lg: 8 }} { ...pagination }/>
+      <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

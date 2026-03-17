@@ -1,6 +1,6 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from 'toolkit/chakra/accordion';
 import ArrayButton from 'ui/shared/forms/ArrayButton';
 
@@ -15,27 +15,27 @@ export interface Props {
 }
 
 const ContractMethodFieldAccordion = ({ label, level, children, onAddClick, onRemoveClick, index, isInvalid }: Props) => {
-  const bgColorLevel0 = { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' };
-  const bgColor = { _light: 'whiteAlpha.700', _dark: 'blackAlpha.700' };
-
   return (
-    <AccordionRoot w="100%" bgColor={ level === 0 ? bgColorLevel0 : bgColor } borderRadius="base">
-      <AccordionItem value="default" _first={{ borderTopWidth: 0 }} _last={{ borderBottomWidth: 0 }}>
+    <AccordionRoot
+      className={ cn(
+        'w-full rounded-base',
+        level === 0
+          ? 'bg-black/5 dark:bg-white/5'
+          : 'bg-white/70 dark:bg-black/70',
+      ) }
+    >
+      <AccordionItem value="default" className="first:border-t-0 last:border-b-0">
         <AccordionItemTrigger
           indicatorPlacement="start"
-          px="6px"
-          py="6px"
-          wordBreak="break-all"
-          textAlign="left"
-          _hover={{ bgColor: 'inherit' }}
+          className="px-1.5 py-1.5 break-all text-left hover:bg-inherit"
         >
-          <Box textStyle="sm" fontWeight={ 700 } mr="auto" color={ isInvalid ? 'text.error' : undefined }>
+          <div className={ cn('text-sm font-bold mr-auto', isInvalid && 'text-[var(--color-text-error)]') }>
             { label }
-          </Box>
+          </div>
           { onRemoveClick && index !== undefined && <ArrayButton index={ index } onClick={ onRemoveClick } type="remove"/> }
-          { onAddClick && index !== undefined && <ArrayButton index={ index } onClick={ onAddClick } type="add" ml={ 1 }/> }
+          { onAddClick && index !== undefined && <ArrayButton index={ index } onClick={ onAddClick } type="add" className="ml-1"/> }
         </AccordionItemTrigger>
-        <AccordionItemContent display="flex" flexDir="column" rowGap={ 1 } pl="18px" pr="6px">
+        <AccordionItemContent className="flex flex-col gap-y-1 pl-[18px] pr-1.5">
           { children }
         </AccordionItemContent>
       </AccordionItem>

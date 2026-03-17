@@ -127,7 +127,7 @@ const ValidatorsStability = () => {
             { filterMenu }
             { /* { filterInput } */ }
           </HStack>
-          <Pagination ml="auto" { ...pagination }/>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>

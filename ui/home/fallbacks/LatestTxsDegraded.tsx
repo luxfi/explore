@@ -69,7 +69,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
         </Box>
       </AddressHighlightProvider>
       <Flex justifyContent="center">
-        <Link textStyle="sm" loading={ isLoading } href={ txsUrl }>View all transactions</Link>
+        <Link className="text-sm" loading={ isLoading } href={ txsUrl }>View all transactions</Link>
       </Flex>
     </>
   );

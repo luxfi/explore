@@ -1,4 +1,3 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { BridgeInfo } from '@luxfi/interchain-indexer-types';
@@ -6,12 +5,13 @@ import type { BridgeInfo } from '@luxfi/interchain-indexer-types';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
-interface Props extends JsxStyleProps {
+interface Props {
   data: BridgeInfo | undefined;
   isLoading?: boolean;
+  className?: string;
 }
 
-const CrossChainBridgeLink = ({ data, isLoading, ...rest }: Props) => {
+const CrossChainBridgeLink = ({ data, isLoading, className }: Props) => {
 
   if (!data) {
     return null;
@@ -19,14 +19,14 @@ const CrossChainBridgeLink = ({ data, isLoading, ...rest }: Props) => {
 
   if (data.ui_url) {
     return (
-      <Link href={ data.ui_url } external loading={ isLoading } { ...rest }>
+      <Link href={ data.ui_url } external loading={ isLoading } className={ className }>
         { data.name }
       </Link>
     );
   }
 
   return (
-    <Skeleton loading={ isLoading } { ...rest }>{ data.name }</Skeleton>
+    <Skeleton loading={ isLoading } className={ className }>{ data.name }</Skeleton>
   );
 };
 

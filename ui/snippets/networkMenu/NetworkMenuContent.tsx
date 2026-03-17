@@ -34,8 +34,8 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
             <Flex h="32px" w="105px" bgColor={{ base: 'blackAlpha.50', _dark: 'whiteAlpha.50' }} borderRadius="base" px={ 4 } py={ 2 }>
               <Skeleton loading h="16px" w="100%"/>
             </Flex>
-            <Skeleton loading h="16px" w="68px" mx={ 4 }/>
-            <Skeleton loading h="16px" w="45px" mx={ 4 }/>
+            <Skeleton loading className="mx-4" h="16px" w="68px"/>
+            <Skeleton loading className="mx-4" h="16px" w="45px"/>
           </Flex>
           <Flex mt={ 3 } flexDir="column" rowGap={ 2 }>
             <Flex mx={ 3 } my={ 2 } alignItems="center">
@@ -61,9 +61,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
         external
         noIcon
         variant="secondary"
-        my={ 2 }
-        px={ 2 }
-        fontSize="xs"
+        className="my-2 px-2 text-xs"
       >
         View all chains
       </Link>
@@ -113,7 +111,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
     return (
       <TabsRoot
         variant="segmented"
-        width="full"
+        className="w-full"
         fitted
         size="sm"
         lazyMount
@@ -121,11 +119,11 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
         onValueChange={ handleTabChange }
       >
         { tabs.length > 1 && (
-          <TabsList mb={ 2 } width="full">
+          <TabsList className="mb-2 w-full">
             { tabs.map((tab) => (
               <TabsTrigger
                 key={ tab }
-                textTransform="capitalize"
+                className="capitalize"
                 value={ tab }
               >
                 { tab }
@@ -135,7 +133,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
         ) }
         <Box>
           { tabs.map((tab) => (
-            <TabsContent key={ tab } value={ tab } p={ 0 }>
+            <TabsContent key={ tab } value={ tab } className="p-0">
               <VStack as="ul" gap={ 1 } alignItems="stretch" overflowY="scroll" maxH="516px">
                 { items
                   .filter((network) => network.group === tab)
@@ -155,7 +153,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
   })();
 
   return (
-    <PopoverContent w="290px" maxH="unset">
+    <PopoverContent style={{ width: '290px', maxHeight: 'unset' }}>
       <PopoverBody>
         { content }
       </PopoverBody>

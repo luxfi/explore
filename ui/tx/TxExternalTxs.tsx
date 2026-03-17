@@ -45,16 +45,12 @@ const TxExternalTxs: React.FC<Props> = ({ data }) => {
       content={ content }
       variant="popover"
       interactive
-      positioning={{ placement: 'bottom-end' }}
+      positioning={{ placement: 'bottom' }}
       openDelay={ 300 }
-      contentProps={{ w: { base: '300px', lg: '460px' } }}
+      contentProps={{ className: 'w-[300px] lg:w-[460px]' }}
     >
       <Link
-        display="inline-flex"
-        alignItems="center"
-        gap={ 2 }
-        textDecorationLine="underline"
-        textDecorationStyle="dashed"
+        className="inline-flex items-center gap-2 underline decoration-dashed"
       >
         <Image src={ externalTxFeature.chainLogoUrl } alt={ externalTxFeature.chainName } boxSize={ 5 }/>
         { `${ data.length } ${ externalTxFeature.chainName } txn${ data.length > 1 ? 's' : '' }` }

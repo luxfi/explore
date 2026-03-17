@@ -94,7 +94,7 @@ const SearchBarInput = (
 
   const endElement = (
     <>
-      <ClearButton onClick={ onClear } visible={ Boolean(value?.length) } mx={ 2 }/>
+      <ClearButton onClick={ onClear } visible={ Boolean(value?.length) } className="mx-2"/>
       { !isMobile && (
         <Center
           boxSize="20px"
@@ -128,19 +128,13 @@ const SearchBarInput = (
         endElement={ endElement }
       >
         <Input
-          size={{ base: isHeroBanner ? 'md' : 'sm', lg: 'md' }}
+          size={ isHeroBanner ? 'md' : 'sm' }
           placeholder={ getPlaceholder() }
           value={ value }
           onChange={ handleChange }
           onFocus={ onFocus }
           tabIndex={ readOnly ? -1 : 0 }
-          borderWidth={ isHeroBanner ? borderWidthHeroBanner : '2px' }
-          borderStyle="solid"
-          borderColor={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.200' }}
-          color={{ _light: 'black', _dark: 'white' }}
-          backgroundColor={{ base: isHeroBanner ? 'input.bg' : 'dialog.bg', lg: 'input.bg' }}
-          _hover={{ borderColor: 'input.border.hover' }}
-          _focusWithin={{ _placeholder: { color: 'gray.300' }, borderColor: 'input.border.focus', _hover: { borderColor: 'input.border.focus' } }}
+          className="border-2 border-solid border-[var(--color-input-border)] bg-[var(--color-input-bg)]"
           enterKeyHint="search"
         />
       </InputGroup>

@@ -1,4 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
 import { Box, chakra } from '@chakra-ui/react';
 import type BigNumber from 'bignumber.js';
 import React from 'react';
@@ -9,9 +8,11 @@ import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 import { DEFAULT_ACCURACY, formatBnValue } from './utils';
 
-const TOOLTIP_CONTENT_PROPS = { maxW: { base: 'calc(100vw - 8px)', lg: '400px' } };
+const TOOLTIP_CONTENT_PROPS = { className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' };
 
-export interface Props extends Omit<BoxProps, 'prefix' | 'postfix'> {
+export interface Props {
+  className?: string;
+  color?: string;
   value: BigNumber;
   accuracy?: number;
   prefix?: string;
@@ -23,6 +24,10 @@ export interface Props extends Omit<BoxProps, 'prefix' | 'postfix'> {
   loading?: boolean;
   overflowed?: boolean;
   tooltipContentBefore?: React.ReactNode;
+  // Legacy Chakra style-prop shims
+  fontSize?: string;
+  lineHeight?: string;
+  maxW?: string;
 }
 
 const SimpleValue = ({
@@ -37,6 +42,7 @@ const SimpleValue = ({
   noTooltip,
   loading,
   overflowed,
+  color,
   ...rest
 }: Props) => {
 
@@ -46,14 +52,14 @@ const SimpleValue = ({
         { tooltipContentBefore }
         <Box display="inline" whiteSpace="wrap" wordBreak="break-all">
           { prefix ?? '' }{ value.toFormat() }{ postfix ?? '' }
-          <CopyToClipboard text={ value.toFixed() } verticalAlign="bottom" noTooltip/>
+          <CopyToClipboard text={ value.toFixed() } className="align-bottom" noTooltip/>
         </Box>
       </>
     );
   }, [ postfix, prefix, value, tooltipContentBefore ]);
 
   return (
-    <Skeleton loading={ loading } display="inline-flex" alignItems="center" whiteSpace="pre" maxW="100%" overflow="hidden" { ...rest }>
+    <Skeleton loading={ loading } display="inline-flex" alignItems="center" color={ color } className="whitespace-pre max-w-full overflow-hidden" { ...rest }>
       { startElement }
       <Tooltip
         content={ tooltipContentProp ?? tooltipContent }

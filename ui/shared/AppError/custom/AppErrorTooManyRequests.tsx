@@ -123,7 +123,7 @@ const AppErrorTooManyRequests = ({ bypassOptions, reset }: Props) => {
         { text }
       </Text>
       <ReCaptcha { ...recaptcha }/>
-      { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } mt={ 8 }>I'm not a robot</Button> }
+      { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } className="mt-8">I'm not a robot</Button> }
     </>
   );
 };

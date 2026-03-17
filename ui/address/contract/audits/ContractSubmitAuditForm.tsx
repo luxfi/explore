@@ -104,9 +104,9 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
           <FormFieldText<Inputs>
             name="comment"
             placeholder="Comment"
-            maxH="160px"
             rules={{ maxLength: 300 }}
             asComponent="Textarea"
+            inputProps={{ style: { maxHeight: '160px' } }}
           />
         </VStack>
         <Button

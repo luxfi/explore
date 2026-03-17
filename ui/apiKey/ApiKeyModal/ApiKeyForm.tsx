@@ -98,7 +98,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
             name="token"
             placeholder="Auto-generated API key token"
             readOnly
-            mb={ 5 }
+            className="mb-5"
           />
         ) }
         <FormFieldText<Inputs>
@@ -108,8 +108,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
           rules={{
             maxLength: NAME_MAX_LENGTH,
           }}
-          bgColor="dialog.bg"
-          mb={ 8 }
+          className="mb-8 [&_input]:bg-[var(--color-dialog-bg)]"
         />
         <Box marginTop={ 8 }>
           <Button

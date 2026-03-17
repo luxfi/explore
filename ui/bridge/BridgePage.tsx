@@ -95,7 +95,7 @@ const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
     </Box>
     <Flex ml={{ base: 0, lg: 'auto' }} alignItems="center">
       { status === 'active' ? (
-        <Tag size="sm" variant="subtle" colorPalette="green">Active</Tag>
+        <Tag size="sm" variant="subtle" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Tag>
       ) : (
         <Tag size="sm" variant="subtle">Coming Soon</Tag>
       ) }

@@ -122,7 +122,7 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
       />
       <Box mb={ 6 }>
         Merits are awarded for a variety of different Lux Explorer activities. Connect a wallet to get started.
-        <Link external href="https://docs.lux.network/using-blockscout/merits" ml={ 1 } fontWeight="500">
+        <Link external href="https://docs.lux.network/using-blockscout/merits" className="ml-1 font-medium">
           More about Lux Explorer Merits
         </Link>
       </Box>
@@ -144,7 +144,7 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
               floating
               id="referral-code"
               size="lg"
-              mt={ 3 }
+              className="mt-3"
               invalid={ refCodeError }
               helperText="The code should be in format XXXXXX"
               errorText={ refCodeError ? 'Incorrect code or format (6 or 12 characters)' : undefined }
@@ -158,15 +158,13 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
         </Box>
       ) }
       { isAddressMismatch && (
-        <Alert status="warning" mb={ 4 }>
+        <Alert status="warning" className="mb-4">
           Your wallet address doesn{ apos }t match the one in your Lux Explorer account. Please connect the correct wallet.
         </Alert>
       ) }
       <Button
         variant="solid"
-        w="full"
-        whiteSpace="normal"
-        mb={ 4 }
+        className="w-full whitespace-normal mb-4"
         onClick={ handleButtonClick }
         loading={ isLoading || profileQuery.isLoading || checkUserQuery.isFetching }
         loadingText={ isLoading ? 'Sign message in your wallet' : undefined }

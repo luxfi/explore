@@ -53,7 +53,7 @@ const TokenTransferListItem = ({
                 noCopy
                 w="auto"
               />
-              <Badge flexShrink={ 0 } loading={ isLoading }>{ getTokenTypeName(token.type, chainData?.app_config) }</Badge>
+              <Badge className="shrink-0" loading={ isLoading }>{ getTokenTypeName(token.type, chainData?.app_config) }</Badge>
             </>
           ) }
           <Badge colorPalette="orange" loading={ isLoading }>{ getTokenTransferTypeText(type) }</Badge>
@@ -95,7 +95,7 @@ const TokenTransferListItem = ({
       />
       { total && 'value' in total && total.value !== null && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>Value</Skeleton>
+          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 } className="font-medium shrink-0">Value</Skeleton>
           <AssetValue
             amount={ total && 'value' in total && total.value !== null ? total.value : null }
             decimals={ total && 'decimals' in total ? total.decimals || '0' : '0' }
@@ -108,7 +108,7 @@ const TokenTransferListItem = ({
 
       { token && isConfidentialTokenType(token.type) && (!total || !('value' in total) || total.value === null) && (
         <Flex columnGap={ 2 } w="100%">
-          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }>Value</Skeleton>
+          <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 } className="font-medium shrink-0">Value</Skeleton>
           <ConfidentialValue loading={ isLoading } color="text.secondary"/>
         </Flex>
       ) }

@@ -19,26 +19,19 @@ const TableColumnFilterWrapper = ({ columnName, className, children, isLoading, 
     <PopoverRoot>
       <PopoverTrigger>
         <Button
-          display="inline-flex"
+          className="inline-flex h-5 min-w-0 rounded text-sm font-medium p-0 border-0"
           aria-label={ `filter by ${ columnName }` }
           variant="icon_secondary"
-          borderWidth="0"
-          h="20px"
-          minW="auto"
           disabled={ isLoading }
           selected={ selected }
-          borderRadius="4px"
           size="sm"
-          textStyle="sm"
-          fontWeight={ 500 }
-          padding={ 0 }
         >
-          <IconSvg name="filter" w="19px" h="19px"/>
+          <IconSvg name="filter" className="w-[19px] h-[19px]"/>
           { Boolean(value) && <chakra.span>{ value }</chakra.span> }
         </Button>
       </PopoverTrigger>
       <PopoverContent className={ className }>
-        <PopoverBody display="flex" flexDir="column" rowGap={ 3 }>
+        <PopoverBody className="flex flex-col gap-y-3">
           { children }
         </PopoverBody>
       </PopoverContent>

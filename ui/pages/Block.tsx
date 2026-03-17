@@ -181,11 +181,10 @@ const BlockPageContent = () => {
       { !config.UI.views.block.hiddenFields?.miner && blockQuery.data?.miner && (
         <Skeleton
           loading={ blockQuery.isPlaceholderData }
-          fontFamily="heading"
           display="flex"
           minW={ 0 }
-          columnGap={ 2 }
           fontWeight={ 500 }
+          className="font-heading gap-x-2"
         >
           <chakra.span flexShrink={ 0 }>
             { capitalize(getNetworkValidatorTitle()) }

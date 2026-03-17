@@ -1,4 +1,4 @@
-import { type ButtonProps } from '@chakra-ui/react';
+import type { ButtonProps } from 'toolkit/chakra/button';
 import { DynamicConnectButton, DynamicUserProfile, useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import React from 'react';
 
@@ -56,11 +56,12 @@ const UserProfile = ({ buttonSize, buttonVariant = 'header' }: Props) => {
 
   return (
     <DynamicConnectButton>
-      <UserProfileButton
-        as="div"
-        size={ buttonSize }
-        variant={ buttonVariant }
-      />
+      <div>
+        <UserProfileButton
+          size={ buttonSize }
+          variant={ buttonVariant }
+        />
+      </div>
     </DynamicConnectButton>
   );
 };

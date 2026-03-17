@@ -102,9 +102,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            gap={ 1 }
+            className="text-[var(--color-text-secondary)] text-xs gap-1"
             fallback={ data.source_transaction_hash ? <chakra.span color="text.secondary">{ mdash }</chakra.span> : null }
           />
         </VStack>
@@ -124,9 +122,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            gap={ 1 }
+            className="text-[var(--color-text-secondary)] text-xs gap-1"
             fallback={ data.destination_transaction_hash ? <chakra.span color="text.secondary">{ mdash }</chakra.span> : null }
           />
         </VStack>
@@ -136,13 +132,12 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
           <Link
             href={ route({ pathname: '/tx/[hash]', query: { hash: txHashWithTransfers, tab: 'token_transfers_cross_chain' } }) }
             loading={ isLoading }
-            lineHeight="24px"
-            minW="24px"
+            className="leading-6 min-w-6"
           >
             { data.transfers.length }
           </Link>
         ) : (
-          <Skeleton loading={ isLoading } color="text.secondary" lineHeight="24px">
+          <Skeleton loading={ isLoading } color="text.secondary" className="leading-6">
             <span>
               { data.transfers.length }
             </span>
@@ -178,11 +173,8 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
           { data.transfers.length > 1 && (
             <Link
               variant="secondary"
-              textDecorationStyle="dashed"
-              textDecorationLine="underline"
-              mt={ 2 }
               href={ route({ pathname: '/cross-chain-tx/[id]', query: { id: data.message_id, tab: 'transfers' } }) }
-              textStyle="xs"
+              className="decoration-dashed underline mt-2 text-xs"
             >
               View all
             </Link>
@@ -221,7 +213,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
         </VStack>
       </TableCell>
       <TableCell>
-        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } lineHeight="24px"/>
+        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>
       </TableCell>
     </TableRow>
   );

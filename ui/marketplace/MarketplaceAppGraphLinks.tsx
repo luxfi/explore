@@ -41,7 +41,7 @@ const MarketplaceAppGraphLinks = ({ className, links }: Props) => {
       <Tooltip
         variant="popover"
         content={ content }
-        positioning={{ placement: isMobile ? 'bottom-end' : 'bottom' }}
+        positioning={{ placement: 'bottom' }}
         interactive
       >
         <IconSvg name="brands/graph" boxSize={ 5 } onClick={ handleButtonClick }/>

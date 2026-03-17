@@ -67,7 +67,7 @@ const MultichainAccounts = () => {
         value={ chainValue }
         onValueChange={ onChainValueChange }
       />
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   );
 

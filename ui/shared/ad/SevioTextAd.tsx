@@ -3,6 +3,7 @@ import Script from 'next/script';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
 const adTextFeature = config.features.adsText;
@@ -82,8 +83,7 @@ const SevioTextAd = ({ className }: { className?: string }) => {
       { status === 'loading' && (
         <Skeleton
           loading
-          className={ className }
-          h={{ base: 12, lg: 6 }}
+          className={ cn(className, 'h-12 lg:h-6') }
           w="100%"
           flexGrow={ 1 }
           maxW="800px"

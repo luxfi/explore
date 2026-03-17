@@ -19,13 +19,13 @@ const MyProfileWallet = ({ profileQuery, onAddWallet }: Props) => {
 
   return (
     <section>
-      <Heading level="2" mb={ 3 }>My linked wallet</Heading>
+      <Heading level="2" className="mb-3">My linked wallet</Heading>
       <Text mb={ 3 } >
         This wallet address is used for login{ ' ' }
         { config.features.rewards.isEnabled && (
           <>
             and participation in the Merits Program.
-            <Link external href="https://docs.lux.network/using-blockscout/merits" ml={ 1 }>
+            <Link external href="https://docs.lux.network/using-blockscout/merits" className="ml-1">
               Learn more
             </Link>
           </>

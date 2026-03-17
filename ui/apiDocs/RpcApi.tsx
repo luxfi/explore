@@ -10,7 +10,7 @@ const RpcApi = () => {
         This API is provided for developers building applications on Lux Network requiring general API and data support.
         It supports GET and POST requests.
       </Text>
-      <Link href="https://docs.lux.network/api/rpc" external mt={ 6 }>View modules</Link>
+      <Link href="https://docs.lux.network/api/rpc" external className="mt-6">View modules</Link>
     </Box>
   );
 };

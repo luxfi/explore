@@ -93,8 +93,7 @@ const RestApi = () => {
             <CopyToClipboard
               text={ config.app.baseUrl + route({ pathname: '/api-docs', query: { tab: 'rest_api' }, hash: section.id }) }
               type="link"
-              ml={ 0 }
-              mr={ 1 }
+              className="ml-0 mr-1"
               as="div"
             />
             { section.title }

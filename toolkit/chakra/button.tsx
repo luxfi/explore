@@ -201,6 +201,27 @@ export interface ButtonProps
   readonly expanded?: boolean;
   readonly selected?: boolean;
   readonly highlighted?: boolean;
+  // Legacy Chakra style-prop shims
+  readonly mt?: number | string;
+  readonly ml?: number | string;
+  readonly mr?: number | string;
+  readonly px?: number | string;
+  readonly py?: number | string;
+  readonly fontWeight?: number | string;
+  readonly gap?: number | string;
+  readonly flexShrink?: number;
+  readonly columnGap?: number | string;
+  readonly gridColumn?: number | string;
+  readonly gridRow?: string;
+  readonly justifySelf?: string;
+  readonly alignSelf?: string;
+  readonly textStyle?: string;
+  readonly h?: string;
+  readonly w?: string;
+  readonly display?: string;
+  readonly borderBottomRightRadius?: number | string;
+  readonly borderTopRightRadius?: number | string;
+  readonly 'data-call-strategy'?: string;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -218,8 +239,38 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       highlighted,
       disabled,
       children,
+      style: styleProp,
+      // Strip Chakra style props
+      mt: _mt, ml: _ml, mr: _mr, px: _px, py: _py,
+      fontWeight: _fontWeight, gap: _gap, flexShrink: _flexShrink,
+      columnGap: _columnGap, gridColumn: _gridColumn, gridRow: _gridRow,
+      justifySelf: _justifySelf, alignSelf: _alignSelf, textStyle: _textStyle,
+      h: _h, w: _w, display: _display,
+      borderBottomRightRadius: _bbrr, borderTopRightRadius: _btrr,
       ...rest
     } = props;
+
+    const SP = 4;
+    const shimStyle: React.CSSProperties = { ...styleProp };
+    if (_mt !== undefined) shimStyle.marginTop = typeof _mt === 'number' ? `${ _mt * SP }px` : _mt;
+    if (_ml !== undefined) shimStyle.marginLeft = typeof _ml === 'number' ? `${ _ml * SP }px` : _ml;
+    if (_mr !== undefined) shimStyle.marginRight = typeof _mr === 'number' ? `${ _mr * SP }px` : _mr;
+    if (_px !== undefined) { const v = typeof _px === 'number' ? `${ _px * SP }px` : _px; shimStyle.paddingLeft = v; shimStyle.paddingRight = v; }
+    if (_py !== undefined) { const v = typeof _py === 'number' ? `${ _py * SP }px` : _py; shimStyle.paddingTop = v; shimStyle.paddingBottom = v; }
+    if (_fontWeight !== undefined) shimStyle.fontWeight = _fontWeight;
+    if (_gap !== undefined) shimStyle.gap = typeof _gap === 'number' ? `${ _gap * SP }px` : _gap;
+    if (_flexShrink !== undefined) shimStyle.flexShrink = _flexShrink;
+    if (_columnGap !== undefined) shimStyle.columnGap = typeof _columnGap === 'number' ? `${ _columnGap * SP }px` : _columnGap;
+    if (_gridColumn !== undefined) shimStyle.gridColumn = typeof _gridColumn === 'number' ? String(_gridColumn) : _gridColumn;
+    if (_gridRow) shimStyle.gridRow = _gridRow;
+    if (_justifySelf) shimStyle.justifySelf = _justifySelf;
+    if (_alignSelf) shimStyle.alignSelf = _alignSelf;
+    if (_h) shimStyle.height = _h;
+    if (_w) shimStyle.width = _w;
+    if (_display) shimStyle.display = _display;
+    if (_bbrr !== undefined) shimStyle.borderBottomRightRadius = typeof _bbrr === 'number' ? `${ _bbrr }px` : _bbrr;
+    if (_btrr !== undefined) shimStyle.borderTopRightRadius = typeof _btrr === 'number' ? `${ _btrr }px` : _btrr;
+    const mergedStyle = Object.keys(shimStyle).length > 0 ? shimStyle : undefined;
 
     const Comp = asChild ? Slot : 'button';
 
@@ -245,6 +296,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         ref={ ref }
         className={ cn(buttonVariants({ variant, size }), className) }
+        style={ mergedStyle }
         disabled={ isDisabled || undefined }
         { ...dataAttrs }
         { ...rest }

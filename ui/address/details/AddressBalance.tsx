@@ -80,7 +80,7 @@ const AddressBalance = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
         { isBalancePending ? (
-          <Skeleton loading={ isLoading } display="inline-flex" alignItems="center">
+          <Skeleton loading={ isLoading } className="inline-flex items-center">
             <NativeTokenIcon boxSize={ 5 } mr={ 2 }/>
             <Text color="text.secondary">Pending</Text>
           </Skeleton>

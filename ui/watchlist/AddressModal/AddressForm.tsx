@@ -119,7 +119,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
           name="address"
           required
           bgColor="dialog.bg"
-          mb={ 5 }
+          className="mb-5"
         />
         <FormFieldText<Inputs>
           name="tag"
@@ -129,7 +129,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
             maxLength: TAG_MAX_LENGTH,
           }}
           bgColor="dialog.bg"
-          mb={ 8 }
+          className="mb-8"
         />
         { hasEmail ? (
           <>
@@ -149,9 +149,8 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
         { !hasEmail && showEmailAlert ? (
           <Alert
             status="info"
-            descriptionProps={{ alignItems: 'center', gap: 2 }}
-            w="fit-content"
-            mb={ 6 }
+            descriptionProps={{ className: 'items-center gap-2' }}
+            className="w-fit mb-6"
           >
             To receive notifications you need to add an email to your profile.
           </Alert>
@@ -160,7 +159,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
           type="submit"
           loading={ pending }
           disabled={ !formApi.formState.isDirty }
-          mt={ 8 }
+          className="mt-8"
         >
           { !isAdd ? 'Save changes' : 'Add address' }
         </Button>

@@ -18,26 +18,15 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
   return (
     <MetadataAccordionItem
       value={ name }
-      flexDir={{ lg: 'column' }}
-      alignItems="stretch"
-      pl={{ base: 0, lg: 0 }}
-      py={ 0 }
+      className="lg:flex-col items-stretch pl-0 py-0"
     >
       <AccordionItemTrigger
-        px={ 0 }
-        py={ 2 }
-        _hover={{ bgColor: 'inherit' }}
-        fontSize="sm"
-        textAlign="left"
-        _expanded={{
-          borderColor: 'border.divider',
-          borderBottomWidth: '1px',
-        }}
+        className="px-0 py-2 hover:bg-inherit text-sm text-left data-[state=open]:border-[var(--color-border-divider)] data-[state=open]:border-b"
         indicatorPlacement="start"
       >
         <MetadataAccordionItemTitle name={ name }/>
       </AccordionItemTrigger>
-      <AccordionItemContent p={ 0 } ml={{ base: 6, lg: level === 0 ? '126px' : 6 }}>
+      <AccordionItemContent className={ `p-0 ${ level === 0 ? 'ml-6 lg:ml-[126px]' : 'ml-6' }` }>
         { value.map((item, index) => {
           const content = (() => {
             switch (typeof item) {

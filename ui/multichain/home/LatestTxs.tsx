@@ -21,7 +21,7 @@ const LatestTxs = () => {
     {
       id: 'cross_chain_txs',
       title: 'Cross-chain txns',
-      component: <EmptyState type="coming_soon" my={ 6 }/>,
+      component: <EmptyState type="coming_soon" className="my-6"/>,
     },
     {
       id: 'txs_local',
@@ -39,8 +39,7 @@ const LatestTxs = () => {
       loading={ false }
       value={ chainSelect.value }
       onValueChange={ chainSelect.onValueChange }
-      w="max-content"
-      ml={{ base: 'auto', lg: 0 }}
+      className="w-max ml-auto lg:ml-0"
     />
   ) : null;
 
@@ -52,7 +51,7 @@ const LatestTxs = () => {
       leftSlotProps={{ mr: 6 }}
       rightSlot={ rightSlot }
       rightSlotProps={{ ml: 6, widthAllocation: 'available' }}
-      my={ 8 }
+      className="my-8"
     />
   );
 };

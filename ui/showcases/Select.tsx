@@ -121,7 +121,7 @@ const SelectShowcase = () => {
               loadOptions={ () => {
                 return Promise.resolve(frameworks);
               } }
-              extraControls={ <Checkbox mt={ 2 } size="sm">Include nightly builds</Checkbox> }
+              extraControls={ <Checkbox className="mt-2" size="sm">Include nightly builds</Checkbox> }
             />
           </Sample>
         </SamplesStack>

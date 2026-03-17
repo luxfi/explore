@@ -42,18 +42,16 @@ const FormFieldSwitchContent = <
   }, [ field, onCheckedChange ],
   );
 
-  return (
-    <Switch
-      name={ field.name }
-      checked={ field.value }
-      onCheckedChange={ handleCheckedChange }
-      disabled={ formState.isSubmitting || disabled }
-      inputProps={{ onBlur: field.onBlur }}
-      { ...rest }
-    >
-      { placeholder }
-    </Switch>
-  );
+  const switchProps: SwitchProps = {
+    checked: field.value,
+    onCheckedChange: handleCheckedChange,
+    disabled: formState.isSubmitting || disabled,
+    inputProps: { onBlur: field.onBlur, name: field.name },
+    children: placeholder,
+    ...rest,
+  };
+
+  return <Switch { ...switchProps }/>;
 };
 
 export const FormFieldSwitch = React.memo(FormFieldSwitchContent) as typeof FormFieldSwitchContent;

@@ -116,7 +116,7 @@ const RewardsDashboard = () => {
             contentDirection="column-reverse"
             cardValueStyle={{ minH: { base: '64px', md: '116px' } }}
             contentAfter={ (
-              <Button mt={ 3 } onClick={ streakModal.onOpen } loading={ isBadgesLoading }>
+              <Button className="mt-3" onClick={ streakModal.onOpen } loading={ isBadgesLoading }>
                 Check achievements
               </Button>
             ) }
@@ -132,7 +132,7 @@ const RewardsDashboard = () => {
           </RewardsDashboardCard>
         </Flex>
         <RoutedTabs
-          w="full"
+          className="w-full"
           tabs={ [
             {
               id: 'activity',

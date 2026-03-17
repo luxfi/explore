@@ -50,8 +50,8 @@ const TokenSelect = () => {
   if (isPending) {
     return (
       <Flex columnGap={ 3 }>
-        <Skeleton loading h={ 8 } w="150px" borderRadius="base"/>
-        <Skeleton loading h={ 8 } w={ 9 } borderRadius="base"/>
+        <Skeleton loading={ true } h="32px" w="150px" borderRadius="base"/>
+        <Skeleton loading={ true } h="32px" w="36px" borderRadius="base"/>
       </Flex>
     );
   }
@@ -70,7 +70,6 @@ const TokenSelect = () => {
       <Tooltip content="Show all tokens">
         <Link
           href={ route({ pathname: '/address/[hash]', query: { hash: addressHash, tab: 'tokens' } }, { chain: multichainContext?.chain }) }
-          asChild
           scroll={ false }
         >
           <IconButton

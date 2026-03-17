@@ -5,6 +5,7 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import { getCurrentChain } from 'configs/app/chainRegistry';
+import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
@@ -25,16 +26,12 @@ interface NavLinkProps {
 const NavLinkItem = ({ text, href, isActive }: NavLinkProps) => (
   <Link
     href={ href }
-    px={ 2 }
-    py={ 1 }
-    textStyle="xs"
-    fontWeight={ isActive ? 600 : 500 }
-    borderRadius="sm"
-    color={ isActive ? 'text.primary' : 'text.secondary' }
-    _hover={{ color: 'text.primary', bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
-    textDecoration="none"
-    whiteSpace="nowrap"
-    transition="all 0.15s"
+    className={ cn(
+      'px-2 py-1 text-xs rounded-sm no-underline whitespace-nowrap transition-all duration-150',
+      'hover:text-[var(--color-text-primary)] hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+      isActive ? 'font-semibold text-[var(--color-text-primary)]' : 'font-medium text-[var(--color-text-secondary)]',
+    ) }
+    variant="plain"
   >
     { text }
   </Link>
@@ -169,8 +166,8 @@ const TopBar = () => {
                 >
                   <Link
                     href={ route({ pathname: item.pathname }) }
-                    textDecoration="none"
-                    _hover={{ textDecoration: 'none' }}
+                    className="no-underline hover:no-underline"
+                    variant="plain"
                   >
                     { item.text }
                   </Link>

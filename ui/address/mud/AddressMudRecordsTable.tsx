@@ -152,10 +152,7 @@ const AddressMudRecordsTable = ({
                       <Link
                         onClick={ onKeySortClick }
                         data-id={ index }
-                        display="flex"
-                        alignItems="start"
-                        lineHeight="20px"
-                        mr={ 2 }
+                        className="flex items-start leading-5 mr-2"
                       >
                         { sorting?.sort === `key${ index }` && sorting.order && (
                           <Box minW="24px" w="24px" mr={ 2 }>
@@ -200,9 +197,8 @@ const AddressMudRecordsTable = ({
                     <Link
                       onClick={ onRecordClick }
                       data-id={ item.id }
-                      fontWeight={ 700 }
+                      className="font-bold inline"
                       href={ route({ pathname: '/address/[hash]', query: { hash, tab: 'mud', table_id: data.table.table_id, record_id: item.id } }) }
-                      display="inline"
                     >
                       { getValueString(item.decoded[keyName]) }
                     </Link>

@@ -63,7 +63,7 @@ const Icon = (props: IconProps) => {
   const styles = getIconProps(props, Boolean(shield));
 
   if (props.isLoading) {
-    return <Skeleton { ...styles } loading borderRadius="full" flexShrink={ 0 }/>;
+    return <Skeleton boxSize={ styles.boxSize } marginRight={ String(styles.marginRight) } loading borderRadius="full" flexShrink={ 0 }/>;
   }
 
   if ('src' in props || 'name' in props) {
@@ -166,12 +166,12 @@ const Content = chakra((props: ContentProps) => {
     return (
       <Tooltip
         content={ label }
-        contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '400px' } }}
-        triggerProps={{ minW: 0 }}
+        contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[400px]' }}
+        triggerProps={{ className: 'min-w-0' }}
         interactive={ props.tooltipInteractive }
         disabled={ props.noTooltip }
       >
-        <Skeleton loading={ props.isLoading } overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" { ...styles }>
+        <Skeleton loading={ props.isLoading } overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" className={ styles?.className }>
           { nameText }
         </Skeleton>
       </Tooltip>

@@ -36,7 +36,7 @@ const ArbitrumL2TxnBatchDetailsCelestiaDA = ({ data }: Props) => {
         <Flex overflow="hidden" minW="0">
           <HashStringShortenDynamic hash={ data.transaction_commitment }/>
         </Flex>
-        <CopyToClipboard text={ data.transaction_commitment } mr={ 3 }/>
+        <CopyToClipboard text={ data.transaction_commitment } className="mr-3"/>
         { feature.isEnabled && feature.DA.celestia.namespace && (
           <CeleniumLink
             commitment={ data.transaction_commitment }

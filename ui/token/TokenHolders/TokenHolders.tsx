@@ -45,7 +45,7 @@ const TokenHolders = ({ holdersQuery, token, shouldRender = true, tabsHeight = T
           isLoading={ holdersQuery.pagination.isLoading }
         />
       ) }
-      <Pagination ml="auto" { ...holdersQuery.pagination }/>
+      <Pagination className="ml-auto" { ...holdersQuery.pagination }/>
     </ActionBar>
   );
 

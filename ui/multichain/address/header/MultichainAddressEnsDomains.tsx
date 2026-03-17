@@ -65,9 +65,7 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
               size="sm"
               variant="dropdown"
               aria-label="Address domains"
-              fontWeight={ 500 }
-              flexShrink={ 0 }
-              columnGap={ 1 }
+              className="font-medium shrink-0 gap-x-1"
               loadingSkeleton={ isLoading }
             >
               <IconSvg name="ENS" boxSize={ 5 }/>
@@ -77,8 +75,8 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
           </PopoverTrigger>
         </div>
       </Tooltip>
-      <PopoverContent w={{ lg: '500px' }} maxH="400px" overflowY="auto" ref={ rootRef }>
-        <PopoverBody textStyle="sm" display="flex" flexDir="column" rowGap={ 5 } alignItems="flex-start">
+      <PopoverContent className="lg:w-[500px] max-h-[400px] overflow-y-auto" ref={ rootRef }>
+        <PopoverBody className="text-sm flex flex-col gap-y-5 items-start">
           { mainDomain && (
             <Box w="100%">
               <chakra.span color="text.secondary" textStyle="xs">Primary*</chakra.span>

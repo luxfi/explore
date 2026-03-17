@@ -9,10 +9,13 @@ import { Checkbox, CheckboxGroup } from '../../../chakra/checkbox';
 export interface FormFieldCheckboxGroupProps<
   FormFields extends FieldValues,
   Name extends Path<FormFields> = Path<FormFields>,
-> extends Pick<FormFieldPropsBase<FormFields, Name>, 'rules' | 'name' | 'onChange' | 'readOnly' | 'controllerProps'>,
-  Omit<CheckboxGroupProps, 'name' | 'onChange'> {
+> extends Pick<FormFieldPropsBase<FormFields, Name>, 'rules' | 'name' | 'onChange' | 'controllerProps'> {
   options: Array<{ label: string; value: string }>;
   itemProps?: CheckboxProps;
+  readOnly?: boolean;
+  disabled?: boolean;
+  orientation?: 'vertical' | 'horizontal';
+  className?: string;
 }
 
 const FormFieldCheckboxGroupContent = <

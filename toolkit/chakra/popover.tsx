@@ -163,13 +163,26 @@ export const PopoverTrigger = React.forwardRef<
 export interface PopoverContentProps extends React.ComponentPropsWithoutRef<'div'> {
   readonly portalled?: boolean;
   readonly portalRef?: React.RefObject<HTMLElement>;
+  // Legacy Chakra style-prop shims
+  readonly w?: string | Record<string, string>;
+  readonly minW?: string;
+  readonly maxW?: string;
+  readonly paddingTop?: number | string;
 }
 
 export const PopoverContent = React.forwardRef<
   HTMLDivElement,
   PopoverContentProps
 >(function PopoverContent(props, ref) {
-  const { portalled = true, portalRef, className, ...rest } = props;
+  const { portalled = true, portalRef, className, w, minW, maxW, paddingTop, style: styleProp, ...rest } = props;
+  const resolvedW = typeof w === 'object' ? (w as Record<string, string>).base ?? (w as Record<string, string>).lg : w;
+  const contentStyle: React.CSSProperties = {
+    ...styleProp,
+    ...(resolvedW ? { width: resolvedW } : {}),
+    ...(minW ? { minWidth: minW } : {}),
+    ...(maxW ? { maxWidth: maxW } : {}),
+    ...(paddingTop !== undefined ? { paddingTop: typeof paddingTop === 'number' ? `${ paddingTop * 4 }px` : paddingTop } : {}),
+  };
   const positioning = React.useContext(PositioningContext);
 
   const preventFocus = React.useCallback((e: Event) => e.preventDefault(), []);
@@ -196,6 +209,7 @@ export const PopoverContent = React.forwardRef<
         'data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         className,
       ) }
+      style={ Object.keys(contentStyle).length > 0 ? contentStyle : undefined }
       { ...rest }
     />
   );
@@ -275,17 +289,41 @@ export const PopoverCloseTriggerWrapper = React.forwardRef<
 
 // --- Simple wrapper components ---
 
-export interface PopoverBodyProps extends React.ComponentPropsWithoutRef<'div'> {}
+export interface PopoverBodyProps extends React.ComponentPropsWithoutRef<'div'> {
+  // Legacy Chakra style-prop shims
+  readonly display?: string;
+  readonly flexDir?: string;
+  readonly rowGap?: number | string;
+  readonly px?: number | string;
+  readonly py?: number | string;
+  readonly textStyle?: string;
+  readonly alignItems?: string;
+}
 
 export const PopoverBody = React.forwardRef<
   HTMLDivElement,
   PopoverBodyProps
 >(function PopoverBody(props, ref) {
-  const { className, ...rest } = props;
+  const {
+    className, style: styleProp,
+    display: _display, flexDir: _flexDir, rowGap: _rowGap, px: _px, py: _py,
+    textStyle: _textStyle, alignItems: _alignItems,
+    ...rest
+  } = props;
+  const bodyStyle: React.CSSProperties = {
+    ...styleProp,
+    ...(_display ? { display: _display } : {}),
+    ...(_flexDir ? { flexDirection: _flexDir as React.CSSProperties['flexDirection'] } : {}),
+    ...(_rowGap !== undefined ? { rowGap: typeof _rowGap === 'number' ? `${ _rowGap * 4 }px` : _rowGap } : {}),
+    ...(_px !== undefined ? { paddingLeft: typeof _px === 'number' ? `${ _px * 4 }px` : _px, paddingRight: typeof _px === 'number' ? `${ _px * 4 }px` : _px } : {}),
+    ...(_py !== undefined ? { paddingTop: typeof _py === 'number' ? `${ _py * 4 }px` : _py, paddingBottom: typeof _py === 'number' ? `${ _py * 4 }px` : _py } : {}),
+    ...(_alignItems ? { alignItems: _alignItems } : {}),
+  };
   return (
     <div
       ref={ ref }
       className={ cn('p-4', className) }
+      style={ Object.keys(bodyStyle).length > 0 ? bodyStyle : undefined }
       { ...rest }
     />
   );

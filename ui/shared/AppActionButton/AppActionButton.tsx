@@ -58,10 +58,10 @@ const AppActionButton = ({ data, className, txHash, source }: Props) => {
       onClick={ handleClick }
       variant="underlaid"
       iconColor={ textColor }
-      color={ textColor }
-      bg={ bgColor }
-      _hover={{ color: textColor, opacity: textColor || bgColor ? 0.9 : 1 }}
-      _active={{ color: textColor, opacity: textColor || bgColor ? 0.9 : 1 }}
+      style={{
+        color: textColor || undefined,
+        backgroundColor: bgColor || undefined,
+      }}
     >
       { content }
     </Link>

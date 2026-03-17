@@ -1,4 +1,4 @@
-import { type ButtonProps } from '@chakra-ui/react';
+import type { ButtonProps } from 'toolkit/chakra/button';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -86,7 +86,7 @@ const UserProfileDesktop = ({ buttonSize, buttonVariant = 'header' }: Props) => 
           />
         </PopoverTrigger>
         { (profileQuery.data || web3Address) && profileMenu.open && (
-          <PopoverContent w="280px">
+          <PopoverContent className="w-[280px]">
             <PopoverBody>
               <UserProfileContent
                 data={ profileQuery.data }

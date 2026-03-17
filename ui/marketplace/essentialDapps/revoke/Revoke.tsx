@@ -157,7 +157,7 @@ const Revoke = () => {
                 key={ address }
                 variant="plain"
                 size="sm"
-                p={ 0 }
+                className="p-0"
                 onClick={ handleAddressClick(address) }
               >
                 <AddressEntity
@@ -179,7 +179,7 @@ const Revoke = () => {
                   <Button
                     variant="plain"
                     size="sm"
-                    p={ 0 }
+                    className="p-0"
                     onClick={ handleAddressClick(connectedAddress) }
                   >
                     <AddressEntity
@@ -201,7 +201,7 @@ const Revoke = () => {
                 onClick={ web3Wallet.connect }
                 loading={ web3Wallet.isOpen }
                 loadingText="Connect wallet"
-                flexShrink={ 0 }
+                className="shrink-0"
               >
                 Connect wallet
               </Button>

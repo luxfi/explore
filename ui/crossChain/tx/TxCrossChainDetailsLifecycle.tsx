@@ -36,7 +36,7 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
         <ItemContent isLast={ isLast }>
           <ItemBody>
             <ItemRow label="Chain">
-              <ChainLabel data={ data.source_chain } isLoading={ isLoading } py="6px"/>
+              <ChainLabel data={ data.source_chain } isLoading={ isLoading } className="py-1.5"/>
             </ItemRow>
             <ItemRow label="Transaction">
               <TxEntityInterchain
@@ -76,7 +76,7 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
         <ItemContent isLast>
           <ItemBody>
             <ItemRow label="Chain">
-              <ChainLabel data={ data.destination_chain } isLoading={ isLoading } py="6px"/>
+              <ChainLabel data={ data.destination_chain } isLoading={ isLoading } className="py-1.5"/>
             </ItemRow>
             <ItemRow label="Transaction">
               <TxEntityInterchain

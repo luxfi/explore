@@ -1,9 +1,9 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EntityTag as TEntityTag } from './types';
 
 import { useMultichainContext } from 'lib/contexts/multichain';
+import { cn } from 'lib/utils/cn';
 import * as mixpanel from 'lib/mixpanel/index';
 import { Link, LinkExternalIcon } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -13,15 +13,18 @@ import EntityTagIcon from './EntityTagIcon';
 import EntityTagTooltip from './EntityTagTooltip';
 import { getTagName, getTagLinkParams } from './utils';
 
-interface Props extends HTMLChakraProps<'span'> {
+interface Props {
   data: TEntityTag;
   addressHash?: string;
   isLoading?: boolean;
   noLink?: boolean;
   noColors?: boolean;
+  className?: string;
+  maxW?: string | Record<string, string>;
+  minW?: string;
 }
 
-const EntityTag = ({ data, addressHash, isLoading, noLink, noColors, ...rest }: Props) => {
+const EntityTag = ({ data, addressHash, isLoading, noLink, noColors, className, maxW: _maxW }: Props) => {
   const multichainContext = useMultichainContext();
 
   const linkParams = !noLink ? getTagLinkParams(data, multichainContext) : undefined;
@@ -59,18 +62,19 @@ const EntityTag = ({ data, addressHash, isLoading, noLink, noColors, ...rest }: 
         href={ linkParams?.href }
         onClick={ handleLinkClick }
         noIcon
-        cursor={ hasLink ? 'pointer' : 'default' }
-        { ...rest }
+        className={ cn(className, hasLink ? 'cursor-pointer' : 'cursor-default') }
       >
         <Tag
-          bg={ !noColors ? data.meta?.bgColor : undefined }
-          color={ !noColors ? data.meta?.textColor : undefined }
           startElement={ <EntityTagIcon data={ data } noColors={ noColors }/> }
           truncated
           endElement={ linkParams?.type === 'external' ? <LinkExternalIcon color={ iconColor }/> : null }
-          endElementProps={ linkParams?.type === 'external' ? { ml: -1 } : undefined }
-          _hover={ hasLink ? { opacity: 0.76 } : undefined }
+          endElementProps={ linkParams?.type === 'external' ? { className: '-ml-1' } : undefined }
+          className={ hasLink ? 'hover:opacity-76' : undefined }
           variant={ hasLink ? 'clickable' : 'subtle' }
+          style={{
+            backgroundColor: !noColors ? data.meta?.bgColor : undefined,
+            color: !noColors ? data.meta?.textColor : undefined,
+          }}
         >
           { text }
         </Tag>

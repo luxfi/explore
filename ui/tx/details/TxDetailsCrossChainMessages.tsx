@@ -50,8 +50,7 @@ const TxDetailsCrossChainMessages = ({ hash, isLoading: isLoadingProp }: Props) 
           renderItem={ renderItem }
           cutLength={ 5 }
           text={ [ 'View all messages', 'Hide all messages' ] }
-          py={ 1 }
-          rowGap="14px"
+          className="py-1 gap-y-3.5"
         />
       </DetailedInfo.ItemValue>
     </>

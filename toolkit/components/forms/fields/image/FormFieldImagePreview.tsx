@@ -24,7 +24,7 @@ export const FormFieldImagePreview = chakra(React.memo(({
   fallback: fallbackProp,
   colorMode,
 }: Props) => {
-  const skeleton = <Skeleton loading className={ [ className, colorMode === 'dark' ? 'dark' : undefined ].filter(Boolean).join(' ') } w="100%" h="100%"/>;
+  const skeleton = <Skeleton loading className={ [ 'w-full h-full', className, colorMode === 'dark' ? 'dark' : undefined ].filter(Boolean).join(' ') }/>;
 
   const fallback = (() => {
     if (src && !isInvalid) {

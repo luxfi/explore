@@ -35,14 +35,11 @@ const NovesFromTo: FC<Props> = ({ isLoaded, txData, currentAddress = '', item })
   const address = { hash: data.address || '', name: data.name || '' };
 
   return (
-    <Skeleton borderRadius="sm" loading={ !isLoaded }>
+    <Skeleton borderRadius="sm" loading={ !isLoaded } className="rounded-sm">
       <Box display="flex">
         <Badge
           colorPalette={ isSent ? 'yellow' : 'green' }
-          px={ 0 }
-          w="113px"
-          flexShrink={ 0 }
-          justifyContent="center"
+          className="px-0 w-[113px] shrink-0 justify-center"
         >
           { data.text }
         </Badge>

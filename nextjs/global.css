@@ -52,6 +52,28 @@
 
   --color-button-solid-bg: var(--color-button-solid-bg);
   --color-button-solid-text: var(--color-button-solid-text);
+  --color-button-outline-fg: var(--color-button-outline-fg);
+  --color-button-subtle-fg: var(--color-button-subtle-fg);
+  --color-button-subtle-bg: var(--color-button-subtle-bg);
+  --color-button-dropdown-fg: var(--color-button-dropdown-fg);
+  --color-button-dropdown-border: var(--color-button-dropdown-border);
+  --color-button-header-fg: var(--color-button-header-fg);
+  --color-button-header-fg-selected: var(--color-button-header-fg-selected);
+  --color-button-header-fg-highlighted: var(--color-button-header-fg-highlighted);
+  --color-button-header-border: var(--color-button-header-border);
+  --color-button-header-bg-selected: var(--color-button-header-bg-selected);
+  --color-button-header-bg-highlighted: var(--color-button-header-bg-highlighted);
+  --color-button-pagination-fg: var(--color-button-pagination-fg);
+  --color-button-pagination-border: var(--color-button-pagination-border);
+  --color-button-hero-bg: var(--color-button-hero-bg);
+  --color-button-hero-fg: var(--color-button-hero-fg);
+  --color-button-hero-bg-hover: var(--color-button-hero-bg-hover);
+  --color-button-hero-fg-hover: var(--color-button-hero-fg-hover);
+  --color-button-hero-bg-selected: var(--color-button-hero-bg-selected);
+  --color-button-hero-fg-selected: var(--color-button-hero-fg-selected);
+  --color-button-segmented-fg: var(--color-button-segmented-fg);
+  --color-button-icon-bg: var(--color-button-icon-bg);
+  --color-button-icon-background-bg: var(--color-button-icon-background-bg);
 
   --color-nav-bg-selected: var(--color-nav-bg-selected);
   --color-nav-text-selected: var(--color-nav-text-selected);
@@ -93,6 +115,57 @@
   --color-scrollbar-thumb: var(--color-scrollbar-thumb);
   --color-selection-bg: var(--color-selection-bg);
 
+  /* --- Tabs colors --- */
+  --color-tabs-solid-fg: var(--color-tabs-solid-fg);
+  --color-tabs-secondary-fg: var(--color-tabs-secondary-fg);
+  --color-tabs-secondary-border: var(--color-tabs-secondary-border);
+
+  /* --- Badge colors --- */
+  --color-badge-gray-bg: var(--color-badge-gray-bg);
+  --color-badge-gray-fg: var(--color-badge-gray-fg);
+  --color-badge-green-bg: var(--color-badge-green-bg);
+  --color-badge-green-fg: var(--color-badge-green-fg);
+  --color-badge-red-bg: var(--color-badge-red-bg);
+  --color-badge-red-fg: var(--color-badge-red-fg);
+  --color-badge-purple-bg: var(--color-badge-purple-bg);
+  --color-badge-purple-fg: var(--color-badge-purple-fg);
+  --color-badge-orange-bg: var(--color-badge-orange-bg);
+  --color-badge-orange-fg: var(--color-badge-orange-fg);
+  --color-badge-blue-bg: var(--color-badge-blue-bg);
+  --color-badge-blue-fg: var(--color-badge-blue-fg);
+  --color-badge-yellow-bg: var(--color-badge-yellow-bg);
+  --color-badge-yellow-fg: var(--color-badge-yellow-fg);
+  --color-badge-teal-bg: var(--color-badge-teal-bg);
+  --color-badge-teal-fg: var(--color-badge-teal-fg);
+  --color-badge-cyan-bg: var(--color-badge-cyan-bg);
+  --color-badge-cyan-fg: var(--color-badge-cyan-fg);
+  --color-badge-pink-bg: var(--color-badge-pink-bg);
+  --color-badge-pink-fg: var(--color-badge-pink-fg);
+  --color-badge-purple-alt-bg: var(--color-badge-purple-alt-bg);
+  --color-badge-purple-alt-fg: var(--color-badge-purple-alt-fg);
+  --color-badge-blue-alt-bg: var(--color-badge-blue-alt-bg);
+  --color-badge-blue-alt-fg: var(--color-badge-blue-alt-fg);
+  --color-badge-bright-gray-bg: var(--color-badge-bright-gray-bg);
+  --color-badge-bright-gray-fg: var(--color-badge-bright-gray-fg);
+  --color-badge-bright-green-bg: var(--color-badge-bright-green-bg);
+  --color-badge-bright-green-fg: var(--color-badge-bright-green-fg);
+  --color-badge-bright-red-bg: var(--color-badge-bright-red-bg);
+  --color-badge-bright-red-fg: var(--color-badge-bright-red-fg);
+  --color-badge-bright-blue-bg: var(--color-badge-bright-blue-bg);
+  --color-badge-bright-blue-fg: var(--color-badge-bright-blue-fg);
+  --color-badge-bright-yellow-bg: var(--color-badge-bright-yellow-bg);
+  --color-badge-bright-yellow-fg: var(--color-badge-bright-yellow-fg);
+  --color-badge-bright-teal-bg: var(--color-badge-bright-teal-bg);
+  --color-badge-bright-teal-fg: var(--color-badge-bright-teal-fg);
+  --color-badge-bright-cyan-bg: var(--color-badge-bright-cyan-bg);
+  --color-badge-bright-cyan-fg: var(--color-badge-bright-cyan-fg);
+  --color-badge-bright-orange-bg: var(--color-badge-bright-orange-bg);
+  --color-badge-bright-orange-fg: var(--color-badge-bright-orange-fg);
+  --color-badge-bright-purple-bg: var(--color-badge-bright-purple-bg);
+  --color-badge-bright-purple-fg: var(--color-badge-bright-purple-fg);
+  --color-badge-bright-pink-bg: var(--color-badge-bright-pink-bg);
+  --color-badge-bright-pink-fg: var(--color-badge-bright-pink-fg);
+
   /* --- Static palette colors --- */
   --color-gray-50: #FAFAFA;
   --color-gray-100: #F5F5F5;
@@ -115,6 +188,7 @@
   --color-red-100: #FED7D7;
   --color-red-200: #FEB2B2;
   --color-red-500: #E53E3E;
+  --color-red-600: #C53030;
   --color-red-800: #822727;
 
   --color-orange-50: #FFFAF0;
@@ -130,6 +204,14 @@
   --shadow-action-bar: var(--shadow-action-bar);
   --shadow-popover: var(--shadow-popover);
   --shadow-drawer: var(--shadow-drawer);
+
+  /* --- Animations --- */
+  --animate-skeleton-shimmer: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /*

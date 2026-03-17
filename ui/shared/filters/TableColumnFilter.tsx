@@ -1,8 +1,4 @@
-import {
-  chakra,
-  Flex,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -31,7 +27,7 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
             variant="link"
             onClick={ onReset }
             disabled={ !isFilled }
-            textStyle="sm"
+            className="text-sm"
           >
             Reset
           </Button>
@@ -42,7 +38,7 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
         <Button
           disabled={ !isTouched }
           onClick={ onFilterClick }
-          w="fit-content"
+          className="w-fit"
         >
           Filter
         </Button>
@@ -51,4 +47,4 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
   );
 };
 
-export default chakra(TableColumnFilter);
+export default TableColumnFilter;

@@ -196,7 +196,7 @@ const SearchResultsPageContent = () => {
           )) }
         </Box>
         <Box hideBelow="lg">
-          <TableRoot fontWeight={ 500 }>
+          <TableRoot className="font-medium">
             <TableHeaderSticky top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
               <TableRow>
                 <TableColumnHeader width="30%">Search result</TableColumnHeader>

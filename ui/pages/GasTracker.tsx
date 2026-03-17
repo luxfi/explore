@@ -56,13 +56,13 @@ const GasTracker = () => {
               key={ dataUpdatedAt }
               startTime={ dataUpdatedAt }
               duration={ data.gas_prices_update_in }
-              ml={ 2 }
+              className="ml-2"
             />
           ) }
         </Skeleton>
       ) }
       { data?.coin_price && (
-        <Skeleton loading={ isLoading } ml={{ base: 0, lg: 'auto' }} whiteSpace="pre" display="flex" alignItems="center">
+        <Skeleton loading={ isLoading } ml={ 0 } display="flex" alignItems="center" className="lg:ml-auto whitespace-pre">
           <NativeTokenIcon mr={ 2 } boxSize={ 6 }/>
           <chakra.span color="text.secondary">{ config.chain.currency.symbol }</chakra.span>
           <span> ${ Number(data.coin_price).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
@@ -88,7 +88,7 @@ const GasTracker = () => {
         secondRow={ titleSecondRow }
         withTextAd
       />
-      <Heading level="2" mt={ 8 } mb={ 4 }>{ `Track ${ config.chain.name } gas fees` }</Heading>
+      <Heading level="2" className="mt-8 mb-4">{ `Track ${ config.chain.name } gas fees` }</Heading>
       { snippets }
       { config.features.stats.isEnabled && (
         <Box mt={ 12 } _empty={{ display: 'none' }}>

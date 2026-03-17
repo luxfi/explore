@@ -51,7 +51,7 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
   return (
     <Box>
       { refetchStatus === 'ERROR' && (
-        <Alert status="warning" mb={ 6 } title="Oops!" display={{ base: 'block', lg: 'flex' }}>
+        <Alert status="warning" className="mb-6 block lg:flex" title="Oops!">
           <span>We { `couldn't` } refresh metadata. Please try again now or later.</span>
         </Alert>
       ) }
@@ -62,10 +62,9 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
           placeholder="Select type"
           value={ format }
           onValueChange={ handleValueChange }
-          ml={ 5 }
-          w="100px"
+          className="ml-5 w-[100px]"
         />
-        { format[0] === 'JSON' && <CopyToClipboard text={ JSON.stringify(data) } ml="auto"/> }
+        { format[0] === 'JSON' && <CopyToClipboard text={ JSON.stringify(data) } className="ml-auto"/> }
       </Flex>
       { content }
     </Box>

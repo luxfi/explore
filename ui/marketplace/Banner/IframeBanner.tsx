@@ -19,23 +19,16 @@ const IframeBanner = ({ contentUrl, linkUrl }: { contentUrl: string; linkUrl: st
   return (
     <Skeleton
       loading={ isFrameLoading }
-      position="relative"
+      className="relative overflow-hidden rounded-md"
       h="100px"
       w="100%"
-      borderRadius="md"
-      overflow="hidden"
     >
       <Link
         href={ linkUrl }
         external
         noIcon
         onClick={ handleClick }
-        position="absolute"
-        w="100%"
-        h="100%"
-        top={ 0 }
-        left={ 0 }
-        zIndex={ 1 }
+        className="absolute w-full h-full top-0 left-0 z-[1]"
       />
       <chakra.iframe
         h="100%"

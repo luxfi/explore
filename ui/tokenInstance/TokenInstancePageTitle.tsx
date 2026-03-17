@@ -53,13 +53,13 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
         new URL('https://' + instance.external_app_url);
 
       return (
-        <Link external href={ url.toString() } variant="underlaid" loading={ isLoading } ml={{ base: 0, lg: 'auto' }}>
+        <Link external href={ url.toString() } variant="underlaid" loading={ isLoading } className="ml-0 lg:ml-auto">
           { url.hostname || instance.external_app_url }
         </Link>
       );
     } catch (error) {
       return (
-        <Link external href={ instance.external_app_url } variant="underlaid" loading={ isLoading } ml={{ base: 0, lg: 'auto' }}>
+        <Link external href={ instance.external_app_url } variant="underlaid" loading={ isLoading } className="ml-0 lg:ml-auto">
           View in app
         </Link>
       );

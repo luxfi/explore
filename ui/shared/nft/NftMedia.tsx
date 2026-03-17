@@ -122,7 +122,7 @@ const NftMedia = ({ data, size = 'original', allowedTypes, isLoading, withFullsc
           >
             { content }
           </Box>
-          { isMediaLoading && <Skeleton loading position="absolute" left={ 0 } top={ 0 } w="100%" h="100%" zIndex="1"/> }
+          { isMediaLoading && <Skeleton loading={ true } className="absolute left-0 top-0 w-full h-full z-[1]"/> }
         </>
       </AspectRatio>
       { open && (

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -134,32 +133,32 @@ const ContractMethodFieldInputArray = ({
 
   // primitive value array
   return (
-    <Flex flexDir={{ base: 'column', md: 'row' }} alignItems="flex-start" columnGap={ 3 } px="6px">
+    <div className="flex flex-col md:flex-row items-start gap-x-3 px-1.5">
       { !isArrayElement && <ContractMethodFieldLabel data={ data } level={ level } isOptional={ registeredIndices.length === 1 }/> }
-      <Flex flexDir="column" rowGap={ 1 } w="100%">
+      <div className="flex flex-col gap-y-1 w-full">
         { registeredIndices.map((registeredIndex, index) => {
           const itemData = transformDataForArrayItem(data, index);
 
           return (
-            <Flex key={ registeredIndex } alignItems="flex-start" columnGap={ 2 }>
+            <div key={ registeredIndex } className="flex items-start gap-x-2">
               <ContractMethodFieldInput
                 data={ itemData }
                 hideLabel
                 path={ `${ basePath }:${ index }` }
                 level={ level }
-                px={ 0 }
+                className="px-0"
                 isDisabled={ isDisabled }
                 isOptional={ registeredIndices.length === 1 }
               />
               { !hasFixedSize && registeredIndices.length > 1 &&
-                <ArrayButton index={ registeredIndex } onClick={ handleRemoveButtonClick } type="remove" my="6px"/> }
+                <ArrayButton index={ registeredIndex } onClick={ handleRemoveButtonClick } type="remove" className="my-1.5"/> }
               { !hasFixedSize && index === registeredIndices.length - 1 &&
-                <ArrayButton index={ registeredIndex } onClick={ handleAddButtonClick } type="add" my="6px"/> }
-            </Flex>
+                <ArrayButton index={ registeredIndex } onClick={ handleAddButtonClick } type="add" className="my-1.5"/> }
+            </div>
           );
         }) }
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

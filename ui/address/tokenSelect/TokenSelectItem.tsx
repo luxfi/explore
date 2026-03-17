@@ -103,18 +103,7 @@ const TokenSelectItem = ({ data }: Props) => {
 
   return (
     <Link
-      px={ 1 }
-      py="10px"
-      display="flex"
-      flexDir="column"
-      rowGap={ 2 }
-      borderColor="border.divider"
-      borderBottomWidth="1px"
-      _hover={{
-        bgColor: { _light: 'blue.50', _dark: 'gray.800' },
-      }}
-      color="unset"
-      fontSize="sm"
+      className="px-1 py-2.5 flex flex-col gap-y-2 border-b border-[var(--color-border-divider)] hover:bg-blue-50 dark:hover:bg-gray-800 text-inherit text-sm"
       href={ url }
     >
       <Flex alignItems="center" w="100%">
@@ -128,15 +117,11 @@ const TokenSelectItem = ({ data }: Props) => {
           width="auto"
           mr={ 2 }
         />
-        { isNativeToken && <NativeTokenTag mr={ 2 }/> }
+        { isNativeToken && <NativeTokenTag className="mr-2"/> }
         { data.usd && (
           <TruncatedText
             text={ `$${ data.usd.toFormat(2) }` }
-            fontWeight={ 700 }
-            minW="120px"
-            ml="auto"
-            textAlign="right"
-            color={ isNativeToken ? 'text.secondary' : undefined }
+            className={ `font-bold min-w-[120px] ml-auto text-right ${ isNativeToken ? 'text-[var(--color-text-secondary)]' : '' }` }
           />
         ) }
       </Flex>

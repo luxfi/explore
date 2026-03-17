@@ -25,7 +25,7 @@ const EpochsPageContent = () => {
 
   const actionBar = epochsQuery.pagination.isVisible ? (
     <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...epochsQuery.pagination }/>
+      <Pagination className="ml-auto" { ...epochsQuery.pagination }/>
     </ActionBar>
   ) : null;
 

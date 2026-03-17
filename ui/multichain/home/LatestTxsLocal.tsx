@@ -50,10 +50,7 @@ const LatestTxsLocal = () => {
       <Separator orientation="horizontal" hideFrom="lg"/>
       <Link
         href={ route({ pathname: '/txs', query: { chain_id: chain?.id, tab: 'txs_local' } }) }
-        w="full"
-        justifyContent="center"
-        textStyle="sm"
-        mt={ 3 }
+        className="w-full justify-center text-sm mt-3"
       >
         View all transactions
       </Link>

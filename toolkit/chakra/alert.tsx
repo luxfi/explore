@@ -81,6 +81,9 @@ export interface AlertProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 
     whiteSpace?: string;
     alignItems?: string;
     flexDir?: string;
+    flexWrap?: string;
+    rowGap?: number | string;
+    columnGap?: number | string;
   };
   readonly title?: React.ReactNode;
   readonly icon?: React.ReactElement;
@@ -162,6 +165,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     const {
       className: descClassName, whiteSpace: descWhiteSpace,
       alignItems: descAlignItems, flexDir: descFlexDir,
+      flexWrap: descFlexWrap, rowGap: descRowGap, columnGap: descColumnGap,
       style: descStyleProp, ...descRest
     } = descriptionProps ?? {};
     const descStyle: React.CSSProperties = {
@@ -169,6 +173,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
       ...(descWhiteSpace ? { whiteSpace: descWhiteSpace as React.CSSProperties['whiteSpace'] } : {}),
       ...(descAlignItems ? { alignItems: descAlignItems } : {}),
       ...(descFlexDir ? { flexDirection: descFlexDir as React.CSSProperties['flexDirection'] } : {}),
+      ...(descFlexWrap ? { flexWrap: descFlexWrap as React.CSSProperties['flexWrap'] } : {}),
+      ...(descRowGap !== undefined ? { rowGap: typeof descRowGap === 'number' ? `${ descRowGap * 4 }px` : descRowGap } : {}),
+      ...(descColumnGap !== undefined ? { columnGap: typeof descColumnGap === 'number' ? `${ descColumnGap * 4 }px` : descColumnGap } : {}),
     };
 
     return (

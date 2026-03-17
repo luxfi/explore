@@ -37,7 +37,7 @@ const BlocksTabSlot = ({ pagination }: Props) => {
             Network utilization (last 50 blocks):{ nbsp }
           </Text>
           <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
-            <Skeleton display="inline-block" fontSize="sm" color={ networkUtilization.color } fontWeight={ 600 } loading={ statsQuery.isPlaceholderData }>
+            <Skeleton display="inline-block" color={ networkUtilization.color } fontWeight={ 600 } loading={ statsQuery.isPlaceholderData } className="text-sm">
               <span>{ statsQuery.data.network_utilization_percentage.toFixed(2) }%</span>
             </Skeleton>
           </Tooltip>
@@ -47,7 +47,7 @@ const BlocksTabSlot = ({ pagination }: Props) => {
         <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
         <span>Block countdown</span>
       </Link>
-      { pagination && <Pagination my={ 1 } { ...pagination }/> }
+      { pagination && <Pagination className="my-1" { ...pagination }/> }
     </Flex>
   );
 };

@@ -1,9 +1,9 @@
 import { Box, chakra, Flex } from '@chakra-ui/react';
-import type { IconProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
 
+import { cn } from 'lib/utils/cn';
 import type { ImageProps } from 'toolkit/chakra/image';
 import { Image } from 'toolkit/chakra/image';
 import type { LinkProps } from 'toolkit/chakra/link';
@@ -95,7 +95,23 @@ const Link = chakra(({ isLoading, children, external, onClick, href, noLink, var
   );
 });
 
-type EntityIconProps = (ImageProps | IconSvgProps) & Pick<IconProps, 'color' | 'borderRadius' | 'marginRight' | 'boxSize'> & {
+// Common props for entity icons (Image or IconSvg based)
+type EntityIconCommonProps = {
+  src?: string;
+  alt?: string;
+  fallback?: React.ReactNode;
+  name?: IconSvgProps['name'];
+  className?: string;
+};
+
+type EntityIconProps = EntityIconCommonProps & {
+  color?: string;
+  borderRadius?: string | number;
+  marginRight?: string | number;
+  boxSize?: string | number;
+  mr?: string | number;
+  flexShrink?: number;
+  minW?: number;
   shield?: IconShieldProps | false;
   hint?: string;
   hintPostfix?: string;
@@ -116,9 +132,9 @@ const Icon = (props: IconBaseProps) => {
 
   const iconElement = (() => {
     const commonProps = {
-      marginRight: styles.marginRight,
+      marginRight: String(styles.marginRight),
       boxSize: boxSize ?? styles.boxSize,
-      borderRadius: borderRadius ?? 'base',
+      borderRadius: String(borderRadius ?? 'base'),
       flexShrink: 0,
       minW: 0,
     };
@@ -128,17 +144,27 @@ const Icon = (props: IconBaseProps) => {
     }
 
     if ('src' in props) {
-      return <Image { ...commonProps } { ...rest }/>;
+      return (
+        <Image
+          src={ rest.src }
+          alt={ rest.alt }
+          fallback={ rest.fallback }
+          className={ rest.className }
+          marginRight={ commonProps.marginRight as string }
+          boxSize={ commonProps.boxSize as string }
+          borderRadius={ commonProps.borderRadius as string }
+          flexShrink={ commonProps.flexShrink }
+        />
+      );
     }
-
-    const svgProps = rest as IconSvgProps;
 
     return (
       <IconSvg
         display="block"
         color={ color ?? 'icon.primary' }
+        name={ rest.name! }
+        className={ rest.className }
         { ...commonProps }
-        { ...svgProps }
       />
     );
   })();
@@ -171,7 +197,7 @@ const IconShield = (props: IconShieldProps) => {
   const { variant, ...rest } = props;
 
   const styles = {
-    position: 'absolute',
+    position: 'absolute' as const,
     top: variant === 'heading' ? '14px' : '6px',
     left: variant === 'heading' ? '18px' : '12px',
     boxSize: '18px',
@@ -269,12 +295,11 @@ const Content = chakra(({
 
   return (
     <Skeleton
-      className={ className }
+      className={ cn(className, styles?.className) }
       loading={ isLoading }
       overflow="hidden"
       whiteSpace="nowrap"
       w={ !noLink ? '100%' : undefined }
-      { ...styles }
     >
       { children }
     </Skeleton>

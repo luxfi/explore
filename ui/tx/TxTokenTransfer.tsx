@@ -140,13 +140,13 @@ const TxTokenTransfer = ({ txQuery, tokenTransferFilter, noCrossChain }: Props) 
             isLoading={ txQuery.isPlaceholderData || localQuery.isPlaceholderData }
             chainConfig={ multichainContext?.chain?.app_config }
           />
-          <Pagination ml="auto" { ...localQuery.pagination }/>
+          <Pagination className="ml-auto" { ...localQuery.pagination }/>
         </>
       );
     }
 
     return (
-      <Pagination ml="auto" { ...crossChainQuery.pagination }/>
+      <Pagination className="ml-auto" { ...crossChainQuery.pagination }/>
     );
   })();
 

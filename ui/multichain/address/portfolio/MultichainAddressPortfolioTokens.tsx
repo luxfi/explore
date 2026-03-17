@@ -179,7 +179,7 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
 
   const searchInput = (
     <FilterInput
-      w={{ base: '100%', lg: '350px' }}
+      className="w-full lg:w-[350px]"
       size="sm"
       onChange={ handleSearchTermChange }
       placeholder="Filter by token name or symbol"
@@ -218,7 +218,7 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
           <Box hideBelow="lg">
             { searchInput }
           </Box>
-          <Pagination ml="auto" { ...tokensQuery.pagination }/>
+          <Pagination className="ml-auto" { ...tokensQuery.pagination }/>
         </ActionBar>
       ) }
     </>

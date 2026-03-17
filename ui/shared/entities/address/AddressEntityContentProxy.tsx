@@ -57,7 +57,7 @@ const AddressEntityContentProxy = (props: ContentProps) => {
   );
 
   return (
-    <Tooltip content={ content } interactive contentProps={{ maxW: { base: 'calc(100vw - 8px)', lg: '410px' } }} triggerProps={{ minW: 0 }}>
+    <Tooltip content={ content } interactive contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[410px]' }} triggerProps={{ className: 'min-w-0' }}>
       <Box display="inline-flex" w="100%">
         <EntityBase.Content
           { ...props }

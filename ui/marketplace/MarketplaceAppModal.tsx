@@ -130,14 +130,13 @@ const MarketplaceAppModal = ({
           <Flex alignItems="center" mb={{ md: 2 }} gridColumn={ 2 }>
             <Heading
               level="2"
-              fontWeight="medium"
-              mr={ 2 }
+              className="font-medium mr-2"
             >
               { title }
             </Heading>
             <MarketplaceAppIntegrationIcon external={ external } internalWallet={ internalWallet }/>
             <MarketplaceAppGraphLinks links={ graphLinks } ml={ 2 }/>
-            <DialogCloseTrigger ml="auto"/>
+            <DialogCloseTrigger className="ml-auto"/>
           </Flex>
 
           <Text
@@ -163,7 +162,7 @@ const MarketplaceAppModal = ({
                 userRating={ userRating }
                 fullView
                 source="App modal"
-                popoverContentProps={{ zIndex: 'modal' }}
+                popoverContentProps={{ className: 'z-[1400]' }}
               />
             </Box>
           ) }
@@ -196,25 +195,19 @@ const MarketplaceAppModal = ({
                   type="share"
                   variant="icon_background"
                   size="md"
-                  ml={ 0 }
-                  boxSize={ 8 }
-                  borderRadius="base"
+                  className="ml-0 rounded-[var(--radius-base,8px)]"
                 />
               </Flex>
             </Flex>
           </Box>
         </Box>
 
-        <DialogBody mb={ 6 }>
+        <DialogBody className="mb-6">
           <Text>{ description }</Text>
         </DialogBody>
 
         <DialogFooter
-          display="flex"
-          flexDirection={{ base: 'column', md: 'row' }}
-          justifyContent={{ base: 'flex-start', md: 'space-between' }}
-          alignItems="flex-start"
-          gap={ 3 }
+          className="flex flex-col md:flex-row justify-start md:justify-between items-start gap-3"
         >
           <Flex gap={ 2 } flexWrap="wrap">
             { categories.map((category) => (
@@ -232,9 +225,7 @@ const MarketplaceAppModal = ({
               <Link
                 external
                 href={ site }
-                display="flex"
-                alignItems="center"
-                textStyle="sm"
+                className="flex items-center text-sm"
               >
                 <IconSvg
                   name="link"
@@ -261,12 +252,9 @@ const MarketplaceAppModal = ({
                 title={ url }
                 key={ url }
                 href={ url }
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
+                className="flex items-center justify-center shrink-0"
                 external
                 noIcon
-                flexShrink={ 0 }
               >
                 <IconSvg
                   name={ icon }

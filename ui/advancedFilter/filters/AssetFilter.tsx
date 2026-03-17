@@ -113,7 +113,7 @@ const AssetFilter = ({ value = [], handleFilterChange }: Props) => {
             portalled={ false }
             w="105px"
             minW="105px"
-            mr={ 3 }
+            className="mr-3"
           />
           <TokenEntity.default token={ item.token } noLink noCopy flexGrow={ 1 }/>
           <ClearButton onClick={ handleRemove(index) }/>
@@ -150,9 +150,7 @@ const AssetFilter = ({ value = [], handleFilterChange }: Props) => {
                 value={ token.address_hash }
                 id={ token.address_hash }
                 onChange={ onTokenClick(token) }
-                overflow="hidden"
-                w="100%"
-                pl={ 1 }
+                className="overflow-hidden w-full pl-1"
               >
                 <TokenEntity.default token={ token } noLink noCopy/>
               </Checkbox>

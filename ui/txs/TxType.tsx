@@ -31,7 +31,7 @@ const TxType = ({ types, isLoading, ...rest }: Props) => {
     );
   }
 
-  const typeToShow = [...types].sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
+  const typeToShow = [ ...types ].sort((t1, t2) => TYPES_ORDER.indexOf(t1) - TYPES_ORDER.indexOf(t2))[0];
 
   let label;
   let colorPalette: BadgeProps['colorPalette'];

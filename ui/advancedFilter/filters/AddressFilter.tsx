@@ -69,23 +69,22 @@ const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onC
         onValueChange={ onModeChange }
         portalled={ false }
         w="105px"
-        flexShrink={ 0 }
-        mr={ 3 }
+        className="shrink-0 mr-3"
       />
       <Field
-        flexGrow={ 1 }
+        className="grow"
         invalid={ isInvalid }
         errorText="Invalid address format"
       >
         <InputGroup
-          endElement={ <ClearButton onClick={ onClear } mx={ 2 } disabled={ !address }/> }
+          endElement={ <ClearButton onClick={ onClear } className="mx-2" disabled={ !address }/> }
         >
           <Input value={ address } onChange={ onChange } onBlur={ onBlur } placeholder="Smart contract / Address (0x...)*" size="sm" autoComplete="off"/>
         </InputGroup>
       </Field>
       { isLast && (
         <AddButton
-          ml={ 2 }
+          className="ml-2"
           onClick={ onAddFieldClick }
         />
       ) }

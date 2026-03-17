@@ -50,7 +50,7 @@ const TxDetailsTacOperation = ({ tacOperations, isLoading, txHash }: Props) => {
               { tags.length > 0 && (
                 <HStack flexShrink={ 0 } flexWrap="wrap" my={{ base: '3px', lg: 0 }}>
                   <TacOperationStatus status={ tacOperation.type } isLoading={ isLoading }/>
-                  { tags.map((tag) => <Tag key={ tag } loading={ isLoading } flexShrink={ 0 }>{ tag }</Tag>) }
+                  { tags.map((tag) => <Tag key={ tag } loading={ isLoading } className="shrink-0">{ tag }</Tag>) }
                 </HStack>
               ) }
             </HStack>

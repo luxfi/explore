@@ -50,7 +50,7 @@ const TxState = ({ txQuery }: Props) => {
 
   const actionBar = pagination.isVisible ? (
     <ActionBar mt={ -6 } showShadow>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 

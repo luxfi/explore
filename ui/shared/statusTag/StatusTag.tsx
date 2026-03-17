@@ -42,7 +42,7 @@ const StatusTag = ({ type, text, errorText, mode = 'full', ...rest }: Props) => 
     const tooltipContent = errorText || capitalizedText;
     return (
       <Tooltip content={ tooltipContent } disabled={ !tooltipContent }>
-        <Badge colorPalette={ colorPalette } startElement={ iconElement } px="7px" { ...rest }/>
+        <Badge colorPalette={ colorPalette } startElement={ iconElement } className="px-[7px]" { ...rest }/>
       </Tooltip>
     );
   }

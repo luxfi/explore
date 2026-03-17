@@ -101,7 +101,7 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
         return <BlobDataImage src={ imgSrc }/>;
       }
       case 'UTF-8':
-        return <RawDataSnippet data={ hexToUtf8(data) } showCopy={ false } isLoading={ isLoading } contentProps={{ wordBreak: 'break-word' }} w="100%"/>;
+        return <RawDataSnippet data={ hexToUtf8(data) } showCopy={ false } isLoading={ isLoading } contentProps={{ className: 'break-words' }} w="100%"/>;
       case 'Base64':
         return <RawDataSnippet data={ hexToBase64(data) } showCopy={ false } isLoading={ isLoading } w="100%"/>;
       case 'Raw':

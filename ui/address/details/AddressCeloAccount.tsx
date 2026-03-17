@@ -27,7 +27,7 @@ const AddressCeloAccount = ({ isLoading, data }: Props) => {
         Celo account
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow>
-        { data.name && <TruncatedText text={ data.name } mr={ 3 }/> }
+        { data.name && <TruncatedText text={ data.name } className="mr-3"/> }
         <DetailedInfoItemBreakdown.Container loading={ isLoading }>
           <DetailedInfoItemBreakdown.Row
             label="Type"

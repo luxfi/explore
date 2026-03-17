@@ -67,7 +67,7 @@ const ChainSwitcher = () => {
         </Box>
       </PopoverTrigger>
       <PopoverContent w="240px">
-        <PopoverBody p={ 1 }>
+        <PopoverBody className="p-1">
           <Box px={ 2 } py={ 1.5 }>
             <Text fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider">
               Switch Chain
@@ -125,7 +125,7 @@ const ChainSwitcher = () => {
             );
           }) }
           <Box px={ 2 } py={ 1.5 } borderTop="1px solid" borderColor="border.divider" mt={ 1 }>
-            <Link href="/chains" textStyle="xs" color="text.secondary" _hover={{ color: 'text.primary' }}>
+            <Link href="/chains" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]" variant="plain">
               View all chains
             </Link>
           </Box>

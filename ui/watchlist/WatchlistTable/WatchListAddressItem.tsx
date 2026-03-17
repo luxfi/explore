@@ -47,7 +47,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
           token={ nativeTokenData }
           isLoading={ isLoading }
         />
-        <Skeleton loading={ isLoading } whiteSpace="pre" display="inline-flex">
+        <Skeleton loading={ isLoading } className="whitespace-pre inline-flex">
           <span>{ currencyUnits.ether } balance: </span>
           <NativeCoinValue
             amount={ item.address_balance }
@@ -78,8 +78,8 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
           accuracy={ DEFAULT_ACCURACY_USD }
           loading={ isLoading }
           overflowed={ item.tokens_overflow }
-          pl={ 7 }
           fontSize="sm"
+          className="pl-7"
         />
       ) }
     </VStack>

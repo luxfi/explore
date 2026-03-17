@@ -74,8 +74,7 @@ const NameDomain = () => {
           />
           <Tooltip content="Lookup for related domain names">
             <Link
-              flexShrink={ 0 }
-              display="inline-flex"
+              className="shrink-0 inline-flex"
               href={ route({
                 pathname: '/name-services',
                 query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: infoQuery.data?.resolved_address?.hash },

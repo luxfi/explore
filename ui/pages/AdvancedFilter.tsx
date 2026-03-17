@@ -206,10 +206,7 @@ const AdvancedFilter = () => {
                       minW={ column.width }
                       maxW={ column.width }
                       w={ column.width }
-                      wordBreak="break-word"
-                      whiteSpace="nowrap"
-                      overflow="hidden"
-                      textAlign={ textAlign }
+                      className={ `break-words whitespace-nowrap overflow-hidden text-${ textAlign }` }
                     >
                       <ItemByColumn
                         item={ item }
@@ -232,7 +229,7 @@ const AdvancedFilter = () => {
     <ActionBar mt={ -6 }>
       <ExportCSV filters={ filters }/>
       <ColumnsButton columns={ columns } onChange={ setColumns }/>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   );
 
@@ -245,7 +242,7 @@ const AdvancedFilter = () => {
       <Flex mb={ 4 } justifyContent="space-between" alignItems="start">
         <Text fontSize="lg" mr={ 3 } lineHeight="24px" w="100px">Filtered by:</Text>
         { filterTags.length !== 0 && (
-          <Link onClick={ clearAllFilters } display="flex" alignItems="center" justifyContent="end" gap={ 2 } fontSize="sm" w="150px">
+          <Link onClick={ clearAllFilters } className="flex items-center justify-end gap-2 text-sm w-[150px]">
             <IconSvg name="repeat" boxSize={ 5 }/>
             Reset filters
           </Link>

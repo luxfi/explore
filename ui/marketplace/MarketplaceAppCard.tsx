@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
 
+import { cn } from 'lib/utils/cn';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
 import { IconButton } from 'toolkit/chakra/icon-button';
 import { Image } from 'toolkit/chakra/image';
@@ -64,17 +65,11 @@ const MarketplaceAppCard = ({
 
   return (
     <LinkBox
-      className={ className }
-      _hover={{
-        boxShadow: isLoading ? 'none' : 'md',
-      }}
-      _focusWithin={{
-        boxShadow: isLoading ? 'none' : 'md',
-      }}
-      borderRadius="base"
-      padding={ 3 }
-      borderWidth="1px"
-      borderColor={{ _light: 'blackAlpha.300', _dark: 'whiteAlpha.300' }}
+      className={ cn(
+        'rounded-[var(--radius-base,8px)] p-3 border border-solid border-black/30 dark:border-white/30',
+        !isLoading && 'hover:shadow-md focus-within:shadow-md',
+        className,
+      ) }
     >
       <Flex
         flexDirection="column"
@@ -125,8 +120,7 @@ const MarketplaceAppCard = ({
             <Skeleton
               loading={ isLoading }
               color="text.secondary"
-              fontSize="xs"
-              lineHeight="16px"
+              className="text-xs leading-4"
             >
               <span>{ categoriesLabel }</span>
             </Skeleton>
@@ -150,10 +144,7 @@ const MarketplaceAppCard = ({
             h="30px"
           >
             <Link
-              textStyle="sm"
-              fontWeight="500"
-              paddingRight={ 3 }
-              h="full"
+              className="text-sm font-medium pr-3 h-full"
               href="#"
               onClick={ handleInfoClick }
             >
@@ -184,9 +175,7 @@ const MarketplaceAppCard = ({
                   type="share"
                   variant="icon_background"
                   size="md"
-                  borderRadius="base"
-                  ml={ 0 }
-                  boxSize={ 8 }
+                  className="rounded-[var(--radius-base,8px)] ml-0"
                 />
               </Flex>
             </Flex>

@@ -47,7 +47,7 @@ const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum
 
   return (
     <AddressHighlightProvider>
-      <TableRoot minWidth={ chainData ? '1100px' : '1070px' } fontWeight={ 500 }>
+      <TableRoot minWidth={ chainData ? '1100px' : '1070px' } className="font-medium">
         <TableHeaderSticky top={ top }>
           <TableRow>
             { chainData && <TableColumnHeader width="38px"/> }

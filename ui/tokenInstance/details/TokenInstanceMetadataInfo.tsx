@@ -28,21 +28,16 @@ const Item = ({ data, isLoading }: ItemProps) => {
       return (
         <Link
           external
-          whiteSpace="nowrap"
-          display="inline-flex"
-          alignItems="center"
-          w="100%"
-          overflow="hidden"
+          className="whitespace-nowrap inline-flex items-center w-full overflow-hidden text-sm"
           href={ data.value }
-          textStyle="sm"
           loading={ isLoading }
         >
-          <TruncatedText text={ data.value } w="calc(100% - 16px)" loading={ isLoading }/>
+          <TruncatedText text={ data.value } className="w-[calc(100%-16px)]" loading={ isLoading }/>
         </Link>
       );
     }
 
-    return <TruncatedText text={ data.value } fontSize="sm" w="100%" loading={ isLoading }/>;
+    return <TruncatedText text={ data.value } className="text-sm w-full" loading={ isLoading }/>;
   })();
 
   return (
@@ -57,11 +52,7 @@ const Item = ({ data, isLoading }: ItemProps) => {
     >
       <TruncatedText
         text={ data.trait_type }
-        textStyle="xs"
-        w="100%"
-        color="text.secondary"
-        fontWeight={ 500 }
-        mb={ 1 }
+        className="text-xs w-full text-[var(--color-text-secondary)] font-medium mb-1"
         loading={ isLoading }
       />
       { value }

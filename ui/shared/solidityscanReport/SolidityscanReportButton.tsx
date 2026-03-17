@@ -18,7 +18,7 @@ interface Props extends ButtonProps {
 
 const SolidityscanReportButton = ({ score, isLoading, tooltipDisabled, ...rest }: Props) => {
   const { scoreColor } = useScoreLevelAndColor(score);
-  const colorLoading = { _light: 'gray.300', _dark: 'gray.600' };
+  const colorLoading = 'var(--color-text-secondary)';
   const onFocusCapture = usePreventFocusAfterModalClosing();
 
   return (
@@ -26,21 +26,12 @@ const SolidityscanReportButton = ({ score, isLoading, tooltipDisabled, ...rest }
       <Box>
         <PopoverTrigger>
           <Button
-            color={ isLoading ? colorLoading : scoreColor }
             size="sm"
             variant="dropdown"
             aria-label="SolidityScan score"
-            fontWeight={ 500 }
-            px="6px"
-            flexShrink={ 0 }
-            columnGap={ 1 }
+            className="font-medium px-[6px] shrink-0 gap-1"
+            style={{ color: isLoading ? colorLoading : scoreColor }}
             disabled={ isLoading }
-            _hover={{ color: 'hover' }}
-            _expanded={{ color: 'hover' }}
-            _disabled={{
-              opacity: 1,
-              _hover: { color: colorLoading },
-            }}
             onFocusCapture={ onFocusCapture }
             { ...rest }
           >

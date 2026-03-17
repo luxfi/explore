@@ -42,8 +42,8 @@ const SolidityscanReport = ({ hash }: Props) => {
         isLoading={ isPlaceholderData }
         tooltipDisabled={ popover.open }
       />
-      <PopoverContent w={{ base: '100vw', lg: '328px' }}>
-        <PopoverBody textStyle="sm">
+      <PopoverContent className="w-screen lg:w-[328px]">
+        <PopoverBody className="text-sm">
           <Box mb={ 5 } lineHeight="25px">
             Contract analyzed for 240+ vulnerability patterns by
             <Icon as={ solidityScanIcon } mr={ 1 } ml="6px" w="23px" h="20px" display="inline-block" verticalAlign="middle"/>

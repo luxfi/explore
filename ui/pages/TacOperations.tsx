@@ -43,7 +43,7 @@ const TacOperations = () => {
 
   const filterInput = (
     <FilterInput
-      w={{ base: '100%', lg: '460px' }}
+      className="w-full lg:w-[460px]"
       size="sm"
       onChange={ handleSearchTermChange }
       placeholder="Search by operation, tx hash, sender"
@@ -61,7 +61,7 @@ const TacOperations = () => {
           <Box gap={ 3 } display={{ base: 'none', lg: 'flex' }}>
             { filterInput }
           </Box>
-          <Pagination ml="auto" { ...pagination }/>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>

@@ -59,7 +59,7 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
 
   return (
     <Flex flexGrow={ 1 } flexDir="column">
-      <Skeleton loading={ isLoading } display="flex" alignItems="center" w="fit-content" columnGap={ 1 }>
+      <Skeleton loading={ isLoading } display="flex" alignItems="center" w="fit-content" className="gap-1">
         <Text fontWeight={ 500 }>{ title }</Text>
         { hint && <Hint label={ hint }/> }
       </Skeleton>

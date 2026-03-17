@@ -11,7 +11,7 @@ interface ContainerProps extends CollapsibleDetailsProps {}
 
 export const Container = ({ children, ...rest }: ContainerProps) => {
   return (
-    <CollapsibleDetails noScroll variant="secondary" display="block" textStyle={ undefined } fontSize="sm" { ...rest }>
+    <CollapsibleDetails noScroll variant="secondary" className="block text-sm" { ...rest }>
       <Grid
         gridTemplateColumns="max-content minmax(0px, 1fr)"
         alignItems="start"
@@ -41,7 +41,7 @@ export const Row = ({ label, hint, children, ...rest }: RowProps) => {
   return (
     <>
       <GridItem color="text.secondary" display="flex" alignItems="center" { ...rest }>
-        { hint && <Hint label={ hint } boxSize={ 4 } mr={ 1 }/> }
+        { hint && <Hint label={ hint } className="size-4 mr-1"/> }
         <TruncatedText text={ label } maxW={{ base: '130px', lg: 'unset' }}/>
       </GridItem>
       { children }

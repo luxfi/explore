@@ -4,6 +4,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import * as mixpanel from 'lib/mixpanel';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import AddressMultichainButton from 'ui/address/details/AddressMultichainButton';
@@ -51,7 +52,7 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
 
     return (
       <>
-        <Skeleton loading={ isLoading } w={{ base: '100%', lg: '225px' }} h={ 3 } display="flex" alignItems="center" borderRadius="full" overflow="hidden">
+        <Skeleton loading={ isLoading } className="w-full lg:w-[225px] rounded-full overflow-hidden" h={ 3 } display="flex" alignItems="center">
           { topTokens.map((token, index) => (
             <Box
               key={ token.symbol }
@@ -66,12 +67,14 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
           { topTokens.map((token, index) => (
             <HStack key={ token.symbol }>
               <Skeleton
-                boxSize={ 4 }
+                w="16px"
+                h="16px"
                 borderRadius="full"
                 loading={ isLoading }
-                bgColor={ !isLoading ? getBgColor(token.symbol === 'Others' ? 2 : index) : undefined }
-              />
-              <Skeleton loading={ isLoading } fontWeight={ 600 } whiteSpace="pre">
+              >
+                <span/>
+              </Skeleton>
+              <Skeleton loading={ isLoading } fontWeight={ 600 } className="whitespace-pre">
                 <span>{ token.symbol }</span>
                 <chakra.span color="text.secondary"> { formatPercentage(token.share) }</chakra.span>
               </Skeleton>
@@ -113,9 +116,8 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
               value={ BigNumber(netWorth ?? 0) }
               prefix="$"
               loading={ isLoading }
-              fontWeight={ 600 }
               accuracy={ DEFAULT_ACCURACY_USD }
-              color={ !netWorth ? 'text.secondary' : undefined }
+              className={ cn('font-semibold', !netWorth && 'text-[var(--color-text-secondary)]') }
             />
             { multichainBalanceFeature.isEnabled && (
               <>

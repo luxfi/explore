@@ -11,7 +11,7 @@ const EthRpcApi = () => {
         the Lux Explorer ETH RPC API supports 3 methods in the exact format specified for Ethereum nodes,
         ee the Ethereum JSON-RPC Specification for more details.
       </Text>
-      <Link href="https://docs.lux.network/api/eth-rpc" external mt={ 6 }>View examples</Link>
+      <Link href="https://docs.lux.network/api/eth-rpc" external className="mt-6">View examples</Link>
     </Box>
   );
 };

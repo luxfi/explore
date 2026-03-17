@@ -62,23 +62,32 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
         position={ isHorizontalNavigation ? undefined : 'absolute' }
         top={ isHorizontalNavigation ? undefined : 'calc(50% - 30px)' }
         left={ isHorizontalNavigation ? undefined : 'calc(50% - 30px)' }
-        opacity={ isHorizontalNavigation ? 1 : { base: 0, lg: isExpanded ? 0 : 1, xl: isCollapsed ? 1 : 0 } }
-        transitionProperty="opacity"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
+        style={{
+          opacity: isHorizontalNavigation ? 1 : undefined,
+          transitionProperty: 'opacity',
+          transitionDuration: '0.2s',
+          transitionTimingFunction: 'ease',
+        }}
+        className={ !isHorizontalNavigation ? (
+          isExpanded ? 'opacity-0' : (isCollapsed ? 'opacity-100' : 'lg:opacity-100 xl:opacity-0')
+        ) : undefined }
       />
       <Image
         display={ isHorizontalNavigation ? 'none' : 'block' }
         src={ promoBanner.img_url.large }
         alt="Promo banner large"
         w="full"
-        maxW={{ base: 'full', lg: '180px' }}
+        maxW="180px"
         borderRadius="base"
-        aspectRatio={ 2 / 1 }
-        opacity={{ base: 1, lg: isExpanded ? 1 : 0, xl: isCollapsed ? 0 : 1 }}
-        transitionProperty="opacity"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
+        style={{
+          aspectRatio: '2 / 1',
+          transitionProperty: 'opacity',
+          transitionDuration: '0.2s',
+          transitionTimingFunction: 'ease',
+        }}
+        className={
+          isExpanded ? 'opacity-100' : (isCollapsed ? 'opacity-0' : 'lg:opacity-0 xl:opacity-100')
+        }
       />
     </Box>
   );

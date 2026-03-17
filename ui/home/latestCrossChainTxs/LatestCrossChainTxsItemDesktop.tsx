@@ -48,8 +48,7 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
+            className="text-[var(--color-text-secondary)] text-xs"
           />
         </VStack>
       </TableCell>
@@ -71,13 +70,12 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
+            className="text-[var(--color-text-secondary)] text-xs"
           />
         </VStack>
       </TableCell>
       <TableCell>
-        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } lineHeight="24px"/>
+        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>
       </TableCell>
     </TableRow>
   );

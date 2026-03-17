@@ -43,11 +43,9 @@ const MarketplaceDisclaimerModal = ({ isOpen, onClose, appId }: Props) => {
         </DialogBody>
 
         <DialogFooter
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
+          className="flex flex-row items-center"
         >
-          <Link href={ route({ pathname: '/apps/[id]', query: { id: appId } }) } asChild>
+          <Link href={ route({ pathname: '/apps/[id]', query: { id: appId } }) }>
             <Button onClick={ handleContinueClick } >
               Continue to app
             </Button>

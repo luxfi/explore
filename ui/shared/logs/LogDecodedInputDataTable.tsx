@@ -18,11 +18,9 @@ const HeaderItem = ({ children, isLoading }: { children: React.ReactNode; isLoad
   return (
     <Skeleton
       fontWeight={ 600 }
-      pb={ 1 }
-      display="inline-block"
-      width="fit-content"
-      height="fit-content"
       loading={ isLoading }
+      display="inline-block"
+      className="w-fit h-fit pb-1"
     >
       { children }
     </Skeleton>

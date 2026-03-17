@@ -117,7 +117,7 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
         <Button
           variant="solid"
           type="submit"
-          mt={ 8 }
+          className="mt-8"
           loading={ formState.isSubmitting }
           loadingText="Download"
           disabled={ Boolean(formState.errors.from || formState.errors.to || recaptcha.isInitError) }

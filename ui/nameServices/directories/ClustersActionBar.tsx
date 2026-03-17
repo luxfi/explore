@@ -47,13 +47,13 @@ const ClustersActionBar = ({
       <ButtonGroupRadio
         defaultValue={ viewMode }
         onChange={ handleViewModeChange }
-        w={{ lg: 'fit-content' }}
+        className="lg:w-fit"
         loading={ isInitialLoading }
       >
-        <Button value="directory" size="sm" px={ 3 }>
+        <Button value="directory" size="sm" className="px-3">
           Directory
         </Button>
-        <Button value="leaderboard" size="sm" px={ 3 }>
+        <Button value="leaderboard" size="sm" className="px-3">
           Leaderboard
         </Button>
       </ButtonGroupRadio>
@@ -61,8 +61,7 @@ const ClustersActionBar = ({
         initialValue={ searchTerm }
         onChange={ onSearchChange }
         placeholder={ placeholder }
-        w={{ base: '100%', lg: '360px' }}
-        minW={{ base: 'auto', lg: '250px' }}
+        className="w-full lg:w-[360px] min-w-[auto] lg:min-w-[250px]"
         size="sm"
         loading={ isInitialLoading }
       />
@@ -81,7 +80,7 @@ const ClustersActionBar = ({
         <Box hideBelow="lg">
           { filters }
         </Box>
-        <Pagination { ...pagination } ml="auto"/>
+        <Pagination { ...pagination } className="ml-auto"/>
       </ActionBar>
     </>
   );

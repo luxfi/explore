@@ -53,10 +53,9 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
             <ChainIcon data={ chainInfo } isLoading={ isLoading }/>
             <Link
               href={ chainInfo?.explorer_url }
-              fontWeight={ 700 }
+              className="font-bold max-w-[calc(100%-28px)]"
               external
               loading={ isLoading }
-              maxW="calc(100% - 28px)"
             >
               <TruncatedText text={ chainInfo?.name ?? 'Unknown chain' } loading={ isLoading }/>
             </Link>
@@ -129,7 +128,7 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
                 onClick={ handleAddToWalletClick }
                 size="md"
                 variant="icon_background"
-                bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
+                className="bg-black/5 dark:bg-white/5"
                 loadingSkeleton={ isLoading }
               >
                 <IconSvg name={ walletIcon } boxSize={ 5 }/>

@@ -78,7 +78,7 @@ const AddressEpochRewards = ({ shouldRender = true, isQueryEnabled = true }: Pro
       />
       { rewardsQuery.pagination.isVisible && (
         <Pagination
-          ml={{ base: 0, lg: 8 }}
+          className="lg:ml-8"
           { ...rewardsQuery.pagination }
         />
       ) }

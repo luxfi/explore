@@ -57,10 +57,10 @@ const LinkShowcase = () => {
             <Link href="/" variant="subtle" data-hover>Hover</Link>
           </Sample>
           <Sample label="variant: navigation">
-            <Link href="/" variant="navigation" p={ 2 } borderRadius="base">Default</Link>
-            <Link href="/" variant="navigation" p={ 2 } borderRadius="base" data-hover>Hover</Link>
-            <Link href="/" variant="navigation" p={ 2 } borderRadius="base" data-selected>Selected</Link>
-            <Link href="/" variant="navigation" p={ 2 } borderRadius="base" data-active>Active</Link>
+            <Link href="/" variant="navigation" className="p-2 rounded-base">Default</Link>
+            <Link href="/" variant="navigation" className="p-2 rounded-base" data-hover>Hover</Link>
+            <Link href="/" variant="navigation" className="p-2 rounded-base" data-selected>Selected</Link>
+            <Link href="/" variant="navigation" className="p-2 rounded-base" data-active>Active</Link>
           </Sample>
           <Sample label="variant: underlaid">
             <Link href="/" variant="underlaid" external>Default</Link>
@@ -224,13 +224,13 @@ const LinkShowcase = () => {
         <SectionSubHeader>Link overlay</SectionSubHeader>
         <SamplesStack>
           <Sample label="Internal link">
-            <LinkBox p={ 2 } display="flex" flexDirection="column" columnGap={ 2 } borderWidth="1px" borderColor="border.divider" borderRadius="base">
+            <LinkBox className="p-2 flex flex-col gap-x-2 border border-[var(--color-border-divider)] rounded-base">
               <LinkOverlay href="/blocks">Main link</LinkOverlay>
               <Link href="/txs">Inner link</Link>
             </LinkBox>
           </Sample>
           <Sample label="External link">
-            <LinkBox p={ 2 } display="flex" flexDirection="column" columnGap={ 2 } borderWidth="1px" borderColor="border.divider" borderRadius="base">
+            <LinkBox className="p-2 flex flex-col gap-x-2 border border-[var(--color-border-divider)] rounded-base">
               <LinkOverlay href="https://blockscout.com" external>Main link</LinkOverlay>
               <Link href="https://blockscout.com/txs" external>Inner link</Link>
             </LinkBox>

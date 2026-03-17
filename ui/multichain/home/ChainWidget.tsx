@@ -5,6 +5,7 @@ import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
@@ -37,7 +38,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
           <span>Chain ID</span>
         </Skeleton>
         <Skeleton loading={ isLoading }>{ data.id }</Skeleton>
-        <CopyToClipboard text={ String(data.id) } ml={ 0 } isLoading={ isLoading }/>
+        <CopyToClipboard text={ String(data.id) } className="ml-0" isLoading={ isLoading }/>
       </HStack>
       { metrics?.active_accounts?.current_full_week && (
         <HStack gap={ 2 }>
@@ -61,20 +62,13 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
   if (isMobile) {
     return (
       <LinkBox
-        bgColor={{ _light: 'rgba(246, 246, 248, 0.5)', _dark: 'whiteAlpha.50' }}
-        borderRadius="xl"
-        border="1px solid"
-        borderColor={{ _light: 'blackAlpha.200', _dark: 'whiteAlpha.200' }}
-        p={ 4 }
-        flexBasis="100%"
-        textStyle="sm"
-        overflow="hidden"
+        className="bg-[rgba(246,246,248,0.5)] dark:bg-white/5 rounded-xl border border-solid border-black/20 dark:border-white/20 p-4 basis-full text-sm overflow-hidden"
       >
         <HStack justifyContent="space-between" mb={ 2 }>
           <HStack minW="0">
             <ChainIcon data={ data } boxSize={ 5 } isLoading={ isLoading } noTooltip/>
-            <Heading textStyle="heading.sm" as="h3" minW="0">
-              <LinkOverlay href={ data.explorer_url } external loading={ isLoading } _groupHover={{ color: 'hover' }}>
+            <Heading level="3" className="min-w-0">
+              <LinkOverlay href={ data.explorer_url } external loading={ isLoading } className="group-hover:text-[var(--color-hover)]">
                 <Box overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
                   { data.name }
                 </Box>
@@ -90,20 +84,13 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
 
   return (
     <LinkBox
-      className="group"
-      // as the designer said, for the light theme "there is no gray color that suits well, so we use a custom one"
-      bgColor={{ _light: 'rgba(246, 246, 248, 0.5)', _dark: 'whiteAlpha.50' }}
-      borderRadius="xl"
-      border="1px solid"
-      borderColor={{ _light: 'blackAlpha.200', _dark: 'whiteAlpha.200' }}
-      _hover={ !isLoading ? {
-        bgColor: { _light: 'gray.50', _dark: 'whiteAlpha.100' },
-        borderColor: 'hover',
-      } : undefined }
-      p={ 6 }
-      flexBasis="calc((100% - 3 * 12px) / 4)"
-      textStyle="sm"
-      overflow="hidden"
+      className={ cn(
+        'group rounded-xl border border-solid p-6 text-sm overflow-hidden',
+        'bg-[rgba(246,246,248,0.5)] dark:bg-white/5',
+        'border-black/20 dark:border-white/20',
+        'basis-[calc((100%-3*12px)/4)]',
+        !isLoading && 'hover:bg-gray-50 dark:hover:bg-white/10 hover:border-[var(--color-hover)]',
+      ) }
     >
       <HStack justifyContent="space-between">
         <ChainIcon data={ data } boxSize="30px" isLoading={ isLoading } noTooltip/>
@@ -113,8 +100,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
               onClick={ handleAddToWalletClick }
               size="md"
               variant="icon_background"
-              zIndex={ 1 }
-              bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
+              className="z-[1] bg-black/5 dark:bg-white/5"
               loadingSkeleton={ isLoading }
             >
               <IconSvg name={ walletIcon } boxSize={ 5 }/>
@@ -122,8 +108,8 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
           </Tooltip>
         ) }
       </HStack>
-      <Heading my={ 3 } textStyle="heading.md" as="h3">
-        <LinkOverlay href={ data.explorer_url } external loading={ isLoading } _groupHover={{ color: 'hover' }}>
+      <Heading level="3" className="my-3">
+        <LinkOverlay href={ data.explorer_url } external loading={ isLoading } className="group-hover:text-[var(--color-hover)]">
           <Box overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
             { data.name }
           </Box>

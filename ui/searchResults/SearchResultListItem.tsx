@@ -68,19 +68,16 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             <TokenEntity.Icon token={{ ...data, type: data.token_type }} isLoading={ isLoading }/>
             <Link
               href={ route({ pathname: '/token/[hash]', query: { hash: data.address_hash } }) }
-              fontWeight={ 700 }
-              wordBreak="break-all"
+              className="font-bold break-all overflow-hidden"
               loading={ isLoading }
               onClick={ handleLinkClick }
-              overflow="hidden"
             >
               <Skeleton
                 loading={ isLoading }
                 dangerouslySetInnerHTML={{ __html: highlightText(name, searchTerm) }}
                 whiteSpace="nowrap"
                 overflow="hidden"
-                textOverflow="ellipsis"
-              />
+                textOverflow="ellipsis" />
             </Link>
             { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 }/> }
             { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" boxSize={ 4 } ml={ 1 } color="green.500"/> }
@@ -132,8 +129,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             <IconSvg name="publictags" boxSize={ 6 } mr={ 2 } color="icon.primary"/>
             <Link
               href={ route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) }
-              fontWeight={ 700 }
-              wordBreak="break-all"
+              className="font-bold break-all"
               loading={ isLoading }
               onClick={ handleLinkClick }
             >
@@ -159,8 +155,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 route({ pathname: '/apps', query: { selectedAppId: data.app.id } }) :
                 route({ pathname: '/apps/[id]', query: { id: data.app.id } })
               }
-              fontWeight={ 700 }
-              wordBreak="break-all"
+              className="font-bold break-all"
               loading={ isLoading }
               onClick={ handleLinkClick }
             >
@@ -193,8 +188,8 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 isLoading={ isLoading }
               />
             </BlockEntity.Link>
-            { data.block_type === 'reorg' && !isLoading && <Tag ml={ 2 }>Reorg</Tag> }
-            { data.block_type === 'uncle' && !isLoading && <Tag ml={ 2 }>Uncle</Tag> }
+            { data.block_type === 'reorg' && !isLoading && <Tag className="ml-2">Reorg</Tag> }
+            { data.block_type === 'uncle' && !isLoading && <Tag className="ml-2">Uncle</Tag> }
           </BlockEntity.Container>
         );
       }
@@ -311,11 +306,9 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) :
                 route({ pathname: '/name-services/domains/[name]', query: { name: data.ens_info.name } })
               }
-              fontWeight={ 700 }
-              wordBreak="break-all"
+              className="font-bold break-all overflow-hidden"
               loading={ isLoading }
               onClick={ handleLinkClick }
-              overflow="hidden"
             >
               <Box
                 dangerouslySetInnerHTML={{ __html: highlightText(data.ens_info.name, searchTerm) }}

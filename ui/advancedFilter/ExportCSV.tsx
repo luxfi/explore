@@ -85,7 +85,7 @@ const ExportCSV = ({ filters }: Props) => {
           variant="outline"
           loading={ isLoading }
           size="sm"
-          mr={ 3 }
+          className="mr-3"
           disabled={ recaptcha.isInitError }
         >
           Export to CSV

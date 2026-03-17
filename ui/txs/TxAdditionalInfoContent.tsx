@@ -34,7 +34,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
 
   return (
     <>
-      <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } mb={ 3 }/>
+      <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } className="mb-3"/>
       { tx.blob_versioned_hashes && tx.blob_versioned_hashes.length > 0 && (
         <Box { ...sectionProps } mb={ 4 }>
           <Flex alignItems="center" justifyContent="space-between">
@@ -42,7 +42,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
             { tx.blob_versioned_hashes.length > 3 && (
               <Link
                 href={ route({ pathname: '/tx/[hash]', query: { hash: tx.hash, tab: 'blobs' } }) }
-                mb={ 3 }
+                className="mb-3"
               >
                 view all
               </Link>

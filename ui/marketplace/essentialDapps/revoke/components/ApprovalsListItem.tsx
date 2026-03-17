@@ -119,7 +119,7 @@ export default function ApprovalsListItem({
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Last updated</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value color="inherit">
-        <Skeleton loading={ isLoading } display="flex" flexDir="column" rowGap={ 2 }>
+        <Skeleton loading={ isLoading } display="flex" className="flex-col gap-y-2">
           <Time timestamp={ approval.timestamp }/>
           <Text>{ dayjs(approval.timestamp).fromNow() }</Text>
         </Skeleton>
@@ -130,7 +130,7 @@ export default function ApprovalsListItem({
           variant="outline"
           loading={ isLoading || isPending }
           onClick={ handleRevoke }
-          gridColumn="span 2"
+          className="col-span-2"
         >
           Revoke
         </Button>

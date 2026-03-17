@@ -40,7 +40,7 @@ const TokensActionBar = ({
 
   const searchInput = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
+      className="w-full lg:w-[360px]"
       size="sm"
       onChange={ onSearchChange }
       placeholder="Token name or symbol"
@@ -70,7 +70,7 @@ const TokensActionBar = ({
           { filter }
           { searchInput }
         </HStack>
-        <Pagination { ...pagination } ml={ inTabsSlot ? 8 : 'auto' }/>
+        <Pagination { ...pagination } className={ inTabsSlot ? 'ml-8' : 'ml-auto' }/>
       </ActionBar>
     </>
   );

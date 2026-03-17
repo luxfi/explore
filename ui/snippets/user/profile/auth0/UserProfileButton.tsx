@@ -1,4 +1,3 @@
-import type { ButtonProps } from '@chakra-ui/react';
 import { Box, HStack } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
@@ -15,6 +14,8 @@ import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../../UserIdenticon';
 import { getUserHandle } from '../common/utils';
+
+import type { ButtonProps } from 'toolkit/chakra/button';
 
 interface Props {
   profileQuery: UseQueryResult<UserInfo, unknown>;
@@ -85,7 +86,7 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
           onFocus={ handleFocus }
           selected={ dataExists }
           highlighted={ isAutoConnectDisabled }
-          px={{ base: 2.5, lg: 3 }}
+          className="px-2.5 lg:px-3"
           fontWeight={ dataExists ? 700 : 600 }
           loading={ isButtonLoading }
           { ...rest }

@@ -102,16 +102,14 @@ const FeaturedApp = ({
             <Skeleton
               loading={ isLoading }
               color="text.secondary"
-              fontSize="xs"
-              flex={ 1 }
+              className="text-xs flex-1"
             >
               <span>{ categoriesLabel }</span>
             </Skeleton>
 
             { !isLoading && (
               <Link
-                fontSize="sm"
-                fontWeight="500"
+                className="text-sm font-medium"
                 href="#"
                 onClick={ handleInfoClick }
               >

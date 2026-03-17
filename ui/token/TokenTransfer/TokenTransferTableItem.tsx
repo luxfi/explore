@@ -96,7 +96,7 @@ const TokenTransferTableItem = ({
       { token && (hasTokenTransferValue(token.type)) && (
         <TableCell isNumeric verticalAlign="top">
           { isConfidentialTokenType(token.type) ? (
-            <ConfidentialValue loading={ isLoading } mt="7px" wordBreak="break-all"/>
+            <ConfidentialValue loading={ isLoading } mt="7px" className="break-all"/>
           ) : (
             <AssetValue
               amount={ total && 'value' in total ? total.value : null }

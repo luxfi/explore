@@ -90,7 +90,7 @@ const StatsWidget = ({
             loading={ isLoading }
             color="text.secondary"
             textStyle="xs"
-            w="fit-content"
+            className="w-fit"
           >
             <h2>{ label }</h2>
           </Skeleton>
@@ -100,7 +100,7 @@ const StatsWidget = ({
             alignItems="baseline"
             fontWeight={ 500 }
             textStyle="heading.md"
-            opacity={ isFallback && !isLoading ? 'control.disabled' : 1 }
+            className={ isFallback && !isLoading ? 'opacity-[var(--opacity-control-disabled)]' : '' }
           >
             { valuePrefix && <chakra.span whiteSpace="pre">{ valuePrefix }</chakra.span> }
             { typeof value === 'string' ? (
@@ -122,7 +122,7 @@ const StatsWidget = ({
         </Box>
         { typeof hint === 'string' ? (
           <Skeleton loading={ isLoading } alignSelf="center" borderRadius="base" flexShrink={ 0 }>
-            <Hint label={ hint } boxSize={ 5 } color="icon.secondary"/>
+            <Hint label={ hint } className="size-5 text-[var(--color-icon-secondary)]"/>
           </Skeleton>
         ) : hint }
       </Flex>

@@ -87,8 +87,11 @@ export interface SelectRootProps {
   asChild?: boolean;
   className?: string;
   style?: React.CSSProperties;
-  // Catch-all for Chakra style props (w, maxW, hideFrom, etc.) passed by consumers
-  [key: string]: unknown;
+  // Chakra style prop shims
+  w?: string | Record<string, string>;
+  maxW?: string | Record<string, string>;
+  minW?: string | Record<string, string>;
+  hideFrom?: string;
 }
 
 export const SelectRoot = React.forwardRef<HTMLDivElement, SelectRootProps>(
@@ -116,7 +119,10 @@ export const SelectRoot = React.forwardRef<HTMLDivElement, SelectRootProps>(
       asChild: _asChild,
       className,
       style,
-      ...rest
+      w,
+      maxW,
+      minW,
+      hideFrom: _hideFrom,
     } = props;
 
     // Provide a fallback empty collection
@@ -169,13 +175,18 @@ export const SelectRoot = React.forwardRef<HTMLDivElement, SelectRootProps>(
     }), [ currentValue, selectedItems, collection, valueProp, onValueChangeProp, isOpen, size, variant, disabled ]);
 
     // Extract Chakra-style shorthand props into inline style
+    const resolveVal = (v: string | Record<string, string> | undefined) => {
+      if (!v) return undefined;
+      if (typeof v === 'string') return v;
+      return v.base ?? v.lg ?? Object.values(v)[0];
+    };
     const inlineStyle = React.useMemo(() => {
       const s: React.CSSProperties = { ...style };
-      if (typeof rest.w === 'string') s.width = rest.w;
-      if (typeof rest.maxW === 'string') s.maxWidth = rest.maxW;
-      if (typeof rest.minW === 'string') s.minWidth = rest.minW;
+      const rw = resolveVal(w); if (rw) s.width = rw;
+      const rmw = resolveVal(maxW); if (rmw) s.maxWidth = rmw;
+      const rminw = resolveVal(minW); if (rminw) s.minWidth = rminw;
       return s;
-    }, [ style, rest.w, rest.maxW, rest.minW ]);
+    }, [ style, w, maxW, minW ]);
 
     return (
       <SelectInternalContext.Provider value={ ctxValue }>
@@ -215,13 +226,13 @@ export interface SelectControlProps {
   noIndicator?: boolean;
   triggerProps?: React.ComponentPropsWithoutRef<typeof RadixSelect.Trigger> & {
     asChild?: boolean;
-    px?: unknown;
+    px?: string | number;
+    className?: string;
   };
   loading?: boolean;
   defaultValue?: Array<string>;
   className?: string;
   style?: React.CSSProperties;
-  [key: string]: unknown;
 }
 
 export const SelectControl = React.forwardRef<HTMLButtonElement, SelectControlProps>(
@@ -285,7 +296,6 @@ export const SelectControl = React.forwardRef<HTMLButtonElement, SelectControlPr
 
 export interface SelectClearTriggerProps {
   className?: string;
-  [key: string]: unknown;
 }
 
 export const SelectClearTrigger = React.forwardRef<HTMLButtonElement, SelectClearTriggerProps>(
@@ -324,7 +334,6 @@ export interface SelectContentProps {
   portalRef?: React.RefObject<HTMLElement>;
   className?: string;
   style?: React.CSSProperties;
-  [key: string]: unknown;
 }
 
 export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
@@ -372,7 +381,6 @@ export interface SelectItemProps {
   item: SelectOption;
   children?: React.ReactNode;
   className?: string;
-  [key: string]: unknown;
 }
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
@@ -421,7 +429,6 @@ interface SelectValueTextProps {
   mode?: ViewMode;
   className?: string;
   style?: React.CSSProperties;
-  [key: string]: unknown;
 }
 
 export const SelectValueText = React.forwardRef<HTMLSpanElement, SelectValueTextProps>(
@@ -503,7 +510,6 @@ interface SelectItemGroupProps {
   children?: React.ReactNode;
   label: React.ReactNode;
   className?: string;
-  [key: string]: unknown;
 }
 
 export const SelectItemGroup = React.forwardRef<HTMLDivElement, SelectItemGroupProps>(

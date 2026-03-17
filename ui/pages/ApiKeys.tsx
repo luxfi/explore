@@ -130,13 +130,10 @@ const ApiKeysPage: React.FC = () => {
         { alert }
         { Boolean(data?.length) && list }
         <Skeleton
-          marginTop={ 8 }
-          flexDir={{ base: 'column', lg: 'row' }}
-          alignItems={{ base: 'start', lg: 'center' }}
+          mt={ 8 }
           loading={ isPlaceholderData }
           display="inline-flex"
-          columnGap={ 5 }
-          rowGap={ 5 }
+          className="flex-col lg:flex-row items-start lg:items-center gap-x-5 gap-y-5"
         >
           { button }
           { !canAdd && (

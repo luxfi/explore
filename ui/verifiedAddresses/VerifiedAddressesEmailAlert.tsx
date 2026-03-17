@@ -25,10 +25,9 @@ const VerifiedAddressesEmailAlert = () => {
     <>
       <Alert
         status="warning"
-        mb={ 6 }
+        className="mb-6"
         descriptionProps={{
-          alignItems: 'center',
-          gap: 2,
+          className: 'items-center gap-2',
         }}
       >
         You need a valid email address to verify contracts. Please add your email to your account.

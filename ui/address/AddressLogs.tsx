@@ -47,7 +47,7 @@ const AddressLogs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
         isLoading={ pagination.isLoading }
         params={{ type: 'logs' }}
       />
-      <Pagination ml={{ base: 0, lg: 8 }} { ...pagination }/>
+      <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

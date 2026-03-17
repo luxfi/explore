@@ -130,6 +130,8 @@ export interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement>
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
   backdrop?: boolean;
+  // Legacy Chakra style-prop shims
+  paddingTop?: number | string;
 }
 
 export const DialogContent = React.forwardRef<
@@ -142,8 +144,15 @@ export const DialogContent = React.forwardRef<
     portalRef,
     backdrop = true,
     className,
+    paddingTop: _paddingTop,
+    style: styleProp,
     ...rest
   } = props;
+
+  const contentInlineStyle: React.CSSProperties = {
+    ...styleProp,
+    ...(_paddingTop !== undefined ? { paddingTop: typeof _paddingTop === 'number' ? `${ _paddingTop * 4 }px` : _paddingTop } : {}),
+  };
 
   const { size } = useDialogContext();
 
@@ -188,6 +197,7 @@ export const DialogContent = React.forwardRef<
             sizeClasses(size),
             className,
           ) }
+          style={ Object.keys(contentInlineStyle).length > 0 ? contentInlineStyle : undefined }
           { ...rest }
         >
           { children }
@@ -263,16 +273,28 @@ export const DialogHeader = React.forwardRef<
 // DialogBody
 // ---------------------------------------------------------------------------
 
-export interface DialogBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DialogBodyProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Legacy Chakra style-prop shims
+  pt?: number | string;
+  display?: string;
+  flexDir?: string;
+}
 
 export const DialogBody = React.forwardRef<
   HTMLDivElement,
   DialogBodyProps
->(function DialogBody({ className, ...props }, ref) {
+>(function DialogBody({ className, pt, display, flexDir, style: styleProp, ...props }, ref) {
+  const bodyStyle: React.CSSProperties = {
+    ...styleProp,
+    ...(pt !== undefined ? { paddingTop: typeof pt === 'number' ? `${ pt * 4 }px` : pt } : {}),
+    ...(display ? { display } : {}),
+    ...(flexDir ? { flexDirection: flexDir as React.CSSProperties['flexDirection'] } : {}),
+  };
   return (
     <div
       ref={ ref }
       className={ cn('flex-1 p-0 overflow-auto', className) }
+      style={ Object.keys(bodyStyle).length > 0 ? bodyStyle : undefined }
       { ...props }
     />
   );

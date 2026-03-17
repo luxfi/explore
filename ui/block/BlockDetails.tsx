@@ -359,7 +359,7 @@ const BlockDetails = ({ query }: Props) => {
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.commitment_transaction.hash } isLoading={ isPlaceholderData }/>
-                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" ml={ 2 }/> }
+                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" className="ml-2"/> }
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -373,7 +373,7 @@ const BlockDetails = ({ query }: Props) => {
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
                 <TxEntityL1 hash={ data.arbitrum?.confirmation_transaction.hash } isLoading={ isPlaceholderData }/>
-                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" ml={ 2 }/> }
+                { data.arbitrum?.commitment_transaction.status === 'finalized' && <StatusTag type="ok" text="Finalized" className="ml-2"/> }
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -542,7 +542,7 @@ const BlockDetails = ({ query }: Props) => {
       ) }
 
       { /* ADDITIONAL INFO */ }
-      <CollapsibleDetails loading={ isPlaceholderData } mt={ 6 } gridColumn={{ base: undefined, lg: '1 / 3' }}>
+      <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
         <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 
         { rollupFeature.isEnabled && rollupFeature.type === 'zkSync' && data.zksync &&
@@ -677,8 +677,7 @@ const BlockDetails = ({ query }: Props) => {
             <DetailedInfo.ItemValue flexWrap="nowrap">
               <Link
                 href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: String(data.height - 1) } }, multichainContext) }
-                overflow="hidden"
-                whiteSpace="nowrap"
+                className="overflow-hidden whitespace-nowrap"
               >
                 <HashStringShortenDynamic
                   hash={ data.parent_hash }

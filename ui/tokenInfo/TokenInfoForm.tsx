@@ -144,9 +144,9 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
               name="project_description"
               required
               placeholder="Project description"
-              maxH="160px"
               rules={{ maxLength: 300, ...nonWhitespaceFieldRules }}
               asComponent="Textarea"
+              inputProps={{ style: { maxHeight: '160px' } }}
               { ...fieldProps }
             />
             <Text color="text.secondary" fontSize="sm" mt={ 1 }>
@@ -178,16 +178,16 @@ const TokenInfoForm = ({ address, tokenName, application, onSubmit }: Props) => 
             <FormFieldText<Fields>
               name="comment"
               placeholder="Comment"
-              maxH="160px"
               rules={{ maxLength: 300 }}
               asComponent="Textarea"
+              inputProps={{ style: { maxHeight: '160px' } }}
               { ...fieldProps }
             />
           </GridItem>
         </Grid>
         <Button
           type="submit"
-          mt={ 8 }
+          className="mt-8"
           loading={ formState.isSubmitting }
           loadingText="Send request"
           disabled={ application?.status === 'IN_PROCESS' }

@@ -53,7 +53,7 @@ export const FilterInput = ({
     inputRef?.current?.focus();
   }, [ onChange ]);
 
-  const startElement = <Icon boxSize={ 5 }><SearchIcon/></Icon>;
+  const startElement = <SearchIcon className="w-5 h-5"/>;
   const endElement = <ClearButton onClick={ handleFilterQueryClear } visible={ filterQuery.length > 0 }/>;
 
   return (
@@ -65,9 +65,9 @@ export const FilterInput = ({
     >
       <InputGroup
         startElement={ startElement }
-        startElementProps={{ px: 2 }}
+        startElementProps={{ className: 'px-2' }}
         endElement={ endElement }
-        endElementProps={{ w: '32px' }}
+        endElementProps={{ className: 'w-8' }}
       >
         <Input
           ref={ inputRef }
@@ -77,9 +77,7 @@ export const FilterInput = ({
           onFocus={ onFocus }
           onBlur={ onBlur }
           placeholder={ placeholder }
-          borderWidth="2px"
-          textOverflow="ellipsis"
-          whiteSpace="nowrap"
+          className="border-2 text-ellipsis whitespace-nowrap"
           type={ type }
           name={ name }
           { ...inputProps }

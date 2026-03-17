@@ -114,7 +114,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation, chain
       { !isRollup && !config.UI.views.block.hiddenFields?.total_reward && (
         <Flex columnGap={ 2 }>
           <Text fontWeight={ 500 }>Reward { currencyUnits.ether }</Text>
-          <SimpleValue value={ totalReward } loading={ isLoading } color="text.secondary"/>
+          <SimpleValue value={ totalReward } loading={ isLoading } className="text-[var(--color-text-secondary)]"/>
         </Flex>
       ) }
       { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees && (

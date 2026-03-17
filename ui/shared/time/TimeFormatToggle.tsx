@@ -34,10 +34,8 @@ const TimeFormatToggle = (props: Props) => {
           aria-label="Toggle time format"
           variant="icon_secondary"
           onClick={ handleClick }
-          boxSize={ 5 }
           selected={ timeFormat === 'absolute' }
-          borderRadius="sm"
-          verticalAlign="bottom"
+          className="size-5 rounded-sm align-bottom"
         >
           <IconSvg name="clock-light" boxSize="14px"/>
         </IconButton>

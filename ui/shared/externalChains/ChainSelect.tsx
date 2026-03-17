@@ -80,9 +80,9 @@ const ChainSelect = ({ loading, mode, chainsConfig, chainIds, withAllOption, ...
       loading={ isInitialLoading }
       mode={ isMobile && !mode ? 'compact' : mode }
       w="fit-content"
-      flexShrink={ 0 }
+      className="shrink-0"
       contentHeader={ contentHeader }
-      contentProps={ contentHeader ? { pt: 0 } : undefined }
+      contentProps={ contentHeader ? { style: { paddingTop: 0 } } : undefined }
       itemFilter={ itemFilter }
       { ...props }
     />

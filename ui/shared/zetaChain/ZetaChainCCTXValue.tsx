@@ -1,9 +1,10 @@
-import { Text, chakra } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { CoinType } from '@luxfi/zetachain-cctx-types';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
 
@@ -39,11 +40,11 @@ const ZetaChainCCTXValue = ({ coinType, tokenSymbol, amount, decimals, isLoading
   }
 
   return (
-    <Skeleton loading={ isLoading } display="flex" gap={ 1 } overflow="hidden" className={ className }>
+    <Skeleton loading={ isLoading } className={ cn('flex gap-1 overflow-hidden', className) }>
       <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">{ value }</Text>
       <Text color="text.secondary" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">{ unit }</Text>
     </Skeleton>
   );
 };
 
-export default React.memo(chakra(ZetaChainCCTXValue));
+export default React.memo(ZetaChainCCTXValue);

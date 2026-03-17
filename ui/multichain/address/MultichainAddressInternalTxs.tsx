@@ -65,7 +65,7 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
         value={ chainValue }
         onValueChange={ onChainValueChange }
         chainIds={ chainIds }
-        ml={ 2 }
+        className="ml-2"
       />
       <AddressCsvExportLink
         address={ hash }
@@ -74,7 +74,7 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
         ml={{ base: 2, lg: 'auto' }}
         chainData={ chainData }
       />
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...pagination }/>
+      <Pagination className="ml-auto lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

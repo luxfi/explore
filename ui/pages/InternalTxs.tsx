@@ -20,7 +20,7 @@ const InternalTxs = () => {
 
   const filterInput = (
     <FilterInput
-      w={{ base: '100%', lg: '350px' }}
+      className="w-full lg:w-[350px]"
       size="sm"
       onChange={ onSearchTermChange }
       placeholder="Search by transaction hash"
@@ -38,7 +38,7 @@ const InternalTxs = () => {
           <Box display={{ base: 'none', lg: 'flex' }}>
             { filterInput }
           </Box>
-          <Pagination ml="auto" { ...pagination }/>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>

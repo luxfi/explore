@@ -67,7 +67,10 @@ const Icon = (props: IconProps) => {
       fallback={ <TokenLogoPlaceholder/> }
       shield={ shield }
       hint={ props.chain && props.shield !== false ? getChainTooltipText(props.chain, 'Token on ') : undefined }
-      { ...props }
+      isLoading={ props.isLoading }
+      noIcon={ props.noIcon }
+      variant={ props.variant }
+      chain={ props.chain }
     />
   );
 };

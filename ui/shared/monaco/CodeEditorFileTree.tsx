@@ -1,4 +1,3 @@
-import type { AccordionItemProps } from '@chakra-ui/react';
 import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
@@ -27,14 +26,6 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
     setValue(value);
   }, []);
 
-  const itemProps: Partial<AccordionItemProps> = {
-    borderWidth: '0px',
-    cursor: 'pointer',
-    lineHeight: '22px',
-    _last: {
-      borderBottomWidth: '0px',
-    },
-  };
   const themeColors = useThemeColors();
 
   return (
@@ -46,16 +37,17 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
 
           if ('children' in leaf) {
             return (
-              <AccordionItem key={ index } value={ leaf.name } { ...itemProps }>
+              <AccordionItem
+                key={ index }
+                value={ leaf.name }
+                className="border-b-0 cursor-pointer leading-[22px]"
+              >
                 <AccordionItemTrigger
-                  pr="8px"
-                  py="0"
-                  pl={ `${ 8 + 8 * level }px` }
-                  _hover={{ bgColor: themeColors['custom.list.hoverBackground'] }}
-                  fontSize="13px"
-                  lineHeight="22px"
-                  h="22px"
-                  transitionDuration="0"
+                  className="pr-[8px] py-0 text-[13px] leading-[22px] h-[22px] transition-none"
+                  style={{
+                    paddingLeft: `${ 8 + 8 * level }px`,
+                    backgroundColor: undefined,
+                  }}
                   noIndicator
                 >
                   <Box
@@ -74,7 +66,7 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
                   />
                   { leafName }
                 </AccordionItemTrigger>
-                <AccordionItemContent p="0">
+                <AccordionItemContent className="p-0">
                   <CodeEditorFileTree
                     tree={ leaf.children }
                     level={ level + 1 }
@@ -92,19 +84,14 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
             <AccordionItem
               key={ index }
               value={ leaf.name }
-              { ...itemProps }
-              pl={ `${ 26 + (level * 8) }px` }
-              pr="8px"
+              className="border-b-0 cursor-pointer leading-[22px] flex relative items-center overflow-hidden"
+              style={{
+                paddingLeft: `${ 26 + (level * 8) }px`,
+                paddingRight: '8px',
+                backgroundColor: selectedFile === leaf.file_path ? themeColors['list.inactiveSelectionBackground'] : 'transparent',
+              }}
               onClick={ onItemClick }
               data-file-path={ leaf.file_path }
-              display="flex"
-              position="relative"
-              alignItems="center"
-              overflow="hidden"
-              _hover={{
-                bgColor: selectedFile === leaf.file_path ? themeColors['list.inactiveSelectionBackground'] : themeColors['custom.list.hoverBackground'],
-              }}
-              bgColor={ selectedFile === leaf.file_path ? themeColors['list.inactiveSelectionBackground'] : 'none' }
             >
               { mainFile === leaf.file_path && (
                 <CodeEditorMainFileIndicator

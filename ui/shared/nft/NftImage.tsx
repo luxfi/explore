@@ -52,15 +52,15 @@ const NftImage = ({ src, srcSet, onLoad, onError, transport, onClick, ...rest }:
   }, [ loadViaHttp, loadViaIpfs, transport ]);
 
   return (
-    <Image
-      ref={ ref }
-      w="100%"
-      h="100%"
-      opacity={ isLoaded ? 1 : 0 }
-      alt="Token instance image"
-      onClick={ onClick }
-      { ...rest }
-    />
+    <span onClick={ onClick } className="contents">
+      <Image
+        ref={ ref }
+        w="100%"
+        h="100%"
+        className={ `${ isLoaded ? 'opacity-100' : 'opacity-0' }` }
+        alt="Token instance image"
+      />
+    </span>
   );
 };
 

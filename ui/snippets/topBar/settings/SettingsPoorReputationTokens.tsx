@@ -29,9 +29,7 @@ const SettingsPoorReputationTokens = () => {
       checked={ isChecked }
       onChange={ handleChange }
       direction="rtl"
-      justifyContent="space-between"
-      w="100%"
-      minH="34px"
+      className="justify-between w-full min-h-[34px]"
     >
       Hide poor reputation tokens
     </Switch>

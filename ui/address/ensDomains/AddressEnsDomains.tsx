@@ -46,7 +46,7 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
   }
 
   if (isPending) {
-    return <Skeleton loading h={ 8 } w={{ base: '50px', xl: '120px' }} borderRadius="base"/>;
+    return <Skeleton loading={ true } h="32px" w="50px" className="xl:w-[120px]" borderRadius="base"/>;
   }
 
   if (!data || data.items.length === 0) {
@@ -92,9 +92,7 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
               size="sm"
               variant="dropdown"
               aria-label="Address domains"
-              fontWeight={ 500 }
-              flexShrink={ 0 }
-              columnGap={ 1 }
+              className="font-medium shrink-0 gap-1"
             >
               <IconSvg name="ENS" boxSize={ 5 }/>
               <chakra.span hideBelow="xl">{ totalRecords } Domain{ data.items.length > 1 ? 's' : '' }</chakra.span>
@@ -103,8 +101,8 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
           </PopoverTrigger>
         </div>
       </Tooltip>
-      <PopoverContent w={{ lg: '500px' }}>
-        <PopoverBody textStyle="sm" display="flex" flexDir="column" rowGap={ 5 } alignItems="flex-start">
+      <PopoverContent className="lg:w-[500px]">
+        <PopoverBody className="text-sm flex flex-col gap-y-5 items-start">
           { mainDomain && (
             <Box w="100%">
               <chakra.span color="text.secondary" textStyle="xs">Primary*</chakra.span>

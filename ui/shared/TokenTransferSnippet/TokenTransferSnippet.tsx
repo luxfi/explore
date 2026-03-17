@@ -28,7 +28,7 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
   const content = (() => {
 
     if (isLoading) {
-      return <Skeleton loading w="250px" h={ 6 }/>;
+      return <Skeleton loading={ true } w="250px" h="24px"/>;
     }
 
     if (data.token && isConfidentialTokenType(data.token.type)) {

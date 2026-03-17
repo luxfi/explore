@@ -1,4 +1,4 @@
-import { chakra, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import QRCode from 'qrcode';
 import React from 'react';
@@ -53,7 +53,7 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
   }, [ hash, open, pageType, rollbar ]);
 
   if (isLoading) {
-    return <Skeleton loading className={ className } w="36px" h="32px" borderRadius="base"/>;
+    return <Skeleton loading={ true } className={ className } w="36px" h="32px" borderRadius="base"/>;
   }
 
   return (
@@ -99,4 +99,4 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
   );
 };
 
-export default React.memo(chakra(AddressQrCode));
+export default React.memo(AddressQrCode);

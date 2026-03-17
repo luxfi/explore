@@ -104,7 +104,7 @@ const TokenTransfersLocal = ({ query, filters, addressHash, onTypeFilterChange, 
           isLoading={ isPlaceholderData }
         />
       </HStack>
-      <Pagination ml="auto" { ...pagination }/>
+      <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;
 

@@ -1,4 +1,3 @@
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -160,9 +159,7 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
           loadingText={ text }
           variant="outline"
           size="sm"
-          flexShrink={ 0 }
-          width="min-content"
-          px={ 4 }
+          className="shrink-0 w-min px-4"
           type="submit"
           data-call-strategy={ buttonCallStrategy }
         >
@@ -188,9 +185,7 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
         loadingText={ text }
         variant="outline"
         size="sm"
-        flexShrink={ 0 }
-        width="min-content"
-        px={ 4 }
+        className="shrink-0 w-min px-4"
         type="submit"
         data-call-strategy={ buttonCallStrategy }
       >
@@ -229,9 +224,7 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
           loadingText={ text }
           variant="outline"
           size="sm"
-          flexShrink={ 0 }
-          width="min-content"
-          px={ 4 }
+          className="shrink-0 w-min px-4"
           type="submit"
           data-call-strategy={ buttonCallStrategy }
         >
@@ -244,14 +237,14 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
   const showOutputResult = result && result.source === 'public_client' && !(result.data instanceof Error);
 
   return (
-    <Box>
+    <div>
       <FormProvider { ...formApi }>
-        <chakra.form
+        <form
           noValidate
           onSubmit={ formApi.handleSubmit(onFormSubmit) }
           onChange={ handleFormChange }
         >
-          <Flex flexDir="column" rowGap={ 3 } mb={ 6 } _empty={{ display: 'none' }}>
+          <div className="flex flex-col gap-y-3 mb-6 empty:hidden">
             { inputs.map((input, index) => {
               const props = {
                 data: input,
@@ -289,8 +282,8 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
 
               return <ContractMethodFieldInput key={ index } { ...props } path={ `${ index }` }/>;
             }) }
-          </Flex>
-          <Flex flexDir="row" gap={ 3 } flexWrap="wrap">
+          </div>
+          <div className="flex flex-row gap-3 flex-wrap">
             { secondaryButton }
             { primaryButton }
             { copyCallDataButton }
@@ -299,16 +292,16 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
                 variant="link"
                 size="sm"
                 onClick={ onReset }
-                gap={ 1 }
+                className="gap-1"
               >
                 <IconSvg name="repeat" boxSize={ 5 }/>
                 Reset
               </Button>
             ) }
-          </Flex>
-        </chakra.form>
+          </div>
+        </form>
       </FormProvider>
-      <Flex flexDir="column" rowGap={{ base: 1, lg: 2 }} mt={ 3 } _empty={{ display: 'none' }}>
+      <div className="flex flex-col gap-y-1 lg:gap-y-2 mt-3 empty:hidden">
         { result && result.source === 'wallet_client' && (
           <ContractMethodResultWalletClient
             data={ result.data }
@@ -330,8 +323,8 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
             mode={ showOutputResult ? 'result' : 'preview' }
           />
         ) }
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 };
 

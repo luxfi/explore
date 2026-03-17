@@ -102,8 +102,7 @@ const MultichainTokens = () => {
 
   const searchInput = (
     <FilterInput
-      w={{ base: '100%', lg: '360px' }}
-      minW={{ base: 'auto', lg: '250px' }}
+      className="w-full lg:w-[360px] min-w-[auto] lg:min-w-[250px]"
       size="sm"
       onChange={ handleSearchTermChange }
       placeholder="Token name or symbol"

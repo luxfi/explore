@@ -114,14 +114,14 @@ const VerifiedAddresses = () => {
   const addButton = (() => {
     if (userWithoutEmail) {
       return (
-        <Button disabled mt={ 8 }>
+        <Button disabled className="mt-8">
           Add address
         </Button>
       );
     }
 
     return (
-      <Button onClick={ modalProps.onOpen } loadingSkeleton={ isLoading } mt={ 8 }>
+      <Button onClick={ modalProps.onOpen } loadingSkeleton={ isLoading } className="mt-8">
         Add address
       </Button>
     );
@@ -130,7 +130,7 @@ const VerifiedAddresses = () => {
   if (selectedAddress) {
     const addressInfo = addressesQuery.data?.verifiedAddresses.find(({ contractAddress }) => contractAddress.toLowerCase() === selectedAddress.toLowerCase());
     const tokenName = addressInfo ? `${ addressInfo.metadata.tokenName } (${ addressInfo.metadata.tokenSymbol })` : '';
-    const beforeTitle = <BackToButton onClick={ handleGoBack } hint="Back to my verified addresses" mr={ 3 }/>;
+    const beforeTitle = <BackToButton onClick={ handleGoBack } hint="Back to my verified addresses" className="mr-3"/>;
 
     return (
       <>

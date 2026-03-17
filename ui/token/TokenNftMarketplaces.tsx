@@ -60,7 +60,7 @@ const TokenNftMarketplaces = ({ hash, id, isLoading, appActionData, source }: Pr
       <DetailedInfo.ItemValue
         py={ appActionData ? '1px' : '6px' }
       >
-        <Skeleton loading={ isLoading } display="flex" flexWrap="wrap" alignItems="center">
+        <Skeleton loading={ isLoading } className="flex flex-wrap items-center">
           <HStack gap={ 3 }>
             { items.map((item) => {
               return (

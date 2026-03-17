@@ -1,5 +1,3 @@
-import type { StackProps } from '@chakra-ui/react';
-import { Box, Flex, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -10,36 +8,37 @@ import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 import ChainIcon from './ChainIcon';
 
-interface Props extends StackProps {
+interface Props {
   data: Omit<ExternalChain, 'explorer_url'> | undefined;
   isLoading?: boolean;
   fallback?: React.ReactNode;
+  className?: string;
 }
 
-const ChainLabel = ({ data, isLoading, fallback, ...rest }: Props) => {
+const ChainLabel = ({ data, isLoading, fallback, className }: Props) => {
   if (!data) {
     return fallback || null;
   }
 
   const content = (
     <>
-      <Box fontWeight={ 600 }>{ data.name }</Box>
-      <Flex alignItems="center" justifyContent="center">
+      <span className="font-semibold">{ data.name }</span>
+      <span className="flex items-center justify-center">
         ChainID: { data.id }
         <CopyToClipboard text={ data.id } noTooltip/>
-      </Flex>
+      </span>
     </>
   );
 
   return (
-    <HStack w="full" whiteSpace="nowrap" { ...rest }>
+    <div className={ `flex items-center gap-2 w-full whitespace-nowrap ${ className ?? '' }`.trim() }>
       <ChainIcon data={ data } isLoading={ isLoading } noTooltip/>
       <Tooltip content={ content } interactive>
-        <Skeleton loading={ isLoading } overflow="hidden" textOverflow="ellipsis">
+        <Skeleton loading={ isLoading } className="overflow-hidden text-ellipsis">
           { data.name }
         </Skeleton>
       </Tooltip>
-    </HStack>
+    </div>
   );
 };
 

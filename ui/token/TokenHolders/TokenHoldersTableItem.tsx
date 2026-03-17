@@ -30,12 +30,12 @@ const TokenTransferTableItem = ({ holder, token, isLoading }: Props) => {
       </TableCell>
       { (hasTokenIds(token.type)) && 'token_id' in holder && (
         <TableCell verticalAlign="middle">
-          <TruncatedText text={ holder.token_id } loading={ isLoading } w="100%"/>
+          <TruncatedText text={ holder.token_id } loading={ isLoading } className="w-full"/>
         </TableCell>
       ) }
       <TableCell verticalAlign="middle" isNumeric>
         { isConfidentialTokenType(token.type) ? (
-          <ConfidentialValue loading={ isLoading } wordBreak="break-word"/>
+          <ConfidentialValue loading={ isLoading } className="break-words"/>
         ) : (
           <AssetValue
             amount={ holder.value }

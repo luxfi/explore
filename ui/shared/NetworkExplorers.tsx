@@ -32,7 +32,7 @@ const NetworkExplorers = ({ className, type, pathParam }: Props) => {
         }
         const url = new URL(pathWithParam, explorer.baseUrl);
         return (
-          <Link external h="34px" key={ explorer.baseUrl } href={ url.toString() } alignItems="center" display="inline-flex" minW="120px">
+          <Link external key={ explorer.baseUrl } href={ url.toString() } className="h-[34px] items-center inline-flex min-w-[120px]">
             { explorer.logo ?
               <Image boxSize={ 5 } mr={ 2 } src={ explorer.logo } alt={ `${ explorer.title } icon` }/> :
               <IconSvg name="explorer" boxSize={ 5 } color="icon.primary" mr={ 2 }/>

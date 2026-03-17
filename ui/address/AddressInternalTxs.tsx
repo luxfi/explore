@@ -51,7 +51,7 @@ const AddressInternalTxs = ({ shouldRender = true, isQueryEnabled = true }: Prop
         params={{ type: 'internal-transactions', filterType: 'address', filterValue }}
         ml={{ base: 2, lg: 'auto' }}
       />
-      <Pagination ml={{ base: 'auto', lg: 8 }} { ...pagination }/>
+      <Pagination className="ml-auto lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

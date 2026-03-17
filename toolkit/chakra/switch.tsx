@@ -34,7 +34,7 @@ export interface SwitchProps extends Omit<React.ComponentPropsWithoutRef<'label'
   thumbLabel?: { on: React.ReactNode; off: React.ReactNode };
   checked?: boolean;
   defaultChecked?: boolean;
-  onCheckedChange?: ((details: { checked: boolean }) => void) | ((checked: boolean) => void);
+  onCheckedChange?: (details: { checked: boolean }) => void;
   onChange?: React.FormEventHandler<HTMLLabelElement>;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';

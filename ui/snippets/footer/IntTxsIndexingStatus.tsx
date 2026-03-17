@@ -81,7 +81,7 @@ const IntTxsIndexingStatus = () => {
   );
 
   return (
-    <Tooltip content={ hint } interactive positioning={{ placement: 'bottom-start' }} lazyMount>
+    <Tooltip content={ hint } interactive positioning={{ placement: 'bottom' }} lazyMount>
       { trigger }
     </Tooltip>
   );

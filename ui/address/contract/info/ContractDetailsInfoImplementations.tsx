@@ -17,7 +17,7 @@ const ContractDetailsInfoImplementations = ({ implementations, proxyType }: Prop
   return (
     <ContractDetailsInfoItem
       label={ `${ proxyType === 'eip7702' ? 'Delegated to' : `Implementation${ implementations.length > 1 ? 's' : '' }` }` }
-      contentProps={{ gridColumn: { lg: '2 / span 3' }, position: 'relative' }}
+      contentProps={{ className: 'lg:[grid-column:2/span_3] relative' }}
     >
       <ContainerWithScrollY gradientHeight={ 48 } maxH="200px" w="100%">
         { implementations.map((item) => (

@@ -74,7 +74,7 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
       <Box>
         { isAutoConnectDisabled && <UserWalletAutoConnectAlert/> }
         { config.features.blockchainInteraction.isEnabled && <UserProfileContentWallet onClose={ onClose }/> }
-        <Button mt={ 3 } onClick={ onLogin } size="sm" w="100%">Log in</Button>
+        <Button className="mt-3 w-full" onClick={ onLogin } size="sm">Log in</Button>
       </Box>
     );
   }
@@ -98,10 +98,10 @@ const UserProfileContent = ({ data, onClose, onLogin, onAddEmail, onAddAddress }
             <Hint
               label={ `This wallet address is linked to your Lux account. It can be used to login ${ config.features.rewards.isEnabled ? 'and is used for Merits Program participation' : '' }` } // eslint-disable-line max-len
               boxSize={ 4 }
-              ml={ 1 }
+              className="ml-1"
             />
             { data?.address_hash ?
-              <Box ml="auto">{ shortenString(data?.address_hash) }</Box> : <Link ml="auto" onClick={ onAddAddress }>Add address</Link> }
+              <Box ml="auto">{ shortenString(data?.address_hash) }</Box> : <Link className="ml-auto" onClick={ onAddAddress }>Add address</Link> }
           </Flex>
         ) }
         <Flex p={ 2 } columnGap={ 4 }>

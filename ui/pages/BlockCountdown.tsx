@@ -77,7 +77,7 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
             <Heading
               level="1"
             >
-              <TruncatedText text={ `Block #${ height }` } w="100%"/>
+              <TruncatedText text={ `Block #${ height }` } className="w-full"/>
             </Heading>
             <Box mt={ 2 } color="text.secondary">
               <Box fontWeight={ 600 }>Estimated target date</Box>
@@ -87,9 +87,7 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
               <Link
                 external
                 variant="underlaid"
-                textStyle="sm"
-                px={ 2 }
-                display="inline-flex"
+                className="text-sm px-2 inline-flex"
                 href={ createGoogleCalendarLink({ blockHeight: height, timeFromNow: Number(data.result.EstimateTimeInSec), multichainContext }) }
               >
                 <Image src="/static/google_calendar.svg" alt="Google calendar logo" boxSize={ 5 } mr={ 2 }/>
@@ -97,13 +95,8 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
               </Link>
               <Button
                 variant="plain"
-                px={ 2 }
                 size="sm"
-                fontWeight="normal"
-                color="link.primary"
-                _hover={{ color: 'link.primary.hover' }}
-                bgColor="link.underlaid.bg"
-                display="inline-flex"
+                className="px-2 font-normal text-[var(--color-link-primary)] hover:text-[var(--color-link-primary-hover)] bg-[var(--color-link-underlaid-bg)] inline-flex"
                 onClick={ handleAddToAppleCalClick }
               >
                 <Image src="/static/apple_calendar.svg" alt="Apple calendar logo" boxSize={ 5 }/>
@@ -122,12 +115,7 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
             { multichainContext?.chain && (
               <ChainIcon
                 data={ multichainContext.chain }
-                position="absolute"
-                bottom={{ base: '5px', lg: '6px' }}
-                right={{ base: '45px', lg: '86px' }}
-                boxSize={{ lg: '60px' }}
-                bgColor="bg.primary"
-                borderRadius="full"
+                className="absolute bottom-[5px] lg:bottom-[6px] right-[45px] lg:right-[86px] lg:w-[60px] lg:h-[60px] bg-[var(--color-bg-primary)] rounded-full"
               />
             ) }
           </Box>

@@ -40,7 +40,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
 
   const tokenInfo = (() => {
     if (isLoading) {
-      return <Skeleton loading height={ 6 } width="140px"/>;
+      return <Skeleton loading className="h-6 w-[140px]"/>;
     }
 
     if (!item.metadata.tokenName) {
@@ -89,7 +89,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
               aria-label="edit"
               variant="link"
               size="2xs"
-              borderRadius="none"
+              className="rounded-none"
               onClick={ handleEditClick }
             >
               <IconSvg name="edit"/>
@@ -102,7 +102,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
           <VerifiedAddressesStatus status={ item.metadata.tokenName ? application?.status : undefined }/>
         </Skeleton>
       </TableCell>
-      <TableCell fontSize="sm" color="text.secondary">
+      <TableCell fontSize="sm" className="text-[var(--color-text-secondary)]">
         <Skeleton loading={ isLoading } display="inline-block">
           { item.metadata.tokenName && application ? dayjs(application.updatedAt).format('MMM DD, YYYY') : null }
         </Skeleton>

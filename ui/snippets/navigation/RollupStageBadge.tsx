@@ -21,7 +21,7 @@ const RollupStageBadge = ({ chainConfig = config, isLoading, ...props }: Props) 
   }
 
   if (isLoading) {
-    return <Skeleton w="42px" h="14px" { ...props } loading/>;
+    return <Skeleton w="42px" h="14px" className={ props.className } loading/>;
   }
 
   switch (feature.stageIndex) {

@@ -21,7 +21,7 @@ const PopoverFilter = ({ appliedFiltersNum, children, contentProps, isLoading }:
         />
       </PopoverTrigger>
       <PopoverContent { ...contentProps }>
-        <PopoverBody display="flex" flexDir="column" rowGap={ 5 }>
+        <PopoverBody className="flex flex-col gap-y-5">
           { children }
         </PopoverBody>
       </PopoverContent>

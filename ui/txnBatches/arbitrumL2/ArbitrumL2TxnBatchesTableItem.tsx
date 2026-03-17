@@ -70,7 +70,7 @@ const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          minW="40px"
+          className="min-w-[40px]"
         >
           { item.transactions_count.toLocaleString() }
         </Link>

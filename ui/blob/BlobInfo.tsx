@@ -39,7 +39,7 @@ const BlobInfo = ({ data, isLoading }: Props) => {
             Proof
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="pre-wrap" wordBreak="break-all">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-pre-wrap break-all">
               { data.kzg_proof }
               <CopyToClipboard text={ data.kzg_proof } isLoading={ isLoading }/>
             </Skeleton>
@@ -56,7 +56,7 @@ const BlobInfo = ({ data, isLoading }: Props) => {
             Commitment
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="pre-wrap" wordBreak="break-all">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-pre-wrap break-all">
               { data.kzg_commitment }
               <CopyToClipboard text={ data.kzg_commitment } isLoading={ isLoading }/>
             </Skeleton>
@@ -73,7 +73,7 @@ const BlobInfo = ({ data, isLoading }: Props) => {
             Size, bytes
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="pre-wrap" wordBreak="break-all">
+            <Skeleton loading={ isLoading } className="overflow-hidden whitespace-pre-wrap break-all">
               { (data.blob_data.replace('0x', '').length / 2).toLocaleString() }
             </Skeleton>
           </DetailedInfo.ItemValue>

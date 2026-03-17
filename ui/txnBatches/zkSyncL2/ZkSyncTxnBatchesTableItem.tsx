@@ -48,8 +48,7 @@ const ZkSyncTxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
           loading={ isLoading }
-          minW="40px"
-          my={ 1 }
+          className="min-w-[40px] my-1"
         >
           { item.transactions_count }
         </Link>

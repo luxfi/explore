@@ -122,7 +122,8 @@ const AdaptiveTabsList = (props: Props) => {
         } : { })
       }
       {
-        ...(typeof listProps === 'function' ? listProps({ isSticky, activeTab }) : listProps)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...(typeof listProps === 'function' ? listProps({ isSticky, activeTab }) : listProps) as any
       }
     >
       { leftSlot && (
@@ -148,7 +149,7 @@ const AdaptiveTabsList = (props: Props) => {
               tabs={ tabs }
               tabsCut={ tabsCut ?? 0 }
               isActive={ activeTabIndex > 0 && tabsCut !== undefined && tabsCut > 0 && activeTabIndex >= tabsCut }
-              { ...getMenuStyles(tabs.length, tabsCut, isLoading) }
+              { ...(getMenuStyles(tabs.length, tabsCut, isLoading) as Record<string, unknown>) }
             />
           );
         }

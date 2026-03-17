@@ -29,9 +29,9 @@ const NFTItem = ({ value, isLoading, withTokenLink, chain, ...tokenInstance }: P
   return (
     <NFTItemContainer position="relative">
       <Skeleton loading={ isLoading } className="light">
-        <Tag background="gray.50" zIndex={ 1 } position="absolute" top="18px" right="18px">{ getTokenTypeName(token.type) }</Tag>
+        <Tag className="bg-gray-50 z-[1] absolute top-[18px] right-[18px]">{ getTokenTypeName(token.type) }</Tag>
       </Skeleton>
-      <Link href={ isLoading ? undefined : tokenInstanceLink } display="inline">
+      <Link href={ isLoading ? undefined : tokenInstanceLink } className="inline">
         <NftMedia
           mb="18px"
           data={ tokenInstance }

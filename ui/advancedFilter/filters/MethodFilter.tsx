@@ -81,7 +81,7 @@ const MethodFilter = ({ value = [], handleFilterChange }: Props) => {
         size="sm"
         onChange={ onSearchChange }
         placeholder="Find by function name/ method ID"
-        mb={ 3 }
+        className="mb-3"
       />
       { methodsQuery.isLoading && <Spinner/> }
       { methodsQuery.isError && <span>Something went wrong. Please try again.</span> }
@@ -102,7 +102,7 @@ const MethodFilter = ({ value = [], handleFilterChange }: Props) => {
               >
                 <Flex justifyContent="space-between" alignItems="center" id={ method.method_id }>
                   <chakra.span overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">{ method.name || method.method_id }</chakra.span>
-                  <Badge colorPalette="gray" truncated ml="auto">
+                  <Badge colorPalette="gray" truncated className="ml-auto">
                     { method.method_id }
                   </Badge>
                 </Flex>

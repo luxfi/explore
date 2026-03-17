@@ -4,6 +4,9 @@ import { cn } from 'lib/utils/cn';
 
 export interface HeadingProps extends React.ComponentPropsWithoutRef<'h1'> {
   level?: '1' | '2' | '3';
+  // Legacy Chakra style-prop shims
+  mb?: number | string;
+  size?: string;
 }
 
 const LEVEL_TAG = {
@@ -34,14 +37,17 @@ const LEVEL_CLASSES = {
 const BASE_CLASSES = 'font-heading text-heading';
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  function Heading({ level, className, ...rest }, ref) {
+  function Heading({ level, className, mb, size: _size, style: styleProp, ...rest }, ref) {
     const Tag = level ? LEVEL_TAG[level] : 'h2';
     const levelClasses = level ? LEVEL_CLASSES[level] : undefined;
+    const shimStyle: React.CSSProperties = { ...styleProp };
+    if (mb !== undefined) shimStyle.marginBottom = typeof mb === 'number' ? `${ mb * 4 }px` : mb;
 
     return (
       <Tag
         ref={ ref }
         className={ cn(BASE_CLASSES, levelClasses, className) }
+        style={ Object.keys(shimStyle).length > 0 ? shimStyle : undefined }
         { ...rest }
       />
     );

@@ -65,7 +65,7 @@ const LogItem = ({
     >
       { !decoded && !address.is_verified && type === 'transaction' && (
         <GridItem colSpan={{ base: 1, lg: 2 }}>
-          <Alert status="warning" display="inline-table" whiteSpace="normal">
+          <Alert status="warning" className="inline-table whitespace-normal">
             To see accurate decoded input data, the contract must be verified.{ space }
             <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: address.hash } }) }>Verify the contract here</Link>
           </Alert>
@@ -138,10 +138,8 @@ const LogItem = ({
       ) : (
         <Skeleton
           loading={ isLoading }
-          p={ 4 }
-          fontSize="sm"
           borderRadius="md"
-          bgColor={ isLoading ? undefined : { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }
+          className={ `p-4 text-sm ${ isLoading ? '' : 'bg-[var(--color-skeleton-start)]' }` }
         >
           { data }
         </Skeleton>

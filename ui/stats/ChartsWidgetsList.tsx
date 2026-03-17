@@ -84,7 +84,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                 marginBottom: 0,
               }}
             >
-              <Skeleton loading={ isPlaceholderData } mb={{ base: 3, lg: 4 }} display="inline-flex" alignItems="center" columnGap={ 2 } id={ section.id }>
+              <Skeleton loading={ isPlaceholderData } className="mb-3 lg:mb-4 inline-flex items-center gap-2" id={ section.id }>
                 <Heading level="2" id={ section.id }>
                   { section.title }
                 </Heading>

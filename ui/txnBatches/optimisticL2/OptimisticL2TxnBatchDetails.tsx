@@ -131,7 +131,7 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
         Batch data container
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexDir="column" alignItems="flex-start" rowGap={ 2 }>
-        <OptimisticL2TxnBatchDA container={ data.batch_data_container } isLoading={ isPlaceholderData } mt={{ base: 0, lg: 1 }}/>
+        <OptimisticL2TxnBatchDA container={ data.batch_data_container } isLoading={ isPlaceholderData } className="mt-0 lg:mt-1"/>
         { data.batch_data_container === 'in_blob4844' && data.blobs &&
           <OptimisticL2TxnBatchBlobEip4844 blobs={ data.blobs } isLoading={ isPlaceholderData }/> }
         { data.batch_data_container === 'in_calldata' && (

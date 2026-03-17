@@ -1,10 +1,9 @@
-import type { ButtonProps } from '@chakra-ui/react';
 import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
-import { Button } from 'toolkit/chakra/button';
+import { Button, type ButtonProps } from 'toolkit/chakra/button';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -56,8 +55,7 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
           variant={ variant }
           selected={ Boolean(address) }
           highlighted={ isAutoConnectDisabled }
-          px={{ base: 2.5, lg: 3 }}
-          fontWeight={ address ? 700 : 600 }
+          className={ `px-2.5 lg:px-3 ${ address ? 'font-bold' : 'font-semibold' }` }
           loading={ isPending }
           loadingText={ isMobile ? undefined : 'Connecting' }
           { ...rest }

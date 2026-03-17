@@ -19,11 +19,11 @@ const AddressNftDisplayTypeRadio = ({ value, onChange, ...rest }: Props) => {
       equalWidth
       { ...rest }
     >
-      <Button value="collection" size="sm" px={ 3 }>
+      <Button value="collection" size="sm" className="px-3">
         <IconSvg name="collection" boxSize={ 5 }/>
         <chakra.span hideBelow="lg">By collection</chakra.span>
       </Button>
-      <Button value="list" size="sm" px={ 3 }>
+      <Button value="list" size="sm" className="px-3">
         <IconSvg name="apps" boxSize={ 5 }/>
         <chakra.span hideBelow="lg">List</chakra.span>
       </Button>

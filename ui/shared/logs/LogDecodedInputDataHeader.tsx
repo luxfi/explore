@@ -29,7 +29,7 @@ const Item = ({ label, children, isLoading, ...rest }: ItemProps) => {
       alignItems={{ base: 'flex-start', lg: 'center' }}
       { ...rest }
     >
-      <Skeleton fontWeight={ 600 } w={{ base: 'auto', lg: '80px' }} flexShrink={ 0 } loading={ isLoading }>
+      <Skeleton fontWeight={ 600 } flexShrink={ 0 } loading={ isLoading } className="max-lg:w-auto lg:w-[80px]">
         { label }
       </Skeleton >
       { children }
@@ -54,7 +54,7 @@ const LogDecodedInputDataHeader = ({ methodId, methodCall, isLoading, rightSlot 
         { rightSlot }
       </Flex>
       <Item label="Call" isLoading={ isLoading }>
-        <Skeleton loading={ isLoading } whiteSpace="pre-wrap" wordBreak="break-all" flexGrow={ 1 }>{ methodCall }</Skeleton>
+        <Skeleton loading={ isLoading } className="whitespace-pre-wrap break-all flex-grow">{ methodCall }</Skeleton>
       </Item>
     </VStack>
   );

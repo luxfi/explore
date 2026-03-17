@@ -25,7 +25,7 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
           onClick={ onEditClick }
           onFocusCapture={ onFocusCapture }
           loadingSkeleton={ isLoading }
-          borderRadius="none"
+          className="rounded-none"
         >
           <IconSvg name="edit"/>
         </IconButton>
@@ -38,7 +38,7 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
           onClick={ onDeleteClick }
           onFocusCapture={ onFocusCapture }
           loadingSkeleton={ isLoading }
-          borderRadius="none"
+          className="rounded-none"
         >
           <IconSvg name="delete"/>
         </IconButton>

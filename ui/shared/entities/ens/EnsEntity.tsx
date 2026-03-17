@@ -64,8 +64,7 @@ const Icon = (props: IconProps) => {
         { props.protocol.docs_url && (
           <LinkToolkit
             href={ props.protocol.docs_url }
-            display="inline-flex"
-            alignItems="center"
+            className="inline-flex items-center"
             external
           >
             <IconSvg name="docs" boxSize={ 5 } color="icon.primary" mr={ 2 }/>
@@ -83,13 +82,7 @@ const Icon = (props: IconProps) => {
           placement: 'bottom-start',
         }}
         contentProps={{
-          maxW: { base: '100vw', lg: '440px' },
-          minW: '250px',
-          w: 'fit-content',
-          display: 'flex',
-          flexDir: 'column',
-          rowGap: 3,
-          alignItems: 'flex-start',
+          className: 'max-w-screen lg:max-w-[440px] min-w-[250px] w-fit flex flex-col gap-3 items-start',
         }}
         interactive
       >

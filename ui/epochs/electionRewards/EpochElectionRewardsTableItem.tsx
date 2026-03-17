@@ -28,9 +28,9 @@ const EpochElectionRewardsTableItem = ({ isLoading, data, type }: Props) => {
     <>
       <TableRow
         onClick={ isLoading || !data.count ? undefined : section.onToggle }
-        cursor={ isLoading || !data.count ? undefined : 'pointer' }
+        className={ isLoading || !data.count ? undefined : 'cursor-pointer' }
       >
-        <TableCell borderColor={ mainRowBorderColor }>
+        <TableCell className={ section.open ? 'border-transparent' : undefined }>
           { Boolean(data.count) && (
             <Skeleton loading={ isLoading } display="flex" borderRadius="sm">
               <IconButton
@@ -47,15 +47,15 @@ const EpochElectionRewardsTableItem = ({ isLoading, data, type }: Props) => {
             </Skeleton>
           ) }
         </TableCell>
-        <TableCell borderColor={ mainRowBorderColor }>
+        <TableCell className={ section.open ? 'border-transparent' : undefined }>
           <EpochRewardTypeTag type={ type } isLoading={ isLoading }/>
         </TableCell>
-        <TableCell borderColor={ mainRowBorderColor }>
-          <Skeleton loading={ isLoading } fontWeight={ 400 } my={ 1 }>
+        <TableCell className={ section.open ? 'border-transparent' : undefined }>
+          <Skeleton loading={ isLoading } fontWeight={ 400 } className="my-1">
             { getRewardNumText(type, data.count) }
           </Skeleton>
         </TableCell>
-        <TableCell borderColor={ mainRowBorderColor } textAlign="right">
+        <TableCell className={ section.open ? 'border-transparent' : undefined } textAlign="right">
           <TokenValue
             amount={ data.total }
             token={ data.token }

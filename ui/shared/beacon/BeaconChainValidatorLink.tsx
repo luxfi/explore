@@ -34,9 +34,8 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
         href={ feature.validatorUrlTemplate.replace('{pk}', pubkey) }
         external
         loading={ isLoading }
-        overflow="hidden"
-        display="grid"
-        gridTemplateColumns="auto 20px"
+        className="grid overflow-hidden"
+        style={{ gridTemplateColumns: 'auto 20px' }}
       >
         <TruncatedTextTooltip label={ pubkey }>
           <Text overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">{ pubkey }</Text>
@@ -57,7 +56,6 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
         text={ pubkey }
         type="text"
         isLoading={ isLoading }
-        ml={ 1 }
       />
     </Skeleton>
   );

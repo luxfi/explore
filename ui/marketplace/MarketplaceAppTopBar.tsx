@@ -53,10 +53,7 @@ const MarketplaceAppTopBar = ({ appId, data, isLoading }: Props) => {
         external
         href={ data?.url }
         variant="underlaid"
-        textStyle="sm"
-        minW={ 0 }
-        maxW={{ base: 'calc(100% - 114px)', md: 'auto' }}
-        display="flex"
+        className="text-sm min-w-0 max-w-[calc(100%-114px)] md:max-w-none flex"
         loading={ isLoading }
       >
         <chakra.span truncate>

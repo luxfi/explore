@@ -19,7 +19,7 @@ const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
     <ItemContent isLast={ isLast }>
       <ItemBody>
         <ItemRow label="Status">
-          <StatusTag type={ data.is_success ? 'ok' : 'error' } text={ data.is_success ? 'Success' : 'Failed' } my={ 1 }/>
+          <StatusTag type={ data.is_success ? 'ok' : 'error' } text={ data.is_success ? 'Success' : 'Failed' } className="my-1"/>
         </ItemRow>
 
         { data.timestamp && (

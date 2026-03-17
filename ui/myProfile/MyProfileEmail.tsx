@@ -80,13 +80,13 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
 
   return (
     <section>
-      <Heading level="2" mb={ 3 }>Notifications</Heading>
+      <Heading level="2" className="mb-3">Notifications</Heading>
       <FormProvider { ...formApi }>
         <chakra.form
           noValidate
           onSubmit={ formApi.handleSubmit(onFormSubmit) }
         >
-          <FormFieldText<FormFields> name="name" placeholder="Name" readOnly mb={ 3 }/>
+          <FormFieldText<FormFields> name="name" placeholder="Name" readOnly className="mb-3"/>
           <MyProfileFieldsEmail
             isReadOnly={ !config.services.reCaptchaV2.siteKey || Boolean(profileQuery.data?.email) }
             defaultValue={ profileQuery.data?.email || undefined }
@@ -94,7 +94,7 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
           { config.services.reCaptchaV2.siteKey && !profileQuery.data?.email && <ReCaptcha { ...recaptcha }/> }
           { config.services.reCaptchaV2.siteKey && !profileQuery.data?.email && (
             <Button
-              mt={ 6 }
+              className="mt-6"
               size="sm"
               variant="outline"
               type="submit"

@@ -43,8 +43,8 @@ export const ItemLabel = ({ hint, children, isLoading, id, hasScroll, ...rest }:
       { ...rest }
     >
       <Flex columnGap={{ base: 1, lg: 2 }} alignItems="flex-start" w="100%">
-        { hint && <Hint label={ hint } isLoading={ isLoading } my={{ base: '5px', lg: '6px' }}/> }
-        <Skeleton loading={ isLoading } fontWeight={{ base: 700, lg: 500 }} py={{ base: '5px', lg: '4px' }} flexGrow={ 1 }>
+        { hint && <Hint label={ hint } isLoading={ isLoading } className="my-[5px] lg:my-[6px]"/> }
+        <Skeleton loading={ isLoading } className="font-bold lg:font-medium py-[5px] lg:py-1" flexGrow={ 1 }>
           { children }
           { hasScroll && <ItemLabelScrollText/> }
         </Skeleton>

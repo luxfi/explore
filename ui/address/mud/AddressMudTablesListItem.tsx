@@ -53,7 +53,7 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
     <ListItemMobile rowGap={ 3 } fontSize="sm" py={ 3 }>
       <Flex w="100%">
         <Skeleton loading={ isLoading }>
-          <Link display="block">
+          <Link className="block">
             <IconSvg
               name="arrows/east-mini"
               transform={ isOpened ? 'rotate(270deg)' : 'rotate(180deg)' }
@@ -71,7 +71,7 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
               <Link
                 onClick={ onTableClick }
                 data-id={ item.table.table_id }
-                fontWeight={ 500 }
+                className="font-medium"
                 href={ route({ pathname: '/address/[hash]', query: { hash, tab: 'mud', table_id: item.table.table_id } }) }
               >
                 { item.table.table_full_name }

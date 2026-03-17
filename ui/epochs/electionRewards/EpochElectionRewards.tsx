@@ -21,7 +21,7 @@ const EpochElectionRewards = ({ data, isLoading }: Props) => {
 
   return (
     <Box mt={ 6 }>
-      <Heading level="3" mb={ 3 }>Election rewards</Heading>
+      <Heading level="3" className="mb-3">Election rewards</Heading>
       <Box hideBelow="lg">
         <TableRoot style={{ tableLayout: 'auto' }}>
           <TableHeaderSticky>

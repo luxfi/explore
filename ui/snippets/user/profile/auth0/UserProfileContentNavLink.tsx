@@ -10,10 +10,7 @@ const UserProfileContentNavLink = ({ href, icon, text, onClick }: NavLink) => {
   return (
     <Link
       href={ href }
-      display="flex"
-      alignItems="center"
-      columnGap={ 3 }
-      py="14px"
+      className="flex items-center gap-3 py-3.5"
       onClick={ onClick }
       variant="menu"
     >

@@ -75,13 +75,9 @@ export default function RewardsActivityPassCard() {
           external
           href={ activityPassUrl }
           variant="underlaid"
-          fontWeight="500"
-          backgroundColor={{ _light: '#FFD57C', _dark: '#FFBA0D' }}
-          color="#2B1A3F"
           iconColor="rgba(43, 26, 63, 0.3)"
-          _hover={{ color: 'hover' }}
-          flexShrink={ 0 }
-          zIndex={ 1 }
+          className="font-medium shrink-0 z-[1]"
+          style={{ backgroundColor: 'var(--color-bg-light, #FFD57C)', color: '#2B1A3F' }}
         >
           Grab Activity pass
         </Link>

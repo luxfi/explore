@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { AccordionRoot } from 'toolkit/chakra/accordion';
 
 import MetadataItemArray from './MetadataItemArray';
@@ -89,8 +90,7 @@ const MetadataAccordion = ({ data, level = 0 }: Props) => {
   return (
     <AccordionRoot
       multiple
-      textStyle="sm"
-      ml={{ base: level === 0 ? 0 : 6, lg: `${ ml }px` }}
+      className={ cn('text-sm', level === 0 ? 'ml-0' : `ml-6 lg:ml-[${ml}px]`) }
       defaultValue={ level === 0 ? entries.map(([ key ]) => key) : undefined }
     >
       { entries.map(([ key, value ]) => renderItem(key, value)) }

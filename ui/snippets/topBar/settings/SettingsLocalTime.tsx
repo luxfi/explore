@@ -18,9 +18,7 @@ const SettingsLocalTime = () => {
       defaultChecked={ isLocalTime }
       onChange={ toggleIsLocalTime }
       direction="rtl"
-      justifyContent="space-between"
-      w="100%"
-      minH="34px"
+      className="justify-between w-full min-h-[34px]"
     >
       Local time format
     </Switch>

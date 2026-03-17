@@ -36,7 +36,7 @@ const TokenSelectButton = ({ isOpen, isLoading, data, ...rest }: Props, ref: Rea
         size="sm"
         variant="dropdown"
         onClick={ handleClick }
-        gap={ 0 }
+        className="gap-0"
         aria-label="Token select"
         loadingSkeleton={ isLoading && !isOpen }
         { ...rest }

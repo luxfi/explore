@@ -136,7 +136,7 @@ const AddressTxs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
       if (isMobile) {
         return null;
       }
-      return <Pagination { ...crossChainQuery.pagination } ml="auto"/>;
+      return <Pagination { ...crossChainQuery.pagination } className="ml-auto"/>;
     }
 
     return null;

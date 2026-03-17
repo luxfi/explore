@@ -20,7 +20,7 @@ const AccordionShowcase = () => {
         <SectionHeader>Variant</SectionHeader>
         <SamplesStack>
           <Sample label="variant: outline">
-            <AccordionRoot w="400px">
+            <AccordionRoot className="w-[400px]">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger>{ item.title }</AccordionItemTrigger>
@@ -30,7 +30,7 @@ const AccordionShowcase = () => {
             </AccordionRoot>
           </Sample>
           <Sample label="variant: faq">
-            <AccordionRoot w="400px" variant="faq">
+            <AccordionRoot className="w-[400px]" variant="faq">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger variant="faq">{ item.title }</AccordionItemTrigger>
@@ -44,7 +44,7 @@ const AccordionShowcase = () => {
         <SectionHeader>Size</SectionHeader>
         <SamplesStack>
           <Sample label="size: md">
-            <AccordionRoot w="400px">
+            <AccordionRoot className="w-[400px]">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger>{ item.title }</AccordionItemTrigger>
@@ -54,7 +54,7 @@ const AccordionShowcase = () => {
             </AccordionRoot>
           </Sample>
           <Sample label="size: sm">
-            <AccordionRoot w="400px" size="sm">
+            <AccordionRoot className="w-[400px]" size="sm">
               { items.map((item, index) => (
                 <AccordionItem key={ index } value={ item.value }>
                   <AccordionItemTrigger indicatorPlacement="start">{ item.title }</AccordionItemTrigger>

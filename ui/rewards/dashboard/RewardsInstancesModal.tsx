@@ -44,12 +44,7 @@ const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
                   noIcon
                   key={ instance.chain_id }
                   href={ instance.domain }
-                  display="flex"
-                  gap={ 2 }
-                  alignItems="center"
-                  p={ 2 }
-                  bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-                  borderRadius="base"
+                  className="flex gap-2 items-center p-2 rounded-base bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)]"
                 >
                   <Image
                     src={ instance.details?.icon_url }

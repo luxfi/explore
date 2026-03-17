@@ -99,7 +99,7 @@ const Sprite = () => {
     }, { num: 0, fileSize: 0 });
   }, [ data ]);
 
-  const searchInput = <FilterInput placeholder="Search by name..." onChange={ setSearchTerm } loading={ isFetching } minW={{ base: '100%', lg: '300px' }}/>;
+  const searchInput = <FilterInput placeholder="Search by name..." onChange={ setSearchTerm } loading={ isFetching } className="min-w-full lg:min-w-[300px]"/>;
   const totalEl = total ? <Box ml="auto">Items: { total.num } / Size: { formatFileSize(total.fileSize) }</Box> : null;
 
   const contentAfter = (

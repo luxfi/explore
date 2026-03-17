@@ -40,7 +40,7 @@ const RawInputData = ({ hex, rightSlot: rightSlotProp, defaultDataType = 'Hex', 
         defaultValue={ [ defaultDataType ] }
         onValueChange={ handleValueChange }
         w="100px"
-        mr="auto"
+        className="mr-auto"
         loading={ isLoading }
       />
       { rightSlotProp }

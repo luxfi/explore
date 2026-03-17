@@ -6,6 +6,7 @@ import type { NavItem } from 'types/client/navigation';
 import { route } from 'nextjs-routes';
 
 import { isInternalItem } from 'lib/hooks/useNavItems';
+import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 
 import LightningLabel from '../LightningLabel';
@@ -30,19 +31,11 @@ const NavLink = ({ className, item, noIcon }: Props) => {
       listStyleType="none"
     >
       <Link
-        className={ className }
+        className={ cn('flex items-center w-[224px] px-2 py-[9px] text-sm font-medium rounded-base', className) }
         href={ isInternalLink ? route(item.nextRoute) : item.url }
         external={ !isInternalLink }
-        display="flex"
-        alignItems="center"
         variant="navigation"
         { ...(isActive ? { 'data-selected': true } : {}) }
-        w="224px"
-        px={ 2 }
-        py="9px"
-        textStyle="sm"
-        fontWeight={ 500 }
-        borderRadius="base"
       >
         { !noIcon && <NavLinkIcon item={ item } mr={ 3 }/> }
         <chakra.span>{ item.text }</chakra.span>

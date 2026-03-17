@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { AbiParameter } from 'viem';
 
@@ -40,7 +39,7 @@ const ItemPrimitive = ({ abiParameter, data, level, hideLabel }: Props) => {
       return (
         <>
           <Link href={ route({ pathname: '/address/[hash]', query: { hash: data } }) }>{ data }</Link>
-          <CopyToClipboard text={ data } boxSize={ 4 } verticalAlign="sub"/>
+          <CopyToClipboard text={ data } className="size-4 align-sub"/>
         </>
       );
     }
@@ -49,11 +48,11 @@ const ItemPrimitive = ({ abiParameter, data, level, hideLabel }: Props) => {
   })();
 
   return (
-    <chakra.span display="block">
+    <span className="block">
       <span>{ printRowOffset(level) }</span>
       { !hideLabel && <ItemLabel abiParameter={ abiParameter }/> }
       { value }
-    </chakra.span>
+    </span>
   );
 };
 

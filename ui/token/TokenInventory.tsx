@@ -57,7 +57,7 @@ const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender 
     <>
       { ownerFilterComponent }
       <ActionBar mt={ -6 }>
-        { isMobile && <Pagination ml="auto" { ...inventoryQuery.pagination }/> }
+        { isMobile && <Pagination className="ml-auto" { ...inventoryQuery.pagination }/> }
       </ActionBar>
     </>
   );

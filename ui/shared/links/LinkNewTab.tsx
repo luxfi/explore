@@ -17,18 +17,9 @@ const LinkNewTab = ({ className, label, href }: Props) => {
 
   return (
     <Tooltip content={ label }>
-      <IconButton
-        asChild
-        aria-label={ label ?? 'Open link' }
-        variant="icon_secondary"
-        boxSize={ 5 }
-        className={ className }
-        borderRadius={ 0 }
-      >
-        <Link href={ href } external noIcon>
-          <IconSvg name="open-link"/>
-        </Link>
-      </IconButton>
+      <Link href={ href } external noIcon className={ `size-5 rounded-none inline-flex items-center justify-center text-[var(--color-icon-secondary)] hover:text-[var(--color-hover)] ${ className ?? '' }`.trim() }>
+        <IconSvg name="open-link"/>
+      </Link>
     </Tooltip>
   );
 };

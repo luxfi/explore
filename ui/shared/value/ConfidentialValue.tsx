@@ -1,16 +1,18 @@
-import type { BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
-interface Props extends Omit<BoxProps, 'children'> {
+interface Props {
   loading?: boolean;
+  className?: string;
+  color?: string;
+  mt?: string;
 }
 
-const ConfidentialValue = ({ loading, ...rest }: Props) => {
+const ConfidentialValue = ({ loading, className, color, mt }: Props) => {
   return (
-    <Skeleton loading={ loading } display="inline-block" { ...rest }>
-      •••••
+    <Skeleton loading={ loading } display="inline-block" className={ className } style={{ color, marginTop: mt }}>
+      &bull;&bull;&bull;&bull;&bull;
     </Skeleton>
   );
 };

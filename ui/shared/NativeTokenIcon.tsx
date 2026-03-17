@@ -24,7 +24,7 @@ const NativeTokenIcon = ({ isLoading, className, type }: Props) => {
   });
 
   if (isLoading || statsQueryResult.isPlaceholderData) {
-    return <Skeleton borderRadius="base" loading className={ className }/>;
+    return <Skeleton borderRadius="base" loading={ true } className={ className }/>;
   }
 
   const src = type === 'secondary' ? statsQueryResult.data?.secondary_coin_image : statsQueryResult.data?.coin_image;

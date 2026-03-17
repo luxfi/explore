@@ -27,7 +27,7 @@ const IconStub = ({ isLoading }: { isLoading?: boolean }) => {
       minWidth="20px"
       h="20px"
       borderRadius="full"
-      background={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.100' }}
+      className="bg-[var(--color-blackAlpha-100)] dark:bg-[var(--color-whiteAlpha-100)]"
       alignItems="center"
       justifyContent="center"
       mr={ 2 }

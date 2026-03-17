@@ -37,7 +37,7 @@ const DeFiDropdown = () => {
   return items.length > 1 ? (
     <PopoverRoot>
       <PopoverTrigger>
-        <Button size="2xs" gap={ 0 }>
+        <Button size="2xs" className="gap-0">
           <chakra.span display={{ base: 'none', lg: 'inline' }} whiteSpace="pre-wrap">
             { config.chain.name || 'Explorer' }{ space }
           </chakra.span>
@@ -45,7 +45,7 @@ const DeFiDropdown = () => {
           <IconSvg name="arrows/east-mini" boxSize={ 4 } ml={ 1 } transform="rotate(-90deg)"/>
         </Button>
       </PopoverTrigger>
-      <PopoverContent w="auto" minW={{ base: 'auto', lg: '132px' }}>
+      <PopoverContent style={{ width: 'auto', minWidth: '132px' }}>
         <PopoverBody >
           <Flex flexDirection="column" gap={ 1 }>
             { items.map((item, index) => (
@@ -65,8 +65,7 @@ const DeFiDropdown = () => {
           }) :
           items[0].url
       }
-      target={ items[0].dappId ? '_self' : '_blank' }
-      asChild
+      external={ !items[0].dappId }
     >
       <Button onClick={ items[0].onClick } size="2xs">
         { items[0].icon && <IconSvg name={ items[0].icon } boxSize={ 3 } mr={{ base: 0, sm: 1 }}/> }

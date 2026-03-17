@@ -33,12 +33,9 @@ const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
 
   return (
     <Skeleton
-      display="flex"
-      gap={ 2 }
-      alignItems="center"
       loading={ isLoading }
-      color={ color }
-      maxH="20px"
+      className="flex gap-2 items-center max-h-[20px]"
+      style={{ color: `var(--color-${color.replace('.', '-')})` }}
     >
       <ChainIcon data={ chainFrom }/>
       <IconSvg name="arrows/east" boxSize={ 5 } color="text.secondary"/>

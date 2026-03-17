@@ -71,7 +71,7 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
                 <Link
                   href={ `https://badges.lux.network/mint/${ badge.address }` }
                   external
-                  textStyle="sm"
+                  className="text-sm"
                 >
                   Mint a badge
                 </Link>

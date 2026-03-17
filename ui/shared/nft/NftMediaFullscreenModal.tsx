@@ -80,13 +80,11 @@ const NftMediaFullscreenModal = ({ open, onOpenChange, data, allowedTypes, field
 
   return (
     <DialogRoot open={ open } onOpenChange={ onOpenChange } motionPreset="none">
-      <DialogContent w="unset" maxW="100vw" p={ 0 } background="none" boxShadow="none">
+      <DialogContent className="w-[unset] max-w-[100vw] p-0 bg-transparent shadow-none">
         { /* FIXME (maybe): if close trigger is outside of the dialog header, it will not hide backdrop after closing the dialog */ }
         <ChakraDialog.Header>
           <DialogCloseTrigger
-            position="fixed"
-            top={ 6 }
-            right={ 6 }
+            className="fixed top-6 right-6"
           />
         </ChakraDialog.Header>
         { content }

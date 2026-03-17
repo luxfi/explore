@@ -16,13 +16,9 @@ const AdditionalInfoButton = (props: Props, ref: React.ForwardedRef<HTMLButtonEl
     <IconButton
       ref={ ref }
       variant="icon_secondary"
-      _open={{
-        bgColor: 'selected.control.bg',
-        color: 'selected.control.text',
-      }}
-      borderRadius="base"
       aria-label="Transaction info"
-      boxSize={ 6 }
+      size="2xs"
+      className="rounded-base data-[state=open]:bg-[var(--color-selected-control-bg)] data-[state=open]:text-[var(--color-selected-control-text)]"
       loadingSkeleton={ loading }
       { ...rest }
     >

@@ -93,7 +93,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
         </Flex>
         <Text fontSize="md" mt={ 2 }>
           Receive a{ ' ' }
-          <Skeleton as="span" loading={ rewardsConfigQuery.isLoading }>
+          <Skeleton as="span" loading={ rewardsConfigQuery.isLoading } className="inline">
             { rewardsConfigQuery.data?.rewards?.referral_share ?
               `${ Number(rewardsConfigQuery.data.rewards.referral_share) * 100 }%` :
               'N/A'
@@ -135,7 +135,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
           Explore your current Merits balance, find activities to boost your Merits,
           and view your capybara NFT badge collection on the dashboard
         </Text>
-        <Button asChild mt={ 3 }>
+        <Button asChild className="mt-3">
           <a href={ route({ pathname: '/account/merits' }) }>Open</a>
         </Button>
       </Flex>

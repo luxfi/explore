@@ -159,7 +159,7 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
 
   const actionBar = query.pagination.isVisible ? (
     <ActionBar mt={ -6 }>
-      <Pagination ml="auto" { ...query.pagination }/>
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 

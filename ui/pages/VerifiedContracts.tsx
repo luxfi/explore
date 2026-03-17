@@ -36,7 +36,7 @@ const VerifiedContracts = () => {
 
   const filterInput = (
     <FilterInput
-      w={{ base: '100%', lg: '350px' }}
+      className="w-full lg:w-[350px]"
       size="sm"
       onChange={ onSearchTermChange }
       placeholder="Search by contract name or address"
@@ -67,7 +67,7 @@ const VerifiedContracts = () => {
             { typeFilter }
             { filterInput }
           </HStack>
-          <Pagination ml="auto" { ...pagination }/>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>

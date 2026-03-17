@@ -92,13 +92,10 @@ const TxsListItem = ({
       </Flex>
       { tx.method && (
         <Flex mt={ 3 }>
-          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Method </Skeleton>
+          <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Method </Skeleton>
           <Skeleton
             loading={ isLoading }
-            color="text.secondary"
-            overflow="hidden"
-            whiteSpace="nowrap"
-            textOverflow="ellipsis"
+            className="text-[var(--color-text-secondary)] overflow-hidden whitespace-nowrap text-ellipsis"
           >
             <span>{ tx.method }</span>
           </Skeleton>
@@ -106,7 +103,7 @@ const TxsListItem = ({
       ) }
       { showBlockInfo && tx.block_number !== null && (
         <Flex mt={ 2 }>
-          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Block </Skeleton>
+          <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Block </Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ tx.block_number }
@@ -124,7 +121,7 @@ const TxsListItem = ({
       />
       { !config.UI.views.tx.hiddenFields?.value && (
         <Flex mt={ 2 } columnGap={ 2 }>
-          <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Value</Skeleton>
+          <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Value</Skeleton>
           <NativeCoinValue
             amount={ tx.value }
             exchangeRate={ tx.exchange_rate }
@@ -138,7 +135,7 @@ const TxsListItem = ({
         <Flex mt={ 2 } mb={ 3 } columnGap={ 2 }>
           { (tx.stability_fee !== undefined || tx.fee.value !== null) && (
             <>
-              <Skeleton loading={ isLoading } display="inline-block" whiteSpace="pre">Fee</Skeleton>
+              <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Fee</Skeleton>
               <TxFee tx={ tx } loading={ isLoading } color="text.secondary"/>
             </>
           ) }

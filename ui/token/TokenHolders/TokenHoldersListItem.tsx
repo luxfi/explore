@@ -34,7 +34,7 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>ID#</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <TruncatedText text={ holder.token_id } loading={ isLoading } w="100%"/>
+            <TruncatedText text={ holder.token_id } loading={ isLoading } className="w-full"/>
           </ListItemMobileGrid.Value>
         </>
       ) }

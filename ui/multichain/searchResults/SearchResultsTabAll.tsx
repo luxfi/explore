@@ -33,12 +33,7 @@ const SearchResultsTabAll = ({ queries }: Props) => {
               <SearchResultsList queryType={ queryType } query={ query } maxItems={ MAX_ITEMS_IN_GROUP }/>
               { hasMore && (
                 <Link
-                  pt={ 2 }
-                  borderTopWidth="1px"
-                  borderTopStyle="solid"
-                  borderTopColor="border.divider"
-                  textStyle="sm"
-                  w="full"
+                  className="pt-2 border-t border-solid border-[var(--color-border-divider)] text-sm w-full"
                   href={ route({ pathname: '/search-results', query: { tab: SEARCH_TABS_IDS[queryType] } }) }
                 >
                   View all

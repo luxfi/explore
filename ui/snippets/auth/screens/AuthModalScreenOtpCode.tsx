@@ -116,8 +116,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
         <AuthModalFieldOtpCode isDisabled={ isCodeSending }/>
         <Button
           variant="link"
-          columnGap={ 2 }
-          mt={ 3 }
+          className="gap-x-2 mt-3"
           disabled={ isCodeSending || recaptcha.isInitError }
           onClick={ handleResendCodeClick }
         >
@@ -126,7 +125,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
         </Button>
         <ReCaptcha { ...recaptcha }/>
         <Button
-          mt={ 6 }
+          className="mt-6"
           type="submit"
           loading={ formApi.formState.isSubmitting }
           disabled={ formApi.formState.isSubmitting || isCodeSending || recaptcha.isInitError }

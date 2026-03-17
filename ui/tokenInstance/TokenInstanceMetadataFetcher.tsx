@@ -163,14 +163,11 @@ const TokenInstanceMetadataFetcher = ({ hash, id }: Props) => {
       open={ status === 'MODAL_OPENED' }
       onOpenChange={ handleModalClose }
       size={{ lgDown: 'full', lg: 'sm' }}
-      trapFocus={ false }
-      preventScroll={ false }
       modal={ false }
-      closeOnInteractOutside={ false }
     >
       <DialogContent>
-        <DialogHeader mb={ 4 }>Sending request</DialogHeader>
-        <DialogBody mb={ 0 } minH="78px">
+        <DialogHeader className="mb-4">Sending request</DialogHeader>
+        <DialogBody className="mb-0 min-h-[78px]">
           { config.services.reCaptchaV2.siteKey ? (
             <>
               <Center h="80px">

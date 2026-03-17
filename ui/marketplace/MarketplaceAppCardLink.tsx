@@ -4,6 +4,7 @@ import type { MouseEvent } from 'react';
 
 import { route } from 'nextjs-routes';
 
+import { cn } from 'lib/utils/cn';
 import { LinkOverlay } from 'toolkit/chakra/link';
 
 type Props = {
@@ -23,8 +24,7 @@ const MarketplaceAppCardLink = ({ url, external, id, title, onClick, className }
   return (
     <LinkOverlay
       href={ external ? url : route({ pathname: '/apps/[id]', query: { id } }) }
-      marginRight={ 2 }
-      className={ className }
+      className={ cn('mr-2', className) }
       external={ external }
       onClick={ handleClick }
       noIcon

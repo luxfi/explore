@@ -70,7 +70,7 @@ const ValidatorsBlackfort = () => {
       </HStack>
       { pagination.isVisible && (
         <ActionBar mt={ -6 }>
-          <Pagination ml="auto" { ...pagination }/>
+          <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
     </>

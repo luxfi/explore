@@ -84,15 +84,12 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
 
   const content = !isLoading ? (
     <Alert
-      className={ className }
+      className={ `${ className ?? '' } px-4 py-[6px] text-sm`.trim() }
       status={ showErrorAlert ? 'warning_table' : 'info' }
-      px={ 4 }
-      py="6px"
-      textStyle="sm"
     >
       { alertContent }
     </Alert>
-  ) : <Skeleton className={ className } h="36px" loading/>;
+  ) : <Skeleton className={ className } h="36px" loading={ true }/>;
 
   return children ? children({ content }) : content;
 });

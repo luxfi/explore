@@ -28,15 +28,9 @@ const ContractMethodOutput = ({ data, abiItem, onSettle, mode }: Props) => {
   return (
     <Alert
       status="info"
-      flexDir="column"
-      color={ mode === 'preview' ? 'gray.500' : undefined }
-      textStyle="sm"
+      className={ mode === 'preview' ? 'text-gray-500' : undefined }
       descriptionProps={{
-        flexDir: 'column',
-        alignItems: 'flex-start',
-        rowGap: 2,
-        whiteSpace: 'break-spaces',
-        wordBreak: 'break-all',
+        className: 'flex flex-col items-start gap-y-2 whitespace-break-spaces break-all',
       }}
     >
       { abiItem.outputs.map((output, index) => (

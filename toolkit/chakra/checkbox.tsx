@@ -25,6 +25,8 @@ export interface CheckboxGroupProps extends React.ComponentPropsWithoutRef<'div'
   onValueChange?: (value: Array<string>) => void;
   orientation?: 'vertical' | 'horizontal';
   name?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
 }
 
 const CheckboxGroupBase = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(

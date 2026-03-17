@@ -48,7 +48,7 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
         >
           { text }
         </Box>
-        <CopyToClipboard text={ currentUrl } type="link" mx={ 0 } color="icon.secondary"/>
+        <CopyToClipboard text={ currentUrl } type="link" className="mx-0 text-[var(--color-icon-secondary)]"/>
       </Grid>
     );
   }
@@ -58,9 +58,7 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
       <Link
         href={ href }
         onClick={ onLinkClick }
-        overflow="hidden"
-        textOverflow="ellipsis"
-        whiteSpace="nowrap"
+        className="overflow-hidden text-ellipsis whitespace-nowrap"
       >
         { text }
       </Link>

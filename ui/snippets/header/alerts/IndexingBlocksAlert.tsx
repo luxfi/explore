@@ -64,7 +64,7 @@ const IndexingBlocksAlert = () => {
   }
 
   if (isPending) {
-    return hasAlertCookie ? <Skeleton loading h={{ base: '96px', lg: '48px' }} w="100%"/> : null;
+    return hasAlertCookie ? <Skeleton loading className="h-24 lg:h-12 w-full"/> : null;
   }
 
   if (data.finished_indexing_blocks !== false) {
@@ -78,7 +78,7 @@ const IndexingBlocksAlert = () => {
   }
 
   return (
-    <Alert status="info" py={ 3 } borderRadius="md" showIcon>
+    <Alert status="info" className="py-3 rounded-md" showIcon>
       { `${ data.indexed_blocks_ratio && `${ Math.floor(Number(data.indexed_blocks_ratio) * 100) }% Blocks Indexed${ nbsp }${ ndash } ` }
           We're indexing this chain right now. Some of the counts may be inaccurate.` }
     </Alert>

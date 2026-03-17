@@ -15,7 +15,7 @@ export default function ReferralsTab() {
       description={ (
         <>
           Refer friends and boost your Merits! You receive a{ ' ' }
-          <Skeleton as="span" loading={ rewardsConfigQuery.isPending }>
+          <Skeleton as="span" loading={ rewardsConfigQuery.isPending } className="inline">
             { rewardsConfigQuery.data?.rewards?.referral_share ?
               `${ Number(rewardsConfigQuery.data.rewards.referral_share) * 100 }%` :
               'N/A'

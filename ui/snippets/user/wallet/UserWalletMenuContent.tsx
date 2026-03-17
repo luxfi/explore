@@ -71,7 +71,7 @@ const UserWalletMenuContent = ({
               </IconButton>
             ) }
           </Flex>
-          <Button size="sm" width="full" variant="outline" onClick={ onDisconnect } mt={ 3 }>
+          <Button size="sm" className="w-full mt-3" variant="outline" onClick={ onDisconnect }>
             Disconnect
           </Button>
           <Separator my={ 3 }/>
@@ -79,7 +79,7 @@ const UserWalletMenuContent = ({
       ) }
       { isWalletEnabled && !address && (
         <>
-          <Button size="sm" width="full" variant="outline" onClick={ handleConnectClick }>
+          <Button size="sm" className="w-full" variant="outline" onClick={ handleConnectClick }>
             Connect wallet
           </Button>
           <Separator my={ 3 }/>

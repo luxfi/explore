@@ -58,7 +58,7 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
         ))) }
       </Flex>
       <Flex justifyContent="center">
-        <Link textStyle="sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>View all blocks</Link>
+        <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>View all blocks</Link>
       </Flex>
     </>
   );

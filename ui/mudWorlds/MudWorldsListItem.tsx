@@ -38,8 +38,8 @@ const MudWorldsListItem = ({
         />
       </HStack>
       <HStack gap={ 3 }>
-        <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Txn count</Skeleton>
-        <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
+        <Skeleton loading={ isLoading } className="text-sm font-medium">Txn count</Skeleton>
+        <Skeleton loading={ isLoading } className="text-sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>
         </Skeleton>
       </HStack>

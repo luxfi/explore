@@ -104,10 +104,10 @@ const HotContracts = () => {
           onValueChange={ handleSortChange }
           isLoading={ isPlaceholderData }
           hideFrom="lg"
-          ml={ 2 }
+          className="ml-2"
         />
       </Flex>
-      <Pagination { ...pagination } ml="auto"/>
+      <Pagination { ...pagination } className="ml-auto"/>
     </ActionBar>
   );
 

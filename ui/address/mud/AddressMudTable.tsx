@@ -91,7 +91,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
             label={ getNameTypeText(data?.schema.key_names[index] || '', data?.schema.key_types[index] || '') }
             closable
             onClose={ onRemoveFilterClick(key as FilterKeys) }
-            maxW="360px"
+            className="max-w-[360px]"
           >
             { value }
           </Tag>
@@ -115,7 +115,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
         { !isMobile && breadcrumbs }
         { filtersTags }
       </Box>
-      <Pagination ml={{ base: 0, lg: 8 }} { ...pagination }/>
+      <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
 

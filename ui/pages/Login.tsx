@@ -80,8 +80,8 @@ const Login = () => {
         </>
       ) }
       <Flex columnGap={ 2 }>
-        <Button colorScheme="red" onClick={ checkRollbar }>Check Rollbar</Button>
-        <Button colorScheme="teal" onClick={ checkMixpanel }>Check Mixpanel</Button>
+        <Button className="bg-red-600 text-white hover:bg-red-500" onClick={ checkRollbar }>Check Rollbar</Button>
+        <Button className="bg-teal-600 text-white hover:bg-teal-500" onClick={ checkMixpanel }>Check Mixpanel</Button>
       </Flex>
       <Flex columnGap={ 2 } alignItems="center">
         <Box w="50px" textAlign="center">{ num }</Box>

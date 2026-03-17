@@ -32,7 +32,7 @@ const FAQ_ITEMS = [
 const GasTrackerFaq = () => {
   return (
     <Box mt={ 12 }>
-      <Heading level="2" mb={ 4 }>FAQ</Heading>
+      <Heading level="2" className="mb-4">FAQ</Heading>
       <AccordionRoot variant="faq">
         { FAQ_ITEMS.map((item, index) => (
           <GasTrackerFaqItem key={ index } question={ item.question } answer={ item.answer }/>

@@ -259,7 +259,7 @@ const TokenPageContent = () => {
     return (
       <>
         { (tab === 'token_transfers' || tab === '') && (
-          <TokenAdvancedFilterLink token={ tokenQuery.data } ml={ 6 }/>
+          <TokenAdvancedFilterLink token={ tokenQuery.data } className="ml-6"/>
         ) }
         { tab === 'holders' && (
           <AddressCsvExportLink

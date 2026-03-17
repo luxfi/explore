@@ -192,7 +192,7 @@ const OrderRow = ({ order }: OrderRowProps) => {
         </Text>
       </Box>
       <Box minW="60px" flexShrink={ 0 }>
-        <Tag size="sm" variant="subtle" colorPalette={ isBuy ? 'green' : 'red' }>
+        <Tag size="sm" variant="subtle" className={ isBuy ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }>
           { order.side.toUpperCase() }
         </Tag>
       </Box>
@@ -222,7 +222,7 @@ const OrderRow = ({ order }: OrderRowProps) => {
         </Text>
       </Box>
       <Box flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
-        <Tag size="sm" variant="subtle" colorPalette={ getStatusColor(order.status) }>
+        <Tag size="sm" variant="subtle" className={ getStatusClassName(order.status) }>
           { order.status }
         </Tag>
       </Box>
@@ -477,13 +477,13 @@ function formatTime(timestamp: string): string {
   return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
 }
 
-function getStatusColor(status: DexOrder['status']): string {
+function getStatusClassName(status: DexOrder['status']): string {
   switch (status) {
-    case 'open': return 'blue';
-    case 'filled': return 'green';
-    case 'partial': return 'orange';
-    case 'cancelled': return 'red';
-    default: return 'gray';
+    case 'open': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+    case 'filled': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+    case 'partial': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+    case 'cancelled': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
   }
 }
 

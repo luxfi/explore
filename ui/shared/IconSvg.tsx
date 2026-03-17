@@ -16,13 +16,23 @@ export interface Props extends HTMLChakraProps<'div'> {
 }
 
 const IconSvg = React.forwardRef(
-  function IconSvg({ name, isLoading = false, ...props }: Props, ref: React.ForwardedRef<HTMLDivElement>) {
+  function IconSvg({ name, isLoading = false, className, ...props }: Props, ref: React.ForwardedRef<HTMLDivElement>) {
+    if (isLoading) {
+      return (
+        <Skeleton loading display="inline-block" flexShrink={ 0 } className={ className } ref={ ref }>
+          <svg className="w-full h-full">
+            <use href={ `${ href }#${ name }` }/>
+          </svg>
+        </Skeleton>
+      );
+    }
+
     return (
-      <Skeleton loading={ isLoading } display="inline-block" flexShrink={ 0 } asChild { ...props } ref={ ref }>
-        <chakra.svg w="100%" h="100%">
+      <chakra.div display="inline-block" flexShrink={ 0 } className={ className } ref={ ref } { ...props }>
+        <svg className="w-full h-full">
           <use href={ `${ href }#${ name }` }/>
-        </chakra.svg>
-      </Skeleton>
+        </svg>
+      </chakra.div>
     );
   },
 );

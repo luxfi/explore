@@ -110,9 +110,7 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            gap={ 1 }
+            className="text-[var(--color-text-secondary)] text-xs gap-1"
           />
         </VStack>
       </TableCell>
@@ -131,14 +129,12 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            gap={ 1 }
+            className="text-[var(--color-text-secondary)] text-xs gap-1"
           />
         </VStack>
       </TableCell>
       <TableCell>
-        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } lineHeight="24px"/>
+        <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>
       </TableCell>
       <TableCell>
         <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } lineHeight="24px"/>

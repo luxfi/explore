@@ -39,7 +39,7 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
   return (
     <div>
       { !hasErrors && (
-        <Alert status="success" mb={ 6 }>
+        <Alert status="success" className="mb-6">
           Success! All tags went into moderation pipeline and soon will appear in the explorer.
         </Alert>
       ) }
@@ -66,19 +66,19 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
         ) }
       </Grid>
 
-      <Heading level="2" mt={ 8 } mb={ 5 }>Public tags/labels</Heading>
+      <Heading level="2" className="mt-8 mb-5">Public tags/labels</Heading>
       { hasErrors ? <PublicTagsSubmitResultWithErrors data={ groupedData }/> : <PublicTagsSubmitResultSuccess data={ groupedData }/> }
 
       <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 6 } mt={ 8 } rowGap={ 3 }>
         { hasErrors && (
-          <Link href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) } asChild>
-            <Button variant="outline" w={{ base: '100%', lg: 'auto' }}>
+          <Link href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }>
+            <Button variant="outline" className="w-full lg:w-auto">
               Start over
             </Button>
           </Link>
         ) }
-        <Link href={ route({ pathname: '/public-tags/submit' }) } asChild>
-          <Button w={{ base: '100%', lg: 'auto' }}>Add new tag</Button>
+        <Link href={ route({ pathname: '/public-tags/submit' }) }>
+          <Button className="w-full lg:w-auto">Add new tag</Button>
         </Link>
       </Flex>
     </div>

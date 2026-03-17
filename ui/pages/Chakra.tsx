@@ -84,12 +84,12 @@ const ChakraShowcases = () => {
   return (
     <>
       <PageTitle title="Chakra UI Showcase"/>
-      <Switch onCheckedChange={ colorMode.toggleColorMode } checked={ colorMode.colorMode === 'dark' } mb={ 10 }>
+      <Switch onCheckedChange={ colorMode.toggleColorMode } checked={ colorMode.colorMode === 'dark' } className="mb-10">
         Color mode: { colorMode.colorMode }
       </Switch>
 
       <TabsRoot defaultValue="accordion" orientation={ isMobile ? 'horizontal' : 'vertical' }>
-        <TabsList flexWrap="wrap" w="fit-content" whiteSpace="nowrap">
+        <TabsList className="flex-wrap w-fit whitespace-nowrap">
           { tabs.map((tab) => (
             <TabsTrigger key={ tab.value } value={ tab.value }>{ tab.label }</TabsTrigger>
           )) }

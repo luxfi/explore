@@ -32,7 +32,7 @@ const AuthModalScreenSuccessWallet = ({ address, onAddEmail, onClose, isAuth, pr
           wallet. Use for the next login.
         </Text>
         <Button
-          mt={ 6 }
+          className="mt-6"
           variant="outline"
           onClick={ onClose }
         >
@@ -63,7 +63,7 @@ const AuthModalScreenSuccessWallet = ({ address, onAddEmail, onClose, isAuth, pr
         </>
       ) : (
         <Button
-          mt={ 6 }
+          className="mt-6"
           variant="outline"
           onClick={ onClose }
         >

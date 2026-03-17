@@ -150,7 +150,7 @@ const Marketplace = () => {
               <IconButton
                 variant="icon_background"
                 size="md"
-                ml="auto"
+                className="ml-auto"
               >
                 <IconSvg name="dots"/>
               </IconButton>
@@ -158,7 +158,7 @@ const Marketplace = () => {
             <MenuContent zIndex="banner">
               { links.map(({ label, href, icon }) => (
                 <MenuItem key={ label } value={ label } asChild>
-                  <Link external href={ href } variant="menu" gap={ 0 }>
+                  <Link external href={ href } variant="menu" className="gap-0">
                     <IconSvg name={ icon } boxSize={ 4 } mr={ 2 }/>
                     { label }
                   </Link>
@@ -169,7 +169,7 @@ const Marketplace = () => {
         ) : (
           <Flex ml="auto">
             { links.map(({ label, href }) => (
-              <Link external key={ label } href={ href } variant="underlaid" textStyle="sm" ml={ 2 }>
+              <Link external key={ label } href={ href } variant="underlaid" className="text-sm ml-2">
                 { label }
               </Link>
             )) }
@@ -188,7 +188,7 @@ const Marketplace = () => {
 
       { feature.essentialDapps && (
         <>
-          <Heading level="2" mb={ 6 } mt={ 8 }>
+          <Heading level="2" className="mb-6 mt-8">
             { feature.titles.subtitle_essential_dapps }
           </Heading>
           <EssentialDappsList/>
@@ -212,7 +212,7 @@ const Marketplace = () => {
           tabs={ categoryTabs }
           onValueChange={ handleCategoryChange }
           defaultValue={ selectedTabId }
-          marginBottom={ -2 }
+          className="-mb-2"
           isLoading={ isCategoriesPlaceholderData }
         />
 
@@ -232,7 +232,7 @@ const Marketplace = () => {
             placeholder="Find app by name or keyword..."
             loading={ isPlaceholderData }
             size="sm"
-            w={{ base: '100%', lg: '350px' }}
+            className="w-full lg:w-[350px]"
           />
         </Flex>
       </ActionBar>

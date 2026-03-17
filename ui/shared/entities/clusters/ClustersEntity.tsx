@@ -104,8 +104,7 @@ const Icon = (props: IconProps) => {
       </Text>
       <LinkToolkit
         href="https://clusters.xyz"
-        display="inline-flex"
-        alignItems="center"
+        className="inline-flex items-center"
         external
       >
         <IconSvg name="link" boxSize={ 5 } color="text.secondary" mr={ 2 }/>
@@ -122,13 +121,7 @@ const Icon = (props: IconProps) => {
         placement: 'bottom-start',
       }}
       contentProps={{
-        maxW: { base: 'calc(100vw - 8px)', lg: '440px' },
-        minW: '250px',
-        w: 'fit-content',
-        display: 'flex',
-        flexDir: 'column',
-        rowGap: 3,
-        alignItems: 'flex-start',
+        className: 'max-w-[calc(100vw-8px)] lg:max-w-[440px] min-w-[250px] w-fit flex flex-col gap-3 items-start',
       }}
       interactive
     >

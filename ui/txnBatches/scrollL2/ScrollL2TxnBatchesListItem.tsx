@@ -99,8 +99,7 @@ const ScrollL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
         <Link
           href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'blocks' } }) }
           loading={ isLoading }
-          fontWeight={ 600 }
-          minW="40px"
+          className="font-semibold min-w-[40px]"
         >
           { (item.end_block_number - item.start_block_number + 1).toLocaleString() }
         </Link>
@@ -113,8 +112,7 @@ const ScrollL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
             <Link
               href={ route({ pathname: '/batches/[number]', query: { number: item.number.toString(), tab: 'txs' } }) }
               loading={ isLoading }
-              fontWeight={ 600 }
-              minW="40px"
+              className="font-semibold min-w-[40px]"
             >
               { item.transactions_count.toLocaleString() }
             </Link>

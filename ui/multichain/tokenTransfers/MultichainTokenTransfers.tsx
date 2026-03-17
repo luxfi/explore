@@ -80,7 +80,7 @@ const MultichainTokenTransfers = () => {
   }, [ queryLocal.query, queryLocal.typeFilter, queryLocal.onTokenTypesChange, chainId ]);
 
   const filter = isLocalTab && (
-    <PopoverFilter contentProps={{ w: '200px' }} appliedFiltersNum={ queryLocal.typeFilter.length }>
+    <PopoverFilter contentProps={{ className: 'w-[200px]' }} appliedFiltersNum={ queryLocal.typeFilter.length }>
       <TokenTypeFilter<TokenType>
         onChange={ queryLocal.onTokenTypesChange }
         defaultValue={ queryLocal.typeFilter }
@@ -96,9 +96,9 @@ const MultichainTokenTransfers = () => {
       <ChainSelect
         value={ queryLocal.query.chainValue }
         onValueChange={ handleChainValueChange }
-        ml={ isMobile ? 'auto' : undefined }
+        className={ isMobile ? 'ml-auto' : undefined }
       />
-      { !isMobile && <Pagination { ...queryLocal.query.pagination } ml="auto"/> }
+      { !isMobile && <Pagination { ...queryLocal.query.pagination } className="ml-auto"/> }
     </>
   );
 

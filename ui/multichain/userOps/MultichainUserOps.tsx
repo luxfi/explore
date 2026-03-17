@@ -66,7 +66,7 @@ const MultichainUserOps = () => {
         onValueChange={ query.onChainValueChange }
         chainIds={ chainIds }
       />
-      <Pagination ml="auto" { ...query.pagination }/>
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   );
 

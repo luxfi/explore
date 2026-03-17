@@ -16,7 +16,7 @@ const ContractMethodResultPublicClient = ({ data, estimatedGas, onSettle }: Prop
 
   if (data instanceof Error) {
     return (
-      <Alert status="error" textStyle="sm" wordBreak="break-word" whiteSpace="pre-wrap">
+      <Alert status="error" className="text-sm break-words whitespace-pre-wrap">
         { 'shortMessage' in data && typeof data.shortMessage === 'string' ? data.shortMessage : data.message }
       </Alert>
     );
@@ -24,7 +24,7 @@ const ContractMethodResultPublicClient = ({ data, estimatedGas, onSettle }: Prop
 
   if (estimatedGas) {
     return (
-      <Alert status="info" textStyle="sm" wordBreak="break-word" whiteSpace="pre-wrap">
+      <Alert status="info" className="text-sm break-words whitespace-pre-wrap">
         Success. Estimated gas: { estimatedGas.toLocaleString() }
       </Alert>
     );

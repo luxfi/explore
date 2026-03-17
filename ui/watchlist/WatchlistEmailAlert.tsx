@@ -25,9 +25,8 @@ const WatchlistEmailAlert = () => {
     <>
       <Alert
         status="info"
-        descriptionProps={{ alignItems: 'center', gap: 2 }}
-        w="fit-content"
-        mb={ 6 }
+        descriptionProps={{ className: 'items-center gap-2' }}
+        className="w-fit mb-6"
       >
         To receive notifications you need to add an email to your profile.
         <Button variant="outline" size="sm" onClick={ handleButtonClick }>Add email</Button>

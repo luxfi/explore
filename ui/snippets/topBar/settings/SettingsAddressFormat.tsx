@@ -19,10 +19,8 @@ const SettingsAddressFormat = () => {
       id="address-format"
       defaultChecked={ addressFormat === 'bech32' }
       onChange={ toggleAddressFormat }
-      mt={ 4 }
+      className="mt-4 justify-between w-full"
       direction="rtl"
-      justifyContent="space-between"
-      w="100%"
     >
       Show { config.UI.views.address.hashFormat.bech32Prefix }{ BECH_32_SEPARATOR } format
     </Switch>

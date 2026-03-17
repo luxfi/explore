@@ -59,7 +59,7 @@ const UserOpDetails = ({ query }: Props) => {
         User operation hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isPlaceholderData } overflow="hidden">
+        <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <UserOpEntity hash={ data.hash } noIcon noLink/>
         </Skeleton>
       </DetailedInfo.ItemValue>
@@ -209,7 +209,7 @@ const UserOpDetails = ({ query }: Props) => {
       { config.features.txInterpretation.isEnabled && <UserOpDetailsActions hash={ data.hash } isUserOpDataLoading={ isPlaceholderData }/> }
 
       { /* ADDITIONAL INFO */ }
-      <CollapsibleDetails loading={ isPlaceholderData } mt={ 6 } gridColumn={{ base: undefined, lg: '1 / 3' }}>
+      <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
         <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 
         <DetailedInfo.ItemLabel

@@ -56,7 +56,7 @@ const OptimisticL2OutputRootsTableItem = ({ item, isLoading }: Props) => {
           <Skeleton loading={ isLoading }>
             <HashStringShorten hash={ item.output_root } type="long"/>
           </Skeleton>
-          <CopyToClipboard text={ item.output_root } ml={ 2 } isLoading={ isLoading }/>
+          <CopyToClipboard text={ item.output_root } className="ml-2" isLoading={ isLoading }/>
         </Flex>
       </TableCell>
     </TableRow>

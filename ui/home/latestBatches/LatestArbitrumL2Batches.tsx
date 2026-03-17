@@ -81,7 +81,7 @@ const LatestArbitrumL2Batches = () => {
             ))) }
           </VStack>
           <Flex justifyContent="center">
-            <Link textStyle="sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
+            <Link className="text-sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
           </Flex>
         </>
       );
@@ -91,7 +91,7 @@ const LatestArbitrumL2Batches = () => {
 
   return (
     <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
-      <Heading level="3" mb={ 3 }>Latest batches</Heading>
+      <Heading level="3" className="mb-3">Latest batches</Heading>
       { content }
     </Box>
   );

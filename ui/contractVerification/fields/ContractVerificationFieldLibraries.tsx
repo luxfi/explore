@@ -47,7 +47,7 @@ const ContractVerificationFieldLibraries = () => {
       <ContractVerificationFormRow>
         <Checkbox
           onChange={ handleCheckboxChange }
-          mt={ 9 }
+          className="mt-9"
           disabled={ formState.isSubmitting }
         >
           Add contract libraries

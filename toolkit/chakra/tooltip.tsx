@@ -27,7 +27,7 @@ export interface TooltipProps {
   lazyMount?: boolean;
   unmountOnExit?: boolean;
   positioning?: {
-    placement?: 'top' | 'bottom' | 'left' | 'right';
+    placement?: 'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end';
     overflowPadding?: number;
     offset?: { mainAxis?: number; crossAxis?: number };
   };
@@ -109,7 +109,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     const defaultShowArrow = variant === 'popover' ? false : true;
     const showArrow = showArrowProp !== undefined ? showArrowProp : defaultShowArrow;
 
-    const side = positioning?.placement ?? 'top';
+    const placement = positioning?.placement ?? 'top';
+    const side = placement.split('-')[0] as 'top' | 'bottom' | 'left' | 'right';
+    const align = placement.includes('-') ? (placement.split('-')[1] as 'start' | 'end') : undefined;
     const sideOffset = positioning?.offset?.mainAxis ?? 4;
 
     const isPopover = variant === 'popover';
@@ -133,6 +135,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
             <RadixTooltip.Content
               ref={ ref }
               side={ side }
+              align={ align }
               sideOffset={ sideOffset }
               onClick={ interactive ? handleContentClick : undefined }
               className={ cn(

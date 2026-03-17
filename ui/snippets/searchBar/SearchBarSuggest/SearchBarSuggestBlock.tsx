@@ -67,8 +67,8 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
         <Flex alignItems="center">
           { icon }
           { blockNumber }
-          { blockType === 'reorg' && <Tag ml="auto">Reorg</Tag> }
-          { blockType === 'uncle' && <Tag ml="auto">Uncle</Tag> }
+          { blockType === 'reorg' && <Tag className="ml-auto">Reorg</Tag> }
+          { blockType === 'uncle' && <Tag className="ml-auto">Uncle</Tag> }
         </Flex>
         { hash }
         { isFutureBlock ? futureBlockText : date }
@@ -83,8 +83,8 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
         { blockNumber }
       </Flex>
       <Flex columnGap={ 3 } minW={ 0 } alignItems="center">
-        { blockType === 'reorg' && <Tag flexShrink={ 0 }>Reorg</Tag> }
-        { blockType === 'uncle' && <Tag flexShrink={ 0 }>Uncle</Tag> }
+        { blockType === 'reorg' && <Tag className="shrink-0">Reorg</Tag> }
+        { blockType === 'uncle' && <Tag className="shrink-0">Uncle</Tag> }
         { isFutureBlock ? futureBlockText : hash }
       </Flex>
       { date && <Text color="text.secondary" textAlign="end">{ date }</Text> }

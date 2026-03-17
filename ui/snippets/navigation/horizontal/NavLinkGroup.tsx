@@ -59,18 +59,10 @@ const NavLinkGroup = ({ item }: Props) => {
       interactive
     >
       <Link
-        as="li"
-        listStyleType="none"
-        display="flex"
-        alignItems="center"
-        px={ 2 }
-        py={ 1.5 }
-        textStyle="sm"
-        fontWeight={ 500 }
+        className="flex items-center px-2 py-1.5 text-sm font-medium rounded-base list-none"
         variant="navigation"
         { ...(item.isActive ? { 'data-selected': true } : {}) }
         { ...(open ? { 'data-active': true } : {}) }
-        borderRadius="base"
       >
         { item.text }
         { isHighlighted && (

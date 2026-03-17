@@ -54,7 +54,7 @@ const NameDomainsListItem = ({
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Expiration date</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <Skeleton loading={ isLoading } whiteSpace="pre-wrap">
+            <Skeleton loading={ isLoading } className="whitespace-pre-wrap">
               <Time timestamp={ expiryDate } display="block"/>
               <NameDomainExpiryStatus date={ expiryDate }/>
             </Skeleton>

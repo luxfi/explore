@@ -33,17 +33,12 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
       <Button
         variant={ variant }
         selected={ !isLoading && isAuth }
-        flexShrink={ 0 }
-        as={ isAuth ? 'a' : 'button' }
+        className="shrink-0 px-[10px] lg:px-3 hover:no-underline"
         { ...(isAuth ? { href: route({ pathname: '/account/merits' }) } : {}) }
         onClick={ isAuth ? undefined : openLoginModal }
         onFocus={ handleFocus }
         size={ size }
-        px={{ base: '10px', lg: 3 }}
         loading={ isLoading }
-        _hover={{
-          textDecoration: 'none',
-        }}
       >
         <IconSvg
           name={ dailyRewardQuery.data?.available ? 'merits_with_dot' : 'merits' }

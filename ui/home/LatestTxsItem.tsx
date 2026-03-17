@@ -106,7 +106,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
             </Skeleton>
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
-            <Skeleton loading={ isLoading } display="flex" whiteSpace="pre">
+            <Skeleton loading={ isLoading } display="flex" className="whitespace-pre">
               <Text as="span">Fee </Text>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>

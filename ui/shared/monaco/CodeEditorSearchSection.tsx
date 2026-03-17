@@ -28,15 +28,9 @@ const CodeEditorSearchSection = ({ data, onItemClick }: Props) => {
   const themeColors = useThemeColors();
 
   return (
-    <AccordionItem value={ data.file_path } borderWidth="0px" _last={{ borderBottomWidth: '0px' }}>
+    <AccordionItem value={ data.file_path } className="border-b-0">
       <AccordionItemTrigger
-        py={ 0 }
-        px={ 2 }
-        _hover={{ bgColor: themeColors['custom.list.hoverBackground'] }}
-        fontSize="13px"
-        transitionDuration="0"
-        lineHeight="22px"
-        alignItems="center"
+        className="py-0 px-2 text-[13px] transition-none leading-[22px] items-center"
         noIndicator
       >
         <Box
@@ -70,7 +64,7 @@ const CodeEditorSearchSection = ({ data, onItemClick }: Props) => {
           { data.matches.length }
         </Box>
       </AccordionItemTrigger>
-      <AccordionItemContent p={ 0 }>
+      <AccordionItemContent className="p-0">
         { data.matches.map((match) => (
           <CodeEditorSearchResultItem
             key={ data.file_path + '_' + match.startLineNumber + '_' + match.startColumn }

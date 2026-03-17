@@ -127,7 +127,7 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
         <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
         <span>Block countdown</span>
       </Link>
-      <Pagination ml="auto" { ...query.pagination }/>
+      <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 

@@ -83,7 +83,7 @@ const TokensListItem = ({
             <Tag loading={ isLoading }>{ getTokenTypeName(type, chainInfo?.app_config) }</Tag>
             { bridgedChainTag && <Tag loading={ isLoading }>{ bridgedChainTag }</Tag> }
           </Flex>
-          <Skeleton loading={ isLoading } textStyle="sm" ml="auto" color="text.secondary" minW="24px" textAlign="right">
+          <Skeleton loading={ isLoading } textStyle="sm" ml="auto" color="text.secondary" minW="24px" className="text-right">
             <span>{ getItemIndex(index, page) }</span>
           </Skeleton>
         </GridItem>
@@ -108,7 +108,7 @@ const TokensListItem = ({
             loading={ isLoading }
             accuracy={ 4 }
             prefix="$"
-            textStyle="sm"
+            className="text-sm"
             color="text.secondary"
           />
         </HStack>
@@ -121,7 +121,7 @@ const TokensListItem = ({
             loading={ isLoading }
             prefix="$"
             accuracy={ DEFAULT_ACCURACY_USD }
-            textStyle="sm"
+            className="text-sm"
             color="text.secondary"
           />
         </HStack>

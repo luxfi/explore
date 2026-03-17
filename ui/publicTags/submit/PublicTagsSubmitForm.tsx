@@ -119,7 +119,7 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
           { !isMobile && <div/> }
 
           <GridItem colSpan={{ base: 1, lg: 3 }} mt={{ base: 3, lg: 5 }}>
-            <Heading level="2" display="flex" alignItems="center" columnGap={ 1 }>
+            <Heading level="2" className="flex items-center gap-1">
               Public tags/labels
               <Hint label="Submit a public tag proposal for our moderation team to review"/>
             </Heading>
@@ -135,10 +135,10 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
                   'Confirm the connection between addresses and tags' :
                   'Provide a comment to confirm the connection between addresses and tags (max 500 characters)'
               }
-              maxH="160px"
               rules={{ maxLength: 500 }}
               asComponent="Textarea"
               size="2xl"
+              className="max-h-[160px]"
             />
           </GridItem>
 
@@ -150,10 +150,9 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
           <Button
             variant="solid"
             type="submit"
-            mt={ 3 }
+            className="mt-3 w-min"
             loading={ formApi.formState.isSubmitting }
             loadingText="Send request"
-            w="min-content"
             disabled={ recaptcha.isInitError }
           >
             Send request
