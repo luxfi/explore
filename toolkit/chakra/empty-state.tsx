@@ -1,6 +1,7 @@
-import { EmptyState as ChakraEmptyState, VStack } from '@chakra-ui/react';
 import { upperFirst } from 'es-toolkit';
 import * as React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 import { apos } from '../utils/htmlEntities';
 import ComingSoonIcon from './assets/empty_state_coming_soon.svg';
@@ -15,7 +16,7 @@ const ICONS: Partial<Record<EmptyStateType, React.FunctionComponent>> = {
   coming_soon: ComingSoonIcon as unknown as React.FunctionComponent,
 };
 
-export interface EmptyStateProps extends ChakraEmptyState.RootProps {
+export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   description?: React.ReactNode;
   term?: string;
@@ -25,7 +26,7 @@ export interface EmptyStateProps extends ChakraEmptyState.RootProps {
 
 export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
   function EmptyState(props, ref) {
-    const { title, description, term, type = 'query', icon, children, ...rest } = props;
+    const { title, description, term, type = 'query', icon, children, className, ...rest } = props;
 
     const titleContent = (() => {
       if (title) {
@@ -70,24 +71,28 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
     })();
 
     return (
-      <ChakraEmptyState.Root ref={ ref } { ...rest }>
-        <ChakraEmptyState.Content>
+      <div
+        ref={ ref }
+        className={ cn('flex items-center justify-center py-10', className) }
+        { ...rest }
+      >
+        <div className="flex flex-col items-center gap-5">
           { iconContent && (
-            <ChakraEmptyState.Indicator>{ iconContent }</ChakraEmptyState.Indicator>
+            <div className="flex items-center justify-center">{ iconContent }</div>
           ) }
           { descriptionContent ? (
-            <VStack textAlign="center" gap={ 2 }>
-              <ChakraEmptyState.Title>{ titleContent }</ChakraEmptyState.Title>
-              <ChakraEmptyState.Description>
+            <div className="flex flex-col items-center gap-2 text-center">
+              <span className="text-lg font-semibold text-text-secondary">{ titleContent }</span>
+              <span className="text-sm text-text-secondary">
                 { descriptionContent }
-              </ChakraEmptyState.Description>
-            </VStack>
+              </span>
+            </div>
           ) : (
-            <ChakraEmptyState.Title>{ titleContent }</ChakraEmptyState.Title>
+            <span className="text-lg font-semibold text-text-secondary">{ titleContent }</span>
           ) }
           { children }
-        </ChakraEmptyState.Content>
-      </ChakraEmptyState.Root>
+        </div>
+      </div>
     );
   },
 );

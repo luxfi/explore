@@ -1,19 +1,23 @@
-import type { BoxProps, InputElementProps } from '@chakra-ui/react';
-import { Group, InputElement } from '@chakra-ui/react';
 import { debounce } from 'es-toolkit';
 import * as React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 import getComponentDisplayName from '../utils/getComponentDisplayName';
 import type { InputProps } from './input';
 
-export interface InputGroupProps extends BoxProps {
-  startElementProps?: InputElementProps;
-  endElementProps?: InputElementProps;
-  startElement?: React.ReactNode;
-  endElement?: React.ReactNode;
-  children: React.ReactElement<InputElementProps>;
-  startOffset?: InputElementProps['paddingStart'];
-  endOffset?: InputElementProps['paddingEnd'];
+export interface InputElementProps extends React.HTMLAttributes<HTMLDivElement> {
+  readonly placement?: 'start' | 'end';
+}
+
+export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  readonly startElementProps?: InputElementProps;
+  readonly endElementProps?: InputElementProps;
+  readonly startElement?: React.ReactNode;
+  readonly endElement?: React.ReactNode;
+  readonly children: React.ReactElement<InputElementProps>;
+  readonly startOffset?: string | number;
+  readonly endOffset?: string | number;
 }
 
 export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
@@ -26,6 +30,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
       children,
       startOffset,
       endOffset,
+      className,
       ...rest
     } = props;
 
@@ -86,7 +91,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
       };
     }, [ calculateInlinePaddings ]);
 
-    // Combine refs for the Group component
+    // Combine refs for the wrapper div
     const combinedRef = React.useCallback((node: HTMLDivElement) => {
       groupRef.current = node;
       if (typeof ref === 'function') {
@@ -96,12 +101,26 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
       }
     }, [ ref ]);
 
+    const { className: startClassName, ...startRest } = startElementProps ?? {};
+    const { className: endClassName, ...endRest } = endElementProps ?? {};
+
     return (
-      <Group ref={ combinedRef } w="100%" { ...rest }>
+      <div
+        ref={ combinedRef }
+        className={ cn('relative flex w-full items-center', className) }
+        { ...rest }
+      >
         { startElement && (
-          <InputElement pointerEvents="none" ref={ startElementRef } px={ 0 } color="input.element" { ...startElementProps }>
+          <div
+            ref={ startElementRef }
+            className={ cn(
+              'pointer-events-none absolute inset-y-0 left-0 z-[1] flex items-center text-[var(--chakra-colors-input-element)]',
+              startClassName,
+            ) }
+            { ...startRest }
+          >
             { startElement }
-          </InputElement>
+          </div>
         ) }
         { React.Children.map(children, (child: React.ReactElement<InputProps>) => {
           if (getComponentDisplayName(child.type) !== 'FieldInput') {
@@ -116,11 +135,18 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
           });
         }) }
         { endElement && (
-          <InputElement placement="end" ref={ endElementRef } px={ 0 } color="input.element" { ...endElementProps }>
+          <div
+            ref={ endElementRef }
+            className={ cn(
+              'pointer-events-none absolute inset-y-0 right-0 z-[1] flex items-center text-[var(--chakra-colors-input-element)]',
+              endClassName,
+            ) }
+            { ...endRest }
+          >
             { endElement }
-          </InputElement>
+          </div>
         ) }
-      </Group>
+      </div>
     );
   },
 );

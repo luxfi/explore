@@ -1,20 +1,38 @@
-import { Tooltip as ChakraTooltip, Portal } from '@chakra-ui/react';
+import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { useClickAway } from '@uidotdev/usehooks';
 import * as React from 'react';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 
-export interface TooltipProps extends ChakraTooltip.RootProps {
+export interface TooltipProps {
   selected?: boolean;
   showArrow?: boolean;
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
   content: React.ReactNode;
-  contentProps?: ChakraTooltip.ContentProps;
-  triggerProps?: ChakraTooltip.TriggerProps;
+  contentProps?: React.ComponentPropsWithoutRef<typeof RadixTooltip.Content>;
+  triggerProps?: React.ComponentPropsWithoutRef<typeof RadixTooltip.Trigger>;
   disabled?: boolean;
   disableOnMobile?: boolean;
+  children?: React.ReactNode;
+  variant?: string;
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (details: { open: boolean }) => void;
+  closeDelay?: number;
+  openDelay?: number;
+  interactive?: boolean;
+  lazyMount?: boolean;
+  unmountOnExit?: boolean;
+  positioning?: {
+    placement?: 'top' | 'bottom' | 'left' | 'right';
+    overflowPadding?: number;
+    offset?: { mainAxis?: number; crossAxis?: number };
+  };
+  closeOnClick?: boolean;
+  closeOnPointerDown?: boolean;
 }
 
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
@@ -32,12 +50,11 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       contentProps,
       portalRef,
       defaultOpen = false,
-      lazyMount = true,
-      unmountOnExit = true,
       triggerProps,
       closeDelay = 100,
       openDelay = 100,
       interactive,
+      positioning,
       ...rest
     } = props;
 
@@ -46,9 +63,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     const isMobile = useIsMobile();
 
-    const handleOpenChange = React.useCallback((details: { open: boolean }) => {
-      setOpen(details.open);
-      onOpenChange?.(details);
+    const handleOpenChange = React.useCallback((nextOpen: boolean) => {
+      setOpen(nextOpen);
+      onOpenChange?.({ open: nextOpen });
     }, [ onOpenChange ]);
 
     const handleOpenChangeManual = React.useCallback((nextOpen: boolean) => {
@@ -59,16 +76,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       }, nextOpen ? openDelay : closeDelay);
     }, [ closeDelay, openDelay, onOpenChange ]);
 
-    const handleClickAway = React.useCallback((event: Event) => {
-      if (interactive) {
-        const closest = (event.target as HTMLElement)?.closest('.chakra-tooltip__positioner');
-        if (closest) {
-          return;
-        }
-      }
-
+    const handleClickAway = React.useCallback(() => {
       handleOpenChangeManual(false);
-    }, [ interactive, handleOpenChangeManual ]);
+    }, [ handleOpenChangeManual ]);
 
     const triggerRef = useClickAway<HTMLButtonElement>(handleClickAway);
 
@@ -77,8 +87,6 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     }, [ handleOpenChangeManual, open ]);
 
     const handleContentClick = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-      // otherwise, the event will be propagated to the trigger
-      // and if the trigger is a link, navigation will be triggered
       event.stopPropagation();
 
       if (interactive) {
@@ -102,58 +110,55 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     const defaultShowArrow = variant === 'popover' ? false : true;
     const showArrow = showArrowProp !== undefined ? showArrowProp : defaultShowArrow;
 
-    const positioning = {
-      ...rest.positioning,
-      overflowPadding: 4,
-      offset: {
-        mainAxis: 4,
-        ...rest.positioning?.offset,
-      },
-    };
+    const side = positioning?.placement ?? 'top';
+    const sideOffset = positioning?.offset?.mainAxis ?? 4;
+
+    const isPopover = variant === 'popover';
 
     return (
-      <ChakraTooltip.Root
-        openDelay={ openDelay }
-        // FIXME: chakra closes tooltip too fast, so Playwright is not able to make a screenshot of its content
-        // so we need to increase the close delay in Playwright environment
-        closeDelay={ config.app.isPw ? 10_000 : closeDelay }
-        open={ open }
-        onOpenChange={ handleOpenChange }
-        closeOnClick={ false }
-        closeOnPointerDown={ false }
-        variant={ variant }
-        lazyMount={ lazyMount }
-        unmountOnExit={ unmountOnExit }
-        interactive={ interactive }
-        { ...rest }
-        positioning={ positioning }
-      >
-        <ChakraTooltip.Trigger
-          ref={ open ? triggerRef : null }
-          asChild
-          onClick={ isMobile ? handleTriggerClick : undefined }
-          { ...triggerProps }
+      <RadixTooltip.Provider delayDuration={ openDelay } skipDelayDuration={ 0 }>
+        <RadixTooltip.Root
+          open={ open }
+          onOpenChange={ handleOpenChange }
+          delayDuration={ config.app.isPw ? 10_000 : openDelay }
         >
-          { children }
-        </ChakraTooltip.Trigger>
-        <Portal disabled={ !portalled } container={ portalRef }>
-          <ChakraTooltip.Positioner>
-            <ChakraTooltip.Content
+          <RadixTooltip.Trigger
+            ref={ open ? triggerRef : undefined }
+            asChild
+            onClick={ isMobile ? handleTriggerClick : undefined }
+            { ...triggerProps }
+          >
+            { children }
+          </RadixTooltip.Trigger>
+          <RadixTooltip.Portal container={ portalled ? (portalRef?.current ?? undefined) : undefined }>
+            <RadixTooltip.Content
               ref={ ref }
+              side={ side }
+              sideOffset={ sideOffset }
               onClick={ interactive ? handleContentClick : undefined }
+              className={ cn(
+                'z-[9999] overflow-hidden rounded-lg px-3 py-2 text-sm',
+                'animate-in fade-in-0 zoom-in-95',
+                isPopover
+                  ? 'bg-[var(--color-popover-bg)] text-[var(--color-text-primary)] shadow-[var(--shadow-popover)] border border-[var(--color-border-divider)] max-w-sm'
+                  : 'bg-[var(--color-tooltip-bg)] text-[var(--color-tooltip-fg)] max-w-xs',
+                contentProps?.className,
+              ) }
               { ...(selected ? { 'data-selected': true } : {}) }
               { ...contentProps }
             >
               { showArrow && (
-                <ChakraTooltip.Arrow>
-                  <ChakraTooltip.ArrowTip/>
-                </ChakraTooltip.Arrow>
+                <RadixTooltip.Arrow
+                  className={ cn(
+                    isPopover ? 'fill-[var(--color-popover-bg)]' : 'fill-[var(--color-tooltip-bg)]',
+                  ) }
+                />
               ) }
               { content }
-            </ChakraTooltip.Content>
-          </ChakraTooltip.Positioner>
-        </Portal>
-      </ChakraTooltip.Root>
+            </RadixTooltip.Content>
+          </RadixTooltip.Portal>
+        </RadixTooltip.Root>
+      </RadixTooltip.Provider>
     );
   },
 );

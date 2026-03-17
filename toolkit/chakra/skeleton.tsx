@@ -1,62 +1,96 @@
-import type {
-  SkeletonProps as ChakraSkeletonProps,
-  CircleProps,
-} from '@chakra-ui/react';
-import { Skeleton as ChakraSkeleton, Circle, Stack } from '@chakra-ui/react';
 import * as React from 'react';
 
-export interface SkeletonCircleProps extends ChakraSkeletonProps {
-  size?: CircleProps['size'];
-}
+import { cn } from 'lib/utils/cn';
 
-export const SkeletonCircle = React.forwardRef<
-  HTMLDivElement,
-  SkeletonCircleProps
->(function SkeletonCircle(props, ref) {
-  const { size, ...rest } = props;
-  return (
-    <Circle size={ size } asChild ref={ ref }>
-      <ChakraSkeleton { ...rest }/>
-    </Circle>
-  );
-});
+// ---------------------------------------------------------------------------
+// Skeleton
+// ---------------------------------------------------------------------------
 
-export interface SkeletonTextProps extends ChakraSkeletonProps {
-  noOfLines?: number;
-}
-
-export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
-  function SkeletonText(props, ref) {
-    const { noOfLines = 3, gap, ...rest } = props;
-    return (
-      <Stack gap={ gap } width="full" ref={ ref }>
-        { Array.from({ length: noOfLines }).map((_, index) => (
-          <ChakraSkeleton
-            height="4"
-            key={ index }
-            { ...props }
-            _last={{ maxW: '80%' }}
-            { ...rest }
-          />
-        )) }
-      </Stack>
-    );
-  },
-);
-
-export interface SkeletonProps extends Omit<ChakraSkeletonProps, 'loading'> {
-  loading: boolean | undefined;
+export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+  readonly loading: boolean | undefined;
 }
 
 export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
   function Skeleton(props, ref) {
-    const { loading = false, ...rest } = props;
+    const { loading = false, className, children, ...rest } = props;
+
+    if (!loading) {
+      return (
+        <div ref={ ref } className={ className } { ...rest }>
+          { children }
+        </div>
+      );
+    }
+
     return (
-      <ChakraSkeleton
+      <div
         ref={ ref }
-        { ...(loading ? { 'data-loading': true, state: 'loading' } : { variant: 'none' }) }
+        data-loading
+        className={ cn(
+          'animate-skeleton-shimmer rounded-sm',
+          'bg-[linear-gradient(90deg,var(--color-skeleton-start)_0%,var(--color-skeleton-end)_50%,var(--color-skeleton-start)_100%)]',
+          'bg-[length:200%_100%]',
+          children ? 'text-transparent [&_*]:invisible' : 'min-h-5',
+          className,
+        ) }
+        { ...rest }
+      >
+        { children }
+      </div>
+    );
+  },
+);
+
+// ---------------------------------------------------------------------------
+// SkeletonCircle
+// ---------------------------------------------------------------------------
+
+export interface SkeletonCircleProps extends React.HTMLAttributes<HTMLDivElement> {
+  readonly size?: string | number;
+  readonly loading?: boolean;
+}
+
+export const SkeletonCircle = React.forwardRef<HTMLDivElement, SkeletonCircleProps>(
+  function SkeletonCircle(props, ref) {
+    const { size = 40, loading = true, className, ...rest } = props;
+
+    const dimension = typeof size === 'number' ? `${size}px` : size;
+
+    return (
+      <Skeleton
+        ref={ ref }
+        loading={ loading }
+        className={ cn('rounded-full shrink-0', className) }
+        style={{ width: dimension, height: dimension, ...rest.style }}
         { ...rest }
       />
+    );
+  },
+);
+
+// ---------------------------------------------------------------------------
+// SkeletonText
+// ---------------------------------------------------------------------------
+
+export interface SkeletonTextProps extends React.HTMLAttributes<HTMLDivElement> {
+  readonly noOfLines?: number;
+  readonly loading?: boolean;
+}
+
+export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
+  function SkeletonText(props, ref) {
+    const { noOfLines = 3, loading = true, className, ...rest } = props;
+
+    return (
+      <div ref={ ref } className={ cn('flex w-full flex-col gap-2', className) } { ...rest }>
+        { Array.from({ length: noOfLines }).map((_, index) => (
+          <Skeleton
+            key={ index }
+            loading={ loading }
+            className={ cn('h-4', index === noOfLines - 1 && 'max-w-[80%]') }
+          />
+        )) }
+      </div>
     );
   },
 );

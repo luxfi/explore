@@ -1,6 +1,8 @@
-import { Flex, type FlexProps } from '@chakra-ui/react';
+import * as Collapsible from '@radix-ui/react-collapsible';
 import React from 'react';
 import { scroller, Element } from 'react-scroll';
+
+import { cn } from 'lib/utils/cn';
 
 import { useUpdateEffect } from '../hooks/useUpdateEffect';
 import type { LinkProps } from './link';
@@ -43,24 +45,25 @@ export const CollapsibleDetails = (props: CollapsibleDetailsProps) => {
   const text = isExpanded ? (textProp?.[1] ?? 'Hide details') : (textProp?.[0] ?? 'View details');
 
   return (
-    <>
-      <Link
-        textStyle="sm"
-        textDecorationLine="underline"
-        textDecorationStyle="dashed"
-        w="fit-content"
-        onClick={ handleClick }
-        loading={ loading }
-        { ...rest }
-      >
-        <Element name={ id }>{ text }</Element>
-      </Link>
-      { isExpanded && children }
-    </>
+    <Collapsible.Root open={ isExpanded }>
+      <Collapsible.Trigger asChild>
+        <Link
+          className="text-sm underline decoration-dashed w-fit"
+          onClick={ handleClick }
+          loading={ loading }
+          { ...rest }
+        >
+          <Element name={ id }>{ text }</Element>
+        </Link>
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        { children }
+      </Collapsible.Content>
+    </Collapsible.Root>
   );
 };
 
-interface CollapsibleListProps<T> extends FlexProps {
+interface CollapsibleListProps<T> extends React.ComponentPropsWithoutRef<'div'> {
   items: Array<T>;
   renderItem: (item: T, index: number) => React.ReactNode;
   triggerProps?: LinkProps;
@@ -72,7 +75,7 @@ interface CollapsibleListProps<T> extends FlexProps {
 export const CollapsibleList = <T,>(props: CollapsibleListProps<T>) => {
   const CUT_LENGTH = 3;
 
-  const { items, renderItem, triggerProps, cutLength = CUT_LENGTH, text: textProp, defaultExpanded = false, ...rest } = props;
+  const { items, renderItem, triggerProps, cutLength = CUT_LENGTH, text: textProp, defaultExpanded = false, className, ...rest } = props;
 
   const [ isExpanded, setIsExpanded ] = React.useState(defaultExpanded);
 
@@ -87,21 +90,21 @@ export const CollapsibleList = <T,>(props: CollapsibleListProps<T>) => {
   const text = isExpanded ? (textProp?.[1] ?? 'Hide') : (textProp?.[0] ?? 'Show all');
 
   return (
-    <Flex flexDir="column" w="100%" { ...rest }>
-      { items.slice(0, isExpanded ? undefined : cutLength).map(renderItem) }
-      { items.length > cutLength && (
-        <Link
-          textStyle="sm"
-          textDecorationLine="underline"
-          textDecorationStyle="dashed"
-          w="fit-content"
-          minW="auto"
-          onClick={ handleToggle }
-          { ...triggerProps }
-        >
-          { text }
-        </Link>
-      ) }
-    </Flex>
+    <Collapsible.Root open={ isExpanded }>
+      <div className={ cn('flex flex-col w-full', className) } { ...rest }>
+        { items.slice(0, isExpanded ? undefined : cutLength).map(renderItem) }
+        { items.length > cutLength && (
+          <Collapsible.Trigger asChild>
+            <Link
+              className="text-sm underline decoration-dashed w-fit min-w-0"
+              onClick={ handleToggle }
+              { ...triggerProps }
+            >
+              { text }
+            </Link>
+          </Collapsible.Trigger>
+        ) }
+      </div>
+    </Collapsible.Root>
   );
 };

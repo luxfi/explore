@@ -1,10 +1,10 @@
-import { Icon, RatingGroup, useRatingGroup } from '@chakra-ui/react';
 import * as React from 'react';
 
 import StarFilledIcon from 'icons/star_filled.svg';
 import StarOutlineIcon from 'icons/star_outline.svg';
+import { cn } from 'lib/utils/cn';
 
-export interface RatingProps extends Omit<RatingGroup.RootProviderProps, 'value'> {
+export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   count?: number;
   label?: string | Array<string>;
   defaultValue?: number;
@@ -14,30 +14,56 @@ export interface RatingProps extends Omit<RatingGroup.RootProviderProps, 'value'
 
 export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
   function Rating(props, ref) {
-    const { count = 5, label: labelProp, defaultValue, onValueChange, readOnly, ...rest } = props;
-    const store = useRatingGroup({ count, defaultValue, onValueChange, readOnly });
+    const { count = 5, label: labelProp, defaultValue = 0, onValueChange, readOnly, className, ...rest } = props;
 
-    const highlightedIndex = store.hovering && !readOnly ? store.hoveredValue : store.value;
+    const [ value, setValue ] = React.useState(defaultValue);
+    const [ hoveredIndex, setHoveredIndex ] = React.useState(-1);
+
+    const highlightedIndex = hoveredIndex >= 0 && !readOnly ? hoveredIndex + 1 : value;
     const label = Array.isArray(labelProp) ? labelProp[highlightedIndex - 1] : labelProp;
 
+    const handleClick = React.useCallback((index: number) => {
+      if (readOnly) return;
+      setValue(index);
+      onValueChange?.({ value: index });
+    }, [ readOnly, onValueChange ]);
+
+    const handleMouseEnter = React.useCallback((index: number) => {
+      if (readOnly) return;
+      setHoveredIndex(index);
+    }, [ readOnly ]);
+
+    const handleMouseLeave = React.useCallback(() => {
+      setHoveredIndex(-1);
+    }, []);
+
     return (
-      <RatingGroup.RootProvider ref={ ref } value={ store } { ...rest }>
-        <RatingGroup.HiddenInput/>
-        <RatingGroup.Control>
+      <div ref={ ref } className={ cn('inline-flex items-center gap-1', className) } { ...rest }>
+        <div className="inline-flex items-center" onMouseLeave={ handleMouseLeave }>
           { Array.from({ length: count }).map((_, index) => {
-            const icon = index < highlightedIndex ?
-              <Icon boxSize={ 5 }><StarFilledIcon/></Icon> :
-              <Icon boxSize={ 5 }><StarOutlineIcon/></Icon>;
+            const filled = index < highlightedIndex;
+            const starIndex = index + 1;
 
             return (
-              <RatingGroup.Item key={ index } index={ index + 1 }>
-                <RatingGroup.ItemIndicator icon={ icon } cursor={ readOnly ? 'default' : 'pointer' }/>
-              </RatingGroup.Item>
+              <button
+                key={ index }
+                type="button"
+                tabIndex={ readOnly ? -1 : 0 }
+                aria-label={ `Rate ${ starIndex } of ${ count }` }
+                className={ cn(
+                  'inline-flex items-center justify-center w-5 h-5 text-current',
+                  readOnly ? 'cursor-default' : 'cursor-pointer',
+                ) }
+                onClick={ () => handleClick(starIndex) }
+                onMouseEnter={ () => handleMouseEnter(index) }
+              >
+                { filled ? <StarFilledIcon className="w-5 h-5"/> : <StarOutlineIcon className="w-5 h-5"/> }
+              </button>
             );
           }) }
-        </RatingGroup.Control>
-        { label && <RatingGroup.Label>{ label }</RatingGroup.Label> }
-      </RatingGroup.RootProvider>
+        </div>
+        { label && <span className="text-sm">{ label }</span> }
+      </div>
     );
   },
 );
