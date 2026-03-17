@@ -14,7 +14,6 @@ import { recipes, slotRecipes } from './recipes';
 
 export const customConfig = defineConfig({
   globalCss,
-  defaultColorPalette: 'gray',
   theme: {
     breakpoints,
     keyframes,
