@@ -13,10 +13,14 @@ export interface SkeletonProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   readonly asChild?: boolean;
 
   // Legacy Chakra style-prop shims — converted to className / inline style.
-  readonly w?: string | number | Record<string, string>;
-  readonly h?: string | number | Record<string, string>;
-  readonly minW?: string | number | Record<string, string>;
-  readonly maxW?: string | number | Record<string, string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly w?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly h?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly minW?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  readonly maxW?: any;
   readonly display?: string;
   readonly flexGrow?: number;
   readonly flexShrink?: number;
@@ -47,11 +51,11 @@ export interface SkeletonProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   readonly hideBelow?: string;
   readonly as?: React.ElementType;
   readonly fontSize?: string;
-  readonly flexWrap?: string;
-  readonly wordBreak?: string;
+  readonly flexWrap?: React.CSSProperties['flexWrap'];
+  readonly wordBreak?: React.CSSProperties['wordBreak'];
   readonly lineHeight?: string;
   readonly marginRight?: string;
-  readonly position?: string;
+  readonly position?: React.CSSProperties['position'];
   readonly background?: string;
 }
 
@@ -133,11 +137,11 @@ function extractSkeletonStyleProps(props: Record<string, unknown>): {
       case 'hideBelow': break; // handled via className
       case 'textStyle': break; // drop textStyle, not directly applicable
       case 'fontSize': style.fontSize = value as string; break;
-      case 'flexWrap': style.flexWrap = value as string; break;
-      case 'wordBreak': style.wordBreak = value as string; break;
+      case 'flexWrap': style.flexWrap = value as React.CSSProperties['flexWrap']; break;
+      case 'wordBreak': style.wordBreak = value as React.CSSProperties['wordBreak']; break;
       case 'lineHeight': style.lineHeight = value as string; break;
       case 'marginRight': style.marginRight = value as string; break;
-      case 'position': style.position = value as string; break;
+      case 'position': style.position = value as React.CSSProperties['position']; break;
       case 'background': style.background = value as string; break;
       default: rest[key] = value; break;
     }
