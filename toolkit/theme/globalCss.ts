@@ -20,7 +20,7 @@ const webkitAutofillRules = {
 const globalCss: SystemConfig['globalCss'] = {
   // Override Chakra default blue accent with monochrome gray
   '*': {
-    '--ring-color': 'rgba(160, 174, 192, 0.6)',
+    '--ring-color': 'rgba(163, 163, 163, 0.6)',
     colorPalette: 'gray',
   },
   body: {
