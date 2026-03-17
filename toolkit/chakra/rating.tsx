@@ -22,13 +22,13 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
     const highlightedIndex = hoveredIndex >= 0 && !readOnly ? hoveredIndex + 1 : value;
     const label = Array.isArray(labelProp) ? labelProp[highlightedIndex - 1] : labelProp;
 
-    const handleClick = React.useCallback((index: number) => {
+    const handleClick = React.useCallback((index: number) => () => {
       if (readOnly) return;
       setValue(index);
       onValueChange?.({ value: index });
     }, [ readOnly, onValueChange ]);
 
-    const handleMouseEnter = React.useCallback((index: number) => {
+    const handleMouseEnter = React.useCallback((index: number) => () => {
       if (readOnly) return;
       setHoveredIndex(index);
     }, [ readOnly ]);
@@ -54,8 +54,8 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
                   'inline-flex items-center justify-center w-5 h-5 text-current',
                   readOnly ? 'cursor-default' : 'cursor-pointer',
                 ) }
-                onClick={ () => handleClick(starIndex) }
-                onMouseEnter={ () => handleMouseEnter(index) }
+                onClick={ handleClick(starIndex) }
+                onMouseEnter={ handleMouseEnter(index) }
               >
                 { filled ? <StarFilledIcon className="w-5 h-5"/> : <StarOutlineIcon className="w-5 h-5"/> }
               </button>

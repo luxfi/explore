@@ -7,15 +7,12 @@ import { cn } from 'lib/utils/cn';
 import { TruncatedTextTooltip } from '../components/truncation/TruncatedTextTooltip';
 import { Skeleton } from './skeleton';
 
-const COLOR_PALETTE_VALUES = [
-  'gray', 'green', 'red', 'purple', 'orange', 'blue', 'yellow',
-  'teal', 'cyan', 'pink', 'purple_alt', 'blue_alt',
-  'bright_gray', 'bright_green', 'bright_red', 'bright_blue',
-  'bright_yellow', 'bright_teal', 'bright_cyan', 'bright_orange',
-  'bright_purple', 'bright_pink',
-] as const;
-
-type ColorPalette = typeof COLOR_PALETTE_VALUES[number];
+type ColorPalette =
+  'gray' | 'green' | 'red' | 'purple' | 'orange' | 'blue' | 'yellow' |
+  'teal' | 'cyan' | 'pink' | 'purple_alt' | 'blue_alt' |
+  'bright_gray' | 'bright_green' | 'bright_red' | 'bright_blue' |
+  'bright_yellow' | 'bright_teal' | 'bright_cyan' | 'bright_orange' |
+  'bright_purple' | 'bright_pink';
 
 const badgeVariants = cva(
   'inline-flex items-center rounded-sm gap-1 font-medium w-fit max-w-full whitespace-nowrap select-text',
@@ -65,7 +62,7 @@ const COLOR_PALETTE_CLASSES: Record<ColorPalette, string> = {
 
 export interface BadgeProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'>,
-    VariantProps<typeof badgeVariants> {
+  VariantProps<typeof badgeVariants> {
   readonly loading?: boolean;
   readonly startElement?: React.ReactNode;
   readonly endElement?: React.ReactNode;

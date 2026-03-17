@@ -143,8 +143,10 @@ export const MenuTrigger = React.forwardRef<
 export interface MenuContentProps extends React.ComponentPropsWithoutRef<'div'> {
   readonly portalled?: boolean;
   readonly portalRef?: React.RefObject<HTMLElement>;
+
   /** Legacy Chakra zIndex prop - mapped to inline style */
   readonly zIndex?: string | number;
+
   /** Legacy Chakra minW prop - mapped to inline style */
   readonly minW?: string | number;
 }
@@ -158,7 +160,7 @@ export const MenuContent = React.forwardRef<
 
   const mergedStyle: React.CSSProperties = {
     ...style,
-    ...(zIndex !== undefined ? { zIndex: typeof zIndex === 'string' ? `var(--z-index-${zIndex}, ${zIndex})` : zIndex } : {}),
+    ...(zIndex !== undefined ? { zIndex: typeof zIndex === 'string' ? `var(--z-index-${ zIndex }, ${ zIndex })` : zIndex } : {}),
     ...(minW !== undefined ? { minWidth: minW } : {}),
   };
 
@@ -200,6 +202,7 @@ export const MenuContent = React.forwardRef<
 // --- MenuItem ---
 
 export interface MenuItemProps extends React.ComponentPropsWithoutRef<'div'> {
+
   /** Informational value identifier (not used by Radix but kept for API compat) */
   readonly value?: string;
   readonly disabled?: boolean;

@@ -74,7 +74,7 @@ const RadioGroupBase = React.forwardRef<HTMLDivElement, RadioGroupProps>(
         if (readOnly) return;
         onValueChange?.({ value: nextValue });
       },
-      [readOnly, onValueChange],
+      [ readOnly, onValueChange ],
     );
 
     return (
@@ -104,6 +104,8 @@ const RadioGroupBase = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 );
 
 export const RadioGroup = RadioGroupBase;
+
+const NOOP = () => { /* noop */ };
 
 // ─── Radio ──────────────────────────────────────────────────────────
 export interface RadioProps extends Omit<React.ComponentPropsWithoutRef<'label'>, 'onChange'> {
@@ -150,7 +152,7 @@ const RadioBase = React.forwardRef<HTMLInputElement, RadioProps>(
             ) }
           />
         </RadixRadioGroup.Item>
-        {/* Hidden native input for form compatibility and ref forwarding */}
+        { /* Hidden native input for form compatibility and ref forwarding */ }
         <input
           ref={ ref }
           type="radio"
@@ -159,7 +161,7 @@ const RadioBase = React.forwardRef<HTMLInputElement, RadioProps>(
           disabled={ disabled }
           tabIndex={ -1 }
           aria-hidden
-          onChange={ () => {} }
+          onChange={ NOOP }
           { ...inputProps }
         />
         { children != null && (

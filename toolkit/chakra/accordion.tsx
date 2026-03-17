@@ -2,21 +2,24 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as React from 'react';
 import { scroller } from 'react-scroll';
 
-import { cn } from 'lib/utils/cn';
-
 import IndicatorIcon from 'icons/arrows/east-mini.svg';
+import { cn } from 'lib/utils/cn';
 
 // ---------------------------------------------------------------------------
 // AccordionRoot
 // ---------------------------------------------------------------------------
 
 interface AccordionRootProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'defaultValue' | 'dir'> {
+
   /** Open multiple items simultaneously. Defaults to true. */
   readonly multiple?: boolean;
+
   /** Controlled open items (array of `value` strings). */
   readonly value?: Array<string>;
+
   /** Uncontrolled initial open items. */
   readonly defaultValue?: Array<string>;
+
   /**
    * Called when open items change.
    * Wraps the value in `{ value }` to stay compatible with the Chakra callback shape
@@ -25,8 +28,10 @@ interface AccordionRootProps extends Omit<React.ComponentPropsWithoutRef<'div'>,
   readonly onValueChange?: (details: { value: Array<string> }) => void;
   readonly variant?: 'outline' | 'faq';
   readonly size?: 'sm' | 'md';
+
   /** Accepted for compatibility; not applied visually. */
   readonly noAnimation?: boolean;
+
   /** Accepted for compatibility; Radix defers rendering internally. */
   readonly lazyMount?: boolean;
   readonly children?: React.ReactNode;
@@ -35,7 +40,7 @@ interface AccordionRootProps extends Omit<React.ComponentPropsWithoutRef<'div'>,
 export const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionRootProps>(
   function AccordionRoot(props, ref) {
     const {
-      multiple = true,
+      multiple: _multiple,
       value,
       defaultValue,
       onValueChange,
@@ -49,7 +54,7 @@ export const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionRootProps
     } = props;
 
     // Radix requires `type` discriminant.  We default to "multiple" to match
-    // the original Chakra wrapper behaviour.
+    // the original Chakra wrapper behavior.
     const handleValueChange = React.useCallback(
       (next: Array<string>) => {
         onValueChange?.({ value: next });
@@ -127,7 +132,9 @@ export const AccordionItemTrigger = React.forwardRef<
         // horizontal bar (always visible)
         'before:absolute before:left-0 before:top-1/2 before:block before:h-[2px] before:w-full before:-translate-y-1/2 before:rounded-[2px] before:bg-current',
         // vertical bar (rotates to 0 when open)
-        'after:absolute after:left-1/2 after:top-0 after:block after:h-full after:w-[2px] after:-translate-x-1/2 after:rounded-[2px] after:bg-current after:transition-transform after:duration-200 after:ease-in-out',
+        'after:absolute after:left-1/2 after:top-0 after:block after:h-full after:w-[2px]',
+        'after:-translate-x-1/2 after:rounded-[2px] after:bg-current',
+        'after:transition-transform after:duration-200 after:ease-in-out',
         // When parent trigger has data-state="open", rotate vertical bar
         'group-data-[state=open]/trigger:after:rotate-90',
       ) }
@@ -140,7 +147,7 @@ export const AccordionItemTrigger = React.forwardRef<
         'group-data-[state=open]/trigger:rotate-[270deg]',
       ) }
     >
-      <IndicatorIcon className="h-5 w-5" />
+      <IndicatorIcon className="h-5 w-5"/>
     </span>
   );
 

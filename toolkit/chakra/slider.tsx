@@ -89,7 +89,7 @@ export const Slider = React.forwardRef<HTMLSpanElement, SliderProps>(
           <RadixSlider.Track
             className={ cn(
               'relative grow rounded-full bg-border-divider',
-              `h-[${TRACK_HEIGHT}px]`,
+              `h-[${ TRACK_HEIGHT }px]`,
             ) }
           >
             <RadixSlider.Range className="absolute h-full rounded-full bg-link-primary"/>
@@ -99,7 +99,7 @@ export const Slider = React.forwardRef<HTMLSpanElement, SliderProps>(
             <RadixSlider.Thumb
               key={ index }
               className={ cn(
-                `block h-[${THUMB_SIZE}px] w-[${THUMB_SIZE}px]`,
+                `block h-[${ THUMB_SIZE }px] w-[${ THUMB_SIZE }px]`,
                 'rounded-full border-2 border-link-primary bg-white',
                 'shadow-sm transition-colors',
                 'hover:border-link-primary-hover',
@@ -136,7 +136,7 @@ function SliderMarks(props: SliderMarksProps): React.ReactNode {
           <div
             key={ index }
             className="absolute flex flex-col items-center -translate-x-1/2"
-            style={ { left: `${percent}%` } }
+            style={{ left: `${ percent }%` }}
           >
             <div className="h-1.5 w-0.5 bg-border-divider"/>
             { mark.label != null && (

@@ -15,22 +15,28 @@ type TabsSize = 'sm' | 'md' | 'free';
 // ---------------------------------------------------------------------------
 
 export interface TabsProps extends React.ComponentPropsWithoutRef<typeof RadixTabs.Root> {
+
   /** Visual variant. Default: "solid". */
   variant?: TabsVariant;
+
   /** Size preset. Default: "md". */
   size?: TabsSize;
+
   /** Stretch triggers to fill the list width. */
   fitted?: boolean;
+
   /**
    * @deprecated Chakra-compat. Radix mounts lazily by default (content only
    * renders when active). Kept so call-sites don't break at compile time.
    */
   lazyMount?: boolean;
+
   /**
    * @deprecated Chakra-compat. Radix unmounts inactive content by default.
    * Kept so call-sites don't break at compile time.
    */
   unmountOnExit?: boolean;
+
   /**
    * Chakra-compatible value-change handler.
    * Accepts both `(details: { value: string }) => void` (Chakra convention)
@@ -67,22 +73,22 @@ export const TabsRoot = React.forwardRef<HTMLDivElement, TabsProps>(
         // all existing consumers use `({ value })`.
         (onValueChange as (details: { value: string }) => void)({ value });
       },
-      [onValueChange],
+      [ onValueChange ],
     );
 
     return (
       <RadixTabs.Root
-        ref={ref}
-        data-variant={variant}
-        data-size={size}
-        data-fitted={fitted ? '' : undefined}
-        className={cn(
+        ref={ ref }
+        data-variant={ variant }
+        data-size={ size }
+        data-fitted={ fitted ? '' : undefined }
+        className={ cn(
           'relative',
           ROOT_SIZE_CLASSES[size],
           className,
-        )}
-        onValueChange={onValueChange ? handleValueChange : undefined}
-        {...rest}
+        ) }
+        onValueChange={ onValueChange ? handleValueChange : undefined }
+        { ...rest }
       />
     );
   },
@@ -100,13 +106,13 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
 
     return (
       <RadixTabs.List
-        ref={ref}
-        className={cn(
+        ref={ ref }
+        className={ cn(
           'inline-flex w-full relative isolate flex-row',
           'min-h-[var(--tabs-height,2.5rem)]',
           className,
-        )}
-        {...rest}
+        ) }
+        { ...rest }
       />
     );
   },
@@ -168,16 +174,16 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
 
     return (
       <RadixTabs.Trigger
-        ref={mergedRef}
-        className={cn(
+        ref={ mergedRef }
+        className={ cn(
           'group',
           TRIGGER_BASE,
           TRIGGER_SIZE_CLASSES[size],
           TRIGGER_VARIANT_CLASSES[variant],
           fitted && 'flex-1 text-center justify-center',
           className,
-        )}
-        {...rest}
+        ) }
+        { ...rest }
       />
     );
   },
@@ -195,13 +201,13 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
 
     return (
       <RadixTabs.Content
-        ref={ref}
-        className={cn(
+        ref={ ref }
+        className={ cn(
           'w-full pt-[var(--tabs-content-padding,1.5rem)]',
           'focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
           className,
-        )}
-        {...rest}
+        ) }
+        { ...rest }
       />
     );
   },
@@ -224,14 +230,14 @@ export const TabsCounter = ({ count }: TabsCounterProps): React.ReactElement | n
 
   return (
     <span
-      className={cn(
+      className={ cn(
         'group-hover:text-inherit',
-        count > 0
-          ? 'text-text-secondary'
-          : 'text-[rgba(16,17,18,0.24)] dark:text-[rgba(255,255,255,0.24)]',
-      )}
+        count > 0 ?
+          'text-text-secondary' :
+          'text-[rgba(16,17,18,0.24)] dark:text-[rgba(255,255,255,0.24)]',
+      ) }
     >
-      {count > COUNTER_OVERLOAD ? `${COUNTER_OVERLOAD}+` : count}
+      { count > COUNTER_OVERLOAD ? `${ COUNTER_OVERLOAD }+` : count }
     </span>
   );
 };
@@ -246,7 +252,7 @@ function useTabsContext(triggerRef: React.RefObject<HTMLButtonElement | null>): 
   size: TabsSize;
   fitted: boolean;
 } {
-  const [ctx, setCtx] = React.useState<{
+  const [ ctx, setCtx ] = React.useState<{
     variant: TabsVariant;
     size: TabsSize;
     fitted: boolean;
@@ -262,7 +268,7 @@ function useTabsContext(triggerRef: React.RefObject<HTMLButtonElement | null>): 
       size: (root.getAttribute('data-size') as TabsSize) ?? 'md',
       fitted: root.hasAttribute('data-fitted'),
     });
-  }, [triggerRef]);
+  }, [ triggerRef ]);
 
   return ctx;
 }

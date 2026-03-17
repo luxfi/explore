@@ -49,6 +49,7 @@ export interface PopoverRootProps {
   readonly children?: React.ReactNode;
   readonly open?: boolean;
   readonly defaultOpen?: boolean;
+
   /** Chakra-style callback: receives `{ open: boolean }` */
   readonly onOpenChange?: (details: { open: boolean }) => void;
   readonly positioning?: Positioning;
@@ -118,7 +119,11 @@ export const PopoverRoot = (props: PopoverRootProps): React.ReactElement => {
     collisionPadding: mergedPositioning.overflowPadding ?? 4,
     autoFocus,
     closeOnInteractOutside,
-  }), [ side, align, mergedPositioning.offset?.mainAxis, mergedPositioning.offset?.crossAxis, mergedPositioning.overflowPadding, autoFocus, closeOnInteractOutside ]);
+  }), [
+    side, align,
+    mergedPositioning.offset?.mainAxis, mergedPositioning.offset?.crossAxis,
+    mergedPositioning.overflowPadding, autoFocus, closeOnInteractOutside,
+  ]);
 
   // Bridge Chakra-style onOpenChange ({ open }) to Radix (open)
   const handleOpenChange = React.useCallback((isOpen: boolean) => {
@@ -167,6 +172,9 @@ export const PopoverContent = React.forwardRef<
   const { portalled = true, portalRef, className, ...rest } = props;
   const positioning = React.useContext(PositioningContext);
 
+  const preventFocus = React.useCallback((e: Event) => e.preventDefault(), []);
+  const preventInteract = React.useCallback((e: Event) => e.preventDefault(), []);
+
   const content = (
     <RadixPopover.Content
       ref={ ref }
@@ -175,8 +183,8 @@ export const PopoverContent = React.forwardRef<
       sideOffset={ positioning.sideOffset }
       alignOffset={ positioning.alignOffset }
       collisionPadding={ positioning.collisionPadding }
-      onOpenAutoFocus={ positioning.autoFocus ? undefined : (e) => e.preventDefault() }
-      onInteractOutside={ positioning.closeOnInteractOutside ? undefined : (e) => e.preventDefault() }
+      onOpenAutoFocus={ positioning.autoFocus ? undefined : preventFocus }
+      onInteractOutside={ positioning.closeOnInteractOutside ? undefined : preventInteract }
       className={ cn(
         'z-50 rounded-lg border border-[var(--color-popover-border,var(--color-border-divider))]',
         'bg-[var(--color-popover-bg,var(--colors-dialog-bg))]',
@@ -255,7 +263,7 @@ export const PopoverCloseTriggerWrapper = React.forwardRef<
   const { disabled, children, ...rest } = props;
 
   if (disabled) {
-    return <>{ children }</>;
+    return children as React.ReactElement;
   }
 
   return (

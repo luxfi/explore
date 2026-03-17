@@ -40,7 +40,6 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
       readOnly,
       invalid,
       floating,
-      bgColor: _bgColor,
       id,
       className,
       style,
@@ -70,11 +69,14 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           htmlFor={ id }
         >
           { label }
-          { required ? (
+          { required && (
             <span className="ml-0.5 text-[var(--color-fg-error,theme(colors.red.500))]" aria-hidden="true">*</span>
-          ) : optionalText ? (
-            <span className="ml-1 text-[var(--color-text-secondary,theme(colors.gray.400))] text-sm">{ optionalText }</span>
-          ) : null }
+          ) }
+          { !required && optionalText && (
+            <span className="ml-1 text-[var(--color-text-secondary,theme(colors.gray.400))] text-sm">
+              { optionalText }
+            </span>
+          ) }
           { errorText && (
             <span className="ml-0.5 text-[var(--color-fg-error,theme(colors.red.500))] text-sm">
               -{ space }{ errorText }
@@ -166,11 +168,14 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
             htmlFor={ id }
           >
             { label }
-            { required ? (
+            { required && (
               <span className="ml-0.5 text-[var(--color-fg-error,theme(colors.red.500))]" aria-hidden="true">*</span>
-            ) : optionalText ? (
-              <span className="ml-1 text-[var(--color-text-secondary,theme(colors.gray.400))] text-sm font-normal">{ optionalText }</span>
-            ) : null }
+            ) }
+            { !required && optionalText && (
+              <span className="ml-1 text-[var(--color-text-secondary,theme(colors.gray.400))] text-sm font-normal">
+                { optionalText }
+              </span>
+            ) }
           </LabelPrimitive.Root>
         ) }
         { clonedChild }

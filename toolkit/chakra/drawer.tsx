@@ -5,7 +5,7 @@ import { cn } from 'lib/utils/cn';
 
 import { CloseButton } from './close-button';
 
-// ─── DrawerRoot ──────────────────────────────────────────────────────
+// ─── DrawerRoot ─────────────────────────────────────────────────
 
 export interface DrawerRootProps {
   children?: React.ReactNode;
@@ -30,9 +30,6 @@ export const DrawerRoot = (props: DrawerRootProps) => {
     defaultOpen,
     onOpenChange,
     placement = 'right',
-    initialFocusEl: _initialFocusEl,
-    lazyMount: _lazyMount,
-    unmountOnExit: _unmountOnExit,
     modal = true,
     size = 'md',
   } = props;
@@ -57,7 +54,7 @@ export const DrawerRoot = (props: DrawerRootProps) => {
   );
 };
 
-// ─── DrawerContent ───────────────────────────────────────────────────
+// ─── DrawerContent ──────────────────────────────────────────────
 
 export interface DrawerContentProps extends React.ComponentPropsWithoutRef<'div'> {
   portalled?: boolean;
@@ -67,10 +64,26 @@ export interface DrawerContentProps extends React.ComponentPropsWithoutRef<'div'
 }
 
 const PLACEMENT_CLASSES: Record<string, string> = {
-  right: 'inset-y-0 right-0 data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right',
-  left: 'inset-y-0 left-0 data-[state=open]:animate-in data-[state=open]:slide-in-from-left data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left',
-  top: 'inset-x-0 top-0 data-[state=open]:animate-in data-[state=open]:slide-in-from-top data-[state=closed]:animate-out data-[state=closed]:slide-out-to-top',
-  bottom: 'inset-x-0 bottom-0 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom',
+  right: [
+    'inset-y-0 right-0',
+    'data-[state=open]:animate-in data-[state=open]:slide-in-from-right',
+    'data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right',
+  ].join(' '),
+  left: [
+    'inset-y-0 left-0',
+    'data-[state=open]:animate-in data-[state=open]:slide-in-from-left',
+    'data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left',
+  ].join(' '),
+  top: [
+    'inset-x-0 top-0',
+    'data-[state=open]:animate-in data-[state=open]:slide-in-from-top',
+    'data-[state=closed]:animate-out data-[state=closed]:slide-out-to-top',
+  ].join(' '),
+  bottom: [
+    'inset-x-0 bottom-0',
+    'data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom',
+    'data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom',
+  ].join(' '),
 };
 
 const SIZE_CLASSES: Record<string, Record<string, string>> = {
@@ -90,7 +103,11 @@ export const DrawerContent = React.forwardRef<HTMLDivElement, DrawerContentProps
       <>
         { backdrop && (
           <RadixDialog.Overlay
-            className="fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
+            className={ cn(
+              'fixed inset-0 z-50 bg-black/50',
+              'data-[state=open]:animate-in data-[state=open]:fade-in-0',
+              'data-[state=closed]:animate-out data-[state=closed]:fade-out-0',
+            ) }
           />
         ) }
         <RadixDialog.Content
@@ -120,7 +137,7 @@ export const DrawerContent = React.forwardRef<HTMLDivElement, DrawerContentProps
   },
 );
 
-// ─── DrawerCloseTrigger ──────────────────────────────────────────────
+// ─── DrawerCloseTrigger ─────────────────────────────────────────
 
 export const DrawerCloseTrigger = React.forwardRef<
   HTMLButtonElement,
@@ -137,14 +154,14 @@ export const DrawerCloseTrigger = React.forwardRef<
   );
 });
 
-// ─── DrawerTrigger ───────────────────────────────────────────────────
+// ─── DrawerTrigger ──────────────────────────────────────────────
 
 export const DrawerTrigger = (props: React.ComponentPropsWithoutRef<typeof RadixDialog.Trigger>) => {
   const { asChild = true, ...rest } = props;
   return <RadixDialog.Trigger asChild={ asChild } { ...rest }/>;
 };
 
-// ─── Sub-components ──────────────────────────────────────────────────
+// ─── Sub-components ─────────────────────────────────────────────
 
 export const DrawerHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
   function DrawerHeader({ className, ...props }, ref) {

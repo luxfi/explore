@@ -75,20 +75,28 @@ type Variant = 'plain' | 'icon_secondary' | 'icon_background' | 'link' | 'dropdo
 type Size = '2xs' | '2xs_alt' | 'md';
 
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+
   /** Visual variant */
   variant?: Variant;
+
   /** Icon-button size */
   size?: Size;
+
   /** Show a loading spinner (disables button) */
   loading?: boolean;
+
   /** Render a skeleton placeholder instead of the button */
   loadingSkeleton?: boolean;
+
   /** Maps to data-expanded for popover trigger styling */
   expanded?: boolean;
+
   /** Maps to data-selected for toggle styling */
   selected?: boolean;
+
   /** Maps to data-highlighted */
   highlighted?: boolean;
+
   /** Polymorphic element type (e.g. "div") */
   as?: React.ElementType;
 }

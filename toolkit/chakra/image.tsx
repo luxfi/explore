@@ -83,14 +83,14 @@ const CHAKRA_RADII: Record<string, string> = {
 
 function resolveSize(value: CSSValue): string | undefined {
   if (value === undefined) return undefined;
-  if (typeof value === 'number') return `${value}px`;
+  if (typeof value === 'number') return `${ value }px`;
   if (CHAKRA_SPACING_SCALE[value]) return CHAKRA_SPACING_SCALE[value];
   return value;
 }
 
 function resolveRadius(value: CSSValue): string | undefined {
   if (value === undefined) return undefined;
-  if (typeof value === 'number') return `${value}px`;
+  if (typeof value === 'number') return `${ value }px`;
   if (CHAKRA_RADII[value as string]) return CHAKRA_RADII[value as string];
   return String(value);
 }
@@ -150,26 +150,30 @@ function buildStyle(props: StyleProps): React.CSSProperties {
   if (mb) s.marginBottom = mb;
 
   const mx = resolveSize(props.mx);
-  if (mx) { s.marginLeft = mx; s.marginRight = mx; }
+  if (mx) {
+    s.marginLeft = mx; s.marginRight = mx;
+  }
 
   const my = resolveSize(props.my);
-  if (my) { s.marginTop = my; s.marginBottom = my; }
+  if (my) {
+    s.marginTop = my; s.marginBottom = my;
+  }
 
   if (props.display !== undefined) s.display = String(props.display) as React.CSSProperties['display'];
   if (props.position !== undefined) s.position = String(props.position) as React.CSSProperties['position'];
 
   const top = resolveSimple(props.top);
-  if (top !== undefined) s.top = typeof top === 'number' ? `${top}px` : top;
+  if (top !== undefined) s.top = typeof top === 'number' ? `${ top }px` : top;
 
   const leftVal = baseValue(props.left);
   const left = resolveSimple(leftVal);
-  if (left !== undefined) s.left = typeof left === 'number' ? `${left}px` : left;
+  if (left !== undefined) s.left = typeof left === 'number' ? `${ left }px` : left;
 
   const right = resolveSimple(props.right);
-  if (right !== undefined) s.right = typeof right === 'number' ? `${right}px` : right;
+  if (right !== undefined) s.right = typeof right === 'number' ? `${ right }px` : right;
 
   const bottom = resolveSimple(props.bottom);
-  if (bottom !== undefined) s.bottom = typeof bottom === 'number' ? `${bottom}px` : bottom;
+  if (bottom !== undefined) s.bottom = typeof bottom === 'number' ? `${ bottom }px` : bottom;
 
   if (props.zIndex !== undefined) s.zIndex = typeof props.zIndex === 'number' ? props.zIndex : Number(props.zIndex) || undefined;
   if (props.objectFit !== undefined) s.objectFit = String(props.objectFit) as React.CSSProperties['objectFit'];

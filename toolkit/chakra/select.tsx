@@ -1,6 +1,8 @@
 'use client';
 
 import * as RadixSelect from '@radix-ui/react-select';
+import { useDebounce } from '@uidotdev/usehooks';
+import * as React from 'react';
 
 // Minimal ListCollection compatible with Chakra's API but without the dependency
 export interface ListCollection<T> {
@@ -10,8 +12,6 @@ export interface ListCollection<T> {
 export function createListCollection<T>(config: { items: Array<T> }): ListCollection<T> {
   return { items: config.items };
 }
-import { useDebounce } from '@uidotdev/usehooks';
-import * as React from 'react';
 
 import ArrowIcon from 'icons/arrows/east-mini.svg';
 import CheckIcon from 'icons/check.svg';
@@ -226,12 +226,12 @@ export interface SelectControlProps {
 
 export const SelectControl = React.forwardRef<HTMLButtonElement, SelectControlProps>(
   function SelectControl(props, ref) {
-    const { children, noIndicator, triggerProps, loading, defaultValue, className, style, ...rest } = props;
+    const { children, noIndicator, triggerProps, loading, defaultValue } = props;
     const ctx = useSelectInternalContext();
 
-    const isDefaultValue = Array.isArray(defaultValue)
-      ? ctx.value.every((item) => defaultValue.includes(item))
-      : false;
+    const isDefaultValue = Array.isArray(defaultValue) ?
+      ctx.value.every((item) => defaultValue.includes(item)) :
+      false;
 
     const { asChild, px: _px, className: triggerClassName, ...radixTriggerProps } = triggerProps ?? {};
 
@@ -246,9 +246,9 @@ export const SelectControl = React.forwardRef<HTMLButtonElement, SelectControlPr
           'hover:border-[var(--color-input-border-hover)]',
           'focus-visible:border-[var(--color-input-border-focus)]',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          ctx.variant === 'plain'
-            ? 'border-transparent bg-transparent px-1 py-0.5'
-            : ctx.size === 'lg' ? 'px-4 py-2.5 min-h-[52px]' : 'px-3 py-1.5 min-h-[36px]',
+          ctx.variant === 'plain' && 'border-transparent bg-transparent px-1 py-0.5',
+          ctx.variant !== 'plain' && ctx.size === 'lg' && 'px-4 py-2.5 min-h-[52px]',
+          ctx.variant !== 'plain' && ctx.size !== 'lg' && 'px-3 py-1.5 min-h-[36px]',
           triggerClassName,
         ) }
         data-default-value={ isDefaultValue || undefined }
@@ -259,7 +259,7 @@ export const SelectControl = React.forwardRef<HTMLButtonElement, SelectControlPr
             { children }
             { !noIndicator && (
               <span className="ml-auto shrink-0 transition-transform data-[state=open]:rotate-180 text-[var(--color-icon-secondary)]">
-                <ArrowIcon className="h-5 w-5 -rotate-90" />
+                <ArrowIcon className="h-5 w-5 -rotate-90"/>
               </span>
             ) }
           </>
@@ -400,7 +400,7 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
           { children }
         </RadixSelect.ItemText>
         <RadixSelect.ItemIndicator className="ml-auto shrink-0">
-          <CheckIcon className="h-5 w-5" />
+          <CheckIcon className="h-5 w-5"/>
         </RadixSelect.ItemIndicator>
       </RadixSelect.Item>
     );

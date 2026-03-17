@@ -54,7 +54,7 @@ export const SkeletonCircle = React.forwardRef<HTMLDivElement, SkeletonCirclePro
   function SkeletonCircle(props, ref) {
     const { size = 40, loading = true, className, ...rest } = props;
 
-    const dimension = typeof size === 'number' ? `${size}px` : size;
+    const dimension = typeof size === 'number' ? `${ size }px` : size;
 
     return (
       <Skeleton

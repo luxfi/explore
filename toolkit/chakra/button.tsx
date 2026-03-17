@@ -60,7 +60,8 @@ const buttonVariants = cva(
           'hover:bg-transparent hover:text-[var(--color-hover)] hover:border-[var(--color-hover)]',
           'data-[expanded]:bg-transparent data-[expanded]:text-[var(--color-hover)] data-[expanded]:border-[var(--color-hover)]',
           'data-[selected]:bg-[var(--color-selected-control-bg)] data-[selected]:text-[var(--color-selected-control-text)] data-[selected]:border-transparent',
-          'data-[selected]:hover:bg-[var(--color-selected-control-bg)] data-[selected]:hover:text-[var(--color-hover)] data-[selected]:hover:border-transparent',
+          'data-[selected]:hover:bg-[var(--color-selected-control-bg)]',
+          'data-[selected]:hover:text-[var(--color-hover)] data-[selected]:hover:border-transparent',
           'data-[selected]:data-[expanded]:text-[var(--color-hover)]',
         ],
         // --- Header ---
@@ -69,12 +70,16 @@ const buttonVariants = cva(
           'text-[var(--color-button-header-fg)] border-[var(--color-button-header-border)]',
           'hover:bg-transparent hover:text-[var(--color-hover)] hover:border-[var(--color-hover)]',
           // selected
-          'data-[selected]:bg-[var(--color-button-header-bg-selected)] data-[selected]:text-[var(--color-button-header-fg-selected)] data-[selected]:border-transparent data-[selected]:border-0',
+          'data-[selected]:bg-[var(--color-button-header-bg-selected)]',
+          'data-[selected]:text-[var(--color-button-header-fg-selected)] data-[selected]:border-transparent data-[selected]:border-0',
           'data-[selected]:hover:bg-[var(--color-button-header-bg-selected)] data-[selected]:hover:text-[var(--color-hover)]',
           'data-[selected]:data-[expanded]:text-[var(--color-hover)]',
           // selected + highlighted
-          'data-[selected]:data-[highlighted]:bg-[var(--color-button-header-bg-highlighted)] data-[selected]:data-[highlighted]:text-[var(--color-button-header-fg-highlighted)] data-[selected]:data-[highlighted]:border-transparent data-[selected]:data-[highlighted]:border-0',
-          'data-[selected]:data-[highlighted]:hover:bg-[var(--color-button-header-bg-highlighted)] data-[selected]:data-[highlighted]:hover:text-[var(--color-hover)]',
+          'data-[selected]:data-[highlighted]:bg-[var(--color-button-header-bg-highlighted)]',
+          'data-[selected]:data-[highlighted]:text-[var(--color-button-header-fg-highlighted)]',
+          'data-[selected]:data-[highlighted]:border-transparent data-[selected]:data-[highlighted]:border-0',
+          'data-[selected]:data-[highlighted]:hover:bg-[var(--color-button-header-bg-highlighted)]',
+          'data-[selected]:data-[highlighted]:hover:text-[var(--color-hover)]',
           'data-[selected]:data-[highlighted]:data-[expanded]:text-[var(--color-hover)]',
         ],
         // --- Hero ---
@@ -140,7 +145,8 @@ const buttonVariants = cva(
           'text-[var(--color-button-pagination-fg)] border-[var(--color-button-pagination-border)]',
           'hover:bg-transparent hover:text-[var(--color-hover)] hover:border-[var(--color-hover)]',
           'data-[selected]:bg-[var(--color-selected-control-bg)] data-[selected]:text-[var(--color-selected-control-text)] data-[selected]:border-transparent',
-          'data-[selected]:hover:bg-[var(--color-selected-control-bg)] data-[selected]:hover:text-[var(--color-selected-control-text)] data-[selected]:hover:border-transparent',
+          'data-[selected]:hover:bg-[var(--color-selected-control-bg)]',
+          'data-[selected]:hover:text-[var(--color-selected-control-text)] data-[selected]:hover:border-transparent',
         ],
       },
 
@@ -187,7 +193,7 @@ function Spinner({ className }: SpinnerProps): React.ReactElement {
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   readonly asChild?: boolean;
   readonly loading?: boolean;
   readonly loadingText?: React.ReactNode;
@@ -228,7 +234,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const inner = loading ? (
       <>
-        <Spinner />
+        <Spinner/>
         { loadingText != null && <span className="ml-2">{ loadingText }</span> }
       </>
     ) : (

@@ -4,6 +4,8 @@ import * as React from 'react';
 
 import { cn } from 'lib/utils/cn';
 
+const NOOP = () => { /* noop */ };
+
 // ─── Size mappings ────────────────────────────────────────────────────
 const SIZE_CLASSES = {
   sm: {
@@ -59,7 +61,7 @@ const SwitchBase = React.forwardRef<HTMLInputElement, SwitchProps>(
       ...rest
     } = props;
 
-    const [internalChecked, setInternalChecked] = React.useState(defaultChecked ?? false);
+    const [ internalChecked, setInternalChecked ] = React.useState(defaultChecked ?? false);
 
     const isControlled = checkedProp !== undefined;
     const checkedState = isControlled ? checkedProp : internalChecked;
@@ -76,7 +78,7 @@ const SwitchBase = React.forwardRef<HTMLInputElement, SwitchProps>(
           (onCheckedChange as (details: { checked: boolean }) => void)({ checked: nextChecked });
         }
       },
-      [isControlled, onCheckedChange],
+      [ isControlled, onCheckedChange ],
     );
 
     const sizeClasses = SIZE_CLASSES[size];
@@ -128,7 +130,7 @@ const SwitchBase = React.forwardRef<HTMLInputElement, SwitchProps>(
             ) }
           </RadixSwitch.Thumb>
         </RadixSwitch.Root>
-        {/* Hidden native input for form compat and ref forwarding */}
+        { /* Hidden native input for form compat and ref forwarding */ }
         <input
           ref={ ref }
           type="checkbox"
@@ -137,7 +139,7 @@ const SwitchBase = React.forwardRef<HTMLInputElement, SwitchProps>(
           disabled={ disabled }
           tabIndex={ -1 }
           aria-hidden
-          onChange={ () => {} }
+          onChange={ NOOP }
           { ...inputProps }
         />
         { children != null && (

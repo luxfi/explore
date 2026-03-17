@@ -4,6 +4,8 @@ import * as React from 'react';
 
 import { cn } from 'lib/utils/cn';
 
+const NOOP = () => { /* noop */ };
+
 // ─── CheckboxGroup context ───────────────────────────────────────────
 interface CheckboxGroupContextValue {
   value: Array<string>;
@@ -38,23 +40,23 @@ const CheckboxGroupBase = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
       ...rest
     } = props;
 
-    const [uncontrolledValue, setUncontrolledValue] = React.useState<Array<string>>(defaultValue ?? []);
+    const [ uncontrolledValue, setUncontrolledValue ] = React.useState<Array<string>>(defaultValue ?? []);
 
     const isControlled = controlledValue !== undefined;
     const value = isControlled ? controlledValue : uncontrolledValue;
 
     const toggle = React.useCallback(
       (itemValue: string) => {
-        const next = value.includes(itemValue)
-          ? value.filter((v) => v !== itemValue)
-          : [...value, itemValue];
+        const next = value.includes(itemValue) ?
+          value.filter((v) => v !== itemValue) :
+          [ ...value, itemValue ];
 
         if (!isControlled) {
           setUncontrolledValue(next);
         }
         onValueChange?.(next);
       },
-      [value, isControlled, onValueChange],
+      [ value, isControlled, onValueChange ],
     );
 
     // Sync uncontrolled state when controlled value changes
@@ -62,9 +64,9 @@ const CheckboxGroupBase = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
       if (isControlled) {
         setUncontrolledValue(controlledValue);
       }
-    }, [isControlled, controlledValue]);
+    }, [ isControlled, controlledValue ]);
 
-    const ctx = React.useMemo(() => ({ value, toggle }), [value, toggle]);
+    const ctx = React.useMemo(() => ({ value, toggle }), [ value, toggle ]);
 
     return (
       <CheckboxGroupContext.Provider value={ ctx }>
@@ -178,23 +180,26 @@ const CheckboxBase = React.forwardRef<HTMLInputElement, CheckboxProps>(
           (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
         }
       },
-      [ref],
+      [ ref ],
     );
 
     // Determine checked state
     const isInGroup = group !== null && value !== undefined;
     const groupChecked = isInGroup ? group.value.includes(value) : undefined;
 
-    const [internalChecked, setInternalChecked] = React.useState<RadixCheckbox.CheckedState>(
+    const [ internalChecked, setInternalChecked ] = React.useState<RadixCheckbox.CheckedState>(
       defaultChecked ?? false,
     );
 
     const isControlled = checkedProp !== undefined || isInGroup;
-    const checkedState: RadixCheckbox.CheckedState = checkedProp !== undefined
-      ? checkedProp
-      : isInGroup
-        ? (groupChecked ?? false)
-        : internalChecked;
+    let checkedState: RadixCheckbox.CheckedState;
+    if (checkedProp !== undefined) {
+      checkedState = checkedProp;
+    } else if (isInGroup) {
+      checkedState = groupChecked ?? false;
+    } else {
+      checkedState = internalChecked;
+    }
 
     const handleCheckedChange = React.useCallback(
       (nextChecked: RadixCheckbox.CheckedState) => {
@@ -225,7 +230,7 @@ const CheckboxBase = React.forwardRef<HTMLInputElement, CheckboxProps>(
           input.dispatchEvent(event);
         }
       },
-      [readOnly, isControlled, isInGroup, group, value, onCheckedChange, onChange],
+      [ readOnly, isControlled, isInGroup, group, value, onCheckedChange, onChange ],
     );
 
     const sizeClasses = SIZE_CLASSES[size];
@@ -272,7 +277,7 @@ const CheckboxBase = React.forwardRef<HTMLInputElement, CheckboxProps>(
             </RadixCheckbox.Indicator>
           ) }
         </RadixCheckbox.Root>
-        {/* Hidden native input for form compatibility and ref forwarding */}
+        { /* Hidden native input for form compatibility and ref forwarding */ }
         <input
           ref={ setHiddenInputRef }
           type="checkbox"
@@ -284,7 +289,7 @@ const CheckboxBase = React.forwardRef<HTMLInputElement, CheckboxProps>(
           value={ value }
           tabIndex={ -1 }
           aria-hidden
-          onChange={ () => {} }
+          onChange={ NOOP }
           { ...inputProps }
         />
         { children != null && (

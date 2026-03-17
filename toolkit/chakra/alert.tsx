@@ -11,8 +11,7 @@ import { Skeleton } from './skeleton';
 /*  Status type                                                        */
 /* ------------------------------------------------------------------ */
 
-const ALERT_STATUSES = [ 'info', 'warning', 'warning_table', 'success', 'error' ] as const;
-type AlertStatus = typeof ALERT_STATUSES[number];
+type AlertStatus = 'info' | 'warning' | 'warning_table' | 'success' | 'error';
 
 /* ------------------------------------------------------------------ */
 /*  CVA variants                                                       */
@@ -45,8 +44,8 @@ const alertRoot = cva(
 const alertContent = cva('flex flex-1', {
   variants: {
     inline: {
-      true: 'inline-flex flex-row items-center',
-      false: 'flex flex-col',
+      'true': 'inline-flex flex-row items-center',
+      'false': 'flex flex-col',
     },
   },
   defaultVariants: {

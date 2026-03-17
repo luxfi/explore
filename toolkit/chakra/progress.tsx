@@ -97,10 +97,10 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               'h-full rounded-full transition-transform duration-500 ease-out',
               !color && 'bg-[var(--color-progress-indicator)]',
             ) }
-            style={ {
+            style={{
               width: `${ percent }%`,
               ...(color && { backgroundColor: `var(--color-${ color.replace('.', '-') }, ${ color })` }),
-            } }
+            }}
           />
         </RadixProgress.Root>
       </div>

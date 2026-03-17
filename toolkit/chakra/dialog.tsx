@@ -15,7 +15,7 @@ type DialogSize = 'sm' | 'md' | 'full' | 'cover';
 /**
  * Responsive size expressed as a plain value or a breakpoint map.
  * Mirrors the Chakra `size={{ lgDown: 'full', lg: 'md' }}` pattern.
- * Responsive behaviour is implemented via Tailwind responsive variants at
+ * Responsive behavior is implemented via Tailwind responsive variants at
  * the CSS-class level (see `sizeClasses` helper below).
  */
 type ResponsiveSize = DialogSize | { base?: DialogSize; lgDown?: DialogSize; lg?: DialogSize };
@@ -66,7 +66,7 @@ function sizeClasses(size: ResponsiveSize): string {
     // Prefix each class with `lg:` for the large breakpoint
     const lgClasses = CONTENT_SIZE_MAP[size.lg]
       .split(' ')
-      .map((c) => `lg:${c}`)
+      .map((c) => `lg:${ c }`)
       .join(' ');
     parts.push(lgClasses);
   }
@@ -84,6 +84,7 @@ export interface DialogRootProps {
   defaultOpen?: boolean;
   onOpenChange?: (details: { open: boolean }) => void;
   size?: ResponsiveSize;
+
   /** Accepted for API compat but not implemented — animations are CSS-only. */
   motionPreset?: string;
   modal?: boolean;
@@ -102,10 +103,10 @@ export const DialogRoot: React.FC<DialogRootProps> = ({
     (nextOpen: boolean) => {
       onOpenChange?.({ open: nextOpen });
     },
-    [onOpenChange],
+    [ onOpenChange ],
   );
 
-  const ctx = React.useMemo<DialogContextValue>(() => ({ size }), [size]);
+  const ctx = React.useMemo<DialogContextValue>(() => ({ size }), [ size ]);
 
   return (
     <DialogContext.Provider value={ ctx }>
@@ -146,11 +147,14 @@ export const DialogContent = React.forwardRef<
 
   const { size } = useDialogContext();
 
-  const portalProps: RadixDialog.DialogPortalProps = portalled
-    ? portalRef
-      ? { container: portalRef.current }
-      : {}
-    : { container: undefined };
+  let portalProps: RadixDialog.DialogPortalProps;
+  if (!portalled) {
+    portalProps = { container: undefined };
+  } else if (portalRef) {
+    portalProps = { container: portalRef.current };
+  } else {
+    portalProps = {};
+  }
 
   // When portalled=false we skip the Radix Portal wrapper entirely
   const Wrapper = portalled ? RadixDialog.Portal : React.Fragment;
@@ -165,15 +169,15 @@ export const DialogContent = React.forwardRef<
       ) }
       { /* Positioner — centers the content panel */ }
       <div
-        className={cn(
+        className={ cn(
           'fixed inset-0 z-[1400] flex w-screen h-dvh',
           'items-start lg:items-center justify-center',
           'overflow-hidden',
-        )}
+        ) }
       >
         <RadixDialog.Content
           ref={ ref }
-          className={cn(
+          className={ cn(
             // Base content styles
             'relative flex flex-col w-full p-6 outline-none text-base',
             'bg-dialog-bg text-dialog-fg shadow-lg rounded-xl',
@@ -183,7 +187,7 @@ export const DialogContent = React.forwardRef<
             // Size variant
             sizeClasses(size),
             className,
-          )}
+          ) }
           { ...rest }
         >
           { children }
@@ -235,18 +239,18 @@ export const DialogHeader = React.forwardRef<
   return (
     <div
       ref={ ref }
-      className={cn(
+      className={ cn(
         'flex-none p-0 mb-2 flex items-center gap-x-2 min-h-[40px]',
         className,
-      )}
+      ) }
       { ...rest }
     >
       { startElement }
       <RadixDialog.Title
-        className={cn(
+        className={ cn(
           'text-base lg:text-lg font-medium',
           'whitespace-nowrap overflow-hidden text-ellipsis',
-        )}
+        ) }
       >
         { children }
       </RadixDialog.Title>
@@ -268,7 +272,7 @@ export const DialogBody = React.forwardRef<
   return (
     <div
       ref={ ref }
-      className={cn('flex-1 p-0 overflow-auto', className)}
+      className={ cn('flex-1 p-0 overflow-auto', className) }
       { ...props }
     />
   );
@@ -287,7 +291,7 @@ export const DialogFooter = React.forwardRef<
   return (
     <div
       ref={ ref }
-      className={cn('flex items-center justify-start gap-6 p-0 mt-6', className)}
+      className={ cn('flex items-center justify-start gap-6 p-0 mt-6', className) }
       { ...props }
     />
   );
@@ -309,7 +313,7 @@ export const DialogTrigger = RadixDialog.Trigger;
 
 /**
  * `DialogActionTrigger` renders its child and closes the dialog on click.
- * This mirrors the Chakra `Dialog.ActionTrigger` behaviour which wraps
+ * This mirrors the Chakra `Dialog.ActionTrigger` behavior which wraps
  * children in a close action.
  */
 export const DialogActionTrigger = RadixDialog.Close;

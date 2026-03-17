@@ -55,7 +55,6 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
       openDelay = 100,
       interactive,
       positioning,
-      ...rest
     } = props;
 
     const [ open, setOpen ] = React.useState<boolean>(defaultOpen);
@@ -139,9 +138,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               className={ cn(
                 'z-[9999] overflow-hidden rounded-lg px-3 py-2 text-sm',
                 'animate-in fade-in-0 zoom-in-95',
-                isPopover
-                  ? 'bg-[var(--color-popover-bg)] text-[var(--color-text-primary)] shadow-[var(--shadow-popover)] border border-[var(--color-border-divider)] max-w-sm'
-                  : 'bg-[var(--color-tooltip-bg)] text-[var(--color-tooltip-fg)] max-w-xs',
+                isPopover && 'bg-[var(--color-popover-bg)] text-[var(--color-text-primary)]',
+                isPopover && 'shadow-[var(--shadow-popover)] border border-[var(--color-border-divider)] max-w-sm',
+                !isPopover && 'bg-[var(--color-tooltip-bg)] text-[var(--color-tooltip-fg)] max-w-xs',
                 contentProps?.className,
               ) }
               { ...(selected ? { 'data-selected': true } : {}) }

@@ -128,6 +128,20 @@ export const PinInput = React.forwardRef<HTMLInputElement, PinInputProps>(
       e.currentTarget.select();
     }, []);
 
+    const handleNoop = React.useCallback((): void => { /* noop */ }, []);
+
+    const setInputRef = React.useCallback((index: number) => (el: HTMLInputElement | null): void => {
+      inputRefs.current[index] = el;
+    }, []);
+
+    const onInputAtIndex = React.useCallback((index: number) => (e: React.FormEvent<HTMLInputElement>): void => {
+      handleInput(index, e);
+    }, [ handleInput ]);
+
+    const onKeyDownAtIndex = React.useCallback((index: number) => (e: React.KeyboardEvent<HTMLInputElement>): void => {
+      handleKeyDown(index, e);
+    }, [ handleKeyDown ]);
+
     const bgStyle = bgColor ? { backgroundColor: `var(--color-${ bgColor.replace(/\./g, '-') })` } : undefined;
 
     return (
@@ -143,7 +157,7 @@ export const PinInput = React.forwardRef<HTMLInputElement, PinInputProps>(
         { Array.from({ length: count }).map((_, index) => (
           <input
             key={ index }
-            ref={ (el) => { inputRefs.current[index] = el; } }
+            ref={ setInputRef(index) }
             type="text"
             inputMode="numeric"
             autoComplete={ otp ? 'one-time-code' : 'off' }
@@ -160,11 +174,11 @@ export const PinInput = React.forwardRef<HTMLInputElement, PinInputProps>(
               attached && index > 0 && '-ml-0.5',
             ) }
             style={ bgStyle }
-            onInput={ (e) => handleInput(index, e) }
-            onKeyDown={ (e) => handleKeyDown(index, e) }
+            onInput={ onInputAtIndex(index) }
+            onKeyDown={ onKeyDownAtIndex(index) }
             onPaste={ handlePaste }
             onFocus={ handleFocus }
-            onChange={ () => void 0 }
+            onChange={ handleNoop }
           />
         )) }
       </div>

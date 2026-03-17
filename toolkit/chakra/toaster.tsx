@@ -1,5 +1,6 @@
 'use client';
 
+import type React from 'react';
 import { Toaster as SonnerToaster, toast } from 'sonner';
 
 import { SECOND } from '../utils/consts';
@@ -100,7 +101,7 @@ export const Toaster: React.FC = () => {
       position="top-right"
       richColors
       closeButton
-      duration={DURATION}
+      duration={ DURATION }
       offset={{ top: 12, right: 12, bottom: 12, left: 12 }}
       mobileOffset={{ top: 16, right: 16, bottom: 16, left: 16 }}
       toastOptions={{
