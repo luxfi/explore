@@ -77,13 +77,21 @@ export interface AlertProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 
   readonly inline?: boolean;
   readonly startElement?: React.ReactNode;
   readonly endElement?: React.ReactNode;
-  readonly descriptionProps?: React.ComponentPropsWithoutRef<'div'>;
+  readonly descriptionProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'ref'> & {
+    whiteSpace?: string;
+    alignItems?: string;
+    flexDir?: string;
+  };
   readonly title?: React.ReactNode;
   readonly icon?: React.ReactElement;
   readonly closable?: boolean;
   readonly onClose?: () => void;
   readonly loading?: boolean;
   readonly showIcon?: boolean;
+  // Legacy Chakra style-prop shims
+  readonly whiteSpace?: string;
+  readonly mb?: number | string;
+  readonly mt?: number | string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -109,6 +117,14 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
       className,
       ...rest
     } = props;
+
+    // Strip style prop shims
+    const { whiteSpace: _whiteSpace, mb: _mb, mt: _mt, style: styleProp, ...alertRest } = rest;
+    const shimStyle: React.CSSProperties = { ...styleProp };
+    if (_whiteSpace) shimStyle.whiteSpace = _whiteSpace as React.CSSProperties['whiteSpace'];
+    if (_mb !== undefined) shimStyle.marginBottom = typeof _mb === 'number' ? `${ _mb * 4 }px` : _mb;
+    if (_mt !== undefined) shimStyle.marginTop = typeof _mt === 'number' ? `${ _mt * 4 }px` : _mt;
+    const alertStyle = Object.keys(shimStyle).length > 0 ? shimStyle : undefined;
 
     const [ isOpen, setIsOpen ] = React.useState(true);
 
@@ -143,14 +159,25 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
       return null;
     }
 
-    const { className: descClassName, ...descRest } = descriptionProps ?? {};
+    const {
+      className: descClassName, whiteSpace: descWhiteSpace,
+      alignItems: descAlignItems, flexDir: descFlexDir,
+      style: descStyleProp, ...descRest
+    } = descriptionProps ?? {};
+    const descStyle: React.CSSProperties = {
+      ...descStyleProp,
+      ...(descWhiteSpace ? { whiteSpace: descWhiteSpace as React.CSSProperties['whiteSpace'] } : {}),
+      ...(descAlignItems ? { alignItems: descAlignItems } : {}),
+      ...(descFlexDir ? { flexDirection: descFlexDir as React.CSSProperties['flexDirection'] } : {}),
+    };
 
     return (
-      <Skeleton loading={ loading } asChild>
+      <Skeleton loading={ loading }>
         <div
           ref={ ref }
           className={ cn(alertRoot({ status, size: resolvedSize }), className) }
-          { ...rest }
+          style={ alertStyle }
+          { ...alertRest }
         >
           { iconElement }
           { children ? (
@@ -158,6 +185,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
               { title && <div className="font-semibold">{ title }</div> }
               <div
                 className={ cn('inline-flex flex-wrap', descClassName) }
+                style={ Object.keys(descStyle).length > 0 ? descStyle : undefined }
                 { ...descRest }
               >
                 { children }
@@ -169,8 +197,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           { endElement }
           { closable && (
             <CloseButton
-              pos="relative"
-              alignSelf="flex-start"
+              className="relative self-start"
               onClick={ handleClose }
             />
           ) }
