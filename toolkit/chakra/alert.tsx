@@ -71,7 +71,7 @@ const indicatorVariants = cva(INDICATOR_BASE, {
 /*  Props                                                              */
 /* ------------------------------------------------------------------ */
 
-export interface AlertProps extends React.ComponentPropsWithoutRef<'div'> {
+export interface AlertProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'title'> {
   readonly status?: AlertStatus;
   readonly size?: 'sm' | 'md';
   readonly inline?: boolean;
