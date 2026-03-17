@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
 @font-face {
   font-family: 'InterFallback';
   src: url('/static/fonts/Inter-fallback.woff2') format('woff2');
