@@ -40,11 +40,9 @@
     "monitoring:grafana:local": "docker run -d -p 4000:3000 --name=blockscout_grafana --user $(id -u) --volume $(pwd)/grafana:/var/lib/grafana grafana/grafana-enterprise"
   },
   "dependencies": {
-    "@chakra-ui/react": "3.33.0",
     "@dynamic-labs/ethereum": "4.52.2",
     "@dynamic-labs/sdk-react-core": "4.52.2",
     "@dynamic-labs/wagmi-connector": "4.52.2",
-    "@emotion/react": "11.14.0",
     "@growthbook/growthbook-react": "0.21.0",
     "@helia/verified-fetch": "2.6.12",
     "@luxfi/bens-types": "1.4.3",
@@ -156,7 +154,8 @@
     "xss": "^1.0.14"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "3.33.0",
+    "@chakra-ui/react": "3.33.0",
+    "@emotion/react": "11.14.0",
     "@eslint/compat": "1.2.2",
     "@eslint/js": "9.14.0",
     "@next/bundle-analyzer": "16.1.6",
@@ -214,7 +213,7 @@
     "svg-icons-cli": "0.0.8",
     "svgo": "^2.8.0",
     "ts-node": "^10.9.1",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "typescript-eslint": "8.41.0",
     "vite-plugin-svgr": "^2.2.2",
     "vite-tsconfig-paths": "5.1.4",

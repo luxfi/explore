@@ -80,8 +80,6 @@ export default defineConfig({
         'react-dom',
         'react/jsx-runtime',
         'react/jsx-dev-runtime',
-        // removed,
-        '@emotion/react',
         'next/link',
         'next/router',
         'next-themes',

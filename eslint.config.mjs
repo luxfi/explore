@@ -21,31 +21,18 @@ import tseslint from 'typescript-eslint';
 const RESTRICTED_MODULES = {
   paths: [
     { name: 'dayjs', message: 'Please use lib/date/dayjs.ts instead of directly importing dayjs' },
-    { name: '@chakra-ui/icons', message: 'Using @chakra-ui/icons is prohibited. Please use regular svg-icon instead (see examples in "icons/" folder)' },
+    { name: '@chakra-ui/icons', message: 'Using @chakra-ui/icons is prohibited. Use regular svg-icon instead (see examples in "icons/" folder)' },
     { name: '@metamask/providers', message: 'Please lazy-load @metamask/providers or use useProvider hook instead' },
     { name: '@metamask/post-message-stream', message: 'Please lazy-load @metamask/post-message-stream or use useProvider hook instead' },
     { name: 'playwright/TestApp', message: 'Please use render() fixture from test() function of playwright/lib module' },
     {
       name: '@chakra-ui/react',
-      importNames: [
-        'Menu', 'useToast', 'useDisclosure', 'useClipboard', 'Tooltip', 'Skeleton', 'IconButton', 'Button', 'ButtonGroup', 'Link', 'LinkBox', 'LinkOverlay',
-        'Dialog', 'DialogRoot', 'DialogContent', 'DialogHeader', 'DialogCloseTrigger', 'DialogBody',
-        'Tag', 'Switch', 'Image', 'Popover', 'PopoverTrigger', 'PopoverContent', 'PopoverBody', 'PopoverFooter',
-        'DrawerRoot', 'DrawerBody', 'DrawerContent', 'DrawerOverlay', 'DrawerBackdrop', 'DrawerTrigger', 'Drawer',
-        'Alert', 'AlertIcon', 'AlertTitle', 'AlertDescription',
-        'Select', 'SelectRoot', 'SelectControl', 'SelectContent', 'SelectItem', 'SelectValueText',
-        'Heading', 'Badge', 'Tabs', 'Show', 'Hide', 'Checkbox', 'CheckboxGroup',
-        'Table', 'TableRoot', 'TableBody', 'TableHeader', 'TableRow', 'TableCell',
-        'Menu', 'MenuRoot', 'MenuTrigger', 'MenuContent', 'MenuItem', 'MenuTriggerItem', 'MenuRadioItemGroup', 'MenuContextTrigger',
-        'Rating', 'RatingGroup', 'Textarea', 'Progress', 'ProgressCircle',
-        'EmptyState',
-      ],
-      message: 'Please use corresponding component or hook from "toolkit" instead',
+      message: 'Chakra UI has been replaced by @luxfi/ui. Import components from @luxfi/ui instead.',
     },
     {
       name: 'next/link',
       importNames: [ 'default' ],
-      message: 'Please use toolkit/chakra/link component instead',
+      message: 'Please use @luxfi/ui link component instead',
     },
   ],
   patterns: [
@@ -470,12 +457,12 @@ export default tseslint.config(
   },
   {
     files: [
-      'toolkit/chakra/**',
       'toolkit/components/**',
       'toolkit/package/**',
+      '**/*.pw.tsx',
     ],
     rules: {
-      // for toolkit components allow to import @chakra-ui/react directly
+      // for toolkit components and Playwright tests allow to import @chakra-ui/react directly
       'no-restricted-imports': 'off',
     },
   },
