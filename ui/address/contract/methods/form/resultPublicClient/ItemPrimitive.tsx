@@ -3,7 +3,7 @@ import type { AbiParameter } from 'viem';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 import ItemLabel from './ItemLabel';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { CloseButtonProps } from '../../chakra/close-button';
-import { CloseButton } from '../../chakra/close-button';
+import type { CloseButtonProps } from '@luxfi/ui/close-button';
+import { CloseButton } from '@luxfi/ui/close-button';
 
 export interface ClearButtonProps extends CloseButtonProps {
   visible?: boolean;

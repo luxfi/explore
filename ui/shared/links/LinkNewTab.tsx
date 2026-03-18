@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IconButton } from '@luxfi/ui/icon-button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Tooltip } from '@luxfi/ui/tooltip';
 
 import IconSvg from '../IconSvg';

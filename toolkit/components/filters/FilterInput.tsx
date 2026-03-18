@@ -3,11 +3,11 @@ import React, { useCallback, useState } from 'react';
 
 import SearchIcon from 'icons/search.svg';
 
-import type { InputProps } from '../../chakra/input';
-import { Input } from '../../chakra/input';
-import { InputGroup } from '../../chakra/input-group';
-import type { SkeletonProps } from '../../chakra/skeleton';
-import { Skeleton } from '../../chakra/skeleton';
+import type { InputProps } from '@luxfi/ui/input';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
+import type { SkeletonProps } from '@luxfi/ui/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { ClearButton } from '../buttons/ClearButton';
 
 export interface FilterInputProps extends Omit<SkeletonProps, 'onChange' | 'loading'> {

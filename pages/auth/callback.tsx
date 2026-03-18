@@ -6,7 +6,7 @@ import PageNextJs from 'nextjs/PageNextJs';
 
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 const COOKIE_MAX_AGE_DAYS = 7;
 

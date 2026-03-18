@@ -4,7 +4,7 @@ import type { TokenTransfer } from 'types/api/tokenTransfer';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import IconSvg from 'ui/shared/IconSvg';
 import TokenTransferSnippet from 'ui/shared/TokenTransferSnippet/TokenTransferSnippet';

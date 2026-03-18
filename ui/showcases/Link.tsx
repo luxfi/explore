@@ -9,7 +9,7 @@ import * as blockMock from 'mocks/blocks/block';
 import * as ensMock from 'mocks/ens/domain';
 import * as poolMock from 'mocks/pools/pool';
 import * as txMock from 'mocks/txs/tx';
-import { Link, LinkBox, LinkOverlay } from 'toolkit/chakra/link';
+import { Link, LinkBox, LinkOverlay } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlobEntity from 'ui/shared/entities/blob/BlobEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';

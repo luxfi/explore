@@ -18,7 +18,7 @@ import {
   DrawerBody,
   DrawerFooter,
 } from '@luxfi/ui/drawer';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 import SearchBarInput from 'ui/snippets/searchBar/SearchBarInput';

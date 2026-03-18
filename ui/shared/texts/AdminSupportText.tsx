@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getEnvValue } from 'configs/app/utils';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props {
   className?: string;

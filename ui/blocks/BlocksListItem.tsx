@@ -11,7 +11,7 @@ import config from 'configs/app';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';

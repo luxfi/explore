@@ -3,7 +3,7 @@ import { debounce } from 'es-toolkit';
 import React from 'react';
 import useFontFaceObserver from 'use-font-face-observer';
 
-import { Tooltip } from '../../chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { BODY_TYPEFACE } from '../../theme/foundations/typography';
 

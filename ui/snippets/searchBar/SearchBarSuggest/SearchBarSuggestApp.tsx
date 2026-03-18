@@ -6,7 +6,7 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 import { route } from 'nextjs-routes';
 
 import highlightText from 'lib/highlightText';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { Image } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 

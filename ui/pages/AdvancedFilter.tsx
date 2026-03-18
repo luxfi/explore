@@ -15,7 +15,7 @@ import getValuesArrayFromQuery from 'lib/getValuesArrayFromQuery';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { ADVANCED_FILTER_ITEM } from 'stubs/advancedFilter';
 import { generateListStub } from 'stubs/utils';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { Tag } from '@luxfi/ui/tag';
 import ColumnsButton from 'ui/advancedFilter/ColumnsButton';

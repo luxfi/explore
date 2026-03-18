@@ -4,7 +4,7 @@ import type { TokenInstance } from 'types/api/token';
 import type { MetadataAttributes } from 'types/client/token';
 
 import parseMetadata from 'lib/token/parseMetadata';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';

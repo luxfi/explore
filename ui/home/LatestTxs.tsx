@@ -7,7 +7,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { TX } from 'stubs/tx';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import useNewTxsSocket from 'ui/txs/socket/useTxsSocketTypeAll';
 

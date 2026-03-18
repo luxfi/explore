@@ -4,7 +4,7 @@ import type { TokenInfo, TokenInstance } from 'types/api/token';
 
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Tag } from '@luxfi/ui/tag';
 import * as regexp from 'toolkit/utils/regexp';
 import AddressQrCode from 'ui/address/details/AddressQrCode';

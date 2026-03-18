@@ -7,7 +7,7 @@ import IconSvg from 'ui/shared/IconSvg';
 const LatestTxsFallback = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div { ...props }>
-      <div className="text-[var(--chakra-colors-text-secondary)] text-sm">Failed to load data. Please try again later.</div>
+      <div className="text-[var(--color-text-secondary)] text-sm">Failed to load data. Please try again later.</div>
       <TableRoot className="mt-3 border-t border-[var(--color-border-divider)]">
         <TableBody>
           { Array.from({ length: 2 }).map((_, index) => (

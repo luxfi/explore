@@ -10,7 +10,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import { Badge } from '@luxfi/ui/badge';
 import { Heading } from '@luxfi/ui/heading';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import TokenLogoPlaceholder from 'ui/shared/TokenLogoPlaceholder';

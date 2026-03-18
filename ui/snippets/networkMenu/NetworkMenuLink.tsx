@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FeaturedNetwork } from 'types/networks';
 
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { Image } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 

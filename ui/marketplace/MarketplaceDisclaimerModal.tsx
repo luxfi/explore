@@ -5,7 +5,7 @@ import { route } from 'nextjs-routes';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { Button } from '@luxfi/ui/button';
 import { DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 type Props = { isOpen: boolean; onClose: () => void; appId: string };
 

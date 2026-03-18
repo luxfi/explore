@@ -4,7 +4,7 @@ import type { MouseEvent } from 'react';
 import { route } from 'nextjs-routes';
 
 import { cn } from 'lib/utils/cn';
-import { LinkOverlay } from 'toolkit/chakra/link';
+import { LinkOverlay } from 'toolkit/next/link';
 
 type Props = {
   id: string;

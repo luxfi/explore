@@ -6,7 +6,7 @@ import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 const getGasFeature = config.features.getGasButton;
 
 const GetGasButton = () => {

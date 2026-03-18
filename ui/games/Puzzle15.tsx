@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import config from 'configs/app';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import Confetti from './Confetti';
 

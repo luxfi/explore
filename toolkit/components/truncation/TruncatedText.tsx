@@ -3,9 +3,9 @@
 import type { Placement } from '@floating-ui/dom';
 import React from 'react';
 
-import type { SkeletonProps } from '../../chakra/skeleton';
-import { Skeleton } from '../../chakra/skeleton';
-import { Tooltip } from '../../chakra/tooltip';
+import type { SkeletonProps } from '@luxfi/ui/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { TruncatedTextTooltip } from './TruncatedTextTooltip';
 
 export interface TruncatedTextProps extends Omit<SkeletonProps, 'loading'> {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TokenVerifiedInfo } from 'types/api/token';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 

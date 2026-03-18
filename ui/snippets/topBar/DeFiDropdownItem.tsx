@@ -4,7 +4,7 @@ import type { DeFiDropdownItem as TDeFiDropdownItem } from 'types/client/deFiDro
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {

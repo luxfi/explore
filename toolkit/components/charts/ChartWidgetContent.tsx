@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { AxesConfigFn, Resolution, TimeChartData } from './types';
 
-import { Link } from '../../chakra/link';
-import { Skeleton } from '../../chakra/skeleton';
+import { Link } from '@luxfi/ui/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { apos } from '../../utils/htmlEntities';
 import { Chart } from './Chart';
 
@@ -37,7 +37,7 @@ export const ChartWidgetContent = React.memo(({
   if (isError) {
     return (
       <div className="flex items-center justify-center grow py-4">
-        <span className="text-[var(--chakra-colors-text-secondary)] text-sm text-center">
+        <span className="text-[var(--color-text-secondary)] text-sm text-center">
           { `The data didn${ apos }t load. Please, ` }
           <Link href={ window.document.location.href }>try to reload the page.</Link>
         </span>
@@ -52,7 +52,7 @@ export const ChartWidgetContent = React.memo(({
   if (empty || charts.length === 0) {
     return (
       <div className="flex items-center justify-center grow">
-        <span className="text-[var(--chakra-colors-text-secondary)] text-sm">{ emptyText || 'No data' }</span>
+        <span className="text-[var(--color-text-secondary)] text-sm">{ emptyText || 'No data' }</span>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { Image } from '@luxfi/ui/image';
 
 const LogoFallback = () => {

@@ -3,7 +3,7 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import AppErrorIcon from '../AppErrorIcon';
 import AppErrorTitle from '../AppErrorTitle';

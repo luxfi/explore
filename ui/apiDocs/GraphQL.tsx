@@ -6,7 +6,7 @@ import config from 'configs/app';
 import buildUrl from 'lib/api/buildUrl';
 import 'graphiql/graphiql.css';
 import useApiQuery from 'lib/api/useApiQuery';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { ZERO_ADDRESS } from 'toolkit/utils/consts';
 import { isBrowser } from 'toolkit/utils/isBrowser';

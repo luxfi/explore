@@ -8,7 +8,7 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableCell, TableRow } from '@luxfi/ui/table';
 import { Tooltip } from '@luxfi/ui/tooltip';

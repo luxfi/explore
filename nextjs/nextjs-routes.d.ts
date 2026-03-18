@@ -56,7 +56,6 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/chain/[chain_slug]/visualize/sol2uml", { "chain_slug": string }>
     | DynamicRoute<"/chains/[slug]", { "slug": string }>
     | StaticRoute<"/chains">
-    | StaticRoute<"/chakra">
     | StaticRoute<"/contract-verification">
     | DynamicRoute<"/cross-chain-tx/[id]", { "id": string }>
     | StaticRoute<"/csv-export">

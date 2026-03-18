@@ -5,7 +5,7 @@ import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableCell, TableRow } from '@luxfi/ui/table';
 import { mdash } from 'toolkit/utils/htmlEntities';

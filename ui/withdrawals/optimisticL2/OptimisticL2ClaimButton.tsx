@@ -6,7 +6,7 @@ import type { OptimisticL2WithdrawalClaimInfo } from 'types/api/optimisticL2';
 import config from 'configs/app';
 import { parentChain } from 'lib/web3/chains';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import OptimisticL2ClaimModal from './OptimisticL2ClaimModal';

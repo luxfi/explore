@@ -3,7 +3,7 @@ import React from 'react';
 import type { ChartConfig } from 'toolkit/components/charts/types';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 
 export function useChartsConfig(): Array<ChartConfig> {
   const lineColor = useDefaultLineColor();

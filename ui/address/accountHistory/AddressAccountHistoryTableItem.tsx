@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableCell, TableRow } from '@luxfi/ui/table';
 import { SECOND } from 'toolkit/utils/consts';

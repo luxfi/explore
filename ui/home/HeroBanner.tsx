@@ -3,7 +3,7 @@ import React from 'react';
 import config from 'configs/app';
 import RewardsButton from 'ui/rewards/RewardsButton';
 
-export const BACKGROUND_DEFAULT = 'var(--chakra-colors-whiteAlpha-50)';
+export const BACKGROUND_DEFAULT = 'var(--color-whiteAlpha-50)';
 
 const HeroBanner = () => {
   return (

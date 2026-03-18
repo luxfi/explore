@@ -2,7 +2,7 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { clearRecentSearchKeywords, getRecentSearchKeywords, removeRecentSearchKeyword } from 'lib/recentSearchKeywords';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import TextAd from 'ui/shared/ad/TextAd';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';

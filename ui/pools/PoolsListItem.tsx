@@ -4,7 +4,7 @@ import type { Pool } from 'types/api/pools';
 
 import getPoolLinks from 'lib/pools/getPoolLinks';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';

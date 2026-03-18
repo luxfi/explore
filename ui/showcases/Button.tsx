@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
 import { Checkbox } from '@luxfi/ui/checkbox';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverContent, PopoverRoot, PopoverTrigger, PopoverBody } from '@luxfi/ui/popover';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { BACKGROUND_DEFAULT } from 'ui/home/HeroBanner';

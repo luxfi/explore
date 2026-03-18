@@ -20,7 +20,7 @@ import shortenString from 'lib/shortenString';
 import useWallet from 'lib/web3/useWallet';
 import { Alert } from '@luxfi/ui/alert';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Radio, RadioGroup } from '@luxfi/ui/radio';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 import { SIGNATURE_REGEXP } from 'toolkit/components/forms/validators/signature';

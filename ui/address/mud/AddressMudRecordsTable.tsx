@@ -8,7 +8,7 @@ import { route } from 'nextjs-routes';
 import capitalizeFirstLetter from 'lib/capitalizeFirstLetter';
 import { cn } from 'lib/utils/cn';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import type { TableColumnHeaderProps } from '@luxfi/ui/table';
 import { Tooltip } from '@luxfi/ui/tooltip';

@@ -8,7 +8,7 @@ import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
 import type { ButtonProps } from '@luxfi/ui/button';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { Separator } from '@luxfi/ui/separator';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';

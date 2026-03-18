@@ -8,7 +8,7 @@ import { route } from 'nextjs/routes';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { currencyUnits } from 'lib/units';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import BlobEntity from 'ui/shared/entities/blob/BlobEntity';
 import TxStatus from 'ui/shared/statusTag/TxStatus';
 import TextSeparator from 'ui/shared/TextSeparator';

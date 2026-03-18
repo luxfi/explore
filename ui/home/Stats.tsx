@@ -107,7 +107,7 @@ const Stats = () => {
         <IconSvg
           isLoading={ isLoading }
           name="info"
-          className="w-5 h-5 shrink-0 cursor-pointer text-[var(--chakra-colors-icon-secondary)] hover:text-[var(--chakra-colors-link-primary-hover)]"
+          className="w-5 h-5 shrink-0 cursor-pointer text-[var(--color-icon-secondary)] hover:text-[var(--color-link-primary-hover)]"
         />
       </GasInfoTooltip>
     ) : null;

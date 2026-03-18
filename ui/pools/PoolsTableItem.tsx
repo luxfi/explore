@@ -5,7 +5,7 @@ import type { Pool } from 'types/api/pools';
 import getItemIndex from 'lib/getItemIndex';
 import getPoolLinks from 'lib/pools/getPoolLinks';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableCell, TableRow } from '@luxfi/ui/table';
 import { Tooltip } from '@luxfi/ui/tooltip';

@@ -6,10 +6,10 @@ import type { AxesConfigFn, TimeChartData } from './types';
 import RepeatIcon from 'icons/repeat.svg';
 import { cn } from 'lib/utils/cn';
 
-import { IconButton } from '../../chakra/icon-button';
-import { Link } from '../../chakra/link';
-import { Skeleton } from '../../chakra/skeleton';
-import { Tooltip } from '../../chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from '@luxfi/ui/link';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ChartWidgetContent } from './ChartWidgetContent';
 import { ChartLegend } from './parts/ChartLegend';
 import type { ChartMenuItemId } from './parts/ChartMenu';
@@ -105,7 +105,7 @@ export const ChartWidget = React.memo(({
     <div
       className={ cn(
         'flex grow flex-col items-start',
-        href ? 'cursor-pointer hover:text-[var(--chakra-colors-link-primary-hover)]' : 'cursor-default',
+        href ? 'cursor-pointer hover:text-[var(--color-link-primary-hover)]' : 'cursor-default',
       ) }
     >
       <Skeleton

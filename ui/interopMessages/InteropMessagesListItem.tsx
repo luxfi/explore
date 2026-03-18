@@ -31,9 +31,9 @@ const InteropMessagesListItem = ({ item, isLoading }: Props) => {
           <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary"/>
         </div>
         <div className="grid grid-cols-[120px_1fr] gap-y-2">
-          <span className="text-[var(--chakra-colors-text-secondary)]">Source tx</span>
+          <span className="text-[var(--color-text-secondary)]">Source tx</span>
           <InteropMessageSourceTx { ...item } isLoading={ isLoading }/>
-          <span className="text-[var(--chakra-colors-text-secondary)]">Destination tx</span>
+          <span className="text-[var(--color-text-secondary)]">Destination tx</span>
           <InteropMessageDestinationTx { ...item } isLoading={ isLoading }/>
         </div>
         <div className="flex gap-2 justify-between mt-2">

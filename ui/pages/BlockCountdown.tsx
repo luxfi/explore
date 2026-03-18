@@ -11,7 +11,7 @@ import getQueryParamString from 'lib/router/getQueryParamString';
 import { Button } from '@luxfi/ui/button';
 import { Heading } from '@luxfi/ui/heading';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import { downloadBlob } from 'toolkit/utils/file';

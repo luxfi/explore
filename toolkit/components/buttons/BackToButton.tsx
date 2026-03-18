@@ -2,10 +2,10 @@ import React from 'react';
 
 import ArrowIcon from 'icons/arrows/east.svg';
 
-import type { IconButtonProps } from '../../chakra/icon-button';
-import { IconButton } from '../../chakra/icon-button';
-import { Link } from '../../chakra/link';
-import { Tooltip } from '../../chakra/tooltip';
+import type { IconButtonProps } from '@luxfi/ui/icon-button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Link } from '@luxfi/ui/link';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 export interface BackToButtonProps extends IconButtonProps {
   href?: string;

@@ -15,7 +15,7 @@ import {
   hasMoreClusters,
 } from 'lib/clusters/clustersUtils';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';

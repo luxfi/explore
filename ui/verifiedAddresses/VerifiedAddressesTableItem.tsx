@@ -4,7 +4,7 @@ import type { TokenInfoApplication, VerifiedAddress } from 'types/api/account';
 
 import dayjs from 'lib/date/dayjs';
 import { IconButton } from '@luxfi/ui/icon-button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableCell, TableRow } from '@luxfi/ui/table';
 import { Tooltip } from '@luxfi/ui/tooltip';

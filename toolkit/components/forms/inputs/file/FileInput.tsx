@@ -2,7 +2,7 @@ import type { ChangeEvent } from 'react';
 import React from 'react';
 import type { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 
-import { Input } from '../../../../chakra/input';
+import { Input } from '@luxfi/ui/input';
 
 interface InjectedProps {
   onChange: (files: Array<File>) => void;

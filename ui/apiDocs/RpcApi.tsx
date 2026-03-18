@@ -2,7 +2,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import { getCurrentChain } from 'configs/app/chainRegistry';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 const RpcApi = () => {
   const chain = getCurrentChain();

@@ -10,7 +10,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { ENS_DOMAIN } from 'stubs/ENS';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import NameDomainDetails from 'ui/nameDomain/NameDomainDetails';

@@ -11,7 +11,7 @@ const NFTItemContainer = ({ children, className }: Props) => {
   return (
     <div
       className={ cn(
-        'w-full lg:w-[210px] border border-solid border-[var(--chakra-colors-border-divider)]',
+        'w-full lg:w-[210px] border border-solid border-[var(--color-border-divider)]',
         'rounded-[12px] p-[10px] text-sm font-medium leading-[20px]',
         className,
       ) }

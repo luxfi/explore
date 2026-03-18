@@ -4,7 +4,7 @@ import type { Route } from 'nextjs-routes';
 import { route } from 'nextjs-routes';
 
 import { cn } from 'lib/utils/cn';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';

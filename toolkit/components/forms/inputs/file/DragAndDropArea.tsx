@@ -56,11 +56,11 @@ export const DragAndDropArea = ({ onDrop, children, className, isDisabled, fullF
     <div
       className={ cn(
         'flex items-center justify-center w-full min-h-[120px] border-2 border-dashed rounded-lg cursor-pointer text-center',
-        'text-[var(--chakra-colors-input-placeholder)]',
-        'hover:border-[var(--chakra-colors-input-border-hover)]',
-        isDragOver ? 'border-[var(--chakra-colors-input-border-hover)]' : 'border-[var(--chakra-colors-input-border)]',
+        'text-[var(--color-input-placeholder)]',
+        'hover:border-[var(--color-input-border-hover)]',
+        isDragOver ? 'border-[var(--color-input-border-hover)]' : 'border-[var(--color-input-border)]',
         isDisabled && 'opacity-20',
-        isInvalid && 'border-[var(--chakra-colors-input-border-error)] text-[var(--chakra-colors-input-placeholder-error)]',
+        isInvalid && 'border-[var(--color-border-error)] text-[var(--color-input-placeholder-error)]',
         className,
       ) }
       { ...(isDisabled ? { 'data-disabled': true } : {}) }

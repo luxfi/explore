@@ -5,7 +5,7 @@ import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import SolidityScanIcon from 'icons/brands/solidity_scan.svg';
 import useFetchReport from 'lib/solidityScan/useFetchReport';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverBody, PopoverContent, PopoverRoot } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import SolidityscanReportButton from 'ui/shared/solidityscanReport/SolidityscanReportButton';

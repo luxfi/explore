@@ -12,7 +12,7 @@ import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import { formatZkSyncL2TxnBatchStatus, layerLabels } from 'lib/rollups/utils';
 import { currencyUnits } from 'lib/units';
 import { CollapsibleDetails } from '@luxfi/ui/collapsible';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';

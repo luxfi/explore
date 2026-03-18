@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import * as mixpanel from 'lib/mixpanel/index';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 
 const IframeBanner = ({ contentUrl, linkUrl }: { contentUrl: string; linkUrl: string }) => {

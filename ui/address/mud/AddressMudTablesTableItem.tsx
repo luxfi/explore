@@ -6,7 +6,7 @@ import type { AddressMudTableItem } from 'types/api/address';
 import { route } from 'nextjs-routes';
 
 import { Badge } from '@luxfi/ui/badge';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableBody, TableCell, TableRoot, TableRow } from '@luxfi/ui/table';
 import IconSvg from 'ui/shared/IconSvg';

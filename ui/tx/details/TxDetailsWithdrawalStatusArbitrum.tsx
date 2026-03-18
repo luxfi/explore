@@ -5,7 +5,7 @@ import type { ArbitrumTransactionMessageStatus, Transaction } from 'types/api/tr
 import { route } from 'nextjs-routes';
 
 import { layerLabels } from 'lib/rollups/utils';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';
 import VerificationSteps from 'ui/shared/verificationSteps/VerificationSteps';

@@ -17,7 +17,7 @@ import type { ResourceError } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import { Alert } from '@luxfi/ui/alert';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 import AdminSupportText from 'ui/shared/texts/AdminSupportText';
 

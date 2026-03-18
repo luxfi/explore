@@ -3,8 +3,8 @@ import React from 'react';
 import type { Address } from 'types/api/address';
 
 import config from 'configs/app';
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link } from 'toolkit/next/link';
 
 const feature = config.features.multichainButton;
 

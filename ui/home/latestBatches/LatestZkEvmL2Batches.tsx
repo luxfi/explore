@@ -13,7 +13,7 @@ import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { ZKEVM_L2_TXN_BATCHES_ITEM } from 'stubs/zkEvmL2';
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import ZkEvmL2TxnBatchStatus from 'ui/shared/statusTag/ZkEvmL2TxnBatchStatus';
 
 import LatestBlocksFallback from '../fallbacks/LatestBlocksFallback';

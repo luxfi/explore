@@ -3,7 +3,7 @@ import React from 'react';
 import type * as bens from '@luxfi/bens-types';
 
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props {
   data: bens.DetailedDomain | undefined;

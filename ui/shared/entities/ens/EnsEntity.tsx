@@ -5,7 +5,7 @@ import type * as bens from '@luxfi/bens-types';
 import { route } from 'nextjs-routes';
 
 import { Image } from '@luxfi/ui/image';
-import { Link as LinkToolkit } from 'toolkit/chakra/link';
+import { Link as LinkToolkit } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';

@@ -4,10 +4,10 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { FormFieldPropsBase } from './types';
 
-import { Field } from '../../../chakra/field';
-import type { InputProps } from '../../../chakra/input';
-import { Input } from '../../../chakra/input';
-import { InputGroup } from '../../../chakra/input-group';
+import { Field } from '@luxfi/ui/field';
+import type { InputProps } from '@luxfi/ui/input';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import { getFormFieldErrorText } from '../utils/getFormFieldErrorText';
 import { colorValidator } from '../validators/color';
 

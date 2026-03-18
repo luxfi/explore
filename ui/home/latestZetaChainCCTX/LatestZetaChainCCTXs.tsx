@@ -15,7 +15,7 @@ import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { generateListStub } from 'stubs/utils';
 import { ZETA_CHAIN_CCTX_LIST_ITEM } from 'stubs/zetaChainCCTX';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import ZetaChainCCTXListItem from 'ui/zetaChain/cctxs/ZetaChainCCTXListItem';
 

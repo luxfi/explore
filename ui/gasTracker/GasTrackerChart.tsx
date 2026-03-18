@@ -4,7 +4,7 @@ import { route } from 'nextjs-routes';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { STATS_CHARTS_SECTION_GAS } from 'stubs/stats';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 import ChartWidgetContainer from 'ui/stats/ChartWidgetContainer';

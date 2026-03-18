@@ -7,7 +7,7 @@ import type { FormSubmitResultWalletClient } from '../types';
 import { route } from 'nextjs-routes';
 
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props {
   data: FormSubmitResultWalletClient['data'];

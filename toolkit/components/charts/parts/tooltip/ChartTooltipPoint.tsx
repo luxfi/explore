@@ -4,7 +4,7 @@ import React from 'react';
 
 import type { TimeChartData, TimeChartItem } from '../../types';
 
-import { useColorModeValue } from '../../../../chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { POINT_SIZE } from './utils';
 
 const ChartTooltipPoint = () => {

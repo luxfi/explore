@@ -6,7 +6,7 @@ import type { UserInfo } from 'types/api/account';
 import config from 'configs/app';
 import { Button } from '@luxfi/ui/button';
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 interface Props {

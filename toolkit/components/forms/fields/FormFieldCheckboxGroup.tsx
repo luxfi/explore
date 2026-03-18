@@ -3,8 +3,8 @@ import { useController, useFormContext, type FieldValues, type Path } from 'reac
 
 import type { FormFieldPropsBase } from './types';
 
-import type { CheckboxGroupProps, CheckboxProps } from '../../../chakra/checkbox';
-import { Checkbox, CheckboxGroup } from '../../../chakra/checkbox';
+import type { CheckboxGroupProps, CheckboxProps } from '@luxfi/ui/checkbox';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 
 export interface FormFieldCheckboxGroupProps<
   FormFields extends FieldValues,

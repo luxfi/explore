@@ -4,8 +4,8 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { FormFieldPropsBase } from './types';
 
-import { Switch } from '../../../chakra/switch';
-import type { SwitchProps } from '../../../chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
+import type { SwitchProps } from '@luxfi/ui/switch';
 
 export type FormFieldSwitchProps<
   FormFields extends FieldValues,

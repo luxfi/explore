@@ -14,7 +14,7 @@ import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useIsMounted from 'lib/hooks/useIsMounted';
 import { isConfidentialTokenType } from 'lib/token/tokenTypes';
 import { TOKEN_COUNTERS } from 'stubs/token';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import type { TokenTabs } from 'ui/pages/Token';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';

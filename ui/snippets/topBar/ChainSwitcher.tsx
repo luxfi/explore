@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getCurrentChain, getCurrentNetwork, getChainsForNetwork, NETWORKS } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 const ChainSwitcher = () => {

@@ -1,7 +1,7 @@
 import type { ColorThemeId } from 'types/settings';
 
 import config from 'configs/app';
-import type { ColorMode } from 'toolkit/chakra/color-mode';
+import type { ColorMode } from 'toolkit/next/color-mode';
 
 export interface ColorTheme {
   id: ColorThemeId;

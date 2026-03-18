@@ -17,7 +17,7 @@ import useSocketMessage from 'lib/socket/useSocketMessage';
 import { BLOCK } from 'stubs/block';
 import { HOMEPAGE_STATS } from 'stubs/stats';
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { nbsp } from 'toolkit/utils/htmlEntities';

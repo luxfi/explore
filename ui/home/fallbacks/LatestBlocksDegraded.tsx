@@ -7,7 +7,7 @@ import { route } from 'nextjs-routes';
 import useInitialList from 'lib/hooks/useInitialList';
 import { publicClient } from 'lib/web3/client';
 import { BLOCK } from 'stubs/block';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import LatestBlocksItem from '../LatestBlocksItem';
 import LatestBlocksFallback from './LatestBlocksFallback';

@@ -5,11 +5,11 @@ import React from 'react';
 const COLOR_MAP: Record<string, string> = {
   'black': '#000000',
   'white': '#ffffff',
-  'gray.400': 'var(--chakra-colors-gray-400, #a0aec0)',
-  'gray.600': 'var(--chakra-colors-gray-600, #4a5568)',
-  'yellow.300': 'var(--chakra-colors-yellow-300, #f6e05e)',
-  'red.500': 'var(--chakra-colors-red-500, #e53e3e)',
-  'green.500': 'var(--chakra-colors-green-500, #38a169)',
+  'gray.400': 'var(--color-gray-400, #a0aec0)',
+  'gray.600': 'var(--color-gray-600, #4a5568)',
+  'yellow.300': 'var(--color-yellow-300, #f6e05e)',
+  'red.500': 'var(--color-red-500, #e53e3e)',
+  'green.500': 'var(--color-green-500, #38a169)',
   'blackAlpha.300': 'rgba(0, 0, 0, 0.16)',
   'blackAlpha.400': 'rgba(0, 0, 0, 0.24)',
   'blackAlpha.600': 'rgba(0, 0, 0, 0.48)',
@@ -17,9 +17,9 @@ const COLOR_MAP: Record<string, string> = {
   'whiteAlpha.300': 'rgba(255, 255, 255, 0.16)',
   'whiteAlpha.400': 'rgba(255, 255, 255, 0.24)',
   'whiteAlpha.500': 'rgba(255, 255, 255, 0.36)',
-  'border.divider': 'var(--chakra-colors-border-divider, rgba(0, 0, 0, 0.06))',
-  'text.secondary': 'var(--chakra-colors-text-secondary, #718096)',
-  'link.primary': 'var(--chakra-colors-link-primary, #3182ce)',
+  'border.divider': 'var(--color-border-divider, rgba(0, 0, 0, 0.06))',
+  'text.secondary': 'var(--color-text-secondary, #718096)',
+  'link.primary': 'var(--color-link-primary, #3182ce)',
 };
 
 const FONT_SIZE_MAP: Record<string, string> = {
@@ -32,7 +32,7 @@ const FONT_SIZE_MAP: Record<string, string> = {
 
 function resolveToken(category: string, token: string): string {
   if (category === 'colors') {
-    return COLOR_MAP[token] ?? `var(--chakra-colors-${ token.replace(/\./g, '-') })`;
+    return COLOR_MAP[token] ?? `var(--color-${ token.replace(/\./g, '-') })`;
   }
   if (category === 'fontSizes') {
     return FONT_SIZE_MAP[token] ?? token;
@@ -41,7 +41,7 @@ function resolveToken(category: string, token: string): string {
 }
 
 /**
- * Drop-in replacement for Chakra's useToken hook.
+ * Drop-in replacement for color token hook.
  * Returns resolved CSS values for design tokens.
  *
  * Supports:

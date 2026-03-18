@@ -4,7 +4,7 @@ import type { FormFields } from '../types';
 import type { SmartContractVerificationMethod, SmartContractVerificationConfig } from 'types/client/contract';
 
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { createListCollection } from '@luxfi/ui/select';
 import type { SelectOption } from '@luxfi/ui/select';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';

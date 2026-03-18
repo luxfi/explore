@@ -3,7 +3,7 @@ import React from 'react';
 import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { ClusterChainConfig } from 'types/multichain';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

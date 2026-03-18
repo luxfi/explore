@@ -15,7 +15,7 @@ export const ContentLoader = React.memo(({ text, className, ...props }: Props) =
           style={{ animation: 'fromLeftToRight 700ms ease-in-out infinite alternate' }}
         />
       </div>
-      <span className="block mt-6 text-[var(--chakra-colors-text-secondary)]">
+      <span className="block mt-6 text-[var(--color-text-secondary)]">
         { text || 'Loading data, please wait...' }
       </span>
     </div>

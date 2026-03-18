@@ -6,7 +6,7 @@ import { route } from 'nextjs/routes';
 
 import { useMultichainContext } from 'lib/contexts/multichain';
 import formatLanguageName from 'lib/contracts/formatLanguageName';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

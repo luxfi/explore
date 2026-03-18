@@ -4,7 +4,7 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import Puzzle15 from 'ui/games/Puzzle15';
 import IconSvg from 'ui/shared/IconSvg';
 

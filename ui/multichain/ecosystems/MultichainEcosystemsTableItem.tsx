@@ -7,7 +7,7 @@ import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
 import { IconButton } from '@luxfi/ui/icon-button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TableCell, TableRow } from '@luxfi/ui/table';
 import { Tooltip } from '@luxfi/ui/tooltip';

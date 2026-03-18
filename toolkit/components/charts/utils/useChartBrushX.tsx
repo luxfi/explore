@@ -2,7 +2,7 @@ import { useToken } from '../../../hooks/useToken';
 import * as d3 from 'd3';
 import React from 'react';
 
-import { useColorModeValue } from '../../../chakra/color-mode';
+import { useColorModeValue } from '@luxfi/ui/color-mode';
 
 interface Props {
   limits: [[number, number], [number, number]];

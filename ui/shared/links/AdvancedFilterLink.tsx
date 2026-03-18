@@ -3,8 +3,8 @@ import React from 'react';
 import type { RouteParams } from 'nextjs/routes';
 import { route } from 'nextjs/routes';
 
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props extends LinkProps {

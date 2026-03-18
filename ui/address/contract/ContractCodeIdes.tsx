@@ -3,7 +3,7 @@ import React from 'react';
 import config from 'configs/app';
 import { Button } from '@luxfi/ui/button';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from '@luxfi/ui/popover';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';

@@ -6,7 +6,7 @@ import type { ZetaChainCCTXFilterParams } from 'types/client/zetaChain';
 import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
 import shortenString from 'lib/shortenString';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Tag } from '@luxfi/ui/tag';
 import { SECOND } from 'toolkit/utils/consts';
 import IconSvg from 'ui/shared/IconSvg';

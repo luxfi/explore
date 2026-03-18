@@ -19,7 +19,7 @@ import getConfirmationDuration from 'lib/tx/getConfirmationDuration';
 import { currencyUnits } from 'lib/units';
 import { Badge } from '@luxfi/ui/badge';
 import { CollapsibleDetails } from '@luxfi/ui/collapsible';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

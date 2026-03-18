@@ -6,7 +6,7 @@ import type { ClusterChainConfig } from 'types/multichain';
 import { route } from 'nextjs/routes';
 
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tag } from '@luxfi/ui/tag';
 import NftEntity from 'ui/shared/entities/nft/NftEntity';

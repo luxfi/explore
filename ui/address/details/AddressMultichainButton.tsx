@@ -8,7 +8,7 @@ import type { MultichainProviderConfigParsed } from 'types/client/multichainProv
 import { route } from 'nextjs-routes';
 
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import TextSeparator from 'ui/shared/TextSeparator';
 

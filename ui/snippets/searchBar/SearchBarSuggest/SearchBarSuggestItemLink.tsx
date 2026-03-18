@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props extends LinkProps {};
 

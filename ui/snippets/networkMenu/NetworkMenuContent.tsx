@@ -3,7 +3,7 @@ import React from 'react';
 import type { FeaturedNetwork, NetworkGroup } from 'types/networks';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { PopoverBody, PopoverContent } from '@luxfi/ui/popover';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '@luxfi/ui/tabs';

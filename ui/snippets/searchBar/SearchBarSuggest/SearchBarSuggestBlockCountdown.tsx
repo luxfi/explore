@@ -2,7 +2,7 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props {
   blockHeight: string;

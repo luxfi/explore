@@ -5,7 +5,7 @@ import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/p
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tag } from '@luxfi/ui/tag';
 import { HomeRpcDataContextProvider } from 'ui/home/fallbacks/rpcDataContext';

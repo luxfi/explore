@@ -5,11 +5,11 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { Heading } from '@luxfi/ui/heading';
 import { IconButton } from '@luxfi/ui/icon-button';
 import { Image } from '@luxfi/ui/image';
-import { Link, LinkBox } from 'toolkit/chakra/link';
+import { Link, LinkBox } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 
 import FavoriteIcon from '../FavoriteIcon';

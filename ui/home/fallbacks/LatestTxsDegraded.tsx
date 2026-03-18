@@ -7,7 +7,7 @@ import config from 'configs/app';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import { publicClient } from 'lib/web3/client';
 import { TX } from 'stubs/tx';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import LatestTxsItem from '../LatestTxsItem';
 import LatestTxsItemMobile from '../LatestTxsItemMobile';

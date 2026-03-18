@@ -49,16 +49,16 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
     <li
       className={ cn(
         'flex items-center gap-x-2 grow-0 lg:grow px-[6px] lg:px-2 py-[6px] rounded cursor-pointer text-xs font-medium',
-        isSelected ? 'text-[var(--chakra-colors-text-secondary)] bg-[var(--chakra-colors-bg-primary)]' : 'text-[var(--chakra-colors-link-primary)]',
-        'hover:bg-[var(--chakra-colors-bg-primary)] hover:z-[1]',
-        !isSelected && 'hover:text-[var(--chakra-colors-link-primary-hover)]',
+        isSelected ? 'text-[var(--color-text-secondary)] bg-[var(--color-bg-primary)]' : 'text-[var(--color-link-primary)]',
+        'hover:bg-[var(--color-bg-primary)] hover:z-[1]',
+        !isSelected && 'hover:text-[var(--color-link-primary-hover)]',
       ) }
       onClick={ handleClick }
     >
       { indicator.icon }
       <div className="hidden lg:block">
         <span>{ indicator.titleShort || indicator.title }</span>
-        <div className="flex items-center text-[var(--chakra-colors-text-primary)]">
+        <div className="flex items-center text-[var(--color-text-primary)]">
           { valueContent }
           { valueDiffContent }
         </div>

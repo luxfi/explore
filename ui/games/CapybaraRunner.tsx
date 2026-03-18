@@ -6,7 +6,7 @@ import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { Button } from '@luxfi/ui/button';
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 const easterEggBadgeFeature = config.features.easterEggBadge;
 
 const CapybaraRunner = () => {

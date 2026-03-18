@@ -2,9 +2,9 @@
 import { route } from 'nextjs-routes';
 
 import { Button } from '@luxfi/ui/button';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { Image } from '@luxfi/ui/image';
-import { LinkOverlay, LinkBox } from 'toolkit/chakra/link';
+import { LinkOverlay, LinkBox } from 'toolkit/next/link';
 
 type Props = {
   id: string;

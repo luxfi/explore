@@ -4,7 +4,7 @@ import ReCaptcha from 'react-google-recaptcha';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props {
   onInitError: () => void;

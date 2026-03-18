@@ -10,7 +10,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { SocketProvider } from 'lib/socket/context';
 import { TX } from 'stubs/tx';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import TxsContent from 'ui/txs/TxsContent';
 
 const PAGINATION_PARAMS: PaginationParams = {

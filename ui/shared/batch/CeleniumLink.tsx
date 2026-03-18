@@ -4,7 +4,7 @@ import config from 'configs/app';
 // eslint-disable-next-line no-restricted-imports
 import CeleniumSvg from 'icons/brands/celenium.svg';
 import hexToBase64 from 'lib/hexToBase64';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 const feature = config.features.rollup;
 

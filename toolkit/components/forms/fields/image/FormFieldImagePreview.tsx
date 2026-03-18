@@ -1,8 +1,8 @@
 import React from 'react';
 
-import type { ColorMode } from '../../../../chakra/color-mode';
-import { Image } from '../../../../chakra/image';
-import { Skeleton } from '../../../../chakra/skeleton';
+import type { ColorMode } from 'toolkit/next/color-mode';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   src: string | undefined;

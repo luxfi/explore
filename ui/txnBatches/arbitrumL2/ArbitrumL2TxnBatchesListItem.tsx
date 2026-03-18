@@ -6,7 +6,7 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import { layerLabels } from 'lib/rollups/utils';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import ArbitrumL2TxnBatchDA from 'ui/shared/batch/ArbitrumL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';

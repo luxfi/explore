@@ -1,7 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { LinkOverlay } from 'toolkit/chakra/link';
+import { LinkOverlay } from 'toolkit/next/link';
 
 import type { MediaElementProps } from './utils';
 

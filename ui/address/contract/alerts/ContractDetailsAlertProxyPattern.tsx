@@ -3,7 +3,7 @@ import React from 'react';
 import type { SmartContractConflictingImplementation, SmartContractProxyType } from 'types/api/contract';
 
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { space } from 'toolkit/utils/htmlEntities';
 
 import ConflictingImplementationsModal from './ConflictingImplementationsModal';

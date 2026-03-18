@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from '@luxfi/ui/table';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import TxPendingAlert from 'ui/tx/TxPendingAlert';

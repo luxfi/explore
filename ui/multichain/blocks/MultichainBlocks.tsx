@@ -10,7 +10,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { BLOCK } from 'stubs/block';
 import { generateListStub } from 'stubs/utils';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import ChainSelect from 'ui/multichain/components/ChainSelect';
 import IconSvg from 'ui/shared/IconSvg';

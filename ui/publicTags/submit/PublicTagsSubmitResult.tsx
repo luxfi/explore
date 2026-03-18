@@ -8,7 +8,7 @@ import { route } from 'nextjs-routes';
 import { Alert } from '@luxfi/ui/alert';
 import { Button } from '@luxfi/ui/button';
 import { Heading } from '@luxfi/ui/heading';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { makePrettyLink } from 'toolkit/utils/url';
 
 import PublicTagsSubmitResultSuccess from './result/PublicTagsSubmitResultSuccess';

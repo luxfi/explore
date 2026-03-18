@@ -5,7 +5,7 @@ import { route } from 'nextjs-routes';
 import useApiQuery from 'lib/api/useApiQuery';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { TX } from 'stubs/tx';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInvalidAuthToken';
 
 import LatestTxsFallback from './fallbacks/LatestTxsFallback';

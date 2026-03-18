@@ -15,7 +15,7 @@ import * as arbitrum from 'lib/rollups/arbitrum';
 import { formatZkSyncL2TxnBatchStatus, layerLabels } from 'lib/rollups/utils';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { CollapsibleDetails } from '@luxfi/ui/collapsible';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { ZERO } from 'toolkit/utils/consts';

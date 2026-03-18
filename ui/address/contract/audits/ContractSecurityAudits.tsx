@@ -5,7 +5,7 @@ import type { SmartContractSecurityAuditSubmission } from 'types/api/contract';
 import useApiQuery from 'lib/api/useApiQuery';
 import dayjs from 'lib/date/dayjs';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import ContainerWithScrollY from 'ui/shared/ContainerWithScrollY';
 import FormModal from 'ui/shared/FormModal';

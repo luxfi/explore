@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { NavLink } from './types';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 const UserProfileContentNavLink = ({ href, icon, text, onClick }: NavLink) => {

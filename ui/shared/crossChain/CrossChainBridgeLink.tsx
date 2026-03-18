@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { BridgeInfo } from '@luxfi/interchain-indexer-types';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {

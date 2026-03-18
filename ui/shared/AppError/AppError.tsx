@@ -8,7 +8,7 @@ import getErrorObjStatusCode from 'lib/errors/getErrorObjStatusCode';
 import getErrorProp from 'lib/errors/getErrorProp';
 import getResourceErrorPayload from 'lib/errors/getResourceErrorPayload';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import AdBanner from '../ad/AdBanner';
 import AppErrorIcon from './AppErrorIcon';

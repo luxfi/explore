@@ -16,7 +16,7 @@ import { useClustersData } from 'lib/clusters/useClustersData';
 import { useClusterSearch } from 'lib/clusters/useClusterSearch';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { useQueryParams } from 'lib/router/useQueryParams';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';
 

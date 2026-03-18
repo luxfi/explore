@@ -4,10 +4,10 @@ import React, { useCallback } from 'react';
 import type { MarketplaceApp } from 'types/client/marketplace';
 
 import { cn } from 'lib/utils/cn';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import { IconButton } from '@luxfi/ui/icon-button';
 import { Image } from '@luxfi/ui/image';
-import { Link, LinkBox } from 'toolkit/chakra/link';
+import { Link, LinkBox } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { isBrowser } from 'toolkit/utils/isBrowser';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

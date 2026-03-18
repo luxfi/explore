@@ -5,7 +5,7 @@ import type { EntityTag as TEntityTag } from './types';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { cn } from 'lib/utils/cn';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Link, LinkExternalIcon } from 'toolkit/chakra/link';
+import { Link, LinkExternalIcon } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tag } from '@luxfi/ui/tag';
 

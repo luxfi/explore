@@ -2,7 +2,7 @@ import React from 'react';
 import type { Primitive } from 'react-hook-form';
 
 import urlParser from 'lib/token/metadata/urlParser';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import MetadataAccordionItem from './MetadataAccordionItem';
 import MetadataAccordionItemTitle from './MetadataAccordionItemTitle';

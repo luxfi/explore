@@ -4,7 +4,7 @@ import type { SmartContractConflictingImplementation } from 'types/api/contract'
 
 import { Button } from '@luxfi/ui/button';
 import { DialogActionTrigger, DialogBody, DialogContent, DialogHeader, DialogRoot, DialogTrigger } from '@luxfi/ui/dialog';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 import { PROXY_TYPES } from './utils';

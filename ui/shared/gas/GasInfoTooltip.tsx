@@ -6,7 +6,7 @@ import type { ExcludeUndefined } from 'types/utils';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import type { TooltipProps } from '@luxfi/ui/tooltip';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import Time from 'ui/shared/time/Time';

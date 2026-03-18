@@ -6,7 +6,7 @@ import { route } from 'nextjs/routes';
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
 import { isConfidentialTokenType, isFungibleTokenType } from 'lib/token/tokenTypes';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import NativeTokenTag from 'ui/shared/celo/NativeTokenTag';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';

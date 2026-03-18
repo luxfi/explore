@@ -4,9 +4,9 @@ import type { TabItemRegular } from './types';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 
-import { Skeleton } from '../../chakra/skeleton';
-import type { TabsProps } from '../../chakra/tabs';
-import { TabsCounter, TabsList, TabsTrigger } from '../../chakra/tabs';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import type { TabsProps } from '@luxfi/ui/tabs';
+import { TabsCounter, TabsList, TabsTrigger } from '@luxfi/ui/tabs';
 import { useIsSticky } from '../../hooks/useIsSticky';
 import AdaptiveTabsMenu from './AdaptiveTabsMenu';
 import useAdaptiveTabs from './useAdaptiveTabs';

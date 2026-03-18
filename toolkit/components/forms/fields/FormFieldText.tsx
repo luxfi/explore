@@ -4,12 +4,12 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { FormFieldPropsBase } from './types';
 
-import { Field } from '../../../chakra/field';
-import type { InputProps } from '../../../chakra/input';
-import { Input } from '../../../chakra/input';
-import { InputGroup } from '../../../chakra/input-group';
-import type { TextareaProps } from '../../../chakra/textarea';
-import { Textarea } from '../../../chakra/textarea';
+import { Field } from '@luxfi/ui/field';
+import type { InputProps } from '@luxfi/ui/input';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
+import type { TextareaProps } from '@luxfi/ui/textarea';
+import { Textarea } from '@luxfi/ui/textarea';
 import { getFormFieldErrorText } from '../utils/getFormFieldErrorText';
 
 export interface FormFieldTextProps<

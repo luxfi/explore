@@ -4,7 +4,7 @@ import type { EntityTag } from './types';
 
 import * as mixpanel from 'lib/mixpanel/index';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { makePrettyLink } from 'toolkit/utils/url';
 import { Separator } from '@luxfi/ui/separator';

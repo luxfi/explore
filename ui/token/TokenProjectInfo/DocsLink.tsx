@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import type { ExternalSearchItem as ExternalSearchItemType } from 'lib/search/externalSearch';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 const zetaChainFeature = config.features.zetachain;
 

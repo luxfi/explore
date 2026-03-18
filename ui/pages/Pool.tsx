@@ -10,7 +10,7 @@ import getQueryParamString from 'lib/router/getQueryParamString';
 import * as addressStubs from 'stubs/address';
 import { POOL } from 'stubs/pools';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tag } from '@luxfi/ui/tag';
 import PoolInfo from 'ui/pool/PoolInfo';

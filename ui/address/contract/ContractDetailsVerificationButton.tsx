@@ -5,8 +5,8 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { Button } from '@luxfi/ui/button';
-import type { LinkProps } from 'toolkit/chakra/link';
-import { Link } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
+import { Link } from 'toolkit/next/link';
 
 interface Props extends LinkProps {
   isLoading: boolean;

@@ -5,8 +5,8 @@ import type { Resolution, TimeChartData } from './types';
 import RepeatIcon from 'icons/repeat.svg';
 import { Heading } from '@luxfi/ui/heading';
 
-import { Button } from '../../chakra/button';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '../../chakra/dialog';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import { ChartWidgetContent } from './ChartWidgetContent';
 
 export interface Props {
@@ -49,7 +49,7 @@ const FullscreenChartModal = ({
 
             { description && (
               <span
-                className="text-sm text-[var(--chakra-colors-text-secondary)]"
+                className="text-sm text-[var(--color-text-secondary)]"
                 style={{ gridColumn: 1 }}
               >
                 { description }

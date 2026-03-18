@@ -6,7 +6,7 @@ import { route } from 'nextjs-routes';
 
 import { isInternalItem } from 'lib/hooks/useNavItems';
 import { cn } from 'lib/utils/cn';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 
 import LightningLabel from '../LightningLabel';
 import NavLinkIcon from '../NavLinkIcon';

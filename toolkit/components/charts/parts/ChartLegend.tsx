@@ -45,7 +45,7 @@ export const ChartLegend = React.memo(({ data, selectedIndexes, onItemClick, ...
                 borderColor: lineColor,
               }}
             />
-            <span className="text-xs text-[var(--chakra-colors-text-secondary)]">
+            <span className="text-xs text-[var(--color-text-secondary)]">
               { item.name }
             </span>
           </div>

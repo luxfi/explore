@@ -6,7 +6,7 @@ import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
 import { cn } from 'lib/utils/cn';
 import { Image } from '@luxfi/ui/image';
-import { LinkBox, LinkOverlay } from 'toolkit/chakra/link';
+import { LinkBox, LinkOverlay } from 'toolkit/next/link';
 import { Separator } from '@luxfi/ui/separator';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
@@ -65,21 +65,21 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
           <span
             className={ cn(
               'text-[32px] leading-[40px] font-medium tracking-[-0.5px] overflow-hidden text-ellipsis whitespace-nowrap block',
-              integer === '0' && !decimal ? 'text-[var(--chakra-colors-text-secondary)]' : 'text-[var(--chakra-colors-text-primary)]',
+              integer === '0' && !decimal ? 'text-[var(--color-text-secondary)]' : 'text-[var(--color-text-primary)]',
             ) }
           >
             { integer }
             { decimal && (
               <>
                 .
-                <span className="text-[var(--chakra-colors-text-secondary)]">
+                <span className="text-[var(--color-text-secondary)]">
                   { decimal }
                 </span>
               </>
             ) }
           </span>
         ) : (
-          <span className="text-[32px] leading-[40px] font-medium tracking-[-0.5px] text-[var(--chakra-colors-text-secondary)] opacity-20">{ ndash }</span>
+          <span className="text-[32px] leading-[40px] font-medium tracking-[-0.5px] text-[var(--color-text-secondary)] opacity-20">{ ndash }</span>
         ) }
       </Skeleton>
       <div className="flex items-center gap-1 mt-1">
@@ -95,7 +95,7 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
       <div className="flex items-center gap-2">
         <Image src={ config.icon } alt={ config.name } boxSize={ 5 }/>
         <div className="flex items-center justify-between flex-1">
-          <span className="text-xs text-[var(--chakra-colors-text-secondary)] group-hover:text-[var(--chakra-colors-hover)]">
+          <span className="text-xs text-[var(--color-text-secondary)] group-hover:text-[var(--color-hover)]">
             { config.name }
           </span>
           <IconSvg

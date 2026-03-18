@@ -1,6 +1,6 @@
 /**
  * Sankey node color tokens from Figma (Universal Bridge Indexer).
- * Light theme: Chakra 300 palette. Resolved via useToken in the chart.
+ * Light theme: Light 300 palette. Resolved via useToken in the chart.
  * @see https://www.figma.com/design/3mGpZEE65cSuLnhtJBfKkO?node-id=6867-20752
  */
 export const SANKEY_NODE_COLOR_TOKENS_LIGHT: Array<string> = [
@@ -17,7 +17,7 @@ export const SANKEY_NODE_COLOR_TOKENS_LIGHT: Array<string> = [
 
 /**
  * Sankey node color tokens from Figma (Universal Bridge Indexer).
- * Dark theme: Chakra 700 palette. Resolved via useToken in the chart.
+ * Dark theme: Dark 700 palette. Resolved via useToken in the chart.
  * @see https://www.figma.com/design/3mGpZEE65cSuLnhtJBfKkO?node-id=6867-21363
  */
 export const SANKEY_NODE_COLOR_TOKENS_DARK: Array<string> = [

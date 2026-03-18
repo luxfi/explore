@@ -5,7 +5,7 @@ import type { Address } from 'types/api/address';
 import type { ExcludeNull, ExcludeUndefined } from 'types/utils';
 
 import { currencyUnits } from 'lib/units';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import * as DetailedInfoItemBreakdown from 'ui/shared/DetailedInfo/DetailedInfoItemBreakdown';

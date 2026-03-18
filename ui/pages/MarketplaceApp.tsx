@@ -14,7 +14,7 @@ import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useFetch from 'lib/hooks/useFetch';
 import * as metadata from 'lib/metadata';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
 
 import MarketplaceAppIframe from '../marketplace/MarketplaceAppIframe';

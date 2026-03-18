@@ -6,7 +6,7 @@ import type { SmartContract } from 'types/api/contract';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { CONTRACT_LICENSES } from 'lib/contracts/licenses';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { getGitHubOwnerAndRepo } from 'ui/contractVerification/utils';
 import ContractCertifiedLabel from 'ui/shared/ContractCertifiedLabel';
 import Time from 'ui/shared/time/Time';

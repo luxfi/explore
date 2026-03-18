@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { NavGroupItem } from 'types/client/navigation';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Separator } from '@luxfi/ui/separator';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';

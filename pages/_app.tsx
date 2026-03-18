@@ -22,7 +22,7 @@ import useLoadFeatures from 'lib/growthbook/useLoadFeatures';
 import useChainFavicon from 'lib/hooks/useChainFavicon';
 import { clientConfig as rollbarConfig, Provider as RollbarProvider } from 'lib/rollbar';
 import { SocketProvider } from 'lib/socket/context';
-import { Provider as ThemeProvider } from 'toolkit/chakra/provider';
+import { Provider as ThemeProvider } from 'toolkit/next/provider';
 import { Toaster } from '@luxfi/ui/toaster';
 import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer';

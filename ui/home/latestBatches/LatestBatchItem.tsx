@@ -2,7 +2,7 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
@@ -34,7 +34,7 @@ const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animat
           enableIncrement={ !isLoading }
           timeFormat="relative"
           isLoading={ isLoading }
-          className="text-[var(--chakra-colors-text-secondary)] inline-block text-sm shrink-0 ml-2"
+          className="text-[var(--color-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
       </div>
       <div className="flex items-center justify-between w-full flex-wrap text-sm">

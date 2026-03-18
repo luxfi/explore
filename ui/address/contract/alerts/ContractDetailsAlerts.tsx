@@ -9,7 +9,7 @@ import { route } from 'nextjs-routes';
 
 import useSocketMessage from 'lib/socket/useSocketMessage';
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 import ContractDetailsAlertProxyPattern from './ContractDetailsAlertProxyPattern';

@@ -8,7 +8,7 @@ import { getCurrentChain } from 'configs/app/chainRegistry';
 import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import useFetch from 'lib/hooks/useFetch';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { copy } from 'toolkit/utils/htmlEntities';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';

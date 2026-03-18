@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Alert } from '@luxfi/ui/alert';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { apos } from 'toolkit/utils/htmlEntities';
 
 function ChartsLoadingErrorAlert() {

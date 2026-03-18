@@ -8,7 +8,7 @@ import type { ClusterChainConfig } from 'types/multichain';
 import multichainConfig from 'configs/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { CollapsibleList } from '@luxfi/ui/collapsible';
-import type { LinkProps } from 'toolkit/chakra/link';
+import type { LinkProps } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 import MultichainAddressPortfolioCard from './MultichainAddressPortfolioCard';

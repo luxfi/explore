@@ -137,7 +137,7 @@ const MULTISEND_CSS = {
               marginTop: '12px',
             },
             '& span': {
-              '--loader-color': 'var(--chakra-colors-text-primary) !important',
+              '--loader-color': 'var(--color-text-primary) !important',
             },
           },
         },

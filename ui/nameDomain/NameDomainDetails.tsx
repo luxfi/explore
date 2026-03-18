@@ -7,7 +7,7 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { stripTrailingSlash } from 'toolkit/utils/url';

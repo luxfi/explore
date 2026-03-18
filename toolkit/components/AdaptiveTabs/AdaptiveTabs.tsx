@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { TabsProps } from '../../chakra/tabs';
-import { TabsContent, TabsRoot } from '../../chakra/tabs';
+import type { TabsProps } from '@luxfi/ui/tabs';
+import { TabsContent, TabsRoot } from '@luxfi/ui/tabs';
 import { useViewportSize } from '../../hooks/useViewportSize';
 import AdaptiveTabsList, { type BaseProps as AdaptiveTabsListProps } from './AdaptiveTabsList';
 import { getTabValue } from './utils';

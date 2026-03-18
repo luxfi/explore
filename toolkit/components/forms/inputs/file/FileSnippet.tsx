@@ -5,7 +5,7 @@ import PlaceholderFileIcon from 'icons/files/placeholder.svg';
 import SolFileIcon from 'icons/files/sol.svg';
 import YulFileIcon from 'icons/files/yul.svg';
 
-import { CloseButton } from '../../../../chakra/close-button';
+import { CloseButton } from '@luxfi/ui/close-button';
 import { Hint } from '../../../../components/Hint/Hint';
 
 const FILE_ICONS: Record<string, React.ReactNode> = {
@@ -45,7 +45,7 @@ export const FileSnippet = ({ file, className, index, onRemove, isDisabled, erro
     <div
       className={ [ 'flex max-w-[300px] overflow-hidden items-center text-left gap-x-2', className ].filter(Boolean).join(' ') }
     >
-      <div className={ [ 'w-12 h-12 shrink-0', error ? 'text-[var(--chakra-colors-text-error)]' : '' ].filter(Boolean).join(' ') }>
+      <div className={ [ 'w-12 h-12 shrink-0', error ? 'text-[var(--color-text-error)]' : '' ].filter(Boolean).join(' ') }>
         { fileIcon }
       </div>
       <div className="max-w-[calc(100%-58px-24px)]">
@@ -53,7 +53,7 @@ export const FileSnippet = ({ file, className, index, onRemove, isDisabled, erro
           <span
             className={ [
               'font-semibold overflow-hidden text-ellipsis whitespace-nowrap',
-              error ? 'text-[var(--chakra-colors-text-error)]' : '',
+              error ? 'text-[var(--color-text-error)]' : '',
             ].filter(Boolean).join(' ') }
           >
             { file.name }
@@ -66,7 +66,7 @@ export const FileSnippet = ({ file, className, index, onRemove, isDisabled, erro
             disabled={ isDisabled }
           />
         </div>
-        <span className="text-[var(--chakra-colors-text-secondary)] text-sm mt-1 block">
+        <span className="text-[var(--color-text-secondary)] text-sm mt-1 block">
           { file.size.toLocaleString(undefined, { notation: 'compact', maximumFractionDigits: 2, unit: 'byte', unitDisplay: 'narrow', style: 'unit' }) }
         </span>
       </div>

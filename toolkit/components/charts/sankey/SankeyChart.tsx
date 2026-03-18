@@ -4,7 +4,7 @@ import React from 'react';
 import type { ChartMargin } from '../types';
 import type { SankeyData, SankeyNodeExtended } from './types';
 
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 
 import {
   DEFAULT_SANKEY_LINK_HOVER_OPACITY,

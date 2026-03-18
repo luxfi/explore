@@ -13,9 +13,9 @@ import ScopeIcon from 'icons/scope.svg';
 import ShareIcon from 'icons/share.svg';
 import { useMultichainContext } from 'lib/contexts/multichain';
 
-import { useColorModeValue } from '../../../chakra/color-mode';
-import { IconButton } from '../../../chakra/icon-button';
-import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '../../../chakra/menu';
+import { useColorModeValue } from '@luxfi/ui/color-mode';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import { useDisclosure } from '../../../hooks/useDisclosure';
 import { saveAsCsv } from '../../../utils/file';
 import { getEnvValue } from '../../../../configs/app/utils';

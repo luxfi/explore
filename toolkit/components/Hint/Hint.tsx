@@ -2,10 +2,10 @@ import React from 'react';
 
 import InfoIcon from 'icons/info.svg';
 
-import type { IconButtonProps } from '../../chakra/icon-button';
-import { IconButton } from '../../chakra/icon-button';
-import type { TooltipProps } from '../../chakra/tooltip';
-import { Tooltip } from '../../chakra/tooltip';
+import type { IconButtonProps } from '@luxfi/ui/icon-button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import type { TooltipProps } from '@luxfi/ui/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 export interface HintProps extends Omit<IconButtonProps, 'color'> {
   label: string | React.ReactNode;

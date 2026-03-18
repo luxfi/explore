@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
+import { useColorModeValue } from 'toolkit/next/color-mode';
 import IconSvg from 'ui/shared/IconSvg';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
 

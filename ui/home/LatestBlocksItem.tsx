@@ -61,7 +61,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           enableIncrement={ !isLoading }
           timeFormat="relative"
           isLoading={ isLoading }
-          className="text-[var(--chakra-colors-text-secondary)] inline-block text-sm shrink-0 ml-2"
+          className="text-[var(--color-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
       </div>
       <div className="grid gap-2 grid-cols-[auto_minmax(0,1fr)] text-sm">

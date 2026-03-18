@@ -6,7 +6,7 @@ import IconSvg from 'ui/shared/IconSvg';
 const LatestBlocksFallback = () => {
   return (
     <div>
-      <div className="text-[var(--chakra-colors-text-secondary)] text-sm">Failed to load data. Please try again later.</div>
+      <div className="text-[var(--color-text-secondary)] text-sm">Failed to load data. Please try again later.</div>
       <div className="flex flex-col gap-y-3 mt-3">
         { Array.from({ length: 2 }).map((_, index) => (
           <div key={ index } className="w-full p-3 rounded-md border border-[var(--color-border-divider)]">

@@ -6,7 +6,7 @@ import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { API_KEY } from 'stubs/account';
 import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { space } from 'toolkit/utils/htmlEntities';

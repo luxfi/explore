@@ -4,7 +4,7 @@ import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
 
 import config from 'configs/app';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';

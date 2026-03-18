@@ -8,7 +8,7 @@ import type { SmartContractExternalLibrary } from 'types/api/contract';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import isMetaKey from 'lib/isMetaKey';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 import { useClientRect } from 'toolkit/hooks/useClientRect';
 import ErrorBoundary from 'ui/shared/ErrorBoundary';
 

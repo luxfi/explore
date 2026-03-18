@@ -4,7 +4,7 @@ import React from 'react';
 import type { FormattedData } from './types';
 
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import { thinsp } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';

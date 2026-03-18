@@ -11,7 +11,7 @@ import { Button } from '@luxfi/ui/button';
 import { Field } from '@luxfi/ui/field';
 import { Image } from '@luxfi/ui/image';
 import { Input } from '@luxfi/ui/input';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Separator } from '@luxfi/ui/separator';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Switch } from '@luxfi/ui/switch';

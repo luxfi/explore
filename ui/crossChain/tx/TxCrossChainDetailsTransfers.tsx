@@ -4,7 +4,7 @@ import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
 
 import { route } from 'nextjs-routes';
 
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromToIcon from 'ui/shared/address/AddressFromToIcon';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';

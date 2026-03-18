@@ -8,7 +8,7 @@ import { route } from 'nextjs-routes';
 import useApiQuery from 'lib/api/useApiQuery';
 import getNetworkUtilizationParams from 'lib/networks/getNetworkUtilizationParams';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import { nbsp } from 'toolkit/utils/htmlEntities';

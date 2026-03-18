@@ -4,7 +4,7 @@ import type { NetworkExplorer as TNetworkExplorer } from 'types/networks';
 
 import config from 'configs/app';
 import { Image } from '@luxfi/ui/image';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import IconSvg from 'ui/shared/IconSvg';
 import VerifyWith from 'ui/shared/VerifyWith';

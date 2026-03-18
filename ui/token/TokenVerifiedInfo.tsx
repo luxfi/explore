@@ -5,7 +5,7 @@ import type { TokenVerifiedInfo as TTokenVerifiedInfo } from 'types/api/token';
 
 import config from 'configs/app';
 import type { ResourceError } from 'lib/api/resources';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 
 import TokenProjectInfo from './TokenProjectInfo';

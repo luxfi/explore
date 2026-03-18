@@ -4,8 +4,8 @@ import type { ColorThemeId } from 'types/settings';
 
 import * as cookies from 'lib/cookies';
 import { COLOR_THEMES, getDefaultColorTheme, getThemeHexWithOverrides } from 'lib/settings/colorTheme';
-import type { ColorMode } from 'toolkit/chakra/color-mode';
-import { useColorMode } from 'toolkit/chakra/color-mode';
+import type { ColorMode } from 'toolkit/next/color-mode';
+import { useColorMode } from 'toolkit/next/color-mode';
 
 import SettingsSample from './SettingsSample';
 
@@ -28,8 +28,8 @@ const SettingsColorTheme = ({ onSelect }: Props) => {
 
     setColorMode(nextTheme.colorMode);
 
-    const varName = nextTheme.colorMode === 'light' ? '--chakra-colors-white' : '--chakra-colors-black';
-    const varNameBg = nextTheme.colorMode === 'light' ? '--chakra-colors-theme-bg-primary-_light' : '--chakra-colors-theme-bg-primary-_dark';
+    const varName = nextTheme.colorMode === 'light' ? '--color-white' : '--color-black';
+    const varNameBg = nextTheme.colorMode === 'light' ? '--color-theme-bg-primary-_light' : '--color-theme-bg-primary-_dark';
     window.document.documentElement.style.setProperty(varName, varValue);
     window.document.documentElement.style.setProperty(varNameBg, varValue);
 

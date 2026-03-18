@@ -10,7 +10,7 @@ import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
 import { Heading } from '@luxfi/ui/heading';
 import { IconButton } from '@luxfi/ui/icon-button';
-import { LinkBox, LinkOverlay } from 'toolkit/chakra/link';
+import { LinkBox, LinkOverlay } from 'toolkit/next/link';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

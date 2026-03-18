@@ -8,7 +8,7 @@ import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { TX_INTERPRETATION } from 'stubs/txInterpretation';
-import { Link } from 'toolkit/chakra/link';
+import { Link } from 'toolkit/next/link';
 import { TX_ACTIONS_BLOCK_ID } from 'ui/shared/DetailedInfo/DetailedInfoActionsWrapper';
 import UserOpEntity from 'ui/shared/entities/userOp/UserOpEntity';
 import TxInterpretation from 'ui/shared/tx/interpretation/TxInterpretation';
