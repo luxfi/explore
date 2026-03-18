@@ -44,11 +44,11 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
                 hash={ data.source_transaction_hash }
                 isLoading={ isLoading }
                 noIcon
-                py="6px"
+                className="py-1.5"
               />
             </ItemRow>
             <ItemRow label="Timestamp">
-              <DetailedInfoTimestamp timestamp={ data.send_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
+              <DetailedInfoTimestamp timestamp={ data.send_timestamp } isLoading={ isLoading } className="flex-wrap lg:flex-nowrap py-1.5"/>
             </ItemRow>
           </ItemBody>
         </ItemContent>
@@ -84,12 +84,12 @@ const TxCrossChainDetailsLifecycle = ({ data, isLoading }: Props) => {
                 hash={ data.destination_transaction_hash }
                 isLoading={ isLoading }
                 noIcon
-                py="6px"
+                className="py-1.5"
               />
             </ItemRow>
             { data.receive_timestamp && (
               <ItemRow label="Timestamp">
-                <DetailedInfoTimestamp timestamp={ data.receive_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
+                <DetailedInfoTimestamp timestamp={ data.receive_timestamp } isLoading={ isLoading } className="flex-wrap lg:flex-nowrap py-1.5"/>
               </ItemRow>
             ) }
           </ItemBody>

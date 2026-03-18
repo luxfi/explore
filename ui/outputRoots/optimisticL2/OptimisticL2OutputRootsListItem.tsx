@@ -25,7 +25,7 @@ const OptimisticL2OutputRootsListItem = ({ item, isLoading }: Props) => {
     <ListItemMobileGrid.Container>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } output index</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value fontWeight={ 600 } color="text.primary">
+      <ListItemMobileGrid.Value className="font-semibold text-[var(--color-text-primary)]">
         <Skeleton loading={ isLoading } display="inline-block">{ item.l2_output_index }</Skeleton>
       </ListItemMobileGrid.Value>
 
@@ -48,7 +48,7 @@ const OptimisticL2OutputRootsListItem = ({ item, isLoading }: Props) => {
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } txn hash</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value py="3px">
+      <ListItemMobileGrid.Value className="py-[3px]">
         <TxEntityL1
           isLoading={ isLoading }
           hash={ item.l1_transaction_hash }

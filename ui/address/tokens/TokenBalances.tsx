@@ -46,26 +46,26 @@ const TokenBalances = () => {
     '0';
 
   return (
-    <div className="flex" columnGap={ 3 } rowGap={ 3 } mt={{ base: '6px', lg: 0 }} flexDirection={{ base: 'column', lg: 'row' }}>
+    <div className="flex gap-x-3 gap-y-3 mt-[6px] lg:mt-0 flex-col lg:flex-row">
       <TokenBalancesItem
         name="Net Worth"
         value={ addressData?.exchange_rate ? `${ prefix }$${ totalUsd.toFormat(2) }` : 'N/A' }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
-        icon={ <IconSvg name="wallet" boxSize="20px" flexShrink={ 0 } color="icon.primary"/> }
+        icon={ <IconSvg name="wallet" className="w-[20px] h-[20px] text-[var(--color-icon-primary)] shrink-0"/> }
       />
       <TokenBalancesItem
         name={ `${ currencyUnits.ether } Balance` }
         value={ `${ nativeValue } ${ currencyUnits.ether }` }
         valueSecondary={ !nativeUsd.eq(ZERO) ? `$${ nativeUsd.toFormat(2) }` : '' }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
-        icon={ <NativeTokenIcon boxSize="20px"/> }
+        icon={ <NativeTokenIcon className="w-[20px] h-[20px]"/> }
       />
       <TokenBalancesItem
         name="Tokens"
         value={ tokensNumText }
         valueSecondary={ `${ prefix }$${ tokensInfo.usd.toFormat(2) }` }
         isLoading={ addressQuery.isPending || tokenQuery.isPending }
-        icon={ <IconSvg name="tokens" boxSize="20px" flexShrink={ 0 } color="icon.primary"/> }
+        icon={ <IconSvg name="tokens" className="w-[20px] h-[20px] text-[var(--color-icon-primary)] shrink-0"/> }
       />
     </div>
   );

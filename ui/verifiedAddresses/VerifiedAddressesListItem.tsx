@@ -89,14 +89,14 @@ const VerifiedAddressesListItem = ({ item, application, onAdd, onEdit, isLoading
         <AddressEntity
           address={{ hash: item.contractAddress, is_contract: true }}
           isLoading={ isLoading }
-          w="100%"
+          className="w-full"
         />
       </ListItemMobileGrid.Value>
 
       { item.metadata.tokenName && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Token Info</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value display="flex" alignItems="center">
+          <ListItemMobileGrid.Value className="flex items-center">
             { tokenInfo }
           </ListItemMobileGrid.Value>
         </>

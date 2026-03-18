@@ -45,7 +45,7 @@ const ContractMethodsMudSystem = ({ items }: Props) => {
   const filters = useMethodsFilters({ abi });
 
   return (
-    <div className="flex" flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       <ContractMethodsAlerts isLoading={ systemInfoQuery.isPending }/>
       <div>
         <ContractSourceAddressSelector
@@ -53,7 +53,7 @@ const ContractMethodsMudSystem = ({ items }: Props) => {
           selectedItem={ selectedItem }
           onItemSelect={ handleItemSelect }
           label="System address"
-          mb={ 3 }
+          className="mb-3"
         />
         <ContractMethodsFilters
           defaultMethodType={ filters.methodType }

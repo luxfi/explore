@@ -23,7 +23,7 @@ const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
 
         { data.timestamp && (
           <ItemRow label="Timestamp">
-            <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ false } flexWrap={{ base: 'wrap', lg: 'nowrap' }} py="6px"/>
+            <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ false } className="flex-wrap lg:flex-nowrap py-[6px]"/>
           </ItemRow>
         ) }
 

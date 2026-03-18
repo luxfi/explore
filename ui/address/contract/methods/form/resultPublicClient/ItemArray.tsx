@@ -67,8 +67,8 @@ const ItemArray = ({ abiParameter, data, level, arrayMatch, mode }: Props) => {
   })();
 
   return (
-    <span display="block">
-      <span display="block">
+    <span className="block">
+      <span className="block">
         <span>{ printRowOffset(level) }</span>
         <ItemLabel abiParameter={ abiParameter }/>
         <span>[{ data.length === 0 ? ' ]' : '' }</span>

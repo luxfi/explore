@@ -28,28 +28,23 @@ const ConflictingImplementationsModal = ({ data, children }: Props) => {
             This may be due to an unsupported custom proxy design or due to a malicious proxy spoofing attempt.
             Review carefully.
           </span>
-          <div className="flex flex-col" alignItems="stretch" mt={ 6 } textStyle="sm">
+          <div className="flex flex-col items-stretch mt-6 text-sm">
             { data.map((item) => {
               const addressNum = item.implementations.length;
               const addressText = addressNum === 1 ? 'Implementation:' : 'Implementations:';
               const proxyType = PROXY_TYPES[item.proxy_type]?.name || PROXY_TYPES.unknown?.name;
 
               return (
-                <div className="grid"
+                <div
+                  className="grid w-full p-4 gap-x-5 gap-y-2 rounded-md bg-black/5 dark:bg-white/5"
+                  style={{ gridTemplateColumns: '115px minmax(0px, 1fr)' }}
                   key={ item.proxy_type }
-                  templateColumns="115px minmax(0px, 1fr)"
-                  w="100%"
-                  p={ 4 }
-                  columnGap={ 5 }
-                  rowGap={ 2 }
-                  borderRadius="md"
-                  bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
                 >
                   <div>Proxy type:</div>
                   <div>{ proxyType }</div>
                   <div>{ addressText }</div>
                   <div>
-                    <div className="flex flex-col" alignItems="stretch">
+                    <div className="flex flex-col items-stretch">
                       { item.implementations.map((implementation) => (
                         <AddressEntity
                           key={ implementation.address_hash }
@@ -62,7 +57,7 @@ const ConflictingImplementationsModal = ({ data, children }: Props) => {
               );
             }) }
           </div>
-          <div className="flex flex-row" mt={ 6 } gap={ 6 }>
+          <div className="flex flex-row mt-6 gap-6">
             <DialogActionTrigger asChild>
               <Button>Got it, thanks</Button>
             </DialogActionTrigger>

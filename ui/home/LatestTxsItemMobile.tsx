@@ -26,14 +26,8 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
   const protocolTag = tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
 
   return (
-    <div
-      width="100%"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      py={ 4 }
-      display={{ base: 'block', lg: 'none' }}
-    >
-      <div justifyContent="space-between">
+    <div className="w-full border-b border-[var(--color-border-divider)] py-4 block lg:hidden">
+      <div className="flex justify-between">
         <div>
           <TxType types={ tx.transaction_types } isLoading={ isLoading }/>
           { tx.status !== 'ok' && <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/> }
@@ -42,13 +36,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         </div>
         <TxAdditionalInfo tx={ tx } isMobile isLoading={ isLoading }/>
       </div>
-      <div
-        mt={ 2 }
-        alignItems="center"
-        width="100%"
-        justifyContent="space-between"
-        mb={ 6 }
-      >
+      <div className="flex mt-2 items-center w-full justify-between mb-6">
         <TxEntity
           isLoading={ isLoading }
           hash={ tx.hash }
@@ -72,10 +60,10 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         className="font-medium"
       />
       { !(config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee) ? (
-        <div rowGap={ 2 } mt={ 3 } alignItems="flex-start">
+        <div className="flex flex-col gap-y-2 mt-3 items-start">
           { !config.UI.views.tx.hiddenFields?.value && (
             <Skeleton loading={ isLoading } w="fit-content">
-              <span as="span">Value </span>
+              <span>Value </span>
               <NativeCoinValue
                 amount={ tx.value }
                 accuracy={ 5 }
@@ -86,7 +74,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
             <Skeleton loading={ isLoading } w="fit-content" display="flex" className="whitespace-pre">
-              <span as="span">Fee </span>
+              <span>Fee </span>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>
           ) }

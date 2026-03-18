@@ -26,7 +26,7 @@ const TxDetailsGasUsage = ({ isLoading, data }: Props) => {
         <Skeleton loading={ isLoading }>{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
         <TextSeparator/>
         <Skeleton loading={ isLoading }>{ BigNumber(data.gas_limit).toFormat() }</Skeleton>
-        <Utilization ml={ 4 } value={ BigNumber(data.gas_used || 0).dividedBy(BigNumber(data.gas_limit)).toNumber() } isLoading={ isLoading }/>
+        <Utilization className="ml-4" value={ BigNumber(data.gas_used || 0).dividedBy(BigNumber(data.gas_limit)).toNumber() } isLoading={ isLoading }/>
       </DetailedInfo.ItemValue>
     </>
   );

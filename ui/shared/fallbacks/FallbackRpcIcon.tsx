@@ -11,7 +11,7 @@ interface Props extends Omit<IconSvgProps, 'name'> {
 const FallbackRpcIcon = (props: Props) => {
   return (
     <Tooltip content="Our indexer is experiencing problems, you see the data directly from RPC">
-      <IconSvg name="RPC" color="orange.400" boxSize={ 5 } { ...props }/>
+      <IconSvg name="RPC" className="size-5 text-[var(--color-orange-400)]" { ...props }/>
     </Tooltip>
   );
 };

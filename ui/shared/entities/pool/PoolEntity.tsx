@@ -30,13 +30,9 @@ const Link = ((props: LinkProps) => {
 type IconProps = Pick<EntityProps, 'pool' | 'className'> & EntityBase.IconBaseProps;
 
 const Icon = (props: IconProps) => {
-  const borderColor = { _light: 'whiteAlpha.800', _dark: 'blackAlpha.800' };
   return (
     <div className="flex">
-      <div className="flex rounded-full bg-[var(--color-bg-primary)]"
-        border="1px solid"
-        borderColor={ borderColor }
-      >
+      <div className="flex rounded-full bg-[var(--color-bg-primary)] border border-[var(--color-whiteAlpha-800)] dark:border-[var(--color-blackAlpha-800)]">
         <TokenEntity.Icon
           marginRight={ 0 }
           variant={ props.variant }
@@ -51,10 +47,7 @@ const Icon = (props: IconProps) => {
           isLoading={ props.isLoading }
         />
       </div>
-      <div className="flex rounded-full bg-[var(--color-bg-primary)]" style={{ transform: 'translateX(-8px)' }}
-        border="1px solid"
-        borderColor={ borderColor }
-      >
+      <div className="flex rounded-full bg-[var(--color-bg-primary)] border border-[var(--color-whiteAlpha-800)] dark:border-[var(--color-blackAlpha-800)]" style={{ transform: 'translateX(-8px)' }}>
         <TokenEntity.Icon
           marginRight={ 0 }
           variant={ props.variant }
@@ -105,7 +98,7 @@ const PoolEntity = (props: EntityProps) => {
   const content = <Content { ...partsProps.content }/>;
 
   return (
-    <Container w="100%" { ...partsProps.container }>
+    <Container { ...partsProps.container } className={ `w-full ${ partsProps.container.className || '' }` }>
       <Icon { ...partsProps.icon }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
     </Container>

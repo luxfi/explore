@@ -21,14 +21,14 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
         hint="Aggregated BLS signature of AnyTrust committee members"
       >
         Signature
-      </DetailedInfo.ItemLabel><DetailedInfo.ItemValue wordBreak="break-all" whiteSpace="break-spaces">
+      </DetailedInfo.ItemLabel><DetailedInfo.ItemValue className="break-all whitespace-break-spaces">
         { data.bls_signature }
       </DetailedInfo.ItemValue><DetailedInfo.ItemLabel
         hint="The hash of the data blob stored by the AnyTrust committee"
       >
         Data hash
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue whiteSpace="pre-wrap" wordBreak="break-all" alignItems={{ base: 'flex-start', lg: 'center' }}>
+      <DetailedInfo.ItemValue className="whitespace-pre-wrap break-all items-start lg:items-center">
         { data.data_hash }
         <CopyToClipboard text={ data.data_hash } className="ml-2"/>
       </DetailedInfo.ItemValue>
@@ -52,7 +52,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
       >
         Signers
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue overflowX="scroll" fontSize="sm">
+      <DetailedInfo.ItemValue className="overflow-x-auto text-sm">
         <div
           className="hidden lg:grid gap-5 bg-black/5 dark:bg-white/5 p-4 rounded-md min-w-[600px]"
           style={{ gridTemplateColumns: '1fr auto auto' }}
@@ -67,7 +67,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
                 <CopyToClipboard text={ signer.key } className="ml-2"/>
               </div>
               <div className="justify-self-center">
-                { signer.trusted ? <IconSvg name="check" boxSize={ 6 }/> : <IconSvg name="cross" boxSize={ 6 }/> }
+                { signer.trusted ? <IconSvg name="check" className="size-6"/> : <IconSvg name="cross" className="size-6"/> }
               </div>
               { signer.proof ? (
                 <div className="flex">
@@ -90,7 +90,7 @@ const ArbitrumL2TxnBatchDetailsAnyTrustDA = ({ data }: Props) => {
               <div className="flex w-full items-center">
                 <div className="flex items-center w-1/2">
                   <span className="font-semibold mr-2">Trusted</span>
-                  { signer.trusted ? <IconSvg name="check" boxSize={ 6 }/> : <IconSvg name="cross" boxSize={ 6 }/> }
+                  { signer.trusted ? <IconSvg name="check" className="size-6"/> : <IconSvg name="cross" className="size-6"/> }
                 </div>
                 <div className="flex items-center w-1/2">
                   <span className="font-semibold mr-2">Proof</span>

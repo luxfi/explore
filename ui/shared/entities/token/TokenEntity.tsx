@@ -182,7 +182,7 @@ const TokenEntity = (props: EntityProps) => {
   const content = <Content { ...partsProps.content }/>;
 
   return (
-    <Container w="100%" { ...partsProps.container }>
+    <Container { ...partsProps.container } className={ `w-full ${ partsProps.container.className || '' }` }>
       <Icon { ...partsProps.icon }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
       <Symbol { ...partsProps.symbol }/>

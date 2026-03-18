@@ -190,7 +190,7 @@ const AddressPageContent = () => {
             return (
               <>
                 <span>{ tabName }</span>
-                <IconSvg name="status/success" boxSize="14px" color="green.500"/>
+                <IconSvg name="status/success" className="size-[14px] text-[var(--color-green-500)]"/>
               </>
             );
           }
@@ -439,8 +439,7 @@ const AddressPageContent = () => {
           domain={ addressQuery.data?.ens_domain_name }
           protocol={ !addressEnsDomainsQuery.isPending ? addressMainDomain?.protocol : null }
           variant="subheading"
-          mr={ 1 }
-          maxW="300px"
+          className="mr-1 max-w-[300px]"
         />
       ) }
       <AddressEntity
@@ -478,7 +477,7 @@ const AddressPageContent = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ `${ addressQuery.data?.is_contract && addressQuery.data?.proxy_type !== 'eip7702' ? 'Contract' : 'Address' } details` }
         contentAfter={ titleContentAfter }

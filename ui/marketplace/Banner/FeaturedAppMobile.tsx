@@ -47,17 +47,8 @@ const FeaturedAppMobile = ({
       className="rounded-md p-3 sm:p-5 group bg-[var(--color-purple-50)] dark:bg-white/10"
       role="group"
     >
-      <div
-        flexDirection="row"
-        height="100%"
-        alignContent="start"
-        gap={ 4 }
-      >
-        <div
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+      <div className="flex flex-row h-full content-start gap-4">
+        <div className="flex flex-col items-center justify-between">
           <Skeleton
             loading={ isLoading }
             className="w-16 sm:w-24 h-16 sm:h-24"
@@ -73,11 +64,7 @@ const FeaturedAppMobile = ({
           </Skeleton>
 
           { !isLoading && (
-            <div
-              position={{ base: 'relative', sm: 'absolute' }}
-              right={{ base: 0, sm: '50px' }}
-              top={{ base: 0, sm: '24px' }}
-            >
+            <div className="relative sm:absolute sm:right-[50px] sm:top-[24px]">
               <Link
                 className="text-xs sm:text-sm font-medium sm:pr-2"
                 href="#"
@@ -89,7 +76,7 @@ const FeaturedAppMobile = ({
           ) }
         </div>
 
-        <div flexDirection="column" gap={ 2 }>
+        <div className="flex flex-col gap-2">
           <Skeleton
             loading={ isLoading }
             className="pr-[25px] sm:pr-[110px]"
@@ -120,7 +107,7 @@ const FeaturedAppMobile = ({
             loading={ isLoading }
             asChild
           >
-            <span lineClamp={ 3 } textStyle="xs">
+            <span className="line-clamp-3 text-xs">
               { shortDescription }
             </span>
           </Skeleton>

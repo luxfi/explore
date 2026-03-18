@@ -20,7 +20,7 @@ const BlockPendingUpdateHint = ({ view = 'block', className }: Props) => {
 
   return (
     <Tooltip content={ tooltipContent }>
-      <IconSvg boxSize={ 5 } color="icon.secondary" name="status/warning" className={ className }/>
+      <IconSvg name="status/warning" className={ `w-5 h-5 text-[var(--color-icon-secondary)] ${ className || '' }` }/>
     </Tooltip>
   );
 };

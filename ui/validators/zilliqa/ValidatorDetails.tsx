@@ -40,7 +40,7 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <NativeCoinValue
-          startElement={ <NativeTokenIcon isLoading={ isLoading } boxSize={ 5 }/> }
+          startElement={ <NativeTokenIcon isLoading={ isLoading } className="size-5"/> }
           amount={ data.balance }
           loading={ isLoading }
         />

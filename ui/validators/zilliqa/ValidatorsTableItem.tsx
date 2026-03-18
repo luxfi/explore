@@ -16,7 +16,7 @@ const ValidatorsTableItem = ({ data, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <ValidatorEntity id={ data.bls_public_key } isLoading={ isLoading } fontWeight="700"/>
+        <ValidatorEntity id={ data.bls_public_key } isLoading={ isLoading } className="font-bold"/>
       </TableCell>
       <TableCell verticalAlign="middle">
         <Skeleton loading={ isLoading } display="inline-block">

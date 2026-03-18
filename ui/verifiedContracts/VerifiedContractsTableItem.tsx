@@ -46,7 +46,7 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
             query={{ tab: 'contract', ...(chainData ? { chain_id: chainData.id } : {}) }}
             noCopy
           />
-          { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 }/> }
+          { data.certified && <ContractCertifiedLabel iconSize={ 5 } className="size-5"/> }
         </div>
         <AddressEntity
           address={{ hash: data.address.filecoin?.robust ?? data.address.hash }}
@@ -92,21 +92,21 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         <Tooltip content="Optimization" disabled={ isLoading }>
           <span className="inline-block">
             { data.optimization_enabled ?
-              <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
-              <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+              <IconSvg name="check" className="size-6" isLoading={ isLoading }/> :
+              <IconSvg name="cross" className="size-6" isLoading={ isLoading }/> }
           </span>
         </Tooltip>
         <Tooltip content="Constructor args" disabled={ isLoading }>
           <span className="inline-block">
             { data.has_constructor_args ?
-              <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
-              <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+              <IconSvg name="check" className="size-6" isLoading={ isLoading }/> :
+              <IconSvg name="cross" className="size-6" isLoading={ isLoading }/> }
           </span>
         </Tooltip>
       </TableCell>
       <TableCell>
         <div className="flex">
-          <IconSvg name="status/success" boxSize={ 4 } isLoading={ isLoading }/>
+          <IconSvg name="status/success" className="size-4" isLoading={ isLoading }/>
           <TimeWithTooltip
             timestamp={ data.verified_at }
             isLoading={ isLoading }

@@ -27,7 +27,7 @@ const ApiDocs = () => {
       <PageTitle
         title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } API documentation` : 'API documentation' }
       />
-      { feature.isEnabled && feature.alertMessage ? <AlertWithExternalHtml html={ feature.alertMessage } status="info" showIcon mb={ 6 }/> : null }
+      { feature.isEnabled && feature.alertMessage ? <AlertWithExternalHtml html={ feature.alertMessage } status="info" showIcon className="mb-6"/> : null }
       { tabs.length > 0 ? <RoutedTabs tabs={ tabs }/> : <span>No API documentation available</span> }
     </>
   );

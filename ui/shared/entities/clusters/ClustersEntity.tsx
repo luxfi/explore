@@ -50,9 +50,7 @@ const Icon = (props: IconProps) => {
     >
       <IconSvg
         name="clusters"
-        width="100%"
-        height="100%"
-        color="white"
+        className="w-full h-full text-white"
         style={{ filter: 'brightness(0) invert(1)' }}
       />
     </div>
@@ -76,7 +74,7 @@ const Icon = (props: IconProps) => {
       <div className="flex items-center text-base">
         <div className="inline-flex items-center justify-center rounded-sm mr-2 size-5 bg-[var(--color-clusters)]">
 
-          <IconSvg name="clusters" boxSize={ 4 } color="white" style={{ filter: 'brightness(0) invert(1)' }}/>
+          <IconSvg name="clusters" className="w-4 h-4 text-white" style={{ filter: 'brightness(0) invert(1)' }}/>
         </div>
         <div>
           <span>Clusters</span>
@@ -92,7 +90,7 @@ const Icon = (props: IconProps) => {
         className="inline-flex items-center"
         external
       >
-        <IconSvg name="link" boxSize={ 5 } color="text.secondary" mr={ 2 }/>
+        <IconSvg name="link" className="w-5 h-5 text-[var(--color-text-secondary)] mr-2"/>
         <span>Learn more about Clusters</span>
       </LinkToolkit>
     </>

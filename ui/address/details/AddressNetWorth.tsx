@@ -49,9 +49,9 @@ const AddressNetWorth = ({ addressData, isLoading, addressHash }: Props) => {
     multichainItems = (
       <>
         <TextSeparator/>
-        <div className="flex flex-row" columnGap={ 2 }>
+        <div className="flex flex-row gap-x-2">
           <span>Multichain</span>
-          <div className="flex flex-row" gap={{ base: 2, lg: 3 }}>
+          <div className="flex flex-row gap-2 lg:gap-3">
             { providers.map((item, index) => (
               <AddressMultichainButton
                 key={ item.name }

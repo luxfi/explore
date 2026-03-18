@@ -43,7 +43,7 @@ const TxBlobs = ({ txQuery }: Props) => {
   ) : null;
 
   const actionBar = pagination.isVisible ? (
-    <ActionBar mt={ -6 } showShadow>
+    <ActionBar className="-mt-6" showShadow>
       <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;

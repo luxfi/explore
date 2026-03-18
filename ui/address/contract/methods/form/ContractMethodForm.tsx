@@ -294,7 +294,7 @@ const ContractMethodForm = ({ data, attempt, onSubmit, onReset, isOpen }: Props)
                 onClick={ onReset }
                 className="gap-1"
               >
-                <IconSvg name="repeat" boxSize={ 5 }/>
+                <IconSvg name="repeat" className="w-5 h-5"/>
                 Reset
               </Button>
             ) }

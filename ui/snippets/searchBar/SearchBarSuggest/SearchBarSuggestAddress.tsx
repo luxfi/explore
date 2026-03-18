@@ -65,7 +65,7 @@ const SearchBarSuggestAddress = ({ data, isMobile, searchTerm, addressFormat }: 
             <span>{ expiresText }</span>
         ) }
       </span>
-      { 'certified' in data && data.certified && <ContractCertifiedLabel boxSize={ 4 } iconSize={ 4 } ml={ 1 } flexShrink={ 0 }/> }
+      { 'certified' in data && data.certified && <ContractCertifiedLabel iconSize={ 4 } className="ml-1 shrink-0"/> }
     </div>
   );
   const tagEl = data.type === 'metadata_tag' ? (

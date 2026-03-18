@@ -53,8 +53,8 @@ const ContractAbi = ({ abi, addressHash, sourceAddress, tab, visibleItems }: Pro
 
   return (
     <div>
-      <div className="flex" mb={ 3 }>
-        <div fontWeight={ 500 } mr="auto">Contract information</div>
+      <div className="flex mb-3">
+        <div className="font-medium mr-auto">Contract information</div>
         { abi.length > 1 && (
           <Link onClick={ handleExpandAll } variant="secondary">
             { expandedSections.length === abi.length ? 'Collapse' : 'Expand' } all

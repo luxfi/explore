@@ -48,7 +48,7 @@ const SolidityscanReport = ({ hash }: Props) => {
             <span className="inline-block align-middle mr-1 ml-[6px] w-[23px] h-[20px]"><SolidityScanIcon/></span>
             <span className="font-semibold inline-block">SolidityScan</span>
           </div>
-          <SolidityscanReportScore score={ score } mb={ 5 }/>
+          <SolidityscanReportScore score={ score } className="mb-5"/>
           { vulnerabilities && vulnerabilitiesCount > 0 && (
             <div className="mb-5">
               <span className="py-[7px] text-[var(--color-text-secondary)] text-xs font-medium">Vulnerabilities distribution</span>

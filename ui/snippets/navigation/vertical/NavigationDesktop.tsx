@@ -97,27 +97,18 @@ const NavigationDesktop = () => {
       <NavigationPromoBanner isCollapsed={ isCollapsed }/>
       <IconSvg
         name="arrows/east-mini"
-        width={ 6 }
-        height={ 6 }
-        _hover={{ color: 'hover' }}
-        borderRadius="base"
-        bgColor="bg.primary"
-        color={{ base: 'blackAlpha.400', _dark: 'whiteAlpha.400' }}
-        borderWidth="1px"
-        borderColor="border.divider"
-        transform={{ lg: isExpanded ? 'rotate(0)' : 'rotate(180deg)', xl: isCollapsed ? 'rotate(180deg)' : 'rotate(0)' }}
-        transformOrigin="center"
-        position="absolute"
-        top="104px"
-        left={{ lg: isExpanded ? '216px' : '80px', xl: isCollapsed ? '80px' : '216px' }}
-        cursor="pointer"
+        className={ cn(
+          'w-6 h-6 hover:text-[var(--color-hover)] rounded bg-[var(--color-bg-primary)]',
+          'text-[var(--color-blackAlpha-400)] dark:text-[var(--color-whiteAlpha-400)]',
+          'border border-[var(--color-border-divider)]',
+          'origin-center absolute top-[104px] cursor-pointer',
+          'hidden group-hover:block',
+          'transition-[transform,left] duration-200 ease-in-out',
+          isExpanded ? 'lg:rotate-0 lg:left-[216px]' : 'lg:rotate-180 lg:left-[80px]',
+          isCollapsed ? 'xl:rotate-180 xl:left-[80px]' : 'xl:rotate-0 xl:left-[216px]',
+        ) }
         onClick={ handleTogglerClick }
         aria-label="Expand/Collapse menu"
-        display="none"
-        _groupHover={{ display: 'block' }}
-        transitionProperty="transform, left"
-        transitionDuration="normal"
-        transitionTimingFunction="ease"
       />
     </div>
   );

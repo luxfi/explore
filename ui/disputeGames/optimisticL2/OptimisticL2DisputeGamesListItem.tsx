@@ -24,7 +24,7 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
     <ListItemMobileGrid.Container>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value fontWeight={ 600 } color="text.primary">
+      <ListItemMobileGrid.Value className="font-semibold text-[var(--color-text-primary)]">
         <Skeleton loading={ isLoading } display="inline-block">{ item.index }</Skeleton>
       </ListItemMobileGrid.Value>
 
@@ -34,7 +34,7 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="text.primary">
+      <ListItemMobileGrid.Value className="text-[var(--color-text-primary)]">
         <Skeleton loading={ isLoading } display="flex" w="100%" alignItems="center" className="overflow-hidden">
           <HashStringShorten hash={ item.contract_address_hash } type="long"/>
           <CopyToClipboard text={ item.contract_address_hash } className="ml-2" isLoading={ isLoading }/>
@@ -60,7 +60,7 @@ const OptimisticL2DisputeGamesListItem = ({ item, isLoading }: Props) => {
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="text.primary">
+      <ListItemMobileGrid.Value className="text-[var(--color-text-primary)]">
         <Skeleton loading={ isLoading } display="inline-block">{ item.status }</Skeleton>
       </ListItemMobileGrid.Value>
 

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import useThemeColors from './utils/useThemeColors';
-
 interface Props {
   onClick: () => void;
   label: string;
@@ -10,19 +8,11 @@ interface Props {
 }
 
 const CoderEditorCollapseButton = ({ onClick, label, isDisabled, isCollapsed }: Props) => {
-  const themeColors = useThemeColors();
-
   return (
-    <div       ml="auto"
-      alignSelf="center"
-      className={ isCollapsed ? 'codicon codicon-search-expand-results' : 'codicon codicon-collapse-all' }
-      opacity={ isDisabled ? 0.6 : 1 }
-      boxSize="20px"
-      p="2px" className="rounded-sm"
-      _before={{
-        content: isCollapsed ? '"\\eb95"' : '"\\eac5"',
-      }}
-      onClick={ onClick } className="cursor-pointer"
+    <div
+      className={ `ml-auto self-center ${ isCollapsed ? 'codicon codicon-search-expand-results before:content-["\\eb95"]' : 'codicon codicon-collapse-all before:content-["\\eac5"]' } size-5 p-[2px] rounded-sm cursor-pointer` }
+      style={{ opacity: isDisabled ? 0.6 : 1 }}
+      onClick={ onClick }
       title={ label }
       aria-label={ label }
     />

@@ -54,7 +54,7 @@ const TxLogs = ({ txQuery, logsFilter }: Props) => {
   return (
     <div>
       { pagination.isVisible && (
-        <ActionBar mt={ -6 }>
+        <ActionBar className="-mt-6">
           <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }

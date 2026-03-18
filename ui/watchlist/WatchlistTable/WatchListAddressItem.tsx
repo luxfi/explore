@@ -39,7 +39,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
         address={ item.address }
         isLoading={ isLoading }
         className="font-semibold"
-        py="2px"
+
       />
       <div className="flex">
         <TokenEntity.Icon
@@ -57,7 +57,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
       </div>
       { Boolean(item.tokens_count) && (
         <div className="flex flex-row">
-          <IconSvg name="tokens" boxSize={ 5 } isLoading={ isLoading }/>
+          <IconSvg name="tokens" className="size-5" isLoading={ isLoading }/>
           <Skeleton loading={ isLoading } display="inline-flex">
             <span>{ `Tokens:${ nbsp }` + item.tokens_count + (item.tokens_overflow ? '+' : '') }</span>
             <span>{ `${ nbsp }($${ BigNumber(item.tokens_fiat_value).toFormat(2) })` }</span>
@@ -70,7 +70,7 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
           prefix="$"
           startElement={ (
             <div className="flex flex-row">
-              <IconSvg boxSize={ 5 } name="wallet" isLoading={ isLoading }/>
+              <IconSvg className="size-5" name="wallet" isLoading={ isLoading }/>
               <span>Net worth:{ nbsp }</span>
             </div>
           ) }

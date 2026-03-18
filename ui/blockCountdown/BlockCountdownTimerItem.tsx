@@ -9,17 +9,12 @@ interface Props {
 
 const BlockCountdownTimerItem = ({ label, value }: Props) => {
   return (
-    <div
-      minW={{ base: '70px', lg: '100px' }}
-      textAlign="center"
-      overflow="hidden"
-      flex="1 1 auto"
-    >
+    <div className="min-w-[70px] lg:min-w-[100px] text-center flex-[1_1_auto] overflow-hidden">
       <TruncatedText
         text={ value }
         className="font-heading text-[40px] lg:text-[48px] leading-[48px] font-semibold w-full"
       />
-      <div fontSize="sm" lineHeight="20px" mt={ 1 } color="text.secondary">{ label }</div>
+      <div className="text-sm mt-1 leading-[20px] text-[var(--color-text-secondary)]">{ label }</div>
     </div>
   );
 };

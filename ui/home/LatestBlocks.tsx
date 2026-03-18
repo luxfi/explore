@@ -90,7 +90,7 @@ const LatestBlocks = () => {
 
       return (
         <>
-          <div gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
+          <div className="flex gap-2 mb-3 overflow-x-auto items-stretch pb-1">
             { dataToShow.map(((block, index) => (
               <LatestBlocksItem
                 key={ block.height + (isPlaceholderData ? String(index) : '') }
@@ -100,42 +100,42 @@ const LatestBlocks = () => {
               />
             ))) }
           </div>
-          <div justifyContent="center">
+          <div className="flex justify-center">
             <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
           </div>
         </>
       );
     }
-    return <div textStyle="sm">No latest blocks found.</div>;
+    return <div className="text-sm">No latest blocks found.</div>;
   })();
 
   const networkUtilization = getNetworkUtilizationParams(statsQueryResult.data?.network_utilization_percentage ?? 0);
 
   return (
-    <div width="100%">
-      <div alignItems="center">
+    <div className="w-full">
+      <div className="flex items-center">
         <Heading level="3">Latest blocks</Heading>
         { isRpcData && <FallbackRpcIcon/> }
       </div>
       { statsQueryResult.data?.network_utilization_percentage !== undefined && (
         <Skeleton loading={ statsQueryResult.isPlaceholderData } mt={ 2 } display="inline-block" textStyle="sm">
-          <span as="span">
+          <span>
             Network utilization:{ nbsp }
           </span>
           <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
-            <span as="span" color={ networkUtilization.color } fontWeight={ 700 }>
+            <span className="font-bold" style={{ color: networkUtilization.color }}>
               { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
             </span>
           </Tooltip>
         </Skeleton>
       ) }
       { statsQueryResult.data?.celo && (
-        <div whiteSpace="pre-wrap" textStyle="sm" mt={ 2 }>
+        <div className="whitespace-pre-wrap text-sm mt-2">
           <span>Current epoch: </span>
           <span className="font-bold">#{ statsQueryResult.data.celo.epoch_number }</span>
         </div>
       ) }
-      <div mt={ 3 }>
+      <div className="mt-3">
         { content }
       </div>
     </div>

@@ -37,9 +37,9 @@ export default function ProgressSegment({ value, target, prevTarget, isFirst }: 
             }` }
           >
             { isDone ? (
-              <IconSvg name="check" boxSize={ 5 } color="white"/>
+              <IconSvg name="check" className="w-5 h-5 text-white"/>
             ) : (
-              <IconSvg name="hexagon" boxSize={ 4 } color="icon.secondary"/>
+              <IconSvg name="hexagon" className="w-4 h-4 text-[var(--color-icon-secondary)]"/>
             ) }
           </div>
         </div>

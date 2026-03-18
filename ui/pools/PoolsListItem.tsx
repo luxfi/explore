@@ -20,11 +20,11 @@ type Props = {
 const PoolsListItem = ({ item, isLoading }: Props) => {
   const externalLinks = getPoolLinks(item);
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
+    <ListItemMobileGrid.Container className="grid-cols-[100px_auto]">
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Pool</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <PoolEntity pool={ item } fontWeight={ 700 } isLoading={ isLoading }/>
+        <PoolEntity pool={ item } className="font-bold" isLoading={ isLoading }/>
       </ListItemMobileGrid.Value>
 
       { item.is_contract && (

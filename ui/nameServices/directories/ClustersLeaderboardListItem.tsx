@@ -27,7 +27,7 @@ const ClustersLeaderboardListItem = ({ item, isLoading }: Props) => {
         Cluster name
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 500 }/>
+        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } className="font-medium"/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>

@@ -17,8 +17,8 @@ import PublicTagsSubmitFieldTagIcon from './PublicTagsSubmitFieldTagIcon';
 import PublicTagsSubmitFieldTagType from './PublicTagsSubmitFieldTagType';
 
 const CIRCLE_BG_COLOR_DEFAULT = {
-  bgColor: { _light: 'gray.100', _dark: 'gray.700' },
-  textColor: { _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' },
+  bgColor: '#EDF2F7',
+  textColor: '#1A202C',
 };
 
 interface Props {

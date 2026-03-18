@@ -88,7 +88,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
 
   return (
     <>
-      { addressQuery.isDegradedData && <ServiceDegradationWarning isLoading={ isLoading } mb={ 6 }/> }
+      { addressQuery.isDegradedData && <ServiceDegradationWarning isLoading={ isLoading } className="mb-6"/> }
       <DetailedInfo.Container>
 
         { data.celo?.account && (
@@ -131,7 +131,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
             >
               Ethereum Address
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue flexWrap="nowrap">
+            <DetailedInfo.ItemValue className="flex-nowrap">
               <AddressEntity
                 address={{ hash: data.hash }}
                 noIcon
@@ -180,7 +180,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
             >
               Tokens
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue py={ addressQuery.data ? 0 : undefined }>
+            <DetailedInfo.ItemValue className={ addressQuery.data ? 'py-0' : undefined }>
               { addressQuery.data ? <TokenSelect/> : <span>0</span> }
             </DetailedInfo.ItemValue>
           </>

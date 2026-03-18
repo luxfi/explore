@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { IconButton } from 'toolkit/chakra/icon-button';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -26,7 +27,7 @@ const PrevNext = ({ className, onClick, prevLabel, nextLabel, isPrevDisabled, is
 
   if (isLoading) {
     return (
-      <div className="flex" columnGap="10px" className={ className }>
+      <div className={ cn('flex gap-x-[10px]', className) }>
         <Skeleton loading={ true } className="size-6 rounded-sm"/>
         <Skeleton loading={ true } className="size-6 rounded-sm"/>
       </div>
@@ -34,7 +35,7 @@ const PrevNext = ({ className, onClick, prevLabel, nextLabel, isPrevDisabled, is
   }
 
   return (
-    <div className={ className } className="flex">
+    <div className={ cn('flex', className) }>
       <Tooltip content={ prevLabel }>
         <IconButton
           aria-label="prev"

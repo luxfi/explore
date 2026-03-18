@@ -35,7 +35,7 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => 
       3 : 2;
 
   const content = (
-    <div className="flex flex-col gap-y-3 text-xs" className="dark">
+    <div className="flex flex-col gap-y-3 text-xs dark">
       { data.gas_price_updated_at && (
         <div className="flex items-center justify-between">
           <div className="text-[var(--color-text-secondary)]">Last update</div>
@@ -46,7 +46,7 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => 
           </div>
         </div>
       ) }
-      <div className="grid gap-y-2" columnGap="10px" gridTemplateColumns={ `repeat(${ columnNum }, minmax(min-content, auto))` }>
+      <div className="grid gap-y-2" style={{ columnGap: '10px', gridTemplateColumns: `repeat(${ columnNum }, minmax(min-content, auto))` }}>
         <GasInfoTooltipRow name="Fast" info={ data.gas_prices.fast }/>
         <GasInfoTooltipRow name="Normal" info={ data.gas_prices.average }/>
         <GasInfoTooltipRow name="Slow" info={ data.gas_prices.slow }/>

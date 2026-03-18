@@ -121,9 +121,9 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
   ) : null;
 
   const actionBar = isMobile ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <Link href={ route({ pathname: '/block/countdown' }, multichainContext) }>
-        <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
+        <IconSvg name="hourglass" className="w-5 h-5 mr-2"/>
         <span>Block countdown</span>
       </Link>
       <Pagination className="ml-auto" { ...query.pagination }/>

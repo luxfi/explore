@@ -42,17 +42,17 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
 
   const content = data?.items ? (
     <MultichainProvider chainId={ chainValue?.[0] }>
-      <div hideFrom="lg">
+      <div className="lg:hidden">
         <InternalTxsList data={ data.items } currentAddress={ hash } isLoading={ isPlaceholderData }/>
       </div>
-      <div hideBelow="lg">
+      <div className="hidden lg:block">
         <InternalTxsTable data={ data.items } currentAddress={ hash } isLoading={ isPlaceholderData }/>
       </div>
     </MultichainProvider>
   ) : null ;
 
   const actionBar = (
-    <ActionBar mt={ -6 } justifyContent="left">
+    <ActionBar className="-mt-6 justify-start">
       <AddressTxsFilter
         initialValue={ filterValue }
         onFilterChange={ onFilterChange }
@@ -70,7 +70,7 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
         address={ hash }
         isLoading={ pagination.isLoading }
         params={{ type: 'internal-transactions', filterType: 'address', filterValue }}
-        ml={{ base: 2, lg: 'auto' }}
+        className="ml-2 lg:ml-auto"
         chainData={ chainData }
       />
       <Pagination className="ml-auto lg:ml-8" { ...pagination }/>

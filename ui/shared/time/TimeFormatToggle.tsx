@@ -37,7 +37,7 @@ const TimeFormatToggle = ({ className, ...props }: Props) => {
           selected={ timeFormat === 'absolute' }
           className="size-5 rounded-sm align-bottom"
         >
-          <IconSvg name="clock-light" boxSize="14px"/>
+          <IconSvg name="clock-light" className="size-[14px]"/>
         </IconButton>
       </Tooltip>
       { text }

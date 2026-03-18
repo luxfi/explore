@@ -45,11 +45,10 @@ const NovesFromTo: FC<Props> = ({ isLoaded, txData, currentAddress = '', item })
 
         <AddressEntity
           address={ address }
-          fontWeight="500"
+          className="font-medium ml-2"
           noCopy={ !data.address }
           noLink={ !data.address }
           noIcon={ address.name === 'Validators' }
-          ml={ 2 }
           truncation="dynamic"
         />
       </div>

@@ -188,14 +188,14 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
 
   const tokensContent = tokensQuery.data?.items ? (
     <>
-      <div hideBelow="lg">
+      <div className="hidden lg:block">
         <MultichainAddressTokensTable
           data={ tokensQuery.data.items }
           top={ ACTION_BAR_HEIGHT_DESKTOP }
           isLoading={ tokensQuery.isPlaceholderData }
         />
       </div>
-      <div hideFrom="lg">
+      <div className="lg:hidden">
         { tokensQuery.data.items.map((item, index) => (
           <MultichainAddressTokensListItem
             key={ item.token.address_hash + (tokensQuery.isPlaceholderData ? index : '') + (item.chain_values ? Object.keys(item.chain_values).join(',') : '') }
@@ -209,12 +209,12 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
 
   const actionBar = (
     <>
-      <div hideFrom="lg" my={ 6 }>
+      <div className="lg:hidden my-6">
         { searchInput }
       </div>
       { (!isMobile || tokensQuery.pagination.isVisible) && (
-        <ActionBar mt={{ base: -6, lg: 0 }}>
-          <div hideBelow="lg">
+        <ActionBar className="-mt-6 lg:mt-0">
+          <div className="hidden lg:block">
             { searchInput }
           </div>
           <Pagination className="ml-auto" { ...tokensQuery.pagination }/>

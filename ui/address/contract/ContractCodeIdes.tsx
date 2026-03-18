@@ -24,7 +24,7 @@ const ContractCodeIde = ({ className, hash, isLoading }: Props) => {
         const url = decodeURIComponent(ide.url.replace('{hash}', hash).replace('{domain}', config.app.host || ''));
         const icon = 'icon_url' in ide ?
           <Image boxSize={ 5 } mr={ 2 } src={ ide.icon_url } alt={ `${ ide.title } icon` }/> :
-          <IconSvg name="ABI" boxSize={ 5 } color="icon.primary" mr={ 2 }/>;
+          <IconSvg name="ABI" className="w-5 h-5 text-[var(--color-icon-primary)] mr-2"/>;
 
         return (
           <Link external key={ ide.title } href={ url } display="inline-flex" alignItems="center">
@@ -57,19 +57,13 @@ const ContractCodeIde = ({ className, hash, isLoading }: Props) => {
           flexShrink={ 0 }
         >
           <span>Open in</span>
-          <IconSvg name="arrows/east-mini" transform={ open ? 'rotate(90deg)' : 'rotate(-90deg)' } transitionDuration="faster" boxSize={ 5 }/>
+          <IconSvg name="arrows/east-mini" className="w-5 h-5 transition-transform duration-150" style={{ transform: open ? 'rotate(90deg)' : 'rotate(-90deg)' }}/>
         </Button>
       </PopoverTrigger>
       <PopoverContent w="240px">
         <PopoverBody >
-          <span color="text.secondary" fontSize="xs">Redactors</span>
-          <div className="flex"
-            flexDir="column"
-            alignItems="flex-start"
-            columnGap={ 6 }
-            rowGap={ 3 }
-            mt={ 3 }
-          >
+          <span className="text-[var(--color-text-secondary)] text-xs">Redactors</span>
+          <div className="flex flex-col items-start gap-x-6 gap-y-3 mt-3">
             { ideLinks }
           </div>
         </PopoverBody>

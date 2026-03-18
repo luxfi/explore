@@ -21,56 +21,24 @@ type Props = {
   graphLinksQuery: UseQueryResult<Record<string, Array<{ title: string; url: string }>>, unknown>;
 };
 
-const MarketplaceList = ({
-  apps, showAppInfo, favoriteApps, onFavoriteClick, isLoading, selectedCategoryId,
-  onAppClick, graphLinksQuery,
-}: Props) => {
+const MarketplaceList = ({ apps, showAppInfo, favoriteApps, onFavoriteClick, isLoading, selectedCategoryId, onAppClick, graphLinksQuery }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList(apps, !isLoading, 16);
-
   const handleInfoClick = useCallback((id: string) => {
     mixpanel.logEvent(mixpanel.EventTypes.PAGE_WIDGET, { Type: 'More button', Info: id, Source: 'Discovery view' });
     showAppInfo(id);
   }, [ showAppInfo ]);
-
   const handleFavoriteClick = useCallback((id: string, isFavorite: boolean) => {
     onFavoriteClick(id, isFavorite, 'Discovery view');
   }, [ onFavoriteClick ]);
 
   return apps.length > 0 ? (
     <>
-      <div
-        templateColumns={{ md: 'repeat(auto-fill, minmax(270px, 1fr))' }}
-        autoRows="1fr"
-        gap={{ base: '16px', md: '24px' }}
-        marginTop={{ base: 0, lg: 3 }}
-      >
+      <div className="grid md:grid-cols-[repeat(auto-fill,minmax(270px,1fr))] auto-rows-fr gap-4 md:gap-6 mt-0 lg:mt-3">
         { apps.slice(0, renderedItemsNum).map((app, index) => (
-          <MarketplaceAppCard
-            key={ app.id + (isLoading ? index : '') }
-            onInfoClick={ handleInfoClick }
-            id={ app.id }
-            external={ app.external }
-            url={ app.url }
-            title={ app.title }
-            description={ app.description }
-            author={ app.author }
-            logo={ app.logo }
-            logoDarkMode={ app.logoDarkMode }
-            shortDescription={ app.shortDescription }
-            categories={ app.categories }
-            isFavorite={ favoriteApps.includes(app.id) }
-            onFavoriteClick={ handleFavoriteClick }
-            isLoading={ isLoading }
-            internalWallet={ app.internalWallet }
-            onAppClick={ onAppClick }
-            rating={ app.rating }
-            ratingsTotalCount={ app.ratingsTotalCount }
-            userRating={ app.userRating }
-            graphLinks={ graphLinksQuery.data?.[app.id] }
-          />
+          <MarketplaceAppCard key={ app.id + (isLoading ? index : '') } onInfoClick={ handleInfoClick } id={ app.id } external={ app.external } url={ app.url } title={ app.title } description={ app.description } author={ app.author } logo={ app.logo } logoDarkMode={ app.logoDarkMode } shortDescription={ app.shortDescription } categories={ app.categories } isFavorite={ favoriteApps.includes(app.id) } onFavoriteClick={ handleFavoriteClick } isLoading={ isLoading } internalWallet={ app.internalWallet } onAppClick={ onAppClick } rating={ app.rating } ratingsTotalCount={ app.ratingsTotalCount } userRating={ app.userRating } graphLinks={ graphLinksQuery.data?.[app.id] }/>
         )) }
       </div>
-      <div ref={ cutRef } h={ 0 }/>
+      <div ref={ cutRef } className="h-0"/>
     </>
   ) : (
     <EmptySearchResult selectedCategoryId={ selectedCategoryId } favoriteApps={ favoriteApps }/>

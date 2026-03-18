@@ -158,7 +158,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
 
   const content = (() => {
     if (query.isPending || marketplaceApps.isPlaceholderData || (config.features.zetachain.isEnabled && zetaChainCCTXQuery.isPending)) {
-      return <ContentLoader text="We are searching, please wait... " fontSize="sm" maxW="250px"/>;
+      return <ContentLoader text="We are searching, please wait... " className="text-sm max-w-[250px]"/>;
     }
 
     if (query.isError) {
@@ -235,7 +235,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
     <>
       { !isMobile && (
         <div className="pb-4 mb-5 border-b border-[var(--color-border-divider)] empty:hidden">
-          <TextAd textStyle={{ lg: 'sm' }}/>
+          <TextAd className="lg:text-sm"/>
         </div>
       ) }
       { content }

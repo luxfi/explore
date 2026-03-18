@@ -109,7 +109,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
           }}
           className="mb-8 [&_input]:bg-[var(--color-dialog-bg)]"
         />
-        <div marginTop={ 8 }>
+        <div className="mt-8">
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }

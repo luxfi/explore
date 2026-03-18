@@ -29,7 +29,7 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
     <SearchResultListItem
       href={ route({ pathname: '/token/[hash]', query: { hash: data.address_hash } }, { chain }) }
     >
-      <div w={{ base: '100%', lg: '200px' }}>
+      <div className="w-full lg:w-[200px]">
         <TokenEntity
           token={{
             address_hash: data.address_hash,
@@ -43,30 +43,20 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
           noLink
           jointSymbol
           noCopy
-          fontWeight={{ base: '600', lg: '700' }}
+          className="font-semibold lg:font-bold"
         />
       </div>
-      <div alignItems="center" w={{ base: '100%', lg: 'auto' }} flexGrow={ 1 }>
+      <div className="flex items-center w-full lg:w-auto flex-grow">
         <div
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          fontWeight={{ base: '400', lg: '500' }}
-          color="text.secondary"
-          _groupHover={{ color: 'inherit' }}
+          className="overflow-hidden whitespace-nowrap text-ellipsis font-normal lg:font-medium text-[var(--color-text-secondary)] group-hover:text-inherit"
         >
           { isMobile ? shortenString(data.address_hash) : (
             <HashStringShortenDynamic hash={ data.address_hash }/>
           ) }
         </div>
-        { isVerified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
+        { isVerified && <IconSvg name="status/success" className="w-3.5 h-3.5 text-green-500 ml-1 shrink-0"/> }
         <span
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          fontWeight={{ base: '400', lg: '600' }}
-          ml="auto"
-          maxW={{ base: '60%', lg: 'unset' }}
+          className="overflow-hidden whitespace-nowrap text-ellipsis font-normal lg:font-semibold ml-auto max-w-[60%] lg:max-w-none"
         >
           { (data.type as string) === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
           { (data.type as string) !== 'ERC-20' && data.total_supply && `Items ${ Number(data.total_supply).toLocaleString() }` }

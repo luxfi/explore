@@ -39,7 +39,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
   } = calculateUsdValue({ amount: data.value, exchangeRate: data.token.exchange_rate, decimals: data.token.decimals });
 
   return (
-    <ListItemMobile py={ 3 } rowGap={ 3 } textStyle="sm">
+    <ListItemMobile className="py-3 gap-y-3 text-sm">
       { isNativeToken ?
         <NativeTokenTag chainConfig={ chainInfo?.app_config }/> :
         <Tag loading={ isLoading }>{ getTokenTypeName(data.token.type, chainInfo?.app_config) }</Tag> }
@@ -49,9 +49,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
         isLoading={ isLoading }
         noCopy
         jointSymbol
-        fontWeight="600"
-        width="auto"
-        maxW="100%"
+        className="font-semibold w-auto max-w-full"
         noLink={ data.token.type === 'NATIVE' }
       />
       { data.token.type !== 'NATIVE' && (
@@ -60,12 +58,12 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
           isLoading={ isLoading }
           noIcon
           link={{ variant: 'secondary' }}
-          w="full"
+          className="w-full"
         />
       ) }
       <div
-        gridTemplateColumns="minmax(auto, 100px) 1fr"
-        rowGap={ 3 }
+        className="grid gap-y-3"
+        style={{ gridTemplateColumns: 'minmax(auto, 100px) 1fr' }}
       >
         { data.token.exchange_rate ? (
           <>

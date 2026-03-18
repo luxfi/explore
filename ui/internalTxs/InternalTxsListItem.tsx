@@ -38,11 +38,11 @@ const InternalTxsListItem = ({
 
   return (
     <ListItemMobile className="!gap-y-3">
-      <div columnGap={ 2 }>
+      <div className="flex gap-x-2">
         { typeTitle && <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge> }
         { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
       </div>
-      <div justifyContent="space-between" width="100%">
+      <div className="flex justify-between w-full">
         <TxEntity
           hash={ txnHash }
           isLoading={ isLoading }
@@ -59,7 +59,7 @@ const InternalTxsListItem = ({
         />
       </div>
       { showBlockInfo && (
-        <div gap={ 1 }>
+        <div className="flex gap-1">
           <Skeleton loading={ isLoading } className="text-sm font-medium">Block</Skeleton>
           <BlockEntity
             isLoading={ isLoading }
@@ -76,7 +76,7 @@ const InternalTxsListItem = ({
         isLoading={ isLoading }
         className="w-full"
       />
-      <div gap={ 3 }>
+      <div className="flex gap-3">
         <Skeleton loading={ isLoading } className="text-sm font-medium">Value { currencyUnits.ether }</Skeleton>
         <NativeCoinValue
           amount={ value }

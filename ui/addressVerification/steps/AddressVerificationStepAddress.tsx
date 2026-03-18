@@ -114,7 +114,7 @@ const AddressVerificationStepAddress = ({ defaultAddress, onContinue }: Props) =
           placeholder="Smart contract address (0x...)"
           className="mt-8"
         />
-        <div className="flex" alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>
+        <div className="flex gap-x-5 gap-y-2 mt-8 flex-col lg:flex-row items-start lg:items-center">
           <Button type="submit" loading={ formState.isSubmitting } loadingText="Continue" className="shrink-0">
             Continue
           </Button>

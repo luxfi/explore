@@ -225,14 +225,10 @@ const AddressEntity = (props: EntityProps) => {
     <Container
       // we have to use the global classnames here, see theme/global.ts
       // otherwise, if we use sx prop, Chakra will generate the same styles for each instance of the component on the page
-      className={ `${ props.className } address-entity ${ props.noCopy ? 'address-entity_no-copy' : '' }` }
+      className={ `${ props.className } address-entity ${ props.noCopy ? 'address-entity_no-copy' : '' } relative z-0 w-fit max-w-full` }
       data-hash={ highlightContext && !props.isLoading ? props.address.hash : undefined }
       onMouseEnter={ highlightContext?.onMouseEnter }
       onMouseLeave={ highlightContext?.onMouseLeave }
-      position="relative"
-      zIndex={ 0 }
-      w="fit-content"
-      maxW="100%"
     >
       <Icon { ...partsProps.icon } tooltipInteractive={ Boolean(highlightContext) }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }

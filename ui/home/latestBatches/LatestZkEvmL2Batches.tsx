@@ -67,7 +67,7 @@ const LatestZkEvmL2Batches = () => {
 
       return (
         <>
-          <div gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
+          <div className="flex flex-col gap-2 mb-3 overflow-hidden items-stretch">
             { dataToShow.map(((batch, index) => {
               const status = <ZkEvmL2TxnBatchStatus status={ batch.status } isLoading={ isPlaceholderData }/>;
               return (
@@ -83,17 +83,17 @@ const LatestZkEvmL2Batches = () => {
               );
             })) }
           </div>
-          <div justifyContent="center">
+          <div className="flex justify-center">
             <Link className="text-sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
           </div>
         </>
       );
     }
-    return <div textStyle="sm">No latest batches found.</div>;
+    return <div className="text-sm">No latest batches found.</div>;
   })();
 
   return (
-    <div width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
+    <div className="w-full lg:w-[280px] shrink-0">
       <Heading level="3" className="mb-3">Latest batches</Heading>
       { content }
     </div>

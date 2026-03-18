@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -33,7 +34,7 @@ const CodeEditorFileIcon = ({ className, fileName }: Props) => {
     return 'monaco/file';
   })();
 
-  return <IconSvg className={ className } name={ name } boxSize="16px"/>;
+  return <IconSvg className={ cn('size-4', className) } name={ name }/>;
 };
 
 export default React.memo(CodeEditorFileIcon);

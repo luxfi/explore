@@ -23,8 +23,8 @@ const AddressesLabelSearchTableItem = ({
         <AddressEntity
           address={ item }
           isLoading={ isLoading }
-          fontWeight={ 700 }
-          my="2px"
+          className="font-bold my-[2px]"
+         
         />
       </TableCell>
       <TableCell isNumeric>

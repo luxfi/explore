@@ -46,7 +46,7 @@ const EssentialDapp = () => {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <PageTitle title={ title || '' } alignItems={ isCentered ? 'center' : undefined }/>
+      <PageTitle title={ title || '' } className={ isCentered ? 'items-center' : undefined }/>
       { content }
     </div>
   );

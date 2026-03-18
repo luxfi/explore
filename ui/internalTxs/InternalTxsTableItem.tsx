@@ -43,7 +43,7 @@ const InternalTxsTableItem = ({
         </TableCell>
       ) }
       <TableCell>
-        <div rowGap={ 3 } flexDir="column" my="2px">
+        <div className="flex flex-col gap-y-3 my-[2px]">
           <TxEntity
             hash={ txnHash }
             isLoading={ isLoading }
@@ -63,7 +63,7 @@ const InternalTxsTableItem = ({
         </div>
       </TableCell>
       <TableCell>
-        <div rowGap={ 2 } flexDir="column">
+        <div className="flex flex-col gap-y-2">
           { typeTitle && (
             <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge>
           ) }

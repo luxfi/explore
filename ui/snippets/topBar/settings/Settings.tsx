@@ -54,10 +54,10 @@ const Settings = () => {
       <PopoverContent className="overflow-y-hidden text-sm" style={{ width: 'auto' }}>
         <PopoverBody>
           <SettingsColorTheme onSelect={ popover.onClose }/>
-          <Separator my={ 3 }/>
+          <Separator className="my-3"/>
           <SettingsIdentIcon/>
           <SettingsAddressFormat/>
-          <Separator my={ 3 }/>
+          <Separator className="my-3"/>
           <div className="flex flex-col gap-1">
             <SettingsScamTokens/>
             <SettingsPoorReputationTokens/>

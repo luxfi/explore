@@ -24,13 +24,13 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading }/>
       </TableCell>
       <TableCell>
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } className="leading-6 font-bold"/>
           <TimeWithTooltip timestamp={ data.send_timestamp || data.receive_timestamp } isLoading={ isLoading } color="text.secondary" timeFormat="absolute"/>
         </div>
       </TableCell>
       <TableCell>
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -52,7 +52,7 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
         </div>
       </TableCell>
       <TableCell>
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }

@@ -34,7 +34,7 @@ const SolidityscanReportButton = ({ score, isLoading, tooltipDisabled, ...rest }
             onFocusCapture={ onFocusCapture }
             { ...rest }
           >
-            <IconSvg name={ score < 80 ? 'score/score-not-ok' : 'score/score-ok' } boxSize={ 5 }/>
+            <IconSvg name={ score < 80 ? 'score/score-not-ok' : 'score/score-ok' } className="size-5"/>
             { isLoading && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4"/> }
             { !isLoading && score }
           </Button>

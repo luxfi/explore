@@ -28,9 +28,9 @@ const NetworkMenu = () => {
           size="2xs"
           className="font-medium"
         >
-          <IconSvg name="networks" boxSize="14px"/>
+          <IconSvg name="networks" className="w-3.5 h-3.5"/>
           <span>Chains</span>
-          <IconSvg name="arrows/east-mini" boxSize={ 4 } transform="rotate(-90deg)"/>
+          <IconSvg name="arrows/east-mini" className="w-4 h-4 -rotate-90"/>
         </Button>
       </PopoverTrigger>
       <NetworkMenuContent items={ menu.data } tabs={ menu.availableTabs }/>

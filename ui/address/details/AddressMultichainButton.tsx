@@ -70,7 +70,7 @@ const AddressMultichainButton = ({ item, addressHash, onClick, isFirst, isLast }
         >
           { buttonContent }
         </Link>
-        { item.promo && isFirst && !isLast && <TextSeparator mx={ 0 }/> }
+        { item.promo && isFirst && !isLast && <TextSeparator className="mx-0"/> }
       </>
     );
   } catch (error) {}

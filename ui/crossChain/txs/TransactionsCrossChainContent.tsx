@@ -22,7 +22,7 @@ export interface Props extends Omit<DataListDisplayProps, 'children'> {
 const TransactionsCrossChainContent = ({ items, isLoading, pagination, isTableView, stickyHeader = true, currentAddress, ...rest }: Props) => {
   const content = items ? (
     <>
-      <div display={{ base: isTableView ? 'none' : 'block', lg: 'none' }}>
+      <div className={ isTableView ? 'hidden' : 'block lg:hidden' }>
         { items.map((item, index) => (
           <TransactionsCrossChainListItem
             key={ item.message_id + (isLoading ? index : '') }
@@ -32,12 +32,7 @@ const TransactionsCrossChainContent = ({ items, isLoading, pagination, isTableVi
           />
         )) }
       </div>
-      <div
-        display={{ base: isTableView ? 'block' : 'none', lg: 'block' }}
-        overflowX={{ base: 'scroll', lg: 'initial' }}
-        mx={{ base: -3, lg: 0 }}
-        px={{ base: 3, lg: 0 }}
-      >
+      <div className={ `${ isTableView ? 'block' : 'hidden lg:block' } overflow-x-auto lg:overflow-x-visible -mx-3 lg:mx-0 px-3 lg:px-0` }>
         <TransactionsCrossChainTable
           data={ items }
           isLoading={ isLoading }

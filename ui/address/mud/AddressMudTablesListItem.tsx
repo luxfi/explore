@@ -49,23 +49,23 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
   }, [ router, scrollRef, hash ]);
 
   return (
-    <ListItemMobile rowGap={ 3 } fontSize="sm" py={ 3 }>
-      <div className="flex" w="100%">
+    <ListItemMobile className="!gap-y-3 !text-sm !py-3">
+      <div className="flex w-full">
         <Skeleton loading={ isLoading }>
           <Link className="block">
             <IconSvg
               name="arrows/east-mini"
-              transform={ isOpened ? 'rotate(270deg)' : 'rotate(180deg)' }
-              boxSize={ 6 }
-              cursor="pointer"
+              style={{ transform:  isOpened ? 'rotate(270deg)' : 'rotate(180deg)'  }}
+              className="w-6 h-6 transition-transform duration-150 cursor-pointer"
+             
               onClick={ handleIconClick }
-              transitionDuration="faster"
+             
               aria-label="View schema"
             />
           </Link>
         </Skeleton>
-        <div flexGrow="1">
-          <div className="flex" justifyContent="space-between" height={ 6 } alignItems="center" mb={ 3 }>
+        <div className="grow">
+          <div className="flex items-center justify-between mb-3 h-6">
             <Skeleton loading={ isLoading }>
               <Link
                 onClick={ onTableClick }
@@ -87,25 +87,25 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
       </div>
 
       { isOpened && (
-        <div className="grid" templateColumns="48px 1fr" gap="8px 24px" fontWeight={ 500 } w="100%">
+        <div className="grid w-full gap-[8px 24px] font-medium" style={{ gridTemplateColumns: '48px 1fr' }}>
           { Boolean(item.schema.key_names.length) && (
             <>
-              <span lineHeight="24px">Key</span>
-              <div className="flex flex-col" gap={ 1 } alignItems="start">
+              <span className="leading-[24px]">Key</span>
+              <div className="flex flex-col items-start gap-1">
                 { item.schema.key_names.map((name, index) => (
                   <Badge key={ name }>
-                    <span fontWeight={ 700 }>{ item.schema.key_types[index] }</span> { name }
+                    <span className="font-bold">{ item.schema.key_types[index] }</span> { name }
                   </Badge>
                 )) }
               </div>
             </>
           ) }
-          <div colSpan={ 2 }><hr/></div>
-          <span lineHeight="24px">Value</span>
-          <div className="flex flex-col" gap={ 1 } alignItems="start">
+          <div className="col-span-2"><hr/></div>
+          <span className="leading-[24px]">Value</span>
+          <div className="flex flex-col items-start gap-1">
             { item.schema.value_names.map((name, index) => (
               <span key={ name }>
-                <span fontWeight={ 700 }>{ item.schema.value_types[index] }</span> { name }
+                <span className="font-bold">{ item.schema.value_types[index] }</span> { name }
               </span>
             )) }
           </div>

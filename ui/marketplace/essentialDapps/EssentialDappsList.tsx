@@ -39,20 +39,7 @@ const essentialDapps = [
 
 const EssentialDappsList = () => {
   return (
-    <div
-      gap={{ base: 2, md: 3 }}
-      mb={ 8 }
-      w="full"
-      overflowX={{ base: 'auto', md: 'initial' }}
-      css={{
-        // hide scrollbar
-        '&::-webkit-scrollbar': { /* Chromiums */
-          display: 'none',
-        },
-        '-ms-overflow-style': 'none', /* IE and Edge */
-        scrollbarWidth: 'none', /* Firefox */
-      }}
-    >
+    <div className="flex gap-2 md:gap-3 mb-8 w-full overflow-x-auto md:overflow-x-visible scrollbar-none">
       { essentialDapps.map((dapp) => (
         <EssentialDappCard
           key={ dapp.id }

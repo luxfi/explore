@@ -6,6 +6,7 @@ import type { AddressMudRecords, AddressMudRecordsFilter, AddressMudRecordsSorti
 import { route } from 'nextjs-routes';
 
 import capitalizeFirstLetter from 'lib/capitalizeFirstLetter';
+import { cn } from 'lib/utils/cn';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { Link } from 'toolkit/chakra/link';
 import { TableBody, TableCell, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
@@ -125,7 +126,7 @@ const AddressMudRecordsTable = ({
   const hasHorizontalScroll = isMobile || isOpened;
 
   if (hasCut && !colsCutCount) {
-    return <div w="100%" ref={ containerRef }></div>;
+    return <div className="w-full" ref={ containerRef }></div>;
   }
 
   const cutButton = (
@@ -138,7 +139,7 @@ const AddressMudRecordsTable = ({
 
   return (
     // can't implement both horizontal table scroll and sticky header
-    <div maxW="100%" overflowX={ hasHorizontalScroll ? 'scroll' : 'unset' } whiteSpace="nowrap" ref={ tableRef }>
+    <div className={ cn('max-w-full whitespace-nowrap', hasHorizontalScroll ? 'overflow-x-scroll' : 'overflow-x-visible') } ref={ tableRef }>
       <TableRoot style={{ tableLayout: 'fixed' }}>
         <TableHeaderSticky top={ hasHorizontalScroll ? 0 : top } display={ hasHorizontalScroll ? 'table' : 'table-header-group' } w="100%">
           <TableRow>
@@ -147,24 +148,24 @@ const AddressMudRecordsTable = ({
               return (
                 <TableColumnHeader key={ keyName } { ...tdStyles }>
                   { index < 2 ? (
-                    <div className="flex" alignItems="center">
+                    <div className="flex items-center">
                       <Link
                         onClick={ onKeySortClick }
                         data-id={ index }
                         className="flex items-start leading-5 mr-2"
                       >
                         { sorting?.sort === `key${ index }` && sorting.order && (
-                          <div minW="24px" w="24px" mr={ 2 }>
+                          <div className="min-w-[24px] w-[24px] mr-2">
                             <IconSvg
                               name="arrows/east"
-                              boxSize={ 5 }
-                              transform={ sorting.order === 'asc' ? 'rotate(-90deg)' : 'rotate(90deg)' }
+                              className="w-5 h-5"
+                              style={{ transform:  sorting.order === 'asc' ? 'rotate(-90deg)' : 'rotate(90deg)'  }}
                             />
                           </div>
                         ) }
                         { text }
                       </Link>
-                      <div minW="20px" w="20px">
+                      <div className="min-w-[20px] w-[20px]">
                         <AddressMudRecordsKeyFilter
                           value={ filters[index === 0 ? 'filter_key0' : 'filter_key1'] }
                           title={ text }

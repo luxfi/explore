@@ -38,7 +38,7 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
             query={{ tab: 'contract' }}
             noCopy
           />
-          { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 }/> }
+          { data.certified && <ContractCertifiedLabel iconSize={ 5 } className="size-5"/> }
         </div>
         <AddressEntity
           address={{ hash: data.address.filecoin?.robust ?? data.address.hash }}
@@ -46,7 +46,7 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
           noLink
           noIcon
           truncation="constant"
-          ml="auto"
+          className="ml-auto"
         />
       </div>
       <div className="flex w-full">
@@ -81,19 +81,19 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
       <div className="flex">
         <Skeleton loading={ isLoading } className="font-medium">Optimization</Skeleton>
         { data.optimization_enabled ?
-          <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
-          <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+          <IconSvg name="check" className="size-6" isLoading={ isLoading }/> :
+          <IconSvg name="cross" className="size-6" isLoading={ isLoading }/> }
       </div>
       <div className="flex">
         <Skeleton loading={ isLoading } className="font-medium">Constructor args</Skeleton>
         { data.has_constructor_args ?
-          <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
-          <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+          <IconSvg name="check" className="size-6" isLoading={ isLoading }/> :
+          <IconSvg name="cross" className="size-6" isLoading={ isLoading }/> }
       </div>
       <div className="flex">
         <Skeleton loading={ isLoading } className="font-medium">Verified</Skeleton>
         <div className="flex">
-          <IconSvg name="status/success" boxSize={ 4 } isLoading={ isLoading }/>
+          <IconSvg name="status/success" className="size-4" isLoading={ isLoading }/>
           <TimeWithTooltip
             timestamp={ data.verified_at }
             isLoading={ isLoading }

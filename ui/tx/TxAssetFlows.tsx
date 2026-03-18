@@ -50,7 +50,7 @@ export default function TxAssetFlows(props: FlowViewProps) {
   const data = chunkedViewData [page - 1];
 
   const actionBar = (
-    <ActionBar mt={ -6 } pb={{ base: 6, md: 5 }} flexDir={{ base: 'column', md: 'initial' }} gap={{ base: '2', md: 'initial' }} >
+    <ActionBar className="-mt-6 pb-6 md:pb-5 flex-col md:flex-row gap-2 md:gap-0" >
       <div className="flex items-center gap-1">
         <Skeleton borderRadius="sm" loading={ isPlaceholderData } >
           <span className="font-normal mr-1">
@@ -60,7 +60,7 @@ export default function TxAssetFlows(props: FlowViewProps) {
 
         <AddressEntity
           address={{ hash: queryData?.accountAddress || '' }}
-          fontWeight="400"
+          className="font-normal"
           truncation="dynamic"
           isLoading={ isPlaceholderData }
         />

@@ -20,8 +20,8 @@ const InteropMessageAdditionalInfo = ({ payload, isLoading, className }: Props) 
       </PopoverTrigger>
       <PopoverContent className="w-[330px]">
         <PopoverBody>
-          <div alignItems="center" justifyContent="space-between" mb={ 3 }>
-            <span color="text.secondary" fontWeight="600">Message payload</span>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[var(--chakra-colors-text-secondary)] font-semibold">Message payload</span>
             <PopoverCloseTriggerWrapper>
               <CopyToClipboard text={ payload }/>
             </PopoverCloseTriggerWrapper>

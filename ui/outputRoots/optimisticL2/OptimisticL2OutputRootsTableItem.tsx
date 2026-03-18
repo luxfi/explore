@@ -37,7 +37,7 @@ const OptimisticL2OutputRootsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntityL2
           isLoading={ isLoading }
           number={ item.l2_block_number }
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>

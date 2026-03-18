@@ -27,11 +27,11 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
     }
 
     if (value.includes('N/A')) {
-      return <span fontWeight={ 700 } fontSize="30px" lineHeight="36px" opacity="control.disabled">{ mdash }</span>;
+      return <span className="font-bold text-[30px] leading-[36px] opacity-40">{ mdash }</span>;
     }
 
     return (
-      <span fontWeight={ 700 } fontSize="30px" lineHeight="36px">
+      <span className="font-bold text-[30px] leading-[36px]">
         { value }
       </span>
     );
@@ -46,27 +46,27 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
 
     return (
       <Skeleton loading={ isLoading } display="flex" alignItems="center" color={ diffColor } ml={ 2 }>
-        <IconSvg name="arrows/up-head" boxSize={ 5 } mr={ 1 } transform={ valueDiff < 0 ? 'rotate(180deg)' : 'rotate(0)' }/>
-        <span color={ diffColor } fontWeight={ 600 }>{ valueDiff }%</span>
+        <IconSvg name="arrows/up-head" className={ `w-5 h-5 mr-1 ${ valueDiff < 0 ? 'rotate-180' : '' }` }/>
+        <span className={ `font-semibold ${ valueDiff >= 0 ? 'text-green-500' : 'text-red-500' }` }>{ valueDiff }%</span>
       </Skeleton>
     );
   })();
 
   if (chartQuery.isError) {
-    return <FallbackChart term={ title } h={{ base: '144px', lg: '184px' }}/>;
+    return <FallbackChart term={ title } className="h-[144px] lg:h-[184px]"/>;
   }
 
   return (
-    <div flexGrow={ 1 } flexDir="column">
+    <div className="grow flex flex-col">
       <Skeleton loading={ isLoading } display="flex" alignItems="center" w="fit-content" className="gap-1">
-        <span fontWeight={ 500 }>{ title }</span>
+        <span className="font-medium">{ title }</span>
         { hint && <Hint label={ hint }/> }
       </Skeleton>
-      <div mb={{ base: 0, lg: 2 }} mt={ 1 } alignItems="end">
+      <div className="mb-0 lg:mb-2 mt-1 flex items-end">
         { valueTitleElement }
         { valueDiffElement }
       </div>
-      <div h={{ base: '80px', lg: '110px' }} alignItems="flex-start" flexGrow={ 1 }>
+      <div className="h-[80px] lg:h-[110px] flex items-start grow">
         <ChainIndicatorChartContainer { ...chartQuery } isPending={ isLoading }/>
       </div>
     </div>

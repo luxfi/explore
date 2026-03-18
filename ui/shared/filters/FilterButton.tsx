@@ -32,7 +32,7 @@ const FilterButton = ({ isLoading, appliedFiltersNum, ...rest }: Props, ref: Rea
       className="shrink-0 pointer-events-auto font-medium gap-1 max-lg:px-1 lg:px-3"
       { ...rest }
     >
-      <IconSvg name="filter" boxSize={ 5 }/>
+      <IconSvg name="filter" className="size-5"/>
       <span className="hidden lg:block">Filter</span>
       { numElement }
     </Button>

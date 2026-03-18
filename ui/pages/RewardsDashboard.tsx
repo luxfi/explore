@@ -58,9 +58,9 @@ const RewardsDashboard = () => {
               to earn, spend, and learn more about the program.
             </span>
           ) }
-          mb={ 0 }
+          className="mb-0"
         />
-        { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
+        { !isMobile && <AdBanner format="mobile" className="w-fit shrink-0 rounded-md overflow-hidden"/> }
       </div>
       <div className="flex flex-col items-start w-full gap-6">
         { isError && <Alert status="error">Failed to load some data. Please try again later.</Alert> }

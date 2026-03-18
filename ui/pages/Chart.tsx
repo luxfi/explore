@@ -172,7 +172,7 @@ const Chart = () => {
       className="ml-6"
       loadingSkeleton={ lineQuery.isPlaceholderData }
     >
-      <IconSvg name="share" w={ 4 } h={ 4 }/>
+      <IconSvg name="share" className="size-4"/>
       Share
     </Button>
   );
@@ -190,7 +190,7 @@ const Chart = () => {
     <>
       <PageTitle
         title={ info?.title || lineQuery.data?.info?.title || '' }
-        mb={ 3 }
+        className="mb-3"
         isLoading={ isInfoLoading }
         secondRow={ info?.description || lineQuery.data?.info?.description }
         withTextAd
@@ -232,7 +232,7 @@ const Chart = () => {
               onClick={ handleReset }
               className="flex items-center gap-2"
             >
-              <IconSvg name="repeat" w={ 5 } h={ 5 }/>
+              <IconSvg name="repeat" className="size-5"/>
               { !isMobile && 'Reset' }
             </Button>
           ) }

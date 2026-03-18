@@ -20,7 +20,7 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
   return (
     <>
       <div className="flex items-center justify-between gap-x-6">
-        <span className="text-[var(--color-text-secondary)]" fontWeight="600">{ title }</span>
+        <span className="text-[var(--color-text-secondary)] font-semibold">{ title }</span>
         { hasReset && (
           <Button
             variant="link"

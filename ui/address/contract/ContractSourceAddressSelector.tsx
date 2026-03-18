@@ -2,6 +2,7 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
+import { cn } from 'lib/utils/cn';
 import { createListCollection, Select } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -46,8 +47,8 @@ const ContractSourceAddressSelector = ({ className, selectedItem, onItemSelect, 
 
   if (items.length === 1) {
     return (
-      <div className="flex" flexWrap="wrap" columnGap={ 3 } rowGap={ 2 } className={ className }>
-        <span fontWeight={ 500 } fontSize="sm">{ label }</span>
+      <div className={ cn('flex flex-wrap gap-x-3 gap-y-2', className) }>
+        <span className="font-medium text-sm">{ label }</span>
         <AddressEntity
           address={{ hash: items[0].address_hash, is_contract: true, is_verified: true }}
         />
@@ -56,8 +57,8 @@ const ContractSourceAddressSelector = ({ className, selectedItem, onItemSelect, 
   }
 
   return (
-    <div className="flex" columnGap={ 3 } rowGap={ 2 } alignItems="center" className={ className }>
-      <span fontWeight={ 500 } fontSize="sm">{ label }</span>
+    <div className={ cn('flex gap-x-3 gap-y-2 items-center', className) }>
+      <span className="font-medium text-sm">{ label }</span>
       <Select
         collection={ collection }
         placeholder="Select contract"
@@ -67,7 +68,7 @@ const ContractSourceAddressSelector = ({ className, selectedItem, onItemSelect, 
         w="fit-content"
         loading={ isLoading }
       />
-      <div className="flex" alignItems="center">
+      <div className="flex items-center">
         <CopyToClipboard text={ selectedItem.address_hash } ml={ 0 }/>
         <LinkNewTab
           label="Open contract details page in new tab"

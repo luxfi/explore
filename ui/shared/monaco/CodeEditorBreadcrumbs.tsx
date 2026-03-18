@@ -12,19 +12,17 @@ const CodeEditorBreadcrumbs = ({ path }: Props) => {
   const themeColors = useThemeColors();
 
   return (
-    <div className="flex items-center flex-wrap text-[13px] leading-[22px]" style={{ color: themeColors['breadcrumbs.foreground']  }} style={{ backgroundColor: themeColors['editor.background']  }}
-      pl="16px"
-      pr="8px"
+    <div
+      className="flex items-center flex-wrap text-[13px] leading-[22px] pl-4 pr-2"
+      style={{ color: themeColors['breadcrumbs.foreground'], backgroundColor: themeColors['editor.background'] }}
     >
       { chunks.map((chunk, index) => {
         return (
           <React.Fragment key={ index }>
             { index !== 0 && (
-              <div                 className="codicon codicon-breadcrumb-separator"
-                boxSize="16px"
-                _before={{
-                  content: '"\\eab6"',
-                }}/>
+              <div
+                className="codicon codicon-breadcrumb-separator size-4 before:content-['\eab6']"
+              />
             ) }
             <div>{ chunk }</div>
           </React.Fragment>

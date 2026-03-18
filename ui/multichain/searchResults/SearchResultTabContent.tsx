@@ -28,7 +28,7 @@ interface Props {
 const SearchResultTabContent = ({ isLoading, searchTerm, queries, queryType, beforeContent }: Props) => {
   const content = (() => {
     if (isLoading) {
-      return <ContentLoader maxW="240px"/>;
+      return <ContentLoader className="max-w-[240px]"/>;
     }
 
     if (!searchTerm) {

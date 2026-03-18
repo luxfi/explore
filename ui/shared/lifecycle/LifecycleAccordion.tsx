@@ -49,8 +49,8 @@ export const Trigger = ({ status, text, isFirst, isLast, isLoading, isDisabled }
           }
         })();
         return (
-          <div className="flex flex-row gap-2" style={{ color: color  }}>
-            <IconSvg name={ icon } boxSize={ 5 } isLoading={ isLoading }/>
+          <div className="flex flex-row gap-2" style={{ color: color }}>
+            <IconSvg name={ icon } className="size-5" isLoading={ isLoading }/>
             <Skeleton loading={ isLoading }>
               { text }
             </Skeleton>
@@ -121,7 +121,7 @@ interface ItemRowProps {
 export const ItemRow = ({ label, children }: ItemRowProps) => {
   return (
     <>
-      <div className="text-[var(--color-text-secondary)]" py="6px">
+      <div className="text-[var(--color-text-secondary)] py-[6px]">
         { label }
       </div>
       <div>

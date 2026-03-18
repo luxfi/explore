@@ -20,13 +20,13 @@ import TextSeparator from 'ui/shared/TextSeparator';
 import Time from 'ui/shared/time/Time';
 import TokenValueInterchain from 'ui/shared/value/TokenValueInterchain';
 
-interface Props extends Record<string, unknown> {
+interface Props {
   data: InterchainMessage;
   isLoading?: boolean;
   currentAddress?: string;
 }
 
-const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAddress, ...rest }: Props) => {
+const TransactionsCrossChainListItem = ({ data, isLoading, currentAddress }: Props) => {
   const timestamp = data.send_timestamp || data.receive_timestamp;
   const firstTransfer = data.transfers.length > 0 ? data.transfers[0] : null;
   const txHashWithTransfers = (() => {
@@ -43,10 +43,10 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
     }
   })();
 
-  const dashElement = <span color="text.secondary">{ mdash }</span>;
+  const dashElement = <span className="text-[var(--color-text-secondary)]">{ mdash }</span>;
 
   return (
-    <ListItemMobile rowGap={ rowGap } { ...rest }>
+    <ListItemMobile className="gap-y-3">
       <div className="flex flex-row items-center">
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
         { currentAddress && (
@@ -56,7 +56,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           />
         ) }
       </div>
-      <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } fontWeight={ 600 } noIcon={ false } truncation="dynamic" w="100%"/>
+      <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } className="font-semibold w-full" noIcon={ false } truncation="dynamic"/>
       { timestamp && (
         <Skeleton loading={ isLoading } display="flex" alignItems="center" color="text.secondary">
           <div>{ dayjs(timestamp).fromNow() }</div>
@@ -64,7 +64,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           <Time timestamp={ timestamp } format="lll_s"/>
         </Skeleton>
       ) }
-      <div templateColumns="120px minmax(0, 1fr)" columnGap={ 2 } rowGap={ rowGap }>
+      <div className="grid gap-x-2 gap-y-3" style={{ gridTemplateColumns: '120px minmax(0, 1fr)' }}>
         <Skeleton loading={ isLoading }>
           Source tx
         </Skeleton>

@@ -31,8 +31,8 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
   const handleAddToWalletClick = useAddChainClick({ source: 'Chain widget' });
 
   const chainStats = (
-    <div gap={ 2 } alignItems="flex-start" fontWeight={ 500 }>
-      <div gap={ 2 }>
+    <div className="flex flex-col gap-2 items-start font-medium">
+      <div className="flex gap-2">
         <Skeleton loading={ isLoading } color="text.secondary">
           <span>Chain ID</span>
         </Skeleton>
@@ -40,7 +40,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
         <CopyToClipboard text={ String(data.id) } className="ml-0" isLoading={ isLoading }/>
       </div>
       { metrics?.active_accounts?.current_full_week && (
-        <div gap={ 2 }>
+        <div className="flex gap-2">
           <Skeleton loading={ isLoading } color="text.secondary">
             <span>Active accounts</span>
           </Skeleton>
@@ -48,7 +48,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
         </div>
       ) }
       { metrics?.tps && (
-        <div gap={ 2 }>
+        <div className="flex gap-2">
           <Skeleton loading={ isLoading } color="text.secondary">
             <span>TPS</span>
           </Skeleton>
@@ -63,12 +63,12 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
       <LinkBox
         className="bg-[rgba(246,246,248,0.5)] dark:bg-white/5 rounded-xl border border-solid border-black/20 dark:border-white/20 p-4 basis-full text-sm overflow-hidden"
       >
-        <div justifyContent="space-between" mb={ 2 }>
-          <div minW="0">
+        <div className="flex justify-between mb-2">
+          <div className="flex min-w-0">
             <ChainIcon data={ data } boxSize={ 5 } isLoading={ isLoading } noTooltip/>
             <Heading level="3" className="min-w-0">
               <LinkOverlay href={ data.explorer_url } external loading={ isLoading } className="group-hover:text-[var(--color-hover)]">
-                <div overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+                <div className="overflow-hidden text-ellipsis whitespace-nowrap">
                   { data.name }
                 </div>
               </LinkOverlay>
@@ -91,7 +91,7 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
         !isLoading && 'hover:bg-gray-50 dark:hover:bg-white/10 hover:border-[var(--color-hover)]',
       ) }
     >
-      <div justifyContent="space-between">
+      <div className="flex justify-between">
         <ChainIcon data={ data } boxSize="30px" isLoading={ isLoading } noTooltip/>
         { walletIcon && (
           <Tooltip content="Add to wallet">
@@ -102,14 +102,14 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
               className="z-[1] bg-black/5 dark:bg-white/5"
               loadingSkeleton={ isLoading }
             >
-              <IconSvg name={ walletIcon } boxSize={ 5 }/>
+              <IconSvg name={ walletIcon } className="w-5 h-5"/>
             </IconButton>
           </Tooltip>
         ) }
       </div>
       <Heading level="3" className="my-3">
         <LinkOverlay href={ data.explorer_url } external loading={ isLoading } className="group-hover:text-[var(--color-hover)]">
-          <div overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+          <div className="overflow-hidden text-ellipsis whitespace-nowrap">
             { data.name }
           </div>
         </LinkOverlay>

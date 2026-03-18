@@ -28,12 +28,12 @@ const LatestCrossChainTxs = () => {
   });
 
   if (isError || !data) {
-    return <span mt={ 4 }>No data. Please reload the page.</span>;
+    return <span className="mt-4">No data. Please reload the page.</span>;
   }
 
   return (
     <>
-      <div mb={ 3 } hideFrom="lg" textStyle="sm">
+      <div className="mb-3 lg:hidden text-sm">
         { data.items.slice(0, txsCount).map(((tx, index) => (
           <TransactionsCrossChainListItem
             key={ tx.message_id + (isPlaceholderData ? index : '') }
@@ -42,7 +42,7 @@ const LatestCrossChainTxs = () => {
           />
         ))) }
       </div>
-      <div mb={ 3 } hideBelow="lg" textStyle="sm">
+      <div className="mb-3 hidden lg:block text-sm">
         <TableRoot minWidth="750px">
           <TableBody>
             { data.items.slice(0, txsCount).map(((tx, index) => (
@@ -55,7 +55,7 @@ const LatestCrossChainTxs = () => {
           </TableBody>
         </TableRoot>
       </div>
-      <div justifyContent="center">
+      <div className="flex justify-center">
         <Link className="text-sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
       </div>
     </>

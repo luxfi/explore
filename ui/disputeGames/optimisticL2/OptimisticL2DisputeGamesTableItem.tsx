@@ -28,7 +28,7 @@ const OptimisticL2DisputeGamesTableItem = ({ item, isLoading }: Props) => {
         <Skeleton loading={ isLoading } display="inline-block">{ item.game_type }</Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <div overflow="hidden" w="100%" alignItems="center">
+        <div className="flex overflow-hidden w-full items-center">
           <Skeleton loading={ isLoading }>
             <HashStringShorten hash={ item.contract_address_hash } type="long"/>
           </Skeleton>

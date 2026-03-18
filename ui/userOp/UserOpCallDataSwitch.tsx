@@ -23,7 +23,7 @@ const UserOpCallDataSwitch = ({ className, initialValue, isDisabled, onChange, i
   }, [ onChange ]);
 
   return (
-    <div className="flex" ml="auto">
+    <div className="flex ml-auto">
       <Switch
         className={ className }
         id={ id }

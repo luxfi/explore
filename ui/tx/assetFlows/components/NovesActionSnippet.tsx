@@ -57,8 +57,7 @@ const NovesActionSnippet: FC<Props> = ({ item, isLoaded }) => {
           noCopy
           noSymbol
           noLink={ !validTokenAddress }
-          color="link.primary"
-          w="fit-content"
+          className="w-fit"
         />
       </div>
 
@@ -72,9 +71,7 @@ const NovesActionSnippet: FC<Props> = ({ item, isLoaded }) => {
         <div className="hidden lg:block">
           <IconSvg
             name="lightning"
-            height="5"
-            width="5"
-            color="icon.primary"
+            className="h-5 w-5 text-[var(--color-icon-primary)]"
           />
           <span >
             { item.action.label }
@@ -87,8 +84,7 @@ const NovesActionSnippet: FC<Props> = ({ item, isLoaded }) => {
             noCopy
             jointSymbol
             noLink={ !validTokenAddress }
-            color="link.primary"
-            w="fit-content"
+            className="w-fit"
           />
         </div>
       </Tooltip>

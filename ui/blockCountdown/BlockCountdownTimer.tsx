@@ -35,11 +35,7 @@ const BlockCountdownTimer = ({ value: initialValue, onFinish }: Props) => {
 
   return (
     <div
-      bgColor={{ _light: 'gray.50', _dark: 'whiteAlpha.100' }}
-      mt={{ base: 6, lg: 8 }}
-      p={{ base: 3, lg: 4 }}
-      borderRadius="base"
-      
+      className="mt-6 lg:mt-8 p-3 lg:p-4 rounded bg-[var(--color-bg-base)]"
     >
       <BlockCountdownTimerItem label="Days" value={ periods.days }/>
       <BlockCountdownTimerItem label="Hours" value={ periods.hours }/>

@@ -40,7 +40,7 @@ const TacOperationsTableItem = ({ item, isLoading }: Props) => {
             chainType={ item.sender.blockchain }
             truncation="constant"
             isLoading={ isLoading }
-            w="fit-content"
+            className="w-fit"
           />
         ) : '-' }
       </TableCell>

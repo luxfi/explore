@@ -95,7 +95,7 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
         }}
       >
         <div className="flex items-center px-2 py-2.5 w-full h-[50px] cursor-pointer mb-1" onClick={ onGroupItemClose }>
-          <IconSvg name="arrows/east-mini" boxSize={ 6 } mr={ 2 } color={ iconColor }/>
+          <IconSvg name="arrows/east-mini" className="w-6 h-6 mr-2" style={{ color: `var(--color-${ iconColor.replace('.', '-') })` }}/>
           <span className="text-[var(--color-text-secondary)] text-sm">{ mainNavItems[openedGroupIndex]?.text }</span>
         </div>
         <ul className="w-full">

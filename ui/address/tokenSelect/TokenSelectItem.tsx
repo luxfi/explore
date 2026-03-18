@@ -40,7 +40,7 @@ const TokenSelectItem = ({ data }: Props) => {
       return (
         <>
           <TruncatedText text={ text }/>
-          { data.token.exchange_rate && <span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
+          { data.token.exchange_rate && <span className="ml-2">@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
         </>
       );
     }
@@ -54,7 +54,7 @@ const TokenSelectItem = ({ data }: Props) => {
       return (
         <>
           <TruncatedText text={ text }/>
-          { data.token.exchange_rate && <span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
+          { data.token.exchange_rate && <span className="ml-2">@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
         </>
       );
     }
@@ -67,7 +67,7 @@ const TokenSelectItem = ({ data }: Props) => {
       case 'ERC-1155': {
         return (
           <>
-            <span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
+            <span className="text-ellipsis mr-6 overflow-hidden">
               #{ data.token_id || 0 }
             </span>
             <span>
@@ -80,7 +80,7 @@ const TokenSelectItem = ({ data }: Props) => {
         return (
           <>
             { data.token_id !== null && (
-              <span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
+              <span className="text-ellipsis mr-6 overflow-hidden">
                 #{ data.token_id || 0 }
               </span>
             ) }
@@ -105,16 +105,15 @@ const TokenSelectItem = ({ data }: Props) => {
       className="px-1 py-2.5 flex flex-col gap-y-2 border-b border-[var(--color-border-divider)] hover:bg-blue-50 dark:hover:bg-gray-800 text-inherit text-sm"
       href={ url }
     >
-      <div className="flex" alignItems="center" w="100%">
+      <div className="flex items-center w-full">
         <TokenEntity
           token={ data.token }
           chain={ chain }
           noSymbol
           noCopy
           noLink
-          fontWeight={ 700 }
-          width="auto"
-          mr={ 2 }
+          className="font-bold w-auto mr-2"
+
         />
         { isNativeToken && <NativeTokenTag className="mr-2"/> }
         { data.usd && (
@@ -124,7 +123,7 @@ const TokenSelectItem = ({ data }: Props) => {
           />
         ) }
       </div>
-      <div className="flex" alignItems="center" justifyContent="space-between" w="100%" whiteSpace="nowrap" color={ isNativeToken ? 'text.secondary' : undefined }>
+      <div className="flex items-center justify-between whitespace-nowrap w-full" color={ isNativeToken ? 'text.secondary' : undefined }>
         { secondRow }
       </div>
     </Link>

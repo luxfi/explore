@@ -143,7 +143,7 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
       </div>
       { filterTags.length !== 0 && (
         <Link onClick={ onClearAll } className="flex items-center justify-end gap-2 text-sm w-[150px]">
-          <IconSvg name="repeat" boxSize={ 5 }/>
+          <IconSvg name="repeat" className="size-5"/>
           Reset filters
         </Link>
       ) }

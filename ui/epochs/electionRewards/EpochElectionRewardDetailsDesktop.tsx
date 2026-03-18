@@ -35,28 +35,19 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
   const titles = getRewardDetailsTableTitles(type);
 
   return (
-    <div
-      p={ 4 }
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      borderRadius="base"
-      maxH="360px"
-      overflowY="scroll"
-      fontWeight={ 400 }
-      textStyle="sm"
-    >
+    <div className="p-4 bg-black/5 dark:bg-white/5 rounded max-h-[360px] overflow-y-scroll font-normal text-sm">
       { query.data && (
         <div
-          gridTemplateColumns="min-content min-content min-content"
-          rowGap={ 5 }
-          columnGap={ 5 }
+          className="grid gap-5"
+          style={{ gridTemplateColumns: 'min-content min-content min-content' }}
         >
-          <div fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
+          <div className="font-semibold mb-1 whitespace-nowrap">
             { titles[0] }
           </div>
-          <div fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap" textAlign="right">
+          <div className="font-semibold mb-1 whitespace-nowrap text-right">
             Amount { token.symbol }
           </div>
-          <div fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
+          <div className="font-semibold mb-1 whitespace-nowrap">
             { titles[1] }
           </div>
 
@@ -69,7 +60,7 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
                   <div>
                     <AddressEntity address={ item.account } noIcon truncation="constant"/>
                   </div>
-                  <div textAlign="right">
+                  <div className="text-right">
                     <AssetValue
                       amount={ item.amount }
                       decimals={ token.decimals }
@@ -84,11 +75,11 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
         </div>
       ) }
 
-      { query.isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
+      { query.isFetching && <ContentLoader className="max-w-[200px] mt-3"/> }
 
-      { query.isError && <span color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</span> }
+      { query.isError && <span className="text-[var(--color-text-error)] mt-3">Something went wrong. Unable to load next page.</span> }
 
-      <div h="0" w="100px" ref={ cutRef }/>
+      <div className="h-0 w-[100px]" ref={ cutRef }/>
     </div>
   );
 };

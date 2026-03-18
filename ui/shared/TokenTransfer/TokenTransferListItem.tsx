@@ -40,7 +40,7 @@ const TokenTransferListItem = ({
   chainData,
 }: Props) => {
   return (
-    <ListItemMobile rowGap={ 3 }>
+    <ListItemMobile className="gap-y-3">
       <div className="flex w-full justify-between">
         <div className={ `flex flex-wrap gap-y-1 gap-x-2 overflow-hidden ${ showTxInfo && txHash ? 'mr-2' : '' }` }>
           { token && (
@@ -50,7 +50,7 @@ const TokenTransferListItem = ({
                 isLoading={ isLoading }
                 noSymbol
                 noCopy
-                w="auto"
+                className="w-auto"
               />
               <Badge className="shrink-0" loading={ isLoading }>{ getTokenTypeName(token.type, chainData?.app_config) }</Badge>
             </>
@@ -71,7 +71,7 @@ const TokenTransferListItem = ({
               isLoading={ isLoading }
               hash={ txHash }
               truncation="constant_long"
-              fontWeight="700"
+              className="font-bold"
               chain={ chainData }
             />
           ) }
@@ -90,7 +90,7 @@ const TokenTransferListItem = ({
         to={ to }
         current={ baseAddress }
         isLoading={ isLoading }
-        w="100%"
+        className="w-full"
       />
       { total && 'value' in total && total.value !== null && (
         <div className="flex gap-x-2 w-full">

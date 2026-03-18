@@ -75,7 +75,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
       <div className="flex flex-col items-start px-3 mb-8">
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-blue-500 dark:text-blue-100 bg-blue-50 dark:bg-blue-800">
-            <IconSvg name="profile" boxSize={ 5 }/>
+            <IconSvg name="profile" className="w-5 h-5"/>
           </div>
           <span className="text-lg font-medium">
             Referral program
@@ -100,7 +100,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
         <Skeleton loading={ referralsQuery.isLoading } className="mt-6">
           <Button asChild>
             <a href={ `https://x.com/intent/tweet?text=${ encodeURIComponent(shareText) }` } target="_blank" rel="noopener noreferrer">
-              Share on <IconSvg name="social/twitter" boxSize={ 6 } ml={ 1 }/>
+              Share on <IconSvg name="social/twitter" className="w-6 h-6 ml-1"/>
             </a>
           </Button>
         </Skeleton>
@@ -109,7 +109,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-blue-500 dark:text-blue-100 bg-blue-50 dark:bg-blue-800">
             { /* FIXME use non-navigation icon */ }
-            <IconSvg name="navigation/stats" boxSize={ 6 }/>
+            <IconSvg name="navigation/stats" className="w-6 h-6"/>
           </div>
           <span className="text-lg font-medium">
             Dashboard

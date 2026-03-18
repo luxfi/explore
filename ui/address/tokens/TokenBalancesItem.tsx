@@ -14,13 +14,13 @@ type Props = {
 const TokenBalancesItem = ({ name, icon, value, valueSecondary, isLoading, contentAfter }: Props) => {
 
   return (
-    <div px="12px" py="10px" bgColor={{ _light: 'theme.stats.bg._light', _dark: 'theme.stats.bg._dark' }} borderRadius="base">
-      <span color="text.secondary" textStyle="xs" fontWeight={ 500 } mb={ 1 }>{ name }</span>
-      <div className="flex" alignItems="center">
+    <div className="px-[12px] py-[10px] rounded">
+      <span className="text-[var(--color-text-secondary)] text-xs font-medium mb-1">{ name }</span>
+      <div className="flex items-center">
         { icon }
         <Skeleton loading={ isLoading } fontWeight="500" whiteSpace="pre-wrap" wordBreak="break-word" display="flex" ml={ 2 }>
           { value }
-          { Boolean(valueSecondary) && <span color="text.secondary"> ({ valueSecondary })</span> }
+          { Boolean(valueSecondary) && <span className="text-[var(--color-text-secondary)]"> ({ valueSecondary })</span> }
         </Skeleton>
         { contentAfter }
       </div>

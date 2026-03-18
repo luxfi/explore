@@ -100,7 +100,7 @@ const MultichainAddress = () => {
   }, [ addressQuery.data, isLoading, isContractSomewhere, checkSummedHash ]);
 
   const titleSecondRow = (
-    <div alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <div className="flex items-center w-full gap-x-2 gap-y-2 flex-wrap lg:flex-nowrap">
       { addressQuery.data?.domains?.[0] && (
         <EnsEntity
           domain={ addressQuery.data?.domains[0].name }
@@ -108,8 +108,7 @@ const MultichainAddress = () => {
           isLoading={ isLoading }
           variant="subheading"
           noLink
-          mr={ 1 }
-          maxW="300px"
+          className="mr-1 max-w-[300px]"
         />
       ) }
       <AddressEntity
@@ -130,7 +129,7 @@ const MultichainAddress = () => {
         }}
       />
       <AddressQrCode hash={ checkSummedHash } isLoading={ isLoading }/>
-      <div ml="auto"/>
+      <div className="ml-auto"/>
       <MultichainAddressEnsDomains
         mainDomain={ addressQuery.data?.domains?.[0] }
         isLoading={ isLoading }
@@ -142,7 +141,7 @@ const MultichainAddress = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ `${ isContract ? 'Contract' : 'Address' } details` }
         isLoading={ isLoading }

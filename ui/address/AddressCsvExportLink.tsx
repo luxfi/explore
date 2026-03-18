@@ -47,7 +47,7 @@ const AddressCsvExportLink = ({ className, address, params, isLoading, chainData
         textStyle="sm"
         { ...rest }
       >
-        <IconSvg name="files/csv" boxSize={ 5 }/>
+        <IconSvg name="files/csv" className="w-5 h-5"/>
         <span className="ml-1 hidden lg:inline">Download</span>
       </Link>
     </Tooltip>

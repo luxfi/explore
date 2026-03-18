@@ -53,7 +53,7 @@ const ChainIndicators = () => {
         return undefined;
       })(),
       // FIXME use non-navigation icon
-      icon: <IconSvg name="navigation/transactions" boxSize={ 6 } bgColor="#56ACD1" borderRadius="base" color="white"/>,
+      icon: <IconSvg name="navigation/transactions" className="w-6 h-6 bg-[#56ACD1] rounded-[var(--radius-base,8px)] text-white"/>,
       hint: (() => {
         if (statsQuery.data.new_txns_multichain_window?.info) {
           return statsQuery.data.new_txns_multichain_window.info.description;
@@ -71,7 +71,7 @@ const ChainIndicators = () => {
         return '$N/A';
       })(),
       valueDiff: parentChainStatsQuery.data.coin_price_change_percentage ?? undefined,
-      icon: <NativeTokenIcon boxSize={ 6 }/>,
+      icon: <NativeTokenIcon className="w-6 h-6"/>,
       hint: 'ETH token daily price in USD.',
     },
     parentChainStatsQuery.data && {
@@ -83,7 +83,7 @@ const ChainIndicators = () => {
         }
         return '$N/A';
       })(),
-      icon: <IconSvg name="globe" boxSize={ 6 } bgColor="#6A5DCC" borderRadius="base" color="white"/>,
+      icon: <IconSvg name="globe" className="w-6 h-6 bg-[#6A5DCC] rounded-[var(--radius-base,8px)] text-white"/>,
       // eslint-disable-next-line max-len
       hint: 'The total market value of a cryptocurrency\'s circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.',
     },

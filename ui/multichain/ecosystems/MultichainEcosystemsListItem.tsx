@@ -43,7 +43,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
   };
 
   return (
-    <ListItemMobile rowGap={ 3 } py={ 4 } fontSize="sm" alignItems="stretch">
+    <ListItemMobile className="gap-y-3 py-4 text-sm items-stretch">
       <div className="flex flex-row justify-between font-semibold">
         <div className="flex flex-row items-center gap-2 max-w-[50%]">
           <ChainIcon data={ chainInfo } isLoading={ isLoading }/>

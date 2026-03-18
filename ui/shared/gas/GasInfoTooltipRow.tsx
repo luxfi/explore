@@ -21,8 +21,8 @@ const GasInfoTooltipRow = ({ name, info }: Props) => {
           </span>
         ) }
       </div>
-      <GasPrice data={ info } textAlign="right"/>
-      <GasPrice data={ info } unitMode="secondary" color="text.secondary" textAlign="right"/>
+      <GasPrice data={ info } className="text-right"/>
+      <GasPrice data={ info } unitMode="secondary" className="text-right text-[var(--color-text-secondary)]"/>
     </>
   );
 };

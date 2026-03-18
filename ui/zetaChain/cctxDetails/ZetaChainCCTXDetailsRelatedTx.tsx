@@ -37,7 +37,7 @@ const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
       style={{ color: `var(--color-${color.replace('.', '-')})` }}
     >
       <ChainIcon data={ chainFrom }/>
-      <IconSvg name="arrows/east" boxSize={ 5 }/>
+      <IconSvg name="arrows/east" className="size-5"/>
       { chainsTo.map((chain, index) => <ChainIcon key={ index } data={ chain }/>) }
       <div>CCTX</div>
       <TxEntityZetaChainCC hash={ tx.index } isLoading={ isLoading } noIcon truncation="constant"/>

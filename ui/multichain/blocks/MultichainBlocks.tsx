@@ -22,7 +22,7 @@ import MultichainBlocksContent from './MultichainBlocksContent';
 
 const QUERY_PRESERVED_PARAMS = [ 'chain_id' ];
 const TABS_LEFT_SLOT_PROPS = {
-  mr: { base: 'auto', lg: 6 - 2 },
+  className: 'mr-auto lg:mr-4',
 };
 const TAB_LIST_PROPS = {
   mb: 0,
@@ -99,9 +99,9 @@ const MultichainBlocks = () => {
   );
 
   const rightSlot = (
-    <div gap={ 8 } hideBelow="lg">
+    <div className="flex gap-8 hidden lg:flex">
       <Link href={ route({ pathname: '/block/countdown' }, { chain: currentChainInfo }) }>
-        <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
+        <IconSvg name="hourglass" className="w-5 h-5 mr-2"/>
         <span>Block countdown</span>
       </Link>
       <Pagination { ...currentQuery.pagination }/>

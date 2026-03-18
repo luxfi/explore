@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+
 import React from 'react';
 
 import * as chainDataMock from 'mocks/multichain/chains';
@@ -136,18 +136,12 @@ test('loading', async({ render }) => {
 
 test('customization', async({ render }) => {
   const component = await render(
-    <Box
-      borderWidth="1px"
-      borderColor="orange.500"
-    >
+    <div className="border border-orange-500">
       <TokenEntity
         token={ tokenMock.tokenInfo }
-        p={ 2 }
-        maxW="200px"
-        borderWidth="1px"
-        borderColor="blue.700"
+        className="p-2 max-w-[200px] border border-blue-700"
       />
-    </Box>,
+    </div>,
   );
 
   await expect(component).toHaveScreenshot();

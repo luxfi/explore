@@ -125,7 +125,7 @@ const ButtonShowcase = () => {
                 <div>
                   <PopoverTrigger>
                     <Button variant="dropdown" size="md" className="px-2">
-                      <IconSvg name="explorer" boxSize={ 5 }/>
+                      <IconSvg name="explorer" className="w-5 h-5"/>
                       With tooltip
                     </Button>
                   </PopoverTrigger>

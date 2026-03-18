@@ -21,7 +21,7 @@ const AdditionalInfoButton = (props: Props, ref: React.ForwardedRef<HTMLButtonEl
       loadingSkeleton={ loading }
       { ...rest }
     >
-      <IconSvg name="info" boxSize={ 5 }/>
+      <IconSvg name="info" className="w-5 h-5"/>
     </IconButton>
   );
 };

@@ -78,7 +78,7 @@ const EpochPageContent = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ `Epoch #${ number }` }
         contentAfter={ titleContentAfter }

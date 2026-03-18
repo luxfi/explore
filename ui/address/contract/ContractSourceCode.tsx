@@ -62,7 +62,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
     <Skeleton loading={ isLoading } fontWeight={ 500 }>
       <span>Contract source code</span>
       { data?.language &&
-        <span whiteSpace="pre" as="span" color="text.secondary"> ({ formatLanguageName(data.language) })</span> }
+        <span className="whitespace-pre text-[var(--color-text-secondary)]"> ({ formatLanguageName(data.language) })</span> }
     </Skeleton>
   );
 
@@ -121,7 +121,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
 
   return (
     <section>
-      <div className="flex" alignItems="center" mb={ 3 } columnGap={ 3 } rowGap={ 2 } flexWrap="wrap">
+      <div className="flex items-center mb-3 gap-x-3 gap-y-2 flex-wrap">
         { heading }
         { externalLibraries }
         { diagramLink }

@@ -8,6 +8,7 @@ import config from 'configs/app';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import { thinsp } from 'toolkit/utils/htmlEntities';
@@ -35,19 +36,14 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
 
   return (
     <div
-      animation={ animation }
-      borderRadius="md"
-      border="1px solid"
-      borderColor="border.divider"
-      p={ 3 }
-      minW="260px"
-      flex="1 0 0"
-      cursor={ isLoading ? 'default' : 'pointer' }
-      transition="background 0.15s"
-      _hover={ isLoading ? undefined : { bg: { _light: 'gray.50', _dark: 'whiteAlpha.100' } } }
+      className={ cn(
+        'rounded-md border border-[var(--color-border-divider)] p-3 min-w-[260px] flex-1 transition-colors duration-150',
+        isLoading ? 'cursor-default' : 'cursor-pointer hover:bg-gray-50 dark:hover:bg-white/10',
+      ) }
+      style={ animation ? { animation } : undefined }
       onClick={ handleClick }
     >
-      <div alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
+      <div className="flex items-center overflow-hidden w-full mb-3">
         <BlockEntity
           isLoading={ isLoading }
           number={ block.height }
@@ -58,7 +54,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
         />
         { block.celo?.l1_era_finalized_epoch_number && (
           <Tooltip content={ `Finalized epoch #${ block.celo.l1_era_finalized_epoch_number }` }>
-            <IconSvg name="checkered_flag" boxSize={ 5 } p="1px" ml={ 2 } isLoading={ isLoading } flexShrink={ 0 }/>
+            <IconSvg name="checkered_flag" className="w-5 h-5 p-[1px] ml-2 shrink-0" isLoading={ isLoading }/>
           </Tooltip>
         ) }
         <TimeWithTooltip
@@ -73,7 +69,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           ml={ 2 }
         />
       </div>
-      <div gridGap={ 2 } templateColumns="auto minmax(0, 1fr)" textStyle="sm">
+      <div className="grid gap-2 grid-cols-[auto_minmax(0,1fr)] text-sm">
         <Skeleton loading={ isLoading }>Txn</Skeleton>
         <Skeleton loading={ isLoading } color="text.secondary"><span>{ block.transactions_count }</span></Skeleton>
 

@@ -119,7 +119,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
           disabled={ isCodeSending || recaptcha.isInitError }
           onClick={ handleResendCodeClick }
         >
-          <IconSvg name="repeat" boxSize={ 5 }/>
+          <IconSvg name="repeat" className="w-5 h-5"/>
           <span className="text-sm">Resend code</span>
         </Button>
         <ReCaptcha { ...recaptcha }/>

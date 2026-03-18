@@ -87,7 +87,7 @@ const BlockPageContent = () => {
       title: 'Transactions',
       component: (
         <>
-          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
           <TxsWithFrontendSorting query={ blockTxsQuery } showBlockInfo={ false } top={ hasPagination ? TABS_HEIGHT : 0 }/>
         </>
       ),
@@ -97,7 +97,7 @@ const BlockPageContent = () => {
       title: 'Internal txns',
       component: (
         <>
-          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+          { blockTxsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockTxsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
           <BlockInternalTxs query={ blockInternalTxsQuery } top={ hasPagination ? TABS_HEIGHT : 0 }/>
         </>
       ),
@@ -116,7 +116,7 @@ const BlockPageContent = () => {
         title: 'Deposits',
         component: (
           <>
-            { blockDepositsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockDepositsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+            { blockDepositsQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockDepositsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
             <BlockDeposits blockDepositsQuery={ blockDepositsQuery }/>
           </>
         ),
@@ -128,7 +128,7 @@ const BlockPageContent = () => {
         component: (
           <>
             { blockWithdrawalsQuery.isDegradedData &&
-              <ServiceDegradationWarning isLoading={ blockWithdrawalsQuery.isPlaceholderData } mb={{ base: 3, lg: 6 }}/> }
+              <ServiceDegradationWarning isLoading={ blockWithdrawalsQuery.isPlaceholderData } className="mb-3 lg:mb-6"/> }
             <BlockWithdrawals blockWithdrawalsQuery={ blockWithdrawalsQuery }/>
           </>
         ),
@@ -194,14 +194,14 @@ const BlockPageContent = () => {
       <NetworkExplorers
         type="block"
         pathParam={ heightOrHash }
-        ml={{ base: config.UI.views.block.hiddenFields?.miner ? 0 : 3, lg: 'auto' }}
+        className={ config.UI.views.block.hiddenFields?.miner ? 'ml-0 lg:ml-auto' : 'ml-3 lg:ml-auto' }
       />
     </>
   );
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ title }
         beforeTitle={ beforeTitleElement }

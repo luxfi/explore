@@ -74,7 +74,7 @@ const NavLinkGroup = ({ item }: Props) => {
             isCollapsed={ false }
           />
         ) }
-        <IconSvg name="arrows/east-mini" boxSize={ 5 } transform="rotate(-90deg)" ml={ 1 }/>
+        <IconSvg name="arrows/east-mini" className="w-5 h-5 -rotate-90 ml-1"/>
       </Link>
     </Tooltip>
   );

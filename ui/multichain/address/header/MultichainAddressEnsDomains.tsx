@@ -15,10 +15,13 @@ import useLazyLoadedList from 'ui/shared/pagination/useLazyLoadedList';
 const DomainsGrid = ({ data }: { data: Array<multichain.Domain> }) => {
   return (
     <div
-      templateColumns={{ base: `repeat(${ clamp(data.length, 1, 2) }, 1fr)`, lg: `repeat(${ clamp(data.length, 1, 3) }, 1fr)` }}
-      columnGap={ 3 }
-      rowGap="14px"
-      mt={ 2 }
+      className="mt-2"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${ clamp(data.length, 1, 2) }, 1fr)`,
+        columnGap: '12px',
+        rowGap: '14px',
+      }}
     >
       { data.map((domain) => <EnsEntity key={ domain.name } domain={ domain.name } protocol={ domain.protocol } noLink/>) }
     </div>
@@ -67,7 +70,7 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
               className="font-medium shrink-0 gap-x-1"
               loadingSkeleton={ isLoading }
             >
-              <IconSvg name="ENS" boxSize={ 5 }/>
+              <IconSvg name="ENS" className="w-5 h-5"/>
               <span className="hidden xl:inline">{ totalRecords }{ totalRecordsPostfix } Domain{ totalRecords > 1 ? 's' : '' }</span>
               <span className="inline xl:hidden">{ totalRecords }{ totalRecordsPostfix }</span>
             </Button>
@@ -77,13 +80,13 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
       <PopoverContent className="lg:w-[500px] max-h-[400px] overflow-y-auto" ref={ rootRef }>
         <PopoverBody className="text-sm flex flex-col gap-y-5 items-start">
           { mainDomain && (
-            <div w="100%">
+            <div className="w-full">
               <span className="text-[var(--color-text-secondary)] text-xs">Primary*</span>
-              <div alignItems="center" textStyle="md" mt={ 2 }>
+              <div className="flex items-center text-base mt-2">
                 <EnsEntity
                   domain={ mainDomain.name }
                   protocol={ mainDomain.protocol }
-                  fontWeight={ 600 }
+                  className="font-semibold"
                   noCopy
                   noLink
                 />
@@ -97,14 +100,14 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
             </div>
           ) }
 
-          { isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
+          { isFetching && <ContentLoader className="max-w-[200px] mt-3"/> }
 
-          { isError && <span color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</span> }
+          { isError && <span className="text-[var(--color-text-error)] mt-3">Something went wrong. Unable to load next page.</span> }
 
-          <div h="0" w="100px" ref={ cutRef }/>
+          <div className="h-0 w-[100px]" ref={ cutRef }/>
 
           { mainDomain && (
-            <span className="text-xs" mt={ -1 }>
+            <span className="text-xs -mt-1">
               *A domain name is not necessarily held by a person popularly associated with the name
             </span>
           ) }

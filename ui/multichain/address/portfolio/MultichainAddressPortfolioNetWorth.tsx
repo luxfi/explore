@@ -56,14 +56,15 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
           { topTokens.map((token, index) => (
             <div
               key={ token.symbol }
-              h="100%"
-              w={ `${ token.share * 100 }%` }
-              bgColor={ getBgColor(token.symbol === 'Others' ? 2 : index) }
-              minW="1px"
+              className="h-full min-w-px"
+              style={{
+                width: `${ token.share * 100 }%`,
+                backgroundColor: `var(--color-${ getBgColor(token.symbol === 'Others' ? 2 : index)._light })`,
+              }}
             />
           )) }
         </Skeleton>
-        <div flexWrap="wrap">
+        <div className="flex flex-wrap">
           { topTokens.map((token, index) => (
             <div key={ token.symbol }>
               <Skeleton
@@ -87,29 +88,17 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
   })();
 
   return (
-    <div alignItems="center" w="full" h={{ base: 'auto', lg: '100px' }}>
+    <div className="flex items-center w-full h-auto lg:h-[100px]">
       <div
-        flexGrow={ 1 }
-        borderRadius="base"
-        overflow="hidden"
-        h="100%"
-        rowGap="1px"
+        className="flex-grow rounded-[var(--radius-base,8px)] overflow-hidden h-full flex flex-col gap-px"
       >
         <div
-          alignItems={{ base: 'flex-start', lg: 'center' }}
-          bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-          flexBasis="50%"
-          w="full"
-          p={ 3 }
-          gap={ 3 }
-          whiteSpace="pre"
-          flexDirection={{ base: 'column', lg: 'row' }}
-          textStyle="sm"
+          className="flex flex-col lg:flex-row items-start lg:items-center bg-black/5 dark:bg-white/10 basis-1/2 w-full p-3 gap-3 whitespace-pre text-sm"
         >
-          <div alignItems="center">
-            <IconSvg name="wallet" boxSize={ 5 } flexShrink={ 0 } color="icon.primary"/>
-            <span ml={ 2 } fontWeight={ 500 }>Total net worth</span>
-            <span color="text.secondary"> (without NFT)</span>
+          <div className="flex items-center">
+            <IconSvg name="wallet" className="w-5 h-5 shrink-0 text-[var(--color-icon-primary)]"/>
+            <span className="ml-2 font-medium">Total net worth</span>
+            <span className="text-[var(--color-text-secondary)]"> (without NFT)</span>
           </div>
           <div >
             <SimpleValue
@@ -121,8 +110,8 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
             />
             { multichainBalanceFeature.isEnabled && (
               <>
-                <Separator mx={ 3 } height="16px" orientation="vertical"/>
-                <div gap={ 3 }>
+                <Separator className="mx-3 h-4" orientation="vertical"/>
+                <div className="flex gap-3">
                   { multichainBalanceFeature.providers.map((item) => (
                     <AddressMultichainButton
                       key={ item.name }
@@ -137,19 +126,12 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
           </div>
         </div>
         <div
-          alignItems={{ base: 'flex-start', lg: 'center' }}
-          bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-          flexBasis="50%"
-          w="full"
-          p={ 3 }
-          gap={ 3 }
-          flexDirection={{ base: 'column', lg: 'row' }}
-          textStyle="xs"
+          className="flex flex-col lg:flex-row items-start lg:items-center bg-black/5 dark:bg-white/10 basis-1/2 w-full p-3 gap-3 text-xs"
         >
           { topTokensContent }
         </div>
       </div>
-      { !isMobile && <AdBanner format="mobile" w="fit-content"/> }
+      { !isMobile && <AdBanner format="mobile" className="w-fit"/> }
     </div>
   );
 };

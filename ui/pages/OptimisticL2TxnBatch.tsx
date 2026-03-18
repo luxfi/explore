@@ -92,7 +92,7 @@ const OptimisticL2TxnBatch = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle
         title={ `Batch #${ batchQuery.data?.number }` }
         isLoading={ batchQuery.isPlaceholderData }

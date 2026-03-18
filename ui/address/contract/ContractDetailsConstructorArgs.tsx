@@ -31,8 +31,7 @@ const DecodedItemValue = ({ value, type, addressTruncation = 'dynamic' }: Decode
       <AddressEntity
         address={{ hash: value }}
         noIcon
-        display="inline-flex"
-        maxW="100%"
+        className="inline-flex max-w-full"
         truncation={ addressTruncation }
       />
     );

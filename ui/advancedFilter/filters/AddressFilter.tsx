@@ -60,7 +60,7 @@ function addressFilterToKey(filter: AddressFilter) {
 
 const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onClear, isLast, onAddFieldClick, isInvalid }: InputProps) => {
   return (
-    <div className="flex" alignItems="flex-start" w="100%">
+    <div className="flex w-full items-[flex-start]">
       <Select
         collection={ collection }
         placeholder="Select mode"
@@ -168,7 +168,7 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
       onReset={ onReset }
       hasReset
     >
-      <div className="flex flex-col" gap={ 2 }>
+      <div className="flex flex-col gap-2">
         { currentValue.map((item, index) => (
           <AddressFilterInput
             key={ index }

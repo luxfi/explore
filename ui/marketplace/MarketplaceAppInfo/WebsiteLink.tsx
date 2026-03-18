@@ -20,7 +20,7 @@ const WebsiteLink = ({ url }: Props) => {
       href={ url }
       className="inline-flex items-center gap-x-1 mt-3"
     >
-      <IconSvg name="link" boxSize={ 5 } color="icon.primary"/>
+      <IconSvg name="link" className="w-5 h-5 text-[var(--color-icon-primary)]"/>
       <span>{ makePrettyLink(url)?.domain }</span>
     </Link>
   );

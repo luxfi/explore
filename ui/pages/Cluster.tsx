@@ -24,7 +24,7 @@ const Cluster = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle title="Cluster details"/>
       <ClusterDetails
         clusterData={ clusterData }

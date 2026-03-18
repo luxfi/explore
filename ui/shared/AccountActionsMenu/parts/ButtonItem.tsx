@@ -24,7 +24,7 @@ const ButtonItem = ({ className, label, onClick, icon, isDisabled }: Props) => {
         variant="icon_background"
         size="md"
       >
-        { typeof icon === 'string' ? <IconSvg name={ icon } boxSize={ 6 }/> : icon }
+        { typeof icon === 'string' ? <IconSvg name={ icon } className="w-6 h-6"/> : icon }
       </IconButton>
     </Tooltip>
   );

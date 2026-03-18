@@ -76,7 +76,7 @@ const VerifiedAddressesTableItem = ({ item, application, onAdd, onEdit, isLoadin
         <AddressEntity
           address={{ hash: item.contractAddress, is_contract: true }}
           isLoading={ isLoading }
-          fontWeight="600"
+          className="font-semibold"
         />
       </TableCell>
       <TableCell fontSize="sm" verticalAlign="middle" pr={ 1 }>

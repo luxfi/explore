@@ -262,9 +262,7 @@ test('customization', async({ render }) => {
     <AddressEntity
       address={ addressMock.withoutName }
       truncation="constant"
-      p={ 3 }
-      borderWidth="1px"
-      borderColor="blue.700"
+      className="p-3 border border-blue-700"
     />,
   );
 

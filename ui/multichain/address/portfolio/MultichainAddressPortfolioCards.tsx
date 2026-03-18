@@ -89,11 +89,11 @@ const MultichainAddressPortfolioCards = ({ isLoading, selectedChainId, onChange,
 
   const text: [React.ReactNode, React.ReactNode] = [
     <>
-      <IconSvg name="plus" boxSize={{ base: '8px', lg: '10px' }} mr={ 0.5 }/>
+      <IconSvg name="plus" className="w-2 h-2 lg:w-2.5 lg:h-2.5 mr-0.5"/>
       <span>show more</span>
     </>,
     <>
-      <IconSvg name="minus" boxSize={{ base: '8px', lg: '10px' }} mr={ 0.5 }/>
+      <IconSvg name="minus" className="w-2 h-2 lg:w-2.5 lg:h-2.5 mr-0.5"/>
       <span>show less</span>
     </>,
   ];

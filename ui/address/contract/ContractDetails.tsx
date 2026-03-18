@@ -22,8 +22,8 @@ import ContractDetailsInfoCreator from './info/ContractDetailsInfoCreator';
 import ContractDetailsInfoImplementations from './info/ContractDetailsInfoImplementations';
 import useContractDetailsTabs from './useContractDetailsTabs';
 
-const TAB_LIST_PROPS = { flexWrap: 'wrap', rowGap: 2 };
-const LEFT_SLOT_PROPS = { w: { base: '100%', lg: 'auto' } };
+const TAB_LIST_PROPS = { className: 'flex-wrap gap-y-2' };
+const LEFT_SLOT_PROPS = { className: 'w-full lg:w-auto' };
 
 type Props = {
   addressData: Address;
@@ -80,7 +80,7 @@ const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => 
       items={ sourceItems }
       selectedItem={ selectedItem }
       onItemSelect={ setSelectedItem }
-      mr={{ lg: 8 }}
+      className="lg:mr-8"
     />
   ) : null;
 
@@ -100,7 +100,7 @@ const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => 
         />
       ) }
       { !mainContractQuery.data?.is_verified && multichainContext && (
-        <div className="grid" templateColumns={{ base: 'auto 1fr', lg: 'auto 1fr auto 1fr' }} rowGap={ 4 } columnGap={ 3 } mb={ 8 } _empty={{ display: 'none' }}>
+        <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr_auto_1fr] gap-y-4 gap-x-3 mb-8 empty:hidden">
           { addressData.creator_address_hash && addressData.creation_transaction_hash && (
             <ContractDetailsInfoCreator
               addressHash={ addressData.creator_address_hash }

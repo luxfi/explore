@@ -28,9 +28,9 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
   const multichainContext = useMultichainContext();
 
   const contractNameWithCertifiedIcon = data ? (
-    <div className="flex" alignItems="center">
+    <div className="flex items-center">
       { data.name }
-      { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 } ml={ 2 }/> }
+      { data.certified && <ContractCertifiedLabel iconSize={ 5 } className="ml-2"/> }
     </div>
   ) : null;
 
@@ -71,7 +71,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
   const isStylusContract = data.language === 'stylus_rust';
 
   return (
-    <div className="grid" templateColumns={{ base: 'auto 1fr', lg: 'auto 1fr auto 1fr' }} rowGap={ 4 } columnGap={ 3 } mb={ 8 }>
+    <div className="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr_auto_1fr] gap-y-4 gap-x-3 mb-8">
       { addressData.creator_address_hash && addressData.creation_transaction_hash && multichainContext && (
         <ContractDetailsInfoCreator
           addressHash={ addressData.creator_address_hash }
@@ -113,8 +113,8 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       { data.evm_version && (
         <ContractDetailsInfoItem
           label="EVM version"
-          textTransform="capitalize"
           isLoading={ isLoading }
+          className="capitalize"
         >
           { data.evm_version }
         </ContractDetailsInfoItem>
@@ -155,7 +155,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       { data.verified_at && (
         <ContractDetailsInfoItem
           label="Verified at"
-          wordBreak="break-word"
+          className="break-words"
           isLoading={ isLoading }
         >
           <Time timestamp={ data.verified_at } format="lll_s"/>
@@ -164,7 +164,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
       { data.file_path && !isStylusContract && (
         <ContractDetailsInfoItem
           label="Contract file path"
-          wordBreak="break-word"
+          className="break-words"
           isLoading={ isLoading }
         >
           { data.file_path }

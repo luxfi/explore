@@ -27,8 +27,7 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntityL1
           number={ item.block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="text-sm font-semibold"
           noIcon
         />
       </TableCell>
@@ -43,7 +42,7 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
           hash={ item.l1_transaction_hash }
           truncation="constant_long"
           noIcon
-          textStyle="sm"
+          className="text-sm"
           noCopy
         />
       </TableCell>
@@ -59,7 +58,7 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
           <TxEntity
             isLoading={ isLoading }
             hash={ item.l2_transaction_hash }
-            textStyle="sm"
+            className="text-sm"
             truncation="constant_long"
             noIcon
           />

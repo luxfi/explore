@@ -43,7 +43,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
     }
   })();
 
-  const dashElement = <span color="text.secondary" lineHeight="24px">{ mdash }</span>;
+  const dashElement = <span className="text-[var(--color-text-secondary)] leading-6">{ mdash }</span>;
 
   return (
     <TableRow>
@@ -59,7 +59,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
         </TableCell>
       ) }
       <TableCell>
-        <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } lineHeight="24px" fontWeight={ 700 }/>
+        <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } className="leading-6 font-bold"/>
       </TableCell>
       <TableCell>
         <TimeWithTooltip
@@ -67,8 +67,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
           isLoading={ isLoading }
           enableIncrement
           color="text.secondary"
-          lineHeight="24px"
-          whiteSpace="nowrap"
+          className="leading-6 whitespace-nowrap"
         />
       </TableCell>
       <TableCell maxW="150px">
@@ -80,14 +79,12 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
             truncation="constant"
             noIcon
             currentAddress={ currentAddress }
-            lineHeight="24px"
-            maxW="100%"
-            w="fit-content"
+            className="leading-6 max-w-full w-fit"
           />
         ) : dashElement }
       </TableCell>
       <TableCell maxW="150px">
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -95,19 +92,19 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               isLoading={ isLoading }
               noIcon
               truncation="constant"
-              lineHeight="24px"
+              className="leading-6"
             />
           ) : dashElement }
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs gap-1"
-            fallback={ data.source_transaction_hash ? <span color="text.secondary">{ mdash }</span> : null }
+            fallback={ data.source_transaction_hash ? <span className="text-[var(--color-text-secondary)]">{ mdash }</span> : null }
           />
         </div>
       </TableCell>
       <TableCell maxW="150px">
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -115,14 +112,14 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               isLoading={ isLoading }
               noIcon
               truncation="constant"
-              lineHeight="24px"
+              className="leading-6"
             />
           ) : dashElement }
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs gap-1"
-            fallback={ data.destination_transaction_hash ? <span color="text.secondary">{ mdash }</span> : null }
+            fallback={ data.destination_transaction_hash ? <span className="text-[var(--color-text-secondary)]">{ mdash }</span> : null }
           />
         </div>
       </TableCell>
@@ -144,7 +141,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
         ) }
       </TableCell>
       <TableCell maxW="150px">
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           {
             firstTransfer?.sender ? (
               <AddressEntityInterchain
@@ -154,8 +151,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
                 truncation="constant"
                 noIcon
                 currentAddress={ currentAddress }
-                lineHeight="24px"
-                maxW="100%"
+                className="leading-6 max-w-full"
               />
             ) : dashElement
           }
@@ -165,8 +161,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               amount={ firstTransfer.source_amount }
               chain={ firstTransfer.source_chain }
               loading={ isLoading }
-              textStyle="xs"
-              color="text.secondary"
+              className="text-xs text-[var(--color-text-secondary)]"
             />
           ) }
           { data.transfers.length > 1 && (
@@ -181,10 +176,10 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
         </div>
       </TableCell>
       <TableCell>
-        <AddressFromToIcon type="unspecified" isLoading={ isLoading } mt={ 0.5 }/>
+        <AddressFromToIcon type="unspecified" isLoading={ isLoading } className="mt-0.5"/>
       </TableCell>
       <TableCell maxW="150px">
-        <div alignItems="start">
+        <div className="flex flex-col items-start">
           {
             firstTransfer?.recipient ? (
               <AddressEntityInterchain
@@ -194,8 +189,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
                 truncation="constant"
                 noIcon
                 currentAddress={ currentAddress }
-                lineHeight="24px"
-                maxW="100%"
+                className="leading-6 max-w-full"
               />
             ) : dashElement
           }
@@ -205,8 +199,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               amount={ firstTransfer.destination_amount }
               chain={ firstTransfer.destination_chain }
               loading={ isLoading }
-              textStyle="xs"
-              color="text.secondary"
+              className="text-xs text-[var(--color-text-secondary)]"
             />
           ) }
         </div>

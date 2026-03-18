@@ -14,7 +14,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import MultichainTxsLocal, { MULTICHAIN_TXS_LOCAL_TAB_IDS } from './MultichainTxsLocal';
 
 const TABS_RIGHT_SLOT_PROPS = {
-  ml: { base: 'auto', lg: 6 },
+  className: 'ml-auto lg:ml-6',
 };
 const QUERY_PRESERVED_PARAMS = [ 'tab' ];
 

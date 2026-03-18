@@ -27,9 +27,7 @@ const Burger = ({ isMarketplaceAppPage }: Props) => {
         <IconButton onClick={ onOpen } className="p-2" aria-label="Menu button">
           <IconSvg
             name="burger"
-            boxSize={ 6 }
-            display="block"
-            color={{ _light: 'gray.600', _dark: 'white' }}
+            className="w-6 h-6 block text-gray-600 dark:text-white"
           />
         </IconButton>
       </DrawerTrigger>

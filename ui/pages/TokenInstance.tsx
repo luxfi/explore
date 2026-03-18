@@ -134,7 +134,7 @@ const TokenInstanceContent = () => {
 
   return (
     <MetadataUpdateProvider>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
 
       <TokenInstancePageTitle
         isLoading={ isLoading }

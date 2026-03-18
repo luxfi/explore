@@ -39,9 +39,9 @@ const Stats = () => {
   }, [ statsQuery.data ]);
 
   return (
-    <div mt={ 6 } gap={ 2 } flexDirection={{ base: 'column', lg: 'row' }}>
+    <div className="flex flex-col lg:flex-row mt-6 gap-2">
       { items.length > 0 && (
-        <div gap={ 2 } flexDirection={{ base: 'row', lg: 'column' }} w={{ base: '100%', lg: '270px' }}>
+        <div className="flex flex-row lg:flex-col gap-2 w-full lg:w-[270px]">
           { items.map((item) => (
             <StatsWidget
               key={ item.id }
@@ -50,7 +50,7 @@ const Stats = () => {
               icon={ item.icon }
               isLoading={ statsQuery.isPlaceholderData }
               hint={ item.hint }
-              w={{ base: 'calc((100% - 8px) / 2)', lg: '100%' }}
+              className="w-[calc((100%-8px)/2)] lg:w-full"
             />
           )) }
         </div>

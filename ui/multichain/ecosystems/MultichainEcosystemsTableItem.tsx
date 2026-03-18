@@ -125,7 +125,7 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
                 className="bg-black/5 dark:bg-white/5"
                 loadingSkeleton={ isLoading }
               >
-                <IconSvg name={ walletIcon } boxSize={ 5 }/>
+                <IconSvg name={ walletIcon } className="w-5 h-5"/>
               </IconButton>
             </Tooltip>
           ) : <div className="w-8 h-8"/> }

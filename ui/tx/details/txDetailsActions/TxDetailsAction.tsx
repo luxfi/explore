@@ -66,7 +66,7 @@ const TxDetailsAction = ({ action }: Props) => {
             noCopy
             noIcon
             noSymbol
-            w="auto"
+            className="w-auto"
           />
 
           <span className="text-[var(--color-text-secondary)]">{ type === 'swap' ? 'for' : 'and' }</span>
@@ -79,13 +79,13 @@ const TxDetailsAction = ({ action }: Props) => {
             noIcon
             noCopy
             noSymbol
-            w="auto"
+            className="w-auto"
           />
 
           <span className="text-[var(--color-text-secondary)]">{ text1 }</span>
 
           <div>
-            <IconSvg name="uniswap" color="white" p="2px"/>
+            <IconSvg name="uniswap" className="text-white p-[2px]"/>
             <span>Uniswap V3</span>
           </div>
         </div>
@@ -110,7 +110,7 @@ const TxDetailsAction = ({ action }: Props) => {
             <TokenEntity
               token={ token }
               noCopy
-              w="auto"
+              className="w-auto"
             />
 
             <span className="text-[var(--color-text-secondary)]">to</span>
@@ -130,7 +130,7 @@ const TxDetailsAction = ({ action }: Props) => {
                   <div key={ data.address + id }>
                     <span>1</span>
                     <span className="text-[var(--color-text-secondary)]">of token ID</span>
-                    <NftEntity hash={ data.address } id={ id } w="min-content" variant="content"/>
+                    <NftEntity hash={ data.address } id={ id } className="w-min" variant="content"/>
                   </div>
                 );
               })

@@ -39,9 +39,7 @@ const EpochElectionRewardsTableItem = ({ isLoading, data, type }: Props) => {
               >
                 <IconSvg
                   name="arrows/east-mini"
-                  boxSize={ 6 }
-                  transform={ section.open ? 'rotate(270deg)' : 'rotate(180deg)' }
-                  transitionDuration="faster"
+                  className={ `w-6 h-6 transition-transform duration-100 ${ section.open ? 'rotate-[270deg]' : 'rotate-180' }` }
                 />
               </IconButton>
             </Skeleton>

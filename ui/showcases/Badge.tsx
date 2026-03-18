@@ -126,7 +126,7 @@ const BadgeShowcase = () => {
         <SectionHeader>Icon</SectionHeader>
         <SamplesStack>
           <Sample label="iconStart: status/success">
-            <Badge startElement={ <IconSvg name="status/success" boxSize={ 2.5 }/> }>
+            <Badge startElement={ <IconSvg name="status/success" className="w-2.5 h-2.5"/> }>
               Content
             </Badge>
           </Sample>

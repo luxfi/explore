@@ -48,7 +48,7 @@ const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props
     if (icon) {
       return (
         <div className="flex items-center justify-center min-w-6">
-          <IconSvg boxSize={ iconSize || 5 } name={ icon }/>
+          <IconSvg name={ icon } style={{ width: iconSize || '20px', height: iconSize || '20px' }}/>
         </div>
       );
     }

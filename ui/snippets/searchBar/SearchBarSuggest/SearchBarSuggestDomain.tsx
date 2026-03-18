@@ -33,7 +33,7 @@ const SearchBarSuggestDomain = ({ data, isMobile, searchTerm, addressFormat }: I
   ) : null;
 
   const isContractVerified = 'is_smart_contract_verified' in data && data.is_smart_contract_verified &&
-    <IconSvg name="status/success" boxSize="14px" color="green.500" flexShrink={ 0 }/>;
+    <IconSvg name="status/success" className="w-3.5 h-3.5 text-[var(--color-green-500)] shrink-0"/>;
 
   const namesCount = 'names_count' in data.ens_info ? data.ens_info.names_count : 0;
 

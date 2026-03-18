@@ -21,22 +21,22 @@ interface Props {
 const InteropMessagesListItem = ({ item, isLoading }: Props) => {
   return (
     <ListItemMobile className="!gap-y-2">
-      <div alignItems="center" justifyContent="space-between" w="100%">
+      <div className="flex items-center justify-between w-full">
         <InteropMessageStatus status={ item.status } isLoading={ isLoading }/>
         <InteropMessageAdditionalInfo payload={ item.payload } isLoading={ isLoading }/>
       </div>
-      <div alignItems="flex-start" flexDirection="column" gap={ 2 } w="100%">
-        <div w="100%">
-          <span fontWeight={ 500 } flexGrow={ 1 }>#{ item.nonce }</span>
+      <div className="flex flex-col items-start gap-2 w-full">
+        <div className="flex w-full">
+          <span className="font-medium grow">#{ item.nonce }</span>
           <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary"/>
         </div>
-        <div templateColumns="120px 1fr" rowGap={ 2 }>
-          <span as="span" color="text.secondary">Source tx</span>
+        <div className="grid grid-cols-[120px_1fr] gap-y-2">
+          <span className="text-[var(--chakra-colors-text-secondary)]">Source tx</span>
           <InteropMessageSourceTx { ...item } isLoading={ isLoading }/>
-          <span as="span" color="text.secondary">Destination tx</span>
+          <span className="text-[var(--chakra-colors-text-secondary)]">Destination tx</span>
           <InteropMessageDestinationTx { ...item } isLoading={ isLoading }/>
         </div>
-        <div gap={ 2 } justifyContent="space-between" mt={ 2 }>
+        <div className="flex gap-2 justify-between mt-2">
           { item.init_chain !== undefined ? (
             <AddressEntityInterop
               chain={ item.init_chain }

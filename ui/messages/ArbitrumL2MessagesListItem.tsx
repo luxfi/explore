@@ -19,107 +19,26 @@ import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
 import type { MessagesDirection } from './ArbitrumL2Messages';
 
 const rollupFeature = config.features.rollup;
-
 type Props = { item: ArbitrumL2MessagesItem; isLoading?: boolean; direction: MessagesDirection };
 
 const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
-  if (!rollupFeature.isEnabled || rollupFeature.type !== 'arbitrum') {
-    return null;
-  }
-
+  if (!rollupFeature.isEnabled || rollupFeature.type !== 'arbitrum') { return null; }
   const l1TxHash = direction === 'from-rollup' ? item.completion_transaction_hash : item.origination_transaction_hash;
   const l2TxHash = direction === 'from-rollup' ? item.origination_transaction_hash : item.completion_transaction_hash;
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="110px auto">
-
-      { direction === 'to-rollup' && (
-        <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } block</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value>
-            { item.origination_transaction_block_number ? (
-              <BlockEntityL1
-                number={ item.origination_transaction_block_number }
-                isLoading={ isLoading }
-                fontWeight={ 600 }
-              />
-            ) : <span>N/A</span> }
-          </ListItemMobileGrid.Value>
-        </>
-      ) }
-
-      { direction === 'from-rollup' && (
-        <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>From</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value>
-            <AddressEntity
-              address={{ hash: item.origination_address_hash }}
-              truncation="constant"
-              isLoading={ isLoading }
-              fontWeight={ 600 }
-            />
-          </ListItemMobileGrid.Value>
-        </>
-      ) }
-
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '110px auto' }}>
+      { direction === 'to-rollup' && (<><ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } block</ListItemMobileGrid.Label><ListItemMobileGrid.Value>{ item.origination_transaction_block_number ? (<BlockEntityL1 number={ item.origination_transaction_block_number } isLoading={ isLoading } className="font-semibold"/>) : <span>N/A</span> }</ListItemMobileGrid.Value></>) }
+      { direction === 'from-rollup' && (<><ListItemMobileGrid.Label isLoading={ isLoading }>From</ListItemMobileGrid.Label><ListItemMobileGrid.Value><AddressEntity address={{ hash: item.origination_address_hash }} truncation="constant" isLoading={ isLoading } className="font-semibold"/></ListItemMobileGrid.Value></>) }
       <ListItemMobileGrid.Label isLoading={ isLoading }>Message #</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value>
-        <Skeleton loading={ isLoading } display="inline-block">
-          { item.id }
-        </Skeleton>
-      </ListItemMobileGrid.Value>
-
+      <ListItemMobileGrid.Value><Skeleton loading={ isLoading } display="inline-block">{ item.id }</Skeleton></ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.current } transaction</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value>
-        { l2TxHash ? (
-          <TxEntity
-            isLoading={ isLoading }
-            hash={ l2TxHash }
-            truncation="constant_long"
-          />
-        ) : (
-          <span>
-            N/A
-          </span>
-        ) }
-      </ListItemMobileGrid.Value>
-
-      { item.origination_timestamp && (
-        <>
-          <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>
-          <ListItemMobileGrid.Value>
-            <TimeWithTooltip
-              timestamp={ item.origination_timestamp }
-              isLoading={ isLoading }
-              display="inline-block"
-            />
-          </ListItemMobileGrid.Value>
-        </>
-      ) }
-
+      <ListItemMobileGrid.Value>{ l2TxHash ? <TxEntity isLoading={ isLoading } hash={ l2TxHash } truncation="constant_long"/> : <span>N/A</span> }</ListItemMobileGrid.Value>
+      { item.origination_timestamp && (<><ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label><ListItemMobileGrid.Value><TimeWithTooltip timestamp={ item.origination_timestamp } isLoading={ isLoading } display="inline-block"/></ListItemMobileGrid.Value></>) }
       <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value>
-        { item.status === 'confirmed' && direction === 'from-rollup' ?
-          <Link href={ route({ pathname: '/txn-withdrawals', query: { q: item.origination_transaction_hash } }) }>Ready for relay</Link> :
-          <ArbitrumL2MessageStatus status={ item.status } isLoading={ isLoading }/> }
-      </ListItemMobileGrid.Value>
-
+      <ListItemMobileGrid.Value>{ item.status === 'confirmed' && direction === 'from-rollup' ? <Link href={ route({ pathname: '/txn-withdrawals', query: { q: item.origination_transaction_hash } }) }>Ready for relay</Link> : <ArbitrumL2MessageStatus status={ item.status } isLoading={ isLoading }/> }</ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>{ layerLabels.parent } transaction</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value>
-        { l1TxHash ? (
-          <TxEntityL1
-            isLoading={ isLoading }
-            hash={ l1TxHash }
-            truncation="constant_long"
-            noCopy
-          />
-        ) : (
-          <span>
-            N/A
-          </span>
-        ) }
-      </ListItemMobileGrid.Value>
-
+      <ListItemMobileGrid.Value>{ l1TxHash ? <TxEntityL1 isLoading={ isLoading } hash={ l1TxHash } truncation="constant_long" noCopy/> : <span>N/A</span> }</ListItemMobileGrid.Value>
     </ListItemMobileGrid.Container>
   );
 };

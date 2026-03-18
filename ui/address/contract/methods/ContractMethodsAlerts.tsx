@@ -15,7 +15,7 @@ interface Props {
 
 const ContractMethodsAlerts = ({ isLoading, isCustomAbi, proxyType, conflictingImplementations }: Props) => {
   return (
-    <div className="flex flex-col" gap={ 1 } alignItems="stretch">
+    <div className="flex flex-col gap-1 items-stretch">
       <ConnectWalletAlert isLoading={ isLoading }/>
       { proxyType && <ContractCodeProxyPattern isLoading={ isLoading } type={ proxyType } conflictingImplementations={ conflictingImplementations }/> }
       { isCustomAbi && <ContractCustomAbiAlert isLoading={ isLoading }/> }

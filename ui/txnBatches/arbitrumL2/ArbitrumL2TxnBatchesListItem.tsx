@@ -26,14 +26,14 @@ const ArbitrumL2TxnBatchesListItem = ({ item, isLoading }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="110px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '110px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Batch #</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 

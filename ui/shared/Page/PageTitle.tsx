@@ -2,6 +2,7 @@ import { debounce } from 'es-toolkit';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import { Heading } from 'toolkit/chakra/heading';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -67,10 +68,9 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
   }, [ tooltip ]);
 
   return (
-    <div className="flex flex-col gap-y-3 mb-6" className={ className }>
-      <div className="flex items-center flex-row flex-wrap gap-x-3 gap-y-3"
-      >
-        <div className="flex items-center" h={{ base: 'auto', lg: isLoading ? 10 : 'auto' }} maxW="100%">
+    <div className={ cn('flex flex-col gap-y-3 mb-6', className) }>
+      <div className="flex items-center flex-row flex-wrap gap-x-3 gap-y-3">
+        <div className={ cn('flex items-center max-w-full', isLoading ? 'h-auto lg:h-10' : 'h-auto') }>
           { beforeTitle }
           <Skeleton
             loading={ isLoading }
@@ -105,7 +105,7 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
           { afterTitle }
         </div>
         { contentAfter }
-        { withTextAd && <TextAd order={{ base: -1, lg: 100 }} mb={{ base: 6, lg: 0 }} ml="auto" w={{ base: '100%', lg: 'auto' }}/> }
+        { withTextAd && <TextAd className="order-[-1] lg:order-[100] mb-6 lg:mb-0 ml-auto w-full lg:w-auto"/> }
       </div>
       { secondRow && (
         <Skeleton loading={ isLoading } alignItems="center" display="flex" className="min-h-10 overflow-hidden empty:hidden">

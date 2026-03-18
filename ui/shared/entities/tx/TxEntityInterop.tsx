@@ -33,10 +33,7 @@ const IconStub = ({ isLoading }: { isLoading?: boolean }) => {
     >
       <IconSvg
         name="networks/icon-placeholder"
-        width="16px"
-        height="16px"
-        color="icon.primary"
-        display="block"
+        className="block w-4 h-4 text-[var(--color-icon-primary)]"
       />
     </Skeleton>
   );

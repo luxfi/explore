@@ -52,7 +52,7 @@ const EntityTagTooltip = ({ data, children }: Props) => {
 
   const content = (
     <div className="dark">
-      <div className="flex flex-col text-left gap-y-2 text-sm" _empty={{ display: 'none' }}>
+      <div className="flex flex-col text-left gap-y-2 text-sm empty:hidden">
         { (data.meta?.tooltipIcon || data.meta?.tooltipTitle) && (
           <div className="flex items-center gap-x-3">
             { data.meta?.tooltipIcon && <Image src={ data.meta.tooltipIcon } boxSize="30px" alt={ `${ data.name } tag logo` }/> }
@@ -64,7 +64,7 @@ const EntityTagTooltip = ({ data, children }: Props) => {
       </div>
       { attribution ? (
         <>
-          { (data.meta?.tooltipIcon || data.meta?.tooltipTitle || data.meta?.tooltipDescription || link) && <Separator mt={ 2 } mb={ 1 }/> }
+          { (data.meta?.tooltipIcon || data.meta?.tooltipTitle || data.meta?.tooltipDescription || link) && <Separator className="mt-2 mb-1"/> }
           <div className="flex items-center text-xs text-[var(--color-text-secondary)]">
             <span className="mr-2">Source:</span>
             { data.meta?.tooltipAttributionIcon && <Image src={ data.meta.tooltipAttributionIcon } boxSize={ 4 } mr={ 1 } zIndex={ 1 }/> }

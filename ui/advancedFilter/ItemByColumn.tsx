@@ -29,7 +29,7 @@ type Props = {
 const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
   switch (column) {
     case 'tx_hash':
-      return <TxEntity truncation="constant" hash={ item.hash } isLoading={ isLoading } noIcon fontWeight={ 700 }/>;
+      return <TxEntity truncation="constant" hash={ item.hash } isLoading={ isLoading } noIcon className="font-bold"/>;
     case 'type': {
       const type = getAdvancedFilterTypes(chainConfig).find(t => t.id === item.type);
       if (!type) {
@@ -40,10 +40,10 @@ const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
     case 'method':
       return item.method ? <Badge loading={ isLoading } truncated>{ item.method }</Badge> : null;
     case 'age':
-      return <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary" fontWeight={ 400 }/>;
+      return <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary" fontWeight="400"/>;
     case 'from':
       return (
-        <div className="flex" w="100%">
+        <div className="flex w-full">
           <AddressEntity address={ item.from } truncation="constant" isLoading={ isLoading }/>
         </div>
       );
@@ -53,7 +53,7 @@ const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
         return null;
       }
       return (
-        <div className="flex" w="100%">
+        <div className="flex w-full">
           <AddressEntity address={ address } truncation="constant" isLoading={ isLoading }/>
         </div>
       );
@@ -94,7 +94,7 @@ const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
     }
     case 'asset':
       return item.token ?
-        <TokenEntity token={ item.token } isLoading={ isLoading } fontWeight={ 700 } onlySymbol noCopy/> :
+        <TokenEntity token={ item.token } isLoading={ isLoading } className="font-bold" onlySymbol noCopy/> :
         <Skeleton loading={ isLoading } fontWeight={ 700 }>{ config.chain.currency.symbol }</Skeleton>;
     case 'fee':
       return (

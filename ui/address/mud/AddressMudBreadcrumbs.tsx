@@ -3,6 +3,7 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 import { isBrowser } from 'toolkit/utils/isBrowser';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -39,12 +40,8 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
 
   if (isLast) {
     return (
-      <div className="grid" gap={ 2 } overflow="hidden" templateColumns="auto 24px" alignItems="center">
-        <div
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-        >
+      <div className="grid items-center overflow-hidden gap-2" style={{ gridTemplateColumns: 'auto 24px' }}>
+        <div className="overflow-hidden whitespace-nowrap text-ellipsis">
           { text }
         </div>
         <CopyToClipboard text={ currentUrl } type="link" className="mx-0 text-[var(--color-icon-secondary)]"/>
@@ -53,7 +50,7 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
   }
 
   return (
-    <div className="grid" gap={ 2 } overflow="hidden" templateColumns="auto 24px" alignItems="center">
+    <div className="grid items-center overflow-hidden gap-2" style={{ gridTemplateColumns: 'auto 24px' }}>
       <Link
         href={ href }
         onClick={ onLinkClick }
@@ -61,7 +58,7 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
       >
         { text }
       </Link>
-      { !isLast && <IconSvg name="arrows/east" boxSize={ 6 } color={{ _light: 'gray.300', _dark: 'gray.600' }}/> }
+      { !isLast && <IconSvg name="arrows/east" className="w-6 h-6 text-gray-300 dark:text-gray-600"/> }
     </div>
   );
 };
@@ -74,16 +71,14 @@ const AddressMudBreadcrumbs = (props: TableViewProps | RecordViewProps) => {
 
   return (
     <div
-      display={ isMobile ? 'flex' : 'grid' }
-      flexWrap="wrap"
-      gridTemplateColumns="20px auto auto auto"
-      gap={ 2 }
-      alignItems="center"
-      className={ props.className }
-      width="fit-content"
-      fontSize="sm"
+      className={ cn(
+        isMobile ? 'flex flex-wrap' : 'grid',
+        'gap-2 items-center w-fit text-sm',
+        props.className,
+      ) }
+      style={ !isMobile ? { gridTemplateColumns: '20px auto auto auto' } : undefined }
     >
-      <IconSvg name="MUD" boxSize={ 5 } color={ addressQuery.data?.is_verified ? 'green.500' : 'icon.primary' }/>
+      <IconSvg name="MUD" className={ cn('w-5 h-5', addressQuery.data?.is_verified ? 'text-green-500' : 'text-[var(--color-icon-primary)]') }/>
       <BreadcrumbItem
         text="MUD World"
         href={ route({ pathname: '/address/[hash]', query: queryParams }) }
@@ -98,7 +93,6 @@ const AddressMudBreadcrumbs = (props: TableViewProps | RecordViewProps) => {
           text={ props.recordName }
           href={ route({ pathname: '/address/[hash]', query: { ...queryParams, table_id: props.tableId, record_id: props.recordId } }) }
           isLast
-
         />
       ) }
     </div>

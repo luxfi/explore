@@ -98,7 +98,7 @@ const Marketplace = () => {
 
     tabs.unshift({
       id: MarketplaceCategory.FAVORITES,
-      title: () => <IconSvg name="heart_filled" boxSize={ 5 }/>,
+      title: () => <IconSvg name="heart_filled" className="size-5"/>,
       count: favoriteApps.length,
       component: null,
     });
@@ -159,7 +159,7 @@ const Marketplace = () => {
               { links.map(({ label, href, icon }) => (
                 <MenuItem key={ label } value={ label } asChild>
                   <Link external href={ href } variant="menu" className="gap-0">
-                    <IconSvg name={ icon } boxSize={ 4 } mr={ 2 }/>
+                    <IconSvg name={ icon } className="size-4 mr-2"/>
                     { label }
                   </Link>
                 </MenuItem>
@@ -200,13 +200,7 @@ const Marketplace = () => {
 
       <ActionBar
         showShadow
-        display="flex"
-        flexDirection="column"
-        mt={ 0 }
-        mx={{ base: -3, lg: -12 }}
-        px={{ base: 3, lg: 12 }}
-        pt={{ base: 4, lg: 6 }}
-        pb={{ base: 4, lg: 3 }}
+        className="flex flex-col mt-0 -mx-3 lg:-mx-12 px-3 lg:px-12 pt-4 lg:pt-6 pb-4 lg:pb-3"
       >
         <AdaptiveTabs
           tabs={ categoryTabs }

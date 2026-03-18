@@ -59,7 +59,7 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, className
           <Skeleton loading={ isLoading } flexShrink={ 0 }>
             { dayjs(timestamp).fromNow() }
           </Skeleton>
-          <TextSeparator mx={ 0 }/>
+          <TextSeparator className="mx-0"/>
         </>
       ) }
       <div className="flex flex-row gap-1 items-center min-w-0">
@@ -84,7 +84,7 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, className
               selected={ !isLoading }
               loadingSkeleton={ isLoading }
             >
-              <IconSvg name="clock-light" boxSize="14px"/>
+              <IconSvg name="clock-light" className="w-[14px] h-[14px]"/>
             </IconButton>
           </SelectControl>
           <SelectContent>

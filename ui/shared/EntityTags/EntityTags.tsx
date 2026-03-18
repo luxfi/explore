@@ -91,7 +91,7 @@ const EntityTags = ({ tags, addressHash, className, isLoading, noColors }: Props
   })();
 
   return (
-    <div className="flex items-center flex-nowrap overflow-hidden gap-x-2 gap-y-2 grow" className={ className } maxW="100%">
+    <div className={ `flex items-center flex-nowrap overflow-hidden gap-x-2 gap-y-2 grow max-w-full ${ className || '' }` }>
       { content }
     </div>
   );

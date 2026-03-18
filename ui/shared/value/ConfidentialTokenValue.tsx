@@ -25,10 +25,7 @@ const ConfidentialTokenValue = ({ token, tokenEntityProps, loading, className, .
         token={ token }
         noCopy
         onlySymbol
-        flexShrink={ 0 }
-        w="fit-content"
-        ml={ 2 }
-        icon={{ marginRight: 1 }}
+        className="shrink-0 w-fit ml-2"
         isLoading={ loading }
         { ...tokenEntityProps }
       />

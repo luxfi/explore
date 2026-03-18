@@ -38,7 +38,7 @@ const SearchBarSuggestApp = ({ data, isMobile, searchTerm, onClick }: Props) => 
             <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis ml-2">
               <span dangerouslySetInnerHTML={{ __html: highlightText(data.title, searchTerm) }}/>
             </span>
-            { data.external && <IconSvg name="link_external" color="icon.secondary" boxSize={ 3 } verticalAlign="middle" flexShrink={ 0 }/> }
+            { data.external && <IconSvg name="link_external" className="w-3 h-3 align-middle shrink-0 text-[var(--color-icon-secondary)]"/> }
           </div>
           <p className="text-[var(--color-text-secondary)] line-clamp-3">
             { data.description }
@@ -58,10 +58,7 @@ const SearchBarSuggestApp = ({ data, isMobile, searchTerm, onClick }: Props) => 
         { data.external && (
           <IconSvg
             name="link_external"
-            color="icon.secondary"
-            boxSize={ 3 }
-            verticalAlign="middle"
-            flexShrink={ 0 }
+            className="w-3 h-3 align-middle shrink-0 text-[var(--color-icon-secondary)]"
           />
         ) }
       </div>

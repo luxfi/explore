@@ -249,7 +249,7 @@ const SearchResultsPageContent = () => {
             “<span className="font-bold">{ debouncedSearchTerm }</span>”
           </div>
           { resultsCount === 0 && regexp.BLOCK_HEIGHT.test(debouncedSearchTerm) &&
-            <SearchBarSuggestBlockCountdown blockHeight={ debouncedSearchTerm } mt={ -4 }/> }
+            <SearchBarSuggestBlockCountdown blockHeight={ debouncedSearchTerm } className="-mt-4"/> }
         </>
       );
     })();
@@ -261,7 +261,7 @@ const SearchResultsPageContent = () => {
     return (
       <>
         <div className="lg:hidden">{ text }</div>
-        <ActionBar mt={{ base: 0, lg: -6 }} alignItems="center">
+        <ActionBar className="mt-0 lg:-mt-6 items-center">
           <div className="hidden lg:block">{ text }</div>
           <Pagination { ...pagination }/>
         </ActionBar>
@@ -296,7 +296,7 @@ const SearchResultsPageContent = () => {
           <HeaderAlert/>
           <HeaderDesktop renderSearchBar={ renderSearchBar }/>
           <AppErrorBoundary>
-            <Layout.Content flexGrow={ 0 }>
+            <Layout.Content className="grow-0">
               { pageContent }
             </Layout.Content>
           </AppErrorBoundary>

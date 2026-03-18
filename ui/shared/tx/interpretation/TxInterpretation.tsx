@@ -77,10 +77,9 @@ const TxInterpretationElementByType = (
         <span className="inline-block align-top [&:not(:first-child)]:ml-1">
           <AddressEntity
             address={ addressDataMap?.[value.hash] || value }
-            icon={{ marginRight: 1 }}
             truncation="constant"
             onClick={ onAddressClick }
-            whiteSpace="initial"
+            className="whitespace-normal"
           />
         </span>
       );
@@ -90,13 +89,9 @@ const TxInterpretationElementByType = (
         <span className="inline-block align-top [&:not(:first-child)]:ml-1">
           <TokenEntity
             token={ value }
-            icon={{ marginRight: 1 }}
             onlySymbol
             noCopy
-            width="fit-content"
-            _notFirst={{ marginLeft: 1 }}
-            mr={ 2 }
-            whiteSpace="initial"
+            className="w-fit mr-2 whitespace-normal [&:not(:first-child)]:ml-1"
             onClick={ onTokenClick }
           />
         </span>
@@ -107,10 +102,7 @@ const TxInterpretationElementByType = (
           <span className="inline-block align-top [&:not(:first-child)]:ml-1">
             <EnsEntity
               domain={ value }
-              icon={{ marginRight: 1 }}
-              width="fit-content"
-              _notFirst={{ marginLeft: 1 }}
-              whiteSpace="initial"
+              className="w-fit whitespace-normal [&:not(:first-child)]:ml-1"
               onClick={ onDomainClick }
             />
           </span>
@@ -207,7 +199,7 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
     <Skeleton loading={ isLoading } className={ `${ className ?? '' } font-medium whitespace-pre-wrap`.trim() } fontWeight={ 500 }>
       <Tooltip content={ tooltipContent } contentProps={{ className: 'whitespace-pre-wrap' }}>
         <span className={ `inline-flex relative align-text-top ${ chainData ? 'mr-[14px]' : 'mr-1' }` }>
-          <IconSvg name="lightning" boxSize={ 5 } color="icon.primary"/>
+          <IconSvg name="lightning" className="size-5 text-[var(--color-icon-primary)]"/>
           { chainData && (
             <span className="absolute top-[6px] left-[12px] rounded-full border border-solid border-[var(--color-bg-primary)] bg-[var(--color-bg-primary)]">
               <ChainIcon

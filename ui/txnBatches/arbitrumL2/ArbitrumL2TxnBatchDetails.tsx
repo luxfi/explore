@@ -62,8 +62,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
 
   return (
     <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
         hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
@@ -75,7 +74,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
+          className="ml-6"
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -131,7 +130,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
         <TxEntityL1
           isLoading={ isPlaceholderData }
           hash={ data.commitment_transaction.hash }
-          maxW="100%"
+          className="max-w-full"
           noCopy
         />
       </DetailedInfo.ItemValue>
@@ -168,7 +167,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
       >
         Before acc
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexWrap="nowrap" >
+      <DetailedInfo.ItemValue className="flex-nowrap" >
         <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.before_acc_hash }/>
         </Skeleton>
@@ -181,7 +180,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
       >
         After acc
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexWrap="nowrap">
+      <DetailedInfo.ItemValue className="flex-nowrap">
         <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.after_acc_hash }/>
         </Skeleton>

@@ -87,7 +87,7 @@ const MethodFilter = ({ value = [], handleFilterChange }: Props) => {
       { Boolean(searchTerm) && methodsQuery.data?.length === 0 && <span>No results found.</span> }
       { methodsQuery.data && (
         // added negative margin because of checkbox focus styles & overflow hidden
-        <div className="flex" display="flex" flexDir="column" rowGap={ 3 } maxH="250px" overflowY="scroll">
+        <div className="flex flex-col overflow-y-scroll flex gap-y-3 max-h-[250px]">
           <CheckboxGroup
             value={ currentValue.length ? currentValue.map(i => i.method_id) : [ ] }
             orientation="vertical"
@@ -99,8 +99,8 @@ const MethodFilter = ({ value = [], handleFilterChange }: Props) => {
                 data-id={ method.method_id }
                 onChange={ handleChange }
               >
-                <div className="flex" justifyContent="space-between" alignItems="center" id={ method.method_id }>
-                  <span overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">{ method.name || method.method_id }</span>
+                <div className="flex items-center justify-between" id={ method.method_id }>
+                  <span className="overflow-hidden whitespace-nowrap text-ellipsis">{ method.name || method.method_id }</span>
                   <Badge colorPalette="gray" truncated className="ml-auto">
                     { method.method_id }
                   </Badge>

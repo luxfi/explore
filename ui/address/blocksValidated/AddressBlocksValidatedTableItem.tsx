@@ -27,8 +27,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
           isLoading={ props.isLoading }
           number={ props.height }
           noIcon
-          textStyle="sm"
-          fontWeight={ 700 }
+          className="text-sm font-bold"
         />
       </TableCell>
       <TableCell>
@@ -46,7 +45,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
         </Skeleton>
       </TableCell>
       <TableCell>
-        <div className="flex" alignItems="center" columnGap={ 2 }>
+        <div className="flex items-center gap-x-2">
           <Skeleton loading={ props.isLoading } flexBasis="80px">
             { BigNumber(props.gas_used || 0).toFormat() }
           </Skeleton>

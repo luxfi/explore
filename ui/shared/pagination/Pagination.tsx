@@ -41,7 +41,7 @@ const Pagination = (props: Props) => {
         disabled={ !canGoBackwards || isLoading || page === 1 }
         loadingSkeleton={ showSkeleton }
       >
-        <IconSvg name="arrows/east-mini" boxSize={ 5 }/>
+        <IconSvg name="arrows/east-mini" className="size-5"/>
       </IconButton>
       <Button
         variant="pagination"
@@ -60,7 +60,7 @@ const Pagination = (props: Props) => {
         disabled={ !hasNextPage || isLoading }
         loadingSkeleton={ showSkeleton }
       >
-        <IconSvg name="arrows/east-mini" boxSize={ 5 } className="rotate-180"/>
+        <IconSvg name="arrows/east-mini" className="size-5 rotate-180"/>
       </IconButton>
     </nav>
   );

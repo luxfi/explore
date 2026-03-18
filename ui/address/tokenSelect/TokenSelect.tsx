@@ -48,7 +48,7 @@ const TokenSelect = () => {
 
   if (isPending) {
     return (
-      <div className="flex" columnGap={ 3 }>
+      <div className="flex gap-x-3">
         <Skeleton loading={ true } h="32px" w="150px" borderRadius="base"/>
         <Skeleton loading={ true } h="32px" w="36px" borderRadius="base"/>
       </div>
@@ -57,11 +57,11 @@ const TokenSelect = () => {
 
   const hasTokens = sumBy(Object.values(data), ({ items }) => items.length) > 0;
   if (isError || !hasTokens) {
-    return <div py="6px">0</div>;
+    return <div className="py-[6px]">0</div>;
   }
 
   return (
-    <div className="flex" columnGap={ 3 } mt={{ base: 1, lg: 0 }}>
+    <div className="flex gap-x-3 mt-1 lg:mt-0">
       { isMobile ?
         <TokenSelectMobile data={ data } isLoading={ tokensIsFetching === 1 }/> :
         <TokenSelectDesktop data={ data } isLoading={ tokensIsFetching === 1 }/>

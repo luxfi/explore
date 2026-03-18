@@ -45,7 +45,7 @@ const SearchBarRecentKeywords = ({ onClick, onClear }: Props) => {
     <>
       { !isMobile && (
         <div className="pb-4 mb-5 border-b border-[var(--color-border-divider)] empty:hidden">
-          <TextAd textStyle={{ lg: 'sm' }}/>
+          <TextAd className="lg:text-sm"/>
         </div>
       ) }
       <div className="flex mb-3 justify-between text-sm">

@@ -39,8 +39,8 @@ const Home = () => {
           <Stats/>
           <ChainIndicators/>
         </div>
-        { !isMobile && config.UI.homepage.highlights && <Highlights mt={ 3 }/> }
-        { isMobile && <AdBanner mt={ 6 } mx="auto" justifyContent="center" format="mobile"/> }
+        { !isMobile && config.UI.homepage.highlights && <Highlights className="mt-3"/> }
+        { isMobile && <AdBanner className="mt-6 mx-auto justify-center" format="mobile"/> }
         <div className="flex mt-8 gap-x-12 gap-y-6 flex-col lg:flex-row">
           { leftWidget }
           <div className="flex grow">

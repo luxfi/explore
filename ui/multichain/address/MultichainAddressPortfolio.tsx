@@ -21,9 +21,7 @@ import MultichainAddressPortfolioTokens from './portfolio/MultichainAddressPortf
 
 export const ADDRESS_OP_PORTFOLIO_TAB_IDS = [ 'portfolio_tokens' as const, 'portfolio_nfts' as const ];
 const TABS_RIGHT_SLOT_PROPS = {
-  display: 'flex',
-  justifyContent: { base: 'flex-end', lg: 'flex-start' },
-  ml: { base: 0, lg: 6 },
+  className: 'flex justify-end lg:justify-start ml-0 lg:ml-6',
   widthAllocation: 'available' as const,
 };
 const TAB_LIST_PROPS = {
@@ -89,7 +87,7 @@ const MultichainAddressPortfolio = ({ addressData, isLoading }: Props) => {
 
       return (
         <>
-          <div gap={ 2 }>
+          <div className="flex gap-2">
             { (hasData || hasActiveFilters) && !(isMobile && query.pagination.isVisible) &&
               <AddressNftTypeFilter value={ nftTokenTypes } onChange={ onTokenTypesChange }/> }
             { (hasData || hasActiveFilters) && isMobile &&

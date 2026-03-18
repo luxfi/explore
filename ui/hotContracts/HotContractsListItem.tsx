@@ -21,7 +21,7 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
 
   return (
     <ListItemMobile className="!gap-y-3 !py-4 text-sm">
-      <div justifyContent="space-between" width="100%">
+      <div className="flex justify-between w-full">
         <AddressEntity
           address={ data.contract_address }
           isLoading={ isLoading }
@@ -47,7 +47,7 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
           <span>{ BigNumber(data.total_gas_used || 0).toFormat() }</span>
         </Skeleton>
       </div>
-      <div alignItems="flex-start">
+      <div className="flex items-start">
         <Skeleton loading={ isLoading } fontWeight={ 500 } w="100px">Balance</Skeleton>
         <NativeCoinValue
           amount={ data.balance }

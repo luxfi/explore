@@ -50,7 +50,7 @@ const ZkEvmL2TxnBatch = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle title={ `Txn batch #${ number }` }/>
       <RoutedTabs
         tabs={ tabs }

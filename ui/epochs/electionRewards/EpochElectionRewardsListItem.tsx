@@ -23,14 +23,11 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
 
   return (
     <div
-      py={ 3 }
-      borderBottomWidth="1px"
-      borderColor="border.divider"
-      fontSize="sm"
+      className="py-3 border-b border-[var(--color-border-divider)] text-sm"
       onClick={ isLoading || !data.count ? undefined : section.onToggle }
-      cursor={ isLoading || !data.count ? undefined : 'pointer' }
+      style={{ cursor: isLoading || !data.count ? undefined : 'pointer' }}
     >
-      <div my="3px" columnGap={ 3 } alignItems="center" flexWrap="wrap" rowGap={ 2 }>
+      <div className="flex my-[3px] gap-x-3 items-center flex-wrap gap-y-2">
         { data.count ? (
           <Skeleton loading={ isLoading } display="flex" borderRadius="sm">
             <IconButton
@@ -40,13 +37,11 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
             >
               <IconSvg
                 name="arrows/east-mini"
-                boxSize={ 6 }
-                transform={ section.open ? 'rotate(270deg)' : 'rotate(180deg)' }
-                transitionDuration="faster"
+                className={ `w-6 h-6 transition-transform duration-100 ${ section.open ? 'rotate-[270deg]' : 'rotate-180' }` }
               />
             </IconButton>
           </Skeleton>
-        ) : <div boxSize={ 6 }/> }
+        ) : <div className="w-6 h-6"/> }
         <EpochRewardTypeTag type={ type } isLoading={ isLoading }/>
         <Skeleton loading={ isLoading } ml="auto">{ getRewardNumText(type, data.count) }</Skeleton>
         <TokenValue
@@ -54,11 +49,11 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
           token={ data.token }
           accuracy={ 0 }
           loading={ isLoading }
-          fontWeight={ 500 }
+          className="font-medium"
         />
       </div>
       { section.open && (
-        <div mt={ 2 }>
+        <div className="mt-2">
           <EpochElectionRewardDetailsMobile type={ type } token={ data.token }/>
         </div>
       ) }

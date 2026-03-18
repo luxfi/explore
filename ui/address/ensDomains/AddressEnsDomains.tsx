@@ -25,11 +25,9 @@ interface Props {
 
 const DomainsGrid = ({ data }: { data: Array<bens.Domain> }) => {
   return (
-    <div className="grid"
-      templateColumns={{ base: `repeat(${ clamp(data.length, 1, 2) }, 1fr)`, lg: `repeat(${ clamp(data.length, 1, 3) }, 1fr)` }}
-      columnGap={ 8 }
-      rowGap={ 4 }
-      mt={ 2 }
+    <div
+      className="gap-x-8 gap-y-4 mt-2 grid"
+      style={{ gridTemplateColumns: `repeat(${ clamp(data.length, 1, 2) }, 1fr)` }}
     >
       { data.slice(0, 9).map((domain) => <EnsEntity key={ domain.id } domain={ domain.name } protocol={ domain.protocol } noCopy/>) }
     </div>
@@ -93,7 +91,7 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
               aria-label="Address domains"
               className="font-medium shrink-0 gap-1"
             >
-              <IconSvg name="ENS" boxSize={ 5 }/>
+              <IconSvg name="ENS" className="w-5 h-5"/>
               <span className="hidden xl:inline">{ totalRecords } Domain{ data.items.length > 1 ? 's' : '' }</span>
               <span className="xl:hidden">{ totalRecords }</span>
             </Button>
@@ -103,24 +101,24 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
       <PopoverContent className="lg:w-[500px]">
         <PopoverBody className="text-sm flex flex-col gap-y-5 items-start">
           { mainDomain && (
-            <div w="100%">
-              <span color="text.secondary" textStyle="xs">Primary*</span>
-              <div className="flex" alignItems="center" textStyle="md" mt={ 2 }>
-                <EnsEntity domain={ mainDomain.name } protocol={ mainDomain.protocol } fontWeight={ 600 } noCopy/>
+            <div className="w-full">
+              <span className="text-[var(--color-text-secondary)] text-xs">Primary*</span>
+              <div className="flex items-center text-base mt-2">
+                <EnsEntity domain={ mainDomain.name } protocol={ mainDomain.protocol } className="font-semibold" noCopy/>
                 { mainDomain.expiry_date &&
-                    <span color="text.secondary" whiteSpace="pre"> (expires { dayjs(mainDomain.expiry_date).fromNow() })</span> }
+                    <span className="text-[var(--color-text-secondary)] whitespace-pre"> (expires { dayjs(mainDomain.expiry_date).fromNow() })</span> }
               </div>
             </div>
           ) }
           { ownedDomains.length > 0 && (
             <div>
-              <span color="text.secondary" textStyle="xs">Owned by this address</span>
+              <span className="text-[var(--color-text-secondary)] text-xs">Owned by this address</span>
               <DomainsGrid data={ ownedDomains }/>
             </div>
           ) }
           { resolvedDomains.length > 0 && (
             <div>
-              <span color="text.secondary" textStyle="xs">Resolved to this address</span>
+              <span className="text-[var(--color-text-secondary)] text-xs">Resolved to this address</span>
               <DomainsGrid data={ resolvedDomains }/>
             </div>
           ) }
@@ -129,11 +127,11 @@ const AddressEnsDomains = ({ query, addressHash, mainDomainName }: Props) => {
               href={ route({ pathname: '/name-services', query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: addressHash } }) }
             >
               <span> More results</span>
-              <span color="text.secondary"> ({ totalRecords })</span>
+              <span className="text-[var(--color-text-secondary)]"> ({ totalRecords })</span>
             </Link>
           ) }
           { mainDomain && (
-            <span textStyle="xs" mt={ -1 }>
+            <span className="text-xs -mt-1">
               *A domain name is not necessarily held by a person popularly associated with the name
             </span>
           ) }

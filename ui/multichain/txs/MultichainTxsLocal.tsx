@@ -22,7 +22,7 @@ const MultichainTxsLocal = () => {
 
   return (
     <div>
-      <TxsStats mb={ 0 }/>
+      <TxsStats className="mb-0"/>
       <SocketProvider url={ getSocketUrl(chainConfig) }>
         <TxsTabs
           parentTab={ PARENT_TAB }

@@ -30,7 +30,7 @@ const ContractDetailsByteCode = ({ data, isLoading, addressData }: Props) => {
   })();
 
   return (
-    <div className="flex" flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       { data?.creation_bytecode && (
         <RawDataSnippet
           data={ data.creation_bytecode }

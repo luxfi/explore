@@ -12,13 +12,13 @@ interface Props {
   as?: React.ElementType;
 }
 
-const HashStringShorten = ({ hash, noTooltip, as = 'span', type, tooltipInteractive, maxSymbols }: Props) => {
+const HashStringShorten = ({ hash, noTooltip, as: Component = 'span', type, tooltipInteractive, maxSymbols }: Props) => {
   const charNumber = maxSymbols ?? (type === 'long' ? 16 : 8);
   if (hash.length <= charNumber) {
-    return <span as={ as }>{ hash }</span>;
+    return <Component>{ hash }</Component>;
   }
 
-  const content = <span as={ as }>{ shortenString(hash, charNumber) }</span>;
+  const content = <Component>{ shortenString(hash, charNumber) }</Component>;
 
   if (noTooltip) {
     return content;

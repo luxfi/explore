@@ -19,7 +19,7 @@ const ContractDetailsInfoImplementations = ({ implementations, proxyType }: Prop
       label={ `${ proxyType === 'eip7702' ? 'Delegated to' : `Implementation${ implementations.length > 1 ? 's' : '' }` }` }
       contentProps={{ className: 'lg:[grid-column:2/span_3] relative' }}
     >
-      <ContainerWithScrollY gradientHeight={ 48 } maxH="200px" w="100%">
+      <ContainerWithScrollY gradientHeight={ 48 } className="max-h-[200px] w-full">
         { implementations.map((item) => (
           <AddressEntity
             key={ item.address_hash }

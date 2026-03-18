@@ -42,7 +42,7 @@ const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading, pr
   const filters = useMethodsFilters({ abi });
 
   return (
-    <div className="flex" flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       <ContractMethodsAlerts isLoading={ isInitialLoading } proxyType={ proxyType } conflictingImplementations={ conflictingImplementations }/>
       <div>
         <ContractSourceAddressSelector
@@ -51,7 +51,7 @@ const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading, pr
           onItemSelect={ setSelectedItem }
           isLoading={ isInitialLoading }
           label={ proxyType === 'eip7702' ? 'Delegate address' : 'Implementation address' }
-          mb={ 3 }
+          className="mb-3"
         />
         <ContractMethodsFilters
           defaultMethodType={ filters.methodType }

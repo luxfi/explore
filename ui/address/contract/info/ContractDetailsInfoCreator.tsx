@@ -22,13 +22,13 @@ const ContractDetailsInfoCreator = ({ addressHash, txHash, creationStatus, isLoa
       isLoading={ isLoading }
       contentProps={{ className: 'lg:[grid-column:2/span_3]' }}
     >
-      <div className="flex" alignItems="center" flexWrap="wrap" columnGap={ 2 } rowGap={ 2 }>
+      <div className="flex items-center flex-wrap gap-x-2 gap-y-2">
         <AddressEntity
           address={{ hash: addressHash }}
           truncation="constant"
           noIcon
         />
-        <span whiteSpace="pre" color="text.secondary">at txn</span>
+        <span className="whitespace-pre text-[var(--color-text-secondary)]">at txn</span>
         <TxEntity hash={ txHash } truncation="constant" noIcon/>
         { creationStatus && <ContractCreationStatus status={ creationStatus }/> }
       </div>

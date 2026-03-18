@@ -30,8 +30,7 @@ const AddressTagListItem = ({ item, onEditClick, onDeleteClick, isLoading }: Pro
         <AddressEntity
           address={ item.address }
           isLoading={ isLoading }
-          fontWeight="600"
-          w="100%"
+          className="font-semibold w-full"
         />
         <div className="flex mt-4 gap-3">
           <span className="font-medium">Private tag</span>

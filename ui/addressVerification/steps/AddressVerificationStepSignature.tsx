@@ -199,7 +199,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ onSubmit }>
         { rootError && <Alert status="warning" className="mb-6">{ rootError }</Alert> }
-        <div mb={ 8 }>
+        <div className="mb-8">
           <span>Please select the address to sign and copy the message and sign it using the explorer message provider of your choice. </span>
           <Link href="https://docs.blockscout.com/using-blockscout/my-account/verified-addresses/copy-and-sign-message" external noIcon>
             Additional instructions
@@ -209,23 +209,23 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
           <span> for further assistance.</span>
         </div>
         { (contractOwner || contractCreator) && (
-          <div className="flex" flexDir="column" rowGap={ 4 } mb={ 4 }>
+          <div className="flex flex-col gap-y-4 mb-4">
             { contractCreator && (
               <div>
-                <span fontWeight={ 600 }>Contract creator: </span>
+                <span className="font-semibold">Contract creator: </span>
                 <span>{ contractCreator }</span>
               </div>
             ) }
             { contractOwner && (
               <div>
-                <span fontWeight={ 600 }>Contract owner: </span>
+                <span className="font-semibold">Contract owner: </span>
                 <span>{ contractOwner }</span>
               </div>
             ) }
           </div>
         ) }
-        <div className="flex" rowGap={ 5 } flexDir="column">
-          <div className="flex" flexDir="column">
+        <div className="flex flex-col gap-y-5">
+          <div className="flex flex-col">
             <CopyToClipboard text={ signingMessage } className="ml-auto"/>
             <FormFieldText<Fields>
               name="message"
@@ -258,7 +258,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
             />
           ) }
         </div>
-        <div className="flex" alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>
+        <div className="flex gap-x-5 gap-y-2 mt-8 flex-col lg:flex-row items-start lg:items-center">
           { button }
           <AdminSupportText/>
         </div>

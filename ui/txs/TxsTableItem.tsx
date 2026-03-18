@@ -124,7 +124,7 @@ const TxsTableItem = ({
           to={ dataTo }
           current={ currentAddress }
           isLoading={ isLoading }
-          mt="2px"
+          className="mt-[2px]"
           mode="compact"
         />
       </TableCell>

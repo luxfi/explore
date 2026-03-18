@@ -32,9 +32,7 @@ const TAB_LIST_PROPS = {
   marginTop: -6,
 };
 const TABS_RIGHT_SLOT_PROPS = {
-  display: 'flex',
-  justifyContent: { base: 'flex-end', lg: 'space-between' },
-  ml: { base: 0, lg: 8 },
+  className: 'flex justify-end lg:justify-between ml-0 lg:ml-8',
   widthAllocation: 'available' as const,
 };
 
@@ -115,12 +113,12 @@ const MultichainAddressTxs = ({ addressData, isLoading }: Props) => {
 
       return (
         <>
-          <div gap={ 2 }>
+          <div className="flex gap-2">
             { txsLocalFilter }
             { chainSelect }
             { countersText }
           </div>
-          <div gap={ 6 }>
+          <div className="flex gap-6">
             <AddressCsvExportLink
               address={ hash }
               params={{ type: 'transactions', filterType: 'address', filterValue: txsQueryLocal.filterValue }}

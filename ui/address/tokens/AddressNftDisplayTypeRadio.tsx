@@ -19,11 +19,11 @@ const AddressNftDisplayTypeRadio = ({ value, onChange, ...rest }: Props) => {
       { ...rest }
     >
       <Button value="collection" size="sm" className="px-3">
-        <IconSvg name="collection" boxSize={ 5 }/>
+        <IconSvg name="collection" className="w-5 h-5"/>
         <span className="hidden lg:inline">By collection</span>
       </Button>
       <Button value="list" size="sm" className="px-3">
-        <IconSvg name="apps" boxSize={ 5 }/>
+        <IconSvg name="apps" className="w-5 h-5"/>
         <span className="hidden lg:inline">List</span>
       </Button>
     </ButtonGroupRadio>

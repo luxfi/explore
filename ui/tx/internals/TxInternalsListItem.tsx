@@ -27,7 +27,7 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
         from={ from }
         to={ toData }
         isLoading={ isLoading }
-        w="100%"
+        className="w-full"
       />
       <div >
         <Skeleton loading={ isLoading }><span>Value { currencyUnits.ether }</span></Skeleton>

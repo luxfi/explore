@@ -30,7 +30,7 @@ const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>

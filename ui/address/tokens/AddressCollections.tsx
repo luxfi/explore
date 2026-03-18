@@ -35,7 +35,7 @@ const AddressCollections = ({ collectionsQuery, address, tokenTypes, onTokenType
   const hasActiveFilters = Boolean(tokenTypes?.length);
 
   const actionBar = isMobile && pagination.isVisible && (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <AddressNftTypeFilter value={ tokenTypes } onChange={ onTokenTypesChange }/>
       <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
@@ -53,30 +53,25 @@ const AddressCollections = ({ collectionsQuery, address, tokenTypes, onTokenType
     }, { chain: multichainContext?.chain });
     const hasOverload = Number(item.amount) > item.token_instances.length;
     return (
-      <div key={ item.token.address_hash + index } mb={ 6 }>
-        <div className="flex" mb={ 3 } flexWrap="wrap" lineHeight="30px">
+      <div key={ item.token.address_hash + index } className="mb-6">
+        <div className="flex flex-wrap mb-3 leading-[30px]">
           <TokenEntity
-            width="auto"
+            className="w-auto font-semibold"
             noSymbol
             token={ item.token }
             isLoading={ isPlaceholderData }
             noCopy
-            fontWeight="600"
             chain={ multichainContext?.chain }
           />
           <Skeleton loading={ isPlaceholderData } mr={ 3 }>
-            <span color="text.secondary" whiteSpace="pre">{ ` - ${ Number(item.amount).toLocaleString() } item${ Number(item.amount) > 1 ? 's' : '' }` }</span>
+            <span className="text-[var(--color-text-secondary)] whitespace-pre">{ ` - ${ Number(item.amount).toLocaleString() } item${ Number(item.amount) > 1 ? 's' : '' }` }</span>
           </Skeleton>
           <Link href={ collectionUrl } loading={ isPlaceholderData }>
             View in collection
           </Link>
         </div>
-        <div className="grid"
-          w="100%"
-          mb={ 6 }
-          columnGap={{ base: 3, lg: 6 }}
-          rowGap={{ base: 3, lg: 6 }}
-          gridTemplateColumns={{ base: 'repeat(2, calc((100% - 12px)/2))', lg: 'repeat(auto-fill, minmax(210px, 1fr))' }}
+        <div className="grid w-full mb-6 gap-x-3 lg:gap-x-6 gap-y-3 lg:gap-y-6"
+
         >
           { item.token_instances.map((instance, index) => {
             const key = item.token.address_hash + '_' + (instance.id && !isPlaceholderData ? `id_${ instance.id }` : `index_${ index }`);
@@ -93,11 +88,11 @@ const AddressCollections = ({ collectionsQuery, address, tokenTypes, onTokenType
           }) }
           { hasOverload && (
             <Link href={ collectionUrl }>
-              <NFTItemContainer display="flex" alignItems="center" justifyContent="center" flexDirection="column" minH="248px">
-                <div className="flex flex-row" gap={ 2 } mb={ 3 }>
-                  <NftFallback bgColor={{ _light: 'unset', _dark: 'unset' }} w="30px" h="30px" boxSize="30px" p={ 0 }/>
-                  <NftFallback bgColor={{ _light: 'unset', _dark: 'unset' }} w="30px" h="30px" boxSize="30px" p={ 0 }/>
-                  <NftFallback bgColor={{ _light: 'unset', _dark: 'unset' }} w="30px" h="30px" boxSize="30px" p={ 0 }/>
+              <NFTItemContainer className="flex items-center justify-center flex-col min-h-[248px]">
+                <div className="flex flex-row gap-2 mb-3">
+                  <NftFallback className="w-[30px] h-[30px] p-0"/>
+                  <NftFallback className="w-[30px] h-[30px] p-0"/>
+                  <NftFallback className="w-[30px] h-[30px] p-0"/>
                 </div>
                 View all NFTs
               </NFTItemContainer>

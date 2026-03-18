@@ -71,14 +71,14 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
   ) : null;
 
   const actionBar = query.pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;
 
   return (
     <DataListDisplay
-      mt={ 8 }
+      className="mt-8"
       isError={ query.isError }
       itemsNum={ query.data?.items.length }
       emptyText="There is no coin balance history for this address."

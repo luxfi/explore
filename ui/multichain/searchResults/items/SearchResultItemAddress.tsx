@@ -22,7 +22,7 @@ const SearchResultItemAddress = ({ data, isMobile }: Props) => {
     <SearchResultListItem
       href={ route({ pathname: '/address/[hash]', query: { hash: data.hash } }) }
     >
-      <div w={{ base: '100%', lg: '200px' }}>
+      <div className="w-full lg:w-[200px]">
         <AddressEntity
           address={{
             hash: data.hash,
@@ -32,11 +32,11 @@ const SearchResultItemAddress = ({ data, isMobile }: Props) => {
           truncation={ !isMobile ? 'constant' : 'dynamic' }
           noLink
           noCopy
-          fontWeight={{ base: '600', lg: '700' }}
+          className="font-semibold lg:font-bold"
         />
       </div>
       { contractName && (
-        <div color="text.secondary" _groupHover={{ color: 'inherit' }} fontWeight={{ base: '400', lg: '500' }}>
+        <div className="text-[var(--color-text-secondary)] group-hover:text-inherit font-normal lg:font-medium">
           { contractName }
         </div>
       ) }

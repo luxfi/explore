@@ -19,7 +19,7 @@ const EntityTagIcon = ({ data, noColors }: Props) => {
   }
 
   if (data.tagType === 'name') {
-    return <IconSvg name="publictags" boxSize={ 3 } color={ iconColor }/>;
+    return <IconSvg name="publictags" className="w-3 h-3" style={{ color: iconColor.includes('.') ? `var(--color-${ iconColor.replace(/\./g, '-') })` : iconColor }}/>;
   }
 
   if (data.tagType === 'protocol' || data.tagType === 'generic') {

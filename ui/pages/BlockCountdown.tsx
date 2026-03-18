@@ -106,10 +106,7 @@ const BlockCountdown = ({ hideCapybaraRunner }: Props) => {
           <div className="relative">
             <IconSvg
               name="block"
-              w={{ base: '65px', lg: '125px' }}
-              h={{ base: '75px', lg: '140px' }}
-              color={{ _light: 'gray.300', _dark: 'gray.600' }}
-              flexShrink={ 0 }
+              className="w-[65px] lg:w-[125px] h-[75px] lg:h-[140px] text-neutral-300 dark:text-neutral-600 shrink-0"
             />
             { multichainContext?.chain && (
               <ChainIcon

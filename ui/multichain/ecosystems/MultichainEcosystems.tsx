@@ -43,7 +43,7 @@ const MultichainEcosystems = () => {
 
   const content = data?.items ? (
     <>
-      <div hideBelow="lg">
+      <div className="hidden lg:block">
         <MultichainEcosystemsTable
           data={ data.items }
           sort={ sort }
@@ -51,7 +51,7 @@ const MultichainEcosystems = () => {
           isLoading={ isPlaceholderData }
         />
       </div>
-      <div hideFrom="lg">
+      <div className="lg:hidden">
         <ActionBar>
           <Sort
             name="chain_metrics_sorting"

@@ -27,10 +27,10 @@ const CustomAbiTableItem = ({ item, isLoading, onEditClick, onDeleteClick }: Pro
   return (
     <TableRow alignItems="top" key={ item.id }>
       <TableCell>
-        <div maxW="100%">
+        <div className="max-w-full">
           <AddressEntity
             address={ item.contract_address }
-            fontWeight="600"
+            className="font-semibold"
             isLoading={ isLoading }
           />
           <Skeleton textStyle="sm" color="text.secondary" mt={ 0.5 } ml={ 8 } display="inline-block" loading={ isLoading }>

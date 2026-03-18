@@ -50,29 +50,29 @@ const ERC20TokensTableItem = ({
   return (
     <TableRow className="group" >
       <TableCell verticalAlign={ cellVerticalAlign }>
-        <div className="flex flex-row" gap={ 2 }>
+        <div className="flex flex-row gap-2">
           <TokenEntity
             token={ token }
             chain={ chainInfo }
             isLoading={ isLoading }
             noCopy
             jointSymbol
-            fontWeight="700"
-            width="auto"
+            className="font-bold w-auto"
+           
           />
           { isNativeToken && <NativeTokenTag/> }
         </div>
         { hasAdditionalTokenTypes && <Tag loading={ isLoading } className="mt-2">{ getTokenTypeName(token.type) }</Tag> }
       </TableCell>
       <TableCell verticalAlign={ cellVerticalAlign }>
-        <div className="flex" alignItems="center" width="150px" justifyContent="space-between">
+        <div className="flex items-center justify-between w-[150px]">
           <AddressEntity
             address={{ hash: token.address_hash }}
             isLoading={ isLoading }
             truncation="constant"
             noIcon
           />
-          <AddressAddToWallet token={ token } ml={ 4 } isLoading={ isLoading } opacity="0" _groupHover={{ opacity: 1 }}/>
+          <AddressAddToWallet token={ token } className="ml-4 opacity-0" isLoading={ isLoading }/>
         </div>
       </TableCell>
       <TableCell isNumeric verticalAlign={ cellVerticalAlign }>

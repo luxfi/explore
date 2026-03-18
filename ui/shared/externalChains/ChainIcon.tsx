@@ -21,7 +21,7 @@ const ChainIcon = ({ data, boxSize = 5, borderRadius = 'none', isLoading, noTool
     return <Skeleton className="size-5" borderRadius={ borderRadius === 'none' ? 'full' : String(borderRadius) } loading/>;
   }
 
-  const placeholder = <IconSvg name="networks/icon-placeholder" boxSize={ boxSize } color="icon.primary"/>;
+  const placeholder = <IconSvg name="networks/icon-placeholder" className="text-[var(--color-icon-primary)]" style={{ width: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : String(boxSize), height: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : String(boxSize) }}/>;
   const content = (
     <Image
       src={ data?.logo }

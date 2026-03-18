@@ -47,30 +47,30 @@ const ERC20TokensListItem = ({
 
   return (
     <ListItemMobile className="!gap-y-2">
-      <div className="flex" alignItems="center" width="100%" columnGap={ 2 }>
+      <div className="flex items-center w-full gap-x-2">
         <TokenEntity
           token={ token }
           chain={ chainInfo }
           isLoading={ isLoading }
           noCopy
           jointSymbol
-          fontWeight="700"
-          width="auto"
+          className="font-bold w-auto"
+         
         />
         { isNativeToken && <NativeTokenTag/> }
         { hasAdditionalTokenTypes && <Tag loading={ isLoading }>{ getTokenTypeName(token.type) }</Tag> }
       </div>
-      <div className="flex" alignItems="center" pl={ 8 }>
+      <div className="flex items-center pl-8">
         <AddressEntity
           address={{ hash: token.address_hash }}
           isLoading={ isLoading }
           truncation="constant"
           noIcon
         />
-        <AddressAddToWallet token={ token } ml={ 2 } isLoading={ isLoading }/>
+        <AddressAddToWallet token={ token } className="ml-2" isLoading={ isLoading }/>
       </div>
       { token.exchange_rate !== undefined && token.exchange_rate !== null && (
-        <div className="flex flex-row" gap={ 3 }>
+        <div className="flex flex-row gap-3">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Price</Skeleton>
           <SimpleValue
             value={ BigNumber(token.exchange_rate) }
@@ -81,7 +81,7 @@ const ERC20TokensListItem = ({
           />
         </div>
       ) }
-      <div className="flex flex-row" gap={ 3 } alignItems="baseline">
+      <div className="flex flex-row items-baseline gap-3">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Quantity</Skeleton>
         { isConfidentialTokenType(token.type) ? (
           <ConfidentialValue loading={ isLoading }/>
@@ -95,13 +95,13 @@ const ERC20TokensListItem = ({
         ) }
       </div>
       { isConfidentialTokenType(token.type) && (
-        <div className="flex flex-row" gap={ 3 } alignItems="baseline">
+        <div className="flex flex-row items-baseline gap-3">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
           <ConfidentialValue loading={ isLoading }/>
         </div>
       ) }
       { !isConfidentialTokenType(token.type) && token.exchange_rate && (
-        <div className="flex flex-row" gap={ 3 } alignItems="baseline">
+        <div className="flex flex-row items-baseline gap-3">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
           <SimpleValue
             value={ tokenValue }

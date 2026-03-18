@@ -71,7 +71,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
   }, [ isLoading, modal.onOpen ]);
 
   return (
-    <div className="flex" flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       { currentInfo ? (
         <>
           <ContractMethodsAlerts

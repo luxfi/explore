@@ -35,7 +35,7 @@ const StatusTag = ({ type, text, errorText, mode = 'full', ...rest }: Props) => 
       break;
   }
 
-  const iconElement = <IconSvg name={ icon } boxSize={ 2.5 } display={ text ? 'inline-block' : 'block' }/>;
+  const iconElement = <IconSvg name={ icon } className={ `size-[10px] ${ text ? 'inline-block' : 'block' }` }/>;
   const capitalizedText = text ? capitalizeFirstLetter(text) : undefined;
 
   if (mode === 'compact') {

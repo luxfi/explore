@@ -17,20 +17,20 @@ import TextSeparator from 'ui/shared/TextSeparator';
 import Time from 'ui/shared/time/Time';
 import TokenValueInterchain from 'ui/shared/value/TokenValueInterchain';
 
-interface Props extends Record<string, unknown> {
+interface Props {
   data: InterchainTransfer;
   isLoading?: boolean;
   currentAddress?: string;
 }
 
-const TokenTransfersCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAddress, ...rest }: Props) => {
+const TokenTransfersCrossChainListItem = ({ data, isLoading, currentAddress }: Props) => {
 
   const timestamp = data.send_timestamp || data.receive_timestamp;
 
-  const dashElement = <span color="text.secondary">{ mdash }</span>;
+  const dashElement = <span className="text-[var(--color-text-secondary)]">{ mdash }</span>;
 
   return (
-    <ListItemMobile rowGap={ rowGap } { ...rest }>
+    <ListItemMobile className="gap-y-3">
       <div className="flex flex-row items-center">
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
         { currentAddress && (
@@ -47,7 +47,7 @@ const TokenTransfersCrossChainListItem = ({ data, isLoading, rowGap = 3, current
           <Time timestamp={ timestamp } format="lll_s"/>
         </Skeleton>
       ) }
-      <div templateColumns="100px minmax(0, 1fr)" columnGap={ 2 } rowGap={ rowGap }>
+      <div className="grid gap-x-2 gap-y-3" style={{ gridTemplateColumns: '100px minmax(0, 1fr)' }}>
         <Skeleton loading={ isLoading }>
           Source token
         </Skeleton>

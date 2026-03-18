@@ -25,15 +25,14 @@ const WithdrawalsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntity
           number={ item.l2_block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="text-sm font-semibold"
         />
       </TableCell>
       <TableCell verticalAlign="middle">
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
+          className="text-sm"
           truncation="constant_long"
         />
       </TableCell>
@@ -42,7 +41,7 @@ const WithdrawalsTableItem = ({ item, isLoading }: Props) => {
           isLoading={ isLoading }
           hash={ item.l1_transaction_hash }
           truncation="constant_long"
-          textStyle="sm"
+          className="text-sm"
           noCopy
         />
       </TableCell>

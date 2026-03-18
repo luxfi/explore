@@ -36,32 +36,21 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
 
   return (
     <div
-      gridTemplateColumns={{
-        lg: columnNum === 2 ? '3fr minmax(auto, 200px)' : '3fr minmax(auto, 200px) 170px',
-        xl: columnNum === 2 ? '3fr minmax(auto, 270px)' : '3fr minmax(auto, 300px) 170px',
+      className={ `hidden lg:grid gap-3 w-full border-b border-[var(--color-border-divider)] p-4 ${ columnNum === 2 ? 'min-w-[700px]' : 'min-w-[750px]' }` }
+      style={{
+        gridTemplateColumns: columnNum === 2 ? '3fr minmax(auto, 270px)' : '3fr minmax(auto, 300px) 170px',
       }}
-      gridGap={ 3 }
-      width="100%"
-      minW={ columnNum === 2 ? '700px' : '750px' }
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      p={ 4 }
-      display={{ base: 'none', lg: 'grid' }}
     >
-      <div overflow="hidden" w="100%">
+      <div className="overflow-hidden w-full">
         <TxAdditionalInfo tx={ tx } isLoading={ isLoading } className="my-[3px]"/>
-        <div ml={ 3 } w="calc(100% - 40px)">
-          <div flexWrap={ tagsCount <= 3 ? 'nowrap' : 'wrap' } my="3px">
+        <div className="ml-3 w-[calc(100%-40px)]">
+          <div className={ `flex ${ tagsCount <= 3 ? 'flex-nowrap' : 'flex-wrap' } my-[3px]` }>
             <TxType types={ tx.transaction_types } isLoading={ isLoading }/>
             { tx.status !== 'ok' && <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/> }
             <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
             { protocolTag && <EntityTag data={ protocolTag } isLoading={ isLoading } minW="0" noColors/> }
           </div>
-          <div
-            alignItems="center"
-            mt="7px"
-            mb="3px"
-          >
+          <div className="flex items-center mt-[7px] mb-[3px]">
             <TxEntity
               isLoading={ isLoading }
               hash={ tx.hash }
@@ -86,10 +75,10 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         mode="compact"
       />
       { !(config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee) ? (
-        <div flexDir="column" rowGap={ 3 }>
+        <div className="flex flex-col gap-y-3">
           { !config.UI.views.tx.hiddenFields?.value && (
             <Skeleton loading={ isLoading }>
-              <span as="span" whiteSpace="pre">Value </span>
+              <span className="whitespace-pre">Value </span>
               <NativeCoinValue
                 amount={ tx.value }
                 accuracy={ 5 }
@@ -100,7 +89,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
             <Skeleton loading={ isLoading } display="flex" className="whitespace-pre">
-              <span as="span">Fee </span>
+              <span>Fee </span>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>
           ) }

@@ -107,7 +107,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
           bgColor="dialog.bg"
           className="mb-8"
         />
-        <div marginTop={ 8 }>
+        <div className="mt-8">
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }

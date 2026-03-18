@@ -9,7 +9,7 @@ import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 import IconSvg from 'ui/shared/IconSvg';
 
 const SearchBarSuggestLabel = ({ data, isMobile, searchTerm, addressFormat }: ItemsProps<SearchResultLabel>) => {
-  const icon = <IconSvg name="publictags" boxSize={ 5 } color="icon.primary"/>;
+  const icon = <IconSvg name="publictags" className="w-5 h-5 text-[var(--color-icon-primary)]"/>;
   const hash = data.filecoin_robust_address || (addressFormat === 'bech32' ? toBech32Address(data.address_hash) : data.address_hash);
 
   const name = (
@@ -24,7 +24,7 @@ const SearchBarSuggestLabel = ({ data, isMobile, searchTerm, addressFormat }: It
     </span>
   );
 
-  const isContractVerified = data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" flexShrink={ 0 }/>;
+  const isContractVerified = data.is_smart_contract_verified && <IconSvg name="status/success" className="w-3.5 h-3.5 text-[var(--color-green-500)] shrink-0"/>;
 
   if (isMobile) {
     return (

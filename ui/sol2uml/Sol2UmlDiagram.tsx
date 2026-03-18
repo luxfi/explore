@@ -80,7 +80,7 @@ const Sol2UmlDiagram = ({ addressHash }: Props) => {
         src={ imgUrl }
         alt={ `Contract ${ contractQuery.data.name } UML diagram` }
         onClick={ handleClick }
-        filter={{ _light: 'invert(0)', _dark: 'invert(1)' }}
+        className="dark:invert"
       />
     </Tooltip>
   );

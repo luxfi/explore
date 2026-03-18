@@ -26,8 +26,7 @@ const DepositsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntityL1
           number={ item.l1_block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="text-sm font-semibold"
         />
       </TableCell>
       <TableCell verticalAlign="middle">
@@ -35,7 +34,7 @@ const DepositsTableItem = ({ item, isLoading }: Props) => {
           isLoading={ isLoading }
           hash={ item.l1_transaction_hash }
           truncation="constant_long"
-          textStyle="sm"
+          className="text-sm"
           noCopy
         />
       </TableCell>
@@ -43,7 +42,7 @@ const DepositsTableItem = ({ item, isLoading }: Props) => {
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
+          className="text-sm"
           truncation="constant_long"
         />
       </TableCell>

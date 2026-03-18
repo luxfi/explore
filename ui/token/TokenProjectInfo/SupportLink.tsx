@@ -18,7 +18,7 @@ const SupportLink = ({ url }: Props) => {
       noIcon
       className="inline-flex items-center gap-1"
     >
-      <IconSvg name={ isEmail ? 'email' : 'link' } boxSize={ 6 } color="icon.primary"/>
+      <IconSvg name={ isEmail ? 'email' : 'link' } className="w-6 h-6 text-[var(--color-icon-primary)]"/>
       <span>{ url }</span>
     </Link>
   );

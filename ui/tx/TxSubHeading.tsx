@@ -3,6 +3,7 @@ import React from 'react';
 import type { AddressParam } from 'types/api/addressParams';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { NOVES_TRANSLATE } from 'stubs/noves/NovesTranslate';
@@ -74,8 +75,7 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
           summary={ novesSummary }
           isLoading={ novesInterpretationQuery.isPlaceholderData || txQuery.isPlaceholderData }
           addressDataMap={ addressDataMap }
-          fontSize="lg"
-          mr={{ base: 0, lg: 2 }}
+          className="text-lg mr-0 lg:mr-2"
           isNoves
           chainData={ multichainContext?.chain }
         />
@@ -87,8 +87,7 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
             summary={ txInterpretationQuery.data?.data.summaries[0] }
             isLoading={ txInterpretationQuery.isPlaceholderData || txQuery.isPlaceholderData }
             addressDataMap={ addressDataMap }
-            fontSize="lg"
-            mr={ hasViewAllInterpretationsLink ? 3 : 0 }
+            className={ cn('text-lg', hasViewAllInterpretationsLink ? 'mr-3' : 'mr-0') }
             chainData={ multichainContext?.chain }
           />
           { hasViewAllInterpretationsLink &&
@@ -115,13 +114,12 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
               },
             },
           }}
-          fontSize="lg"
-          mr={{ base: 0, lg: 2 }}
+          className="text-lg mr-0 lg:mr-2"
           chainData={ multichainContext?.chain }
         />
       );
     } else {
-      return <TxEntity hash={ hash } noLink variant="subheading" mr={{ base: 0, lg: 2 }} chain={ multichainContext?.chain }/>;
+      return <TxEntity hash={ hash } noLink variant="subheading" className="mr-0 lg:mr-2" chain={ multichainContext?.chain }/>;
     }
   })();
 
@@ -138,7 +136,7 @@ const TxSubHeading = ({ hash, hasTag, txQuery }: Props) => {
         { appActionData && (
           <AppActionButton data={ appActionData } txHash={ hash } source="Txn"/>
         ) }
-        <NetworkExplorers type="tx" pathParam={ hash } ml="auto"/>
+        <NetworkExplorers type="tx" pathParam={ hash } className="ml-auto"/>
       </div>
     </div>
   );

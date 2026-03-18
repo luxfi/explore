@@ -15,7 +15,7 @@ interface Props extends Omit<AssetValueProps, 'asset'> {
   tokenEntityProps?: Omit<TokenEntityProps, 'token'>;
 }
 
-const TokenValueInterchain = ({ token, tokenEntityProps, chain, ...rest }: Props) => {
+const TokenValueInterchain = ({ token, tokenEntityProps, chain, amount, ...rest }: Props) => {
 
   const tokenInfo = React.useMemo(() => {
     return {
@@ -39,13 +39,14 @@ const TokenValueInterchain = ({ token, tokenEntityProps, chain, ...rest }: Props
       { ...tokenEntityProps }
     />
   );
+  const assetValueProps = {
+    ...rest,
+    amount,
+    asset,
+    decimals: token.decimals,
+  } as AssetValueProps;
   return (
-    <AssetValue
-      amount={ rest.amount }
-      asset={ asset }
-      decimals={ token.decimals }
-      { ...rest }
-    />
+    <AssetValue { ...assetValueProps }/>
   );
 };
 

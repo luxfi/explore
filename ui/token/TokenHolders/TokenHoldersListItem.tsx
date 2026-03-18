@@ -25,8 +25,7 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
         <AddressEntity
           address={ holder.address }
           isLoading={ isLoading }
-          fontWeight="700"
-          maxW="100%"
+          className="font-bold max-w-full"
         />
       </ListItemMobileGrid.Value>
 
@@ -60,7 +59,7 @@ const TokenHoldersListItem = ({ holder, token, isLoading }: Props) => {
               value={ BigNumber(holder.value).div(BigNumber(token.total_supply)).dp(4).toNumber() }
               colorScheme="green"
               isLoading={ isLoading }
-              display="inline-flex"
+              className="inline-flex"
             />
           </ListItemMobileGrid.Value>
         </>

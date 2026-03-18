@@ -98,7 +98,7 @@ const ApiKeysPage: React.FC = () => {
 
     const canAdd = !isPlaceholderData ? (data?.length || 0) < DATA_LIMIT : true;
 
-    const alert = apiKeysAlertHtml ? <AlertWithExternalHtml html={ apiKeysAlertHtml } status="warning" mb={ 6 }/> : null;
+    const alert = apiKeysAlertHtml ? <AlertWithExternalHtml html={ apiKeysAlertHtml } status="warning" className="mb-6"/> : null;
 
     const button = (() => {
       if (!feature.isEnabled || feature.apiKeysButton === false) {

@@ -20,14 +20,14 @@ const AddressEpochRewardsTableItem = ({ item, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <div className="flex" alignItems="center" gap={ 3 }>
+        <div className="flex items-center gap-3">
           <Link
             href={ route({ pathname: '/epochs/[number]', query: { number: String(item.epoch_number) } }) }
             loading={ isLoading }
           >
             { item.epoch_number }
           </Link>
-          <TimeWithTooltip timestamp={ item.block_timestamp } isLoading={ isLoading } color="text.secondary" fontWeight={ 400 }/>
+          <TimeWithTooltip timestamp={ item.block_timestamp } isLoading={ isLoading } color="text.secondary" fontWeight="400"/>
         </div>
       </TableCell>
       <TableCell verticalAlign="middle">

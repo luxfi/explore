@@ -30,9 +30,7 @@ const NftTokenTransferSnippet = ({ value, token, tokenId, instance }: Props) => 
         id={ tokenId }
         instance={ instance }
         variant="content"
-        maxW={{ base: '100%', lg: '150px' }}
-        w="auto"
-        flexShrink={ 0 }
+        className="max-w-full lg:max-w-[150px] w-auto shrink-0"
       />
     );
 
@@ -54,8 +52,7 @@ const NftTokenTransferSnippet = ({ value, token, tokenId, instance }: Props) => 
       <TokenEntity
         token={ token }
         noCopy
-        w="auto"
-        flexGrow={ 1 }
+        className="w-auto grow"
       />
     </>
   );

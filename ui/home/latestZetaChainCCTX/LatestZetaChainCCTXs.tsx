@@ -123,7 +123,7 @@ const LatestZetaChainCCTXs = () => {
           showErrorAlert={ showSocketErrorAlert }
           className="rounded-b-none"
         />
-        <div mb={ 3 } display={{ base: 'block', lg: 'none' }}>
+        <div className="mb-3 block lg:hidden">
           { data.items.slice(0, txsCount).map(((tx, index) => (
             <ZetaChainCCTXListItem
               key={ tx.index + (isPlaceholderData ? index : '') }
@@ -134,7 +134,7 @@ const LatestZetaChainCCTXs = () => {
           ))) }
         </div>
         <AddressHighlightProvider>
-          <div mb={ 3 } display={{ base: 'none', lg: 'block' }}>
+          <div className="mb-3 hidden lg:block">
             { data.items.slice(0, txsCount).map(((tx, index) => (
               <LatestZetaChainCCTXItem
                 key={ tx.index + (isPlaceholderData ? index : '') }
@@ -145,7 +145,7 @@ const LatestZetaChainCCTXs = () => {
             ))) }
           </div>
         </AddressHighlightProvider>
-        <div justifyContent="center">
+        <div className="flex justify-center">
           <Link className="text-sm" href={ cctxsUrl }>View all cross chain transactions</Link>
         </div>
       </>

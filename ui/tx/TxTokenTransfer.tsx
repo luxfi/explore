@@ -101,11 +101,11 @@ const TxTokenTransfer = ({ txQuery, tokenTransferFilter, noCrossChain }: Props) 
 
   const rightSlotProps = React.useMemo(() => {
     if (tabs.length === 1) {
-      return { ml: 0 };
+      return { className: 'ml-0' };
     }
     if (isLocalTab) {
       return {
-        ml: 6,
+        className: 'ml-6',
       };
     }
   }, [ isLocalTab, tabs.length ]);

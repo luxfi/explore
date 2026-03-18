@@ -36,7 +36,7 @@ const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
             <TxEntityL1
               isLoading={ isLoading }
               hash={ data.commit_transaction_hash }
-              maxW="100%"
+              className="max-w-full"
             />
             { data.commit_transaction_timestamp && (
               <DetailedInfoTimestamp timestamp={ data.commit_transaction_timestamp } isLoading={ isLoading }/>
@@ -57,7 +57,7 @@ const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
             <TxEntityL1
               isLoading={ isLoading }
               hash={ data.prove_transaction_hash }
-              maxW="100%"
+              className="max-w-full"
             />
             { data.prove_transaction_timestamp && (
               <DetailedInfoTimestamp timestamp={ data.prove_transaction_timestamp } isLoading={ isLoading }/>
@@ -78,7 +78,7 @@ const ZkSyncL2TxnBatchHashesInfo = ({ isLoading, data }: Props) => {
             <TxEntityL1
               isLoading={ isLoading }
               hash={ data.execute_transaction_hash }
-              maxW="100%"
+              className="max-w-full"
             />
             { data.execute_transaction_timestamp && (
               <DetailedInfoTimestamp timestamp={ data.execute_transaction_timestamp } isLoading={ isLoading }/>

@@ -42,8 +42,7 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
       >
         <IconSvg
           name={ dailyRewardQuery.data?.available ? 'merits_with_dot' : 'merits' }
-          boxSize={ variant === 'hero' ? 6 : 5 }
-          flexShrink={ 0 }
+          className={ `shrink-0 ${ variant === 'hero' ? 'w-6 h-6' : 'w-5 h-5' }` }
         />
         <span
           className={ `hidden md:inline ${ isAuth ? 'font-bold' : 'font-semibold' }` }

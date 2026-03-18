@@ -31,23 +31,30 @@ const CodeEditorTab = ({ isActive, isMainFile, path, onClick, onClose, isCloseDi
   }, [ isCloseDisabled, onClose, path ]);
 
   return (
-    <div className="flex items-center cursor-pointer font-normal select-none text-[13px] leading-[34px] border-b border-r"       pl="10px"
-      pr="4px" style={{ backgroundColor: isActive ? themeColors['tab.activeBackground'] : themeColors['tab.inactiveBackground']  , color: isActive ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'] }} style={{ borderRightColor: themeColors['tab.border']  , borderBottomColor: isActive ? 'transparent' : themeColors['tab.border'] }}
+    <div
+      className="flex items-center cursor-pointer font-normal select-none text-[13px] leading-[34px] border-b border-r pl-[10px] pr-1"
+      style={{
+        backgroundColor: isActive ? themeColors['tab.activeBackground'] : themeColors['tab.inactiveBackground'],
+        color: isActive ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'],
+        borderRightColor: themeColors['tab.border'],
+        borderBottomColor: isActive ? 'transparent' : themeColors['tab.border'],
+      }}
       onClick={ handleClick }
     >
-      <CodeEditorFileIcon mr="4px" fileName={ fileName }/>
+      <CodeEditorFileIcon className="mr-1" fileName={ fileName }/>
       <span>{ fileName }</span>
       { folderName && <span className="text-[11px] opacity-80 ml-1">{ folderName[0] === '.' ? '' : '...' }{ folderName }</span> }
-      { isMainFile && <CodeEditorMainFileIndicator ml={ 2 }/> }
-      <div         className="codicon codicon-close rounded-sm"
-        boxSize="20px"
-        ml="4px"
-        p="2px"
+      { isMainFile && <CodeEditorMainFileIndicator className="ml-2"/> }
+      <div
+        className="codicon codicon-close rounded-sm size-5 ml-1 p-[2px]"
         title={ `Close ${ isActive ? `(${ alt }W)` : '' }` }
         aria-label="Close"
         onClick={ handleClose }
-        opacity={ isCloseDisabled ? 0.3 : 1 }
-        visibility={{ base: 'visible', lg: isActive ? 'visible' : 'hidden' }} style={{ color: themeColors['icon.foreground']  }}
+        style={{
+          opacity: isCloseDisabled ? 0.3 : 1,
+          visibility: isActive ? 'visible' : undefined,
+          color: themeColors['icon.foreground'],
+        }}
       />
     </div>
   );

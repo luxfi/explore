@@ -31,7 +31,7 @@ const UserOpsTableItem = ({ item, isLoading, showTx, showSender, chainData }: Pr
         </TableCell>
       ) }
       <TableCell verticalAlign="middle">
-        <UserOpEntity hash={ item.hash } isLoading={ isLoading } noIcon fontWeight={ 700 } truncation="constant_long" noCopy/>
+        <UserOpEntity hash={ item.hash } isLoading={ isLoading } noIcon className="font-bold" truncation="constant_long" noCopy/>
       </TableCell>
       <TableCell verticalAlign="middle">
         <TimeWithTooltip

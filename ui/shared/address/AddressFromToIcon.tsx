@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -11,25 +12,14 @@ interface Props {
   className?: string;
 }
 
+const TYPE_CLASSES: Record<TxCourseType, string> = {
+  'in': 'text-green-500 dark:text-green-200 bg-green-50 dark:bg-green-800',
+  out: 'text-yellow-600 dark:text-yellow-500 bg-orange-50 dark:bg-yellow-900',
+  self: 'text-[var(--color-blackAlpha-400)] dark:text-[var(--color-whiteAlpha-400)] bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]',
+  unspecified: 'text-[var(--color-icon-primary)] bg-transparent',
+};
+
 const AddressFromToIcon = ({ isLoading, type, className }: Props) => {
-  const styles = {
-    'in': {
-      color: { _light: 'green.500', _dark: 'green.200' },
-      bgColor: { _light: 'green.50', _dark: 'green.800' },
-    },
-    out: {
-      color: { _light: 'yellow.600', _dark: 'yellow.500' },
-      bgColor: { _light: 'orange.50', _dark: 'yellow.900' },
-    },
-    self: {
-      color: { _light: 'blackAlpha.400', _dark: 'whiteAlpha.400' },
-      bgColor: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' },
-    },
-    unspecified: {
-      color: 'icon.primary',
-      bgColor: 'transparent',
-    },
-  };
   const labels = {
     'in': 'Incoming txn',
     out: 'Outgoing txn',
@@ -39,12 +29,8 @@ const AddressFromToIcon = ({ isLoading, type, className }: Props) => {
   const icon = (
     <IconSvg
       name="arrows/east"
-      { ...(styles[type]) }
-      className={ className }
+      className={ cn('w-5 h-5 shrink-0 rounded-sm', TYPE_CLASSES[type], className) }
       isLoading={ isLoading }
-      boxSize={ 5 }
-      flexShrink={ 0 }
-      borderRadius="sm"
     />
   );
 

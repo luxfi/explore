@@ -87,14 +87,11 @@ const NavLinkGroup = ({ item, isCollapsed }: Props) => {
             ) }
             <IconSvg
               name="arrows/east-mini"
-              position="absolute"
-              right="7px"
-              transform="rotate(180deg)"
-              boxSize={ 6 }
-              opacity={{ lg: isExpanded ? '1' : '0', xl: isCollapsed ? '0' : '1' }}
-              transitionProperty="opacity"
-              transitionDuration="normal"
-              transitionTimingFunction="ease"
+              className={ cn(
+                'absolute right-[7px] rotate-180 w-6 h-6 transition-opacity duration-200 ease-in-out',
+                isExpanded ? 'lg:opacity-100' : 'lg:opacity-0',
+                isCollapsed ? 'xl:opacity-0' : 'xl:opacity-100',
+              ) }
             />
           </div>
         </div>

@@ -20,9 +20,7 @@ const IconStub = () => {
     <div className="absolute -bottom-[2px] right-[4px] flex items-center justify-center rounded-base bg-gray-100 dark:bg-gray-700 w-[14px] h-[14px] border border-[var(--color-bg-primary)]">
       <IconSvg
         name="networks/icon-placeholder"
-        width="10px"
-        height="10px"
-        color="icon.primary"
+        className="w-[10px] h-[10px] text-[var(--color-icon-primary)]"
       />
     </div>
   );

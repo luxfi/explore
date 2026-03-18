@@ -53,11 +53,11 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
             <Link className="block">
               <IconSvg
                 name="arrows/east-mini"
-                transform={ isOpened ? 'rotate(270deg)' : 'rotate(180deg)' }
-                boxSize={ 6 }
-                cursor="pointer"
+                style={{ transform:  isOpened ? 'rotate(270deg)' : 'rotate(180deg)'  }}
+                className="w-6 h-6 transition-transform duration-150 cursor-pointer"
+               
                 onClick={ handleIconClick }
-                transitionDuration="faster"
+               
                 aria-label="View schema"
               />
             </Link>
@@ -96,10 +96,10 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
                   <TableRow>
                     <TableCell width="80px" fontSize="sm" fontWeight={ 600 } py={ 2 } pl={ 0 } verticalAlign="middle">Key</TableCell>
                     <TableCell py={ 2 }>
-                      <div className="flex flex-col" gap={ 1 } alignItems="start">
+                      <div className="flex flex-col items-start gap-1">
                         { item.schema.key_names.map((name, index) => (
                           <Badge key={ name }>
-                            <span fontWeight={ 700 }>{ item.schema.key_types[index] }</span> { name }
+                            <span className="font-bold">{ item.schema.key_types[index] }</span> { name }
                           </Badge>
                         )) }
                       </div>
@@ -109,10 +109,10 @@ const AddressMudTablesTableItem = ({ item, isLoading, hash }: Props) => {
                 <TableRow borderBottomStyle="hidden">
                   <TableCell width="80px" fontSize="sm" fontWeight={ 600 } py={ 2 } pl={ 0 } >Value</TableCell>
                   <TableCell fontSize="sm" py={ 2 }>
-                    <div className="flex flex-col" gap={ 1 } alignItems="start">
+                    <div className="flex flex-col items-start gap-1">
                       { item.schema.value_names.map((name, index) => (
                         <span key={ name }>
-                          <span fontWeight={ 700 }>{ item.schema.value_types[index] }</span> { name }
+                          <span className="font-bold">{ item.schema.value_types[index] }</span> { name }
                         </span>
                       )) }
                     </div>

@@ -24,10 +24,10 @@ const NameDomainsTableItem = ({
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <EnsEntity domain={ name } protocol={ protocol } isLoading={ isLoading } fontWeight={ 600 }/>
+        <EnsEntity domain={ name } protocol={ protocol } isLoading={ isLoading } className="font-semibold"/>
       </TableCell>
       <TableCell verticalAlign="middle">
-        { resolvedAddress && <AddressEntity address={ resolvedAddress } isLoading={ isLoading } fontWeight={ 500 }/> }
+        { resolvedAddress && <AddressEntity address={ resolvedAddress } isLoading={ isLoading } className="font-medium"/> }
       </TableCell>
       <TableCell verticalAlign="middle" pl={ 9 }>
         <TimeWithTooltip timestamp={ registrationDate } isLoading={ isLoading }/>

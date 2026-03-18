@@ -88,7 +88,7 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
     switch (format[0]) {
       case 'Image': {
         if (!guessedType?.mime?.startsWith('image/')) {
-          return <RawDataSnippet data="Not an image" showCopy={ false } isLoading={ isLoading } w="100%"/>;
+          return <RawDataSnippet data="Not an image" showCopy={ false } isLoading={ isLoading } className="w-[100%]"/>;
         }
 
         const bytes = hexToBytes(data);
@@ -100,11 +100,11 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
         return <BlobDataImage src={ imgSrc }/>;
       }
       case 'UTF-8':
-        return <RawDataSnippet data={ hexToUtf8(data) } showCopy={ false } isLoading={ isLoading } contentProps={{ className: 'break-words' }} w="100%"/>;
+        return <RawDataSnippet data={ hexToUtf8(data) } showCopy={ false } isLoading={ isLoading } contentProps={{ className: 'break-words' }} className="w-[100%]"/>;
       case 'Base64':
-        return <RawDataSnippet data={ hexToBase64(data) } showCopy={ false } isLoading={ isLoading } w="100%"/>;
+        return <RawDataSnippet data={ hexToBase64(data) } showCopy={ false } isLoading={ isLoading } className="w-[100%]"/>;
       case 'Raw':
-        return <RawDataSnippet data={ data } showCopy={ false } isLoading={ isLoading } w="100%"/>;
+        return <RawDataSnippet data={ data } showCopy={ false } isLoading={ isLoading } className="w-[100%]"/>;
       default:
         return <span/>;
     }
@@ -119,7 +119,7 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
         Blob data
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
-        <div className="flex" alignItems="center" w="100%" mb={{ base: 1, lg: 3 }} mt={{ base: 1, lg: 0 }}>
+        <div className="flex items-center w-full mt-1 lg:mt-0 mb-1 lg:mb-3">
           <Select
             collection={ collection }
             placeholder="Select type"

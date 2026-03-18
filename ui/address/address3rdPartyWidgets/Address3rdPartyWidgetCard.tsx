@@ -51,7 +51,7 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
     <>
       <Skeleton loading w="88px" h="40px" mb={ 1 }/>
       <Skeleton loading w="178px" h="20px"/>
-      <Separator mt={ 3 } mb={ 2 } borderColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}/>
+      <Separator className="mt-3 mb-2 border-black/5 dark:border-white/10"/>
       <div className="flex items-center gap-2">
         <Skeleton loading w="20px" h="20px"/>
         <Skeleton loading w="80px" h="20px"/>
@@ -91,7 +91,7 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
           />
         ) }
       </div>
-      <Separator mt={ 3 } mb={ 2 } borderColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}/>
+      <Separator className="mt-3 mb-2 border-black/5 dark:border-white/10"/>
       <div className="flex items-center gap-2">
         <Image src={ config.icon } alt={ config.name } boxSize={ 5 }/>
         <div className="flex items-center justify-between flex-1">
@@ -100,10 +100,7 @@ const Address3rdPartyWidgetCard = ({ name, config, address, isLoading }: Props) 
           </span>
           <IconSvg
             name="link_external"
-            boxSize={ 3 }
-            color="hover"
-            display="none"
-            _groupHover={{ display: 'block' }}
+            className="w-3 h-3 text-[var(--color-hover)] hidden group-hover:block"
           />
         </div>
       </div>

@@ -37,7 +37,7 @@ const LatestTxs = () => {
     return (
       <>
         <SocketNewItemsNotice className="rounded-b-none" url={ txsUrl } num={ num } showErrorAlert={ showErrorAlert } isLoading={ isPlaceholderData }/>
-        <div mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
+        <div className="mb-3 block lg:hidden text-sm">
           { data.slice(0, txsCount).map(((tx, index) => (
             <LatestTxsItemMobile
               key={ tx.hash + (isPlaceholderData ? index : '') }
@@ -47,7 +47,7 @@ const LatestTxs = () => {
           ))) }
         </div>
         <AddressHighlightProvider>
-          <div mb={ 3 } display={{ base: 'none', lg: 'block' }} textStyle="sm">
+          <div className="mb-3 hidden lg:block text-sm">
             { data.slice(0, txsCount).map(((tx, index) => (
               <LatestTxsItem
                 key={ tx.hash + (isPlaceholderData ? index : '') }
@@ -57,7 +57,7 @@ const LatestTxs = () => {
             ))) }
           </div>
         </AddressHighlightProvider>
-        <div justifyContent="center">
+        <div className="flex justify-center">
           <Link className="text-sm" loading={ isPlaceholderData } href={ txsUrl }>View all transactions</Link>
         </div>
       </>

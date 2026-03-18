@@ -88,15 +88,7 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
             <IconSvg
               onClick={ handleClose }
               name="close"
-              boxSize={ 3 }
-              color={{ _light: 'gray.300', _dark: 'gray.600' }}
-              bgColor="bg.primary"
-              borderBottomLeftRadius="sm"
-              borderTopRightRadius="sm"
-              position="absolute"
-              top="0"
-              right="0"
-              display={ isMobile ? 'block' : 'none' }
+              className={ `w-3 h-3 text-gray-300 dark:text-gray-600 bg-[var(--color-bg-primary)] rounded-bl-sm rounded-tr-sm absolute top-0 right-0 ${ isMobile ? 'block' : 'hidden' }` }
             />
           </div>
         </Tooltip>

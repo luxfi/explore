@@ -37,7 +37,7 @@ const PoolsTableItem = ({
             <span className="px-2">{ getItemIndex(index, page) }</span>
           </Skeleton>
           <div className="overflow-hidden">
-            <PoolEntity pool={ item } fontWeight={ 700 } mb={ 2 } isLoading={ isLoading }/>
+            <PoolEntity pool={ item } className="font-bold mb-2" isLoading={ isLoading }/>
             { item.is_contract ? (
               <AddressEntity
                 address={{ hash: item.pool_id }}

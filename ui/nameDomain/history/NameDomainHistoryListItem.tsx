@@ -32,7 +32,7 @@ const NameDomainHistoryListItem = ({ isLoading, domain, event }: Props) => {
     <ListItemMobileGrid.Container>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Txn hash</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <TxEntity { ...txEntityProps } hash={ event.transaction_hash } isLoading={ isLoading } fontWeight={ 500 } truncation="constant_long" noCopy/>
+        <TxEntity { ...txEntityProps } hash={ event.transaction_hash } isLoading={ isLoading } className="font-medium" truncation="constant_long" noCopy/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>

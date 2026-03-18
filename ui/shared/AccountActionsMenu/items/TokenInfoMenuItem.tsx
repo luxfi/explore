@@ -68,7 +68,7 @@ const TokenInfoMenuItem = ({ hash, type }: ItemProps) => {
 
     switch (type) {
       case 'button': {
-        const icon = <IconSvg name="edit" boxSize={ 6 } p={ 0.5 }/>;
+        const icon = <IconSvg name="edit" className="w-6 h-6 p-0.5"/>;
 
         return (
           <AuthGuard onAuthSuccess={ onAuthSuccess } ensureEmail>
@@ -79,7 +79,7 @@ const TokenInfoMenuItem = ({ hash, type }: ItemProps) => {
         );
       }
       case 'menu_item': {
-        const icon = <IconSvg name="edit" boxSize={ 6 } p={ 1 }/>;
+        const icon = <IconSvg name="edit" className="w-6 h-6 p-1"/>;
 
         return (
           <AuthGuard onAuthSuccess={ onAuthSuccess } ensureEmail>

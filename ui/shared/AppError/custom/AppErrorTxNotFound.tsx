@@ -22,7 +22,7 @@ const AppErrorTxNotFound = () => {
       <div className="p-4 border border-[var(--color-blackAlpha-300)] dark:border-[var(--color-whiteAlpha-300)] rounded-md w-[230px]">
         <div className="flex items-center pb-4 border-b border-[var(--color-blackAlpha-300)] dark:border-[var(--color-whiteAlpha-300)]">
           { /* FIXME use non-navigation icon */ }
-          <IconSvg name="navigation/transactions" boxSize={ 8 } color={{ _light: 'white', _dark: 'black' }} bgColor={{ _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' }} p={ 1 } borderRadius="md"/>
+          <IconSvg name="navigation/transactions" className="w-8 h-8 p-1 rounded-md text-white dark:text-black bg-[var(--color-blackAlpha-800)] dark:bg-[var(--color-whiteAlpha-800)]"/>
           <div className="ml-2">
             <div className="w-[125px] h-[8px] rounded-full bg-[var(--color-blackAlpha-800)] dark:bg-[var(--color-whiteAlpha-800)]"/>
             <div className="w-[30px] h-[8px] rounded-full bg-[var(--color-blackAlpha-300)] dark:bg-[var(--color-whiteAlpha-300)] mt-1.5"/>

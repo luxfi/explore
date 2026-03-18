@@ -36,7 +36,7 @@ export default function useContractDetailsTabs({ data, isLoading, addressData, s
         id: 'contract_source_code' as const,
         title: 'Code',
         component: (
-          <div className="flex" flexDir="column" rowGap={ 6 }>
+          <div className="flex flex-col gap-y-6">
             <ContractDetailsConstructorArgs data={ data } isLoading={ isLoading }/>
             { data?.source_code && (
               <ContractSourceCode

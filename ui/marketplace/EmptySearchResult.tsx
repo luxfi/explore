@@ -21,7 +21,7 @@ const EmptySearchResult = ({ favoriteApps, selectedCategoryId }: Props) => (
       (selectedCategoryId === MarketplaceCategory.FAVORITES && !favoriteApps.length) ? (
         <>
           You don{ apos }t have any favorite apps.<br/>
-          Click on the <IconSvg name="heart_outline" boxSize={ 5 } verticalAlign="text-bottom" color="icon.secondary"/>{ space }
+          Click on the <IconSvg name="heart_outline" className="w-5 h-5 align-text-bottom text-[var(--chakra-colors-icon-secondary)] inline-block"/>{ space }
           icon on the app{ apos }s card to add it to Favorites.
         </>
       ) : (

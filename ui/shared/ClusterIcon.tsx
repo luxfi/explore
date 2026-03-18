@@ -26,8 +26,7 @@ const ClusterIcon = ({
     <span className="inline-flex items-center justify-center bg-[var(--color-clusters)] rounded-base mr-2 shrink-0" style={{ width: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : boxSize, height: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : boxSize }}>
       <IconSvg
         name="clusters"
-        boxSize={ 3 }
-        color="white"
+        className="w-3 h-3 text-white"
       />
     </span>
   );

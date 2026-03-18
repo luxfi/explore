@@ -13,7 +13,7 @@ interface Props {
 const ApiKeySnippet = ({ apiKey, name, isLoading }: Props) => {
   return (
     <div className="flex flex-row gap-2 items-start">
-      <IconSvg name="key" boxSize={ 6 } color="icon.primary" isLoading={ isLoading }/>
+      <IconSvg name="key" className="w-6 h-6 text-[var(--color-icon-primary)]" isLoading={ isLoading }/>
       <div>
         <div className="flex items-start lg:items-center">
           <Skeleton loading={ isLoading } display="inline-block" fontWeight={ 600 } mr={ 1 }>

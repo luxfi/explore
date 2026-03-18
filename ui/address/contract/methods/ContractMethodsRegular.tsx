@@ -27,7 +27,7 @@ const ContractMethodsRegular = ({ abi, isLoading }: Props) => {
   const filters = useMethodsFilters({ abi: formattedAbi });
 
   return (
-    <div className="flex" flexDir="column" rowGap={ 6 }>
+    <div className="flex flex-col gap-y-6">
       <ContractMethodsAlerts isLoading={ isLoading }/>
       <ContractMethodsFilters
         defaultMethodType={ filters.methodType }

@@ -62,7 +62,7 @@ const HotContracts = () => {
 
   const content = (
     <>
-      <div className="lg:hidden">
+      <div className="lg:hidden ml-2">
         { data?.items.map((item, index) => (
           <HotContractsListItem
             key={ item.contract_address.hash + (isPlaceholderData ? index : '') }
@@ -85,7 +85,7 @@ const HotContracts = () => {
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <div className="flex items-center">
         <HotContractsIntervalSelect
           interval={ interval }
@@ -103,8 +103,7 @@ const HotContracts = () => {
           collection={ sortCollection }
           onValueChange={ handleSortChange }
           isLoading={ isPlaceholderData }
-          className="lg:hidden"
-          className="ml-2"
+          className="lg:hidden ml-2"
         />
       </div>
       <Pagination { ...pagination } className="ml-auto"/>

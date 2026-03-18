@@ -26,36 +26,36 @@ const NFTItem = ({ value, isLoading, withTokenLink, chain, ...tokenInstance }: P
     undefined;
 
   return (
-    <NFTItemContainer position="relative">
+    <NFTItemContainer className="relative">
       <Skeleton loading={ isLoading } className="light">
         <Tag className="bg-gray-50 z-[1] absolute top-[18px] right-[18px]">{ getTokenTypeName(token.type) }</Tag>
       </Skeleton>
       <Link href={ isLoading ? undefined : tokenInstanceLink } className="inline">
         <NftMedia
-          mb="18px"
+          className="mb-[18px]"
           data={ tokenInstance }
           size="md"
           isLoading={ isLoading }
           autoplayVideo={ false }
         />
       </Link>
-      <div className="flex" justifyContent="space-between" w="100%" flexWrap="wrap">
-        <div className="flex" ml={ 1 } overflow="hidden">
-          <span whiteSpace="pre" color="text.secondary">ID# </span>
+      <div className="flex justify-between flex-wrap w-full">
+        <div className="flex overflow-hidden ml-1">
+          <span className="whitespace-pre text-[var(--color-text-secondary)]">ID# </span>
           <NftEntity hash={ token.address_hash } id={ tokenInstance.id } isLoading={ isLoading } noIcon/>
         </div>
         <Skeleton loading={ isLoading } overflow="hidden" ml={ 1 }>
           { valueResult && (
             <div className="flex">
-              <span color="text.secondary" whiteSpace="pre">Qty </span>
-              <span overflow="hidden" wordBreak="break-all">{ valueResult }</span>
+              <span className="text-[var(--color-text-secondary)] whitespace-pre">Qty </span>
+              <span className="overflow-hidden break-all">{ valueResult }</span>
             </div>
           ) }
         </Skeleton>
       </div>
       { withTokenLink && (
         <TokenEntity
-          mt={ 2 }
+          className="mt-2"
           token={ token }
           isLoading={ isLoading }
           noCopy

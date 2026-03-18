@@ -162,8 +162,7 @@ const CsvExport = () => {
           <TokenEntity
             token={ tokenQuery.data }
             truncation={ isMobile ? 'constant' : 'dynamic' }
-            w="fit-content"
-            maxW={{ base: '100%', lg: '400px' }}
+            className="w-fit max-w-full lg:max-w-[400px]"
             noCopy
             noSymbol
           />

@@ -83,7 +83,7 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
   return (
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ handleSubmit(onFormSubmit) } autoComplete="off" ref={ containerRef }>
-        <div className="flex flex-col" gap={ 5 } alignItems="flex-start">
+        <div className="flex flex-col gap-5 items-start">
           <FormFieldText<Inputs> name="submitter_name" required placeholder="Submitter name"/>
           <FormFieldEmail<Inputs> name="submitter_email" required placeholder="Submitter email"/>
           <FormFieldCheckbox<Inputs, 'is_project_owner'>

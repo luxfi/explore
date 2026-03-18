@@ -11,13 +11,9 @@ import AdBanner from 'ui/shared/ad/AdBanner';
 const feature = getFeaturePayload(config.features.marketplace);
 const dappConfig = feature?.essentialDapps?.multisend;
 
-const Container = ({ children }: { children: React.ReactNode }) => (
-  <div
-    w="full"
-    maxW="670px"
-    mx="auto"
-    css={{
-      '& > .multisenderTheme': {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const MULTISEND_CSS = {
+  '& > .multisenderTheme': {
         '--mw-color-brand': { _light: 'colors.blue.600', _dark: 'colors.blue.500' },
         '--mw-color-brand-stroke': { _light: 'colors.gray.200', _dark: 'colors.whiteAlpha.100' },
         '--mw-color-brand-text-secondary': 'colors.text.secondary',
@@ -490,9 +486,11 @@ const Container = ({ children }: { children: React.ReactNode }) => (
             },
           },
         },
-      },
-    }}
-  >{ children }</div>
+  },
+};
+
+const Container = ({ children }: { children: React.ReactNode }) => (
+  <div className="w-full max-w-[670px] mx-auto" style={ MULTISEND_CSS }>{ children }</div>
 );
 
 const widgetConfig = Object.fromEntries((dappConfig?.chains ?? []).map((chainId) => {

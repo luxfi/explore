@@ -86,8 +86,7 @@ const SearchBarInput = (
   const startElement = (
     <IconSvg
       name="search"
-      boxSize={ 5 }
-      mx={ 2 }
+      className="w-5 h-5 mx-2"
     />
   );
 

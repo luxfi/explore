@@ -41,7 +41,7 @@ const DeFiDropdown = () => {
             { config.chain.name || 'Explorer' }{ space }
           </span>
           DeFi
-          <IconSvg name="arrows/east-mini" boxSize={ 4 } ml={ 1 } transform="rotate(-90deg)"/>
+          <IconSvg name="arrows/east-mini" className="w-4 h-4 ml-1 -rotate-90"/>
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ width: 'auto', minWidth: '132px' }}>
@@ -67,7 +67,7 @@ const DeFiDropdown = () => {
       external={ !items[0].dappId }
     >
       <Button onClick={ items[0].onClick } size="2xs">
-        { items[0].icon && <IconSvg name={ items[0].icon } boxSize={ 3 } mr={{ base: 0, sm: 1 }}/> }
+        { items[0].icon && <IconSvg name={ items[0].icon } className="w-3 h-3 mr-0 sm:mr-1"/> }
         <span className="hidden sm:inline">
           { items[0].text }
         </span>

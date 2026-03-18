@@ -49,14 +49,13 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
                   }}
                   noIndicator
                 >
-                  <div                     className="codicon codicon-tree-item-expanded" style={{ transform: 'rotate(-90deg)' }}
-                    boxSize="16px"
-                    mr="2px"
+                  <div
+                    className="codicon codicon-tree-item-expanded size-4 mr-[2px]"
+                    style={{ transform: 'rotate(-90deg)' }}
                   />
                   <IconSvg
                     name={ isExpanded ? 'monaco/folder-open' : 'monaco/folder' }
-                    boxSize="16px"
-                    mr="4px"
+                    className="size-4 mr-1"
                   />
                   { leafName }
                 </AccordionItemTrigger>
@@ -89,12 +88,14 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
             >
               { mainFile === leaf.file_path && (
                 <CodeEditorMainFileIndicator
-                  position="absolute"
-                  top={ `${ (22 - 12) / 2 }px` }
-                  left={ `${ (26 - 12 - 2) + (level * 8) }px` }
+                  className="absolute"
+                  style={{
+                    top: `${ (22 - 12) / 2 }px`,
+                    left: `${ (26 - 12 - 2) + (level * 8) }px`,
+                  }}
                 />
               ) }
-              <CodeEditorFileIcon fileName={ leaf.name } mr="4px"/>
+              <CodeEditorFileIcon fileName={ leaf.name } className="mr-1"/>
               { leafName }
             </AccordionItem>
           );

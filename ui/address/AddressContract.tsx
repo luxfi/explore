@@ -93,7 +93,7 @@ const AddressContract = ({ addressData, isLoading = false, hasMudTab, ...rest }:
       size="sm"
       isLoading={ contractTabs.isLoading }
       rightSlot={ rightSlot }
-      rightSlotProps={{ ml: contractTabs.tabs.length > 1 ? { base: 'auto', md: 6 } : 0 }}
+      rightSlotProps={{ className: contractTabs.tabs.length > 1 ? 'ml-auto md:ml-6' : 'ml-0' }}
       { ...rest }
     />
   );

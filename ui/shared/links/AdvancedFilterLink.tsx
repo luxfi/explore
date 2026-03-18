@@ -20,8 +20,8 @@ const AdvancedFilterLink = ({ query, routeParams, adaptive = true, className, ..
       className={ `flex items-center gap-1 text-sm ${ className ?? '' }`.trim() }
       { ...rest }
     >
-      <IconSvg name="advanced-filter" boxSize={ 5 }/>
-      <span className={adaptive ?"hidden lg:inline" :""}>Advanced</span>
+      <IconSvg name="advanced-filter" className="size-5"/>
+      <span className={ adaptive ? 'hidden lg:inline' : '' }>Advanced</span>
     </Link>
   );
 };

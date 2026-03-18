@@ -70,13 +70,10 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
   })();
 
   return (
-    <div className="flex items-center overflow-hidden" px={{ base: 0, lg: 3 }} maxW="100%">
+    <div className="flex items-center overflow-hidden px-0 lg:px-3 max-w-full">
       <LogIndex
         isLoading={ isLoading }
-        textStyle="xs"
-        mr={ 3 }
-        minW={ 6 }
-        height={ 6 }
+        className="text-xs mr-3 min-w-6 h-6"
       >
         { index }
       </LogIndex>

@@ -25,8 +25,8 @@ const AddressCoinBalanceListItem = (props: Props) => {
   const isPositiveDelta = deltaBn.gte(ZERO);
 
   return (
-    <ListItemMobile rowGap={ 2 }>
-      <div className="flex" justifyContent="space-between" w="100%">
+    <ListItemMobile className="gap-y-2">
+      <div className="flex justify-between w-full">
         <NativeCoinValue
           amount={ props.value }
           loading={ props.isLoading }
@@ -46,29 +46,28 @@ const AddressCoinBalanceListItem = (props: Props) => {
           </div>
         </Skeleton>
       </div>
-      <div className="flex" columnGap={ 2 } w="100%">
+      <div className="flex gap-x-2 w-full">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Block</Skeleton>
         <BlockEntity
           isLoading={ props.isLoading }
           number={ props.block_number }
           noIcon={ !props.chainData }
-          fontWeight={ 700 }
+          className="font-bold"
           chain={ props.chainData }
         />
       </div>
       { props.transaction_hash && (
-        <div className="flex" columnGap={ 2 } w="100%">
+        <div className="flex gap-x-2 w-full">
           <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txs</Skeleton>
           <TxEntity
             hash={ props.transaction_hash }
             isLoading={ props.isLoading }
             noIcon
-            fontWeight={ 700 }
-            maxW="150px"
+            className="font-bold max-w-[150px]"
           />
         </div>
       ) }
-      <div className="flex" columnGap={ 2 } w="100%">
+      <div className="flex gap-x-2 w-full">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Age</Skeleton>
         <TimeWithTooltip
           timestamp={ props.block_timestamp }

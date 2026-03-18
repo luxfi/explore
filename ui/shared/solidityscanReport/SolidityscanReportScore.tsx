@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import IconSvg from 'ui/shared/IconSvg';
 
 import useScoreLevelAndColor from './useScoreLevelAndColor';
@@ -13,24 +14,29 @@ const SolidityscanReportScore = ({ className, score }: Props) => {
   const { scoreLevel, scoreColor } = useScoreLevelAndColor(score);
 
   return (
-    <div className="flex items-center" className={ className }>
-      <div         w={ 12 }
-        h={ 12 }
-        borderRadius="24px" className="relative mr-3"
+    <div className={ cn('flex items-center', className) }>
+      <div
+        className="relative mr-3"
         style={{
+          width: '48px',
+          height: '48px',
+          borderRadius: '24px',
           background: `conic-gradient(${ scoreColor } 0, ${ scoreColor } ${ score }%, var(--color-gray-100) 0, var(--color-gray-100) 100%)`,
         }}
       >
-        <div className="flex items-center justify-center absolute w-[38px] h-[38px]" top="5px" right="5px" bg="popover.bg" borderRadius="20px">
-          <IconSvg name={ score < 80 ? 'score/score-not-ok' : 'score/score-ok' } boxSize={ 5 } color={ scoreColor }/>
+        <div
+          className="flex items-center justify-center absolute w-[38px] h-[38px] rounded-[20px]"
+          style={{ top: '5px', right: '5px', backgroundColor: 'var(--color-popover-bg)' }}
+        >
+          <IconSvg name={ score < 80 ? 'score/score-not-ok' : 'score/score-ok' } className="size-5" style={{ color: scoreColor }}/>
         </div>
       </div>
       <div>
         <div className="flex">
-          <span style={{ color: scoreColor  }} className="text-lg" className="font-medium">{ score }</span>
-          <span color="gray.400" className="text-lg" className="font-medium" className="whitespace-pre"> / 100</span>
+          <span className="text-lg font-medium" style={{ color: scoreColor }}>{ score }</span>
+          <span className="text-lg font-medium whitespace-pre text-[var(--color-gray-400)]"> / 100</span>
         </div>
-        <span style={{ color: scoreColor  }} className="font-medium">Security score is { scoreLevel }</span>
+        <span className="font-medium" style={{ color: scoreColor }}>Security score is { scoreLevel }</span>
       </div>
     </div>
   );

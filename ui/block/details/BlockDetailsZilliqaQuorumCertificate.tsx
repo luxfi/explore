@@ -43,26 +43,24 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
         <div
-          textStyle="sm"
-          gridTemplateColumns="min-content 1fr"
-          columnGap={ 5 }
-          mt={{ base: 2, lg: 1.5 }}
+          className="text-sm gap-x-5 grid mt-2 lg:mt-1.5"
+          style={{ gridTemplateColumns: 'min-content 1fr' }}
         >
-          <div fontWeight={ 600 }>View</div>
+          <div className="font-semibold">View</div>
           <div>{ data.view }</div>
-          <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <div fontWeight={ 600 }>Signature</div>
-          <div whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
+          <DetailedInfo.ItemDivider className="my-2 lg:my-2 col-span-2"/>
+          <div className="font-semibold">Signature</div>
+          <div className="whitespace-pre-wrap break-words flex items-start">
             { data.signature }
             <CopyToClipboard text={ data.signature }/>
           </div>
-          <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <div fontWeight={ 600 }>Signers</div>
-          <div whiteSpace="pre-wrap">{ formatSigners(data.signers) }</div>
+          <DetailedInfo.ItemDivider className="my-2 lg:my-2 col-span-2"/>
+          <div className="font-semibold">Signers</div>
+          <div className="whitespace-pre-wrap">{ formatSigners(data.signers) }</div>
         </div>
         { data.nested_quorum_certificates && data.nested_quorum_certificates.length > 0 && (
           <>
-            <hr mt={ 2 } w="100%"/>
+            <hr className="mt-2 w-full"/>
             <AccordionRoot
               multiple
               className="w-full text-sm"
@@ -81,24 +79,19 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
                   { data.nested_quorum_certificates?.map((item, index) => (
                     <div
                       key={ index }
-                      gridTemplateColumns="90px minmax(0, 1fr)"
-                      columnGap={ 3 }
-                      rowGap={ 2 }
-                      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-                      p={ 4 }
-                      borderRadius="md"
-                      _first={{ borderTopRightRadius: 0, borderTopLeftRadius: 0 }}
+                      style={{ gridTemplateColumns: '90px minmax(0, 1fr)' }}
+                      className="grid gap-x-3 gap-y-2 p-4 rounded-md bg-[var(--color-bg-base)]"
                     >
                       <div>View</div>
                       <div>{ item.view }</div>
                       <div>Signature</div>
-                      <div whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
+                      <div className="whitespace-pre-wrap break-words flex items-start">
                         { item.signature }
                         <CopyToClipboard text={ item.signature }/>
                       </div>
                       <div>Signers</div>
-                      <div whiteSpace="pre-wrap">{ formatSigners(item.signers) }</div>
-                      <div whiteSpace="pre-wrap">Proposed by validator</div>
+                      <div className="whitespace-pre-wrap">{ formatSigners(item.signers) }</div>
+                      <div className="whitespace-pre-wrap">Proposed by validator</div>
                       <div >{ item.proposed_by_validator_index }</div>
                     </div>
                   )) }

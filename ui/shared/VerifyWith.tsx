@@ -29,7 +29,7 @@ const VerifyWith = ({ className, links, label, longText, shortText }: Props) => 
               className="font-medium shrink-0 gap-x-1"
               style={{ padding: shortText ? '0 0.5rem' : '0 0.25rem' }}
             >
-              <IconSvg name="explorer" boxSize={ 5 }/>
+              <IconSvg name="explorer" className="w-5 h-5"/>
               <span className="hidden xl:inline">{ longText }</span>
               { shortText && <span className="xl:hidden">{ shortText }</span> }
             </Button>

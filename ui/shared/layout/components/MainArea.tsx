@@ -1,6 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 
 import { CONTENT_MAX_WIDTH } from '../utils';
 
@@ -14,11 +15,11 @@ const HORIZONTAL_NAV_BAR_HEIGHT = config.UI.navigation.layout === 'horizontal' ?
 
 const MainArea = ({ children, className }: Props) => {
   return (
-    <div className="flex items-stretch w-full mx-auto"       className={ className }
-      maxW={ `${ CONTENT_MAX_WIDTH }px` }
-      minH={{
-        base: `calc(100vh - ${ TOP_BAR_HEIGHT }px)`,
-        lg: `calc(100vh - ${ TOP_BAR_HEIGHT + HORIZONTAL_NAV_BAR_HEIGHT }px)`,
+    <div
+      className={ cn('flex items-stretch w-full mx-auto', className) }
+      style={{
+        maxWidth: `${ CONTENT_MAX_WIDTH }px`,
+        minHeight: `calc(100vh - ${ TOP_BAR_HEIGHT + HORIZONTAL_NAV_BAR_HEIGHT }px)`,
       }}
     >
       { children }

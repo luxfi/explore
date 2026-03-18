@@ -90,7 +90,7 @@ const BlockDetails = ({ query }: Props) => {
     }
 
     return (
-      <span color="text.secondary" whiteSpace="break-spaces">
+      <span className="text-[var(--color-text-secondary)]" style={{ whiteSpace: 'break-spaces' }}>
         <Tooltip content="Static block reward">
           <span>{ staticReward.dividedBy(WEI).toFixed() }</span>
         </Tooltip>
@@ -162,9 +162,9 @@ const BlockDetails = ({ query }: Props) => {
         <Skeleton loading={ isPlaceholderData }>
           { data.height }
         </Skeleton>
-        { data.height === 0 && <span whiteSpace="pre"> - Genesis Block</span> }
+        { data.height === 0 && <span className="whitespace-pre"> - Genesis Block</span> }
         <PrevNext
-          ml={ 6 }
+          className="ml-6"
           onClick={ handlePrevNextClick }
           prevLabel="View previous block"
           nextLabel="View next block"
@@ -447,7 +447,7 @@ const BlockDetails = ({ query }: Props) => {
           gasUsed={ data.gas_used || undefined }
           gasLimit={ data.gas_limit }
           isLoading={ isPlaceholderData }
-          ml={ 4 }
+          className="ml-4"
           gasTarget={ data.gas_target_percentage || undefined }
         />
       </DetailedInfo.ItemValue>
@@ -511,7 +511,7 @@ const BlockDetails = ({ query }: Props) => {
               amount={ burntFees.toString() }
               accuracy={ 0 }
               loading={ isPlaceholderData }
-              startElement={ <IconSvg name="flame" boxSize={ 5 } mr={{ base: 1, lg: 2 }} color="icon.primary" isLoading={ isPlaceholderData }/> }
+              startElement={ <IconSvg name="flame" className="w-5 h-5 text-[var(--color-icon-primary)] mr-1 lg:mr-2" isLoading={ isPlaceholderData }/> }
               mr={ 4 }
             />
             { !txFees.isEqualTo(ZERO) && (
@@ -560,7 +560,7 @@ const BlockDetails = ({ query }: Props) => {
               flexWrap="nowrap"
               alignSelf="flex-start"
             >
-              <div whiteSpace="nowrap" overflow="hidden">
+              <div className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ data.bitcoin_merged_mining_header }/>
               </div>
               <CopyToClipboard text={ data.bitcoin_merged_mining_header }/>
@@ -615,7 +615,7 @@ const BlockDetails = ({ query }: Props) => {
               flexWrap="nowrap"
               alignSelf="flex-start"
             >
-              <div whiteSpace="nowrap" overflow="hidden">
+              <div className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ data.hash_for_merged_mining }/>
               </div>
               <CopyToClipboard text={ data.hash_for_merged_mining }/>
@@ -631,7 +631,7 @@ const BlockDetails = ({ query }: Props) => {
               Difficulty
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <div overflow="hidden">
+              <div className="overflow-hidden">
                 <HashStringShortenDynamic hash={ BigNumber(data.difficulty).toFormat() }/>
               </div>
             </DetailedInfo.ItemValue>
@@ -645,7 +645,7 @@ const BlockDetails = ({ query }: Props) => {
               Total difficulty
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <div overflow="hidden">
+              <div className="overflow-hidden">
                 <HashStringShortenDynamic hash={ BigNumber(data.total_difficulty).toFormat() }/>
               </div>
             </DetailedInfo.ItemValue>
@@ -660,7 +660,7 @@ const BlockDetails = ({ query }: Props) => {
           Hash
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="nowrap">
-          <div overflow="hidden" >
+          <div className="overflow-hidden" >
             <HashStringShortenDynamic hash={ data.hash }/>
           </div>
           <CopyToClipboard text={ data.hash }/>

@@ -22,13 +22,12 @@ interface Props {
 
 const Item = (data: SmartContractExternalLibrary) => {
   return (
-    <div className="flex" flexDir="column" py={ 2 } w="100%" rowGap={ 1 }>
+    <div className="flex flex-col py-2 w-full gap-y-1">
       <div>{ data.name }</div>
       <AddressEntity
         address={{ hash: data.address_hash, is_contract: true }}
         query={{ tab: 'contract' }}
-        fontSize="sm"
-        fontWeight="500"
+        className="text-sm font-medium"
         target="_blank"
       />
     </div>
@@ -60,8 +59,8 @@ const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
       aria-label="View external libraries"
     >
       <span>{ data.length } { data.length > 1 ? 'Libraries' : 'Library' } </span>
-      <IconSvg name="status/warning" boxSize={ 5 } color="orange.400" ml="2px"/>
-      <IconSvg name="arrows/east-mini" transform={ open ? 'rotate(90deg)' : 'rotate(-90deg)' } transitionDuration="faster" boxSize={ 5 } ml={ 2 }/>
+      <IconSvg name="status/warning" className="w-5 h-5 text-orange-400 ml-[2px]"/>
+      <IconSvg name="arrows/east-mini" className="w-5 h-5 ml-2 transition-transform duration-150" style={{ transform: open ? 'rotate(90deg)' : 'rotate(-90deg)' }}/>
     </Button>
   );
 
@@ -72,13 +71,7 @@ const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
         The linked library{ apos }s source code may not be the real one.
         Check the source code at the library address (if any) if you want to be sure in case if there is any library linked
       </Alert>
-      <div className="flex flex-col"
-        separator={ <hr/> }
-        gap={ 2 }
-        mt={ 4 }
-        maxH={{ lg: '50vh' }}
-        overflowY="scroll"
-      >
+      <div className="flex flex-col gap-2 mt-4 lg:max-h-[50vh] overflow-y-scroll">
         { data.map((item) => <Item key={ item.address_hash } { ...item }/>) }
       </div>
     </>

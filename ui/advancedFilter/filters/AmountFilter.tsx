@@ -82,7 +82,7 @@ const AmountFilter = ({ value = {}, handleFilterChange }: Props) => {
       hasReset
     >
       <PopoverCloseTriggerWrapper>
-        <div className="flex" gap={ 3 }>
+        <div className="flex gap-3">
           <TagGroupSelect<string>
             items={ PRESETS.map((preset) => ({ id: preset.value, title: preset.name })) }
             onChange={ onPresetChange }
@@ -90,9 +90,9 @@ const AmountFilter = ({ value = {}, handleFilterChange }: Props) => {
           />
         </div>
       </PopoverCloseTriggerWrapper>
-      <div className="flex" mt={ 3 } alignItems="center">
+      <div className="flex items-center mt-3">
         <Input value={ currentValue.from } onChange={ handleFromChange } placeholder="From" type="number" size="sm"/>
-        <span mx={ 3 }>{ ndash }</span>
+        <span className="mx-3">{ ndash }</span>
         <Input value={ currentValue.to } onChange={ handleToChange } placeholder="To" type="number" size="sm"/>
       </div>
     </TableColumnFilter>

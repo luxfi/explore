@@ -69,7 +69,7 @@ const TokenTransferTableItem = ({
               isLoading={ isLoading }
               noSymbol
               noCopy
-              mt={ 1 }
+              className="mt-1"
             />
             <div className="flex gap-x-2 gap-y-2 mt-2 flex-wrap">
               <Badge loading={ isLoading }>{ getTokenTypeName(token.type, chainData?.app_config) }</Badge>
@@ -94,9 +94,8 @@ const TokenTransferTableItem = ({
             <TxEntity
               hash={ txHash }
               isLoading={ isLoading }
-              fontWeight={ 600 }
+              className="font-semibold mt-1"
               noIcon
-              mt={ 1 }
               truncation="constant_long"
             />
           ) : (
@@ -119,7 +118,7 @@ const TokenTransferTableItem = ({
           to={ to }
           current={ baseAddress }
           isLoading={ isLoading }
-          mt={ 1 }
+          className="mt-1"
           mode={{ lg: 'compact', xl: 'long' }}
         />
       </TableCell>

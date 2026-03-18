@@ -33,7 +33,7 @@ const TokenSelectMenu = ({ getSort, filteredData, onInputChange, onSortClick, se
         mb={ 5 }
         onChange={ onInputChange }
       />
-      <div className="flex" flexDir="column" rowGap={ 6 }>
+      <div className="flex flex-col gap-y-6">
         { Object.entries(filteredData).sort(sortTokenGroups).map(([ tokenType, tokenInfo ]) => {
           if (tokenInfo.items.length === 0) {
             return null;
@@ -51,13 +51,13 @@ const TokenSelectMenu = ({ getSort, filteredData, onInputChange, onSortClick, se
 
           return (
             <div key={ type }>
-              <div className="flex" justifyContent="space-between">
-                <span mb={ 3 } color="gray.500" fontWeight={ 600 } fontSize="sm">
+              <div className="flex justify-between">
+                <span className="mb-3 font-semibold text-gray-500 text-sm">
                   { getTokenTypeName(type) } tokens ({ numPrefix }{ tokenInfo.items.length })
                 </span>
                 { hasSort && (
                   <Link data-type={ type } onClick={ onSortClick } aria-label={ `Sort ${ getTokenTypeName(type) } tokens` }>
-                    <IconSvg name="arrows/east" boxSize={ 5 } transform={ arrowTransform } transitionDuration="faster"/>
+                    <IconSvg name="arrows/east" className="w-5 h-5 transition-transform duration-150" style={{ transform:  arrowTransform  }}/>
                   </Link>
                 ) }
               </div>
@@ -67,7 +67,7 @@ const TokenSelectMenu = ({ getSort, filteredData, onInputChange, onSortClick, se
           );
         }) }
       </div>
-      { Boolean(searchTerm) && !hasFilteredResult && <span fontSize="sm">Could not find any matches.</span> }
+      { Boolean(searchTerm) && !hasFilteredResult && <span className="text-sm">Could not find any matches.</span> }
     </>
   );
 };

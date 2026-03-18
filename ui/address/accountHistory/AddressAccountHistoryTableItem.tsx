@@ -31,8 +31,7 @@ const AddressAccountHistoryTableItem = (props: Props) => {
           timestamp={ props.tx.rawTransactionData.timestamp * SECOND }
           isLoading={ props.isPlaceholderData }
           color="text.secondary"
-          borderRadius="sm"
-          flexShrink={ 0 }
+          className="shrink-0"
         />
       </TableCell>
       <TableCell px={ 3 } py="18px" fontSize="sm" >
@@ -40,10 +39,7 @@ const AddressAccountHistoryTableItem = (props: Props) => {
           <div className="flex">
             <IconSvg
               name="lightning"
-              height="5"
-              width="5"
-              color="icon.primary"
-              mr="8px"
+              className="w-5 h-5 text-[var(--color-icon-primary)] mr-2"
             />
 
             <Link

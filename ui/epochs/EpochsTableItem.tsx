@@ -18,8 +18,8 @@ const EpochsTableItem = ({ item, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <div gap={ 2 }>
-          <EpochEntity number={ String(item.number) } noIcon fontWeight={ 700 } isLoading={ isLoading }/>
+        <div className="flex gap-2">
+          <EpochEntity number={ String(item.number) } noIcon className="font-bold" isLoading={ isLoading }/>
           <Skeleton loading={ isLoading } color="text.secondary" fontWeight={ 500 }><span>{ item.type }</span></Skeleton>
           <TimeWithTooltip
             timestamp={ item.timestamp }

@@ -20,7 +20,7 @@ const ClustersLeaderboardTableItem = ({ item, isLoading }: Props) => {
         </Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 600 }/>
+        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } className="font-semibold"/>
       </TableCell>
       <TableCell verticalAlign="middle">
         <Skeleton loading={ isLoading }>

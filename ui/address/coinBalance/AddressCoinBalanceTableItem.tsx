@@ -37,7 +37,7 @@ const AddressCoinBalanceTableItem = (props: Props) => {
           isLoading={ props.isLoading }
           number={ props.block_number }
           noIcon
-          fontWeight={ 700 }
+          className="font-bold"
         />
       </TableCell>
       <TableCell>
@@ -46,8 +46,7 @@ const AddressCoinBalanceTableItem = (props: Props) => {
             hash={ props.transaction_hash }
             isLoading={ props.isLoading }
             noIcon
-            fontWeight={ 700 }
-            maxW="150px"
+            className="font-bold max-w-[150px]"
           />
         ) }
       </TableCell>

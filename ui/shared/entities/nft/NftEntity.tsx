@@ -38,13 +38,11 @@ const Icon = (props: IconProps) => {
       <NftMedia
         data={ props.instance }
         isLoading={ props.isLoading }
-        boxSize={ styles.boxSize }
         size="sm"
         allowedTypes={ ICON_MEDIA_TYPES }
-        borderRadius="sm"
-        flexShrink={ 0 }
-        marginRight={ 2 }
         fallback={ fallback }
+        className="rounded-sm shrink-0 mr-2"
+        style={{ width: styles.boxSize, height: styles.boxSize }}
       />
     );
   }
@@ -101,7 +99,7 @@ const NftEntity = (props: EntityProps) => {
   const content = <Content { ...partsProps.content }/>;
 
   return (
-    <Container w="100%" { ...partsProps.container }>
+    <Container { ...partsProps.container } className={ `w-full ${ partsProps.container.className || '' }` }>
       <Icon { ...partsProps.icon }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
     </Container>

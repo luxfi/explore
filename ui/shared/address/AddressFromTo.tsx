@@ -82,8 +82,7 @@ const AddressFromTo = ({
             tokenHash={ tokenHash }
             tokenSymbol={ tokenSymbol }
             truncation="constant"
-            maxW="calc(100% - 28px)"
-            w="min-content"
+            className="max-w-[calc(100%-28px)] w-min"
             chainId={ fromChainId }
           />
         </div>
@@ -97,9 +96,7 @@ const AddressFromTo = ({
             tokenHash={ tokenHash }
             tokenSymbol={ tokenSymbol }
             truncation="constant"
-            maxW="calc(100% - 28px)"
-            w="min-content"
-            ml="28px"
+            className="max-w-[calc(100%-28px)] w-min ml-7"
             chainId={ toChainId }
           />
         ) }
@@ -120,9 +117,8 @@ const AddressFromTo = ({
         tokenHash={ tokenHash }
         tokenSymbol={ tokenSymbol }
         truncation="constant"
-        mr={ isOutgoing ? 4 : 2 }
+        className={ `w-auto ${ isOutgoing ? 'mr-4' : 'mr-2' }` }
         chainId={ fromChainId }
-        w="auto"
       />
       <AddressFromToIcon
         isLoading={ isLoading }
@@ -138,9 +134,8 @@ const AddressFromTo = ({
           tokenHash={ tokenHash }
           tokenSymbol={ tokenSymbol }
           truncation="constant"
-          ml={ 3 }
+          className="ml-3 w-auto"
           chainId={ toChainId }
-          w="auto"
         />
       ) }
     </div>

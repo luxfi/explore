@@ -62,9 +62,9 @@ const ContractDetailsDeployedByteCode = ({ bytecode, isLoading: isLoadingProp, a
   const content = selectedDataType[0] === 'UTF-8' ? hexToUtf8(bytecode) : bytecode;
 
   const beforeSlot = (
-    <div className="flex" alignItems="center" flexWrap="wrap" mb={ 3 } columnGap={ 3 } rowGap={ 1 }>
+    <div className="flex items-center flex-wrap mb-3 gap-x-3 gap-y-1">
       <Skeleton fontWeight={ 500 } loading={ isLoading }>Deployed bytecode</Skeleton>
-      <div className="flex" alignItems="center" flexGrow={ 1 }>
+      <div className="flex items-center grow">
         { showSelect && (
           <Select
             collection={ collection }

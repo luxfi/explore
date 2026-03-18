@@ -23,10 +23,10 @@ const AddressesLabelSearchListItem = ({
       <AddressEntity
         address={ item }
         isLoading={ isLoading }
-        fontWeight={ 700 }
-        w="100%"
+        className="font-bold w-full"
+       
       />
-      <div className="flex flex-row" gap={ 3 } maxW="100%" alignItems="flex-start">
+      <div className="flex flex-row gap-3 max-w-full items-[flex-start]">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ `Balance ${ currencyUnits.ether }` }</Skeleton>
         <NativeCoinValue
           amount={ item.coin_balance }
@@ -36,7 +36,7 @@ const AddressesLabelSearchListItem = ({
           color="text.secondary"
         />
       </div>
-      <div className="flex flex-row" gap={ 3 }>
+      <div className="flex flex-row gap-3">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Txn count</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>

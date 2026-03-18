@@ -41,9 +41,7 @@ import useTokenQuery from 'ui/token/useTokenQuery';
 export type TokenTabs = 'token_transfers' | 'holders' | 'inventory';
 
 const TABS_RIGHT_SLOT_PROPS = {
-  display: 'flex',
-  alignItems: 'center',
-  columnGap: 4,
+  className: 'flex items-center gap-x-4',
 };
 
 const TokenPageContent = () => {
@@ -205,7 +203,7 @@ const TokenPageContent = () => {
           return (
             <>
               <span>Contract</span>
-              <IconSvg name="status/success" boxSize="14px" color="green.500"/>
+              <IconSvg name="status/success" className="size-[14px] text-[var(--color-green-500)]"/>
             </>
           );
         }
@@ -275,7 +273,7 @@ const TokenPageContent = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
 
       <TokenPageTitle
         tokenQuery={ tokenQuery }

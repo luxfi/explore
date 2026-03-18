@@ -22,13 +22,13 @@ const AddressBlocksValidatedListItem = (props: Props) => {
   const totalReward = getBlockTotalReward(props);
 
   return (
-    <ListItemMobile rowGap={ 2 }>
-      <div className="flex" justifyContent="space-between" w="100%">
+    <ListItemMobile className="gap-y-2">
+      <div className="flex justify-between w-full">
         <BlockEntity
           isLoading={ props.isLoading }
           number={ props.height }
           noIcon
-          fontWeight={ 700 }
+          className="font-bold"
         />
         <TimeWithTooltip
           timestamp={ props.timestamp }
@@ -38,16 +38,16 @@ const AddressBlocksValidatedListItem = (props: Props) => {
           display="inline-block"
         />
       </div>
-      <div className="flex" columnGap={ 2 } w="100%">
+      <div className="flex gap-x-2 w-full">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txn</Skeleton>
         <Skeleton loading={ props.isLoading } display="inline-block" color="Skeleton_secondary">
           <span>{ props.transactions_count }</span>
         </Skeleton>
       </div>
-      <div className="flex" columnGap={ 2 } w="100%">
+      <div className="flex gap-x-2 w-full">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Gas used</Skeleton>
         <Skeleton loading={ props.isLoading }>
-          <span color="text.secondary">{ BigNumber(props.gas_used || 0).toFormat() }</span>
+          <span className="text-[var(--color-text-secondary)]">{ BigNumber(props.gas_used || 0).toFormat() }</span>
         </Skeleton>
         <BlockGasUsed
           gasUsed={ props.gas_used || undefined }
@@ -56,7 +56,7 @@ const AddressBlocksValidatedListItem = (props: Props) => {
         />
       </div>
       { !config.UI.views.block.hiddenFields?.total_reward && !config.features.rollup.isEnabled && (
-        <div className="flex" columnGap={ 2 } w="100%">
+        <div className="flex gap-x-2 w-full">
           <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Reward { currencyUnits.ether }</Skeleton>
           <SimpleValue
             value={ totalReward }

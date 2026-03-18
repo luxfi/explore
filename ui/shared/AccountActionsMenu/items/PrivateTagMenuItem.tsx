@@ -70,7 +70,7 @@ const PrivateTagMenuItem = ({ hash, entityType = 'address', type }: Props) => {
             { ({ onClick }) => (
               <MenuItem onClick={ onClick } value="add-private-tag">
                 { /* FIXME use non-navigation icon */ }
-                <IconSvg name="navigation/private_tags" boxSize={ 6 }/>
+                <IconSvg name="navigation/private_tags" className="w-6 h-6"/>
                 <span>Add private tag</span>
               </MenuItem>
             ) }

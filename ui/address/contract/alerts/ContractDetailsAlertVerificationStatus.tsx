@@ -62,7 +62,7 @@ const ContractDetailsAlertVerificationStatus = ({ data, isLoading, addressData }
         isLoading={ isLoading }
         addressHash={ addressData.hash }
       />
-      { sourceElement && <div w="100%">{ sourceElement }</div> }
+      { sourceElement && <div className="w-full">{ sourceElement }</div> }
     </Alert>
   );
 };

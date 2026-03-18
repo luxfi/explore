@@ -62,7 +62,7 @@ const IntTxsIndexingStatus = () => {
 
   const trigger = (
     <div className="flex px-1 bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)] rounded-sm items-center justify-center text-[var(--color-green-400)] hover:text-[var(--color-hover)]">
-      <IconSvg name="info" boxSize={ 5 }/>
+      <IconSvg name="info" className="w-5 h-5"/>
       { data.indexed_internal_transactions_ratio && (
         <span className="font-semibold text-xs text-inherit">
           { Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) + '%' }

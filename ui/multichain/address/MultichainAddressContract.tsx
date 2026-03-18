@@ -16,8 +16,7 @@ import ChainSelect from 'ui/multichain/components/ChainSelect';
 import getAvailableChainIds from './getAvailableChainIds';
 
 const LEFT_SLOT_PROPS = {
-  mr: 6,
-  flexShrink: 0,
+  className: 'mr-6 shrink-0',
 };
 const QUERY_PRESERVED_PARAMS = [ 'tab', 'hash' ];
 

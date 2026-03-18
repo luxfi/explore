@@ -30,8 +30,7 @@ const AddressEntityContentProxy = (props: ContentProps) => {
         noIcon
         noHighlight
         noTooltip
-        justifyContent="center"
-        w="100%"
+        className="justify-center w-full"
       />
       <div className="font-semibold mt-2">
         Implementation{ implementations.length > 1 ? 's' : '' }
@@ -46,9 +45,7 @@ const AddressEntityContentProxy = (props: ContentProps) => {
             noIcon
             noHighlight
             noTooltip
-            minW={ `calc((100% - ${ colNum - 1 } * 12px) / ${ colNum })` }
-            flex={ 1 }
-            justifyContent={ colNum === 1 ? 'center' : undefined }
+            className={ `flex-1 ${ colNum === 1 ? 'justify-center' : '' }` }
           />
         )) }
       </div>

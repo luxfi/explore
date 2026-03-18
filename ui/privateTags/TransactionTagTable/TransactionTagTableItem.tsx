@@ -29,7 +29,7 @@ const TransactionTagTableItem = ({ item, isLoading, onEditClick, onDeleteClick }
         <TxEntity
           hash={ item.transaction_hash }
           isLoading={ isLoading }
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </TableCell>
       <TableCell>

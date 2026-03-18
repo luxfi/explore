@@ -120,14 +120,14 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
   const executionSuccessBadge = toAddress?.is_contract && data.result === 'success' ? (
     <Tooltip content="Contract execution completed">
       <span>
-        <IconSvg name="status/success" color={{ _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' }}/>
+        <IconSvg name="status/success" className="text-[var(--color-blackAlpha-800)] dark:text-[var(--color-whiteAlpha-800)]"/>
       </span>
     </Tooltip>
   ) : null;
   const executionFailedBadge = toAddress?.is_contract && Boolean(data.status) && data.result !== 'success' ? (
     <Tooltip content="Error occurred during contract execution">
       <span>
-        <IconSvg name="status/error" color="text.error"/>
+        <IconSvg name="status/error" className="text-[var(--color-text-error)]"/>
       </span>
     </Tooltip>
   ) : null;
@@ -141,7 +141,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         <>
           <p id="meta-suites__tx-info-label" data-status={ data.status } data-ready={ !isLoading }/>
           <p id="meta-suites__tx-info-value"/>
-          <DetailedInfo.ItemDivider as="p" id="meta-suites__details-info-item-divider"/>
+          <div id="meta-suites__details-info-item-divider" className="col-span-1 lg:col-span-2 mt-2 lg:mt-3 mb-0 lg:mb-3 border-b border-[var(--color-border-divider)]"/>
         </>
       ) }
 
@@ -477,7 +477,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 { executionFailedBadge }
               </div>
             ) : (
-              <div width="100%">
+              <div className="w-full">
                 <span>[Contract </span>
                 <AddressEntity
                   address={ toAddress }
@@ -523,10 +523,10 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                       address={{ hash: message.target_address_hash }}
                       isLoading={ isLoading }
                       truncation="dynamic"
-                      w="100%"
+                      className="w-full"
                     />
                   ) : (
-                    <AddressEntity address={{ hash: message.target_address_hash }} isLoading={ isLoading } truncation="dynamic" w="100%"/>
+                    <AddressEntity address={{ hash: message.target_address_hash }} isLoading={ isLoading } truncation="dynamic" className="w-full"/>
                   );
                 }) }
             </div>

@@ -44,13 +44,13 @@ const InputShowcase = () => {
         <SamplesStack>
           <Sample label="with end element">
             <Field label="Referral code" required floating size="lg" className="w-[300px] shrink-0">
-              <InputGroup endElement={ <IconSvg name="copy" boxSize={ 5 }/> } endElementProps={{ className: 'px-3' }}>
+              <InputGroup endElement={ <IconSvg name="copy" className="w-5 h-5"/> } endElementProps={{ className: 'px-3' }}>
                 <Input/>
               </InputGroup>
             </Field>
           </Sample>
           <Sample label="with start element">
-            <InputGroup startElement={ <IconSvg name="collection" boxSize={ 5 }/> } startElementProps={{ className: 'px-2' }}>
+            <InputGroup startElement={ <IconSvg name="collection" className="w-5 h-5"/> } startElementProps={{ className: 'px-2' }}>
               <Input placeholder="Type in something"/>
             </InputGroup>
           </Sample>

@@ -19,7 +19,7 @@ const EpochElectionRewards = ({ data, isLoading }: Props) => {
   }
 
   return (
-    <div mt={ 6 }>
+    <div className="mt-6">
       <Heading level="3" className="mb-3">Election rewards</Heading>
       <div className="hidden lg:block">
         <TableRoot style={{ tableLayout: 'auto' }}>

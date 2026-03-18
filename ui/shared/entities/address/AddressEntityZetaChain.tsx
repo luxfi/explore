@@ -45,8 +45,7 @@ const AddressEntityZetaChain = ({ chainId, address, ...props }: Props) => {
   const iconStub = (
     <IconSvg
       name="networks/icon-placeholder"
-      color="icon.primary"
-      display="inline-block"
+      className="inline-block text-[var(--color-icon-primary)]"
     />
   );
 

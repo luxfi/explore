@@ -74,9 +74,7 @@ const ContractVerificationForAddress = () => {
         address={{ hash, is_contract: true }}
         noLink
         variant="subheading"
-        mb={ 12 }
-        w="min-content"
-        maxW="100%"
+        className="mb-12 w-min max-w-full"
       />
       { content }
     </>

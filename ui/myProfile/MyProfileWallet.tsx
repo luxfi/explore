@@ -34,7 +34,7 @@ const MyProfileWallet = ({ profileQuery, onAddWallet }: Props) => {
         <div className="rounded px-3 py-[18px]">
           <AddressEntity
             address={{ hash: profileQuery.data.address_hash }}
-            fontWeight="500"
+            className="font-medium"
             noAltHash
           />
         </div>

@@ -32,7 +32,7 @@ const TokenTransfersCrossChainTable = ({ data, isLoading, top, currentAddress }:
             <TableColumnHeader>Protocol</TableColumnHeader>
             <TableColumnHeader>Message</TableColumnHeader>
             <TableColumnHeader>
-              <div alignItems="center" flexWrap="nowrap">
+              <div className="flex items-center flex-nowrap">
                 Timestamp
                 <TimeFormatToggle/>
               </div>

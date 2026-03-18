@@ -31,7 +31,7 @@ const NetworkAddToWallet = ({ source, onAddSuccess }: Props) => {
       style={{ color: walletInfo.color, borderColor: walletInfo.color }}
       onClick={ handleClick }
     >
-      <IconSvg name={ walletInfo.icon } boxSize={ 3 }/>
+      <IconSvg name={ walletInfo.icon } className="size-3"/>
       Add { config.chain.name }
     </Button>
   );

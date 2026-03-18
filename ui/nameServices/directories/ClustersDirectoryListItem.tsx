@@ -23,7 +23,7 @@ const ClustersDirectoryListItem = ({ item, isLoading, isClusterDetailsLoading }:
         Cluster name
       </ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 500 }/>
+        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } className="font-medium"/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>
@@ -34,7 +34,7 @@ const ClustersDirectoryListItem = ({ item, isLoading, isClusterDetailsLoading }:
           <AddressEntity
             address={{ hash: item.owner }}
             isLoading={ isLoading }
-            fontWeight={ 500 }
+            className="font-medium"
             noLink={ !isEvmAddress(item.owner) }
           />
         ) }

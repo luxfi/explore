@@ -32,17 +32,17 @@ const CodeEditorSearchSection = ({ data, onItemClick }: Props) => {
         className="py-0 px-2 text-[13px] transition-none leading-[22px] items-center"
         noIndicator
       >
-        <div           className="codicon codicon-tree-item-expanded width-[20px] height-[22px] shrink-0" style={{ transform: 'rotate(-90deg)' }}
-          // transform={ isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }
-          py="3px"
+        <div
+          className="codicon codicon-tree-item-expanded w-5 h-[22px] shrink-0 py-[3px]"
+          style={{ transform: 'rotate(-90deg)' }}
         />
-        <CodeEditorFileIcon mr="4px" fileName={ fileName }/>
-        <div           mr="8px" className="whitespace-nowrap text-ellipsis text-left" className="overflow-hidden"
-        >
+        <CodeEditorFileIcon className="mr-1" fileName={ fileName }/>
+        <div className="mr-2 whitespace-nowrap text-ellipsis text-left overflow-hidden">
           { fileName }
         </div>
-        <div           className="monaco-count-badge shrink-0"
-          ml="auto" style={{ backgroundColor: themeColors['badge.background']  }}
+        <div
+          className="monaco-count-badge shrink-0 ml-auto"
+          style={{ backgroundColor: themeColors['badge.background'] }}
         >
           { data.matches.length }
         </div>

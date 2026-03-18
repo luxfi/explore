@@ -22,7 +22,7 @@ const ArbitrumL2TxnBatchDetailsCelestiaDA = ({ data }: Props) => {
       >
         Height
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue wordBreak="break-all" whiteSpace="break-spaces">
+      <DetailedInfo.ItemValue className="break-all whitespace-break-spaces">
         { data.height }
       </DetailedInfo.ItemValue>
 
@@ -31,7 +31,7 @@ const ArbitrumL2TxnBatchDetailsCelestiaDA = ({ data }: Props) => {
       >
         Commitment
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexWrap="nowrap">
+      <DetailedInfo.ItemValue className="flex-nowrap">
         <div className="overflow-hidden min-w-0">
           <HashStringShortenDynamic hash={ data.transaction_commitment }/>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import IconSvg from 'ui/shared/IconSvg';
 
 export const LIGHTNING_LABEL_CLASS_NAME = 'lightning-label';
@@ -34,17 +35,17 @@ const LightningLabel = ({ className, iconColor, isCollapsed }: Props) => {
 
   return (
     <IconSvg
-      className={ LIGHTNING_LABEL_CLASS_NAME + (className ? ` ${ className }` : '') }
+      className={ cn(
+        LIGHTNING_LABEL_CLASS_NAME,
+        'w-4 h-4 transition-[color,margin-left] duration-200 ease-in-out',
+        isExpanded ? 'ml-1 lg:ml-1 xl:ml-1' : 'ml-1 lg:ml-0 xl:ml-1',
+        isCollapsed ? 'lg:absolute xl:absolute lg:top-[10px] xl:top-[10px] lg:right-[15px] xl:right-[15px]' :
+          isExpanded ? 'lg:relative xl:relative lg:top-0 xl:top-0 lg:right-0 xl:right-0' :
+            'lg:absolute xl:relative lg:top-[10px] xl:top-0 lg:right-[15px] xl:right-0',
+        className,
+      ) }
       name="lightning_navbar"
-      boxSize={ 4 }
-      ml={{ base: 1, lg: isExpanded ? 1 : 0, xl: isCollapsed ? 0 : 1 }}
-      position={{ lg: isExpanded ? 'relative' : 'absolute', xl: isCollapsed ? 'absolute' : 'relative' }}
-      top={{ lg: isExpanded ? '0' : '10px', xl: isCollapsed ? '10px' : '0' }}
-      right={{ lg: isExpanded ? '0' : '15px', xl: isCollapsed ? '15px' : '0' }}
-      color={ color }
-      transitionProperty="color, margin-left"
-      transitionDuration="normal"
-      transitionTimingFunction="ease"
+      style={{ color: color === 'transparent' ? 'transparent' : `var(--color-${ color.replace('.', '-') })` }}
     />
   );
 };

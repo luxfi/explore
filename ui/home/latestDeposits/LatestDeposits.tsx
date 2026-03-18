@@ -78,7 +78,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
     if (isMobile) {
       return (
         <>
-          <div justifyContent="space-between" alignItems="center" mb={ 1 }>
+          <div className="flex justify-between items-center mb-1">
             { l1BlockLink }
             { item.timestamp ? (
               <TimeWithTooltip
@@ -89,7 +89,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
               />
             ) : <div/> }
           </div>
-          <div gridTemplateColumns="56px auto">
+          <div className="grid grid-cols-[56px_auto]">
             <Skeleton loading={ isLoading } className="my-[5px] w-fit">
               { layerLabels.parent } txn
             </Skeleton>
@@ -104,7 +104,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
     }
 
     return (
-      <div width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
+      <div className="grid w-full gap-x-4 gap-y-2 grid-cols-[max-content_max-content_auto]">
         { l1BlockLink }
         <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
           { layerLabels.parent } txn
@@ -130,14 +130,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
   })();
 
   return (
-    <div
-      width="100%"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      py={ 4 }
-      px={{ base: 0, lg: 4 }}
-      textStyle="sm"
-    >
+    <div className="w-full border-b border-[var(--color-border-divider)] py-4 px-0 lg:px-4 text-sm">
       { content }
     </div>
   );
@@ -155,7 +148,7 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
         type="deposit"
         isLoading={ isLoading }
       />
-      <div mb={{ base: 3, lg: 4 }}>
+      <div className="mb-3 lg:mb-4">
         { items.map(((item, index) => (
           <LatestDepositsItem
             key={ item.l1TxHash + item.l2TxHash + (isLoading ? index : '') }
@@ -164,7 +157,7 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
           />
         ))) }
       </div>
-      <div justifyContent="center">
+      <div className="flex justify-center">
         <Link className="text-sm" href={ depositsUrl }>View all deposits</Link>
       </div>
     </>

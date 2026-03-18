@@ -114,7 +114,7 @@ const TxInternals = ({ txQuery }: Props) => {
   ) : null;
 
   const actionBar = pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       { /* <FilterInput onChange={ setSearchTerm } maxW="360px" ml={ 3 } size="xs" placeholder="Search by addresses, hash, method..."/> */ }
       <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>

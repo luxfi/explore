@@ -32,7 +32,7 @@ const TokenInventoryItem = ({ item, token, isLoading }: Props) => {
 
   return (
     <div
-      w={{ base: '100%', lg: '210px' }} className="p-[10px]"
+      className="w-full lg:w-[210px] p-[10px]"
     >
       <Link href={ isLoading ? undefined : url } className="inline">
         { mediaElement }

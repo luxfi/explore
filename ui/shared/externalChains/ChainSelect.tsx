@@ -15,8 +15,8 @@ import ChainIcon from './ChainIcon';
 const ALL_OPTION: SelectOption = {
   value: 'all',
   label: 'All chains',
-  icon: <IconSvg name="pie_chart" boxSize={ 5 }/>,
-  afterElement: <Separator orientation="horizontal" w="full"/>,
+  icon: <IconSvg name="pie_chart" className="size-5"/>,
+  afterElement: <Separator orientation="horizontal"/>,
 };
 
 export interface Props extends Omit<SelectProps, 'collection' | 'placeholder'> {
@@ -59,7 +59,7 @@ const ChainSelect = ({ loading, mode, chainsConfig, chainIds, withAllOption, ...
   }, [ inputValue ]);
 
   const contentHeader = allItems.length > 10 ? (
-    <div px="4" className="pt-4 pb-2 bg-[var(--color-popover-bg)]" className="sticky" top={ 0 } zIndex={ 1 }>
+    <div className="px-4 pt-4 pb-2 bg-[var(--color-popover-bg)] sticky top-0 z-[1]">
       <FilterInput
         placeholder="Find chain"
         initialValue={ inputValue }

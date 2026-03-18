@@ -83,7 +83,7 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
           noCopy
           jointSymbol
           variant="subheading"
-          w="auto"
+          className="w-auto"
           chain={ multichainContext?.chain }
         />
       ) }

@@ -49,7 +49,7 @@ const GasTracker = () => {
       ) }
       { data?.coin_price && (
         <Skeleton loading={ isLoading } ml={ 0 } display="flex" alignItems="center" className="lg:ml-auto whitespace-pre">
-          <NativeTokenIcon mr={ 2 } boxSize={ 6 }/>
+          <NativeTokenIcon className="mr-2 size-6"/>
           <span className="text-[var(--color-text-secondary)]">{ config.chain.currency.symbol }</span>
           <span> ${ Number(data.coin_price).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
         </Skeleton>

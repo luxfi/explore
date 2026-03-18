@@ -37,7 +37,7 @@ const MultichainAccounts = () => {
 
   const content = data?.items ? (
     <MultichainProvider chainId={ chainValue?.[0] }>
-      <div hideBelow="lg">
+      <div className="hidden lg:block">
         <AddressesTable
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           items={ data.items }
@@ -46,7 +46,7 @@ const MultichainAccounts = () => {
           isLoading={ isPlaceholderData }
         />
       </div>
-      <div hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map((item, index) => (
           <AddressesListItem
             key={ item.hash + (isPlaceholderData ? index : '') }
@@ -61,7 +61,7 @@ const MultichainAccounts = () => {
   ) : null;
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <ChainSelect
         value={ chainValue }
         onValueChange={ onChainValueChange }

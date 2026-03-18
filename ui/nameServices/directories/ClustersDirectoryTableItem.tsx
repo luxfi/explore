@@ -19,17 +19,15 @@ const ClustersDirectoryTableItem = ({ item, isLoading, isClusterDetailsLoading }
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } fontWeight={ 600 }/>
+        <ClustersEntity clusterName={ item.name } isLoading={ isLoading } className="font-semibold"/>
       </TableCell>
       <TableCell verticalAlign="middle">
         { item.owner && (
           <AddressEntity
             address={{ hash: item.owner }}
             isLoading={ isLoading }
-            fontWeight={ 500 }
+            className="font-medium w-fit max-w-full"
             noLink={ !isEvmAddress(item.owner) }
-            w="fit-content"
-            maxW="100%"
           />
         ) }
         { !item.owner && <Skeleton loading={ isLoading }>—</Skeleton> }

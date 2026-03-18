@@ -54,7 +54,7 @@ const DeleteModal: React.FC<Props> = ({
       <DialogContent>
         <DialogHeader>{ title }</DialogHeader>
         <DialogBody>
-          { isAlertVisible && <div mb={ 4 }><FormSubmitAlert/></div> }
+          { isAlertVisible && <div className="mb-4"><FormSubmitAlert/></div> }
           { renderContent() }
         </DialogBody>
         <DialogFooter>

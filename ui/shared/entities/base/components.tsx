@@ -40,8 +40,6 @@ export interface EntityBaseProps {
   truncationMaxSymbols?: number;
   variant?: Variant;
   chain?: ExternalChain;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
 }
 
 export interface ContainerBaseProps extends Pick<EntityBaseProps, 'className'> {
@@ -159,11 +157,18 @@ const Icon = (props: IconBaseProps) => {
 
     return (
       <IconSvg
-        display="block"
-        color={ color ?? 'icon.primary' }
         name={ rest.name! }
-        className={ rest.className }
-        { ...commonProps }
+        className={ cn(
+          'block shrink-0',
+          rest.className,
+        ) }
+        style={{
+          marginRight: String(commonProps.marginRight),
+          width: typeof commonProps.boxSize === 'number' ? `${ commonProps.boxSize }px` : String(commonProps.boxSize),
+          height: typeof commonProps.boxSize === 'number' ? `${ commonProps.boxSize }px` : String(commonProps.boxSize),
+          borderRadius: String(commonProps.borderRadius),
+          color: `var(--color-${ (color ?? 'icon.primary').replace(/\./g, '-') })`,
+        }}
       />
     );
   })();
@@ -195,28 +200,40 @@ type IconShieldProps = (ImageProps | IconSvgProps) & { isLoading?: boolean; vari
 const IconShield = (props: IconShieldProps) => {
   const { variant, ...rest } = props;
 
-  const styles = {
-    position: 'absolute' as const,
+  const shieldStyle: React.CSSProperties = {
+    position: 'absolute',
     top: variant === 'heading' ? '14px' : '6px',
     left: variant === 'heading' ? '18px' : '12px',
-    boxSize: '18px',
-    borderRadius: 'full',
+    width: '18px',
+    height: '18px',
+    borderRadius: '9999px',
     borderWidth: '1px',
     borderStyle: 'solid',
-    // The colors can be changed on hover, if address is highlighted
-    // Because the highlighted styles are described as CSS classes, we must do the same for the shield border color.
-    // borderColor: 'bg.primary',
-    // backgroundColor: 'bg.primary',
-    className: 'entity__shield',
   };
 
+  const shieldClassName = 'entity__shield';
+
   if ('src' in rest) {
-    return rest.isLoading ? <Skeleton loading { ...styles }/> : <Image { ...styles } { ...rest }/>;
+    const imageProps = {
+      boxSize: '18px',
+      borderRadius: 'full',
+      position: 'absolute' as const,
+      top: shieldStyle.top as string,
+      left: shieldStyle.left as string,
+      className: shieldClassName,
+    };
+    return rest.isLoading ? <Skeleton loading { ...imageProps }/> : <Image { ...imageProps } { ...rest }/>;
   }
 
   const svgProps = rest as IconSvgProps;
 
-  return <IconSvg { ...styles } { ...svgProps }/>;
+  return (
+    <IconSvg
+      { ...svgProps }
+      className={ cn(shieldClassName, svgProps.className) }
+      style={ shieldStyle }
+    />
+  );
 };
 
 export interface ContentBaseProps extends Pick<

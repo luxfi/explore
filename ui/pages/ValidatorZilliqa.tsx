@@ -38,7 +38,7 @@ const ValidatorZilliqa = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle title="Validator details" secondRow={ titleSecondRow }/>
       { query.data && <ValidatorDetails data={ query.data } isLoading={ isLoading }/> }
     </>

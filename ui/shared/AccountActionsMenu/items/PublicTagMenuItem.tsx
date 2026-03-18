@@ -24,7 +24,7 @@ const PublicTagMenuItem = ({ hash, type }: ItemProps) => {
       return (
         <MenuItem onClick={ handleClick } value="add-public-tag">
           { /* FIXME use non-navigation icon */ }
-          <IconSvg name="navigation/public_tags" boxSize={ 6 }/>
+          <IconSvg name="navigation/public_tags" className="w-6 h-6"/>
           <span>Add public tag</span>
         </MenuItem>
       );

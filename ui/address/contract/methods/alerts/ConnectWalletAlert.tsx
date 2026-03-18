@@ -25,7 +25,7 @@ const ConnectWalletAlert = ({ isLoading }: Props) => {
   const content = (() => {
     if (!web3Wallet.isConnected) {
       return (
-        <div className="flex" alignItems="center" flexWrap="wrap" columnGap={ 3 } rowGap={ 2 }>
+        <div className="flex items-center flex-wrap gap-x-3 gap-y-2">
           <span>To interact with the contract, please</span>
           <Button
             onClick={ web3Wallet.connect }
@@ -40,17 +40,17 @@ const ConnectWalletAlert = ({ isLoading }: Props) => {
     }
 
     return (
-      <div className="flex" alignItems="center" columnGap={ 2 }>
+      <div className="flex items-center gap-x-2">
         <span>Connected to </span>
         <AddressEntity
           address={{ hash: web3Wallet.address || '' }}
           truncation={ isMobile ? 'constant' : 'dynamic' }
-          fontWeight={ 600 }
+          className="font-semibold"
           noAltHash
           noLink
           noCopy
         />
-        { web3Wallet.isReconnecting ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5" size="sm" m="2px" flexShrink={ 0 }/> : (
+        { web3Wallet.isReconnecting ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5 shrink-0 m-[2px]"/> : (
           <IconButton
             aria-label="Open wallet"
             variant="icon_secondary"

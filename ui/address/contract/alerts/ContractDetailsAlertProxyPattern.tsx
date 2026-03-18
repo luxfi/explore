@@ -38,7 +38,7 @@ const ContractCodeProxyPattern = ({ type, isLoading, conflictingImplementations 
         </div>
       ) }
       { conflictingImplementations && conflictingImplementations.length > 0 && (
-        <div mt={ 1 } whiteSpace="pre-wrap">
+        <div className="mt-1 whitespace-pre-wrap">
           <span>This contract contains more than one proxy implementation address.{ space }</span>
           <ConflictingImplementationsModal data={ conflictingImplementations }>
             <Link>View details</Link>

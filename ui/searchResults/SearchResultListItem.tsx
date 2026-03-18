@@ -78,8 +78,8 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 overflow="hidden"
                 textOverflow="ellipsis" />
             </Link>
-            { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 }/> }
-            { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" boxSize={ 4 } ml={ 1 } color="green.500"/> }
+            { data.certified && <ContractCertifiedLabel iconSize={ 4 } className="ml-1"/> }
+            { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" className="w-4 h-4 ml-1 text-green-500"/> }
             { data.reputation && <TokenEntity.Reputation value={ data.reputation }/> }
           </div>
         );
@@ -113,8 +113,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <AddressEntity.Content
                 asProp={ shouldHighlightHash ? 'mark' : 'span' }
                 address={{ ...address, hash }}
-                textStyle="sm"
-                fontWeight={ 700 }
+                className="text-sm font-bold"
               />
             </AddressEntity.Link>
             <AddressEntity.Copy address={{ ...address, hash }}/>
@@ -125,7 +124,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
       case 'label': {
         return (
           <div className="flex items-center">
-            <IconSvg name="publictags" boxSize={ 6 } mr={ 2 } color="icon.primary"/>
+            <IconSvg name="publictags" className="w-6 h-6 mr-2 text-[var(--color-icon-primary)]"/>
             <Link
               href={ route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) }
               className="font-bold break-all"
@@ -182,8 +181,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <BlockEntity.Content
                 asProp={ shouldHighlightHash ? 'span' : 'mark' }
                 number={ Number(data.block_number) }
-                fontSize="sm"
-                fontWeight={ 700 }
+                className="text-sm font-bold"
                 isLoading={ isLoading }
               />
             </BlockEntity.Link>
@@ -205,8 +203,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <TxEntity.Content
                 asProp="mark"
                 hash={ data.transaction_hash }
-                textStyle="sm"
-                fontWeight={ 700 }
+                className="text-sm font-bold"
               />
             </TxEntity.Link>
           </TxEntity.Container>
@@ -216,7 +213,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
       case 'zetaChainCCTX': {
         return (
           <TxEntity.Container>
-            <IconSvg name="interop" boxSize={ 5 } marginRight={ 1 } color="text.secondary"/>
+            <IconSvg name="interop" className="w-5 h-5 mr-1 text-[var(--color-text-secondary)]"/>
             <TxEntity.Link
               isLoading={ isLoading }
               hash={ data.cctx.index }
@@ -226,8 +223,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <TxEntity.Content
                 asProp={ data.cctx.index === searchTerm ? 'mark' : 'span' }
                 hash={ data.cctx.index }
-                textStyle="sm"
-                fontWeight={ 700 }
+                className="text-sm font-bold"
               />
             </TxEntity.Link>
           </TxEntity.Container>
@@ -246,9 +242,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <OperationEntity.Content
                 asProp="mark"
                 id={ data.tac_operation.operation_id }
-                textStyle="sm"
-                fontWeight={ 700 }
-                mr={ 2 }
+                className="text-sm font-bold mr-2"
               />
             </OperationEntity.Link>
             <TacOperationStatus status={ data.tac_operation.type }/>
@@ -268,8 +262,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <BlobEntity.Content
                 asProp="mark"
                 hash={ data.blob_hash }
-                textStyle="sm"
-                fontWeight={ 700 }
+                className="text-sm font-bold"
               />
             </BlobEntity.Link>
           </BlobEntity.Container>
@@ -288,8 +281,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <UserOpEntity.Content
                 asProp="mark"
                 hash={ data.user_operation_hash }
-                textStyle="sm"
-                fontWeight={ 700 }
+                className="text-sm font-bold"
               />
             </UserOpEntity.Link>
           </UserOpEntity.Container>
@@ -333,7 +325,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <span className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ hash } noTooltip/>
               </span>
-              { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
+              { data.is_smart_contract_verified && <IconSvg name="status/success" className="w-[14px] h-[14px] text-green-500 ml-1 shrink-0"/> }
             </Skeleton>
             <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={ 700 }>
               { data.token_type === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
@@ -390,7 +382,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             <div className="overflow-hidden">
               <HashStringShortenDynamic hash={ hash }/>
             </div>
-            { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
+            { data.is_smart_contract_verified && <IconSvg name="status/success" className="w-[14px] h-[14px] text-green-500 ml-1 shrink-0"/> }
           </div>
         );
       }
@@ -420,7 +412,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                       <span className="text-[var(--color-text-secondary)]">{ expiresText }</span>
                   ) }
                 </span>
-                { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 }/> }
+                { data.certified && <ContractCertifiedLabel iconSize={ 4 } className="ml-1"/> }
               </div>
             ) }
             { data.type === 'metadata_tag' && (
@@ -458,7 +450,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
   const category = getItemCategory(data);
 
   return (
-    <ListItemMobile py={ 3 } textStyle="sm" rowGap={ 2 }>
+    <ListItemMobile className="py-3 text-sm gap-y-2">
       <div className="grid w-full overflow-hidden" style={{ gridTemplateColumns: '1fr auto' }}>
         { firstRow }
         <Skeleton loading={ isLoading } color="text.secondary" ml={ 8 } textTransform="capitalize">

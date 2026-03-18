@@ -163,7 +163,7 @@ function BaseAgeFilter<T>({
       onReset={ onReset }
       hasReset
     >
-      <div className="flex" gap={ 3 }>
+      <div className="flex gap-3">
         <PopoverCloseTriggerWrapper>
           <TagGroupSelect<AdvancedFilterAge>
             items={ ADVANCED_FILTER_AGES.map(val => ({ id: val, title: val })) }
@@ -172,14 +172,14 @@ function BaseAgeFilter<T>({
           />
         </PopoverCloseTriggerWrapper>
       </div>
-      <div className="flex" mt={ 3 }>
+      <div className="flex mt-3">
         <DateInput
           value={ currentValue.age ? '' : currentValue.from }
           onChange={ handleFromChange }
           placeholder="From"
           max={ dayjs().format('YYYY-MM-DD') }
         />
-        <span mx={ 3 }>{ ndash }</span>
+        <span className="mx-3">{ ndash }</span>
         <DateInput
           value={ currentValue.age ? '' : currentValue.to }
           onChange={ handleToChange }

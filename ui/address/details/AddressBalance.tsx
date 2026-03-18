@@ -80,14 +80,14 @@ const AddressBalance = ({ data, isLoading }: Props) => {
       <DetailedInfo.ItemValue multiRow>
         { isBalancePending ? (
           <Skeleton loading={ isLoading } className="inline-flex items-center">
-            <NativeTokenIcon boxSize={ 5 } mr={ 2 }/>
-            <span color="text.secondary">Pending</span>
+            <NativeTokenIcon className="w-5 h-5 mr-2"/>
+            <span className="text-[var(--color-text-secondary)]">Pending</span>
           </Skeleton>
         ) : (
           <NativeCoinValue
             amount={ data.coin_balance || '0' }
             exchangeRate={ data.exchange_rate }
-            startElement={ <NativeTokenIcon boxSize={ 5 } isLoading={ isLoading } mr={ 2 }/> }
+            startElement={ <NativeTokenIcon className="w-5 h-5 mr-2" isLoading={ isLoading }/> }
             loading={ isLoading }
           />
         ) }

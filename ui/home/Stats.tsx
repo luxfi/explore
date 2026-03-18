@@ -107,11 +107,7 @@ const Stats = () => {
         <IconSvg
           isLoading={ isLoading }
           name="info"
-          boxSize={ 5 }
-          flexShrink={ 0 }
-          cursor="pointer"
-          color="icon.secondary"
-          _hover={{ color: 'hover' }}
+          className="w-5 h-5 shrink-0 cursor-pointer text-[var(--chakra-colors-icon-secondary)] hover:text-[var(--chakra-colors-link-primary-hover)]"
         />
       </GasInfoTooltip>
     ) : null;
@@ -217,12 +213,7 @@ const Stats = () => {
   }
 
   return (
-    <div
-      gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
-      gridGap={{ base: 1, lg: 2 }}
-      flexBasis="50%"
-      flexGrow={ 1 }
-    >
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-2 basis-1/2 grow">
       { items.map((item, index) => (
         <StatsWidget
           key={ item.id }

@@ -50,7 +50,7 @@ const NavigationDesktop = () => {
             }) }
             { accountNavGroup && (
               <>
-                <Separator orientation="vertical" mx={ 0 } h={ 4 }/>
+                <Separator orientation="vertical" className="mx-0 h-4"/>
                 <NavLinkGroup key={ accountNavGroup.text } item={ accountNavGroup }/>
               </>
             ) }

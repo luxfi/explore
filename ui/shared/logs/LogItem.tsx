@@ -5,7 +5,6 @@ import type { ClusterChainConfig } from 'types/multichain';
 
 import { route } from 'nextjs-routes';
 
-// import searchIcon from 'icons/search.svg';
 import { Alert } from 'toolkit/chakra/alert';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -50,11 +49,15 @@ const LogItem = ({
   const hasTxInfo = type === 'address' && txHash;
 
   return (
-    <div className="grid py-8"       gridTemplateColumns={{ base: 'minmax(0, 1fr)', lg: '200px minmax(0, 1fr)' }}
-      gap={{ base: 2, lg: 8 }}
+    <div
+      className="grid py-8"
+      style={{
+        gridTemplateColumns: 'minmax(0, 1fr)',
+        gap: '8px',
+      }}
     >
       { !decoded && !address.is_verified && type === 'transaction' && (
-        <div colSpan={{ base: 1, lg: 2 }}>
+        <div className="col-span-full">
           <Alert status="warning" className="inline-table whitespace-normal">
             To see accurate decoded input data, the contract must be verified.{ space }
             <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: address.hash } }) }>Verify the contract here</Link>
@@ -67,8 +70,7 @@ const LogItem = ({
           <TxEntity
             hash={ txHash }
             isLoading={ isLoading }
-            mr={{ base: 9, lg: 4 }}
-            w="100%"
+            className="mr-9 lg:mr-4 w-full"
             chain={ chainData }
             noCopy
           />
@@ -76,21 +78,12 @@ const LogItem = ({
           <AddressEntity
             address={ address }
             isLoading={ isLoading }
-            mr={{ base: 9, lg: 4 }}
+            className="mr-9 lg:mr-4"
           />
         ) }
-        { /* api doesn't have find topic feature yet */ }
-        { /* <Tooltip label="Find matches topic">
-          <Link ml={ 2 } mr={{ base: 9, lg: 0 }} display="inline-flex">
-            <Icon as={ searchIcon } boxSize={ 5 }/>
-          </Link>
-        </Tooltip> */ }
         <LogIndex
           isLoading={ isLoading }
-          textStyle="sm"
-          ml="auto"
-          minW={ 8 }
-          height={ 8 }
+          className="text-sm ml-auto min-w-8 h-8"
         >
           { index }
         </LogIndex>

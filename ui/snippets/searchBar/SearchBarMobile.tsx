@@ -115,8 +115,7 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
       >
         <IconSvg
           name="search"
-          boxSize={ 6 }
-          flexShrink={ 0 }
+          className="w-6 h-6 shrink-0"
         />
       </Button>
     );

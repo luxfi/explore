@@ -8,7 +8,7 @@ interface Props {
 const ItemLabel = ({ abiParameter }: Props) => {
   return (
     <>
-      { abiParameter.name && <span fontWeight={ 500 }>{ abiParameter.name } </span> }
+      { abiParameter.name && <span className="font-medium">{ abiParameter.name } </span> }
       <span>({ abiParameter.type }) : </span>
     </>
   );

@@ -15,8 +15,8 @@ import IconSvg from 'ui/shared/IconSvg';
 
 const SearchBarSuggestToken = ({ data, isMobile, searchTerm, addressFormat, chainInfo }: ItemsProps<SearchResultToken | multichain.QuickSearchResultToken>) => {
   const icon = <TokenEntity.Icon token={{ ...data, type: data.token_type }} chain={ chainInfo }/>;
-  const verifiedIcon = <IconSvg name="certified" boxSize={ 4 } color="green.500" ml={ 1 } flexShrink={ 0 }/>;
-  const certifiedIcon = <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 } flexShrink={ 0 }/>;
+  const verifiedIcon = <IconSvg name="certified" className="w-4 h-4 text-[var(--color-green-500)] ml-1 shrink-0"/>;
+  const certifiedIcon = <ContractCertifiedLabel iconSize={ 4 } className="ml-1 shrink-0"/>;
   const hash = (() => {
     if ('filecoin_robust_address' in data && data.filecoin_robust_address) {
       return data.filecoin_robust_address;
@@ -43,7 +43,7 @@ const SearchBarSuggestToken = ({ data, isMobile, searchTerm, addressFormat, chai
     </span>
   );
 
-  const contractVerifiedIcon = isVerified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/>;
+  const contractVerifiedIcon = isVerified && <IconSvg name="status/success" className="w-3.5 h-3.5 text-[var(--color-green-500)] ml-1 shrink-0"/>;
   const additionalInfo = (
     <span className="overflow-hidden whitespace-nowrap font-bold">
       { data.token_type === 'ERC-20' && 'exchange_rate' in data && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }

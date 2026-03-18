@@ -15,7 +15,7 @@ interface Props extends Omit<AssetValueProps, 'asset'> {
   layer?: 'L1';
 }
 
-const TokenValue = ({ token, tokenEntityProps, layer, ...rest }: Props) => {
+const TokenValue = ({ token, tokenEntityProps, layer, amount, ...rest }: Props) => {
   const TokenComponent = layer === 'L1' ? TokenEntityL1 : TokenEntity;
 
   const asset = (
@@ -28,14 +28,15 @@ const TokenValue = ({ token, tokenEntityProps, layer, ...rest }: Props) => {
       { ...tokenEntityProps }
     />
   );
+  const assetValueProps = {
+    ...rest,
+    amount,
+    asset,
+    exchangeRate: token.exchange_rate,
+    decimals: token.decimals,
+  } as AssetValueProps;
   return (
-    <AssetValue
-      amount={ rest.amount }
-      asset={ asset }
-      exchangeRate={ token.exchange_rate }
-      decimals={ token.decimals }
-      { ...rest }
-    />
+    <AssetValue { ...assetValueProps }/>
   );
 };
 

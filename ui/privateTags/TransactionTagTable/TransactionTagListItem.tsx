@@ -29,8 +29,7 @@ const TransactionTagListItem = ({ item, isLoading, onEditClick, onDeleteClick }:
         <TxEntity
           hash={ item.transaction_hash }
           isLoading={ isLoading }
-          fontWeight={ 600 }
-          maxW="100%"
+          className="font-semibold max-w-full"
         />
         <div className="flex mt-4 gap-3">
           <span className="font-medium">Private tag</span>

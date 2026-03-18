@@ -247,7 +247,7 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
             defaultValue={ data[index].source_code }
             options={ EDITOR_OPTIONS }
             onMount={ handleEditorDidMount }
-            loading={ <CodeEditorLoading borderRadius="md"/> }
+            loading={ <CodeEditorLoading className="rounded-md"/> }
           />
         </ErrorBoundary>
       </div>
@@ -282,7 +282,7 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
             defaultValue={ data[index].source_code }
             options={ EDITOR_OPTIONS }
             onMount={ handleEditorDidMount }
-            loading={ <CodeEditorLoading borderBottomLeftRadius="md"/> }
+            loading={ <CodeEditorLoading className="rounded-bl-md"/> }
           />
         </div>
         <CodeEditorSideBar

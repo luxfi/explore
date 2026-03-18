@@ -66,13 +66,9 @@ const StatsWidget = ({
         { icon && (
           <IconSvg
             name={ icon }
-            p={ 2 }
-            boxSize="40px"
+            className={ `hidden lg:block shrink-0 p-2 rounded-base ${ isFallback && !isLoading ? 'opacity-[var(--opacity-control-disabled)]' : '' }` }
+            style={{ width: '40px', height: '40px' }}
             isLoading={ isLoading }
-            borderRadius="base"
-            display={{ base: 'none', lg: 'block' }}
-            flexShrink={ 0 }
-            opacity={ isFallback && !isLoading ? 'control.disabled' : 1 }
           />
         ) }
         <div

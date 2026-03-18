@@ -9,19 +9,20 @@ interface Props {
   children: React.ReactNode;
   isLoading?: boolean;
   hint?: string;
+  className?: string;
   contentProps?: Partial<Pick<SkeletonProps, 'className' | 'style'>>;
 }
 
-const ContractDetailsInfoItem = ({ label, children, isLoading, hint, contentProps }: Props) => {
+const ContractDetailsInfoItem = ({ label, children, isLoading, hint, className, contentProps }: Props) => {
   return (
     <>
       <Skeleton loading={ isLoading } flexShrink={ 0 } fontWeight={ 500 }>
-        <div className="flex" alignItems="center">
+        <div className="flex items-center">
           { label }
           { hint && <Hint label={ hint } ml={ 2 }/> }
         </div>
       </Skeleton>
-      <Skeleton loading={ isLoading } className="break-all max-w-full overflow-hidden" { ...contentProps }>{ children }</Skeleton>
+      <Skeleton loading={ isLoading } className={ `break-all max-w-full overflow-hidden ${ className || '' }`.trim() } { ...contentProps }>{ children }</Skeleton>
     </>
   );
 };

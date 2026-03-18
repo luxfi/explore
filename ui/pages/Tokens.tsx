@@ -34,7 +34,7 @@ const TAB_LIST_PROPS = {
 const TABS_HEIGHT = 88;
 
 const TABS_RIGHT_SLOT_PROPS: SlotProps = {
-  ml: 8,
+  className: 'ml-8',
   widthAllocation: 'available',
 };
 

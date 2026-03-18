@@ -95,7 +95,7 @@ const AssetValue = ({
   );
 
   const clockIcon = showHistorical ? (
-    <IconSvg name="clock-light" boxSize="14px" color="icon.secondary"/>
+    <IconSvg name="clock-light" className="size-[14px] text-[var(--color-icon-secondary)]"/>
   ) : undefined;
 
   const tooltipContentBefore = (() => {

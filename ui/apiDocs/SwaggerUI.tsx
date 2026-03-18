@@ -111,7 +111,7 @@ const SwaggerUI = ({ url, requestInterceptor }: Props) => {
   };
 
   return (
-    <div css={ swaggerStyle }>
+    <div className="swagger-container">
       <SwaggerUIReact
         url={ url }
         plugins={ [ NeverShowInfoPlugin ] }

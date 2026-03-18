@@ -7,54 +7,31 @@ import { Button } from 'toolkit/chakra/button';
 import { DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
 import { Link } from 'toolkit/chakra/link';
 
-type Props = {
-  isOpen: boolean;
-  onClose: () => void;
-  appId: string;
-};
+type Props = { isOpen: boolean; onClose: () => void; appId: string };
 
 const MarketplaceDisclaimerModal = ({ isOpen, onClose, appId }: Props) => {
-
   const isMobile = useIsMobile();
-
   const handleContinueClick = React.useCallback(() => {
     window.localStorage.setItem('marketplace-disclaimer-shown', 'true');
   }, [ ]);
 
   return (
-    <DialogRoot
-      open={ isOpen }
-      onOpenChange={ onClose }
-      size={ isMobile ? 'full' : 'md' }
-    >
+    <DialogRoot open={ isOpen } onOpenChange={ onClose } size={ isMobile ? 'full' : 'md' }>
       <DialogContent>
-        <DialogHeader>
-          Disclaimer
-        </DialogHeader>
-
+        <DialogHeader>Disclaimer</DialogHeader>
         <DialogBody>
-          <span color={{ _light: 'gray.800', _dark: 'whiteAlpha.800' }}>
+          <span className="text-gray-800 dark:text-white/80">
             You are now accessing a third-party app. This explorer does not own, control, maintain, or audit 3rd party apps,{ ' ' }
             and is not liable for any losses associated with these interactions. Please do so at your own risk.
             <br/><br/>
             By clicking continue, you agree that you understand the risks and have read the Disclaimer.
           </span>
         </DialogBody>
-
-        <DialogFooter
-          className="flex flex-row items-center"
-        >
+        <DialogFooter className="flex flex-row items-center">
           <Link href={ route({ pathname: '/apps/[id]', query: { id: appId } }) }>
-            <Button onClick={ handleContinueClick } >
-              Continue to app
-            </Button>
+            <Button onClick={ handleContinueClick }>Continue to app</Button>
           </Link>
-          <Button
-            variant="outline"
-            onClick={ onClose }
-          >
-            Cancel
-          </Button>
+          <Button variant="outline" onClick={ onClose }>Cancel</Button>
         </DialogFooter>
       </DialogContent>
     </DialogRoot>

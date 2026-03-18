@@ -42,7 +42,7 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
                     return Object.entries(item).map(([ name, value ], index) => {
                       return (
                         <div key={ index }>
-                          <MetadataAccordionItemTitle name={ name } w={{ base: '90px' }}/>
+                          <MetadataAccordionItemTitle name={ name } className="w-[90px]"/>
                           <MetadataItemPrimitive
                             value={ typeof value === 'object' ? JSON.stringify(value, undefined, 2) : value }
                             level={ level }

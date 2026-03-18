@@ -66,7 +66,7 @@ const Icon = (props: IconProps) => {
             className="inline-flex items-center"
             external
           >
-            <IconSvg name="docs" boxSize={ 5 } color="icon.primary" mr={ 2 }/>
+            <IconSvg name="docs" className="w-5 h-5 text-[var(--color-icon-primary)] mr-2"/>
             <span>Documentation</span>
           </LinkToolkit>
         ) }

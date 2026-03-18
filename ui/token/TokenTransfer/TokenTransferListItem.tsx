@@ -33,7 +33,7 @@ const TokenTransferListItem = ({
 }: Props) => {
   return (
     <ListItemMobile>
-      <div width="100%">
+      <div className="w-full">
         { txHash && (
           <TxEntity
             isLoading={ isLoading }
@@ -56,7 +56,7 @@ const TokenTransferListItem = ({
         isLoading={ isLoading }
         tokenHash={ token?.address_hash }
         tokenSymbol={ token?.symbol ?? undefined }
-        w="100%"
+        className="w-full"
       />
       { total && 'value' in total && token && (hasTokenTransferValue(token.type)) && !isConfidentialTokenType(token.type) && (
         <div>

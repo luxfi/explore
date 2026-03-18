@@ -68,9 +68,9 @@ const TabsShowcase = () => {
               defaultValue={ tabs[0].id }
               style={{ outline: '1px dashed lightpink' }}
               leftSlot={ <div className="hidden lg:block">Left element</div> }
-              leftSlotProps={{ pr: { base: 0, lg: 4 }, color: 'text.secondary' }}
+              leftSlotProps={{ className: 'pr-0 lg:pr-4 text-[var(--color-text-secondary)]' }}
               rightSlot={ <div className="hidden lg:flex justify-between"><span>Right element</span><span>see-no-evil</span></div> }
-              rightSlotProps={{ pl: { base: 0, lg: 4 }, color: 'text.secondary', widthAllocation: 'available' }}
+              rightSlotProps={{ className: 'pl-0 lg:pl-4 text-[var(--color-text-secondary)]', widthAllocation: 'available' }}
             />
           </Sample>
         </SamplesStack>

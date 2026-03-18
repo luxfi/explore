@@ -61,13 +61,7 @@ const FeaturedApp = ({
 
   return (
     <LinkBox>
-      <div
-        gap={ 4 }
-        borderRadius="md"
-        height="100px"
-        padding={ 3 }
-        background={{ _light: 'purple.50', _dark: 'whiteAlpha.100' }}
-      >
+      <div className="flex gap-4 rounded-md h-[100px] p-3 bg-purple-50 dark:bg-white/10">
         <Skeleton
           loading={ isLoading }
           w="76px"
@@ -83,8 +77,8 @@ const FeaturedApp = ({
           />
         </Skeleton>
 
-        <div flexDirection="column" flex={ 1 } gap={ 1 }>
-          <div alignItems="center" gap={ 3 }>
+        <div className="flex flex-col flex-1 gap-1">
+          <div className="flex items-center gap-3">
             <Skeleton loading={ isLoading } display="flex" alignItems="center">
               <Heading level="3">
                 <MarketplaceAppCardLink
@@ -134,7 +128,7 @@ const FeaturedApp = ({
             loading={ isLoading }
             asChild
           >
-            <span lineClamp={ 2 } textStyle="sm">
+            <span className="line-clamp-2 text-sm">
               { shortDescription }
             </span>
           </Skeleton>

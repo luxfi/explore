@@ -56,8 +56,7 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
 
   return (
     <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
         hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
@@ -69,7 +68,7 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
+          className="ml-6"
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -158,13 +157,12 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
       >
         Committed transaction hash
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue alignSelf="flex-start">
+      <DetailedInfo.ItemValue className="self-start">
         <TxEntityL1
           isLoading={ isPlaceholderData }
           hash={ data.commitment_transaction.hash }
-          maxW="100%"
+          className="max-w-full"
           noCopy
-
         />
       </DetailedInfo.ItemValue>
 
@@ -187,12 +185,12 @@ const ScrollL2TxnBatchDetails = ({ query }: Props) => {
       >
         Finalized transaction hash
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue alignSelf="flex-start">
+      <DetailedInfo.ItemValue className="self-start">
         { data.confirmation_transaction.hash ? (
           <TxEntityL1
             isLoading={ isPlaceholderData }
             hash={ data.confirmation_transaction.hash }
-            maxW="100%"
+            className="max-w-full"
             noCopy
           />
         ) : <Skeleton loading={ isPlaceholderData } display="inline-block">Pending</Skeleton> }

@@ -15,7 +15,7 @@ const DocsLink = ({ href }: Props) => {
       noIcon
       className="inline-flex items-center gap-1"
     >
-      <IconSvg name="docs" boxSize={ 5 } color="icon.primary"/>
+      <IconSvg name="docs" className="w-5 h-5 text-[var(--color-icon-primary)]"/>
       <span>Documentation</span>
     </Link>
   );

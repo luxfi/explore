@@ -28,7 +28,7 @@ const TransactionsCrossChainTable = ({ data, isLoading, top, stickyHeader, curre
             { currentAddress && <TableColumnHeader w="44px"/> }
             <TableColumnHeader>Message</TableColumnHeader>
             <TableColumnHeader>
-              <div alignItems="center" flexWrap="nowrap">
+              <div className="flex items-center flex-nowrap">
                 Timestamp
                 <TimeFormatToggle/>
               </div>

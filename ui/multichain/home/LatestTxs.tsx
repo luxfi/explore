@@ -48,9 +48,9 @@ const LatestTxs = () => {
       tabs={ tabs }
       defaultTabId="txs_local"
       listProps={{ mb: 3 }}
-      leftSlotProps={{ mr: 6 }}
+      leftSlotProps={{ className: 'mr-6' }}
       rightSlot={ rightSlot }
-      rightSlotProps={{ ml: 6, widthAllocation: 'available' }}
+      rightSlotProps={{ className: 'ml-6', widthAllocation: 'available' }}
       className="my-8"
     />
   );

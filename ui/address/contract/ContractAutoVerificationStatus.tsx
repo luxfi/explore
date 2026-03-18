@@ -6,15 +6,15 @@ import IconSvg from 'ui/shared/IconSvg';
 const STATUS_MAP = {
   pending: {
     text: 'Checking contract verification',
-    leftElement: <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5" size="sm"/>,
+    leftElement: <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5"/>,
   },
   success: {
     text: 'Contract successfully verified',
-    leftElement: <IconSvg name="verified" boxSize={ 5 } color="green.500"/>,
+    leftElement: <IconSvg name="verified" className="w-5 h-5 text-green-500"/>,
   },
   failed: {
     text: 'Contract not verified automatically. Please verify manually.',
-    leftElement: <IconSvg name="status/warning" boxSize={ 5 } color="orange.400"/>,
+    leftElement: <IconSvg name="status/warning" className="w-5 h-5 text-orange-400"/>,
   },
 };
 
@@ -28,9 +28,9 @@ interface Props {
 const ContractAutoVerificationStatus = ({ status, mode = 'inline' }: Props) => {
   return (
     <Tooltip content={ STATUS_MAP[status].text } disabled={ mode === 'inline' }>
-      <div className="flex flex-row" gap={ 2 } whiteSpace="pre-wrap">
+      <div className="flex flex-row gap-2 whitespace-pre-wrap">
         { STATUS_MAP[status].leftElement }
-        <div display={ mode === 'inline' ? 'inline' : 'none' } textStyle="sm">{ STATUS_MAP[status].text }</div>
+        <div className={ `text-sm ${ mode === 'inline' ? 'inline' : 'hidden' }` }>{ STATUS_MAP[status].text }</div>
       </div>
     </Tooltip>
   );

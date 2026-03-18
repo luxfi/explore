@@ -37,13 +37,10 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
   return (
     <>
       { data?.items && data.items.length > 0 && (
-        <div position="relative">
+        <div className="relative">
           <ContainerWithScrollY
             gradientHeight={ 24 }
-            rowGap={ 1 }
-            w="100%"
-            maxH="80px"
-            mb={ 2 }
+            className="gap-y-1 w-full max-h-[80px] mb-2"
           >
             { data.items.map(item => (
               <Link external href={ item.audit_report_url } key={ item.audit_company_name + item.audit_publish_date } loading={ isPlaceholderData }>

@@ -39,12 +39,12 @@ const AddressesTableItem = ({
         </Skeleton>
       </TableCell>
       <TableCell>
-        <div className="flex" alignItems="center" columnGap={ 2 }>
+        <div className="flex items-center gap-x-2">
           <AddressEntity
             address={ item }
             isLoading={ isLoading }
-            fontWeight={ 700 }
-            my="2px"
+            className="font-bold my-[2px]"
+           
           />
           { item.public_tags && item.public_tags.length ? item.public_tags.map(tag => (
             <Tag key={ tag.label } loading={ isLoading } truncated>{ tag.display_name }</Tag>
@@ -54,7 +54,7 @@ const AddressesTableItem = ({
       <TableCell isNumeric>
         { isBalancePending ? (
           <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
-            <span color="text.secondary" fontSize="sm">Pending</span>
+            <span className="text-[var(--color-text-secondary)] text-sm">Pending</span>
           </Skeleton>
         ) : (
           <SimpleValue
@@ -68,7 +68,7 @@ const AddressesTableItem = ({
         <TableCell isNumeric>
           { isBalancePending ? (
             <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
-              <span color="text.secondary" fontSize="sm">Pending</span>
+              <span className="text-[var(--color-text-secondary)] text-sm">Pending</span>
             </Skeleton>
           ) : (
             <SimpleValue

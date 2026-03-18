@@ -22,7 +22,7 @@ const SocialLink = ({ href, icon, title }: Props) => {
       external noIcon
       className="inline-flex items-center"
     >
-      <IconSvg name={ icon } boxSize={ 5 } mr={ 2 } color="icon.primary"/>
+      <IconSvg name={ icon } className="w-5 h-5 mr-2 text-[var(--color-icon-primary)]"/>
       <span>{ title }</span>
     </Link>
   );

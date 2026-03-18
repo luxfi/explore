@@ -12,17 +12,10 @@ import { PopoverTrigger } from 'toolkit/chakra/popover';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
-interface Props extends ButtonProps {
-  rating?: number;
-  count?: number;
-  fullView?: boolean;
-  canRate: boolean;
-};
+interface Props extends ButtonProps { rating?: number; count?: number; fullView?: boolean; canRate: boolean }
 
 const getTooltipText = (canRate: boolean) => {
-  if (!canRate) {
-    return <>Please log in to rate this { (getFeaturePayload(config.features.marketplace)?.titles.entity_name ?? '').toLowerCase() }.</>;
-  }
+  if (!canRate) { return <>Please log in to rate this { (getFeaturePayload(config.features.marketplace)?.titles.entity_name ?? '').toLowerCase() }.</>; }
   return <>Ratings come from verified users.<br/>Click here to rate!</>;
 };
 
@@ -34,41 +27,17 @@ const TriggerButton = (
   const isMobile = useIsMobile();
 
   return (
-    <Tooltip
-      content={ getTooltipText(canRate) }
-      closeOnClick={ Boolean(canRate) || isMobile }
-      disableOnMobile={ canRate }
-    >
+    <Tooltip content={ getTooltipText(canRate) } closeOnClick={ Boolean(canRate) || isMobile } disableOnMobile={ canRate }>
       <div>
         <PopoverTrigger>
-          <Button
-            ref={ ref }
-            size="xs"
-            variant="link"
-            className={ cn(
-              'p-0 leading-[21px]',
-              fullView ? 'text-base font-normal ml-3' : 'text-sm font-medium ml-0',
-              canRate ? 'cursor-pointer' : 'cursor-default',
-            ) }
-            onFocusCapture={ onFocusCapture }
-            { ...rest }
-          >
-            { !fullView && (
-              <IconSvg
-                name={ rating ? 'star_filled' : 'star_outline' }
-                color={ rating ? 'yellow.400' : 'icon.secondary' }
-                boxSize={ 5 }
-                mr={ 1 }
-              />
-            ) }
+          <Button ref={ ref } size="xs" variant="link" className={ cn('p-0 leading-[21px]', fullView ? 'text-base font-normal ml-3' : 'text-sm font-medium ml-0', canRate ? 'cursor-pointer' : 'cursor-default') } onFocusCapture={ onFocusCapture } { ...rest }>
+            { !fullView && <IconSvg name={ rating ? 'star_filled' : 'star_outline' } className={ cn('w-5 h-5 mr-1', rating ? 'text-yellow-400' : 'text-[var(--color-icon-secondary)]') }/> }
             { (rating && !fullView) ? (
               <span className="text-[var(--color-text-primary)] transition-[inherit] inline-flex">
                 { rating }
-                <span color="text.secondary" ml={ 1 }>({ count })</span>
+                <span className="text-[var(--color-text-secondary)] ml-1">({ count })</span>
               </span>
-            ) : (
-              'Rate it!'
-            ) }
+            ) : 'Rate it!' }
           </Button>
         </PopoverTrigger>
       </div>

@@ -55,7 +55,7 @@ const NameDomain = () => {
         protocol={ infoQuery.data?.protocol }
         isLoading={ isLoading }
         noLink
-        maxW={{ lg: infoQuery.data?.resolved_address ? '300px' : 'max-content' }}
+        className={ infoQuery.data?.resolved_address ? 'lg:max-w-[300px]' : 'lg:max-w-max' }
         variant="subheading"
       />
       { infoQuery.data?.resolved_address && (
@@ -73,7 +73,7 @@ const NameDomain = () => {
                 query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: infoQuery.data?.resolved_address?.hash },
               }) }
             >
-              <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+              <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
             </Link>
           </Tooltip>
         </div>
@@ -83,7 +83,7 @@ const NameDomain = () => {
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd className="mb-6"/>
       <PageTitle title="Name details" secondRow={ titleSecondRow }/>
       <RoutedTabs tabs={ tabs } isLoading={ infoQuery.isPlaceholderData }/>
     </>

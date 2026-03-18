@@ -8,39 +8,19 @@ import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 
-type Props = {
-  item: MudWorldItem;
-  isLoading?: boolean;
-};
+type Props = { item: MudWorldItem; isLoading?: boolean };
 
-const MudWorldsListItem = ({
-  item,
-  isLoading,
-}: Props) => {
-
+const MudWorldsListItem = ({ item, isLoading }: Props) => {
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <AddressEntity
-        address={ item.address }
-        isLoading={ isLoading }
-        fontWeight={ 700 }
-        mr={ 2 }
-        truncation="constant_long"
-      />
-      <div gap={ 3 } maxW="100%" alignItems="flex-start" textStyle="sm">
+    <ListItemMobile className="gap-y-3">
+      <AddressEntity address={ item.address } isLoading={ isLoading } className="font-bold mr-2" truncation="constant_long"/>
+      <div className="flex gap-3 max-w-full items-start text-sm">
         <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }><span>{ `Balance ${ currencyUnits.ether }` }</span></Skeleton>
-        <NativeCoinValue
-          amount={ item.coin_balance }
-          noSymbol
-          loading={ isLoading }
-          color="text.secondary"
-        />
+        <NativeCoinValue amount={ item.coin_balance } noSymbol loading={ isLoading } color="text.secondary"/>
       </div>
-      <div gap={ 3 }>
+      <div className="flex gap-3">
         <Skeleton loading={ isLoading } className="text-sm font-medium">Txn count</Skeleton>
-        <Skeleton loading={ isLoading } className="text-sm" color="text.secondary">
-          <span>{ Number(item.transactions_count).toLocaleString() }</span>
-        </Skeleton>
+        <Skeleton loading={ isLoading } className="text-sm" color="text.secondary"><span>{ Number(item.transactions_count).toLocaleString() }</span></Skeleton>
       </div>
     </ListItemMobile>
   );

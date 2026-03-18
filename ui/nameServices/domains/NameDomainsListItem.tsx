@@ -26,14 +26,14 @@ const NameDomainsListItem = ({
     <ListItemMobileGrid.Container>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Domain</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <EnsEntity domain={ name } protocol={ protocol } isLoading={ isLoading } fontWeight={ 500 }/>
+        <EnsEntity domain={ name } protocol={ protocol } isLoading={ isLoading } className="font-medium"/>
       </ListItemMobileGrid.Value>
 
       { resolvedAddress && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <AddressEntity address={ resolvedAddress } isLoading={ isLoading } fontWeight={ 500 }/>
+            <AddressEntity address={ resolvedAddress } isLoading={ isLoading } className="font-medium"/>
           </ListItemMobileGrid.Value>
         </>
       ) }

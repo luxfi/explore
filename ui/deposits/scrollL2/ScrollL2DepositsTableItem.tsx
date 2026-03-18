@@ -26,7 +26,7 @@ const ScrollL2DepositsTableItem = ({ item, isLoading }: Props) => {
         <BlockEntityL1
           number={ item.origination_transaction_block_number }
           isLoading={ isLoading }
-          fontWeight={ 600 }
+          className="font-semibold"
           noIcon
         />
       </TableCell>

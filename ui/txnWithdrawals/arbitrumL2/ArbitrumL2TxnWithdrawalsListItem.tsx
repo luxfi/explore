@@ -25,7 +25,7 @@ const ArbitrumL2TxnWithdrawalsListItem = ({ data, isLoading, txHash }: Props) =>
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="110px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '110px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Message #</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
@@ -46,13 +46,7 @@ const ArbitrumL2TxnWithdrawalsListItem = ({ data, isLoading, txHash }: Props) =>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Status</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        flexWrap="wrap"
-        rowGap={ 2 }
-        columnGap={ 3 }
-        py={ 0 }
+className="flex items-center justify-between flex-wrap gap-y-2 gap-x-3 py-0"
       >
         <ArbitrumL2MessageStatus status={ data.status } isLoading={ isLoading }/>
         { (data.status === 'confirmed' || data.status === 'relayed') && (

@@ -29,17 +29,11 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
       >
         Token transferred
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue position="relative" multiRow>
-        <div
-          flexDirection="column"
-          alignItems="flex-start"
-          rowGap={ 1 }
-          w="100%"
-          overflow="hidden"
-        >
+      <DetailedInfo.ItemValue className="relative" multiRow>
+        <div className="flex flex-col items-start gap-y-1 w-full overflow-hidden">
           { data.slice(0, MAX_NUM).map((item, index) => {
             return (
-              <div key={ index } alignItems="center" columnGap={ 2 } rowGap={ 0 } flexWrap="wrap">
+              <div key={ index } className="flex items-center gap-x-2 flex-wrap">
                 { item.sender ? (
                   <AddressEntityInterchain
                     address={ item.sender }
@@ -48,7 +42,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     noIcon
                     truncation="constant"
                   />
-                ) : <span color="text.secondary">Unknown</span> }
+                ) : <span className="text-[var(--color-text-secondary)]">Unknown</span> }
                 <AddressFromToIcon
                   isLoading={ isLoading }
                   type="unspecified"
@@ -61,7 +55,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     noIcon
                     truncation="constant"
                   />
-                ) : <span color="text.secondary">Unknown</span> }
+                ) : <span className="text-[var(--color-text-secondary)]">Unknown</span> }
                 <Skeleton loading={ isLoading } color="text.secondary">
                   <span>for</span>
                 </Skeleton>
@@ -72,7 +66,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     chain={ item.source_chain }
                     loading={ isLoading }
                   />
-                ) : <span color="text.secondary">Unknown</span> }
+                ) : <span className="text-[var(--color-text-secondary)]">Unknown</span> }
                 <AddressFromToIcon
                   isLoading={ isLoading }
                   type="unspecified"
@@ -84,7 +78,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     chain={ item.destination_chain }
                     loading={ isLoading }
                   />
-                ) : <span color="text.secondary">Unknown</span> }
+                ) : <span className="text-[var(--color-text-secondary)]">Unknown</span> }
               </div>
             );
           }) }
@@ -93,9 +87,8 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
       { data.length > MAX_NUM && (
         <>
           <div className="hidden lg:block"/>
-          <div fontSize="sm" alignItems="center" display="inline-flex" pl={{ base: '28px', lg: 0 }}>
-            { /* FIXME use non-navigation icon */ }
-            <IconSvg name="navigation/tokens" boxSize={ 6 }/>
+          <div className="text-sm inline-flex items-center pl-7 lg:pl-0">
+            <IconSvg name="navigation/tokens" className="w-6 h-6"/>
             <Link
               href={ route({ pathname: '/cross-chain-tx/[id]', query: { id, tab: 'transfers' } }) }
             >

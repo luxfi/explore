@@ -42,15 +42,14 @@ const MultichainAddressTokensTableItem = ({ data, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell>
-        <div alignItems="flex-start" rowGap={ 2.5 }>
+        <div className="flex flex-col items-start gap-y-2.5">
           <TokenEntity
             token={ data.token }
             chain={ chainInfo }
             isLoading={ isLoading }
             noCopy
             jointSymbol
-            fontWeight="700"
-            width="auto"
+            className="font-bold w-auto"
             noLink={ data.token.type === 'NATIVE' }
           />
           { data.token.type !== 'NATIVE' && (

@@ -29,7 +29,7 @@ const ColumnsButton = ({ columns, onChange }: Props) => {
           size="sm"
           className="px-1 lg:px-3"
         >
-          <IconSvg name="columns" boxSize={ 5 } color="inherit"/>
+          <IconSvg name="columns" className="w-5 h-5 text-[inherit]"/>
           <span className="hidden lg:inline">Columns</span>
         </Button>
       </PopoverTrigger>

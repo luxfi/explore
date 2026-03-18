@@ -98,7 +98,7 @@ export default function MarketplaceApp() {
         appId={ id }
         appUrl={ appUrl }
         message={ message }
-        mx={{ base: -4, lg: -6 }}
+        className="-mx-4 lg:-mx-6"
       />
     </div>
   );

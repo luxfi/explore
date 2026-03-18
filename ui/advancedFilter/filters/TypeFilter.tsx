@@ -58,7 +58,7 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
       onReset={ onReset }
       hasReset
     >
-      <div className="flex" display="flex" flexDir="column" rowGap={ 3 }>
+      <div className="flex flex-col flex gap-y-3">
         <CheckboxGroup value={ currentValue } onValueChange={ handleChange } orientation="vertical">
           { advancedFilterTypes.map(type => (
             <Checkbox

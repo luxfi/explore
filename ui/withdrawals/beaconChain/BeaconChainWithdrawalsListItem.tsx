@@ -31,7 +31,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '100px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>

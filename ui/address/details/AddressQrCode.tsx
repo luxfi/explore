@@ -84,12 +84,11 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
             <DialogHeader>Address QR code</DialogHeader>
             <DialogBody>
               <AddressEntity
-                mb={ 3 }
-                fontWeight={ 500 }
+                className="mb-3 font-medium"
                 address={{ hash }}
                 noLink
               />
-              <div p={ 4 } dangerouslySetInnerHTML={{ __html: qr }}/>
+              <div className="p-4" dangerouslySetInnerHTML={{ __html: qr }}/>
             </DialogBody>
           </DialogContent>
         </DialogRoot>

@@ -83,8 +83,8 @@ const GraphQL = () => {
   });
 
   return (
-    <div h="100vh" overflowX="scroll" css={ graphQLStyle }>
-      <div h="100vh" minW="900px" css={ graphQLStyle }>
+    <div className="h-[100vh] overflow-x-scroll">
+      <div className="h-[100vh] min-w-[900px]">
         <GraphiQL fetcher={ fetcher } defaultQuery={ initialQuery } key={ colorModeState }/>
       </div>
     </div>

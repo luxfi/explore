@@ -37,13 +37,13 @@ const SolidityScanReportItem = ({ item, vulnerabilities, vulnerabilitiesCount }:
 
   return (
     <>
-      <div w={ 3 } h={ 3 } bg={ item.color } borderRadius="6px" className="mr-2"></div>
+      <div className="mr-2" style={{ width: '12px', height: '12px', backgroundColor: item.color, borderRadius: '6px' }}/>
       <div className="flex justify-between mr-3">
         <span>{ item.name }</span>
-        <span style={{ color: vulnerability > 0 ? 'text.primary' : 'text.secondary'  }}>{ vulnerabilities[item.id] }</span>
+        <span style={{ color: vulnerability > 0 ? 'var(--color-text-primary)' : 'var(--color-text-secondary)' }}>{ vulnerabilities[item.id] }</span>
       </div>
-      <div className="bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]" className="h-[10px]" borderRadius="8px">
-        <div bg={ item.color } style={{ width: `${ vulnerability / vulnerabilitiesCount * 100 }%` }} className="h-[10px]" borderRadius="8px"/>
+      <div className="bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)] h-[10px] rounded-lg">
+        <div className="h-[10px] rounded-lg" style={{ width: `${ vulnerability / vulnerabilitiesCount * 100 }%`, backgroundColor: item.color }}/>
       </div>
     </>
   );
@@ -51,7 +51,7 @@ const SolidityScanReportItem = ({ item, vulnerabilities, vulnerabilitiesCount }:
 
 const SolidityscanReportDetails = ({ vulnerabilities, vulnerabilitiesCount }: Props) => {
   return (
-    <div className="grid items-center gap-y-2" templateColumns="20px 1fr 100px">
+    <div className="grid items-center gap-y-2" style={{ gridTemplateColumns: '20px 1fr 100px' }}>
       { DISTRIBUTION_ITEMS.map(item => (
         <SolidityScanReportItem item={ item } key={ item.id } vulnerabilities={ vulnerabilities } vulnerabilitiesCount={ vulnerabilitiesCount }/>
       )) }

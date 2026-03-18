@@ -24,8 +24,7 @@ const TokenTransferTableItem = ({ holder, token, isLoading }: Props) => {
         <AddressEntity
           address={ holder.address }
           isLoading={ isLoading }
-          flexGrow={ 1 }
-          fontWeight="700"
+          className="grow font-bold"
         />
       </TableCell>
       { (hasTokenIds(token.type)) && 'token_id' in holder && (
@@ -49,7 +48,7 @@ const TokenTransferTableItem = ({ holder, token, isLoading }: Props) => {
           <Utilization
             value={ BigNumber(holder.value).div(BigNumber(token.total_supply)).dp(4).toNumber() }
             colorScheme="green"
-            display="inline-flex"
+            className="inline-flex"
             isLoading={ isLoading }
           />
         </TableCell>

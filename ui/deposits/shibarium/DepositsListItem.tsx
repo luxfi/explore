@@ -28,8 +28,7 @@ const DepositsListItem = ({ item, isLoading }: Props) => {
         <BlockEntityL1
           number={ item.l1_block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="text-sm font-semibold"
         />
       </ListItemMobileGrid.Value>
 
@@ -38,7 +37,7 @@ const DepositsListItem = ({ item, isLoading }: Props) => {
         <TxEntityL1
           isLoading={ isLoading }
           hash={ item.l1_transaction_hash }
-          textStyle="sm"
+          className="text-sm"
           truncation="constant_long"
           noCopy
         />
@@ -49,7 +48,7 @@ const DepositsListItem = ({ item, isLoading }: Props) => {
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
+          className="text-sm"
           truncation="constant_long"
         />
       </ListItemMobileGrid.Value>

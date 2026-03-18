@@ -29,9 +29,7 @@ const BlockCountdownIndex = () => {
       <div className="relative">
         <IconSvg
           name="block_countdown"
-          color={{ _light: 'gray.300', _dark: 'gray.600' }}
-          w={{ base: '160px', lg: '240px' }}
-          h={{ base: '123px', lg: '184px' }}
+          className="text-neutral-300 dark:text-neutral-600 w-[160px] lg:w-[240px] h-[123px] lg:h-[184px]"
         />
         { multichainContext?.chain && (
           <ChainIcon

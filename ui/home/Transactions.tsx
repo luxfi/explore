@@ -46,7 +46,7 @@ const Transactions = () => {
     ].filter(Boolean);
     return (
       <>
-        <div mb={ 3 }>
+        <div className="flex mb-3">
           <Heading level="3" >Transactions</Heading>
           { isRpcData && <FallbackRpcIcon/> }
         </div>
@@ -63,7 +63,7 @@ const Transactions = () => {
 
     return (
       <>
-        <div mb={ 3 }>
+        <div className="flex mb-3">
           <Heading level="3" >Latest transactions</Heading>
           { isRpcData && <FallbackRpcIcon/> }
         </div>

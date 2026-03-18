@@ -98,7 +98,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
                 Dapp
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
-                <AppActionButton data={ appActionData } height="30px" source="NFT item"/>
+                <AppActionButton data={ appActionData } className="h-[30px]" source="NFT item"/>
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -108,7 +108,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
           isLoading={ isLoading }
           size="md"
           withFullscreen
-          w="250px"
+          className="w-[250px]"
         />
       </div>
       <DetailedInfo.Container

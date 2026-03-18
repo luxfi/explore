@@ -62,7 +62,7 @@ const TokenTransferTableItem = ({ item, isLoading, chainData }: Props) => {
           <TxEntity
             hash={ item.transaction_hash }
             isLoading={ isLoading }
-            fontWeight={ 600 }
+            className="font-semibold"
             noIcon
             truncation="constant_long"
           />
@@ -86,7 +86,7 @@ const TokenTransferTableItem = ({ item, isLoading, chainData }: Props) => {
       </TableCell>
       <TableCell>
         <AddressFromTo
-          maxW={{ lg: '220px', xl: '320px' }}
+          className="lg:max-w-[220px] xl:max-w-[320px]"
           from={ item.from }
           to={ item.to }
           isLoading={ isLoading }
@@ -100,7 +100,7 @@ const TokenTransferTableItem = ({ item, isLoading, chainData }: Props) => {
             id={ item.total.token_id }
             instance={ item.total.token_instance }
             isLoading={ isLoading }
-            maxW="140px"
+            className="max-w-[140px]"
           />
         ) : <Skeleton loading={ isLoading }>-</Skeleton> }
       </TableCell>

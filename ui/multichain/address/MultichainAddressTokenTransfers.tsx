@@ -27,9 +27,7 @@ import getAvailableChainIds from './getAvailableChainIds';
 
 export const ADDRESS_MULTICHAIN_TOKEN_TRANSFERS_TAB_IDS = [ 'token_transfers_cross_chain' as const, 'token_transfers_local' as const ];
 const TABS_RIGHT_SLOT_PROPS = {
-  display: 'flex',
-  justifyContent: { base: 'flex-end', lg: 'space-between' },
-  ml: { base: 0, lg: 8 },
+  className: 'flex justify-end lg:justify-between ml-0 lg:ml-8',
   widthAllocation: 'available' as const,
 };
 const TAB_LIST_PROPS = {
@@ -119,7 +117,7 @@ const MultichainAddressTokenTransfers = ({ addressData, isLoading }: Props) => {
 
       return (
         <>
-          <div gap={ 2 }>
+          <div className="flex gap-2">
             <TokenTransferFilter
               defaultTypeFilters={ transfersQueryLocal.filters.type }
               onTypeFilterChange={ transfersQueryLocal.onTypeFilterChange }
@@ -133,7 +131,7 @@ const MultichainAddressTokenTransfers = ({ addressData, isLoading }: Props) => {
             { chainSelect }
             { countersText }
           </div>
-          <div gap={ 6 }>
+          <div className="flex gap-6">
             <AddressAdvancedFilterLink
               isLoading={ transfersQueryLocal.query.isPlaceholderData }
               address={ hash }

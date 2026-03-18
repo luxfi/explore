@@ -72,7 +72,7 @@ const Sprite = () => {
 
     return (
       <div className="flex justify-start flex-wrap text-sm gap-x-5 gap-y-5">
-        { items.map((item) => <Item key={ item.name } { ...item } bgColor={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.100' }}/>) }
+        { items.map((item) => <Item key={ item.name } { ...item } className="bg-black/10 dark:bg-white/10"/>) }
       </div>
     );
   })();
@@ -89,7 +89,7 @@ const Sprite = () => {
   }, [ data ]);
 
   const searchInput = <FilterInput placeholder="Search by name..." onChange={ setSearchTerm } loading={ isFetching } className="min-w-full lg:min-w-[300px]"/>;
-  const totalEl = total ? <div ml="auto">Items: { total.num } / Size: { formatFileSize(total.fileSize) }</div> : null;
+  const totalEl = total ? <div className="ml-auto">Items: { total.num } / Size: { formatFileSize(total.fileSize) }</div> : null;
 
   const contentAfter = (
     <>

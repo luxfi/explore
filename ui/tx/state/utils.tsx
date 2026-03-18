@@ -85,7 +85,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
           noIcon
           noCopy
           onlySymbol
-          w="auto"
+          className="w-auto"
         />
       );
       const beforeBn = BigNumber(data.balance_before || '0').div(BigNumber(10 ** (Number(data.token.decimals))));

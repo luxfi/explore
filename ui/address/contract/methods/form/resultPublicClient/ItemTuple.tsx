@@ -15,10 +15,10 @@ interface Props {
 
 const ItemTuple = ({ abiParameter, data, mode, level }: Props) => {
   return (
-    <span display="block">
-      <span display="block">
+    <span className="block">
+      <span className="block">
         <span>{ printRowOffset(level) }</span>
-        <span fontWeight={ 500 }>{ abiParameter.name || abiParameter.internalType }</span>
+        <span className="font-medium">{ abiParameter.name || abiParameter.internalType }</span>
         <span> { '{' }</span>
       </span>
       { 'components' in abiParameter && abiParameter.components.map((component, index) => {
@@ -46,7 +46,7 @@ const ItemTuple = ({ abiParameter, data, mode, level }: Props) => {
           />
         );
       }) }
-      <span display="block">{ printRowOffset(level) }{ '}' }</span>
+      <span className="block">{ printRowOffset(level) }{ '}' }</span>
     </span>
   );
 };

@@ -35,9 +35,9 @@ export default function FormModal<TData>({
         <DialogHeader>{ title }</DialogHeader>
         <DialogBody>
           { (isAlertVisible || text) && (
-            <div marginBottom={{ base: 6, lg: 8 }}>
+            <div className="mb-6 lg:mb-8">
               { text && (
-                <span className="leading-[30px]" className="mb-3">
+                <span className="leading-[30px] mb-3">
                   { text }
                 </span>
               ) }

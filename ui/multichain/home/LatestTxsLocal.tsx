@@ -47,7 +47,7 @@ const LatestTxsLocal = () => {
         socketType="txs_home"
         stickyHeader={ false }
       />
-      <Separator orientation="horizontal" hideFrom="lg"/>
+      <Separator orientation="horizontal" className="lg:hidden"/>
       <Link
         href={ route({ pathname: '/txs', query: { chain_id: chain?.id, tab: 'txs_local' } }) }
         className="w-full justify-center text-sm mt-3"

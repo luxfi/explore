@@ -49,7 +49,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     if (isMobile) {
       return (
         <>
-          <div justifyContent="space-between" alignItems="center" mb={ 1 }>
+          <div className="flex justify-between items-center mb-1">
             { l1BlockLink }
             <TimeWithTooltip
               timestamp={ timestamp }
@@ -58,7 +58,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
               color="text.secondary"
             />
           </div>
-          <div gridTemplateColumns="56px auto">
+          <div className="grid grid-cols-[56px_auto]">
             <Skeleton loading={ isLoading } className="my-[5px] w-fit">
               { layerLabels.parent } txn
             </Skeleton>
@@ -73,7 +73,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     }
 
     return (
-      <div width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
+      <div className="grid w-full gap-x-4 gap-y-2 grid-cols-[max-content_max-content_auto]">
         { l1BlockLink }
         <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
           { layerLabels.parent } txn
@@ -97,16 +97,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
   })();
 
   return (
-    <div
-      width="100%"
-      borderTop="1px solid"
-      borderColor="border.divider"
-      py={ 4 }
-      px={{ base: 0, lg: 4 }}
-      _last={{ borderBottom: '1px solid', borderColor: 'border.divider' }}
-      fontSize="sm"
-      lineHeight={ 5 }
-    >
+    <div className="w-full border-t border-[var(--color-border-divider)] py-4 px-0 lg:px-4 last:border-b text-sm leading-5">
       { content }
     </div>
   );

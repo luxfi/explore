@@ -29,7 +29,7 @@ const AddressRelationFilter = ({ value = DEFAULT_VALUE, handleFilterChange, onCl
   }, [ handleFilterChange, onClose ]);
 
   return (
-    <div w="120px">
+    <div className="w-[120px]">
       <RadioGroup onValueChange={ onFilter } value={ value } orientation="vertical">
         <Radio value="or">OR</Radio>
         <Radio value="and">AND</Radio>

@@ -27,11 +27,11 @@ const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Pro
   const chainConfig = (multichainContext?.chain.app_config || config);
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="100px auto">
+    <ListItemMobileGrid.Container style={{ gridTemplateColumns: '100px auto' }}>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>User op hash</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <UserOpEntity hash={ item.hash } isLoading={ isLoading } fontWeight="700" noIcon={ !chainData } truncation="constant_long" chain={ chainData } noCopy/>
+        <UserOpEntity hash={ item.hash } isLoading={ isLoading } className="font-bold" noIcon={ !chainData } truncation="constant_long" chain={ chainData } noCopy/>
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Age</ListItemMobileGrid.Label>

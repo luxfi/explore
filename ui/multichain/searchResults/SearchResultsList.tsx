@@ -88,7 +88,7 @@ const SearchResultsList = <T extends QueryType>({ queryType, query, maxItems = I
         </React.Fragment>
       )) }
 
-      { query.isFetching && <ContentLoader maxW="240px" mt={ 6 }/> }
+      { query.isFetching && <ContentLoader className="max-w-[240px] mt-6"/> }
 
       <div className="w-[100px] h-0" ref={ cutRef }/>
     </div>

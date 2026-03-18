@@ -43,7 +43,7 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
             >
               { title }
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue position="relative" multiRow>
+            <DetailedInfo.ItemValue className="relative" multiRow>
               <div
                
               >

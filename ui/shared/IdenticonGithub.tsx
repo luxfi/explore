@@ -22,7 +22,9 @@ interface Props {
 
 const IdenticonGithub = ({ iconSize, seed }: Props) => {
   return (
-    <div       boxSize={ `${ iconSize * 2 }px` } style={{ transformOrigin: 'left top' }} style={{ transform: 'scale(0.5)' }} className="rounded-full bg-[var(--color-gray-100)] dark:bg-[var(--color-white)]" className="overflow-hidden"
+    <div
+      style={{ width: `${ iconSize * 2 }px`, height: `${ iconSize * 2 }px`, transformOrigin: 'left top', transform: 'scale(0.5)' }}
+      className="rounded-full bg-[var(--color-gray-100)] dark:bg-[var(--color-white)] overflow-hidden"
     >
       <Identicon
         bg="transparent"

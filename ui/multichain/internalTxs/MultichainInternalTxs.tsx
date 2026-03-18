@@ -38,11 +38,11 @@ const MultichainInternalTxs = () => {
   const actionBar = (
     <>
       { isMobile && (
-        <div mb={ 6 }>
+        <div className="mb-6">
           { filterInput }
         </div>
       ) }
-      <ActionBar mt={ -6 } justifyContent="flex-start">
+      <ActionBar className="-mt-6 justify-start">
         { chainSelect }
         { !isMobile && filterInput }
         <Pagination className="ml-auto" { ...pagination }/>
@@ -52,10 +52,10 @@ const MultichainInternalTxs = () => {
 
   const content = data?.items ? (
     <MultichainProvider chainId={ query.chainValue?.[0] }>
-      <div hideBelow="lg">
+      <div className="hidden lg:block">
         <InternalTxsTable data={ data.items } isLoading={ isPlaceholderData }/>
       </div>
-      <div hideFrom="lg">
+      <div className="lg:hidden">
         <InternalTxsList data={ data.items } isLoading={ isPlaceholderData }/>
       </div>
     </MultichainProvider>

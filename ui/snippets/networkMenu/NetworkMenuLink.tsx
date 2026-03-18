@@ -20,8 +20,7 @@ const NetworkMenuLink = ({ title, icon, isActive: isActiveProp, isMobile, url, i
   ) : (
     <IconSvg
       name="networks/icon-placeholder"
-      boxSize="20px"
-      color={{ base: 'blackAlpha.100', _dark: 'whiteAlpha.300' }}
+      className="w-5 h-5 text-[var(--color-blackAlpha-100)] dark:text-[var(--color-whiteAlpha-300)]"
     />
   );
 
@@ -57,8 +56,7 @@ const NetworkMenuLink = ({ title, icon, isActive: isActiveProp, isMobile, url, i
         { isActive && (
           <IconSvg
             name="check"
-            boxSize="20px"
-            className="ml-auto"
+            className="w-5 h-5 ml-auto"
           />
         ) }
       </a>

@@ -35,7 +35,7 @@ const NameDomainHistoryTableItem = ({ isLoading, event, domain }: Props) => {
           { ...txEntityProps }
           hash={ event.transaction_hash }
           isLoading={ isLoading }
-          fontWeight={ 700 }
+          className="font-bold"
           noIcon
           truncation="constant_long"
           noCopy

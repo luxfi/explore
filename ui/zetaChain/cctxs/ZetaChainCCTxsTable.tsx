@@ -52,7 +52,7 @@ const ZetaChainCCTxsTable = ({
           <TableRow>
             <TableColumnHeader>
               <div className="flex">
-                <span verticalAlign="middle">
+                <span className="align-middle">
                   CCTx hash
                 </span>
                 <ZetaChainFilterByColumn
@@ -66,7 +66,7 @@ const ZetaChainCCTxsTable = ({
               </div>
             </TableColumnHeader>
             <TableColumnHeader>
-              <span verticalAlign="middle">
+              <span className="align-middle">
                 Status
               </span>
               { showStatusFilter && (
@@ -80,7 +80,7 @@ const ZetaChainCCTxsTable = ({
               ) }
             </TableColumnHeader>
             <TableColumnHeader>
-              <span verticalAlign="middle">
+              <span className="align-middle">
                 Sender
               </span>
               <ZetaChainFilterByColumn
@@ -92,7 +92,7 @@ const ZetaChainCCTxsTable = ({
               />
             </TableColumnHeader>
             <TableColumnHeader>
-              <span verticalAlign="middle">
+              <span className="align-middle">
                 Receiver
               </span>
               <ZetaChainFilterByColumn
@@ -104,7 +104,7 @@ const ZetaChainCCTxsTable = ({
               />
             </TableColumnHeader>
             <TableColumnHeader isNumeric>
-              <span verticalAlign="middle">
+              <span className="align-middle">
                 Value
               </span>
               <ZetaChainFilterByColumn

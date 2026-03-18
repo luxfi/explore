@@ -22,7 +22,7 @@ const InfoButton = ({ children, isLoading }: Props) => {
       className="gap-0 font-medium pl-1 pr-2 max-lg:pr-1"
       loadingSkeleton={ isLoading }
     >
-      <IconSvg name="info" boxSize={ 6 } className={ isMobile ? '' : 'mr-1' }/>
+      <IconSvg name="info" className={ `size-6 ${ isMobile ? '' : 'mr-1' }`.trim() }/>
       { !isMobile && <span>Info</span> }
     </Button>
   );

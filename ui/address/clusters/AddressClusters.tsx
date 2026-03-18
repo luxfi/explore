@@ -37,9 +37,9 @@ const ClustersGrid = ({ data }: ClustersGridProps) => {
   const numberOfRows = getGridRows(itemsToShow.length, 5);
 
   return (
-    <div className="grid" templateRows={ `repeat(${ numberOfRows }, auto)` } autoFlow="column" gap={ 4 } mt={ 2 }>
+    <div className="grid gap-4 mt-2" style={{ gridTemplateRows: `repeat(${ numberOfRows }, auto)`, gridAutoFlow: 'column' }}>
       { itemsToShow.map((cluster) => (
-        <ClustersEntity key={ cluster.name } clusterName={ cluster.name } fontWeight={ 600 } noCopy/>
+        <ClustersEntity key={ cluster.name } clusterName={ cluster.name } className="font-semibold" noCopy/>
       )) }
     </div>
   );
@@ -86,7 +86,7 @@ const AddressClusters = ({ query, addressHash }: Props) => {
               columnGap={ 1 }
               role="group"
             >
-              <IconSvg name="clusters" boxSize={ 5 } fill="currentColor"/>
+              <IconSvg name="clusters" className="w-5 h-5 fill-current"/>
               <span className="hidden xl:inline">{ totalRecords } { clusterLabel }</span>
               <span className="xl:hidden">{ totalRecords }</span>
             </Button>
@@ -96,7 +96,7 @@ const AddressClusters = ({ query, addressHash }: Props) => {
       <PopoverContent w={{ lg: '500px' }}>
         <PopoverBody textStyle="sm" display="flex" flexDir="column" rowGap={ 5 } alignItems="flex-start">
           <div>
-            <span color="text.secondary" textStyle="xs">Attached to this address</span>
+            <span className="text-[var(--color-text-secondary)] text-xs">Attached to this address</span>
             <ClustersGrid data={ ownedClusters }/>
           </div>
           { showMoreLink && (
@@ -104,7 +104,7 @@ const AddressClusters = ({ query, addressHash }: Props) => {
               href={ route({ pathname: '/name-services', query: { q: addressHash, tab: 'directories' } }) }
             >
               <span>More results</span>
-              <span color="text.secondary"> ({ totalRecords })</span>
+              <span className="text-[var(--color-text-secondary)]"> ({ totalRecords })</span>
             </Link>
           ) }
         </PopoverBody>

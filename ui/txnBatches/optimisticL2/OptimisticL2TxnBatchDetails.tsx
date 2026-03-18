@@ -59,8 +59,7 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
 
   return (
     <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
         hint={ `Batch ID indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }` }
@@ -72,7 +71,7 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
+          className="ml-6"
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -130,7 +129,7 @@ const OptimisticL2TxnBatchDetails = ({ query }: Props) => {
       >
         Batch data container
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexDir="column" alignItems="flex-start" rowGap={ 2 }>
+      <DetailedInfo.ItemValue className="flex-col items-start gap-y-2">
         <OptimisticL2TxnBatchDA container={ data.batch_data_container } isLoading={ isPlaceholderData } className="mt-0 lg:mt-1"/>
         { data.batch_data_container === 'in_blob4844' && data.blobs &&
           <OptimisticL2TxnBatchBlobEip4844 blobs={ data.blobs } isLoading={ isPlaceholderData }/> }

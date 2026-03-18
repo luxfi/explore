@@ -105,7 +105,7 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
         truncation="constant"
         noIcon={ noAddressIcons }
         isLoading={ isLoading }
-        lineHeight={{ lg: '24px' }}
+        className="lg:leading-6"
       />
       { content }
     </div>

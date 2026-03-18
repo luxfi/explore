@@ -94,8 +94,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Registrant
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              columnGap={ 2 }
-              flexWrap="nowrap"
+              className="gap-x-2 flex-nowrap"
             >
               <AddressEntity
                 address={ query.data.registrant }
@@ -109,7 +108,7 @@ const NameDomainDetails = ({ query }: Props) => {
                     query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: query.data.registrant.hash },
                   }) }
                 >
-                  <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+                  <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
                 </Link>
               </Tooltip>
             </DetailedInfo.ItemValue>
@@ -125,8 +124,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Owner
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              columnGap={ 2 }
-              flexWrap="nowrap"
+              className="gap-x-2 flex-nowrap"
             >
               <AddressEntity
                 address={ query.data.owner }
@@ -140,7 +138,7 @@ const NameDomainDetails = ({ query }: Props) => {
                     query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: query.data.owner.hash },
                   }) }
                 >
-                  <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+                  <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
                 </Link>
               </Tooltip>
             </DetailedInfo.ItemValue>
@@ -156,8 +154,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Manager
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              columnGap={ 2 }
-              flexWrap="nowrap"
+              className="gap-x-2 flex-nowrap"
             >
               <AddressEntity
                 address={ query.data.wrapped_owner }
@@ -171,7 +168,7 @@ const NameDomainDetails = ({ query }: Props) => {
                     query: { tab: 'domains', owned_by: 'true', resolved_to: 'true', address: query.data.wrapped_owner.hash },
                   }) }
                 >
-                  <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
+                  <IconSvg name="search" className="size-5" isLoading={ isLoading }/>
                 </Link>
               </Tooltip>
             </DetailedInfo.ItemValue>
@@ -197,8 +194,7 @@ const NameDomainDetails = ({ query }: Props) => {
                 { token.type === bens.TokenType.WRAPPED_DOMAIN_TOKEN ? 'Wrapped token ID' : 'Token ID' }
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue
-                wordBreak="break-all"
-                whiteSpace="pre-wrap"
+                className="break-all whitespace-pre-wrap"
               >
                 <NftEntity { ...entityProps } hash={ token.contract_hash } id={ token.id } isLoading={ isLoading } noIcon/>
               </DetailedInfo.ItemValue>
@@ -215,8 +211,7 @@ const NameDomainDetails = ({ query }: Props) => {
               Other addresses
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue
-              flexDir="column"
-              alignItems="flex-start"
+              className="flex-col items-start"
               multiRow
             >
               { otherAddresses.map(([ type, address ]) => (

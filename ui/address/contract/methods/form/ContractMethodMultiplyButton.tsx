@@ -88,7 +88,7 @@ const ContractMethodMultiplyButton = ({ onClick, isDisabled, initialValue, onCha
                   onClick={ handleOptionClick }
                 >
                   <span>10*{ id }</span>
-                  { selectedOption === id && <IconSvg name="check" boxSize={ 6 }/> }
+                  { selectedOption === id && <IconSvg name="check" className="w-6 h-6"/> }
                 </li>
               )) }
               <li className="py-2 flex justify-between items-center">

@@ -33,9 +33,8 @@ const OptimisticL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         <TimeWithTooltip
           timestamp={ item.l1_timestamp }
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block my-1"
           color="text.secondary"
-          my={ 1 }
         />
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>

@@ -18,17 +18,11 @@ type Props = {
 const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
   return (
     <div
-      gridTemplateColumns="18px 120px 80px 350px auto"
-      gridGap={ 3 }
-      width="100%"
-      minW="740px"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      alignItems="center"
-      p={ 4 }
-      fontSize="sm"
-      animation={ animation }
-
+      className="grid gap-3 w-full min-w-[740px] border-b border-[var(--color-border-divider)] items-center p-4 text-sm"
+      style={{
+        gridTemplateColumns: '18px 120px 80px 350px auto',
+        animation: animation || undefined,
+      }}
     >
       <ZetaChainCCTXReducedStatus status={ tx.status_reduced } isLoading={ isLoading }/>
       <TxEntityZetaChainCC truncation="constant" hash={ tx.index } isLoading={ isLoading } className="font-semibold"/>

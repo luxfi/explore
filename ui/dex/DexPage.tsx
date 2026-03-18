@@ -23,7 +23,9 @@ const TAB_IDS = {
 
 type TabId = typeof TAB_IDS[keyof typeof TAB_IDS];
 
-const STAT_CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
+const ROW_BASE = 'flex items-center py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-gray-50 dark:hover:bg-white/5 transition-[background] duration-150 gap-4 flex-wrap lg:flex-nowrap';
+const HEADER_BASE = 'hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]';
+const COL_HEADER = 'text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider';
 
 // ── Sub-components ──
 
@@ -52,49 +54,15 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <div
-    border="1px solid"
-    borderColor="border.divider"
-    borderRadius="lg"
-    p={ 5 }
-    bgColor={ STAT_CARD_BG }
-  >
-    <div fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+  <div className="border border-[var(--color-border-divider)] rounded-lg p-5 bg-gray-50 dark:bg-white/5">
+    <div className="text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
       { label }
     </div>
     <Skeleton loading={ isLoading }>
-      <div fontSize="2xl" fontWeight="700" color="text.primary">
+      <div className="text-2xl font-bold text-[var(--color-text-primary)]">
         { value }
       </div>
     </Skeleton>
-  </div>
-);
-
-// ── Table header ──
-
-interface ColumnHeaderProps {
-  readonly children: React.ReactNode;
-  readonly flex?: number | string;
-  readonly minW?: string;
-  readonly w?: string;
-  readonly ml?: string;
-  readonly textAlign?: 'left' | 'right';
-}
-
-const ColumnHeader = ({ children, flex, minW, w, ml, textAlign = 'left' }: ColumnHeaderProps) => (
-  <div
-    flex={ flex }
-    minW={ minW }
-    w={ w }
-    ml={ ml }
-    color="text.secondary"
-    fontWeight="600"
-    fontSize="xs"
-    textTransform="uppercase"
-    letterSpacing="wider"
-    textAlign={ textAlign }
-  >
-    { children }
   </div>
 );
 
@@ -108,51 +76,29 @@ const SymbolRow = ({ stat }: SymbolRowProps) => {
   const isPositive = stat.change24h >= 0;
 
   return (
-    <div
-      alignItems="center"
-      py={ 3 }
-      px={ 4 }
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      _hover={{ bg: STAT_CARD_BG }}
-      transition="background 0.15s"
-      gap={ 4 }
-      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-    >
-      <div minW="120px" flexShrink={ 0 }>
-        <span fontWeight="600" fontSize="sm" color="text.primary">
-          { stat.symbol }
-        </span>
+    <div className={ ROW_BASE }>
+      <div className="min-w-[120px] shrink-0">
+        <span className="font-semibold text-sm text-[var(--color-text-primary)]">{ stat.symbol }</span>
       </div>
-      <div minW="100px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color="text.primary">
-          { stat.lastPrice }
-        </span>
+      <div className="min-w-[100px] shrink-0 text-right">
+        <span className="text-sm font-mono text-[var(--color-text-primary)]">{ stat.lastPrice }</span>
       </div>
-      <div minW="80px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontWeight="500" color={ isPositive ? 'green.400' : 'red.400' }>
+      <div className="min-w-[80px] shrink-0 text-right">
+        <span className={ `text-sm font-medium ${ isPositive ? 'text-green-400' : 'text-red-400' }` }>
           { isPositive ? '+' : '' }{ stat.change24h.toFixed(2) }%
         </span>
       </div>
-      <div minW="100px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color="text.secondary">
-          { stat.high24h }
-        </span>
+      <div className="min-w-[100px] shrink-0 text-right">
+        <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ stat.high24h }</span>
       </div>
-      <div minW="100px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color="text.secondary">
-          { stat.low24h }
-        </span>
+      <div className="min-w-[100px] shrink-0 text-right">
+        <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ stat.low24h }</span>
       </div>
-      <div minW="120px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color="text.secondary">
-          ${ stat.volume24h }
-        </span>
+      <div className="min-w-[120px] shrink-0 text-right">
+        <span className="text-sm font-mono text-[var(--color-text-secondary)]">${ stat.volume24h }</span>
       </div>
-      <div flexShrink={ 0 } textAlign="right" ml={{ base: 0, lg: 'auto' }}>
-        <span fontSize="sm" color="text.secondary">
-          { stat.trades24h }
-        </span>
+      <div className="shrink-0 text-right ml-0 lg:ml-auto">
+        <span className="text-sm text-[var(--color-text-secondary)]">{ stat.trades24h }</span>
       </div>
     </div>
   );
@@ -168,53 +114,33 @@ const OrderRow = ({ order }: OrderRowProps) => {
   const isBuy = order.side === 'buy';
 
   return (
-    <div
-      alignItems="center"
-      py={ 3 }
-      px={ 4 }
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      _hover={{ bg: STAT_CARD_BG }}
-      transition="background 0.15s"
-      gap={ 4 }
-      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-    >
-      <div minW="100px" flexShrink={ 0 }>
-        <span fontSize="sm" color="text.primary">
-          { order.symbol }
-        </span>
+    <div className={ ROW_BASE }>
+      <div className="min-w-[100px] shrink-0">
+        <span className="text-sm text-[var(--color-text-primary)]">{ order.symbol }</span>
       </div>
-      <div minW="60px" flexShrink={ 0 }>
+      <div className="min-w-[60px] shrink-0">
         <Tag size="sm" variant="subtle" className={ isBuy ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }>
           { order.side.toUpperCase() }
         </Tag>
       </div>
-      <div minW="100px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color={ isBuy ? 'green.400' : 'red.400' }>
-          { order.price }
-        </span>
+      <div className="min-w-[100px] shrink-0 text-right">
+        <span className={ `text-sm font-mono ${ isBuy ? 'text-green-400' : 'text-red-400' }` }>{ order.price }</span>
       </div>
-      <div minW="100px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color="text.primary">
-          { order.quantity }
-        </span>
+      <div className="min-w-[100px] shrink-0 text-right">
+        <span className="text-sm font-mono text-[var(--color-text-primary)]">{ order.quantity }</span>
       </div>
-      <div minW="120px" flexShrink={ 0 } textAlign="right">
-        <span fontSize="sm" fontFamily="mono" color="text.secondary">
+      <div className="min-w-[120px] shrink-0 text-right">
+        <span className="text-sm font-mono text-[var(--color-text-secondary)]">
           { (parseFloat(order.price) * parseFloat(order.quantity)).toFixed(2) }
         </span>
       </div>
-      <div minW="100px" flexShrink={ 0 }>
-        <span fontSize="sm" fontFamily="mono" color="text.secondary">
-          { order.maker }
-        </span>
+      <div className="min-w-[100px] shrink-0">
+        <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ order.maker }</span>
       </div>
-      <div minW="80px" flexShrink={ 0 }>
-        <span fontSize="sm" color="text.secondary">
-          { formatTime(order.timestamp) }
-        </span>
+      <div className="min-w-[80px] shrink-0">
+        <span className="text-sm text-[var(--color-text-secondary)]">{ formatTime(order.timestamp) }</span>
       </div>
-      <div flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
+      <div className="shrink-0 ml-0 lg:ml-auto">
         <Tag size="sm" variant="subtle" className={ getStatusClassName(order.status) }>
           { order.status }
         </Tag>
@@ -230,51 +156,27 @@ interface TradeRowProps {
 }
 
 const TradeRow = ({ trade }: TradeRowProps) => (
-  <div
-    alignItems="center"
-    py={ 3 }
-    px={ 4 }
-    borderBottom="1px solid"
-    borderColor="border.divider"
-    _hover={{ bg: STAT_CARD_BG }}
-    transition="background 0.15s"
-    gap={ 4 }
-    flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-  >
-    <div minW="100px" flexShrink={ 0 }>
-      <span fontWeight="500" fontSize="sm" color="text.primary">
-        { trade.symbol }
-      </span>
+  <div className={ ROW_BASE }>
+    <div className="min-w-[100px] shrink-0">
+      <span className="font-medium text-sm text-[var(--color-text-primary)]">{ trade.symbol }</span>
     </div>
-    <div minW="100px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" color="text.primary">
-        { trade.price }
-      </span>
+    <div className="min-w-[100px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ trade.price }</span>
     </div>
-    <div minW="100px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" color="text.primary">
-        { trade.quantity }
-      </span>
+    <div className="min-w-[100px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ trade.quantity }</span>
     </div>
-    <div minW="100px" flexShrink={ 0 }>
-      <span fontSize="sm" fontFamily="mono" color="text.secondary">
-        { trade.buyer }
-      </span>
+    <div className="min-w-[100px] shrink-0">
+      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ trade.buyer }</span>
     </div>
-    <div minW="100px" flexShrink={ 0 }>
-      <span fontSize="sm" fontFamily="mono" color="text.secondary">
-        { trade.seller }
-      </span>
+    <div className="min-w-[100px] shrink-0">
+      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ trade.seller }</span>
     </div>
-    <div minW="60px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" color="text.secondary">
-        { trade.fee }
-      </span>
+    <div className="min-w-[60px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ trade.fee }</span>
     </div>
-    <div flexShrink={ 0 } textAlign="right" ml={{ base: 0, lg: 'auto' }}>
-      <span fontSize="sm" color="text.secondary">
-        { formatTime(trade.timestamp) }
-      </span>
+    <div className="shrink-0 text-right ml-0 lg:ml-auto">
+      <span className="text-sm text-[var(--color-text-secondary)]">{ formatTime(trade.timestamp) }</span>
     </div>
   </div>
 );
@@ -286,46 +188,24 @@ interface PoolRowProps {
 }
 
 const PoolRow = ({ pool }: PoolRowProps) => (
-  <div
-    alignItems="center"
-    py={ 3 }
-    px={ 4 }
-    borderBottom="1px solid"
-    borderColor="border.divider"
-    _hover={{ bg: STAT_CARD_BG }}
-    transition="background 0.15s"
-    gap={ 4 }
-    flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-  >
-    <div minW="120px" flexShrink={ 0 }>
-      <span fontWeight="600" fontSize="sm" color="text.primary">
-        { pool.tokenA }/{ pool.tokenB }
-      </span>
+  <div className={ ROW_BASE }>
+    <div className="min-w-[120px] shrink-0">
+      <span className="font-semibold text-sm text-[var(--color-text-primary)]">{ pool.tokenA }/{ pool.tokenB }</span>
     </div>
-    <div minW="120px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" color="text.primary">
-        { pool.reserveA }
-      </span>
+    <div className="min-w-[120px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ pool.reserveA }</span>
     </div>
-    <div minW="120px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" color="text.primary">
-        { pool.reserveB }
-      </span>
+    <div className="min-w-[120px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ pool.reserveB }</span>
     </div>
-    <div minW="120px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" fontWeight="600" color="text.primary">
-        ${ pool.tvl }
-      </span>
+    <div className="min-w-[120px] shrink-0 text-right">
+      <span className="text-sm font-mono font-semibold text-[var(--color-text-primary)]">${ pool.tvl }</span>
     </div>
-    <div minW="120px" flexShrink={ 0 } textAlign="right">
-      <span fontSize="sm" fontFamily="mono" color="text.secondary">
-        ${ pool.volume24h }
-      </span>
+    <div className="min-w-[120px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-secondary)]">${ pool.volume24h }</span>
     </div>
-    <div flexShrink={ 0 } textAlign="right" ml={{ base: 0, lg: 'auto' }}>
-      <span fontSize="sm" color="text.secondary">
-        { pool.fee }
-      </span>
+    <div className="shrink-0 text-right ml-0 lg:ml-auto">
+      <span className="text-sm text-[var(--color-text-secondary)]">{ pool.fee }</span>
     </div>
   </div>
 );
@@ -333,7 +213,7 @@ const PoolRow = ({ pool }: PoolRowProps) => (
 // ── Loading skeleton ──
 
 const LoadingSkeleton = () => (
-  <div px={ 4 } py={ 6 }>
+  <div className="px-4 py-6">
     <Skeleton loading h="16px" mb={ 3 }/>
     <Skeleton loading h="16px" mb={ 3 }/>
     <Skeleton loading h="16px" mb={ 3 }/>
@@ -357,19 +237,14 @@ const DexPage = () => {
       <PageTitle
         title="DEX"
         secondRow={ (
-          <div fontSize="sm" color="text.secondary">
+          <div className="text-sm text-[var(--color-text-secondary)]">
             D-Chain decentralized exchange orderbook and market data
           </div>
         ) }
       />
 
       { /* Stats cards */ }
-      <div
-        display="grid"
-        gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
-        gap={ 3 }
-        mb={ 6 }
-      >
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         <StatCard label="Total Pairs" value={ String(overview.totalPairs) } isLoading={ isLoading }/>
         <StatCard label="24h Volume" value={ `$${ overview.volume24h }` } isLoading={ isLoading }/>
         <StatCard label="Active Orders" value={ String(overview.activeOrders) } isLoading={ isLoading }/>
@@ -377,7 +252,7 @@ const DexPage = () => {
       </div>
 
       { /* Tabs */ }
-      <div borderBottom="1px solid" borderColor="border.divider" mb={ 4 } gap={ 0 }>
+      <div className="flex border-b border-[var(--color-border-divider)] mb-4">
         <TabButton label="Markets" isActive={ activeTab === TAB_IDS.markets } onClick={ handleMarketsClick }/>
         <TabButton label="Orderbook" isActive={ activeTab === TAB_IDS.orderbook } onClick={ handleOrderbookClick }/>
         <TabButton label="Trades" isActive={ activeTab === TAB_IDS.trades } onClick={ handleTradesClick }/>
@@ -386,15 +261,15 @@ const DexPage = () => {
 
       { /* Markets tab */ }
       { activeTab === TAB_IDS.markets && (
-        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          <div px={ 4 } py={ 2 } gap={ 4 } borderBottom="1px solid" borderColor="border.divider" display={{ base: 'none', lg: 'flex' }}>
-            <ColumnHeader minW="120px">Symbol</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">Price</ColumnHeader>
-            <ColumnHeader minW="80px" textAlign="right">24h Change</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">24h High</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">24h Low</ColumnHeader>
-            <ColumnHeader minW="120px" textAlign="right">24h Volume</ColumnHeader>
-            <ColumnHeader ml="auto" textAlign="right">Trades</ColumnHeader>
+        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+          <div className={ HEADER_BASE }>
+            <div className={ cn(COL_HEADER, 'min-w-[120px]') }>Symbol</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Price</div>
+            <div className={ cn(COL_HEADER, 'min-w-[80px] text-right') }>24h Change</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>24h High</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>24h Low</div>
+            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>24h Volume</div>
+            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Trades</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
           { !isLoading && symbols.map((stat) => (
@@ -405,16 +280,16 @@ const DexPage = () => {
 
       { /* Orderbook tab */ }
       { activeTab === TAB_IDS.orderbook && (
-        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          <div px={ 4 } py={ 2 } gap={ 4 } borderBottom="1px solid" borderColor="border.divider" display={{ base: 'none', lg: 'flex' }}>
-            <ColumnHeader minW="100px">Symbol</ColumnHeader>
-            <ColumnHeader minW="60px">Side</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">Price</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">Quantity</ColumnHeader>
-            <ColumnHeader minW="120px" textAlign="right">Total</ColumnHeader>
-            <ColumnHeader minW="100px">Maker</ColumnHeader>
-            <ColumnHeader minW="80px">Time</ColumnHeader>
-            <ColumnHeader ml="auto" textAlign="right">Status</ColumnHeader>
+        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+          <div className={ HEADER_BASE }>
+            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Symbol</div>
+            <div className={ cn(COL_HEADER, 'min-w-[60px]') }>Side</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Price</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Quantity</div>
+            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>Total</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Maker</div>
+            <div className={ cn(COL_HEADER, 'min-w-[80px]') }>Time</div>
+            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Status</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
           { !isLoading && orders.map((order) => (
@@ -425,15 +300,15 @@ const DexPage = () => {
 
       { /* Trades tab */ }
       { activeTab === TAB_IDS.trades && (
-        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          <div px={ 4 } py={ 2 } gap={ 4 } borderBottom="1px solid" borderColor="border.divider" display={{ base: 'none', lg: 'flex' }}>
-            <ColumnHeader minW="100px">Symbol</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">Price</ColumnHeader>
-            <ColumnHeader minW="100px" textAlign="right">Quantity</ColumnHeader>
-            <ColumnHeader minW="100px">Buyer</ColumnHeader>
-            <ColumnHeader minW="100px">Seller</ColumnHeader>
-            <ColumnHeader minW="60px" textAlign="right">Fee</ColumnHeader>
-            <ColumnHeader ml="auto" textAlign="right">Time</ColumnHeader>
+        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+          <div className={ HEADER_BASE }>
+            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Symbol</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Price</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Quantity</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Buyer</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Seller</div>
+            <div className={ cn(COL_HEADER, 'min-w-[60px] text-right') }>Fee</div>
+            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Time</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
           { !isLoading && trades.map((trade) => (
@@ -444,14 +319,14 @@ const DexPage = () => {
 
       { /* Pools tab */ }
       { activeTab === TAB_IDS.pools && (
-        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          <div px={ 4 } py={ 2 } gap={ 4 } borderBottom="1px solid" borderColor="border.divider" display={{ base: 'none', lg: 'flex' }}>
-            <ColumnHeader minW="120px">Pair</ColumnHeader>
-            <ColumnHeader minW="120px" textAlign="right">Reserve A</ColumnHeader>
-            <ColumnHeader minW="120px" textAlign="right">Reserve B</ColumnHeader>
-            <ColumnHeader minW="120px" textAlign="right">TVL</ColumnHeader>
-            <ColumnHeader minW="120px" textAlign="right">24h Volume</ColumnHeader>
-            <ColumnHeader ml="auto" textAlign="right">Fee</ColumnHeader>
+        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+          <div className={ HEADER_BASE }>
+            <div className={ cn(COL_HEADER, 'min-w-[120px]') }>Pair</div>
+            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>Reserve A</div>
+            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>Reserve B</div>
+            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>TVL</div>
+            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>24h Volume</div>
+            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Fee</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
           { !isLoading && pools.map((pool) => (

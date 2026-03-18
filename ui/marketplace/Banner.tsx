@@ -56,7 +56,7 @@ const Banner = ({ apps = [], favoriteApps, isLoading, onInfoClick, onFavoriteCli
   }
 
   return (
-    <div gap={ 6 }>
+    <div className="flex gap-6">
       { content }
       { !isMobile && (
         <AdBanner

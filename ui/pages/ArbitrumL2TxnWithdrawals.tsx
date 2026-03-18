@@ -92,7 +92,7 @@ const ArbitrumL2TxnWithdrawals = () => {
       </form>
       { error && <FormFieldError message={ error }/> }
       <DataListDisplay
-        mt={ 6 }
+        className="mt-6"
         isError={ isError }
         itemsNum={ searchTerm ? data?.items.length : undefined }
         hasActiveFilters={ Boolean(searchTerm) }

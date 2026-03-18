@@ -63,7 +63,7 @@ const TokensListItem = ({
   return (
     <ListItemMobile>
       <div
-        width="100%"
+        className="w-full"
       >
         <div>
           <TokenEntity
@@ -72,7 +72,7 @@ const TokensListItem = ({
             isLoading={ isLoading }
             jointSymbol
             noCopy
-            w="auto"
+            className="w-auto"
             noLink={ type === 'NATIVE' }
           />
           <div>
@@ -85,7 +85,7 @@ const TokensListItem = ({
         </div>
       </div>
       { type !== 'NATIVE' && (
-        <div width="150px">
+        <div className="w-[150px]">
           <AddressEntity
             address={{ hash: addressHash, filecoin: { robust: filecoinRobustAddress } }}
             isLoading={ isLoading }

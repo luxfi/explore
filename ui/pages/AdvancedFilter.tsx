@@ -167,7 +167,7 @@ const AdvancedFilter = () => {
                       searchParams={ data?.search_params }
                       isLoading={ isPlaceholderData }
                     />
-                    { column.id === 'age' && <TimeFormatToggle ml={ 1 } verticalAlign="middle"/> }
+                    { column.id === 'age' && <TimeFormatToggle className="ml-1 align-middle"/> }
                   </TableColumnHeader>
                 );
               }) }
@@ -219,7 +219,7 @@ const AdvancedFilter = () => {
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <ExportCSV filters={ filters }/>
       <ColumnsButton columns={ columns } onChange={ setColumns }/>
       <Pagination className="ml-auto" { ...pagination }/>
@@ -236,7 +236,7 @@ const AdvancedFilter = () => {
         <span className="text-lg w-[100px] mr-3 leading-[24px]">Filtered by:</span>
         { filterTags.length !== 0 && (
           <Link onClick={ clearAllFilters } className="flex items-center justify-end gap-2 text-sm w-[150px]">
-            <IconSvg name="repeat" boxSize={ 5 }/>
+            <IconSvg name="repeat" className="size-5"/>
             Reset filters
           </Link>
         ) }

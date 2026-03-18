@@ -8,12 +8,8 @@ interface Props {
 
 const BlobDataImage = ({ src }: Props) => {
   return (
-    <div className="flex items-center justify-center"
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      p={ 4 }
-      minH="200px"
-      w="100%"
-      borderRadius="md"
+    <div className="flex items-center justify-center w-full p-4 min-h-[200px] rounded-[md]"
+
     >
       <Image
         src={ src }

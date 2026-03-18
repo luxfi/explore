@@ -4,6 +4,7 @@ import React from 'react';
 import type { AddressMudRecordsFilter, AddressMudRecordsSorting } from 'types/api/address';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { Tag } from 'toolkit/chakra/tag';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
@@ -80,7 +81,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
   }
 
   const filtersTags = hasActiveFilters ? (
-    <div className="flex flex-row" gap={ 3 } mb={ 1 } flexWrap="wrap">
+    <div className="flex flex-row flex-wrap gap-3 mb-1">
       { Object.entries(filters).map(([ key, value ]) => {
         const index = key as FilterKeys === 'filter_key0' ? 0 : 1;
         return (
@@ -104,12 +105,12 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
       hash={ hash }
       tableId={ tableId }
       tableName={ data?.table.table_full_name }
-      mb={ hasActiveFilters ? 4 : 0 }
+     
     />
   ) : null;
 
   const actionBar = (!isMobile || hasActiveFilters || pagination.isVisible) && (
-    <ActionBar mt={ -6 } showShadow={ tableHasHorizontalScroll } justifyContent="space-between" alignItems={ hasActiveFilters ? 'start' : 'center' }>
+    <ActionBar className={ cn('-mt-6 justify-between', hasActiveFilters ? 'items-start' : 'items-center') } showShadow={ tableHasHorizontalScroll }>
       <div>
         { !isMobile && breadcrumbs }
         { filtersTags }
@@ -134,14 +135,14 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
   const emptyText = (
     <>
       <span>There are no records for </span>
-      { data?.table.table_full_name ? <span fontWeight={ 600 }>{ data?.table.table_full_name }</span> : 'this table' }
+      { data?.table.table_full_name ? <span className="font-semibold">{ data?.table.table_full_name }</span> : 'this table' }
     </>
   );
 
   return (
     <>
       { isMobile && (
-        <div mb={ 6 }>{ breadcrumbs }</div>
+        <div className="mb-6">{ breadcrumbs }</div>
       ) }
       <DataListDisplay
         isError={ isError }
@@ -153,7 +154,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
         }}
         actionBar={ actionBar }
         showActionBarIfEmpty={ !isMobile }
-        mt={ data?.items.length ? 0 : 2 }
+        className={ data?.items.length ? 'mt-0' : 'mt-2' }
       >
         { content }
       </DataListDisplay>

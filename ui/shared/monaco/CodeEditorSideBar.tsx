@@ -32,7 +32,7 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
 
   const themeColors = useThemeColors();
 
-  const tabClassName = `font-heading uppercase text-[11px] leading-[35px] font-medium px-0 tracking-[0.3px]`;
+  const tabClassName = 'font-heading uppercase text-[11px] leading-[35px] font-medium px-0 tracking-[0.3px]';
   const tabStyle = (value: string): React.CSSProperties => ({
     color: activeTab === value ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'],
   });
@@ -89,11 +89,19 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
 
   return (
     <>
-      <div style={{ width: `${ CONTAINER_WIDTH }px` }} className="shrink-0 text-[13px] z-[2] absolute lg:relative" style={{ backgroundColor: themeColors['sideBar.background']  , transitionProperty: 'right', transitionDuration: '200ms', transitionTimingFunction: 'ease-in-out', right: isDrawerOpen ? '0' : `-${ CONTAINER_WIDTH }px`}} className="overflow-y-scroll rounded-br-md rounded-tr-md h-full"
+      <div
+        className="shrink-0 text-[13px] z-[2] absolute lg:relative overflow-y-scroll rounded-br-md rounded-tr-md h-full"
+        style={{
+          width: `${ CONTAINER_WIDTH }px`,
+          backgroundColor: themeColors['sideBar.background'],
+          transitionProperty: 'right',
+          transitionDuration: '200ms',
+          transitionTimingFunction: 'ease-in-out',
+          right: isDrawerOpen ? '0' : `-${ CONTAINER_WIDTH }px`,
+          paddingBottom: '22px',
+          boxShadow: isDrawerOpen ? 'var(--shadow-md)' : 'none',
+        }}
         onScroll={ handleScrollThrottled.current }
-        top={{ base: 0, lg: undefined }}
-        pb="22px"
-        boxShadow={{ base: isDrawerOpen ? 'md' : 'none', lg: 'none' }}
       >
         <TabsRoot unmountOnExit={ false } variant="unstyled" size="free" value={ activeTab } onValueChange={ handleTabChange }>
           <TabsList
@@ -127,18 +135,23 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
           </TabsContent>
         </TabsRoot>
       </div>
-      <div         boxSize="24px"
-        p="4px" className="absolute rounded-tl-[4px] rounded-bl-[4px] z-[1] shadow-md block lg:hidden"
-        right={ isDrawerOpen ? `${ CONTAINER_WIDTH - 1 }px` : '0' }
-        top="calc(50% - 12px)"
-        backgroundColor={ themeColors['sideBar.background'] }
-        onClick={ handleSideBarButtonClick } style={{ transitionProperty: 'right' , transitionDuration: '200ms', transitionTimingFunction: 'ease-in-out'}}
+      <div
+        className="absolute rounded-tl rounded-bl z-[1] shadow-md block lg:hidden size-6 p-1 cursor-pointer"
+        style={{
+          right: isDrawerOpen ? `${ CONTAINER_WIDTH - 1 }px` : '0',
+          top: 'calc(50% - 12px)',
+          backgroundColor: themeColors['sideBar.background'],
+          transitionProperty: 'right',
+          transitionDuration: '200ms',
+          transitionTimingFunction: 'ease-in-out',
+        }}
+        onClick={ handleSideBarButtonClick }
         title={ isDrawerOpen ? 'Open sidebar' : 'Close sidebar' }
         aria-label={ isDrawerOpen ? 'Open sidebar' : 'Close sidebar' }
       >
-        <div           className="codicon codicon-tree-item-expanded"
-          transform={ isDrawerOpen ? 'rotate(-90deg)' : 'rotate(+90deg)' }
-          boxSize="16px"
+        <div
+          className="codicon codicon-tree-item-expanded size-4"
+          style={{ transform: isDrawerOpen ? 'rotate(-90deg)' : 'rotate(+90deg)' }}
         />
       </div>
     </>

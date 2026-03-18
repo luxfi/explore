@@ -31,11 +31,12 @@ const CodeEditorSearchResultItem = ({ lineContent, filePath, onClick, startLineN
   const themeColors = useThemeColors();
 
   return (
-    <div       pr="8px"
-      pl="36px" className="text-[13px] leading-[22px]" className="whitespace-nowrap text-ellipsis cursor-pointer" className="overflow-hidden"
+    <div
+      className="text-[13px] leading-[22px] whitespace-nowrap text-ellipsis cursor-pointer overflow-hidden pr-2 pl-9"
       data-file-path={ filePath }
       data-line-number={ startLineNumber }
-      onClick={ onClick } style={{ transitionDuration: '0' }}
+      onClick={ onClick }
+      style={{ transitionDuration: '0s' }}
     >
       <span>{ lineContent.slice(start, startColumn - 1) }</span>
       <span style={{ backgroundColor: themeColors['custom.findMatchHighlightBackground'] }}>

@@ -39,7 +39,7 @@ const BlockCeloEpochTag = ({ blockQuery }: Props) => {
   }
 
   return (
-    <div gap={ 2 }>
+    <div className="gap-2">
       <Tooltip
         key="epoch-tag"
         content="Displays the epoch finalized by this block"

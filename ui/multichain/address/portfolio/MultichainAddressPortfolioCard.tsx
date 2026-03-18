@@ -4,6 +4,7 @@ import React from 'react';
 
 import type { ClusterChainConfig } from 'types/multichain';
 
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
@@ -41,26 +42,21 @@ const MultichainAddressPortfolioCard = ({ chain, value, share, isLoading, isSele
 
   return (
     <div
-      p={ 3 }
-      w={ cardWidth }
-      borderRadius="base"
-      border="1px solid"
-      borderColor={ isSelected ? 'transparent' : 'border.divider' }
-      textStyle="xs"
-      bgColor={ isSelected ? 'selected.control.bg' : 'transparent' }
-      opacity={ !isSelected && !noneIsSelected ? 0.5 : 1 }
-      _hover={ onClick ? {
-        borderColor: 'hover',
-        opacity: 1,
-      } : undefined }
-      cursor={ onClick ? 'pointer' : 'default' }
+      className={ cn(
+        'p-3 rounded-[var(--radius-base,8px)] border text-xs',
+        isSelected ? 'border-transparent bg-[var(--color-selected-control-bg)]' : 'border-[var(--color-border-divider)] bg-transparent',
+        !isSelected && !noneIsSelected && 'opacity-50',
+        onClick && 'cursor-pointer hover:border-[var(--color-hover)] hover:opacity-100',
+        !onClick && 'cursor-default',
+      ) }
+      style={{ width: cardWidth.base }}
       onClick={ handleClick }
       aria-label={ `${ chain.name } portfolio selector` }
     >
       <ChainIcon data={ chain } boxSize="30px" flexShrink={ 0 } isLoading={ isLoading } noTooltip/>
-      <div alignItems="flex-start" gap={ 1 } overflow="hidden">
+      <div className="flex flex-col items-start gap-1 overflow-hidden">
         <TruncatedText text={ chain.name } loading={ isLoading } className="text-[var(--color-text-secondary)] max-w-full"/>
-        <div gap={ 1 } maxW="100%">
+        <div className="flex gap-1 max-w-full">
           <SimpleValue value={ value } prefix="$" loading={ isLoading } noTooltip accuracy={ DEFAULT_ACCURACY_USD }/>
           { share !== undefined && share > 0 && (
             <Skeleton loading={ isLoading } color="text.secondary" flexShrink={ 0 }>

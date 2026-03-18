@@ -16,15 +16,13 @@ type Props = {
 const TxAssetFlowsListItem = (props: Props) => {
 
   return (
-    <ListItemMobile w="full" >
-      <Skeleton loading={ props.isPlaceholderData } w="full">
+    <ListItemMobile className="w-full">
+      <Skeleton loading={ props.isPlaceholderData } className="w-full">
 
-        <div >
+        <div>
           <IconSvg
             name="lightning"
-            height="5"
-            width="5"
-            color="icon.primary"
+            className="h-5 w-5 text-[var(--color-icon-primary)]"
           />
 
           <span>

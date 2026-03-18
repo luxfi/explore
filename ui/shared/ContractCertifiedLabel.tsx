@@ -13,7 +13,7 @@ const ContractCertifiedLabel = ({ iconSize, className }: Props) => {
   return (
     <Tooltip content="This contract has been certified by the chain developers">
       <span className={ `inline-flex ${ className || '' }` }>
-        <IconSvg name="certified" color="green.500" boxSize={ iconSize } cursor="pointer"/>
+        <IconSvg name="certified" className="text-green-500 cursor-pointer" style={{ width: `${ iconSize * 4 }px`, height: `${ iconSize * 4 }px` }}/>
       </span>
     </Tooltip>
   );

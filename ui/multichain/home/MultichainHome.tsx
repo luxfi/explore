@@ -18,13 +18,13 @@ const MultichainHome = () => {
   const chainMetricsQuery = useApiQuery('multichainAggregator:chain_metrics');
 
   return (
-    <div as="main">
+    <main>
       <HeroBanner/>
       <Stats/>
       <LatestTxs/>
       { chains && chains.length > 0 && (
-        <div rowGap={ 3 } alignItems="stretch">
-          <div gap={{ base: 2, lg: 3 }} w="100%" flexWrap="wrap" alignItems="stretch">
+        <div className="flex flex-col gap-y-3 items-stretch">
+          <div className="flex gap-2 lg:gap-3 w-full flex-wrap items-stretch">
             { chains.slice(0, 4).map((chain) => (
               <MultichainProvider key={ chain.id } chainId={ chain.id }>
                 <ChainWidget
@@ -35,10 +35,10 @@ const MultichainHome = () => {
               </MultichainProvider>
             )) }
           </div>
-          <Link textStyle="sm" justifyContent="center" href={ route({ pathname: '/ecosystems' }) }>View all chains</Link>
+          <Link className="text-sm justify-center" href={ route({ pathname: '/ecosystems' }) }>View all chains</Link>
         </div>
       ) }
-    </div>
+    </main>
   );
 };
 

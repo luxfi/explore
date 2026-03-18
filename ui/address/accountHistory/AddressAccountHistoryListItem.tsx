@@ -25,15 +25,13 @@ const AddressAccountHistoryListItem = (props: Props) => {
   }, [ props.tx.classificationData.description ]);
 
   return (
-    <ListItemMobile rowGap={ 4 } w="full">
+    <ListItemMobile className="gap-y-4 w-full">
       <Skeleton borderRadius="sm" loading={ props.isPlaceholderData } w="full">
         <div className="flex justify-between w-full">
           <div className="flex gap-x-2">
             <IconSvg
               name="lightning"
-              height="5"
-              width="5"
-              color="icon.primary"
+              className="w-5 h-5 text-[var(--color-icon-primary)]"
             />
 
             <span className="text-sm font-medium">
@@ -43,8 +41,7 @@ const AddressAccountHistoryListItem = (props: Props) => {
           <TimeWithTooltip
             timestamp={ props.tx.rawTransactionData.timestamp * SECOND }
             color="text.secondary"
-            borderRadius="sm"
-            fontWeight={ 500 }
+            fontWeight="500"
           />
         </div>
       </Skeleton>

@@ -31,16 +31,16 @@ const Content = ({ data }: Props) => {
   });
 
   return (
-    <div fontSize="sm" flexDir="column" rowGap={ 5 }>
+    <div className="flex flex-col gap-y-5 text-sm">
       <div>
-        <span color="text.secondary" textStyle="xs">Project info</span>
-        <span fontSize="sm" mt={ 3 }>{ data?.shortDescription }</span>
+        <span className="text-[var(--color-text-secondary)] text-xs">Project info</span>
+        <span className="text-sm mt-3 block">{ data?.shortDescription }</span>
         <WebsiteLink url={ data?.site }/>
       </div>
       { socialLinks.length > 0 && (
         <div>
-          <span color="text.secondary" textStyle="xs">Links</span>
-          <div templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} columnGap={ 4 } rowGap={ 3 } mt={ 3 }>
+          <span className="text-[var(--color-text-secondary)] text-xs">Links</span>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-3 mt-3">
             { socialLinks.map((link, index) => <SocialLink key={ index } { ...link }/>) }
           </div>
         </div>

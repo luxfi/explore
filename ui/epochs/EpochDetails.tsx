@@ -33,7 +33,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
     return (
       <>
         <BlockEntity number={ data.start_processing_block_number } isLoading={ isLoading } noIcon/>
-        <span color="text.secondary" whiteSpace="pre"> - </span>
+        <span className="text-[var(--color-text-secondary)] whitespace-pre"> - </span>
         <BlockEntity number={ data.end_processing_block_number } isLoading={ isLoading } noIcon/>
       </>
     );
@@ -89,7 +89,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
         <DetailedInfo.ItemValue>
           { data.timestamp ?
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/> :
-            <div color="text.secondary" whiteSpace="pre-wrap">Epochs are finalized approximately once a day</div> }
+            <div className="text-[var(--color-text-secondary)] whitespace-pre-wrap">Epochs are finalized approximately once a day</div> }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
         // eslint-disable-next-line max-len

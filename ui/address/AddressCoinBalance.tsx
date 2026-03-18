@@ -93,7 +93,7 @@ const AddressCoinBalance = ({ shouldRender = true, isQueryEnabled = true }: Prop
 
   return (
     <>
-      { socketAlert && <SocketAlert mb={ 6 }/> }
+      { socketAlert && <SocketAlert className="mb-6"/> }
       <AddressCoinBalanceChart addressHash={ addressHash }/>
       <div ref={ scrollRef }></div>
       <AddressCoinBalanceHistory query={ coinBalanceQuery }/>
