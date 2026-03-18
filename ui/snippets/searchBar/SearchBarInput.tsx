@@ -3,7 +3,6 @@ import type { ChangeEvent, FormEvent, FocusEvent } from 'react';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { useColorModeValue } from 'toolkit/chakra/color-mode';
 import { Input } from 'toolkit/chakra/input';
 import { InputGroup } from 'toolkit/chakra/input-group';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
@@ -95,8 +94,11 @@ const SearchBarInput = (
       <ClearButton onClick={ onClear } visible={ Boolean(value?.length) } className="mx-2"/>
       { !isMobile && (
         <div
-          className="flex items-center justify-center size-5 mr-2 rounded-sm border border-solid"
-          style={{ borderColor: 'var(--color-input-element)' }}
+          className={
+            'flex items-center justify-center size-5 mr-2 rounded-sm' +
+            ' border border-solid border-[var(--color-icon-secondary)]' +
+            ' text-[var(--color-icon-secondary)] text-xs font-medium'
+          }
         >
           /
         </div>
@@ -129,7 +131,7 @@ const SearchBarInput = (
           onChange={ handleChange }
           onFocus={ onFocus }
           tabIndex={ readOnly ? -1 : 0 }
-          className="border-2 border-solid border-[var(--color-input-border)] bg-[var(--color-input-bg)]"
+          className="border border-solid border-[var(--color-input-border)] bg-[var(--color-input-bg)] rounded-lg"
           enterKeyHint="search"
         />
       </InputGroup>

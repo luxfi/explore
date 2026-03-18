@@ -42,7 +42,6 @@ const TxsTableItem = ({
   currentAddress,
   enableTimeIncrement,
   isLoading,
-  animation,
   chainData,
   translationIsLoading,
   translationData,
@@ -67,7 +66,7 @@ const TxsTableItem = ({
           <TxEntity
             hash={ tx.hash }
             isLoading={ isLoading }
-           
+            className="font-mono"
             noIcon
             truncation="constant"
           />

@@ -1,12 +1,12 @@
 // OIDC user profile desktop component.
 // Login redirects to lux.id; popover shows account, wallet, settings, and logout.
 
-import type { ButtonProps } from 'toolkit/chakra/button';
 import React from 'react';
 
 import config from 'configs/app';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
+import type { ButtonProps } from 'toolkit/chakra/button';
 import { Button } from 'toolkit/chakra/button';
 import { Link } from 'toolkit/chakra/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
@@ -99,17 +99,14 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
     if (data) {
       const handle = data.nickname || (data.email ? data.email.split('@')[0] : 'Account');
       return (
-        <div>
-          <IconSvg name="profile"/>
-          <div>{ handle }</div>
+        <div className="flex items-center gap-1.5">
+          <IconSvg name="profile" className="w-4 h-4"/>
+          <span>{ handle }</span>
         </div>
       );
     }
     return (
-      <div>
-        <IconSvg name="profile"/>
-        <div>Sign in</div>
-      </div>
+      <span>Sign in</span>
     );
   })();
 
@@ -123,10 +120,13 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
       <PopoverTrigger>
         <Button
           size={ buttonSize }
-          variant={ buttonVariant }
+          variant={ data ? buttonVariant : undefined }
           loading={ isLoading }
           selected={ Boolean(data) }
-          className={ `px-2.5 lg:px-3 ${ data ? 'font-bold' : 'font-semibold' }` }
+          className={ data ?
+            `px-2.5 lg:px-3 font-bold` :
+            'bg-white text-black font-medium px-4 py-1.5 rounded-md text-sm hover:bg-gray-200 transition-colors'
+          }
         >
           { buttonLabel }
         </Button>
@@ -147,7 +147,11 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                   { data.email }
                 </div>
               ) }
-              <Link href="/auth/profile" className="block text-sm px-0 py-1 text-[var(--color-text-primary)] hover:text-[var(--color-link-primary-hover)]" variant="plain">
+              <Link
+                href="/auth/profile"
+                className="block text-sm px-0 py-1 text-[var(--color-text-primary)] hover:text-[var(--color-link-primary-hover)]"
+                variant="plain"
+              >
                 My profile
               </Link>
               <Separator className="my-3"/>
@@ -161,7 +165,7 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                 size="sm"
                 className="w-full font-semibold"
                 onClick={ handleLoginClick }
-                variant="outline"
+                variant="solid"
               >
                 Sign in with Lux ID
               </Button>
