@@ -70,7 +70,7 @@ const LUX_BRANDING: ChainBranding = {
   faviconContent: '<circle cx="256" cy="256" r="256"/><path fill="#fff" d="m256 410 179-308H77z"/>',
 };
 
-/** Zoo — interlocking rings (~/work/zoo/logo/) */
+/** Zoo — colorful interlocking circles from ~/work/zoo/logo/ */
 const ZOO_BRANDING: ChainBranding = {
   brandName: 'Zoo Chain',
   orgName: 'Zoo Labs Foundation',
@@ -81,23 +81,49 @@ const ZOO_BRANDING: ChainBranding = {
   discordUrl: 'https://discord.gg/zoolabs',
   logoViewBox: '0 0 1024 1024',
   logoContent:
-    '<defs><clipPath id="zooClip"><circle cx="508" cy="510" r="283"/></clipPath></defs>' +
+    '<defs>' +
+    '<clipPath id="zooClip"><circle cx="512" cy="511" r="270"/></clipPath>' +
+    '<clipPath id="zooGClip"><circle cx="513" cy="369" r="234"/></clipPath>' +
+    '<clipPath id="zooRClip"><circle cx="365" cy="595" r="234"/></clipPath>' +
+    '</defs>' +
     '<g clip-path="url(#zooClip)">' +
-    '<circle cx="513" cy="369" r="234" fill="none" stroke="currentColor" stroke-width="33"/>' +
-    '<circle cx="365" cy="595" r="234" fill="none" stroke="currentColor" stroke-width="33"/>' +
-    '<circle cx="643" cy="595" r="234" fill="none" stroke="currentColor" stroke-width="33"/>' +
-    '<circle cx="508" cy="510" r="265" fill="none" stroke="currentColor" stroke-width="36"/>' +
-    '</g>',
+    '<circle cx="513" cy="369" r="234" fill="#00A652"/>' +
+    '<circle cx="365" cy="595" r="234" fill="#ED1C24"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#2E3192"/>' +
+    '<g clip-path="url(#zooGClip)">' +
+    '<circle cx="365" cy="595" r="234" fill="#FCF006"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#01ACF1"/>' +
+    '</g>' +
+    '<g clip-path="url(#zooRClip)">' +
+    '<circle cx="643" cy="595" r="234" fill="#EA018E"/>' +
+    '</g>' +
+    '<g clip-path="url(#zooGClip)">' +
+    '<g clip-path="url(#zooRClip)">' +
+    '<circle cx="643" cy="595" r="234" fill="#FFFFFF"/>' +
+    '</g></g></g>',
   faviconContent:
     '<rect width="512" height="512" rx="64" fill="#000"/>' +
-    '<g transform="translate(0,-10) scale(0.5)">' +
-    '<defs><clipPath id="zooFavClip"><circle cx="508" cy="510" r="283"/></clipPath></defs>' +
-    '<g clip-path="url(#zooFavClip)">' +
-    '<circle cx="513" cy="369" r="234" fill="none" stroke="#fff" stroke-width="33"/>' +
-    '<circle cx="365" cy="595" r="234" fill="none" stroke="#fff" stroke-width="33"/>' +
-    '<circle cx="643" cy="595" r="234" fill="none" stroke="#fff" stroke-width="33"/>' +
-    '<circle cx="508" cy="510" r="265" fill="none" stroke="#fff" stroke-width="36"/>' +
-    '</g></g>',
+    '<g transform="translate(0,-5) scale(0.5)">' +
+    '<defs>' +
+    '<clipPath id="zfClip"><circle cx="512" cy="511" r="270"/></clipPath>' +
+    '<clipPath id="zfG"><circle cx="513" cy="369" r="234"/></clipPath>' +
+    '<clipPath id="zfR"><circle cx="365" cy="595" r="234"/></clipPath>' +
+    '</defs>' +
+    '<g clip-path="url(#zfClip)">' +
+    '<circle cx="513" cy="369" r="234" fill="#00A652"/>' +
+    '<circle cx="365" cy="595" r="234" fill="#ED1C24"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#2E3192"/>' +
+    '<g clip-path="url(#zfG)">' +
+    '<circle cx="365" cy="595" r="234" fill="#FCF006"/>' +
+    '<circle cx="643" cy="595" r="234" fill="#01ACF1"/>' +
+    '</g>' +
+    '<g clip-path="url(#zfR)">' +
+    '<circle cx="643" cy="595" r="234" fill="#EA018E"/>' +
+    '</g>' +
+    '<g clip-path="url(#zfG)">' +
+    '<g clip-path="url(#zfR)">' +
+    '<circle cx="643" cy="595" r="234" fill="#FFFFFF"/>' +
+    '</g></g></g></g>',
 };
 
 /** Hanzo — geometric H logo (~/work/hanzo/logo/) */
