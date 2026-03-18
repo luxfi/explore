@@ -22,7 +22,7 @@ import useLoadFeatures from 'lib/growthbook/useLoadFeatures';
 import useChainFavicon from 'lib/hooks/useChainFavicon';
 import { clientConfig as rollbarConfig, Provider as RollbarProvider } from 'lib/rollbar';
 import { SocketProvider } from 'lib/socket/context';
-import { Provider as ChakraProvider } from 'toolkit/chakra/provider';
+import { Provider as ThemeProvider } from 'toolkit/chakra/provider';
 import { Toaster } from '@luxfi/ui/toaster';
 import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer';
@@ -94,7 +94,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
   return (
     <>
       <PageMetadata pathname={ router.pathname as Route['pathname'] } query={ pageProps.query } apiData={ pageProps.apiData }/>
-      <ChakraProvider>
+      <ThemeProvider>
         <RollbarProvider config={ rollbarConfig }>
           <AppErrorBoundary
             { ...ERROR_SCREEN_STYLES }
@@ -121,7 +121,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
             </QueryClientProvider>
           </AppErrorBoundary>
         </RollbarProvider>
-      </ChakraProvider>
+      </ThemeProvider>
     </>
   );
 }
