@@ -1,21 +1,17 @@
 'use client';
 
-import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 
-import theme from '../theme/theme';
 import {
   ColorModeProvider,
   type ColorModeProviderProps,
 } from './color-mode';
 
-// ChakraProvider still needed while ~944 files use Box/Flex/Grid/Text
-// from @chakra-ui/react. Will be removed once all layout primitives
-// are converted to Tailwind utility classes.
+// ChakraProvider removed — zero production files import from @chakra-ui/react.
+// Only Playwright test files (.pw.tsx) still reference Chakra; they use their
+// own test harness wrapper.
 export function Provider(props: ColorModeProviderProps) {
   return (
-    <ChakraProvider value={ theme }>
-      <ColorModeProvider { ...props }/>
-    </ChakraProvider>
+    <ColorModeProvider { ...props }/>
   );
 }
