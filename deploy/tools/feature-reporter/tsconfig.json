@@ -4,7 +4,7 @@
     "noEmit": false,
     "skipLibCheck": true,
     "module": "CommonJS",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "outDir": "./build",
     "paths": {
       "nextjs-routes": ["./nextjs/nextjs-routes.d.ts"],
