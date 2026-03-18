@@ -35,7 +35,7 @@ const OidcCallback: NextPage = () => {
 
     // Verify CSRF state
     const savedState = sessionStorage.getItem('oidc_state');
-    if (savedState && state !== savedState) {
+    if (!savedState || state !== savedState) {
       setError('Invalid state parameter - possible CSRF attack');
       return;
     }
