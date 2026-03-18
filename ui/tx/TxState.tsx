@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { TX_STATE_CHANGES } from 'stubs/txStateChanges';
@@ -39,12 +38,12 @@ const TxState = ({ txQuery }: Props) => {
 
   const content = data ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TxStateTable data={ data.items } isLoading={ isPlaceholderData } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }/>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="block lg:hidden">
         <TxStateList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -57,10 +56,10 @@ const TxState = ({ txQuery }: Props) => {
   return (
     <>
       { !isError && !txQuery.isError && (
-        <Text mb={ 6 }>
+        <p className="mb-6">
           A set of information that represents the current state is updated when a transaction takes place on the network.
           The below is a summary of those changes.
-        </Text>
+        </p>
       ) }
       <DataListDisplay
         isError={ isError || txQuery.isError }

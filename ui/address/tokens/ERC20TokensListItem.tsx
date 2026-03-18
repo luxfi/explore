@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -48,7 +47,7 @@ const ERC20TokensListItem = ({
 
   return (
     <ListItemMobile rowGap={ 2 }>
-      <Flex alignItems="center" width="100%" columnGap={ 2 }>
+      <div className="flex" alignItems="center" width="100%" columnGap={ 2 }>
         <TokenEntity
           token={ token }
           chain={ chainInfo }
@@ -60,8 +59,8 @@ const ERC20TokensListItem = ({
         />
         { isNativeToken && <NativeTokenTag/> }
         { hasAdditionalTokenTypes && <Tag loading={ isLoading }>{ getTokenTypeName(token.type) }</Tag> }
-      </Flex>
-      <Flex alignItems="center" pl={ 8 }>
+      </div>
+      <div className="flex" alignItems="center" pl={ 8 }>
         <AddressEntity
           address={{ hash: token.address_hash }}
           isLoading={ isLoading }
@@ -69,9 +68,9 @@ const ERC20TokensListItem = ({
           noIcon
         />
         <AddressAddToWallet token={ token } ml={ 2 } isLoading={ isLoading }/>
-      </Flex>
+      </div>
       { token.exchange_rate !== undefined && token.exchange_rate !== null && (
-        <HStack gap={ 3 }>
+        <div className="flex flex-row" gap={ 3 }>
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Price</Skeleton>
           <SimpleValue
             value={ BigNumber(token.exchange_rate) }
@@ -80,9 +79,9 @@ const ERC20TokensListItem = ({
             fontSize="sm"
             color="text.secondary"
           />
-        </HStack>
+        </div>
       ) }
-      <HStack gap={ 3 } alignItems="baseline">
+      <div className="flex flex-row" gap={ 3 } alignItems="baseline">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Quantity</Skeleton>
         { isConfidentialTokenType(token.type) ? (
           <ConfidentialValue loading={ isLoading }/>
@@ -94,15 +93,15 @@ const ERC20TokensListItem = ({
             color="text.secondary"
           />
         ) }
-      </HStack>
+      </div>
       { isConfidentialTokenType(token.type) && (
-        <HStack gap={ 3 } alignItems="baseline">
+        <div className="flex flex-row" gap={ 3 } alignItems="baseline">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
           <ConfidentialValue loading={ isLoading }/>
-        </HStack>
+        </div>
       ) }
       { !isConfidentialTokenType(token.type) && token.exchange_rate && (
-        <HStack gap={ 3 } alignItems="baseline">
+        <div className="flex flex-row" gap={ 3 } alignItems="baseline">
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Value</Skeleton>
           <SimpleValue
             value={ tokenValue }
@@ -112,7 +111,7 @@ const ERC20TokensListItem = ({
             fontSize="sm"
             color="text.secondary"
           />
-        </HStack>
+        </div>
       ) }
     </ListItemMobile>
   );

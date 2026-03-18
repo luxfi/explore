@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import React from 'react';
@@ -159,7 +158,7 @@ const StatsDegraded = () => {
   }
 
   return (
-    <Grid
+    <div
       gridTemplateColumns="1fr 1fr"
       gridGap={{ base: 1, lg: 2 }}
       flexBasis="50%"
@@ -173,7 +172,7 @@ const StatsDegraded = () => {
           _last={ items.length % 2 === 1 && index === items.length - 1 ? { gridColumn: 'span 2' } : undefined }/>
       ),
       ) }
-    </Grid>
+    </div>
 
   );
 };

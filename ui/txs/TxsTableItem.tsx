@@ -1,4 +1,3 @@
-import { Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NovesDescribeTxsResponse } from 'types/api/noves';
@@ -54,8 +53,8 @@ const TxsTableItem = ({
   const protocolTag = tx.to?.hash !== currentAddress && tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
 
   return (
-    <TableRow key={ tx.hash } animation={ animation }>
-      <TableCell textAlign="center">
+    <TableRow key={ tx.hash }>
+      <TableCell>
         <TxAdditionalInfo tx={ tx } isMobile={ isMobile } isLoading={ isLoading }/>
       </TableCell>
       { chainData && (
@@ -63,26 +62,24 @@ const TxsTableItem = ({
           <ChainIcon data={ chainData } isLoading={ isLoading } my="2px"/>
         </TableCell>
       ) }
-      <TableCell pr={ 4 }>
-        <VStack alignItems="start" lineHeight="24px">
+      <TableCell>
+        <div className="flex flex-col">
           <TxEntity
             hash={ tx.hash }
             isLoading={ isLoading }
-            fontWeight="bold"
+           
             noIcon
-            maxW="100%"
             truncation="constant"
           />
           <TimeWithTooltip
             timestamp={ tx.timestamp }
             enableIncrement={ enableTimeIncrement }
             isLoading={ isLoading }
-            color="text.secondary"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <VStack alignItems="stretch">
+        <div className="flex flex-col">
           { translationIsLoading || translationData ? (
             <TxTranslationType
               txTypes={ tx.transaction_types }
@@ -94,32 +91,31 @@ const TxsTableItem = ({
           }
           { tx.status !== 'ok' && <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/> }
           <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
-        </VStack>
+        </div>
       </TableCell>
-      <TableCell whiteSpace="nowrap">
-        <VStack alignItems="flex-start">
+      <TableCell>
+        <div className="flex flex-col">
           { tx.method && (
             <Badge colorPalette={ tx.method === 'Multicall' ? 'teal' : 'gray' } loading={ isLoading } truncated>
               <span>{ tx.method }</span>
             </Badge>
           ) }
-          { protocolTag && <EntityTag data={ protocolTag } isLoading={ isLoading } maxW="100%" noColors/> }
-        </VStack>
+          { protocolTag && <EntityTag data={ protocolTag } isLoading={ isLoading } noColors/> }
+        </div>
       </TableCell>
       { showBlockInfo && (
         <TableCell>
-          <Flex alignItems="center" gap={ 2 }>
+          <div className="flex">
             { tx.block_number && (
               <BlockEntity
                 isLoading={ isLoading }
                 number={ tx.block_number }
                 noIcon
-                textStyle="sm"
-                fontWeight={ 500 }
+                className="font-medium"
               />
             ) }
             { tx.is_pending_update && <BlockPendingUpdateHint view="tx"/> }
-          </Flex>
+          </div>
         </TableCell>
       ) }
       <TableCell>
@@ -141,19 +137,17 @@ const TxsTableItem = ({
             exchangeRate={ tx.exchange_rate }
             historicalExchangeRate={ tx.historic_exchange_rate }
             layout="vertical"
-            rowGap={ 3 }
           />
         </TableCell>
       ) }
       { !config.UI.views.tx.hiddenFields?.tx_fee && (
-        <TableCell isNumeric maxW="220px">
+        <TableCell isNumeric>
           <TxFee
             tx={ tx }
             accuracy={ 8 }
             loading={ isLoading }
             noSymbol={ !(tx.celo || tx.stability_fee) }
             layout="vertical"
-            rowGap={ 3 }
           />
         </TableCell>
       ) }

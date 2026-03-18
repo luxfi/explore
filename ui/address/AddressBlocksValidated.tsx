@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -103,7 +102,7 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
 
   const content = query.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot tableLayout="auto">
           <TableHeaderSticky top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <TableRow>
@@ -135,8 +134,8 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { query.pagination.page === 1 && (
           <SocketNewItemsNotice.Mobile
             num={ newItemsCount }
@@ -153,7 +152,7 @@ const AddressBlocksValidated = ({ shouldRender = true, isQueryEnabled = true }: 
             isLoading={ query.isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

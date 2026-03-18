@@ -1,7 +1,8 @@
-import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
+import { cn } from 'lib/utils/cn';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { Heading } from 'toolkit/chakra/heading';
 import { Link } from 'toolkit/chakra/link';
@@ -48,9 +49,7 @@ const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
   Pars: 'https://explore-pars.lux.network',
 };
 
-const CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
-const CARD_HOVER = { _light: 'gray.100', _dark: 'whiteAlpha.100' };
-const CARD_BORDER = '1px solid';
+
 
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
@@ -69,16 +68,16 @@ interface MetricProps {
 }
 
 const Metric = ({ label, value, isLoading }: MetricProps) => (
-  <Flex direction="column" align="center" px={ 3 }>
+  <div className="flex flex-col items-center px-3">
     <Skeleton loading={ isLoading }>
-      <Text fontSize="lg" fontWeight={ 700 } fontFamily="mono" color="text.primary" lineHeight="1.2">
+      <span className="font-mono text-lg text-[var(--color-text-primary)] font-bold leading-tight">
         { value }
-      </Text>
+      </span>
     </Skeleton>
-    <Text fontSize="2xs" color="text.secondary" fontWeight={ 500 } mt={ 0.5 } textTransform="uppercase" letterSpacing="0.05em">
+    <span className="text-2xs uppercase tracking-[0.05em] text-[var(--color-text-secondary)] mt-0.5 font-medium">
       { label }
-    </Text>
-  </Flex>
+    </span>
+  </div>
 );
 
 // ── Chain row (compact, for sidebar) ──
@@ -95,36 +94,27 @@ interface ChainRowProps {
 
 const ChainRow = ({ name, fullName, vm, href, tier, height, heightLoading }: ChainRowProps) => {
   const content = (
-    <Flex
-      align="center"
-      justify="space-between"
-      py={ 2 }
-      px={ 3 }
-      borderRadius="md"
-      cursor={ href ? 'pointer' : 'default' }
-      _hover={ href ? { bg: CARD_HOVER } : undefined }
-      transition="background 0.15s"
-    >
-      <Flex align="center" gap={ 2 }>
-        <Text fontWeight={ 600 } color="text.primary" fontSize="sm">
+    <div className={cn("flex items-center justify-between transition-all rounded-md px-3 py-2", href ? "cursor-pointer hover:bg-[var(--chakra-colors-gray-100)] dark:hover:bg-[var(--chakra-colors-whiteAlpha-100)]" : "cursor-default")}>
+      <div className="flex items-center gap-2">
+        <span className="text-sm text-[var(--color-text-primary)] font-semibold">
           { name }
-        </Text>
-        <Text fontSize="xs" color="text.secondary" display={{ base: 'none', lg: 'inline' }}>
+        </span>
+        <span className="text-xs text-[var(--color-text-secondary)] hidden lg:inline">
           { fullName }
-        </Text>
-      </Flex>
-      <Flex align="center" gap={ 1.5 }>
+        </span>
+      </div>
+      <div className="flex items-center gap-1.5">
         { height !== undefined && (
           <Skeleton loading={ heightLoading }>
-            <Text fontSize="xs" color="text.secondary" fontFamily="mono">
+            <span className="font-mono text-xs text-[var(--color-text-secondary)]">
               { height > 0 ? `#${ height.toLocaleString() }` : '' }
-            </Text>
+            </span>
           </Skeleton>
         ) }
         { tier && <Tag size="sm" variant="subtle">{ tier }</Tag> }
         <Tag size="sm" variant="subtle">{ vm }</Tag>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 
   if (href) {
@@ -144,29 +134,20 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   const slug = chain.name.toLowerCase();
 
   const content = (
-    <Flex
-      align="center"
-      justify="space-between"
-      py={ 2 }
-      px={ 3 }
-      borderRadius="md"
-      cursor="pointer"
-      _hover={{ bg: CARD_HOVER }}
-      transition="background 0.15s"
-    >
-      <Flex align="center" gap={ 2 }>
-        <Text fontWeight={ 600 } color="text.primary" fontSize="sm">
+    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 transition-colors rounded-md px-3 py-2">
+      <div className="flex items-center gap-2">
+        <span className="text-sm text-[var(--color-text-primary)] font-semibold">
           { chain.name }
-        </Text>
-        <Text fontSize="xs" color="text.secondary" fontFamily="mono" display={{ base: 'none', lg: 'inline' }}>
+        </span>
+        <span className="font-mono text-xs text-[var(--color-text-secondary)] hidden lg:inline">
           { chain.id.slice(0, 8) }...
-        </Text>
-      </Flex>
-      <Flex align="center" gap={ 1.5 }>
+        </span>
+      </div>
+      <div className="flex items-center gap-1.5">
         <Tag size="sm" variant="subtle">L1</Tag>
-        <Text color="text.secondary" fontSize="xs">{ '\u2192' }</Text>
-      </Flex>
-    </Flex>
+        <span className="text-xs text-[var(--color-text-secondary)]">{ '\u2192' }</span>
+      </div>
+    </div>
   );
 
   if (explorerUrl) {
@@ -184,24 +165,15 @@ interface KnownL1RowProps {
 
 const KnownL1Row = ({ name, href }: KnownL1RowProps) => (
   <Link href={ href } variant="plain" target="_blank">
-    <Flex
-      align="center"
-      justify="space-between"
-      py={ 2 }
-      px={ 3 }
-      borderRadius="md"
-      cursor="pointer"
-      _hover={{ bg: CARD_HOVER }}
-      transition="background 0.15s"
-    >
-      <Text fontWeight={ 600 } color="text.primary" fontSize="sm">
+    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 transition-colors rounded-md px-3 py-2">
+      <span className="text-sm text-[var(--color-text-primary)] font-semibold">
         { name }
-      </Text>
-      <Flex align="center" gap={ 1.5 }>
+      </span>
+      <div className="flex items-center gap-1.5">
         <Tag size="sm" variant="subtle">L1</Tag>
-        <Text color="text.secondary" fontSize="xs">{ '\u2192' }</Text>
-      </Flex>
-    </Flex>
+        <span className="text-xs text-[var(--color-text-secondary)]">{ '\u2192' }</span>
+      </div>
+    </div>
   </Link>
 );
 
@@ -216,30 +188,24 @@ interface SidebarCardProps {
 }
 
 const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardProps) => (
-  <Box
-    border={ CARD_BORDER }
-    borderColor="border.divider"
-    borderRadius="lg"
-    p={ 4 }
-    bgColor={ CARD_BG }
-  >
-    <Flex align="center" justify="space-between" mb={ 3 }>
-      <Flex align="center" gap={ 2 }>
+  <div className="rounded-lg p-4 border border-[var(--color-border-divider)] bg-gray-50 dark:bg-white/5">
+    <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center gap-2">
         <Heading level="3" className="text-sm">{ title }</Heading>
         { count !== undefined && (
           <Skeleton loading={ isLoading }>
             <Tag size="sm" variant="subtle">{ count }</Tag>
           </Skeleton>
         ) }
-      </Flex>
+      </div>
       { action && (
         <Link href={ action.href } className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
           { action.label }
         </Link>
       ) }
-    </Flex>
+    </div>
     { children }
-  </Box>
+  </div>
 );
 
 // ── Main page ──
@@ -266,66 +232,50 @@ const NetworkOverview = () => {
 
   return (
     <HomeRpcDataContextProvider>
-      <Box as="main">
+      <main>
         { /* ── Hero search ── */ }
         <HeroBanner/>
 
         { /* ── Metrics strip ── */ }
-        <Flex
-          justify="center"
-          align="center"
-          py={ 3 }
-          mt={ 4 }
-          borderRadius="lg"
-          border={ CARD_BORDER }
-          borderColor="border.divider"
-          bgColor={ CARD_BG }
-          gap={ 0 }
-          flexWrap="wrap"
-          overflow="hidden"
-        >
+        <div className="flex items-center justify-center flex-wrap overflow-hidden rounded-lg mt-4 py-3 gap-0 border border-[var(--color-border-divider)] bg-gray-50 dark:bg-white/5">
           <Metric label="Validators" value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' } isLoading={ validatorsLoading }/>
-          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
-          <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } LUX` : '\u2014' } isLoading={ validatorsLoading }/>
-          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
+          <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` : '\u2014' } isLoading={ validatorsLoading }/>
+          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
           <Metric label="Uptime" value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' } isLoading={ validatorsLoading }/>
-          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
           <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
-          <Box w="1px" h="28px" bgColor="border.divider" display={{ base: 'none', md: 'block' }}/>
+          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
           <Metric
             label="Connected"
             value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
             isLoading={ validatorsLoading }
           />
-        </Flex>
+        </div>
 
         { /* ── Stats widgets ── */ }
-        <Box mt={ 5 }>
+        <div className="mt-5">
           <Stats/>
-        </Box>
+        </div>
 
         { /* ── Latest blocks (full-width horizontal scroll) ── */ }
-        <Box mt={ 8 }>
+        <div className="mt-8">
           <LatestBlocks/>
-        </Box>
+        </div>
 
         { /* ── Latest transactions (full-width below blocks) ── */ }
-        <Box mt={ 6 }>
+        <div className="mt-6">
           <Transactions/>
-        </Box>
+        </div>
 
         { /* ── Chain Health section (below blocks/txns) ── */ }
-        <Grid
-          templateColumns={{ base: '1fr', lg: 'repeat(3, 1fr)' }}
-          gap={ 4 }
-          mt={ 8 }
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-3 mt-8 gap-4">
           { /* Primary Network chains */ }
           <SidebarCard
             title="Primary Network"
             count={ PRIMARY_CHAINS.length }
           >
-            <Flex direction="column" gap={ 0 }>
+            <div className="flex flex-col gap-0">
               { PRIMARY_CHAINS.map((chain) => {
                 const chainHeight = (() => {
                   if (chain.id === 'C') return cChainHeight;
@@ -344,7 +294,7 @@ const NetworkOverview = () => {
                   />
                 );
               }) }
-            </Flex>
+            </div>
           </SidebarCard>
 
           { /* L2 chains */ }
@@ -355,85 +305,85 @@ const NetworkOverview = () => {
             action={{ label: 'View all', href: '/chains' }}
           >
             { chainsLoading && (
-              <Flex direction="column" gap={ 1 }>
+              <div className="flex flex-col gap-1">
                 { Array.from({ length: 4 }).map((_, i) => (
                   <Skeleton key={ i } loading h="40px" borderRadius="md"/>
                 )) }
-              </Flex>
+              </div>
             ) }
             { !chainsLoading && hasL1Data && (
-              <Flex direction="column" gap={ 0 }>
+              <div className="flex flex-col gap-0">
                 { l1Chains.map((chain) => (
                   <L1ChainRow key={ chain.id } chain={ chain }/>
                 )) }
-              </Flex>
+              </div>
             ) }
             { showFallbackL1 && (
-              <Flex direction="column" gap={ 0 }>
+              <div className="flex flex-col gap-0">
                 { KNOWN_L1_CHAINS.map((chain) => (
                   <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
                 )) }
-              </Flex>
+              </div>
             ) }
           </SidebarCard>
 
           { /* Validators summary card */ }
           <SidebarCard title="Validators">
             { !hasValidatorData && !validatorsLoading ? (
-              <Flex direction="column" align="center" py={ 3 }>
-                <Text color="text.secondary" fontSize="sm">
+              <div className="flex flex-col items-center py-3">
+                <span className="text-sm text-[var(--color-text-secondary)]">
                   { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
-                </Text>
+                </span>
                 <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] mt-2">
                   View validators
                 </Link>
-              </Flex>
+              </div>
             ) : (
               <>
-                <Grid templateColumns="1fr 1fr" gap={ 3 }>
-                  <Box>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      <span className="font-mono text-md font-bold">
                         { hasValidatorData ? stats.validatorCount : '\u2014' }
-                      </Text>
+                      </span>
                     </Skeleton>
-                    <Text fontSize="2xs" color="text.secondary">Active</Text>
-                  </Box>
-                  <Box>
+                    <span className="text-2xs text-[var(--color-text-secondary)]">Active</span>
+                  </div>
+                  <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      <span className="font-mono text-md font-bold">
                         { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
-                      </Text>
+                      </span>
                     </Skeleton>
-                    <Text fontSize="2xs" color="text.secondary">Total Stake (LUX)</Text>
-                  </Box>
-                  <Box>
+                    <span className="text-2xs text-[var(--color-text-secondary)]">Total Stake ({ config.chain.currency.symbol || 'LUX' })</span>
+                  </div>
+                  <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      <span className="font-mono text-md font-bold">
                         { hasValidatorData ? stats.delegatorCount : '\u2014' }
-                      </Text>
+                      </span>
                     </Skeleton>
-                    <Text fontSize="2xs" color="text.secondary">Delegators</Text>
-                  </Box>
-                  <Box>
+                    <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
+                  </div>
+                  <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <Text fontWeight={ 700 } fontFamily="mono" fontSize="md">
+                      <span className="font-mono text-md font-bold">
                         { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
-                      </Text>
+                      </span>
                     </Skeleton>
-                    <Text fontSize="2xs" color="text.secondary">Connected</Text>
-                  </Box>
-                </Grid>
-                <Flex justify="center" mt={ 3 }>
+                    <span className="text-2xs text-[var(--color-text-secondary)]">Connected</span>
+                  </div>
+                </div>
+                <div className="flex justify-center mt-3">
                   <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
                     View validators
                   </Link>
-                </Flex>
+                </div>
               </>
             ) }
           </SidebarCard>
-        </Grid>
-      </Box>
+        </div>
+      </main>
     </HomeRpcDataContextProvider>
   );
 };

@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { getEnsAddress } from '@wagmi/core';
 import { useRouter } from 'next/router';
 import React, { useMemo, useCallback, useEffect, useState } from 'react';
@@ -124,15 +123,15 @@ const Revoke = () => {
   }
 
   return (
-    <Flex flexDir="column" w="full" gap={{ base: 6, lg: 12 }}>
-      <Flex flexDir="column" w="full" gap={ 3 }>
+    <div flexDir="column" w="full" gap={{ base: 6, lg: 12 }}>
+      <div flexDir="column" w="full" gap={ 3 }>
         <SearchInput
           value={ searchInputValue }
           onChange={ setSearchInputValue }
           onSubmit={ handleSearch }
         />
-        <Flex flexDir={{ base: 'column', md: 'row' }} gap={ 3 } justifyContent="space-between">
-          <Flex
+        <div flexDir={{ base: 'column', md: 'row' }} gap={ 3 } justifyContent="space-between">
+          <div
             gap={ 3 }
             alignItems="center"
             h="32px"
@@ -145,9 +144,9 @@ const Revoke = () => {
               },
             }}
           >
-            <Text textStyle="sm" fontWeight="500" color="text.secondary">
+            <span textStyle="sm" fontWeight="500" color="text.secondary">
               Examples
-            </Text>
+            </span>
             { [
               '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
               '0xFe89cc7aBB2C4183683ab71653C4cdc9B02D44b7',
@@ -170,11 +169,11 @@ const Revoke = () => {
                 />
               </Button>
             )) }
-          </Flex>
-          <Flex gap={ 3 } w={{ base: 'full', md: 'auto' }}>
+          </div>
+          <div gap={ 3 } w={{ base: 'full', md: 'auto' }}>
             { connectedAddress ? (
-              <Flex gap={ 2 } alignItems="center" flexShrink={ 0 }>
-                <Text textStyle="sm" fontWeight="500" color="text.secondary">My wallet</Text>
+              <div gap={ 2 } alignItems="center" flexShrink={ 0 }>
+                <span textStyle="sm" fontWeight="500" color="text.secondary">My wallet</span>
                 <Tooltip content="Click to see your approvals" disableOnMobile>
                   <Button
                     variant="plain"
@@ -193,7 +192,7 @@ const Revoke = () => {
                     />
                   </Button>
                 </Tooltip>
-              </Flex>
+              </div>
             ) : (
               <Button
                 size="sm"
@@ -211,11 +210,11 @@ const Revoke = () => {
               onValueChange={ handleChainValueChange }
               mode="default"
             />
-          </Flex>
-        </Flex>
-      </Flex>
+          </div>
+        </div>
+      </div>
       { content }
-    </Flex>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import getSocketUrl from 'lib/api/getSocketUrl';
@@ -22,7 +21,7 @@ const MultichainTxsLocal = () => {
   const chainConfig = multichainContext?.chain.app_config;
 
   return (
-    <Box>
+    <div>
       <TxsStats mb={ 0 }/>
       <SocketProvider url={ getSocketUrl(chainConfig) }>
         <TxsTabs
@@ -34,7 +33,7 @@ const MultichainTxsLocal = () => {
           tabsHeight={ ACTION_BAR_HEIGHT_DESKTOP }
         />
       </SocketProvider>
-    </Box>
+    </div>
   );
 };
 

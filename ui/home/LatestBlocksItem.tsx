@@ -1,4 +1,3 @@
-import { Box, Flex, Grid } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -35,7 +34,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
   }, [ router, block.height, isLoading ]);
 
   return (
-    <Box
+    <div
       animation={ animation }
       borderRadius="md"
       border="1px solid"
@@ -48,7 +47,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
       _hover={ isLoading ? undefined : { bg: { _light: 'gray.50', _dark: 'whiteAlpha.100' } } }
       onClick={ handleClick }
     >
-      <Flex alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
+      <div alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
         <BlockEntity
           isLoading={ isLoading }
           number={ block.height }
@@ -73,8 +72,8 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           flexShrink={ 0 }
           ml={ 2 }
         />
-      </Flex>
-      <Grid gridGap={ 2 } templateColumns="auto minmax(0, 1fr)" textStyle="sm">
+      </div>
+      <div gridGap={ 2 } templateColumns="auto minmax(0, 1fr)" textStyle="sm">
         <Skeleton loading={ isLoading }>Txn</Skeleton>
         <Skeleton loading={ isLoading } color="text.secondary"><span>{ block.transactions_count }</span></Skeleton>
 
@@ -102,8 +101,8 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
             />
           </>
         ) }
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 };
 

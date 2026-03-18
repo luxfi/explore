@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -40,7 +39,7 @@ const AddressesTableItem = ({
         </Skeleton>
       </TableCell>
       <TableCell>
-        <Flex alignItems="center" columnGap={ 2 }>
+        <div className="flex" alignItems="center" columnGap={ 2 }>
           <AddressEntity
             address={ item }
             isLoading={ isLoading }
@@ -50,12 +49,12 @@ const AddressesTableItem = ({
           { item.public_tags && item.public_tags.length ? item.public_tags.map(tag => (
             <Tag key={ tag.label } loading={ isLoading } truncated>{ tag.display_name }</Tag>
           )) : null }
-        </Flex>
+        </div>
       </TableCell>
       <TableCell isNumeric>
         { isBalancePending ? (
           <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
-            <Text color="text.secondary" fontSize="sm">Pending</Text>
+            <span color="text.secondary" fontSize="sm">Pending</span>
           </Skeleton>
         ) : (
           <SimpleValue
@@ -69,7 +68,7 @@ const AddressesTableItem = ({
         <TableCell isNumeric>
           { isBalancePending ? (
             <Skeleton loading={ isLoading } display="inline-block" lineHeight="24px">
-              <Text color="text.secondary" fontSize="sm">Pending</Text>
+              <span color="text.secondary" fontSize="sm">Pending</span>
             </Skeleton>
           ) : (
             <SimpleValue

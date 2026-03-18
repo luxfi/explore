@@ -1,4 +1,3 @@
-import { VStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -43,7 +42,7 @@ const MultichainAddressTokensTableItem = ({ data, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell>
-        <VStack alignItems="flex-start" rowGap={ 2.5 }>
+        <div alignItems="flex-start" rowGap={ 2.5 }>
           <TokenEntity
             token={ data.token }
             chain={ chainInfo }
@@ -65,7 +64,7 @@ const MultichainAddressTokensTableItem = ({ data, isLoading }: Props) => {
           { isNativeToken ?
             <NativeTokenTag chainConfig={ chainInfo?.app_config }/> :
             <Tag loading={ isLoading }>{ getTokenTypeName(data.token.type, chainInfo?.app_config) }</Tag> }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell isNumeric>
         { data.token.exchange_rate ? (

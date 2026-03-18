@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import StatsWidget from 'ui/shared/stats/StatsWidget';
@@ -12,11 +11,8 @@ interface Props {
 
 const TxFHEOperationsStats = ({ totalHcu, maxDepthHcu, operationCount, isLoading }: Props) => {
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns={{ base: '1fr', lg: 'repeat(3, calc(33.333% - 8px))' }}
-      gap={ 3 }
-      mb={ 6 }
+    <div
+     
     >
       <StatsWidget
         label="Total HCU"
@@ -36,7 +32,7 @@ const TxFHEOperationsStats = ({ totalHcu, maxDepthHcu, operationCount, isLoading
         value={ operationCount.toLocaleString() }
         isLoading={ isLoading }
       />
-    </Box>
+    </div>
   );
 };
 

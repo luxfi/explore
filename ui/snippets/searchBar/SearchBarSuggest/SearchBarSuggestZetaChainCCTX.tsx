@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
@@ -24,9 +23,12 @@ const SearchBarSuggestZetaChainCCTX = ({ data, isMobile, searchTerm, onClick }: 
 
   // search term can be either cctx hash or observed hash (hash from another chain)
   const hash = (
-    <chakra.span as={ searchTerm === data.index ? 'mark' : 'span' } overflow="hidden" whiteSpace="nowrap" fontWeight={ 700 }>
+    <span
+      { ...(searchTerm === data.index ? { as: 'mark' } : {}) }
+      className="overflow-hidden whitespace-nowrap font-bold"
+    >
       <HashStringShortenDynamic hash={ data.index } noTooltip/>
-    </chakra.span>
+    </span>
   );
 
   let content;
@@ -34,22 +36,22 @@ const SearchBarSuggestZetaChainCCTX = ({ data, isMobile, searchTerm, onClick }: 
   if (isMobile) {
     content = (
       <>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           { icon }
           { hash }
-        </Flex>
+        </div>
         <Time timestamp={ Number(data.last_update_timestamp) * SECOND } color="text.secondary" format="lll_s"/>
       </>
     );
   } else {
     content = (
-      <Flex columnGap={ 2 }>
-        <Flex alignItems="center" minW={ 0 }>
+      <div className="flex gap-x-2">
+        <div className="flex items-center min-w-0">
           { icon }
           { hash }
-        </Flex>
+        </div>
         <Time timestamp={ Number(data.last_update_timestamp) * SECOND } color="text.secondary" textAlign="end" flexShrink={ 0 } ml="auto" format="lll_s"/>
-      </Flex>
+      </div>
     );
   }
 

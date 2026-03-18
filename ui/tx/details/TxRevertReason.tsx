@@ -1,4 +1,3 @@
-import { Grid, GridItem, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TransactionRevertReason } from 'types/api/transaction';
@@ -12,31 +11,24 @@ type Props = TransactionRevertReason;
 const TxRevertReason = (props: Props) => {
   if ('raw' in props) {
     if (!HEX_REGEXP.test(props.raw)) {
-      return <Text>{ props.raw }</Text>;
+      return <span>{ props.raw }</span>;
     }
 
     const decoded = hexToUtf8(props.raw);
 
     return (
-      <Grid
-        bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-        p={ 4 }
-        fontSize="sm"
-        borderRadius="md"
-        templateColumns="auto minmax(0, 1fr)"
-        rowGap={ 2 }
-        columnGap={ 4 }
-        whiteSpace="normal"
+      <div
+       
       >
-        <GridItem fontWeight={ 500 }>Raw:</GridItem>
-        <GridItem>{ props.raw }</GridItem>
+        <div>Raw:</div>
+        <div>{ props.raw }</div>
         { decoded.replace(/\s|\0/g, '') && (
           <>
-            <GridItem fontWeight={ 500 }>Decoded:</GridItem>
-            <GridItem>{ decoded }</GridItem>
+            <div>Decoded:</div>
+            <div>{ decoded }</div>
           </>
         ) }
-      </Grid>
+      </div>
     );
   }
 

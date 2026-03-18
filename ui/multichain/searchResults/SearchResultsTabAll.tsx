@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs/routes';
@@ -17,7 +16,7 @@ interface Props {
 
 const SearchResultsTabAll = ({ queries }: Props) => {
   return (
-    <Flex flexDir="column" rowGap={ 8 }>
+    <div className="flex flex-col gap-y-8">
       { Object.entries(queries)
         .filter(([ , query ]) => query.data?.pages?.[0]?.items?.length > 0)
         .filter(([ queryType ]) => SEARCH_TABS_NAMES[queryType as QueryType])
@@ -28,8 +27,8 @@ const SearchResultsTabAll = ({ queries }: Props) => {
           const hasMore = Number(query.data?.pages[0].items.length) > MAX_ITEMS_IN_GROUP;
 
           return (
-            <Box key={ queryType }>
-              <Text color="text.secondary" fontWeight={ 600 } textStyle="sm" mb={ 2 }>{ SEARCH_TABS_NAMES[queryType] }</Text>
+            <div key={ queryType }>
+              <span className="text-[var(--color-text-secondary)] mb-2 font-semibold">{ SEARCH_TABS_NAMES[queryType] }</span>
               <SearchResultsList queryType={ queryType } query={ query } maxItems={ MAX_ITEMS_IN_GROUP }/>
               { hasMore && (
                 <Link
@@ -39,10 +38,10 @@ const SearchResultsTabAll = ({ queries }: Props) => {
                   View all
                 </Link>
               ) }
-            </Box>
+            </div>
           );
         }) }
-    </Flex>
+    </div>
   );
 };
 

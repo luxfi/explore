@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -27,13 +26,13 @@ const HotContractsTableItem = ({
   return (
     <TableRow>
       <TableCell>
-        <HStack>
+        <div>
           <AddressEntity
             address={ data.contract_address }
             isLoading={ isLoading }
           />
           <Reputation value={ data.contract_address.reputation ?? null } ml={ 0 }/>
-        </HStack>
+        </div>
         { protocolTags && protocolTags.length > 0 && (
           <EntityTags
             isLoading={ isLoading }

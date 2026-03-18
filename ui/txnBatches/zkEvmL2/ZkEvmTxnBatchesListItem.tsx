@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZkEvmL2TxnBatchesItem } from 'types/api/zkEvmL2';
@@ -23,15 +22,14 @@ const ZkEvmTxnBatchesListItem = ({ item, isLoading }: Props) => {
   }
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="110px auto">
+    <ListItemMobileGrid.Container>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Batch #</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
         <BatchEntityL2
           isLoading={ isLoading }
           number={ item.number }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 
@@ -46,7 +44,7 @@ const ZkEvmTxnBatchesListItem = ({ item, isLoading }: Props) => {
           timestamp={ item.timestamp }
           fallbackText="Undefined"
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block"
         />
       </ListItemMobileGrid.Value>
 
@@ -67,11 +65,10 @@ const ZkEvmTxnBatchesListItem = ({ item, isLoading }: Props) => {
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.verify_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Sequence hash</ListItemMobileGrid.Label>
@@ -80,11 +77,10 @@ const ZkEvmTxnBatchesListItem = ({ item, isLoading }: Props) => {
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.sequence_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </ListItemMobileGrid.Value>
 
     </ListItemMobileGrid.Container>

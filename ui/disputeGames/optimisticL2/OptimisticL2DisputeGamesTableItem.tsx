@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { OptimisticL2DisputeGamesItem } from 'types/api/optimisticL2';
@@ -29,12 +28,12 @@ const OptimisticL2DisputeGamesTableItem = ({ item, isLoading }: Props) => {
         <Skeleton loading={ isLoading } display="inline-block">{ item.game_type }</Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Flex overflow="hidden" w="100%" alignItems="center">
+        <div overflow="hidden" w="100%" alignItems="center">
           <Skeleton loading={ isLoading }>
             <HashStringShorten hash={ item.contract_address_hash } type="long"/>
           </Skeleton>
           <CopyToClipboard text={ item.contract_address_hash } className="ml-2" isLoading={ isLoading }/>
-        </Flex>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <BlockEntityL2

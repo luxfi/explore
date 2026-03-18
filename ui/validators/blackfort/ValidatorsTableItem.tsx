@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ValidatorBlackfort } from 'types/api/validators';
@@ -25,9 +24,9 @@ const ValidatorsTableItem = ({ data, isLoading }: Props) => {
         />
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Flex>
+        <div className="flex">
           <TruncatedText text={ data.name } loading={ isLoading }/>
-        </Flex>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>
         <Skeleton loading={ isLoading }>

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenType } from 'types/api/token';
@@ -49,7 +48,7 @@ const MultichainTokenTransfersLocal = ({ query, typeFilter, onTokenTypesChange }
       emptyText="There are no token transfers."
       actionBar={ actionBar }
     >
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { query.data?.items.map((item, index) => (
           <TokenTransfersListItem
             key={ item.transaction_hash + item.log_index + (query.isPlaceholderData ? index : '') + (chainData ? chainData.id : '') }
@@ -58,15 +57,15 @@ const MultichainTokenTransfersLocal = ({ query, typeFilter, onTokenTypesChange }
             chainData={ chainData }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <TokenTransfersTable
           items={ query.data?.items }
           top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT : 0 }
           isLoading={ query.isPlaceholderData }
           chainData={ chainData }
         />
-      </Box>
+      </div>
     </DataListDisplay>
   );
 };

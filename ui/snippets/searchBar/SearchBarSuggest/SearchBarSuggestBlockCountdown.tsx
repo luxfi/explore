@@ -1,4 +1,3 @@
-import { chakra, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -16,21 +15,21 @@ const SearchBarSuggestBlockCountdown = ({ blockHeight, onClick, className, isMul
 
   if (isMultichain) {
     return (
-      <Box className={ className }>
-        This block hasn’t been created yet. <Link href={ route({ pathname: '/blocks' }) } onClick={ onClick }>View existing blocks</Link>.
-      </Box>
+      <div className={ className }>
+        This block hasn't been created yet. <Link href={ route({ pathname: '/blocks' }) } onClick={ onClick }>View existing blocks</Link>.
+      </div>
     );
   }
 
   return (
-    <Box className={ className }>
+    <div className={ className }>
       <span>Learn </span>
       <Link href={ route({ pathname: '/block/countdown/[height]', query: { height: blockHeight } }) } onClick={ onClick }>
         estimated time for this block
       </Link>
       <span> to be created.</span>
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(SearchBarSuggestBlockCountdown));
+export default React.memo(SearchBarSuggestBlockCountdown);

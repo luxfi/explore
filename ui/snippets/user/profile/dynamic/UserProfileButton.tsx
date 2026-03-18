@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
@@ -24,17 +23,17 @@ const UserProfileButton = ({ selected, email, className, ...rest }: Props) => {
   const content = (() => {
     if (selected && !isLoading) {
       return accountWithDomain.address ? (
-        <HStack gap={ 2 }>
+        <div>
           <UserIdenticon address={ accountWithDomain.address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-          <Box display={{ base: 'none', md: 'block' }} maxW="200px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+          <div>
             { accountWithDomain.domain || shortenString(accountWithDomain.address) }
-          </Box>
-        </HStack>
+          </div>
+        </div>
       ) : (
-        <HStack gap={ 2 }>
-          <IconSvg name="profile" boxSize={ 5 }/>
-          <Box display={{ base: 'none', md: 'block' }}>{ email ? getUserHandle(email) : 'My profile' }</Box>
-        </HStack>
+        <div>
+          <IconSvg name="profile"/>
+          <div>{ email ? getUserHandle(email) : 'My profile' }</div>
+        </div>
       );
     }
 

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractConflictingImplementation, SmartContractProxyType } from 'types/api/contract';
@@ -28,23 +27,23 @@ const ContractCodeProxyPattern = ({ type, isLoading, conflictingImplementations 
   return (
     <Alert status={ status } whiteSpace="pre-wrap" loading={ isLoading } descriptionProps={{ flexDir: 'column' }}>
       { proxyInfo.link ? (
-        <Box>
+        <div>
           This proxy smart-contract is detected via <Link href={ proxyInfo.link } external>{ proxyInfo.name }</Link>
           { proxyInfo.description && ` - ${ proxyInfo.description }` }
-        </Box>
+        </div>
       ) : (
-        <Box>
+        <div>
           This proxy smart-contract is detected via { proxyInfo.name }
           { proxyInfo.description && ` - ${ proxyInfo.description }` }
-        </Box>
+        </div>
       ) }
       { conflictingImplementations && conflictingImplementations.length > 0 && (
-        <Box mt={ 1 } whiteSpace="pre-wrap">
+        <div mt={ 1 } whiteSpace="pre-wrap">
           <span>This contract contains more than one proxy implementation address.{ space }</span>
           <ConflictingImplementationsModal data={ conflictingImplementations }>
             <Link>View details</Link>
           </ConflictingImplementationsModal>
-        </Box>
+        </div>
       ) }
     </Alert>
   );

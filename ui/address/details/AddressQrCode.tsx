@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import QRCode from 'qrcode';
 import React from 'react';
@@ -90,7 +89,7 @@ const AddressQrCode = ({ hash, className, isLoading }: Props) => {
                 address={{ hash }}
                 noLink
               />
-              <Box p={ 4 } dangerouslySetInnerHTML={{ __html: qr }}/>
+              <div p={ 4 } dangerouslySetInnerHTML={{ __html: qr }}/>
             </DialogBody>
           </DialogContent>
         </DialogRoot>

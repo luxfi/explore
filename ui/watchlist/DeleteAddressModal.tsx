@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { WatchlistAddress } from 'types/api/account';
@@ -30,7 +29,7 @@ const DeleteAddressModal: React.FC<Props> = ({ open, onOpenChange, onSuccess, da
   const renderModalContent = useCallback(() => {
     const addressString = isMobile ? [ address.slice(0, 4), address.slice(-4) ].join('...') : address;
     return (
-      <Text>Address <Text fontWeight="700" as="span"> { addressString || 'address' }</Text> will be deleted</Text>
+      <span>Address <span className="font-bold"> { addressString || 'address' }</span> will be deleted</span>
     );
   }, [ address, isMobile ]);
 

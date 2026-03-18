@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -82,7 +81,7 @@ const AddressBalance = ({ data, isLoading }: Props) => {
         { isBalancePending ? (
           <Skeleton loading={ isLoading } className="inline-flex items-center">
             <NativeTokenIcon boxSize={ 5 } mr={ 2 }/>
-            <Text color="text.secondary">Pending</Text>
+            <span color="text.secondary">Pending</span>
           </Skeleton>
         ) : (
           <NativeCoinValue

@@ -1,4 +1,3 @@
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
 
 import InfoIcon from 'icons/info.svg';

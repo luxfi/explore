@@ -1,4 +1,3 @@
-import { Box, chakra, Flex, Separator } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EntityTag } from './types';
@@ -8,6 +7,7 @@ import { Image } from 'toolkit/chakra/image';
 import { Link } from 'toolkit/chakra/link';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import { makePrettyLink } from 'toolkit/utils/url';
+import { Separator } from 'toolkit/chakra/separator';
 
 interface Props {
   data: EntityTag;
@@ -51,30 +51,30 @@ const EntityTagTooltip = ({ data, children }: Props) => {
   }
 
   const content = (
-    <Box className="dark">
-      <Flex textStyle="sm" flexDir="column" rowGap={ 2 } textAlign="left" _empty={{ display: 'none' }}>
+    <div className="dark">
+      <div className="flex flex-col text-left gap-y-2 text-sm" _empty={{ display: 'none' }}>
         { (data.meta?.tooltipIcon || data.meta?.tooltipTitle) && (
-          <Flex columnGap={ 3 } alignItems="center">
+          <div className="flex items-center gap-x-3">
             { data.meta?.tooltipIcon && <Image src={ data.meta.tooltipIcon } boxSize="30px" alt={ `${ data.name } tag logo` }/> }
-            { data.meta?.tooltipTitle && <chakra.span fontWeight="600">{ data.meta.tooltipTitle }</chakra.span> }
-          </Flex>
+            { data.meta?.tooltipTitle && <span className="font-semibold">{ data.meta.tooltipTitle }</span> }
+          </div>
         ) }
-        { data.meta?.tooltipDescription && <chakra.span>{ data.meta.tooltipDescription }</chakra.span> }
+        { data.meta?.tooltipDescription && <span>{ data.meta.tooltipDescription }</span> }
         { link && <Link external href={ link.href } onClick={ handleLinkClick }>{ link.domain }</Link> }
-      </Flex>
+      </div>
       { attribution ? (
         <>
           { (data.meta?.tooltipIcon || data.meta?.tooltipTitle || data.meta?.tooltipDescription || link) && <Separator mt={ 2 } mb={ 1 }/> }
-          <Flex alignItems="center" color="text.secondary" textStyle="xs">
-            <chakra.span mr={ 2 }>Source:</chakra.span>
+          <div className="flex items-center text-xs text-[var(--color-text-secondary)]">
+            <span className="mr-2">Source:</span>
             { data.meta?.tooltipAttributionIcon && <Image src={ data.meta.tooltipAttributionIcon } boxSize={ 4 } mr={ 1 } zIndex={ 1 }/> }
             { typeof attribution === 'string' ?
-              <chakra.span fontWeight="500">{ attribution }</chakra.span> :
+              <span className="font-medium">{ attribution }</span> :
               <Link external href={ attribution.href }>{ attribution.domain }</Link> }
-          </Flex>
+          </div>
         </>
       ) : null }
-    </Box>
+    </div>
   );
 
   return (

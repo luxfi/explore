@@ -1,9 +1,8 @@
-import { chakra, createListCollection, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -47,18 +46,18 @@ const ContractSourceAddressSelector = ({ className, selectedItem, onItemSelect, 
 
   if (items.length === 1) {
     return (
-      <Flex flexWrap="wrap" columnGap={ 3 } rowGap={ 2 } className={ className }>
-        <chakra.span fontWeight={ 500 } fontSize="sm">{ label }</chakra.span>
+      <div className="flex" flexWrap="wrap" columnGap={ 3 } rowGap={ 2 } className={ className }>
+        <span fontWeight={ 500 } fontSize="sm">{ label }</span>
         <AddressEntity
           address={{ hash: items[0].address_hash, is_contract: true, is_verified: true }}
         />
-      </Flex>
+      </div>
     );
   }
 
   return (
-    <Flex columnGap={ 3 } rowGap={ 2 } alignItems="center" className={ className }>
-      <chakra.span fontWeight={ 500 } fontSize="sm">{ label }</chakra.span>
+    <div className="flex" columnGap={ 3 } rowGap={ 2 } alignItems="center" className={ className }>
+      <span fontWeight={ 500 } fontSize="sm">{ label }</span>
       <Select
         collection={ collection }
         placeholder="Select contract"
@@ -68,15 +67,15 @@ const ContractSourceAddressSelector = ({ className, selectedItem, onItemSelect, 
         w="fit-content"
         loading={ isLoading }
       />
-      <Flex alignItems="center">
+      <div className="flex" alignItems="center">
         <CopyToClipboard text={ selectedItem.address_hash } ml={ 0 }/>
         <LinkNewTab
           label="Open contract details page in new tab"
           href={ route({ pathname: '/address/[hash]', query: { hash: selectedItem.address_hash, tab: 'contract' } }) }
         />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
-export default React.memo(chakra(ContractSourceAddressSelector));
+export default React.memo(ContractSourceAddressSelector);

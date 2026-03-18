@@ -1,4 +1,3 @@
-import { chakra, Box, Flex, Spinner } from '@chakra-ui/react';
 import React from 'react';
 
 import delay from 'lib/delay';
@@ -39,25 +38,16 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
   const content = (() => {
     if (web3Wallet.isConnected && web3AccountWithDomain.address) {
       return (
-        <Flex
-          alignItems="center"
-          columnGap={ 2 }
-          bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-          px={ 2 }
-          py="10px"
-          borderRadius="base"
-          justifyContent="space-between"
+        <div
         >
           <AddressEntity
             address={{ hash: web3AccountWithDomain.address, ens_domain_name: web3AccountWithDomain.domain }}
             isLoading={ web3AccountWithDomain.isLoading }
             truncation="dynamic"
-            fontSize="sm"
-            fontWeight={ 500 }
             noAltHash
             onClick={ handleAddressClick }
           />
-          { web3Wallet.isReconnecting ? <Spinner size="sm" m="2px" flexShrink={ 0 }/> : (
+          { web3Wallet.isReconnecting ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4 m-[2px] shrink-0"/> : (
             <IconButton
               aria-label="Open wallet"
               variant="icon_secondary"
@@ -68,7 +58,7 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
               <IconSvg name="gear"/>
             </IconButton>
           ) }
-        </Flex>
+        </div>
       );
     }
 
@@ -86,22 +76,20 @@ const UserProfileContentWallet = ({ onClose, className }: Props) => {
   })();
 
   return (
-    <Box className={ className }>
-      <Flex px={ 1 } mb="1" textStyle="xs" alignItems="center" fontWeight="500">
+    <div className={ className }>
+      <div>
         <span>Connected wallet</span>
         <Hint
           label={
             web3Wallet.isConnected ?
-              'This wallet is currently connected to Lux Explorer and used for interacting with apps and smart contracts' :
+              'This wallet is currently connected to the explorer and used for interacting with apps and smart contracts' :
               'This wallet is used for interacting with apps and smart contracts'
           }
-          boxSize={ 4 }
-          ml={ 1 }
         />
-      </Flex>
+      </div>
       { content }
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(UserProfileContentWallet));
+export default React.memo(UserProfileContentWallet);

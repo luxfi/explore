@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { TX_BLOB } from 'stubs/blobs';
@@ -34,12 +33,12 @@ const TxBlobs = ({ txQuery }: Props) => {
 
   const content = data ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TxBlobsTable data={ data.items } isLoading={ isPlaceholderData } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }/>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="block lg:hidden">
         <TxBlobsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

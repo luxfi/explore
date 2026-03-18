@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -31,14 +30,13 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <BlockEntity
           number={ item.block_number }
           isLoading={ isLoading }
-          textStyle="sm"
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } className="inline-block">
           { item.index }
         </Skeleton>
       </ListItemMobileGrid.Value>
@@ -48,7 +46,6 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <TxEntity
           isLoading={ isLoading }
           hash={ item.l2_transaction_hash }
-          textStyle="sm"
           truncation="constant_long"
         />
       </ListItemMobileGrid.Value>
@@ -58,7 +55,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <TimeWithTooltip
           timestamp={ item.timestamp }
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block"
         />
       </ListItemMobileGrid.Value>
 
@@ -68,14 +65,13 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
           <TxEntityL1
             isLoading={ isLoading }
             hash={ item.l1_transaction_hash }
-            textStyle="sm"
             truncation="constant_long"
             noCopy
           />
         ) : (
-          <chakra.span>
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 
@@ -89,7 +85,7 @@ const ZkEvmL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Token</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } className="inline-block">
           { item.symbol }
         </Skeleton>
       </ListItemMobileGrid.Value>

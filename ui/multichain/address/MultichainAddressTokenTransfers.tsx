@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -120,7 +119,7 @@ const MultichainAddressTokenTransfers = ({ addressData, isLoading }: Props) => {
 
       return (
         <>
-          <HStack gap={ 2 }>
+          <div gap={ 2 }>
             <TokenTransferFilter
               defaultTypeFilters={ transfersQueryLocal.filters.type }
               onTypeFilterChange={ transfersQueryLocal.onTypeFilterChange }
@@ -133,8 +132,8 @@ const MultichainAddressTokenTransfers = ({ addressData, isLoading }: Props) => {
             />
             { chainSelect }
             { countersText }
-          </HStack>
-          <HStack gap={ 6 }>
+          </div>
+          <div gap={ 6 }>
             <AddressAdvancedFilterLink
               isLoading={ transfersQueryLocal.query.isPlaceholderData }
               address={ hash }
@@ -149,7 +148,7 @@ const MultichainAddressTokenTransfers = ({ addressData, isLoading }: Props) => {
               chainData={ chainData }
             />
             <Pagination { ...transfersQueryLocal.query.pagination }/>
-          </HStack>
+          </div>
         </>
       );
     }

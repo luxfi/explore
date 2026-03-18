@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -31,7 +30,7 @@ const ColumnsButton = ({ columns, onChange }: Props) => {
           className="px-1 lg:px-3"
         >
           <IconSvg name="columns" boxSize={ 5 } color="inherit"/>
-          <chakra.span hideBelow="lg">Columns</chakra.span>
+          <span className="hidden lg:inline">Columns</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent>

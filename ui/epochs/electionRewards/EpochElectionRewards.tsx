@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochDetails } from 'types/api/epochs';
@@ -20,9 +19,9 @@ const EpochElectionRewards = ({ data, isLoading }: Props) => {
   }
 
   return (
-    <Box mt={ 6 }>
+    <div mt={ 6 }>
       <Heading level="3" className="mb-3">Election rewards</Heading>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot style={{ tableLayout: 'auto' }}>
           <TableHeaderSticky>
             <TableRow>
@@ -52,8 +51,8 @@ const EpochElectionRewards = ({ data, isLoading }: Props) => {
             }) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { Object.entries(data.aggregated_election_rewards).map((entry) => {
           const key = entry[0] as keyof CeloEpochDetails['aggregated_election_rewards'];
           const value = entry[1];
@@ -71,8 +70,8 @@ const EpochElectionRewards = ({ data, isLoading }: Props) => {
             />
           );
         }) }
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

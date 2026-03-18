@@ -1,10 +1,9 @@
-import { createListCollection, Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
 
 import hexToAddress from 'lib/hexToAddress';
 import hexToUtf8 from 'lib/hexToUtf8';
-import { SelectContent, SelectControl, SelectItem, SelectRoot, SelectValueText } from 'toolkit/chakra/select';
+import { createListCollection, SelectContent, SelectControl, SelectItem, SelectRoot, SelectValueText } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -71,7 +70,7 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
   })();
 
   return (
-    <Flex alignItems="center" px={{ base: 0, lg: 3 }} _notFirst={{ mt: 3 }} overflow="hidden" maxW="100%">
+    <div className="flex items-center overflow-hidden" px={{ base: 0, lg: 3 }} maxW="100%">
       <LogIndex
         isLoading={ isLoading }
         textStyle="xs"
@@ -102,7 +101,7 @@ const LogTopic = ({ hex, index, isLoading }: Props) => {
         </SelectRoot>
       ) }
       { content }
-    </Flex>
+    </div>
   );
 };
 

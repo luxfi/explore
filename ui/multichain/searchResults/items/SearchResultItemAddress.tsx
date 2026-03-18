@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -23,7 +22,7 @@ const SearchResultItemAddress = ({ data, isMobile }: Props) => {
     <SearchResultListItem
       href={ route({ pathname: '/address/[hash]', query: { hash: data.hash } }) }
     >
-      <Box w={{ base: '100%', lg: '200px' }}>
+      <div w={{ base: '100%', lg: '200px' }}>
         <AddressEntity
           address={{
             hash: data.hash,
@@ -35,11 +34,11 @@ const SearchResultItemAddress = ({ data, isMobile }: Props) => {
           noCopy
           fontWeight={{ base: '600', lg: '700' }}
         />
-      </Box>
+      </div>
       { contractName && (
-        <Box color="text.secondary" _groupHover={{ color: 'inherit' }} fontWeight={{ base: '400', lg: '500' }}>
+        <div color="text.secondary" _groupHover={{ color: 'inherit' }} fontWeight={{ base: '400', lg: '500' }}>
           { contractName }
-        </Box>
+        </div>
       ) }
     </SearchResultListItem>
   );

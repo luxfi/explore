@@ -1,4 +1,3 @@
-import { Text, Flex, Spinner } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -60,24 +59,24 @@ const PopoverContent = ({ appId, userRating, source }: Props) => {
 
   if (isSending) {
     return (
-      <Flex alignItems="center">
-        <Spinner size="md"/>
-        <Text fontSize="md" ml={ 3 }>Sending your feedback</Text>
-      </Flex>
+      <div alignItems="center">
+        <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-6 w-6"/>
+        <span fontSize="md" ml={ 3 }>Sending your feedback</span>
+      </div>
     );
   }
 
   return (
     <>
-      <Flex alignItems="center" h="30px">
+      <div alignItems="center" h="30px">
         { ratingValue && (
           // FIXME use non-navigation icon
           <IconSvg name="navigation/verified_contracts" color="green.400" boxSize="30px" mr={ 1 } ml="-5px"/>
         ) }
-        <Text fontWeight="500" textStyle="xs" color="text.secondary">
+        <span fontWeight="500" textStyle="xs" color="text.secondary">
           { ratingValue ? 'App is already rated by you' : 'How was your experience?' }
-        </Text>
-      </Flex>
+        </span>
+      </div>
       <Rating
         defaultValue={ ratingValue }
         onValueChange={ handleValueChange }

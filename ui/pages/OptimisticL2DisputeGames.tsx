@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -38,7 +37,7 @@ const OptimisticL2DisputeGames = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <OptimisticL2DisputeGamesListItem
             key={ item.index + (isPlaceholderData ? String(index) : '') }
@@ -46,10 +45,10 @@ const OptimisticL2DisputeGames = () => {
             isLoading={ isPlaceholderData }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <OptimisticL2DisputeGamesTable items={ data.items } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -61,8 +60,8 @@ const OptimisticL2DisputeGames = () => {
     return (
       <Skeleton loading={ countersQuery.isPlaceholderData || isPlaceholderData } display="flex" className="flex-wrap">
         Dispute game index
-        <Text fontWeight={ 600 } whiteSpace="pre"> #{ data.items[0].index } </Text>to
-        <Text fontWeight={ 600 } whiteSpace="pre"> #{ data.items[data.items.length - 1].index } </Text>
+        <span className="whitespace-pre font-semibold"> #{ data.items[0].index } </span>to
+        <span className="whitespace-pre font-semibold"> #{ data.items[data.items.length - 1].index } </span>
         (total of { countersQuery.data?.toLocaleString() } games)
       </Skeleton>
     );

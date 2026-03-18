@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressEpochRewardsItem } from 'types/api/address';
@@ -21,7 +20,7 @@ const AddressEpochRewardsTableItem = ({ item, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <Flex alignItems="center" gap={ 3 }>
+        <div className="flex" alignItems="center" gap={ 3 }>
           <Link
             href={ route({ pathname: '/epochs/[number]', query: { number: String(item.epoch_number) } }) }
             loading={ isLoading }
@@ -29,7 +28,7 @@ const AddressEpochRewardsTableItem = ({ item, isLoading }: Props) => {
             { item.epoch_number }
           </Link>
           <TimeWithTooltip timestamp={ item.block_timestamp } isLoading={ isLoading } color="text.secondary" fontWeight={ 400 }/>
-        </Flex>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <EpochRewardTypeTag type={ item.type } isLoading={ isLoading }/>

@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
@@ -41,7 +40,7 @@ const MarketplaceAppTopBar = ({ appId, data, isLoading }: Props) => {
   }, []);
 
   return (
-    <Flex alignItems="center" mb={{ base: 3, md: 2 }} rowGap={ 3 } columnGap={ 2 }>
+    <div alignItems="center" mb={{ base: 3, md: 2 }} rowGap={ 3 } columnGap={ 2 }>
       { !isMobile && <NetworkIcon mr={ 4 }/> }
       <BackToButton
         href={ goBackUrl }
@@ -56,9 +55,9 @@ const MarketplaceAppTopBar = ({ appId, data, isLoading }: Props) => {
         className="text-sm min-w-0 max-w-[calc(100%-114px)] md:max-w-none flex"
         loading={ isLoading }
       >
-        <chakra.span truncate>
+        <span className="truncate">
           { makePrettyLink(data?.url)?.domain }
-        </chakra.span>
+        </span>
       </Link>
       <MarketplaceAppInfo data={ data } isLoading={ isLoading }/>
       <Rating
@@ -70,12 +69,12 @@ const MarketplaceAppTopBar = ({ appId, data, isLoading }: Props) => {
         source="App page"
       />
       { !isMobile && (
-        <Flex ml="auto" gap={ 2 }>
+        <div ml="auto" gap={ 2 }>
           { config.features.rewards.isEnabled && <RewardsButton size="sm"/> }
           <UserProfileDesktop buttonSize="sm"/>
-        </Flex>
+        </div>
       ) }
-    </Flex>
+    </div>
   );
 };
 

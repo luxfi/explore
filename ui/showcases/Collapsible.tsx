@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-bind */
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { CollapsibleDetails, CollapsibleList } from 'toolkit/chakra/collapsible';
@@ -15,7 +14,7 @@ const CollapsibleShowcase = () => {
         <SamplesStack >
           <Sample label="variant: default" flexDirection="column" alignItems="flex-start">
             <CollapsibleDetails id="CutLink_1">
-              <Box maxW="500px">{ TEXT }</Box>
+              <div className="max-w-[500px]">{ TEXT }</div>
             </CollapsibleDetails>
           </Sample>
         </SamplesStack>
@@ -26,7 +25,7 @@ const CollapsibleShowcase = () => {
         <SamplesStack >
           <Sample label="loading: true" flexDirection="column" alignItems="flex-start">
             <CollapsibleDetails id="CutLink_2" loading>
-              <Box maxW="500px">{ TEXT }</Box>
+              <div className="max-w-[500px]">{ TEXT }</div>
             </CollapsibleDetails>
           </Sample>
         </SamplesStack>
@@ -39,13 +38,13 @@ const CollapsibleShowcase = () => {
         <SamplesStack>
           <Sample label="Show details" flexDirection="column" alignItems="flex-start">
             <CollapsibleDetails id="CutLink_3">
-              <Box maxW="500px">{ TEXT }</Box>
+              <div className="max-w-[500px]">{ TEXT }</div>
             </CollapsibleDetails>
           </Sample>
           <Sample label="Expand all list" flexDirection="row" alignItems="flex-start" flexWrap="nowrap">
             <CollapsibleList
               items={ [ 'foo', 'bar', 'baz', 'qux', 'quux', 'corgi', 'gaunt', 'garply', 'waldo', 'fred', 'pugh', 'fuzzy', 'thud' ] }
-              renderItem={ (item) => <Text>{ item }</Text> }
+              renderItem={ (item) => <span>{ item }</span> }
             />
           </Sample>
         </SamplesStack>

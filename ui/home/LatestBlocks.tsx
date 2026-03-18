@@ -1,4 +1,3 @@
-import { chakra, Box, Flex, Text, HStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
@@ -91,7 +90,7 @@ const LatestBlocks = () => {
 
       return (
         <>
-          <Flex gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
+          <div gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
             { dataToShow.map(((block, index) => (
               <LatestBlocksItem
                 key={ block.height + (isPlaceholderData ? String(index) : '') }
@@ -100,46 +99,46 @@ const LatestBlocks = () => {
                 animation={ initialList.getAnimationProp(block) }
               />
             ))) }
-          </Flex>
-          <Flex justifyContent="center">
+          </div>
+          <div justifyContent="center">
             <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
-          </Flex>
+          </div>
         </>
       );
     }
-    return <Box textStyle="sm">No latest blocks found.</Box>;
+    return <div textStyle="sm">No latest blocks found.</div>;
   })();
 
   const networkUtilization = getNetworkUtilizationParams(statsQueryResult.data?.network_utilization_percentage ?? 0);
 
   return (
-    <Box width="100%">
-      <HStack alignItems="center">
+    <div width="100%">
+      <div alignItems="center">
         <Heading level="3">Latest blocks</Heading>
         { isRpcData && <FallbackRpcIcon/> }
-      </HStack>
+      </div>
       { statsQueryResult.data?.network_utilization_percentage !== undefined && (
         <Skeleton loading={ statsQueryResult.isPlaceholderData } mt={ 2 } display="inline-block" textStyle="sm">
-          <Text as="span">
+          <span as="span">
             Network utilization:{ nbsp }
-          </Text>
+          </span>
           <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
-            <Text as="span" color={ networkUtilization.color } fontWeight={ 700 }>
+            <span as="span" color={ networkUtilization.color } fontWeight={ 700 }>
               { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
-            </Text>
+            </span>
           </Tooltip>
         </Skeleton>
       ) }
       { statsQueryResult.data?.celo && (
-        <Box whiteSpace="pre-wrap" textStyle="sm" mt={ 2 }>
+        <div whiteSpace="pre-wrap" textStyle="sm" mt={ 2 }>
           <span>Current epoch: </span>
-          <chakra.span fontWeight={ 700 }>#{ statsQueryResult.data.celo.epoch_number }</chakra.span>
-        </Box>
+          <span className="font-bold">#{ statsQueryResult.data.celo.epoch_number }</span>
+        </div>
       ) }
-      <Box mt={ 3 }>
+      <div mt={ 3 }>
         { content }
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { Box, Text, Flex } from '@chakra-ui/react';
 import Script from 'next/script';
 import React from 'react';
 
@@ -38,9 +37,9 @@ const CapybaraRunner = () => {
   return (
     <>
       <Heading level="2" className="mt-12 mb-2">Score 1000 to win a special prize!</Heading>
-      <Box mb={ 4 }>{ isMobile ? 'Tap below to start' : 'Press space to start' }</Box>
+      <div mb={ 4 }>{ isMobile ? 'Tap below to start' : 'Press space to start' }</div>
       <Script strategy="lazyOnload" src="/static/capybara/index.js"/>
-      <Box width={{ base: '100%', lg: '600px' }} height="300px" p="50px 0">
+      <div width={{ base: '100%', lg: '600px' }} height="300px" p="50px 0">
         <div id="main-frame-error" className="interstitial-wrapper" style={{ marginTop: '20px' }}>
           <div id="main-content"></div>
           <div id="offline-resources" style={{ display: 'none' }}>
@@ -48,18 +47,18 @@ const CapybaraRunner = () => {
             <img id="offline-resources-2x" src="/static/capybara/capybaraSpriteX2.png"/>
           </div>
         </div>
-      </Box>
+      </div>
       { easterEggBadgeFeature.isEnabled && hasReachedHighScore && (
-        <Flex flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
-          <Text fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</Text>
-          <Text fontSize="lg" textAlign="center">Congratulations! You’re eligible to claim an epic hidden badge!</Text>
+        <div flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
+          <span fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</span>
+          <span fontSize="lg" textAlign="center">Congratulations! You’re eligible to claim an epic hidden badge!</span>
           <Link
             href={ easterEggBadgeFeature.badgeClaimLink }
             external noIcon
           >
             <Button>Claim</Button>
           </Link>
-        </Flex>
+        </div>
       ) }
     </>
   );

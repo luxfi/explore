@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ScrollL2MessageItem } from 'types/api/scrollL2';
@@ -61,9 +60,9 @@ const ScrollL2DepositsTableItem = ({ item, isLoading }: Props) => {
             noIcon
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span color="text.secondary">
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>

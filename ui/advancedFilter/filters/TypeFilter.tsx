@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { isEqual, without } from 'es-toolkit';
 import React from 'react';
 
@@ -59,7 +58,7 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
       onReset={ onReset }
       hasReset
     >
-      <Flex display="flex" flexDir="column" rowGap={ 3 }>
+      <div className="flex" display="flex" flexDir="column" rowGap={ 3 }>
         <CheckboxGroup value={ currentValue } onValueChange={ handleChange } orientation="vertical">
           { advancedFilterTypes.map(type => (
             <Checkbox
@@ -70,7 +69,7 @@ const TypeFilter = ({ value = [ RESET_VALUE ], handleFilterChange }: Props) => {
             </Checkbox>
           )) }
         </CheckboxGroup>
-      </Flex>
+      </div>
     </TableColumnFilter>
   );
 };

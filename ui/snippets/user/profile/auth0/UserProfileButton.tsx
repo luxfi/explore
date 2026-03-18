@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
@@ -49,12 +48,12 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
   const content = (() => {
     if (web3AccountWithDomain.address && !isButtonLoading) {
       return (
-        <HStack gap={ 2 }>
+        <div>
           <UserIdenticon address={ web3AccountWithDomain.address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-          <Box display={{ base: 'none', md: 'block' }} maxW="200px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+          <div>
             { web3AccountWithDomain.domain || shortenString(web3AccountWithDomain.address) }
-          </Box>
-        </HStack>
+          </div>
+        </div>
       );
     }
 
@@ -63,10 +62,10 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
     }
 
     return (
-      <HStack gap={ 2 }>
-        <IconSvg name="profile" boxSize={ 5 }/>
-        <Box display={{ base: 'none', md: 'block' }}>{ data.email ? getUserHandle(data.email) : 'My profile' }</Box>
-      </HStack>
+      <div>
+        <IconSvg name="profile"/>
+        <div>{ data.email ? getUserHandle(data.email) : 'My profile' }</div>
+      </div>
     );
   })();
 
@@ -87,7 +86,6 @@ const UserProfileButton = ({ profileQuery, size, variant, onClick, isPending, ..
           selected={ dataExists }
           highlighted={ isAutoConnectDisabled }
           className="px-2.5 lg:px-3"
-          fontWeight={ dataExists ? 700 : 600 }
           loading={ isButtonLoading }
           { ...rest }
         >

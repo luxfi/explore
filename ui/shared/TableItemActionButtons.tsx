@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
@@ -16,7 +15,7 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
   const onFocusCapture = usePreventFocusAfterModalClosing();
 
   return (
-    <HStack gap={ 6 } alignSelf="flex-end">
+    <div className="flex flex-row gap-6 self-end">
       <Tooltip content="Edit" disableOnMobile>
         <IconButton
           aria-label="edit"
@@ -43,7 +42,7 @@ const TableItemActionButtons = ({ onEditClick, onDeleteClick, isLoading }: Props
           <IconSvg name="delete"/>
         </IconButton>
       </Tooltip>
-    </HStack>
+    </div>
   );
 };
 

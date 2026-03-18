@@ -1,7 +1,7 @@
-import { Box, Flex, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AIAttestation, AIChainStats } from 'lib/api/achain';
+import { cn } from 'lib/utils/cn';
 import { useModels, useAttestations, useProviders, useInferenceResults } from 'lib/api/achain';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tag } from 'toolkit/chakra/tag';
@@ -89,22 +89,16 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <Box
-    border="1px solid"
-    borderColor="border.divider"
-    borderRadius="lg"
-    p={ 5 }
-    bgColor={{ _light: 'gray.50', _dark: 'whiteAlpha.50' }}
-  >
-    <Box fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+  <div className="border border-[var(--color-border-divider)] rounded-lg p-5 bg-gray-50 dark:bg-[rgba(255,255,255,0.04)]">
+    <div className="text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
       { label }
-    </Box>
+    </div>
     <Skeleton loading={ isLoading }>
-      <Box fontSize="2xl" fontWeight="700" color="text.primary">
+      <div className="text-2xl font-bold text-[var(--color-text-primary)]">
         { value }
-      </Box>
+      </div>
     </Skeleton>
-  </Box>
+  </div>
 );
 
 // ---------------------------------------------------------------------------
@@ -118,23 +112,15 @@ interface TabButtonProps {
 }
 
 const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
-  <Box
-    as="button"
-    px={ 4 }
-    py={ 2 }
-    fontSize="sm"
-    fontWeight={ isActive ? '600' : '400' }
-    color={ isActive ? 'text.primary' : 'text.secondary' }
-    borderBottom="2px solid"
-    borderColor={ isActive ? 'text.primary' : 'transparent' }
-    bg="transparent"
-    cursor="pointer"
-    transition="all 0.15s"
-    _hover={{ color: 'text.primary' }}
+  <button
+    className={ cn(
+      'px-4 py-2 text-sm bg-transparent cursor-pointer transition-all duration-150 border-b-2 hover:text-[var(--color-text-primary)]',
+      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+    ) }
     onClick={ onClick }
   >
     { label }
-  </Box>
+  </button>
 );
 
 // ---------------------------------------------------------------------------
@@ -171,21 +157,18 @@ interface TableHeaderCellProps {
 }
 
 const TableHeaderCell = ({ children, flex, w, minW, textAlign, ml }: TableHeaderCellProps) => (
-  <Box
-    flex={ flex }
-    w={ w }
-    minW={ minW }
-    flexShrink={ 0 }
-    color="text.secondary"
-    fontWeight="600"
-    fontSize="xs"
-    textTransform="uppercase"
-    letterSpacing="wider"
-    textAlign={ textAlign }
-    ml={ ml }
+  <div
+    className="shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider"
+    style={{
+      flex: flex ?? undefined,
+      width: w,
+      minWidth: minW,
+      textAlign: textAlign ?? 'left',
+      marginLeft: ml,
+    }}
   >
     { children }
-  </Box>
+  </div>
 );
 
 // ---------------------------------------------------------------------------
@@ -205,12 +188,9 @@ const DashboardTab = ({ stats, attestations, isLoading }: DashboardTabProps) => 
   );
 
   return (
-    <Flex direction="column" gap={ 6 }>
+    <div className="flex flex-col gap-6">
       { /* Stat cards */ }
-      <Grid
-        gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
-        gap={ 3 }
-      >
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
           label="Total Models"
           value={ stats.totalModels.toLocaleString() }
@@ -231,82 +211,59 @@ const DashboardTab = ({ stats, attestations, isLoading }: DashboardTabProps) => 
           value={ `${ stats.avgLatencyMs }ms` }
           isLoading={ isLoading }
         />
-      </Grid>
+      </div>
 
       { /* Recent attestations */ }
-      <Box
-        border="1px solid"
-        borderColor="border.divider"
-        borderRadius="lg"
-        overflow="hidden"
-      >
-        <Box px={ 4 } py={ 3 } fontWeight="600" fontSize="sm" color="text.primary" borderBottom="1px solid" borderColor="border.divider">
+      <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+        <div className="px-4 py-3 font-semibold text-sm text-[var(--color-text-primary)] border-b border-[var(--color-border-divider)]">
           Recent Attestations
-        </Box>
+        </div>
 
         { /* Header */ }
-        <Flex
-          px={ 4 }
-          py={ 2 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          display={{ base: 'none', lg: 'flex' }}
-        >
+        <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
           <TableHeaderCell minW="80px">ID</TableHeaderCell>
           <TableHeaderCell minW="100px">Type</TableHeaderCell>
           <TableHeaderCell flex={ 1 }>Provider</TableHeaderCell>
           <TableHeaderCell minW="100px">Block</TableHeaderCell>
           <TableHeaderCell minW="160px">Time</TableHeaderCell>
           <TableHeaderCell minW="100px" textAlign="right">Status</TableHeaderCell>
-        </Flex>
+        </div>
 
         { /* Rows */ }
         { isLoading && (
-          <Box px={ 4 } py={ 6 }>
+          <div className="px-4 py-6">
             <Skeleton loading={ true } h="16px" mb={ 3 }/>
             <Skeleton loading={ true } h="16px" mb={ 3 }/>
             <Skeleton loading={ true } h="16px"/>
-          </Box>
+          </div>
         ) }
 
         { !isLoading && recentAttestations.map((att) => (
-          <Flex
-            key={ att.id }
-            px={ 4 }
-            py={ 3 }
-            gap={ 4 }
-            borderBottom="1px solid"
-            borderColor="border.divider"
-            alignItems="center"
-            _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-            transition="background 0.15s"
-            flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-          >
-            <Box minW="80px" flexShrink={ 0 } fontFamily="mono" fontSize="sm" color="text.primary">
+          <div key={ att.id } className="flex flex-wrap lg:flex-nowrap px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] items-center hover:bg-gray-50 dark:hover:bg-[rgba(255,255,255,0.04)] transition-[background] duration-150">
+            <div className="min-w-[80px] shrink-0 font-mono text-sm text-[var(--color-text-primary)]">
               { att.id }
-            </Box>
-            <Box minW="100px" flexShrink={ 0 }>
+            </div>
+            <div className="min-w-[100px] shrink-0">
               <Tag size="sm">{ attestationTypeLabel(att.type) }</Tag>
-            </Box>
-            <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.secondary" title={ att.provider }>
+            </div>
+            <div className="flex-1 font-mono text-sm text-[var(--color-text-secondary)]" title={ att.provider }>
               { truncateAddress(att.provider) }
-            </Box>
-            <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.secondary">
+            </div>
+            <div className="min-w-[100px] shrink-0 text-sm text-[var(--color-text-secondary)]">
               { att.blockHeight.toLocaleString() }
-            </Box>
-            <Box minW="160px" flexShrink={ 0 } fontSize="sm" color="text.secondary">
+            </div>
+            <div className="min-w-[160px] shrink-0 text-sm text-[var(--color-text-secondary)]">
               { formatTimestamp(att.timestamp) }
-            </Box>
-            <Box minW="100px" flexShrink={ 0 } textAlign={{ base: 'left', lg: 'right' }}>
+            </div>
+            <div className="min-w-[100px] shrink-0 text-left lg:text-right">
               <Tag size="sm" className={ attestationStatusClassName(att.status) }>
                 { att.status }
               </Tag>
-            </Box>
-          </Flex>
+            </div>
+          </div>
         )) }
-      </Box>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
@@ -322,81 +279,58 @@ const ModelsTab = ({ isLoading }: ModelsTabProps) => {
   const { models } = useModels();
 
   return (
-    <Box
-      border="1px solid"
-      borderColor="border.divider"
-      borderRadius="lg"
-      overflow="hidden"
-    >
+    <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
       { /* Header */ }
-      <Flex
-        px={ 4 }
-        py={ 2 }
-        gap={ 4 }
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        display={{ base: 'none', lg: 'flex' }}
-      >
+      <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
         <TableHeaderCell minW="180px">Name</TableHeaderCell>
         <TableHeaderCell minW="80px">Version</TableHeaderCell>
         <TableHeaderCell minW="100px">Framework</TableHeaderCell>
         <TableHeaderCell minW="100px" textAlign="right">Parameters</TableHeaderCell>
         <TableHeaderCell flex={ 1 }>Provider</TableHeaderCell>
         <TableHeaderCell minW="120px" textAlign="right">Registered</TableHeaderCell>
-      </Flex>
+      </div>
 
       { /* Rows */ }
       { isLoading && (
-        <Box px={ 4 } py={ 6 }>
+        <div className="px-4 py-6">
           <Skeleton loading={ true } h="16px" mb={ 3 }/>
           <Skeleton loading={ true } h="16px" mb={ 3 }/>
           <Skeleton loading={ true } h="16px"/>
-        </Box>
+        </div>
       ) }
 
       { !isLoading && models.length === 0 && (
-        <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+        <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
           No models registered
-        </Box>
+        </div>
       ) }
 
       { !isLoading && models.map((model) => (
-        <Flex
-          key={ model.id }
-          px={ 4 }
-          py={ 3 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          alignItems="center"
-          _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-          transition="background 0.15s"
-          flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-        >
-          <Box minW="180px" flexShrink={ 0 }>
-            <Box fontSize="sm" fontWeight="600" color="text.primary">{ model.name }</Box>
-            <Box fontSize="xs" fontFamily="mono" color="text.secondary" title={ model.modelHash }>
+        <div key={ model.id } className="flex flex-wrap lg:flex-nowrap px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] items-center hover:bg-gray-50 dark:hover:bg-[rgba(255,255,255,0.04)] transition-[background] duration-150">
+          <div className="min-w-[180px] shrink-0">
+            <div className="text-sm font-semibold text-[var(--color-text-primary)]">{ model.name }</div>
+            <div className="text-xs font-mono text-[var(--color-text-secondary)]" title={ model.modelHash }>
               { truncateHash(model.modelHash) }
-            </Box>
-          </Box>
-          <Box minW="80px" flexShrink={ 0 }>
+            </div>
+          </div>
+          <div className="min-w-[80px] shrink-0">
             <Tag size="sm">v{ model.version }</Tag>
-          </Box>
-          <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.secondary">
+          </div>
+          <div className="min-w-[100px] shrink-0 text-sm text-[var(--color-text-secondary)]">
             { model.framework }
-          </Box>
-          <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[100px] shrink-0 text-sm text-[var(--color-text-primary)] text-left lg:text-right">
             { formatParameters(model.parameters) }
-          </Box>
-          <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.secondary" title={ model.provider }>
+          </div>
+          <div className="flex-1 font-mono text-sm text-[var(--color-text-secondary)]" title={ model.provider }>
             { truncateAddress(model.provider) }
-          </Box>
-          <Box minW="120px" flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[120px] shrink-0 text-sm text-[var(--color-text-secondary)] text-left lg:text-right">
             { formatDate(model.registeredAt) }
-          </Box>
-        </Flex>
+          </div>
+        </div>
       )) }
-    </Box>
+    </div>
   );
 };
 
@@ -412,80 +346,57 @@ const ProvidersTab = ({ isLoading }: ProvidersTabProps) => {
   const { providers } = useProviders();
 
   return (
-    <Box
-      border="1px solid"
-      borderColor="border.divider"
-      borderRadius="lg"
-      overflow="hidden"
-    >
+    <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
       { /* Header */ }
-      <Flex
-        px={ 4 }
-        py={ 2 }
-        gap={ 4 }
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        display={{ base: 'none', lg: 'flex' }}
-      >
+      <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
         <TableHeaderCell flex={ 1 }>Address</TableHeaderCell>
         <TableHeaderCell minW="100px" textAlign="right">Reputation</TableHeaderCell>
         <TableHeaderCell minW="100px" textAlign="right">Capacity</TableHeaderCell>
         <TableHeaderCell minW="100px" textAlign="right">Total Jobs</TableHeaderCell>
         <TableHeaderCell minW="140px" textAlign="right">Earnings</TableHeaderCell>
         <TableHeaderCell minW="80px" textAlign="right">Status</TableHeaderCell>
-      </Flex>
+      </div>
 
       { /* Rows */ }
       { isLoading && (
-        <Box px={ 4 } py={ 6 }>
+        <div className="px-4 py-6">
           <Skeleton loading={ true } h="16px" mb={ 3 }/>
           <Skeleton loading={ true } h="16px" mb={ 3 }/>
           <Skeleton loading={ true } h="16px"/>
-        </Box>
+        </div>
       ) }
 
       { !isLoading && providers.length === 0 && (
-        <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+        <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
           No compute providers found
-        </Box>
+        </div>
       ) }
 
       { !isLoading && providers.map((provider) => (
-        <Flex
-          key={ provider.address }
-          px={ 4 }
-          py={ 3 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          alignItems="center"
-          _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-          transition="background 0.15s"
-          flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-        >
-          <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.primary" title={ provider.address }>
+        <div key={ provider.address } className="flex flex-wrap lg:flex-nowrap px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] items-center hover:bg-gray-50 dark:hover:bg-[rgba(255,255,255,0.04)] transition-[background] duration-150">
+          <div className="flex-1 font-mono text-sm text-[var(--color-text-primary)]" title={ provider.address }>
             { truncateAddress(provider.address) }
-          </Box>
-          <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[100px] shrink-0 text-sm text-[var(--color-text-primary)] text-left lg:text-right">
             { provider.reputation }%
-          </Box>
-          <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[100px] shrink-0 text-sm text-[var(--color-text-secondary)] text-left lg:text-right">
             { provider.capacity } GPUs
-          </Box>
-          <Box minW="100px" flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[100px] shrink-0 text-sm text-[var(--color-text-secondary)] text-left lg:text-right">
             { provider.totalJobs.toLocaleString() }
-          </Box>
-          <Box minW="140px" flexShrink={ 0 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[140px] shrink-0 text-sm text-[var(--color-text-primary)] text-left lg:text-right">
             { formatEarnings(provider.totalEarnings) }
-          </Box>
-          <Box minW="80px" flexShrink={ 0 } textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="min-w-[80px] shrink-0 text-left lg:text-right">
             <Tag size="sm" className={ provider.isActive ? 'bg-badge-green-bg text-badge-green-fg' : undefined }>
               { provider.isActive ? 'Active' : 'Offline' }
             </Tag>
-          </Box>
-        </Flex>
+          </div>
+        </div>
       )) }
-    </Box>
+    </div>
   );
 };
 
@@ -499,80 +410,57 @@ interface AttestationsTabProps {
 }
 
 const AttestationsTab = ({ attestations, isLoading }: AttestationsTabProps) => (
-  <Box
-    border="1px solid"
-    borderColor="border.divider"
-    borderRadius="lg"
-    overflow="hidden"
-  >
+  <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
     { /* Header */ }
-    <Flex
-      px={ 4 }
-      py={ 2 }
-      gap={ 4 }
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      display={{ base: 'none', lg: 'flex' }}
-    >
+    <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
       <TableHeaderCell minW="80px">ID</TableHeaderCell>
       <TableHeaderCell minW="100px">Type</TableHeaderCell>
       <TableHeaderCell flex={ 1 }>Provider</TableHeaderCell>
       <TableHeaderCell flex={ 1 }>Model Hash</TableHeaderCell>
       <TableHeaderCell minW="160px">Timestamp</TableHeaderCell>
       <TableHeaderCell minW="100px" textAlign="right">Status</TableHeaderCell>
-    </Flex>
+    </div>
 
     { /* Rows */ }
     { isLoading && (
-      <Box px={ 4 } py={ 6 }>
+      <div className="px-4 py-6">
         <Skeleton loading={ true } h="16px" mb={ 3 }/>
         <Skeleton loading={ true } h="16px" mb={ 3 }/>
         <Skeleton loading={ true } h="16px"/>
-      </Box>
+      </div>
     ) }
 
     { !isLoading && attestations.length === 0 && (
-      <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+      <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
         No attestations found
-      </Box>
+      </div>
     ) }
 
     { !isLoading && attestations.map((att) => (
-      <Flex
-        key={ att.id }
-        px={ 4 }
-        py={ 3 }
-        gap={ 4 }
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        alignItems="center"
-        _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-        transition="background 0.15s"
-        flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-      >
-        <Box minW="80px" flexShrink={ 0 } fontFamily="mono" fontSize="sm" color="text.primary">
+      <div key={ att.id } className="flex flex-wrap lg:flex-nowrap px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] items-center hover:bg-gray-50 dark:hover:bg-[rgba(255,255,255,0.04)] transition-[background] duration-150">
+        <div className="min-w-[80px] shrink-0 font-mono text-sm text-[var(--color-text-primary)]">
           { att.id }
-        </Box>
-        <Box minW="100px" flexShrink={ 0 }>
+        </div>
+        <div className="min-w-[100px] shrink-0">
           <Tag size="sm">{ attestationTypeLabel(att.type) }</Tag>
-        </Box>
-        <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.secondary" title={ att.provider }>
+        </div>
+        <div className="flex-1 font-mono text-sm text-[var(--color-text-secondary)]" title={ att.provider }>
           { truncateAddress(att.provider) }
-        </Box>
-        <Box flex={ 1 } fontFamily="mono" fontSize="sm" color="text.secondary" title={ att.modelHash }>
+        </div>
+        <div className="flex-1 font-mono text-sm text-[var(--color-text-secondary)]" title={ att.modelHash }>
           { truncateHash(att.modelHash) }
-        </Box>
-        <Box minW="160px" flexShrink={ 0 } fontSize="sm" color="text.secondary">
+        </div>
+        <div className="min-w-[160px] shrink-0 text-sm text-[var(--color-text-secondary)]">
           { formatTimestamp(att.timestamp) }
-        </Box>
-        <Box minW="100px" flexShrink={ 0 } textAlign={{ base: 'left', lg: 'right' }}>
+        </div>
+        <div className="min-w-[100px] shrink-0 text-left lg:text-right">
           <Tag size="sm" className={ attestationStatusClassName(att.status) }>
             { att.status }
           </Tag>
-        </Box>
-      </Flex>
+        </div>
+      </div>
     )) }
-  </Box>
+  </div>
 );
 
 // ---------------------------------------------------------------------------
@@ -622,19 +510,14 @@ const AIPage = () => {
       <PageTitle
         title="AI Compute"
         secondRow={ (
-          <Box fontSize="sm" color="text.secondary">
+          <div className="text-sm text-[var(--color-text-secondary)]">
             A-Chain AI models, compute providers, and attestations
-          </Box>
+          </div>
         ) }
       />
 
       { /* Tabs */ }
-      <Flex
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        mb={ 6 }
-        gap={ 0 }
-      >
+      <div className="flex border-b border-[var(--color-border-divider)] mb-6 gap-0">
         <TabButton
           label="Dashboard"
           isActive={ activeTab === TABS.dashboard }
@@ -655,7 +538,7 @@ const AIPage = () => {
           isActive={ activeTab === TABS.attestations }
           onClick={ handleAttestationsClick }
         />
-      </Flex>
+      </div>
 
       { /* Tab content */ }
       { activeTab === TABS.dashboard && (

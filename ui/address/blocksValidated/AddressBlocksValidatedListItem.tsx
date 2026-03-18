@@ -1,4 +1,3 @@
-import { Text, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -24,7 +23,7 @@ const AddressBlocksValidatedListItem = (props: Props) => {
 
   return (
     <ListItemMobile rowGap={ 2 }>
-      <Flex justifyContent="space-between" w="100%">
+      <div className="flex" justifyContent="space-between" w="100%">
         <BlockEntity
           isLoading={ props.isLoading }
           number={ props.height }
@@ -38,26 +37,26 @@ const AddressBlocksValidatedListItem = (props: Props) => {
           color="text.secondary"
           display="inline-block"
         />
-      </Flex>
-      <Flex columnGap={ 2 } w="100%">
+      </div>
+      <div className="flex" columnGap={ 2 } w="100%">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txn</Skeleton>
         <Skeleton loading={ props.isLoading } display="inline-block" color="Skeleton_secondary">
           <span>{ props.transactions_count }</span>
         </Skeleton>
-      </Flex>
-      <Flex columnGap={ 2 } w="100%">
+      </div>
+      <div className="flex" columnGap={ 2 } w="100%">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Gas used</Skeleton>
         <Skeleton loading={ props.isLoading }>
-          <Text color="text.secondary">{ BigNumber(props.gas_used || 0).toFormat() }</Text>
+          <span color="text.secondary">{ BigNumber(props.gas_used || 0).toFormat() }</span>
         </Skeleton>
         <BlockGasUsed
           gasUsed={ props.gas_used || undefined }
           gasLimit={ props.gas_limit }
           isLoading={ props.isLoading }
         />
-      </Flex>
+      </div>
       { !config.UI.views.block.hiddenFields?.total_reward && !config.features.rollup.isEnabled && (
-        <Flex columnGap={ 2 } w="100%">
+        <div className="flex" columnGap={ 2 } w="100%">
           <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Reward { currencyUnits.ether }</Skeleton>
           <SimpleValue
             value={ totalReward }
@@ -65,7 +64,7 @@ const AddressBlocksValidatedListItem = (props: Props) => {
             loading={ props.isLoading }
             color="text.secondary"
           />
-        </Flex>
+        </div>
       ) }
     </ListItemMobile>
   );

@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -106,7 +105,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
               ID
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <Text>{ data.filecoin.id }</Text>
+              <span>{ data.filecoin.id }</span>
               <CopyToClipboard text={ data.filecoin.id }/>
             </DetailedInfo.ItemValue>
           </>
@@ -158,7 +157,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
                 truncation="constant"
                 noIcon
               />
-              <Text whiteSpace="pre"> at txn </Text>
+              <span className="whitespace-pre"> at txn </span>
               <TxEntity hash={ data.creation_transaction_hash } truncation="constant" noIcon/>
               { data.creation_status && <ContractCreationStatus status={ data.creation_status } ml={{ base: 0, lg: 2 }}/> }
             </DetailedInfo.ItemValue>
@@ -182,7 +181,7 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
               Tokens
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue py={ addressQuery.data ? 0 : undefined }>
-              { addressQuery.data ? <TokenSelect/> : <Box>0</Box> }
+              { addressQuery.data ? <TokenSelect/> : <span>0</span> }
             </DetailedInfo.ItemValue>
           </>
         ) }

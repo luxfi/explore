@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type { ApiKey } from 'types/api/account';
@@ -63,7 +62,7 @@ const ApiKeysPage: React.FC = () => {
   const description = (
     <AccountPageDescription>
       Create API keys to use for your RPC and EthRPC API requests. For more information, see { space }
-      <Link href="https://docs.lux.network/using-blockscout/my-account/api-keys#api-keys" external noIcon>"How to use an API key"</Link>.
+      <Link href="https://docs.blockscout.com/using-blockscout/my-account/api-keys#api-keys" external noIcon>"How to use an API key"</Link>.
     </AccountPageDescription>
   );
 
@@ -74,7 +73,7 @@ const ApiKeysPage: React.FC = () => {
 
     const list = (
       <>
-        <Box display={{ base: 'block', lg: 'none' }}>
+        <div className="block lg:hidden">
           { data?.map((item, index) => (
             <ApiKeyListItem
               key={ item.api_key + (isPlaceholderData ? index : '') }
@@ -84,8 +83,8 @@ const ApiKeysPage: React.FC = () => {
               onEditClick={ onEditClick }
             />
           )) }
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>
+        </div>
+        <div className="hidden lg:block">
           <ApiKeyTable
             data={ data }
             isLoading={ isPlaceholderData }
@@ -93,7 +92,7 @@ const ApiKeysPage: React.FC = () => {
             onEditClick={ onEditClick }
             limit={ DATA_LIMIT }
           />
-        </Box>
+        </div>
       </>
     );
 
@@ -137,9 +136,9 @@ const ApiKeysPage: React.FC = () => {
         >
           { button }
           { !canAdd && (
-            <Text fontSize="sm" color="text.secondary">
+            <span className="text-sm text-[var(--color-text-secondary)]">
               { `You have added the maximum number of API keys (${ DATA_LIMIT }). Contact us to request additional keys.` }
-            </Text>
+            </span>
           ) }
         </Skeleton>
         <ApiKeyModal open={ apiKeyModalProps.open } onOpenChange={ onApiKeyModalOpenChange } data={ apiKeyModalData }/>

@@ -1,4 +1,3 @@
-import { Box, Flex, Text, Grid, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SolidityScanReportSeverityDistribution } from 'lib/solidityScan/schema';
@@ -38,26 +37,26 @@ const SolidityScanReportItem = ({ item, vulnerabilities, vulnerabilitiesCount }:
 
   return (
     <>
-      <Box w={ 3 } h={ 3 } bg={ item.color } borderRadius="6px" mr={ 2 }></Box>
-      <Flex justifyContent="space-between" mr={ 3 }>
-        <Text>{ item.name }</Text>
-        <Text color={ vulnerability > 0 ? 'text.primary' : 'text.secondary' }>{ vulnerabilities[item.id] }</Text>
-      </Flex>
-      <Box bg={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }} h="10px" borderRadius="8px">
-        <Box bg={ item.color } w={ `${ vulnerability / vulnerabilitiesCount * 100 }%` } h="10px" borderRadius="8px"/>
-      </Box>
+      <div w={ 3 } h={ 3 } bg={ item.color } borderRadius="6px" className="mr-2"></div>
+      <div className="flex justify-between mr-3">
+        <span>{ item.name }</span>
+        <span style={{ color: vulnerability > 0 ? 'text.primary' : 'text.secondary'  }}>{ vulnerabilities[item.id] }</span>
+      </div>
+      <div className="bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]" className="h-[10px]" borderRadius="8px">
+        <div bg={ item.color } style={{ width: `${ vulnerability / vulnerabilitiesCount * 100 }%` }} className="h-[10px]" borderRadius="8px"/>
+      </div>
     </>
   );
 };
 
 const SolidityscanReportDetails = ({ vulnerabilities, vulnerabilitiesCount }: Props) => {
   return (
-    <Grid templateColumns="20px 1fr 100px" alignItems="center" rowGap={ 2 }>
+    <div className="grid items-center gap-y-2" templateColumns="20px 1fr 100px">
       { DISTRIBUTION_ITEMS.map(item => (
         <SolidityScanReportItem item={ item } key={ item.id } vulnerabilities={ vulnerabilities } vulnerabilitiesCount={ vulnerabilitiesCount }/>
       )) }
-    </Grid>
+    </div>
   );
 };
 
-export default chakra(SolidityscanReportDetails);
+export default SolidityscanReportDetails;

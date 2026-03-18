@@ -2,21 +2,21 @@
 import type { Route } from 'nextjs-routes';
 
 // equal og:description
-const DEFAULT_TEMPLATE = 'Lux Network Explorer - Search transactions, verify smart contracts, analyze addresses, and track network activity. Complete blockchain data and APIs for the %network_title% network.';
+const DEFAULT_TEMPLATE = '%network_name% Explorer - Search transactions, verify smart contracts, analyze addresses, and track network activity. Complete blockchain data and APIs for the %network_title% network.';
 
 // FIXME all page descriptions will be updated later
 const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/': DEFAULT_TEMPLATE,
-  '/ai': 'Explore AI models, compute providers, inference results, and attestations on the Lux Network A-Chain.',
+  '/ai': 'Explore AI models, compute providers, inference results, and attestations on the %network_name% A-Chain.',
   '/txs': DEFAULT_TEMPLATE,
   '/internal-txs': DEFAULT_TEMPLATE,
   '/txs/kettle/[hash]': DEFAULT_TEMPLATE,
   '/tx/[hash]': 'View transaction %hash% on %network_title%',
   '/blocks': DEFAULT_TEMPLATE,
   '/block/[height_or_hash]': 'View the transactions, token transfers, and uncles for block %height_or_hash%',
-  '/chains': 'Explore all blockchains on the Lux Network including primary chains and L1/L2/L3 subnets.',
-  '/chains/[slug]': 'View chain details, validators, and subnet information for %slug% on the Lux Network.',
-  '/bridge': 'Track cross-chain transfers between Lux Network chains. View bridge routes, transfer status, and connected chains.',
+  '/chains': 'Explore all blockchains on %network_name% including primary chains and L1/L2/L3 subnets.',
+  '/chains/[slug]': 'View chain details, validators, and subnet information for %slug% on %network_name%.',
+  '/bridge': 'Track cross-chain transfers between %network_name% chains. View bridge routes, transfer status, and connected chains.',
   '/block/countdown': DEFAULT_TEMPLATE,
   '/block/countdown/[height]': DEFAULT_TEMPLATE,
   '/accounts': DEFAULT_TEMPLATE,
@@ -50,7 +50,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/txn-withdrawals': DEFAULT_TEMPLATE,
   '/visualize/sol2uml': DEFAULT_TEMPLATE,
   '/csv-export': DEFAULT_TEMPLATE,
-  '/dex': 'Explore the D-Chain decentralized exchange on the Lux Network. View orderbook, trade history, liquidity pools, and market data.',
+  '/dex': 'Explore the D-Chain decentralized exchange on %network_name%. View orderbook, trade history, liquidity pools, and market data.',
   '/deposits': DEFAULT_TEMPLATE,
   '/output-roots': DEFAULT_TEMPLATE,
   '/dispute-games': DEFAULT_TEMPLATE,
@@ -68,7 +68,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/validators/[id]': DEFAULT_TEMPLATE,
   '/epochs': DEFAULT_TEMPLATE,
   '/epochs/[number]': DEFAULT_TEMPLATE,
-  '/gas-tracker': 'Explore real-time %network_title% gas fees with Lux Network\'s advanced gas fee tracker. Get accurate %network_gwei% estimates and track transaction costs live.',
+  '/gas-tracker': 'Explore real-time %network_title% gas fees with %network_name%\'s advanced gas fee tracker. Get accurate %network_gwei% estimates and track transaction costs live.',
   '/mud-worlds': DEFAULT_TEMPLATE,
   '/token-transfers': DEFAULT_TEMPLATE,
   '/advanced-filter': DEFAULT_TEMPLATE,

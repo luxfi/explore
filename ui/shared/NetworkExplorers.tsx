@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NetworkExplorer as TNetworkExplorer } from 'types/networks';
@@ -58,4 +57,4 @@ const NetworkExplorers = ({ className, type, pathParam }: Props) => {
   );
 };
 
-export default React.memo(chakra(NetworkExplorers));
+export default React.memo(NetworkExplorers);

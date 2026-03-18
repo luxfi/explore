@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -31,7 +30,7 @@ const ContractDetailsByteCode = ({ data, isLoading, addressData }: Props) => {
   })();
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex" flexDir="column" rowGap={ 6 }>
       { data?.creation_bytecode && (
         <RawDataSnippet
           data={ data.creation_bytecode }
@@ -61,7 +60,7 @@ const ContractDetailsByteCode = ({ data, isLoading, addressData }: Props) => {
           showVerificationButton={ !data?.creation_bytecode && canBeVerified }
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 

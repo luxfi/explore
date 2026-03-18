@@ -1,4 +1,3 @@
-import { GridItem, Text, Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -91,7 +90,7 @@ const BlockDetails = ({ query }: Props) => {
     }
 
     return (
-      <Text color="text.secondary" whiteSpace="break-spaces">
+      <span color="text.secondary" whiteSpace="break-spaces">
         <Tooltip content="Static block reward">
           <span>{ staticReward.dividedBy(WEI).toFixed() }</span>
         </Tooltip>
@@ -111,7 +110,7 @@ const BlockDetails = ({ query }: Props) => {
             </Tooltip>
           </>
         ) }
-      </Text>
+      </span>
     );
   })();
 
@@ -163,7 +162,7 @@ const BlockDetails = ({ query }: Props) => {
         <Skeleton loading={ isPlaceholderData }>
           { data.height }
         </Skeleton>
-        { data.height === 0 && <Text whiteSpace="pre"> - Genesis Block</Text> }
+        { data.height === 0 && <span whiteSpace="pre"> - Genesis Block</span> }
         <PrevNext
           ml={ 6 }
           onClick={ handlePrevNextClick }
@@ -543,7 +542,7 @@ const BlockDetails = ({ query }: Props) => {
 
       { /* ADDITIONAL INFO */ }
       <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
+        <div className="lg:col-span-2 mt-1 lg:mt-4"/>
 
         { rollupFeature.isEnabled && rollupFeature.type === 'zkSync' && data.zksync &&
               <ZkSyncL2TxnBatchHashesInfo data={ data.zksync } isLoading={ isPlaceholderData }/> }
@@ -561,9 +560,9 @@ const BlockDetails = ({ query }: Props) => {
               flexWrap="nowrap"
               alignSelf="flex-start"
             >
-              <Box whiteSpace="nowrap" overflow="hidden">
+              <div whiteSpace="nowrap" overflow="hidden">
                 <HashStringShortenDynamic hash={ data.bitcoin_merged_mining_header }/>
-              </Box>
+              </div>
               <CopyToClipboard text={ data.bitcoin_merged_mining_header }/>
             </DetailedInfo.ItemValue>
           </>
@@ -616,9 +615,9 @@ const BlockDetails = ({ query }: Props) => {
               flexWrap="nowrap"
               alignSelf="flex-start"
             >
-              <Box whiteSpace="nowrap" overflow="hidden">
+              <div whiteSpace="nowrap" overflow="hidden">
                 <HashStringShortenDynamic hash={ data.hash_for_merged_mining }/>
-              </Box>
+              </div>
               <CopyToClipboard text={ data.hash_for_merged_mining }/>
             </DetailedInfo.ItemValue>
           </>
@@ -632,9 +631,9 @@ const BlockDetails = ({ query }: Props) => {
               Difficulty
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <Box overflow="hidden">
+              <div overflow="hidden">
                 <HashStringShortenDynamic hash={ BigNumber(data.difficulty).toFormat() }/>
-              </Box>
+              </div>
             </DetailedInfo.ItemValue>
           </>
         ) }
@@ -646,9 +645,9 @@ const BlockDetails = ({ query }: Props) => {
               Total difficulty
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue>
-              <Box overflow="hidden">
+              <div overflow="hidden">
                 <HashStringShortenDynamic hash={ BigNumber(data.total_difficulty).toFormat() }/>
-              </Box>
+              </div>
             </DetailedInfo.ItemValue>
           </>
         ) }
@@ -661,9 +660,9 @@ const BlockDetails = ({ query }: Props) => {
           Hash
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue flexWrap="nowrap">
-          <Box overflow="hidden" >
+          <div overflow="hidden" >
             <HashStringShortenDynamic hash={ data.hash }/>
-          </Box>
+          </div>
           <CopyToClipboard text={ data.hash }/>
         </DetailedInfo.ItemValue>
 
@@ -741,7 +740,7 @@ const BlockDetails = ({ query }: Props) => {
             <BlockDetailsZilliqaQuorumCertificate data={ data.zilliqa?.quorum_certificate }/>
             { data.zilliqa?.aggregate_quorum_certificate && (
               <>
-                <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 2 }}/>
+                <div className="lg:col-span-2 mt-1 lg:mt-2"/>
                 <BlockDetailsZilliqaQuorumCertificate data={ data.zilliqa?.aggregate_quorum_certificate }/>
               </>
             ) }

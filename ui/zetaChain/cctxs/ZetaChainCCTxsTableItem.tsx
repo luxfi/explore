@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
@@ -20,29 +19,27 @@ type Props = {
 
 const ZetaChainCCTxsTableItem = ({ tx, enableTimeIncrement, isLoading, animation }: Props) => {
   return (
-    <TableRow key={ tx.index } animation={ animation }>
-      <TableCell pr={ 4 }>
-        <HStack alignItems="start" lineHeight="24px">
+    <TableRow key={ tx.index }>
+      <TableCell>
+        <div className="flex flex-row">
           <TxEntityZetaChainCC
             hash={ tx.index }
             isLoading={ isLoading }
-            fontWeight="bold"
+           
             noIcon
-            maxW="100%"
             truncation="constant"
           />
           <TimeWithTooltip
             timestamp={ Number(tx.last_update_timestamp) * SECOND }
             enableIncrement={ enableTimeIncrement }
             isLoading={ isLoading }
-            color="text.secondary"
           />
-        </HStack>
+        </div>
       </TableCell>
       <TableCell>
         <ZetaChainCCTXReducedStatus status={ tx.status_reduced } type="full" isLoading={ isLoading }/>
       </TableCell>
-      <TableCell colSpan={ 2 }>
+      <TableCell style={{ gridColumn: "span 2" }}>
         <AddressFromTo
           from={{ hash: tx.sender_address, chainId: tx.source_chain_id.toString(), chainType: 'zeta' }}
           to={{ hash: tx.receiver_address, chainId: tx.target_chain_id.toString(), chainType: 'zeta' }}

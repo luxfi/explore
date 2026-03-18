@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
@@ -28,8 +27,8 @@ const AddressAccountHistoryListItem = (props: Props) => {
   return (
     <ListItemMobile rowGap={ 4 } w="full">
       <Skeleton borderRadius="sm" loading={ props.isPlaceholderData } w="full">
-        <Flex justifyContent="space-between" w="full">
-          <Flex columnGap={ 2 }>
+        <div className="flex justify-between w-full">
+          <div className="flex gap-x-2">
             <IconSvg
               name="lightning"
               height="5"
@@ -37,17 +36,17 @@ const AddressAccountHistoryListItem = (props: Props) => {
               color="icon.primary"
             />
 
-            <Text fontSize="sm" fontWeight={ 500 }>
+            <span className="text-sm font-medium">
               Action
-            </Text>
-          </Flex>
+            </span>
+          </div>
           <TimeWithTooltip
             timestamp={ props.tx.rawTransactionData.timestamp * SECOND }
             color="text.secondary"
             borderRadius="sm"
             fontWeight={ 500 }
           />
-        </Flex>
+        </div>
       </Skeleton>
       <Skeleton borderRadius="sm" loading={ props.isPlaceholderData }>
         <Link
@@ -60,9 +59,9 @@ const AddressAccountHistoryListItem = (props: Props) => {
         </Link>
       </Skeleton>
 
-      <Box maxW="full">
+      <div className="max-w-full">
         <NovesFromTo txData={ props.tx } currentAddress={ props.currentAddress } isLoaded={ !props.isPlaceholderData }/>
-      </Box>
+      </div>
     </ListItemMobile>
   );
 };

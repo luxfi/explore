@@ -1,4 +1,3 @@
-import { createListCollection, Flex, VStack } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import type { ChangeEvent } from 'react';
 import React from 'react';
@@ -8,7 +7,7 @@ import type { AdvancedFilterParams } from 'types/api/advancedFilter';
 import { Field } from 'toolkit/chakra/field';
 import { Input } from 'toolkit/chakra/input';
 import { InputGroup } from 'toolkit/chakra/input-group';
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import AddButton from 'toolkit/components/buttons/AddButton';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import { ADDRESS_REGEXP } from 'toolkit/utils/regexp';
@@ -61,7 +60,7 @@ function addressFilterToKey(filter: AddressFilter) {
 
 const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onClear, isLast, onAddFieldClick, isInvalid }: InputProps) => {
   return (
-    <Flex alignItems="flex-start" w="100%">
+    <div className="flex" alignItems="flex-start" w="100%">
       <Select
         collection={ collection }
         placeholder="Select mode"
@@ -88,7 +87,7 @@ const AddressFilterInput = ({ address, mode, onModeChange, onChange, onBlur, onC
           onClick={ onAddFieldClick }
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 
@@ -169,7 +168,7 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
       onReset={ onReset }
       hasReset
     >
-      <VStack gap={ 2 }>
+      <div className="flex flex-col" gap={ 2 }>
         { currentValue.map((item, index) => (
           <AddressFilterInput
             key={ index }
@@ -184,7 +183,7 @@ const AddressFilter = ({ type, value = [], handleFilterChange }: Props) => {
             isInvalid={ Boolean(touched[index]) && Boolean(item.address) && !ADDRESS_REGEXP.test(item.address) }
           />
         )) }
-      </VStack>
+      </div>
     </TableColumnFilter>
   );
 };

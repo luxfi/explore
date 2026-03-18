@@ -1,4 +1,3 @@
-import { Box, chakra, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -64,22 +63,22 @@ const ArbitrumL2TxnWithdrawals = () => {
 
   const content = data?.items ? (
     <>
-      <Box display={{ base: 'block', lg: 'none' }} mt={ 6 }>
+      <div className="mt-6 block lg:hidden">
         <ArbitrumL2TxnWithdrawalsList data={ data.items } txHash={ searchTerm } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box display={{ base: 'none', lg: 'block' }} mt={ 6 }>
+      </div>
+      <div className="mt-6 hidden lg:block">
         <ArbitrumL2TxnWithdrawalsTable data={ data.items } txHash={ searchTerm } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   return (
     <>
       <PageTitle title="Transaction withdrawals" withTextAd/>
-      <Text>
+      <span>
         { layerLabels.current } to { layerLabels.parent } message relayer: search for your { layerLabels.current } transaction to execute a manual withdrawal.
-      </Text>
-      <chakra.form onSubmit={ handleSubmit } noValidate>
+      </span>
+      <form onSubmit={ handleSubmit } noValidate>
         <FilterInput
           name="tx_hash"
           className="w-full lg:w-[700px] mt-6"
@@ -90,7 +89,7 @@ const ArbitrumL2TxnWithdrawals = () => {
           onFocus={ handleSearchInputFocus }
           onBlur={ handleSearchInputBlur }
         />
-      </chakra.form>
+      </form>
       { error && <FormFieldError message={ error }/> }
       <DataListDisplay
         mt={ 6 }

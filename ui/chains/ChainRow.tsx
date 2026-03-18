@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { Link } from 'toolkit/chakra/link';
@@ -40,7 +39,7 @@ const ChainRow = ({
 }: ChainRowProps) => {
   const row = (
     <Skeleton loading={ isLoading }>
-      <Flex
+      <div
         alignItems="center"
         py={ 3 }
         px={ 4 }
@@ -53,24 +52,24 @@ const ChainRow = ({
         cursor={ href ? 'pointer' : 'default' }
       >
         { /* Name column */ }
-        <Flex
+        <div
           direction="column"
           minW={{ base: '100%', lg: '180px' }}
           maxW={{ base: '100%', lg: '220px' }}
           flexShrink={ 0 }
         >
-          <Box fontWeight="600" fontSize="sm" color="text.primary">
+          <div fontWeight="600" fontSize="sm" color="text.primary">
             { name }
-          </Box>
+          </div>
           { fullName && (
-            <Box fontSize="xs" color="text.secondary" mt={ 0.5 }>
+            <div fontSize="xs" color="text.secondary" mt={ 0.5 }>
               { fullName }
-            </Box>
+            </div>
           ) }
-        </Flex>
+        </div>
 
         { /* Blockchain ID column */ }
-        <Box
+        <div
           flex={ 1 }
           minW={ 0 }
           fontFamily="mono"
@@ -82,10 +81,10 @@ const ChainRow = ({
           whiteSpace="nowrap"
         >
           { blockchainId ? truncateId(blockchainId) : '\u2014' }
-        </Box>
+        </div>
 
         { /* Subnet ID column */ }
-        <Box
+        <div
           flex={ 1 }
           minW={ 0 }
           fontFamily="mono"
@@ -98,12 +97,12 @@ const ChainRow = ({
           display={{ base: 'none', lg: 'block' }}
         >
           { subnetId ? truncateId(subnetId) : '\u2014' }
-        </Box>
+        </div>
 
         { /* VM badge */ }
-        <Flex alignItems="center" gap={ 2 } flexShrink={ 0 }>
+        <div alignItems="center" gap={ 2 } flexShrink={ 0 }>
           { vmLabel && (
-            <Box
+            <div
               bgColor={{ _light: 'gray.100', _dark: 'whiteAlpha.100' }}
               color="text.secondary"
               borderRadius="sm"
@@ -114,10 +113,10 @@ const ChainRow = ({
               whiteSpace="nowrap"
             >
               { vmLabel }
-            </Box>
+            </div>
           ) }
           { chainId != null && (
-            <Box
+            <div
               bgColor={{ _light: 'gray.100', _dark: 'whiteAlpha.100' }}
               color="text.secondary"
               borderRadius="sm"
@@ -128,22 +127,22 @@ const ChainRow = ({
               whiteSpace="nowrap"
             >
               { chainId }
-            </Box>
+            </div>
           ) }
-        </Flex>
+        </div>
 
         { /* Status indicator + arrow */ }
-        <Flex alignItems="center" gap={ 2 } flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
-          <Box
+        <div alignItems="center" gap={ 2 } flexShrink={ 0 } ml={{ base: 0, lg: 'auto' }}>
+          <div
             bgColor={ isActive ? 'green.400' : 'gray.400' }
             borderRadius="full"
             boxSize="8px"
           />
           { href && (
-            <Box color="text.secondary" fontSize="sm">{ '\u2192' }</Box>
+            <div color="text.secondary" fontSize="sm">{ '\u2192' }</div>
           ) }
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </Skeleton>
   );
 

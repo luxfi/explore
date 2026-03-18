@@ -1,8 +1,8 @@
-import { Flex, Text, Separator } from '@chakra-ui/react';
 import React from 'react';
 
 import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
+import { Separator } from 'toolkit/chakra/separator';
 import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
 import { Heading } from 'toolkit/chakra/heading';
 
@@ -25,25 +25,17 @@ const RewardsStreakModal = ({ open, onOpenChange, currentStreak, badges = EMPTY_
       <DialogContent>
         <DialogHeader>Streak progress</DialogHeader>
         <DialogBody>
-          <Flex direction="column" gap={ 6 }>
-            <Flex direction="column" gap={{ base: 6, lg: 3 }}>
-              <Text textStyle={{ base: 'sm', lg: 'md' }}>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 lg:gap-3">
+              <p className="text-sm lg:text-base">
                 Build your streak day by day and unlock exclusive badges as a reward for staying consistent.
-              </Text>
-              <Flex
-                direction={{ base: 'column', lg: 'row' }}
-                gap={{ base: 3, lg: 10 }}
-                bgColor={{ _light: 'gray.50', _dark: 'whiteAlpha.100' }}
-                p={{ base: 4, lg: 8 }}
-                pl={{ base: 4, lg: 5 }}
-                borderRadius="lg"
-                justifyContent="space-between"
-              >
-                <Flex direction="column" alignItems="center" gap={{ base: 1, lg: 2 }}>
+              </p>
+              <div className="flex flex-col lg:flex-row gap-3 lg:gap-10 bg-gray-50 dark:bg-[var(--color-whiteAlpha-100)] p-4 lg:p-8 lg:pl-5 rounded-lg justify-between">
+                <div className="flex flex-col items-center gap-1 lg:gap-2">
                   <Heading level="1">{ currentStreak }</Heading>
-                  <Text textStyle="xs" color="text.secondary">Day streak</Text>
-                </Flex>
-                <Flex flex={ 1 } pl={{ base: 2, lg: 0 }}>
+                  <span className="text-xs text-[var(--color-text-secondary)]">Day streak</span>
+                </div>
+                <div className="flex flex-1 pl-2 lg:pl-0">
                   { badges.map((badge, i) => {
                     const target = Number(badge.requirements?.streak || 0);
                     const prevTarget = i > 0 ? Number(badges[i - 1]?.requirements?.streak || 0) : 0;
@@ -58,32 +50,31 @@ const RewardsStreakModal = ({ open, onOpenChange, currentStreak, badges = EMPTY_
                       />
                     );
                   }) }
-                </Flex>
-              </Flex>
-            </Flex>
+                </div>
+              </div>
+            </div>
 
-            <Flex direction="column" gap={ 2 }>
+            <div className="flex flex-col gap-2">
               <Heading level="3">Rewards</Heading>
-              <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 2, lg: 6 }} justifyContent="space-between">
+              <div className="flex flex-col lg:flex-row gap-2 lg:gap-6 justify-between">
                 { badges.map((badge, i) => (
-                  <>
+                  <React.Fragment key={ i }>
                     <BadgeCard
-                      key={ i }
                       badge={ badge }
                       currentStreak={ currentStreak }
                       index={ i }
                     />
                     { i < badges.length - 1 && (
                       <Separator
-                        display={{ base: 'none', lg: 'block' }}
+                        className="hidden lg:block"
                         orientation="vertical"
                       />
                     ) }
-                  </>
+                  </React.Fragment>
                 )) }
-              </Flex>
-            </Flex>
-          </Flex>
+              </div>
+            </div>
+          </div>
         </DialogBody>
       </DialogContent>
     </DialogRoot>

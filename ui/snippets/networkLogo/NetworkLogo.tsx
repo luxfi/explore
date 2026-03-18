@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -7,18 +6,16 @@ import config from 'configs/app';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
 import { Image } from 'toolkit/chakra/image';
 
-import { INVERT_FILTER } from './consts';
-
 const LogoFallback = () => {
   return (
-    <Flex alignItems="center" gap="8px" height="24px">
+    <div className="flex items-center gap-2 h-6">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="24" height="24">
         <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
       </svg>
-      <chakra.span fontWeight="700" fontSize="lg" letterSpacing="-0.02em">
+      <span className="font-bold text-lg tracking-tight">
         { config.chain.name }
-      </chakra.span>
-    </Flex>
+      </span>
+    </div>
   );
 };
 
@@ -31,7 +28,7 @@ const NetworkLogo = ({ className }: Props) => {
   const logoSrc = useColorModeValue(config.UI.navigation.logo.default, config.UI.navigation.logo.dark || config.UI.navigation.logo.default);
 
   return (
-    <chakra.a
+    <a
       className={ className }
       href={ route({ pathname: '/' }) }
       aria-label="Link to main page"
@@ -46,8 +43,8 @@ const NetworkLogo = ({ className }: Props) => {
         objectPosition="left"
         className={ !config.UI.navigation.logo.dark ? 'dark:brightness-0 dark:invert' : undefined }
       />
-    </chakra.a>
+    </a>
   );
 };
 
-export default React.memo(chakra(NetworkLogo));
+export default React.memo(NetworkLogo);

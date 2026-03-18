@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 
@@ -33,7 +32,7 @@ const DeleteApiKeyModal: React.FC<Props> = ({ open, onOpenChange, data }) => {
 
   const renderText = useCallback(() => {
     return (
-      <Text> API key for <Text fontWeight="700" as="span">{ ` "${ data.name || 'name' }" ` }</Text> will be deleted </Text>
+      <span> API key for <span fontWeight="700" as="span">{ ` "${ data.name || 'name' }" ` }</span> will be deleted </span>
     );
   }, [ data.name ]);
 

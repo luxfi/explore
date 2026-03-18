@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { IconButton } from 'toolkit/chakra/icon-button';
@@ -24,4 +23,4 @@ const LinkNewTab = ({ className, label, href }: Props) => {
   );
 };
 
-export default React.memo(chakra(LinkNewTab));
+export default React.memo(LinkNewTab);

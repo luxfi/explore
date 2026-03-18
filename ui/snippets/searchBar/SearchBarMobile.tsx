@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import React from 'react';
@@ -96,23 +95,17 @@ const SearchBarMobile = ({ isHeroBanner, onGoToSearchResults }: Props) => {
   let trigger: React.ReactNode | null = null;
   if (isHeroBanner) {
     trigger = (
-      <Box position="relative" width="100%">
+      <div className="relative w-full">
         <SearchBarInput
           isHeroBanner={ isHeroBanner }
           readOnly={ true }
         />
-        <Box
+        <div
           onClick={ handleOverlayClick }
           aria-label="Search"
-          cursor="pointer"
-          zIndex={ 1 }
-          position="absolute"
-          top={ 0 }
-          left={ 0 }
-          right={ 0 }
-          bottom={ 0 }
+          className="cursor-pointer z-[1] absolute top-0 left-0 right-0 bottom-0"
         />
-      </Box>
+      </div>
     );
   } else {
     trigger = (

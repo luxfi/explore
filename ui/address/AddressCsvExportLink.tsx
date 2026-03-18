@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CsvExportParams } from 'types/client/address';
@@ -20,9 +19,11 @@ interface Props {
   className?: string;
   isLoading?: boolean;
   chainData?: ClusterChainConfig;
+  // Chakra-style props forwarded from parent (ml, etc.) - kept for compat
+  [key: string]: unknown;
 }
 
-const AddressCsvExportLink = ({ className, address, params, isLoading, chainData }: Props) => {
+const AddressCsvExportLink = ({ className, address, params, isLoading, chainData, ...rest }: Props) => {
   const isMobile = useIsMobile();
   const isInitialLoading = useIsInitialLoading(isLoading);
   const multichainContext = useMultichainContext();
@@ -44,12 +45,13 @@ const AddressCsvExportLink = ({ className, address, params, isLoading, chainData
         minW={ 8 }
         justifyContent="center"
         textStyle="sm"
+        { ...rest }
       >
         <IconSvg name="files/csv" boxSize={ 5 }/>
-        <chakra.span ml={ 1 } hideBelow="lg">Download</chakra.span>
+        <span className="ml-1 hidden lg:inline">Download</span>
       </Link>
     </Tooltip>
   );
 };
 
-export default React.memo(chakra(AddressCsvExportLink));
+export default React.memo(AddressCsvExportLink);

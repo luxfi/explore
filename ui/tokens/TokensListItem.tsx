@@ -1,4 +1,3 @@
-import { Flex, HStack, Grid, GridItem } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -62,12 +61,11 @@ const TokensListItem = ({
   }, [ chainInfos ]);
 
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Grid
+    <ListItemMobile>
+      <div
         width="100%"
-        gridTemplateColumns="minmax(0, 1fr)"
       >
-        <GridItem display="flex">
+        <div>
           <TokenEntity
             token={ token }
             chain={ chainInfo }
@@ -75,21 +73,19 @@ const TokensListItem = ({
             jointSymbol
             noCopy
             w="auto"
-            textStyle="sm"
-            fontWeight="700"
             noLink={ type === 'NATIVE' }
           />
-          <Flex ml={ 3 } flexShrink={ 0 } columnGap={ 1 }>
+          <div>
             <Tag loading={ isLoading }>{ getTokenTypeName(type, chainInfo?.app_config) }</Tag>
             { bridgedChainTag && <Tag loading={ isLoading }>{ bridgedChainTag }</Tag> }
-          </Flex>
-          <Skeleton loading={ isLoading } textStyle="sm" ml="auto" color="text.secondary" minW="24px" className="text-right">
+          </div>
+          <Skeleton loading={ isLoading } color="text.secondary" className="text-right">
             <span>{ getItemIndex(index, page) }</span>
           </Skeleton>
-        </GridItem>
-      </Grid>
+        </div>
+      </div>
       { type !== 'NATIVE' && (
-        <Flex justifyContent="space-between" alignItems="center" width="150px" ml={ 7 } mt={ -2 }>
+        <div width="150px">
           <AddressEntity
             address={{ hash: addressHash, filecoin: { robust: filecoinRobustAddress } }}
             isLoading={ isLoading }
@@ -98,11 +94,11 @@ const TokensListItem = ({
             noIcon
           />
           <AddressAddToWallet token={ token } isLoading={ isLoading }/>
-        </Flex>
+        </div>
       ) }
       { exchangeRate && (
-        <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>Price</Skeleton>
+        <div>
+          <Skeleton loading={ isLoading }>Price</Skeleton>
           <SimpleValue
             value={ BigNumber(exchangeRate) }
             loading={ isLoading }
@@ -111,11 +107,11 @@ const TokensListItem = ({
             className="text-sm"
             color="text.secondary"
           />
-        </HStack>
+        </div>
       ) }
       { marketCap && (
-        <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>On-chain market cap</Skeleton>
+        <div>
+          <Skeleton loading={ isLoading }>On-chain market cap</Skeleton>
           <SimpleValue
             value={ BigNumber(marketCap) }
             loading={ isLoading }
@@ -124,13 +120,13 @@ const TokensListItem = ({
             className="text-sm"
             color="text.secondary"
           />
-        </HStack>
+        </div>
       ) }
       { holdersCount && (
-        <HStack gap={ 3 }>
-          <Skeleton loading={ isLoading } textStyle="sm" fontWeight={ 500 }>Holders</Skeleton>
-          <Skeleton loading={ isLoading } textStyle="sm" color="text.secondary"><span>{ Number(holdersCount).toLocaleString() }</span></Skeleton>
-        </HStack>
+        <div>
+          <Skeleton loading={ isLoading }>Holders</Skeleton>
+          <Skeleton loading={ isLoading } color="text.secondary"><span>{ Number(holdersCount).toLocaleString() }</span></Skeleton>
+        </div>
       ) }
     </ListItemMobile>
   );

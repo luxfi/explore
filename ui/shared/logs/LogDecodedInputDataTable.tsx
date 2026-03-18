@@ -1,4 +1,3 @@
-import { Flex, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { DecodedInput } from 'types/api/decodedInput';
@@ -41,18 +40,18 @@ const Row = ({ name, type, indexed, value, isLoading }: ArrayElement<DecodedInpu
     if (typeof value === 'object') {
       const text = JSON.stringify(value, undefined, 4);
       return (
-        <Flex alignItems="flex-start" whiteSpace="normal" wordBreak="break-all">
+        <div className="flex items-start whitespace-normal break-all">
           <TruncatedText text={ text } loading={ isLoading }/>
           <CopyToClipboard text={ text } isLoading={ isLoading }/>
-        </Flex>
+        </div>
       );
     }
 
     return (
-      <Flex alignItems="flex-start" whiteSpace="normal" wordBreak="break-all">
+      <div className="flex items-start whitespace-normal break-all">
         <TruncatedText text={ value } loading={ isLoading }/>
         <CopyToClipboard text={ value } isLoading={ isLoading }/>
-      </Flex>
+      </div>
     );
   })();
 
@@ -79,17 +78,7 @@ const LogDecodedInputDataTable = ({ data, isLoading }: Props) => {
     '80px 80px minmax(0, 1fr)';
 
   return (
-    <Grid
-      gridTemplateColumns={{ base: gridTemplateColumnsBase, lg: gridTemplateColumnsLg }}
-      textStyle="sm"
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      p={ 4 }
-      mt={ 2 }
-      w="100%"
-      columnGap={ 5 }
-      rowGap={ 5 }
-      borderBottomLeftRadius="md"
-      borderBottomRightRadius="md"
+    <div className="grid rounded-bl-md rounded-br-md gap-x-5 gap-y-5 p-4 mt-2 w-full text-sm bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]" style={{ gridTemplateColumns: gridTemplateColumnsBase }}
     >
       <HeaderItem isLoading={ isLoading }>Name</HeaderItem>
       <HeaderItem isLoading={ isLoading }>Type</HeaderItem>
@@ -99,7 +88,7 @@ const LogDecodedInputDataTable = ({ data, isLoading }: Props) => {
 
         return <Row key={ item.name } { ...item } isLoading={ isLoading }/>;
       }) }
-    </Grid>
+    </div>
   );
 };
 

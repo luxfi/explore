@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { debounce } from 'es-toolkit';
 import React from 'react';
@@ -163,7 +162,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
     }
 
     if (query.isError) {
-      return <Text>Something went wrong. Try refreshing the page or come back later.</Text>;
+      return <p>Something went wrong. Try refreshing the page or come back later.</p>;
     }
 
     const resultCategories = searchCategories.filter(cat => itemsGroups[cat.id]);
@@ -173,7 +172,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
         return <SearchBarSuggestBlockCountdown blockHeight={ searchTerm } isMultichain={ Boolean(multichainConfig()) } onClick={ onItemClick }/>;
       }
 
-      return <Text>No results found.</Text>;
+      return <p>No results found.</p>;
     }
 
     return (
@@ -194,23 +193,19 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
             }}
           />
         ) }
-        <Flex flexDirection="column" overflowY="auto" ref={ scrollContainerRef }>
+        <div className="flex flex-col overflow-y-auto" ref={ scrollContainerRef }>
           { resultCategories.map((cat, index) => {
             return (
-              <Box key={ cat.id } data-scroll-target={ `cat_${ cat.id }` }>
-                <Text
-                  textStyle="sm"
-                  fontWeight={ 600 }
-                  color="text.secondary"
-                  mt={ index === 0 ? 1 : 6 }
-                  mb={{ base: 2, lg: 3 }}
+              <div key={ cat.id } data-scroll-target={ `cat_${ cat.id }` }>
+                <p
+                  className={ `text-sm font-semibold text-[var(--color-text-secondary)] ${ index === 0 ? 'mt-1' : 'mt-6' } mb-2 lg:mb-3` }
                   ref={ (el: HTMLParagraphElement) => {
                     categoriesRefs.current[index] = el;
                   } }
                   data-id={ cat.id }
                 >
                   { cat.title }
-                </Text>
+                </p>
                 { cat.id !== 'app' && cat.id !== 'zetaChainCCTX' && itemsGroups[cat.id]?.map((item, index) => (
                   <SearchBarSuggestItem
                     key={ index }
@@ -227,11 +222,11 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
                 { cat.id === 'zetaChainCCTX' && itemsGroups[cat.id]?.map((item, index) =>
                   <SearchBarSuggestZetaChainCCTX key={ index } data={ item } isMobile={ isMobile } searchTerm={ searchTerm } onClick={ onItemClick }/>,
                 ) }
-              </Box>
+              </div>
             );
           }) }
           { externalSearchItem && <ExternalSearchItem item={ externalSearchItem }/> }
-        </Flex>
+        </div>
       </>
     );
   })();
@@ -239,9 +234,9 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
   return (
     <>
       { !isMobile && (
-        <Box pb={ 4 } mb={ 5 } borderColor="border.divider" borderBottomWidth="1px" _empty={{ display: 'none' }}>
+        <div className="pb-4 mb-5 border-b border-[var(--color-border-divider)] empty:hidden">
           <TextAd textStyle={{ lg: 'sm' }}/>
-        </Box>
+        </div>
       ) }
       { content }
     </>

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -33,17 +32,17 @@ const ValidatorsZilliqa = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <ValidatorsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <ValidatorsTable data={ data.items } isLoading={ isPlaceholderData } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   return (
-    <Box>
+    <div>
       <PageTitle title="Validators" withTextAd/>
       <DataListDisplay
         isError={ isError }
@@ -53,7 +52,7 @@ const ValidatorsZilliqa = () => {
       >
         { content }
       </DataListDisplay>
-    </Box>
+    </div>
   );
 };
 

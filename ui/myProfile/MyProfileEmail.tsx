@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -82,10 +81,7 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
     <section>
       <Heading level="2" className="mb-3">Notifications</Heading>
       <FormProvider { ...formApi }>
-        <chakra.form
-          noValidate
-          onSubmit={ formApi.handleSubmit(onFormSubmit) }
-        >
+        <form noValidate onSubmit={ formApi.handleSubmit(onFormSubmit) }>
           <FormFieldText<FormFields> name="name" placeholder="Name" readOnly className="mb-3"/>
           <MyProfileFieldsEmail
             isReadOnly={ !config.services.reCaptchaV2.siteKey || Boolean(profileQuery.data?.email) }
@@ -105,7 +101,7 @@ const MyProfileEmail = ({ profileQuery }: Props) => {
               Save changes
             </Button>
           ) }
-        </chakra.form>
+        </form>
       </FormProvider>
       { authModal.open && (
         <AuthModal

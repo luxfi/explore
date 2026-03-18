@@ -1,4 +1,3 @@
-import { Box, createListCollection, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -23,6 +22,7 @@ import { VALIDATORS_BLACKFORT_SORT_OPTIONS } from 'ui/validators/blackfort/utils
 import ValidatorsCounters from 'ui/validators/blackfort/ValidatorsCounters';
 import ValidatorsList from 'ui/validators/blackfort/ValidatorsList';
 import ValidatorsTable from 'ui/validators/blackfort/ValidatorsTable';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({
   items: VALIDATORS_BLACKFORT_SORT_OPTIONS,
@@ -65,9 +65,9 @@ const ValidatorsBlackfort = () => {
 
   const actionBar = (
     <>
-      <HStack gap={ 3 } mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 gap-3 flex lg:hidden">
         { sortButton }
-      </HStack>
+      </div>
       { pagination.isVisible && (
         <ActionBar mt={ -6 }>
           <Pagination className="ml-auto" { ...pagination }/>
@@ -78,10 +78,10 @@ const ValidatorsBlackfort = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <ValidatorsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <ValidatorsTable
           data={ data.items }
           sort={ sort }
@@ -89,12 +89,12 @@ const ValidatorsBlackfort = () => {
           isLoading={ isPlaceholderData }
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 
   return (
-    <Box>
+    <div>
       <PageTitle title="Validators" withTextAd/>
       <ValidatorsCounters/>
       <DataListDisplay
@@ -105,7 +105,7 @@ const ValidatorsBlackfort = () => {
       >
         { content }
       </DataListDisplay>
-    </Box>
+    </div>
   );
 };
 

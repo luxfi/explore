@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { MultichainProvider } from 'lib/contexts/multichain';
@@ -39,9 +38,9 @@ const MultichainInternalTxs = () => {
   const actionBar = (
     <>
       { isMobile && (
-        <Box mb={ 6 }>
+        <div mb={ 6 }>
           { filterInput }
-        </Box>
+        </div>
       ) }
       <ActionBar mt={ -6 } justifyContent="flex-start">
         { chainSelect }
@@ -53,12 +52,12 @@ const MultichainInternalTxs = () => {
 
   const content = data?.items ? (
     <MultichainProvider chainId={ query.chainValue?.[0] }>
-      <Box hideBelow="lg">
+      <div hideBelow="lg">
         <InternalTxsTable data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div hideFrom="lg">
         <InternalTxsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </MultichainProvider>
   ) : null;
 

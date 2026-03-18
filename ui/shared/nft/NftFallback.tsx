@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
@@ -15,4 +14,4 @@ const NftFallback = ({ className }: { className?: string }) => {
   );
 };
 
-export default chakra(NftFallback);
+export default NftFallback;

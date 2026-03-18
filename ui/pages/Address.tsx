@@ -1,4 +1,3 @@
-import { Box, Flex, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -434,7 +433,7 @@ const AddressPageContent = () => {
   }, [ hash, addressQuery.data?.hash, isLoading ]);
 
   const titleSecondRow = (
-    <Flex alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <div className="flex items-center w-full gap-x-2 gap-y-2 flex-wrap lg:flex-nowrap">
       { addressQuery.data?.ens_domain_name && (
         <EnsEntity
           domain={ addressQuery.data?.ens_domain_name }
@@ -465,7 +464,7 @@ const AddressPageContent = () => {
       ) }
       <AddressQrCode hash={ addressQuery.data?.filecoin?.robust ?? checkSummedHash } isLoading={ isLoading }/>
       <AccountActionsMenu isLoading={ isLoading }/>
-      <HStack ml="auto" gap={ 2 }/>
+      <div className="flex gap-2 ml-auto"/>
       <AddressMultichainInfoButton loading={ isLoading } addressData={ addressQuery.data }/>
       { !isLoading && addressQuery.data?.is_contract && addressQuery.data?.is_verified && config.UI.views.address.solidityscanEnabled &&
         <SolidityscanReport hash={ hash }/> }
@@ -474,7 +473,7 @@ const AddressPageContent = () => {
       { !isLoading && nameServicesFeature.isEnabled && nameServicesFeature.clusters.isEnabled &&
         <AddressClusters query={ addressClustersQuery } addressHash={ hash }/> }
       <NetworkExplorers type="address" pathParam={ hash }/>
-    </Flex>
+    </div>
   );
 
   return (
@@ -488,7 +487,7 @@ const AddressPageContent = () => {
       />
       { !addressMetadataQuery.isPending &&
         <AddressAlerts tags={ addressMetadataQuery.data?.addresses?.[hash.toLowerCase()]?.tags }/> }
-      { config.features.metasuites.isEnabled && <Box display="none" id="meta-suites__address" data-ready={ !isLoading }/> }
+      { config.features.metasuites.isEnabled && <div className="hidden" id="meta-suites__address" data-ready={ !isLoading }/> }
       <RoutedTabs tabs={ tabs } isLoading={ isTabsLoading }/>
     </>
   );

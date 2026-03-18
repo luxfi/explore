@@ -1,4 +1,3 @@
-import { Grid, Text, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InteropTransactionInfo } from 'types/api/transaction';
@@ -29,24 +28,16 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
   }
 
   const details = (
-    <Grid
-      gridTemplateColumns="100px 1fr"
-      textStyle="sm"
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      px={ 4 }
-      py={ 2 }
-      mt={ 3 }
-      w="100%"
-      rowGap={ 4 }
-      borderRadius="md"
+    <div
+     
     >
-      <Text color="text.secondary">Message id</Text>
-      <Text>{ data.nonce }</Text>
-      <Text color="text.secondary">Interop status</Text>
-      <Box>
+      <span className="text-[var(--color-text-secondary)]">Message id</span>
+      <span>{ data.nonce }</span>
+      <span className="text-[var(--color-text-secondary)]">Interop status</span>
+      <div>
         <InteropMessageStatus status={ data.status }/>
-      </Box>
-      <Text color="text.secondary">Sender</Text>
+      </div>
+      <span className="text-[var(--color-text-secondary)]">Sender</span>
       { data.init_chain !== undefined ? (
         <AddressEntityInterop
           chain={ data.init_chain }
@@ -57,7 +48,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       ) : (
         <AddressEntity address={{ hash: data.sender_address_hash }} isLoading={ isLoading } truncation="constant"/>
       ) }
-      <Text color="text.secondary">Target</Text>
+      <span className="text-[var(--color-text-secondary)]">Target</span>
       { data.relay_chain !== undefined ? (
         <AddressEntityInterop
           chain={ data.relay_chain }
@@ -68,19 +59,15 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
       ) : (
         <AddressEntity address={{ hash: data.target_address_hash }} isLoading={ isLoading } truncation="constant"/>
       ) }
-      <Text color="text.secondary">Payload</Text>
-      <Flex overflow="hidden">
-        <Text
-          wordBreak="break-all"
-          whiteSpace="normal"
-          overflow="hidden"
-          flex="1"
+      <span className="text-[var(--color-text-secondary)]">Payload</span>
+      <div>
+        <span className="flex-1"
         >
           { data.payload }
-        </Text>
+        </span>
         <CopyToClipboard text={ data.payload }/>
-      </Flex>
-    </Grid>
+      </div>
+    </div>
   );
 
   if (data.init_chain !== undefined) {
@@ -92,7 +79,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
         >
           Interop source tx
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
+        <DetailedInfo.ItemValue>
           <InteropMessageSourceTx { ...data } isLoading={ isLoading }/>
           <CollapsibleDetails variant="secondary" noScroll className="ml-3">
             { details }
@@ -111,7 +98,7 @@ const TxDetailsInterop = ({ data, isLoading }: Props) => {
         >
           Interop relay tx
         </DetailedInfo.ItemLabel>
-        <DetailedInfo.ItemValue flexWrap="wrap" mt={{ lg: 1 }}>
+        <DetailedInfo.ItemValue>
           <InteropMessageDestinationTx { ...data } isLoading={ isLoading }/>
           <CollapsibleDetails variant="secondary" noScroll className="ml-3">
             { details }

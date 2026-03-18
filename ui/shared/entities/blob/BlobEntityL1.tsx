@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -24,4 +23,4 @@ const BlobEntityL1 = (props: BlobEntity.EntityProps) => {
   );
 };
 
-export default chakra(BlobEntityL1);
+export default BlobEntityL1;

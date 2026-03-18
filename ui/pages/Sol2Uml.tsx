@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -15,24 +14,24 @@ const Sol2Uml = () => {
   const addressHash = router.query.address?.toString() || '';
 
   const chainInfo = multichainContext?.chain ? (
-    <Flex display="inline-flex" alignItems="center">
+    <div className="items-center inline-flex">
       <span>on</span>
       <ChainIcon data={ multichainContext.chain } ml={ 1 } mr={ 2 }/>
       <span>{ multichainContext.chain.app_config.chain.name }</span>
-    </Flex>
+    </div>
   ) : null;
 
   return (
     <>
       <PageTitle title="Solidity UML diagram"/>
-      <Flex mb={ 10 } flexWrap="wrap" columnGap={ 1 }>
+      <div className="flex flex-wrap mb-10 gap-x-1">
         <span>For contract</span>
         <AddressEntity
           address={{ hash: addressHash, is_contract: true }}
           noCopy
         />
         { chainInfo }
-      </Flex>
+      </div>
       <Sol2UmlDiagram addressHash={ addressHash }/>
     </>
   );

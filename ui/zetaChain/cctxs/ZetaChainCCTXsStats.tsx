@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -8,7 +6,7 @@ import getStatsLabelFromTitle from 'lib/stats/getStatsLabelFromTitle';
 import { TXS_STATS_MICROSERVICE } from 'stubs/tx';
 import StatsWidget from 'ui/shared/stats/StatsWidget';
 
-interface Props extends BoxProps {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ZetaChainCCTXsStats = (props: Props) => {
   const isStatsFeatureEnabled = config.features.stats.isEnabled;
@@ -37,12 +35,9 @@ const ZetaChainCCTXsStats = (props: Props) => {
   ].filter(item => item !== null && item !== undefined).length;
 
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns={{ base: '1fr', lg: `repeat(${ itemsCount }, calc(${ 100 / itemsCount }% - 9px))` }}
-      rowGap={ 3 }
-      columnGap={ 3 }
-      mb={ 6 }
+    <div
+      className="grid gap-3 mb-6"
+      style={{ gridTemplateColumns: `repeat(${ itemsCount }, minmax(0, 1fr))` }}
       { ...props }
     >
       { cctxCountTotal && (
@@ -67,7 +62,7 @@ const ZetaChainCCTXsStats = (props: Props) => {
           isLoading={ isLoading }
         />
       ) }
-    </Box>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -12,7 +11,7 @@ import AssetValue from './AssetValue';
 
 interface Props extends Omit<AssetValueProps, 'asset'> {
   token: TokenInfo;
-  tokenEntityProps?: Omit<TokenEntityProps, 'token'> & BoxProps;
+  tokenEntityProps?: Omit<TokenEntityProps, 'token'>;
   layer?: 'L1';
 }
 

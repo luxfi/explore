@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AlertProps } from 'toolkit/chakra/alert';
@@ -14,20 +13,12 @@ type Props = {
 const AlertWithExternalHtml = ({ html, status, showIcon, className }: Props) => {
   return (
     <Alert status={ status } showIcon={ showIcon } className={ className }>
-      <Box
+      <div
         dangerouslySetInnerHTML={{ __html: html }}
-        css={{
-          '& a': {
-            color: 'link.primary',
-            _hover: {
-              color: 'link.primary.hover',
-            },
-          },
-        }}
-
+        style={{ }}
       />
     </Alert>
   );
 };
 
-export default React.memo(chakra(AlertWithExternalHtml));
+export default React.memo(AlertWithExternalHtml);

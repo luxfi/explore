@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
@@ -38,15 +37,9 @@ const Sort = (props: Props) => {
       <SelectControl
         loading={ isInitialLoading }
       >
-        <chakra.span
-          flexShrink={ 0 }
-          fontWeight="normal"
-          color={{ _light: 'blackAlpha.600', _dark: 'whiteAlpha.600' }}
-          _groupHover={{ color: 'inherit' }}
-          _groupExpanded={{ color: 'inherit' }}
-        >
+        <span className="shrink-0 font-normal text-[var(--color-blackAlpha-600)] dark:text-[var(--color-whiteAlpha-600)] group-hover:text-inherit group-data-[state=open]:text-inherit">
           Sort by
-        </chakra.span>
+        </span>
         <SelectValueText
           className="text-[var(--color-text-secondary)] group-hover:text-inherit"
         />
@@ -68,4 +61,4 @@ const Sort = (props: Props) => {
   );
 };
 
-export default React.memo(chakra(Sort)) as typeof Sort;
+export default React.memo(Sort) as typeof Sort;

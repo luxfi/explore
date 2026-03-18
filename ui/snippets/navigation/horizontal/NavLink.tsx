@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NavItem } from 'types/client/navigation';
@@ -27,9 +26,7 @@ const NavLink = ({ className, item, noIcon }: Props) => {
   const isHighlighted = checkRouteHighlight(item);
 
   return (
-    <chakra.li
-      listStyleType="none"
-    >
+    <li className="list-none">
       <Link
         className={ cn('flex items-center w-[224px] px-2 py-[9px] text-sm font-medium rounded-base', className) }
         href={ isInternalLink ? route(item.nextRoute) : item.url }
@@ -37,19 +34,17 @@ const NavLink = ({ className, item, noIcon }: Props) => {
         variant="navigation"
         { ...(isActive ? { 'data-selected': true } : {}) }
       >
-        { !noIcon && <NavLinkIcon item={ item } mr={ 3 }/> }
-        <chakra.span>{ item.text }</chakra.span>
+        { !noIcon && <NavLinkIcon item={ item } className="mr-3"/> }
+        <span>{ item.text }</span>
         { isHighlighted && (
           <LightningLabel
             iconColor={ isActive ? 'link.navigation.bg.selected' : 'link.navigation.bg.group' }
-            position={{ lg: 'static' }}
-            ml={{ lg: '2px' }}
             isCollapsed={ false }
           />
         ) }
       </Link>
-    </chakra.li>
+    </li>
   );
 };
 
-export default React.memo(chakra(NavLink));
+export default React.memo(NavLink);

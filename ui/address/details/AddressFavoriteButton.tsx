@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -94,4 +93,4 @@ const AddressFavoriteButton = ({ className, hash, watchListId }: Props) => {
   );
 };
 
-export default chakra(AddressFavoriteButton);
+export default AddressFavoriteButton;

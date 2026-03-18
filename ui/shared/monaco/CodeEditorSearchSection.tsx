@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SearchResult } from './types';
@@ -33,36 +32,20 @@ const CodeEditorSearchSection = ({ data, onItemClick }: Props) => {
         className="py-0 px-2 text-[13px] transition-none leading-[22px] items-center"
         noIndicator
       >
-        <Box
-          className="codicon codicon-tree-item-expanded"
-          transform="rotate(-90deg)"
-          _groupExpanded={{
-            transform: 'rotate(0deg)',
-          }}
+        <div           className="codicon codicon-tree-item-expanded width-[20px] height-[22px] shrink-0" style={{ transform: 'rotate(-90deg)' }}
           // transform={ isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }
-          width="20px"
-          height="22px"
           py="3px"
-          flexShrink={ 0 }
         />
         <CodeEditorFileIcon mr="4px" fileName={ fileName }/>
-        <Box
-          mr="8px"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          textAlign="left"
+        <div           mr="8px" className="whitespace-nowrap text-ellipsis text-left" className="overflow-hidden"
         >
           { fileName }
-        </Box>
-        <Box
-          className="monaco-count-badge"
-          ml="auto"
-          bgColor={ themeColors['badge.background'] }
-          flexShrink={ 0 }
+        </div>
+        <div           className="monaco-count-badge shrink-0"
+          ml="auto" style={{ backgroundColor: themeColors['badge.background']  }}
         >
           { data.matches.length }
-        </Box>
+        </div>
       </AccordionItemTrigger>
       <AccordionItemContent className="p-0">
         { data.matches.map((match) => (

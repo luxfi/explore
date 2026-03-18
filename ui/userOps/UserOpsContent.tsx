@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -23,7 +22,7 @@ const UserOpsContent = ({ query, showTx = true, showSender = true }: Props) => {
 
   const content = query.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div>
         <UserOpsTable
           items={ query.data.items }
           top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
@@ -31,8 +30,8 @@ const UserOpsContent = ({ query, showTx = true, showSender = true }: Props) => {
           showTx={ showTx }
           showSender={ showSender }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div>
         { query.data.items.map((item, index) => (
           <UserOpsListItem
             key={ item.hash + (query.isPlaceholderData ? String(index) : '') }
@@ -42,12 +41,12 @@ const UserOpsContent = ({ query, showTx = true, showSender = true }: Props) => {
             showSender={ showSender }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = query.pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar>
       <Pagination className="ml-auto" { ...query.pagination }/>
     </ActionBar>
   ) : null;

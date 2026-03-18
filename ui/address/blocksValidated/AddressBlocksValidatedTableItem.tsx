@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -47,7 +46,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
         </Skeleton>
       </TableCell>
       <TableCell>
-        <Flex alignItems="center" columnGap={ 2 }>
+        <div className="flex" alignItems="center" columnGap={ 2 }>
           <Skeleton loading={ props.isLoading } flexBasis="80px">
             { BigNumber(props.gas_used || 0).toFormat() }
           </Skeleton>
@@ -56,7 +55,7 @@ const AddressBlocksValidatedTableItem = (props: Props) => {
             gasLimit={ props.gas_limit }
             isLoading={ props.isLoading }
           />
-        </Flex>
+        </div>
       </TableCell>
       { !config.UI.views.block.hiddenFields?.total_reward && !config.features.rollup.isEnabled && (
         <TableCell isNumeric>

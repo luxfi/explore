@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ChainInfo } from 'types/api/interop';
@@ -58,7 +57,7 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
     <TxEntity.Container { ...partsProps.container }>
       { chain && !props.noIcon && (
         <Tooltip content={ `${ chain.chain_name ? chain.chain_name : 'External chain' } (chain id ${ chain.chain_id })` }>
-          <Box>
+          <div>
             { chain.chain_logo ? (
               <Image
                 src={ chain.chain_logo }
@@ -71,7 +70,7 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
             ) : (
               <IconStub isLoading={ props.isLoading }/>
             ) }
-          </Box>
+          </div>
         </Tooltip>
       ) }
       { !chain && !props.noIcon && (
@@ -84,9 +83,9 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
               <TxEntity.Content { ...partsProps.content } hash={ hash }/>
             </TxEntity.Link>
           ) : (
-            <Box overflow="hidden">
+            <div className="overflow-hidden">
               <TxEntity.Content { ...partsProps.content } hash={ hash }/>
-            </Box>
+            </div>
           ) }
           <TxEntity.Copy { ...partsProps.copy } hash={ hash } noCopy/>
         </>
@@ -98,4 +97,4 @@ const TxEntityInterop = ({ chain, hash, ...props }: Props) => {
   );
 };
 
-export default chakra(TxEntityInterop);
+export default TxEntityInterop;

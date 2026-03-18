@@ -28,7 +28,7 @@ const getChainInfo = (
     },
     blockExplorers: {
       'default': {
-        name: 'Lux Explorer',
+        name: `${ config.chain.name || '' } Explorer`.trim(),
         url: config.app.baseUrl,
       },
     },
@@ -66,7 +66,7 @@ export const parentChain: Chain | undefined = (() => {
     },
     blockExplorers: {
       'default': {
-        name: 'Lux Explorer',
+        name: `${ config.chain.name || '' } Explorer`.trim(),
         url: parentChain.baseUrl,
       },
     },

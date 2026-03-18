@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ValidatorBlackfort } from 'types/api/validators';
@@ -17,7 +16,7 @@ interface Props {
 const ValidatorsListItem = ({ data, isLoading }: Props) => {
 
   return (
-    <ListItemMobileGrid.Container gridTemplateColumns="130px auto">
+    <ListItemMobileGrid.Container>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Address</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
@@ -32,7 +31,7 @@ const ValidatorsListItem = ({ data, isLoading }: Props) => {
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Name</ListItemMobileGrid.Label>
           <ListItemMobileGrid.Value>
-            <Flex><TruncatedText text={ data.name } loading={ isLoading }/></Flex>
+            <div className="flex"><TruncatedText text={ data.name } loading={ isLoading }/></div>
           </ListItemMobileGrid.Value>
         </>
       ) }

@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -124,7 +123,7 @@ const LatestZetaChainCCTXs = () => {
           showErrorAlert={ showSocketErrorAlert }
           borderBottomRadius={ 0 }
         />
-        <Box mb={ 3 } display={{ base: 'block', lg: 'none' }}>
+        <div mb={ 3 } display={{ base: 'block', lg: 'none' }}>
           { data.items.slice(0, txsCount).map(((tx, index) => (
             <ZetaChainCCTXListItem
               key={ tx.index + (isPlaceholderData ? index : '') }
@@ -133,9 +132,9 @@ const LatestZetaChainCCTXs = () => {
               animation={ initialList.getAnimationProp(tx) }
             />
           ))) }
-        </Box>
+        </div>
         <AddressHighlightProvider>
-          <Box mb={ 3 } display={{ base: 'none', lg: 'block' }}>
+          <div mb={ 3 } display={{ base: 'none', lg: 'block' }}>
             { data.items.slice(0, txsCount).map(((tx, index) => (
               <LatestZetaChainCCTXItem
                 key={ tx.index + (isPlaceholderData ? index : '') }
@@ -144,16 +143,16 @@ const LatestZetaChainCCTXs = () => {
                 animation={ initialList.getAnimationProp(tx) }
               />
             ))) }
-          </Box>
+          </div>
         </AddressHighlightProvider>
-        <Flex justifyContent="center">
+        <div justifyContent="center">
           <Link className="text-sm" href={ cctxsUrl }>View all cross chain transactions</Link>
-        </Flex>
+        </div>
       </>
     );
   }
 
-  return <Text>No latest cross chain transactions found.</Text>;
+  return <span>No latest cross chain transactions found.</span>;
 };
 
 export default LatestZetaChainCCTXs;

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -110,7 +109,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
           }}
           className="mb-8 [&_input]:bg-[var(--color-dialog-bg)]"
         />
-        <Box marginTop={ 8 }>
+        <div marginTop={ 8 }>
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }
@@ -118,7 +117,7 @@ const ApiKeyForm: React.FC<Props> = ({ data, onOpenChange, setAlertVisible }) =>
           >
             { data ? 'Save' : 'Generate API key' }
           </Button>
-        </Box>
+        </div>
       </form>
     </FormProvider>
   );

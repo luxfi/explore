@@ -1,7 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { NETWORKS, getCurrentNetwork } from 'configs/app/chainRegistry';
+import { cn } from 'lib/utils/cn';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 
 const NetworkSelector = () => {
@@ -25,66 +25,50 @@ const NetworkSelector = () => {
       onOpenChange={ handleOpenChange }
     >
       <PopoverTrigger>
-        <Box
-          as="button"
-          display="flex"
-          alignItems="center"
-          gap={ 1.5 }
-          px={ 2 }
-          py={ 1 }
-          borderRadius="sm"
-          cursor="pointer"
-          bg="transparent"
-          border="none"
-          fontSize="xs"
-          fontWeight={ 500 }
-          color="text.secondary"
-          _hover={{ color: 'text.primary', bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
-          transition="all 0.15s"
+        <button
+          className={cn(
+            'flex items-center gap-1.5 px-2 py-1 rounded-sm cursor-pointer',
+            'bg-transparent border-none text-xs font-medium',
+            'text-[var(--color-text-secondary)] shrink-0',
+            'hover:text-[var(--color-text-primary)] hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+            'transition-all duration-150',
+          )}
           onClick={ handleToggle }
-          flexShrink={ 0 }
         >
-          <Box boxSize="6px" borderRadius="full" bgColor="green.400" flexShrink={ 0 }/>
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0"/>
           { current.name }
-        </Box>
+        </button>
       </PopoverTrigger>
       <PopoverContent w="200px">
         <PopoverBody className="p-1">
           { NETWORKS.map((network) => {
             const isCurrent = network.network === current.network;
             return (
-              <Box
+              <a
                 key={ network.network }
-                as={ isCurrent ? 'div' : 'a' }
                 { ...(!isCurrent ? { href: network.explorerUrl } : {}) }
-                display="flex"
-                alignItems="center"
-                gap={ 2 }
-                px={ 2.5 }
-                py={ 2 }
-                borderRadius="sm"
-                cursor={ isCurrent ? 'default' : 'pointer' }
-                bg={ isCurrent ? { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } : 'transparent' }
-                _hover={ isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
-                transition="background 0.15s"
-                textDecoration="none"
+                className={ cn(
+                  'flex items-center gap-2 px-2.5 py-2 rounded-sm no-underline transition-[background] duration-150',
+                  isCurrent
+                    ? 'cursor-default bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]'
+                    : 'cursor-pointer bg-transparent hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+                ) }
               >
-                <Box
-                  boxSize="6px"
-                  borderRadius="full"
-                  bgColor={ isCurrent ? 'green.400' : 'text.secondary' }
-                  flexShrink={ 0 }
-                  opacity={ isCurrent ? 1 : 0.4 }
+                <span
+                  className={ cn(
+                    'w-1.5 h-1.5 rounded-full shrink-0',
+                    isCurrent ? 'bg-green-400' : 'bg-[var(--color-text-secondary)] opacity-40',
+                  ) }
                 />
-                <Flex direction="column">
-                  <Text fontSize="sm" fontWeight={ isCurrent ? 600 : 400 } color="text.primary">
+                <div className="flex flex-col">
+                  <span className={ cn('text-sm text-[var(--color-text-primary)]', isCurrent ? 'font-semibold' : 'font-normal') }>
                     { network.name }
-                  </Text>
-                  <Text fontSize="xs" color="text.secondary">
+                  </span>
+                  <span className="text-xs text-[var(--color-text-secondary)]">
                     { network.label }
-                  </Text>
-                </Flex>
-              </Box>
+                  </span>
+                </div>
+              </a>
             );
           }) }
         </PopoverBody>

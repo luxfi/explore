@@ -1,4 +1,3 @@
-import { HStack, VStack, Flex, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -35,14 +34,14 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
   );
 
   return (
-    <VStack gap={ 3 } align="stretch" fontWeight={ 500 }>
+    <div className="flex flex-col gap-3 font-medium">
       <AddressEntity
         address={ item.address }
         isLoading={ isLoading }
-        fontWeight="600"
+        className="font-semibold"
         py="2px"
       />
-      <Flex fontSize="sm" pl={ 7 } flexWrap="wrap" alignItems="center" rowGap={ 1 }>
+      <div className="flex">
         <TokenEntity.Icon
           token={ nativeTokenData }
           isLoading={ isLoading }
@@ -55,34 +54,33 @@ const WatchListAddressItem = ({ item, isLoading }: { item: WatchlistAddress; isL
             noSymbol
           />
         </Skeleton>
-      </Flex>
+      </div>
       { Boolean(item.tokens_count) && (
-        <HStack gap={ 2 } fontSize="sm" pl={ 7 }>
-          <IconSvg name="tokens" boxSize={ 5 } isLoading={ isLoading } borderRadius="sm"/>
+        <div className="flex flex-row">
+          <IconSvg name="tokens" boxSize={ 5 } isLoading={ isLoading }/>
           <Skeleton loading={ isLoading } display="inline-flex">
             <span>{ `Tokens:${ nbsp }` + item.tokens_count + (item.tokens_overflow ? '+' : '') }</span>
-            <Text color="text.secondary">{ `${ nbsp }($${ BigNumber(item.tokens_fiat_value).toFormat(2) })` }</Text>
+            <span>{ `${ nbsp }($${ BigNumber(item.tokens_fiat_value).toFormat(2) })` }</span>
           </Skeleton>
-        </HStack>
+        </div>
       ) }
       { Boolean(item.tokens_fiat_value) && (
         <SimpleValue
           value={ BigNumber(item.tokens_fiat_value).plus(usdNative) }
           prefix="$"
           startElement={ (
-            <HStack>
+            <div className="flex flex-row">
               <IconSvg boxSize={ 5 } name="wallet" isLoading={ isLoading }/>
               <span>Net worth:{ nbsp }</span>
-            </HStack>
+            </div>
           ) }
           accuracy={ DEFAULT_ACCURACY_USD }
           loading={ isLoading }
           overflowed={ item.tokens_overflow }
-          fontSize="sm"
           className="pl-7"
         />
       ) }
-    </VStack>
+    </div>
   );
 };
 

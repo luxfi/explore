@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
@@ -44,10 +43,8 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
 
   return (
     <>
-      <Flex alignItems="flex-start" flexDir={{ base: 'column-reverse', lg: 'row' }} columnGap={ 6 } rowGap={ 6 }>
+      <div>
         <DetailedInfo.Container
-          flexGrow={ 1 }
-          templateColumns={{ base: 'minmax(0, 1fr)', lg: '200px minmax(500px, 1fr)' }}
         >
           { data.is_unique && data.owner && (
             <>
@@ -75,12 +72,12 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
             Token ID
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Flex alignItems="center" overflow="hidden">
-              <Skeleton loading={ isLoading } className="overflow-hidden" display="inline-block" w="100%">
+            <div>
+              <Skeleton loading={ isLoading } className="overflow-hidden" w="100%">
                 <HashStringShortenDynamic hash={ data.id }/>
               </Skeleton>
               <CopyToClipboard text={ data.id } isLoading={ isLoading }/>
-            </Flex>
+            </div>
           </DetailedInfo.ItemValue>
 
           <TokenInstanceTransfersCount hash={ isLoading ? '' : token.address_hash } id={ isLoading ? '' : data.id } onClick={ handleCounterItemClick }/>
@@ -100,7 +97,7 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
               >
                 Dapp
               </DetailedInfo.ItemLabel>
-              <DetailedInfo.ItemValue py="1px">
+              <DetailedInfo.ItemValue>
                 <AppActionButton data={ appActionData } height="30px" source="NFT item"/>
               </DetailedInfo.ItemValue>
             </>
@@ -112,13 +109,9 @@ const TokenInstanceDetails = ({ data, token, scrollRef, isLoading }: Props) => {
           size="md"
           withFullscreen
           w="250px"
-          flexShrink={ 0 }
-          alignSelf={{ base: 'center', lg: 'flex-start' }}
         />
-      </Flex>
+      </div>
       <DetailedInfo.Container
-        mt={ 5 }
-        templateColumns={{ base: 'minmax(0, 1fr)', lg: '200px minmax(500px, 1fr)' }}
       >
         <TokenInstanceMetadataInfo data={ data } isLoading={ isLoading }/>
         <DetailedInfo.ItemDivider/>

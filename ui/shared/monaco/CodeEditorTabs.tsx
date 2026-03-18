@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import CodeEditorTab from './CodeEditorTab';
@@ -20,11 +19,7 @@ const CodeEditorTabs = ({ tabs, activeTab, mainFile, onTabSelect, onTabClose }: 
   }, [ tabs ]);
 
   return (
-    <Flex
-      borderTopLeftRadius="md"
-      overflow="hidden"
-      bgColor={ themeColors['sideBar.background'] }
-      flexWrap="wrap"
+    <div className="flex flex-wrap overflow-hidden rounded-tl-md" style={{ backgroundColor: themeColors['sideBar.background']  }}
     >
       { tabs.map((tab) => (
         <CodeEditorTab
@@ -38,7 +33,7 @@ const CodeEditorTabs = ({ tabs, activeTab, mainFile, onTabSelect, onTabClose }: 
           tabsPathChunks={ tabsPathChunks }
         />
       )) }
-    </Flex>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -34,7 +33,7 @@ const CeloEpochElectionRewardDetailsMobile = ({ type, token }: Props) => {
   });
 
   return (
-    <Flex
+    <div
       flexDir="column"
       rowGap={ 3 }
       p={ 4 }
@@ -49,28 +48,28 @@ const CeloEpochElectionRewardDetailsMobile = ({ type, token }: Props) => {
         .flat()
         .map((item, index) => {
           return (
-            <Flex key={ index } flexDir="column" alignItems="flex-start" rowGap={ 1 } fontWeight={ 400 }>
+            <div key={ index } flexDir="column" alignItems="flex-start" rowGap={ 1 } fontWeight={ 400 }>
               <AddressEntity address={ item.account } noIcon w="100%"/>
               <TokenValue
                 amount={ item.amount }
                 token={ token }
                 tokenEntityProps={{ noIcon: true, ml: 1 }}
-                startElement={ <Box flexShrink={ 0 } color="text.secondary">got </Box> }
+                startElement={ <div flexShrink={ 0 } color="text.secondary">got </div> }
               />
-              <Flex columnGap={ 1 } alignItems="center" w="100%">
-                <Box flexShrink={ 0 } color="text.secondary">on behalf of</Box>
+              <div columnGap={ 1 } alignItems="center" w="100%">
+                <div flexShrink={ 0 } color="text.secondary">on behalf of</div>
                 <AddressEntity address={ item.associated_account } noIcon/>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           );
         }) }
 
       { query.isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
 
-      { query.isError && <Text color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</Text> }
+      { query.isError && <span color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</span> }
 
-      <Box h="0" w="100px" mt="-12px" ref={ cutRef }/>
-    </Flex>
+      <div h="0" w="100px" mt="-12px" ref={ cutRef }/>
+    </div>
   );
 };
 

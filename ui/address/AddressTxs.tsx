@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -117,17 +116,17 @@ const AddressTxs = ({ shouldRender = true, isQueryEnabled = true }: Props) => {
 
       return (
         <>
-          <HStack gap={ 2 }>
+          <div className="flex flex-row gap-2">
             { txsLocalFilter }
-          </HStack>
-          <HStack gap={ 6 }>
+          </div>
+          <div className="flex flex-row gap-6">
             <AddressCsvExportLink
               address={ hash }
               params={{ type: 'transactions', filterType: 'address', filterValue: localQuery.filterValue }}
               isLoading={ localQuery.query.pagination.isLoading }
             />
             <Pagination { ...localQuery.query.pagination }/>
-          </HStack>
+          </div>
         </>
       );
     }

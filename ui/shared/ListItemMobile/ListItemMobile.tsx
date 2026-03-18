@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
@@ -9,24 +8,12 @@ interface Props {
 
 const ListItemMobile = ({ children, className, animation }: Props) => {
   return (
-    <Flex
-      animation={ animation }
-      rowGap={ 6 }
-      alignItems="flex-start"
-      flexDirection="column"
-      paddingY={ 6 }
-      borderColor="border.divider"
-      borderTopWidth="1px"
-      _last={{
-        borderBottomWidth: '1px',
-      }}
+    <div className="flex items-start flex-col gap-y-6 text-[16px] leading-[20px] border-t border-[var(--color-border-divider)] py-6"
       className={ className }
-      fontSize="16px"
-      lineHeight="20px"
     >
       { children }
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(ListItemMobile);
+export default ListItemMobile;

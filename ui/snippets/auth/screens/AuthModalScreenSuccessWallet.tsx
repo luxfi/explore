@@ -1,4 +1,3 @@
-import { chakra, Box, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Screen } from '../types';
@@ -25,12 +24,12 @@ const AuthModalScreenSuccessWallet = ({ address, onAddEmail, onClose, isAuth, pr
 
   if (isAuth) {
     return (
-      <Box>
-        <Text>
+      <div>
+        <p>
           Your account was linked to{ ' ' }
-          <chakra.span fontWeight="700">{ shortenString(address) }</chakra.span>{ ' ' }
+          <span className="font-bold">{ shortenString(address) }</span>{ ' ' }
           wallet. Use for the next login.
-        </Text>
+        </p>
         <Button
           className="mt-6"
           variant="outline"
@@ -38,28 +37,28 @@ const AuthModalScreenSuccessWallet = ({ address, onAddEmail, onClose, isAuth, pr
         >
           Got it!
         </Button>
-      </Box>
+      </div>
     );
   }
 
   return (
-    <Box>
-      <Text>
+    <div>
+      <p>
         Wallet{ ' ' }
-        <chakra.span fontWeight="700">{ shortenString(address) }</chakra.span>{ ' ' }
+        <span className="font-bold">{ shortenString(address) }</span>{ ' ' }
         has been successfully used to log in to your Lux account
         { Boolean(rewardsToken) && ` and Merits Program` }.
-      </Text>
+      </p>
       { !profile?.email ? (
         <>
-          <Text mt={ 6 }>
-            Add your email to receive exclusive updates about Lux Explorer { config.features.rewards.isEnabled ? 'Merits ' : ' ' }
+          <p className="mt-6">
+            Add your email to receive exclusive updates about { config.chain.name || '' } Explorer { config.features.rewards.isEnabled ? 'Merits ' : ' ' }
             and notifications about addresses in your watch list.
-          </Text>
-          <Flex mt={ 6 } gap={ 6 }>
+          </p>
+          <div className="flex mt-6 gap-6">
             <Button onClick={ handleAddEmailClick }>Add email</Button>
             <Button variant="link" onClick={ onClose }>I{ apos }ll do it later</Button>
-          </Flex>
+          </div>
         </>
       ) : (
         <Button
@@ -70,7 +69,7 @@ const AuthModalScreenSuccessWallet = ({ address, onAddEmail, onClose, isAuth, pr
           Got it!
         </Button>
       ) }
-    </Box>
+    </div>
   );
 };
 

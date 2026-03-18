@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -101,7 +100,7 @@ const MultichainAddress = () => {
   }, [ addressQuery.data, isLoading, isContractSomewhere, checkSummedHash ]);
 
   const titleSecondRow = (
-    <Flex alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <div alignItems="center" w="100%" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
       { addressQuery.data?.domains?.[0] && (
         <EnsEntity
           domain={ addressQuery.data?.domains[0].name }
@@ -131,14 +130,14 @@ const MultichainAddress = () => {
         }}
       />
       <AddressQrCode hash={ checkSummedHash } isLoading={ isLoading }/>
-      <Box ml="auto"/>
+      <div ml="auto"/>
       <MultichainAddressEnsDomains
         mainDomain={ addressQuery.data?.domains?.[0] }
         isLoading={ isLoading }
         hash={ checkSummedHash }
       />
       <ClusterChainsPopover addressHash={ checkSummedHash } data={ addressQuery.data } isLoading={ isLoading }/>
-    </Flex>
+    </div>
   );
 
   return (

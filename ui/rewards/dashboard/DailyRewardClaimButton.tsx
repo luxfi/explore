@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
@@ -69,19 +68,9 @@ const DailyRewardClaimButton = () => {
   const isLoading = isClaiming || dailyRewardQuery.isPending || dailyRewardQuery.isFetching;
 
   return !isLoading && !dailyRewardQuery.data?.available ? (
-    <Flex
-      h="40px"
-      alignItems="center"
-      justifyContent="center"
-      borderRadius="base"
-      color="gray.500"
-      bgColor={{ _light: 'gray.200', _dark: 'gray.800' }}
-      fontSize="md"
-      fontWeight="600"
-      cursor="default"
-    >
+    <div className="flex h-[40px] items-center justify-center rounded-base text-gray-500 bg-gray-200 dark:bg-gray-800 text-base font-semibold cursor-default">
       Next claim in { timeLeft || 'N/A' }
-    </Flex>
+    </div>
   ) : (
     <Button onClick={ handleClaim } loading={ isLoading }>
       Claim { dailyRewardValue } Merits

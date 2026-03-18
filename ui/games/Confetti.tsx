@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 
 const Confetti = () => {
@@ -83,7 +82,7 @@ const Confetti = () => {
           }
         ` }
       </style>
-      <Box
+      <div
         position="fixed"
         top="0"
         left="0"
@@ -93,7 +92,7 @@ const Confetti = () => {
         zIndex="9999"
       >
         { splashes.map((piece) => (
-          <Box
+          <div
             key={ piece.id }
             position="absolute"
             left={ piece.left }
@@ -110,7 +109,7 @@ const Confetti = () => {
             } as unknown as React.CSSProperties}
           />
         )) }
-      </Box>
+      </div>
     </>
   );
 };

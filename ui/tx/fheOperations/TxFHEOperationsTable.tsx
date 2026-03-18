@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FheOperation } from 'types/api/fheOperations';
@@ -15,7 +14,7 @@ interface Props {
 const TxFHEOperationsTable = ({ data, isLoading }: Props) => {
   return (
     <AddressHighlightProvider>
-      <Box maxW="100%" overflowX="auto" hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot tableLayout="fixed" minWidth="900px" w="100%">
           <TableHeader>
             <TableRow>
@@ -39,7 +38,7 @@ const TxFHEOperationsTable = ({ data, isLoading }: Props) => {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
+      </div>
     </AddressHighlightProvider>
   );
 };

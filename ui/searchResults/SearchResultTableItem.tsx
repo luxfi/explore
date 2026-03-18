@@ -1,4 +1,3 @@
-import { chakra, Text, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 import xss from 'xss';
 
@@ -67,7 +66,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
         return (
           <>
             <TableCell>
-              <Flex alignItems="center">
+              <div className="flex items-center">
                 <TokenEntity.Icon token={{ ...data, type: data.token_type }} isLoading={ isLoading }/>
                 <Link
                   href={ route({ pathname: '/token/[hash]', query: { hash: data.address_hash } }) }
@@ -86,22 +85,22 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                 { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 }/> }
                 { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" boxSize={ 4 } ml={ 1 } color="green.500"/> }
                 { data.reputation && <TokenEntity.Reputation value={ data.reputation }/> }
-              </Flex>
+              </div>
             </TableCell>
             <TableCell verticalAlign="middle">
               <Skeleton loading={ isLoading } whiteSpace="nowrap" overflow="hidden" display="flex" alignItems="center">
-                <Box overflow="hidden" whiteSpace="nowrap" w={ data.is_smart_contract_verified ? 'calc(100%-28px)' : 'unset' }>
+                <div className="overflow-hidden whitespace-nowrap" style={{ width: data.is_smart_contract_verified ? 'calc(100%-28px)' : 'unset' }}>
                   <HashStringShortenDynamic hash={ hash }/>
-                </Box>
+                </div>
                 { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
               </Skeleton>
             </TableCell>
             <TableCell verticalAlign="middle" isNumeric>
               <Skeleton loading={ isLoading } whiteSpace="nowrap" overflow="hidden">
-                <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={ 700 }>
+                <span className="overflow-hidden whitespace-nowrap text-ellipsis font-bold">
                   { data.token_type === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
                   { data.token_type !== 'ERC-20' && data.total_supply && `Items ${ Number(data.total_supply).toLocaleString() }` }
-                </Text>
+                </span>
               </Skeleton>
             </TableCell>
           </>
@@ -148,24 +147,20 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
             </TableCell>
             { addressName && (
               <TableCell colSpan={ data.type === 'metadata_tag' ? 1 : 2 } verticalAlign="middle">
-                <Flex alignItems="center">
-                  <Text
-                    overflow="hidden"
-                    whiteSpace="nowrap"
-                    textOverflow="ellipsis"
-                  >
+                <div className="flex items-center">
+                  <span className="overflow-hidden whitespace-nowrap text-ellipsis">
                     <span dangerouslySetInnerHTML={{ __html: shouldHighlightHash ? xss(addressName) : highlightText(addressName, searchTerm) }}/>
                     { data.ens_info && (
                       data.ens_info.names_count > 1 ? (
-                        <chakra.span color="text.secondary">
+                        <span className="text-[var(--color-text-secondary)]">
                           { data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` }
-                        </chakra.span>
+                        </span>
                       ) :
-                        <chakra.span color="text.secondary">{ expiresText }</chakra.span>
+                        <span className="text-[var(--color-text-secondary)]">{ expiresText }</span>
                     ) }
-                  </Text>
+                  </span>
                   { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } mx={ 1 }/> }
-                </Flex>
+                </div>
               </TableCell>
             ) }
             { data.type === 'metadata_tag' && (
@@ -183,7 +178,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
         return (
           <>
             <TableCell>
-              <Flex alignItems="center">
+              <div className="flex items-center">
                 <IconSvg name="publictags" boxSize={ 6 } mr={ 2 } color="icon.primary"/>
                 <Link
                   href={ route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) }
@@ -193,15 +188,15 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                 >
                   <span dangerouslySetInnerHTML={{ __html: highlightText(data.name, searchTerm) }}/>
                 </Link>
-              </Flex>
+              </div>
             </TableCell>
             <TableCell verticalAlign="middle">
-              <Flex alignItems="center" overflow="hidden">
-                <Box overflow="hidden" whiteSpace="nowrap" w={ data.is_smart_contract_verified ? 'calc(100%-28px)' : 'unset' }>
+              <div className="flex items-center overflow-hidden">
+                <div className="overflow-hidden whitespace-nowrap" style={{ width: data.is_smart_contract_verified ? 'calc(100%-28px)' : 'unset' }}>
                   <HashStringShortenDynamic hash={ hash }/>
-                </Box>
+                </div>
                 { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
-              </Flex>
+              </div>
             </TableCell>
             <TableCell/>
           </>
@@ -213,7 +208,7 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
         return (
           <>
             <TableCell>
-              <Flex alignItems="center">
+              <div className="flex items-center">
                 <Image
                   borderRadius="base"
                   boxSize={ 6 }
@@ -232,16 +227,12 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
                 >
                   { title }
                 </Link>
-              </Flex>
+              </div>
             </TableCell>
             <TableCell verticalAlign="middle" colSpan={ 2 }>
-              <Text
-                overflow="hidden"
-                whiteSpace="nowrap"
-                textOverflow="ellipsis"
-              >
+              <span className="overflow-hidden whitespace-nowrap text-ellipsis">
                 { data.app.description }
-              </Text>
+              </span>
             </TableCell>
           </>
         );
@@ -278,13 +269,13 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
               { isFutureBlock ? (
                 <Skeleton loading={ isLoading }>Learn estimated time for this block to be created.</Skeleton>
               ) : (
-                <Flex columnGap={ 2 } alignItems="center">
+                <div className="flex gap-x-2 items-center">
                   { data.block_type === 'reorg' && !isLoading && <Tag className="shrink-0">Reorg</Tag> }
                   { data.block_type === 'uncle' && !isLoading && <Tag className="shrink-0">Uncle</Tag> }
                   <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap" display="block">
                     <HashStringShortenDynamic hash={ data.block_hash } as={ shouldHighlightHash ? 'mark' : 'span' }/>
                   </Skeleton>
-                </Flex>
+                </div>
               ) }
             </TableCell>
             { !isFutureBlock && data.timestamp && (
@@ -460,19 +451,19 @@ const SearchResultTableItem = ({ data, searchTerm, isLoading, addressFormat }: P
               </EnsEntity.Container>
             </TableCell>
             <TableCell>
-              <Flex alignItems="center" overflow="hidden">
+              <div className="flex items-center overflow-hidden">
                 { hash && (
-                  <Box overflow="hidden" whiteSpace="nowrap" w={ data.is_smart_contract_verified ? 'calc(100%-28px)' : 'unset' }>
+                  <div className="overflow-hidden whitespace-nowrap" style={{ width: data.is_smart_contract_verified ? 'calc(100%-28px)' : 'unset' }}>
                     <HashStringShortenDynamic hash={ hash }/>
-                  </Box>
+                  </div>
                 ) }
                 { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
-              </Flex>
+              </div>
             </TableCell>
             <TableCell>
               { data.ens_info.names_count > 1 ?
-                <chakra.span color="text.secondary"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</chakra.span> :
-                <chakra.span color="text.secondary">{ expiresText }</chakra.span> }
+                <span className="text-[var(--color-text-secondary)]"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span> :
+                <span className="text-[var(--color-text-secondary)]">{ expiresText }</span> }
             </TableCell>
           </>
         );

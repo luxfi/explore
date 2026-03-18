@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import * as mixpanel from 'lib/mixpanel/index';
@@ -30,9 +29,8 @@ const IframeBanner = ({ contentUrl, linkUrl }: { contentUrl: string; linkUrl: st
         onClick={ handleClick }
         className="absolute w-full h-full top-0 left-0 z-[1]"
       />
-      <chakra.iframe
-        h="100%"
-        w="100%"
+      <iframe
+        className="h-full w-full"
         src={ contentUrl }
         title="Marketplace banner"
         onLoad={ handleIframeLoad }

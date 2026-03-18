@@ -1,4 +1,3 @@
-import { HStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FlashblockItem } from 'types/client/flashblocks';
@@ -18,7 +17,7 @@ const FlashblocksTableItem = ({ data }: Props) => {
   return (
     <TableRow>
       <TableCell>
-        <HStack alignItems="center" gap={ 3 }>
+        <div alignItems="center" gap={ 3 }>
           { data.block_number ? (
             <FlashblockEntity
               number={ data.block_number }
@@ -26,10 +25,10 @@ const FlashblocksTableItem = ({ data }: Props) => {
               noIcon
             />
           ) : (
-            <Text color="text.secondary">N/A</Text>
+            <span color="text.secondary">N/A</span>
           ) }
           { data.timestamp && <Time color="text.secondary" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/> }
-        </HStack>
+        </div>
       </TableCell>
       <TableCell isNumeric>
         { data.transactions_count > 0 ? (
@@ -40,7 +39,7 @@ const FlashblocksTableItem = ({ data }: Props) => {
             { data.transactions_count }
           </Link>
         ) : (
-          <Text color="text.secondary">{ data.transactions_count }</Text>
+          <span color="text.secondary">{ data.transactions_count }</span>
         ) }
       </TableCell>
       <TableCell isNumeric>

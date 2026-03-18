@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -30,14 +29,14 @@ const InternalTxs = () => {
 
   const actionBar = (
     <>
-      <Box mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 flex lg:hidden">
         { filterInput }
-      </Box>
+      </div>
       { (!isMobile || pagination.isVisible) && (
         <ActionBar mt={ -6 }>
-          <Box display={{ base: 'none', lg: 'flex' }}>
+          <div className="hidden lg:flex">
             { filterInput }
-          </Box>
+          </div>
           <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
@@ -46,12 +45,12 @@ const InternalTxs = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <InternalTxsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <InternalTxsTable data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

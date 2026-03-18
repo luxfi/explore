@@ -1,4 +1,3 @@
-import { Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -24,7 +23,7 @@ interface Props {
   onLinkClick?: () => void;
 }
 
-const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorAlert, type = 'transaction', isLoading, onLinkClick }: Props) => {
+const SocketNewItemsNotice = ({ children, className, url, num, showErrorAlert, type = 'transaction', isLoading, onLinkClick }: Props) => {
   const handleLinkClick = React.useCallback(() => {
     onLinkClick ? onLinkClick() : window.location.reload();
   }, [ onLinkClick ]);
@@ -73,7 +72,7 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
     return (
       <>
         <Link href={ url } onClick={ !url ? handleLinkClick : undefined }>{ num.toLocaleString() } more { name }{ num > 1 ? 's' : '' }</Link>
-        <Text whiteSpace="pre"> ha{ num > 1 ? 've' : 's' } come in</Text>
+        <span className="whitespace-pre"> ha{ num > 1 ? 've' : 's' } come in</span>
       </>
     );
   })();
@@ -92,22 +91,16 @@ const SocketNewItemsNotice = chakra(({ children, className, url, num, showErrorA
   ) : <Skeleton className={ className } h="36px" loading={ true }/>;
 
   return children ? children({ content }) : content;
-});
+};
 
 export default SocketNewItemsNotice;
 
 export const Desktop = ({ ...props }: Props) => {
   return (
     <SocketNewItemsNotice
-      borderRadius={ props.isLoading ? 'sm' : 0 }
-      h={ props.isLoading ? 5 : 'auto' }
-      maxW={ props.isLoading ? '215px' : undefined }
-      w="100%"
-      mx={ props.isLoading ? 4 : 0 }
-      my={ props.isLoading ? '6px' : 0 }
       { ...props }
     >
-      { ({ content }) => <TableRow><TableCell colSpan={ 100 } p={ 0 } _first={{ p: 0 }} _last={{ p: 0 }}>{ content }</TableCell></TableRow> }
+      { ({ content }) => <TableRow><TableCell colSpan={ 100 } p={ 0 }>{ content }</TableCell></TableRow> }
     </SocketNewItemsNotice>
   );
 };
@@ -115,7 +108,6 @@ export const Desktop = ({ ...props }: Props) => {
 export const Mobile = ({ ...props }: Props) => {
   return (
     <SocketNewItemsNotice
-      borderBottomRadius={ 0 }
       { ...props }
     />
   );

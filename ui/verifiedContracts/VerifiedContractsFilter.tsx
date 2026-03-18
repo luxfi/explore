@@ -1,10 +1,10 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { VerifiedContractsFilter as TVerifiedContractsFilter } from 'types/api/contracts';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import formatLanguageName from 'lib/contracts/formatLanguageName';
+import { createListCollection } from 'toolkit/chakra/select';
 import type { SelectOption } from 'toolkit/chakra/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 

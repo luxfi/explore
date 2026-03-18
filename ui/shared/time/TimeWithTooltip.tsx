@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TimeFormat } from 'types/settings';
@@ -16,9 +15,14 @@ type Props = {
   enableIncrement?: boolean;
   className?: string;
   timeFormat?: TimeFormat;
+  color?: string;
+  fontWeight?: string;
+  fontSize?: string;
+  mt?: string;
+  display?: string;
 };
 
-const TimeWithTooltip = ({ timestamp, fallbackText, isLoading, enableIncrement, className, timeFormat: timeFormatProp }: Props) => {
+const TimeWithTooltip = ({ timestamp, fallbackText, isLoading, enableIncrement, className, timeFormat: timeFormatProp, ...rest }: Props) => {
 
   const settings = useSettingsContext();
   const timeFormat = timeFormatProp || settings?.timeFormat || 'relative';
@@ -42,10 +46,10 @@ const TimeWithTooltip = ({ timestamp, fallbackText, isLoading, enableIncrement, 
   })();
 
   return (
-    <Skeleton loading={ isLoading } className={ className }>
+    <Skeleton loading={ isLoading } className={ className } { ...rest }>
       { content }
     </Skeleton>
   );
 };
 
-export default chakra(TimeWithTooltip);
+export default TimeWithTooltip;

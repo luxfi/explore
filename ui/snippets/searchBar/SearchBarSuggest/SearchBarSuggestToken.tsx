@@ -1,4 +1,3 @@
-import { Grid, Text, Flex } from '@chakra-ui/react';
 import { mapValues } from 'es-toolkit';
 import React from 'react';
 
@@ -33,28 +32,23 @@ const SearchBarSuggestToken = ({ data, isMobile, searchTerm, addressFormat, chai
   })();
 
   const name = (
-    <Text
-      fontWeight={ 700 }
-      overflow="hidden"
-      whiteSpace="nowrap"
-      textOverflow="ellipsis"
-    >
+    <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis">
       <span dangerouslySetInnerHTML={{ __html: highlightText(data.name + (data.symbol ? ` (${ data.symbol })` : ''), searchTerm) }}/>
-    </Text>
+    </span>
   );
 
   const address = (
-    <Text color="text.secondary" whiteSpace="nowrap" overflow="hidden">
+    <span className="text-[var(--color-text-secondary)] whitespace-nowrap overflow-hidden">
       <HashStringShortenDynamic hash={ hash } noTooltip/>
-    </Text>
+    </span>
   );
 
   const contractVerifiedIcon = isVerified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/>;
   const additionalInfo = (
-    <Text overflow="hidden" whiteSpace="nowrap" fontWeight={ 700 }>
+    <span className="overflow-hidden whitespace-nowrap font-bold">
       { data.token_type === 'ERC-20' && 'exchange_rate' in data && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
       { data.token_type !== 'ERC-20' && data.total_supply && `Items ${ Number(data.total_supply).toLocaleString() }` }
-    </Text>
+    </span>
   );
 
   if (isMobile) {
@@ -64,39 +58,39 @@ const SearchBarSuggestToken = ({ data, isMobile, searchTerm, addressFormat, chai
 
     return (
       <>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           { icon }
           { name }
           { 'certified' in data && data.certified && certifiedIcon }
           { 'is_verified_via_admin_panel' in data && data.is_verified_via_admin_panel && !data.certified && verifiedIcon }
           { data.reputation && <TokenEntity.Reputation value={ data.reputation }/> }
-        </Flex>
-        <Grid templateColumns={ templateCols } alignItems="center" gap={ 2 }>
-          <Flex alignItems="center" overflow="hidden">
+        </div>
+        <div className="grid items-center gap-2" style={{ gridTemplateColumns: templateCols }}>
+          <div className="flex items-center overflow-hidden">
             { address }
             { contractVerifiedIcon }
-          </Flex>
+          </div>
           { additionalInfo }
-        </Grid>
+        </div>
       </>
     );
   }
 
   return (
-    <Grid templateColumns="228px 1fr auto" gap={ 2 }>
-      <Flex alignItems="center">
+    <div className="grid gap-2" style={{ gridTemplateColumns: '228px 1fr auto' }}>
+      <div className="flex items-center">
         { icon }
         { name }
         { 'certified' in data && data.certified && certifiedIcon }
         { 'is_verified_via_admin_panel' in data && data.is_verified_via_admin_panel && !data.certified && verifiedIcon }
         { 'reputation' in data && data.reputation && <TokenEntity.Reputation value={ data.reputation }/> }
-      </Flex>
-      <Flex alignItems="center" overflow="hidden">
+      </div>
+      <div className="flex items-center overflow-hidden">
         { address }
         { contractVerifiedIcon }
-      </Flex>
+      </div>
       { additionalInfo }
-    </Grid>
+    </div>
   );
 };
 

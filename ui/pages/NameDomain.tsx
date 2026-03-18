@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -50,13 +49,7 @@ const NameDomain = () => {
   const isLoading = infoQuery.isPlaceholderData;
 
   const titleSecondRow = (
-    <Flex
-      columnGap={ 3 }
-      rowGap={ 3 }
-      alignItems="center"
-      w="100%"
-      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-    >
+    <div className="flex items-center w-full gap-x-3 gap-y-3 flex-wrap lg:flex-nowrap">
       <EnsEntity
         domain={ domainName }
         protocol={ infoQuery.data?.protocol }
@@ -66,7 +59,7 @@ const NameDomain = () => {
         variant="subheading"
       />
       { infoQuery.data?.resolved_address && (
-        <Flex alignItems="center" maxW="100%" columnGap={ 2 }>
+        <div className="flex items-center max-w-full gap-x-2">
           <AddressEntity
             address={ infoQuery.data?.resolved_address }
             isLoading={ isLoading }
@@ -83,9 +76,9 @@ const NameDomain = () => {
               <IconSvg name="search" boxSize={ 5 } isLoading={ isLoading }/>
             </Link>
           </Tooltip>
-        </Flex>
+        </div>
       ) }
-    </Flex>
+    </div>
   );
 
   return (

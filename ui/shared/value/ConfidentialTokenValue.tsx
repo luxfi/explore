@@ -1,5 +1,3 @@
-import type { FlexProps } from '@chakra-ui/react';
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -8,17 +6,18 @@ import type { EntityProps as TokenEntityProps } from 'ui/shared/entities/token/T
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import ConfidentialValue from 'ui/shared/value/ConfidentialValue';
 
-interface Props extends Omit<FlexProps, 'children'> {
+interface Props {
   token: TokenInfo;
   tokenEntityProps?: Omit<TokenEntityProps, 'token'>;
   loading?: boolean;
+  className?: string;
+  [key: string]: unknown;
 }
 
-const ConfidentialTokenValue = ({ token, tokenEntityProps, loading, ...rest }: Props) => {
+const ConfidentialTokenValue = ({ token, tokenEntityProps, loading, className, ...rest }: Props) => {
   return (
-    <Flex
-      display="inline-flex"
-      alignItems="center"
+    <div
+      className={ `inline-flex items-center ${ className ?? '' }`.trim() }
       { ...rest }
     >
       <ConfidentialValue loading={ loading }/>
@@ -33,7 +32,7 @@ const ConfidentialTokenValue = ({ token, tokenEntityProps, loading, ...rest }: P
         isLoading={ loading }
         { ...tokenEntityProps }
       />
-    </Flex>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Text, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TChainIndicator } from './types';
@@ -20,7 +19,7 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
 
   const valueContent = (() => {
     if (indicator.value.includes('N/A')) {
-      return <Text opacity="control.disabled" fontWeight={ 400 }>{ mdash }</Text>;
+      return <span opacity="control.disabled" fontWeight={ 400 }>{ mdash }</span>;
     }
 
     return (
@@ -40,13 +39,13 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
     return (
       <Skeleton loading={ isLoading } ml={ 1 } display="flex" alignItems="center" color={ diffColor }>
         <span>{ indicator.valueDiff >= 0 ? '+' : '-' }</span>
-        <Text color={ diffColor } fontWeight={ 600 }>{ Math.abs(indicator.valueDiff) }%</Text>
+        <span color={ diffColor } fontWeight={ 600 }>{ Math.abs(indicator.valueDiff) }%</span>
       </Skeleton>
     );
   })();
 
   return (
-    <Flex
+    <div
       alignItems="center"
       columnGap={ 2 }
       flexGrow={{ base: 0, lg: 1 }}
@@ -67,14 +66,14 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
       }}
     >
       { indicator.icon }
-      <Box display={{ base: 'none', lg: 'block' }}>
+      <div display={{ base: 'none', lg: 'block' }}>
         <span>{ indicator.titleShort || indicator.title }</span>
-        <Flex alignItems="center" color="text.primary">
+        <div alignItems="center" color="text.primary">
           { valueContent }
           { valueDiffContent }
-        </Flex>
-      </Box>
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 };
 

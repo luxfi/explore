@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -34,50 +33,28 @@ const SearchBarSuggestApp = ({ data, isMobile, searchTerm, onClick }: Props) => 
     if (isMobile) {
       return (
         <>
-          <Flex alignItems="center">
+          <div className="flex items-center">
             { logo }
-            <Text
-              fontWeight={ 700 }
-              overflow="hidden"
-              whiteSpace="nowrap"
-              textOverflow="ellipsis"
-              ml={ 2 }
-            >
+            <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis ml-2">
               <span dangerouslySetInnerHTML={{ __html: highlightText(data.title, searchTerm) }}/>
-            </Text>
+            </span>
             { data.external && <IconSvg name="link_external" color="icon.secondary" boxSize={ 3 } verticalAlign="middle" flexShrink={ 0 }/> }
-          </Flex>
-          <Text
-            color="text.secondary"
-            lineClamp={ 3 }
-          >
+          </div>
+          <p className="text-[var(--color-text-secondary)] line-clamp-3">
             { data.description }
-          </Text>
+          </p>
         </>
       );
     }
     return (
-      <Flex gap={ 2 } alignItems="center">
+      <div className="flex gap-2 items-center">
         { logo }
-        <Text
-          fontWeight={ 700 }
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          w="200px"
-          flexShrink={ 0 }
-        >
+        <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis w-[200px] shrink-0">
           <span dangerouslySetInnerHTML={{ __html: highlightText(data.title, searchTerm) }}/>
-        </Text>
-        <Text
-          color="text.secondary"
-          overflow="hidden"
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          flexGrow={ 1 }
-        >
+        </span>
+        <span className="text-[var(--color-text-secondary)] overflow-hidden whitespace-nowrap text-ellipsis grow">
           { data.description }
-        </Text>
+        </span>
         { data.external && (
           <IconSvg
             name="link_external"
@@ -87,7 +64,7 @@ const SearchBarSuggestApp = ({ data, isMobile, searchTerm, onClick }: Props) => 
             flexShrink={ 0 }
           />
         ) }
-      </Flex>
+      </div>
     );
   })();
 

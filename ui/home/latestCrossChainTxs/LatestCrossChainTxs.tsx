@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -29,12 +28,12 @@ const LatestCrossChainTxs = () => {
   });
 
   if (isError || !data) {
-    return <Text mt={ 4 }>No data. Please reload the page.</Text>;
+    return <span mt={ 4 }>No data. Please reload the page.</span>;
   }
 
   return (
     <>
-      <Box mb={ 3 } hideFrom="lg" textStyle="sm">
+      <div mb={ 3 } hideFrom="lg" textStyle="sm">
         { data.items.slice(0, txsCount).map(((tx, index) => (
           <TransactionsCrossChainListItem
             key={ tx.message_id + (isPlaceholderData ? index : '') }
@@ -49,8 +48,8 @@ const LatestCrossChainTxs = () => {
             }}
           />
         ))) }
-      </Box>
-      <Box mb={ 3 } hideBelow="lg" textStyle="sm">
+      </div>
+      <div mb={ 3 } hideBelow="lg" textStyle="sm">
         <TableRoot minWidth="750px">
           <TableBody>
             { data.items.slice(0, txsCount).map(((tx, index) => (
@@ -62,10 +61,10 @@ const LatestCrossChainTxs = () => {
             ))) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Flex justifyContent="center">
+      </div>
+      <div justifyContent="center">
         <Link className="text-sm" href={ route({ pathname: '/txs', query: { tab: 'txs_cross_chain' } }) }>View all transactions</Link>
-      </Flex>
+      </div>
     </>
   );
 };

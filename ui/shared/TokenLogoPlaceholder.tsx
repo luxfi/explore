@@ -1,9 +1,8 @@
-import type { BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
 
-const TokenLogoPlaceholder = (props: BoxProps) => {
+const TokenLogoPlaceholder = (props: Record<string, unknown>) => {
   return (
     <IconSvg
       fontWeight={ 600 }

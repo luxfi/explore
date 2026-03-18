@@ -1,4 +1,3 @@
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EntityTag as TEntityTag } from './types';
@@ -23,7 +22,7 @@ const EntityTags = ({ tags, addressHash, className, isLoading, noColors }: Props
   const visibleNum = isMobile ? 2 : 3;
 
   const metaSuitesPlaceholder = config.features.metasuites.isEnabled ?
-    <Box display="none" id="meta-suites__address-tag" data-ready={ !isLoading }/> :
+    <div className="hidden" id="meta-suites__address-tag" data-ready={ !isLoading }/> :
     null;
 
   if (tags.length === 0) {
@@ -64,9 +63,9 @@ const EntityTags = ({ tags, addressHash, className, isLoading, noColors }: Props
             </PopoverTrigger>
             <PopoverContent className="max-w-[300px] w-fit">
               <PopoverBody>
-                <Flex columnGap={ 2 } rowGap={ 2 } flexWrap="wrap">
+                <div className="flex flex-wrap gap-x-2 gap-y-2">
                   { tags.slice(visibleNum).map((tag) => <EntityTag key={ tag.slug } data={ tag } addressHash={ addressHash } noColors={ noColors }/>) }
-                </Flex>
+                </div>
               </PopoverBody>
             </PopoverContent>
           </PopoverRoot>
@@ -92,10 +91,10 @@ const EntityTags = ({ tags, addressHash, className, isLoading, noColors }: Props
   })();
 
   return (
-    <Flex className={ className } columnGap={ 2 } rowGap={ 2 } flexWrap="nowrap" alignItems="center" flexGrow={ 1 } maxW="100%" overflow="hidden">
+    <div className="flex items-center flex-nowrap overflow-hidden gap-x-2 gap-y-2 grow" className={ className } maxW="100%">
       { content }
-    </Flex>
+    </div>
   );
 };
 
-export default React.memo(chakra(EntityTags));
+export default React.memo(EntityTags);

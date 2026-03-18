@@ -1,5 +1,3 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TabItemRegular } from './types';
@@ -15,13 +13,14 @@ import useAdaptiveTabs from './useAdaptiveTabs';
 import useScrollToActiveTab from './useScrollToActiveTab';
 import { menuButton, getTabValue } from './utils';
 
-export interface SlotProps extends HTMLChakraProps<'div'> {
+export interface SlotProps extends React.HTMLAttributes<HTMLDivElement> {
   widthAllocation?: 'available' | 'fixed';
 }
 
 export interface BaseProps {
   tabs: Array<TabItemRegular>;
-  listProps?: HTMLChakraProps<'div'> | (({ isSticky, activeTab }: { isSticky: boolean; activeTab: string }) => HTMLChakraProps<'div'>);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  listProps?: Record<string, any> | (({ isSticky, activeTab }: { isSticky: boolean; activeTab: string }) => Record<string, any>);
   rightSlot?: React.ReactNode;
   rightSlotProps?: SlotProps;
   leftSlot?: React.ReactNode;
@@ -35,7 +34,7 @@ interface Props extends BaseProps {
   variant: TabsProps['variant'];
 }
 
-const HIDDEN_ITEM_STYLES: HTMLChakraProps<'button'> = {
+const HIDDEN_ITEM_STYLES: React.CSSProperties = {
   position: 'absolute',
   top: '-9999px',
   left: '-9999px',
@@ -44,18 +43,18 @@ const HIDDEN_ITEM_STYLES: HTMLChakraProps<'button'> = {
 
 const getItemStyles = (index: number, tabsCut: number | undefined, isLoading: boolean | undefined) => {
   if (tabsCut === undefined || isLoading) {
-    return HIDDEN_ITEM_STYLES as never;
+    return { style: HIDDEN_ITEM_STYLES } as never;
   }
 
-  return index < tabsCut ? {} : HIDDEN_ITEM_STYLES as never;
+  return index < tabsCut ? {} : { style: HIDDEN_ITEM_STYLES } as never;
 };
 
 const getMenuStyles = (tabsLength: number, tabsCut: number | undefined, isLoading: boolean | undefined) => {
   if (tabsCut === undefined || isLoading) {
-    return HIDDEN_ITEM_STYLES;
+    return { style: HIDDEN_ITEM_STYLES };
   }
 
-  return tabsCut >= tabsLength ? HIDDEN_ITEM_STYLES : {};
+  return tabsCut >= tabsLength ? { style: HIDDEN_ITEM_STYLES } : {};
 };
 
 const AdaptiveTabsList = (props: Props) => {
@@ -127,14 +126,16 @@ const AdaptiveTabsList = (props: Props) => {
       }
     >
       { leftSlot && (
-        <Box
+        <div
           ref={ leftSlotRef }
           { ...leftSlotProps }
-          flexGrow={ leftSlotProps?.widthAllocation === 'available' && tabsCut !== undefined ? 1 : undefined }
-          opacity={ tabsCut !== undefined ? 1 : 0 }
+          style={{
+            flexGrow: leftSlotProps?.widthAllocation === 'available' && tabsCut !== undefined ? 1 : undefined,
+            opacity: tabsCut !== undefined ? 1 : 0,
+          }}
         >
           { leftSlot }
-        </Box>
+        </div>
       )
       }
       { tabs.length > 1 && tabsList.map((tab, index) => {
@@ -190,15 +191,17 @@ const AdaptiveTabsList = (props: Props) => {
       }) }
       {
         rightSlot ? (
-          <Box
+          <div
             ref={ rightSlotRef }
-            ml="auto"
+            style={{
+              marginLeft: 'auto',
+              flexGrow: rightSlotProps?.widthAllocation === 'available' && tabsCut !== undefined ? 1 : undefined,
+              opacity: tabsCut !== undefined ? 1 : 0,
+            }}
             { ...rightSlotProps }
-            flexGrow={ rightSlotProps?.widthAllocation === 'available' && tabsCut !== undefined ? 1 : undefined }
-            opacity={ tabsCut !== undefined ? 1 : 0 }
           >
             { rightSlot }
-          </Box>
+          </div>
         ) :
           null
       }

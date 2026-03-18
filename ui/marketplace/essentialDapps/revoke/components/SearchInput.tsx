@@ -1,4 +1,3 @@
-import { chakra, Spinner } from '@chakra-ui/react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useCallback, useRef, useState } from 'react';
 
@@ -35,14 +34,14 @@ export default function SearchInput({ value, onChange, onSubmit }: Props) {
     inputRef?.current?.focus();
   }, [ onChange ]);
 
-  const startElement = isLoading ? <Spinner size="sm"/> : <IconSvg boxSize={ 5 } name="search"/>;
+  const startElement = isLoading ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4"/> : <IconSvg boxSize={ 5 } name="search"/>;
   const endElement = <ClearButton onClick={ handleFilterQueryClear } visible={ value.length > 0 }/>;
 
   return (
-    <chakra.form
+    <form
       onSubmit={ handleSubmit }
       noValidate
-      w="full"
+      className="w-full"
     >
       <InputGroup
         startElement={ startElement }
@@ -59,6 +58,6 @@ export default function SearchInput({ value, onChange, onSubmit }: Props) {
           className="border-2 text-ellipsis whitespace-nowrap"
         />
       </InputGroup>
-    </chakra.form>
+    </form>
   );
 }

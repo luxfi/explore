@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -218,7 +217,7 @@ const Stats = () => {
   }
 
   return (
-    <Grid
+    <div
       gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
       gridGap={{ base: 1, lg: 2 }}
       flexBasis="50%"
@@ -232,7 +231,7 @@ const Stats = () => {
           _last={ items.length % 2 === 1 && index === items.length - 1 ? { gridColumn: 'span 2' } : undefined }/>
       ),
       ) }
-    </Grid>
+    </div>
 
   );
 };

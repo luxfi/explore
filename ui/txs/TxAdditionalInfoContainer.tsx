@@ -1,4 +1,3 @@
-import { Box, Separator } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -21,32 +20,32 @@ const TxAdditionalInfoContainer = ({ hash }: Props) => {
 
   if (isPending) {
     return (
-      <Box>
-        <Skeleton loading w="80px" h="24px" borderRadius="sm" mb={ 3 }/>
-        <Box>
-          <Skeleton loading w="110px" h="16px" borderRadius="full" mb={ 3 }/>
-          <Skeleton loading w="100%" h="16px" borderRadius="full"/>
-        </Box>
-        <Separator my={ 4 }/>
-        <Box>
-          <Skeleton loading w="110px" h="16px" borderRadius="full" mb={ 3 }/>
-          <Skeleton loading w="100%" h="16px" borderRadius="full"/>
-        </Box>
-        <Separator my={ 4 }/>
-        <Box>
-          <Skeleton loading w="110px" h="16px" borderRadius="full" mb={ 3 }/>
-          <Skeleton loading w="100%" h="16px" borderRadius="full"/>
-        </Box>
-        <Separator my={ 4 }/>
-        <Box>
-          <Skeleton loading w="110px" h="16px" borderRadius="full" mb={ 3 }/>
-          <Skeleton loading w="75%" h="16px" borderRadius="full"/>
-          <Skeleton loading w="75%" h="16px" borderRadius="full" mt={ 1 }/>
-          <Skeleton loading w="75%" h="16px" borderRadius="full" mt={ 1 }/>
-        </Box>
-        <Separator my={ 4 }/>
-        <Skeleton loading w="80px" h="16px" borderRadius="full"/>
-      </Box>
+      <div>
+        <Skeleton loading/>
+        <div>
+          <Skeleton loading/>
+          <Skeleton loading className="w-full"/>
+        </div>
+        <hr/>
+        <div>
+          <Skeleton loading/>
+          <Skeleton loading className="w-full"/>
+        </div>
+        <hr/>
+        <div>
+          <Skeleton loading/>
+          <Skeleton loading className="w-full"/>
+        </div>
+        <hr/>
+        <div>
+          <Skeleton loading/>
+          <Skeleton loading/>
+          <Skeleton loading/>
+          <Skeleton loading/>
+        </div>
+        <hr/>
+        <Skeleton loading/>
+      </div>
     );
   }
 

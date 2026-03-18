@@ -1,4 +1,3 @@
-import { Grid, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
@@ -42,19 +41,13 @@ const Address3rdPartyWidgets = ({ shouldRender = true, isQueryEnabled = true, ad
   }
 
   return (
-    <Flex w="full" direction="column" alignItems="flex-start" gap={ 3 }>
-      <Grid
-        gap={ 3 }
-        templateColumns={{
-          base: 'repeat(auto-fit, minmax(238px, 1fr))',
-          xl: 'repeat(auto-fit, minmax(248px, 1fr))',
+    <div className="flex w-full flex-col items-start gap-3">
+      <div
+        className="grid gap-3 w-full"
+        style={{
+          gridTemplateColumns: 'repeat(auto-fit, minmax(238px, 1fr))',
+          maxWidth: widgets.length < 5 ? `${ (widgets.length * (360 + 12)) - 12 }px` : undefined,
         }}
-        w="full"
-        maxW={
-          widgets.length < 5 ?
-            `${ (widgets.length * (360 + 12)) - 12 }px` : // 360px - max widget width, 12px - gap
-            undefined
-        }
       >
         { displayedWidgets.map((name) => (
           <Address3rdPartyWidgetCard
@@ -65,7 +58,7 @@ const Address3rdPartyWidgets = ({ shouldRender = true, isQueryEnabled = true, ad
             isLoading={ configQuery.isPlaceholderData || isLoading }
           />
         )) }
-      </Grid>
+      </div>
       { shouldShowViewAllLink && (
         <Link
           href={ route({ pathname: '/address/[hash]', query: { hash: addressHash, tab: 'widgets' } }) }
@@ -75,7 +68,7 @@ const Address3rdPartyWidgets = ({ shouldRender = true, isQueryEnabled = true, ad
           View all
         </Link>
       ) }
-    </Flex>
+    </div>
   );
 };
 

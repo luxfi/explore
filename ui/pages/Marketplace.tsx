@@ -1,4 +1,3 @@
-import { createListCollection, Flex } from '@chakra-ui/react';
 import React from 'react';
 import type { MouseEvent } from 'react';
 
@@ -29,6 +28,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Sort from 'ui/shared/sort/Sort';
 
 import useMarketplace from '../marketplace/useMarketplace';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({ items: SORT_OPTIONS });
 
@@ -167,13 +167,13 @@ const Marketplace = () => {
             </MenuContent>
           </MenuRoot>
         ) : (
-          <Flex ml="auto">
+          <div className="ml-auto">
             { links.map(({ label, href }) => (
               <Link external key={ label } href={ href } variant="underlaid" className="text-sm ml-2">
                 { label }
               </Link>
             )) }
-          </Flex>
+          </div>
         ) }
       />
 
@@ -216,7 +216,7 @@ const Marketplace = () => {
           isLoading={ isCategoriesPlaceholderData }
         />
 
-        <Flex gap={{ base: 2, lg: 3 }}>
+        <div className="flex gap-2 lg:gap-3">
           { showSort && (
             <Sort
               name="dapps_sorting"
@@ -234,7 +234,7 @@ const Marketplace = () => {
             size="sm"
             className="w-full lg:w-[350px]"
           />
-        </Flex>
+        </div>
       </ActionBar>
 
       <MarketplaceList

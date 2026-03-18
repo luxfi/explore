@@ -1,4 +1,4 @@
-import { useToken } from '@chakra-ui/react';
+import { useToken } from '../../../hooks/useToken';
 import React from 'react';
 
 import type { ChartMargin } from '../types';

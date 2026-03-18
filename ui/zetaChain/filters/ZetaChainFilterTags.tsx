@@ -1,4 +1,3 @@
-import { Flex, HStack, Text } from '@chakra-ui/react';
 import { castArray } from 'es-toolkit/compat';
 import React from 'react';
 
@@ -131,24 +130,24 @@ const ZetaChainFilterTags = ({ filters, onClearFilter, onClearAll }: Props) => {
   }
 
   return (
-    <Flex justifyContent="space-between" alignItems="center" mb={ 6 }>
-      <Flex alignItems="center" gap={ 2 }>
-        <Text fontSize="lg" lineHeight="24px" w="100px">Filtered by:</Text>
-        <HStack gap={ 2 } flexWrap="wrap">
+    <div className="flex">
+      <div className="flex">
+        <span>Filtered by:</span>
+        <div className="flex flex-row">
           { filterTags.map(t => (
             <Tag key={ t.name } variant="filter" onClose={ onClearFilter(t.key) } closable label={ t.name }>
               { t.value }
             </Tag>
           )) }
-        </HStack>
-      </Flex>
+        </div>
+      </div>
       { filterTags.length !== 0 && (
         <Link onClick={ onClearAll } className="flex items-center justify-end gap-2 text-sm w-[150px]">
           <IconSvg name="repeat" boxSize={ 5 }/>
           Reset filters
         </Link>
       ) }
-    </Flex>
+    </div>
   );
 };
 

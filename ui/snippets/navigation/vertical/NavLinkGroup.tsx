@@ -1,8 +1,8 @@
-import { Text, HStack, Box, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NavGroupItem } from 'types/client/navigation';
 
+import { cn } from 'lib/utils/cn';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -25,34 +25,31 @@ const NavLinkGroup = ({ item, isCollapsed }: Props) => {
   const isHighlighted = checkRouteHighlight(item.subItems);
 
   const content = (
-    <Box width="228px" top={{ lg: isExpanded ? '-16px' : 0, xl: isCollapsed ? 0 : '-16px' }}>
-      <Text color="text.secondary" fontSize="sm" mb={ 1 } display={{ lg: isExpanded ? 'none' : 'block', xl: isCollapsed ? 'block' : 'none' }}>
+    <div className="w-[228px]">
+      <span
+        className={ `text-[var(--color-text-secondary)] text-sm mb-1 ${ isExpanded ? 'lg:hidden' : 'lg:block' } ${ isCollapsed ? 'xl:block' : 'xl:hidden' }` }
+      >
         { item.text }
-      </Text>
-      <VStack gap={ 1 } alignItems="start" as="ul">
+      </span>
+      <ul className="flex flex-col gap-1 items-start">
         { item.subItems.map((subItem, index) => Array.isArray(subItem) ? (
-          <Box
+          <li
             key={ index }
-            w="100%"
-            as="ul"
-            _notLast={{
-              mb: 2,
-              pb: 2,
-              borderBottomWidth: '1px',
-              borderColor: 'border.divider',
-            }}
+            className="w-full list-none [&:not(:last-child)]:mb-2 [&:not(:last-child)]:pb-2 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-[var(--color-border-divider)]"
           >
-            { subItem.map(subSubItem => <NavLink key={ subSubItem.text } item={ subSubItem } isCollapsed={ false }/>) }
-          </Box>
+            <ul>
+              { subItem.map(subSubItem => <NavLink key={ subSubItem.text } item={ subSubItem } isCollapsed={ false }/>) }
+            </ul>
+          </li>
         ) :
           <NavLink key={ subItem.text } item={ subItem } isCollapsed={ false }/>,
         ) }
-      </VStack>
-    </Box>
+      </ul>
+    </div>
   );
 
   return (
-    <Box as="li" listStyleType="none" w="100%">
+    <li className="list-none w-full">
       <Tooltip
         content={ content }
         positioning={{ placement: 'right', offset: { crossAxis: 0, mainAxis: 8 } }}
@@ -61,32 +58,27 @@ const NavLinkGroup = ({ item, isCollapsed }: Props) => {
         variant="popover"
         interactive
       >
-        <Box
+        <div
           { ...styleProps.itemProps }
-          w={{ lg: isExpanded ? '180px' : '60px', xl: isCollapsed ? '60px' : '180px' }}
-          pl={{ lg: isExpanded ? 2 : '15px', xl: isCollapsed ? '15px' : 2 }}
-          pr={{ lg: isExpanded ? 0 : '15px', xl: isCollapsed ? '15px' : 0 }}
+          className={ cn(
+            'cursor-pointer relative',
+            isExpanded ? 'lg:w-[180px] lg:pl-2 lg:pr-0' : 'lg:w-[60px] lg:pl-[15px] lg:pr-[15px]',
+            isCollapsed ? 'xl:w-[60px] xl:pl-[15px] xl:pr-[15px]' : 'xl:w-[180px] xl:pl-2 xl:pr-0',
+          ) }
           aria-label={ `${ item.text } link group` }
-          position="relative"
-          color={ item.isActive ? 'link.navigation.fg.selected' : 'link.navigation.fg' }
-          bgColor={ item.isActive ? 'link.navigation.bg.selected' : 'link.navigation.bg' }
-          _hover={{
-            color: 'link.navigation.fg.hover',
+          style={{
+            color: item.isActive ? 'var(--color-link-navigation-fg-selected)' : 'var(--color-link-navigation-fg)',
+            backgroundColor: item.isActive ? 'var(--color-link-navigation-bg-selected)' : 'var(--color-link-navigation-bg)',
           }}
-          _open={{
-            color: 'link.navigation.fg.hover',
-          }}
-          cursor="pointer"
         >
-          <HStack gap={ 0 } overflow="hidden">
+          <div className="flex gap-0 overflow-hidden items-center">
             <NavLinkIcon item={ item }/>
-            <Text
+            <span
               { ...styleProps.textProps }
-              ml={ 3 }
-              whiteSpace="nowrap"
+              className="ml-3 whitespace-nowrap"
             >
               { item.text }
-            </Text>
+            </span>
             { isHighlighted && (
               <LightningLabel
                 iconColor={ item.isActive ? 'link.navigation.bg.selected' : 'link.navigation.bg.group' }
@@ -104,10 +96,10 @@ const NavLinkGroup = ({ item, isCollapsed }: Props) => {
               transitionDuration="normal"
               transitionTimingFunction="ease"
             />
-          </HStack>
-        </Box>
+          </div>
+        </div>
       </Tooltip>
-    </Box>
+    </li>
   );
 };
 

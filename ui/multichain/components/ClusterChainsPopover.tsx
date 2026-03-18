@@ -1,4 +1,3 @@
-import { Box, chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -34,7 +33,7 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
 
   return (
     <PopoverRoot>
-      <Box>
+      <div>
         <PopoverTrigger>
           <Button
             size="sm"
@@ -47,11 +46,11 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
             { activeChains.length } Chain{ activeChains.length > 1 ? 's' : '' }
           </Button>
         </PopoverTrigger>
-      </Box>
+      </div>
       <PopoverContent className="w-auto max-h-[400px] overflow-y-auto">
         <PopoverBody >
-          <chakra.span color="text.secondary" textStyle="xs">Chains this address has interacted with</chakra.span>
-          <VStack gap={ 2 } mt={ 1 } alignItems="flex-start">
+          <span className="text-[var(--color-text-secondary)] text-xs">Chains this address has interacted with</span>
+          <div gap={ 2 } mt={ 1 } alignItems="flex-start">
             { activeChains.map((chain) => (
               <Link
                 key={ chain.id }
@@ -70,7 +69,7 @@ const ClusterChainsPopover = ({ addressHash, data, isLoading }: Props) => {
                 { chain.name }
               </Link>
             )) }
-          </VStack>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

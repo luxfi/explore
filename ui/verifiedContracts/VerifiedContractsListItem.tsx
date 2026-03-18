@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { VerifiedContract } from 'types/api/contracts';
@@ -30,17 +29,17 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
   })();
 
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Flex w="100%">
-        <Flex alignItems="center" overflow="hidden">
+    <ListItemMobile>
+      <div className="flex w-full">
+        <div className="flex overflow-hidden">
           <AddressEntity
             isLoading={ isLoading }
             address={ data.address }
             query={{ tab: 'contract' }}
             noCopy
           />
-          { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 } mx={ 2 }/> }
-        </Flex>
+          { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 }/> }
+        </div>
         <AddressEntity
           address={{ hash: data.address.filecoin?.robust ?? data.address.hash }}
           isLoading={ isLoading }
@@ -48,69 +47,65 @@ const VerifiedContractsListItem = ({ data, isLoading }: Props) => {
           noIcon
           truncation="constant"
           ml="auto"
-          color="text.secondary"
-          flexShrink={ 0 }
         />
-      </Flex>
-      <Flex columnGap={ 3 } w="100%">
+      </div>
+      <div className="flex w-full">
         <Skeleton loading={ isLoading } className="font-medium shrink-0">Balance { currencyUnits.ether }</Skeleton>
         <NativeCoinValue
           amount={ data.coin_balance }
           noSymbol
           loading={ isLoading }
-          color="text.secondary"
         />
-      </Flex>
-      <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Txs count</Skeleton>
-        <Skeleton loading={ isLoading } color="text.secondary">
+      </div>
+      <div className="flex">
+        <Skeleton loading={ isLoading } className="font-medium">Txs count</Skeleton>
+        <Skeleton loading={ isLoading }>
           <span>{ data.transactions_count ? data.transactions_count.toLocaleString() : '0' }</span>
         </Skeleton>
-      </Flex>
-      <Flex columnGap={ 3 }>
+      </div>
+      <div className="flex">
         <Skeleton loading={ isLoading } className="font-medium shrink-0">Language</Skeleton>
         <Skeleton loading={ isLoading } className="flex flex-wrap">
-          <Box>{ formatLanguageName(data.language) }</Box>
-          <Box color="text.secondary" wordBreak="break-all" whiteSpace="pre-wrap"> ({ data.compiler_version })</Box>
+          <div>{ formatLanguageName(data.language) }</div>
+          <div> ({ data.compiler_version })</div>
         </Skeleton>
-      </Flex>
+      </div>
       { data.zk_compiler_version && (
-        <Flex columnGap={ 3 }>
+        <div className="flex">
           <Skeleton loading={ isLoading } className="font-medium shrink-0">ZK compiler</Skeleton>
           <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] break-all whitespace-pre-wrap">
             { data.zk_compiler_version }
           </Skeleton>
-        </Flex>
+        </div>
       ) }
-      <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Optimization</Skeleton>
+      <div className="flex">
+        <Skeleton loading={ isLoading } className="font-medium">Optimization</Skeleton>
         { data.optimization_enabled ?
-          <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
-          <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
-      </Flex>
-      <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Constructor args</Skeleton>
+          <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
+          <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+      </div>
+      <div className="flex">
+        <Skeleton loading={ isLoading } className="font-medium">Constructor args</Skeleton>
         { data.has_constructor_args ?
-          <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
-          <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
-      </Flex>
-      <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>Verified</Skeleton>
-        <Flex alignItems="center" columnGap={ 2 }>
-          <IconSvg name="status/success" boxSize={ 4 } color="green.500" isLoading={ isLoading }/>
+          <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
+          <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+      </div>
+      <div className="flex">
+        <Skeleton loading={ isLoading } className="font-medium">Verified</Skeleton>
+        <div className="flex">
+          <IconSvg name="status/success" boxSize={ 4 } isLoading={ isLoading }/>
           <TimeWithTooltip
             timestamp={ data.verified_at }
             isLoading={ isLoading }
-            color="text.secondary"
           />
-        </Flex>
-      </Flex>
-      <Flex columnGap={ 3 }>
-        <Skeleton loading={ isLoading } fontWeight={ 500 }>License</Skeleton>
-        <Skeleton loading={ isLoading } color="text.secondary">
+        </div>
+      </div>
+      <div className="flex">
+        <Skeleton loading={ isLoading } className="font-medium">License</Skeleton>
+        <Skeleton loading={ isLoading }>
           <span>{ license }</span>
         </Skeleton>
-      </Flex>
+      </div>
     </ListItemMobile>
   );
 };

@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { WatchAssetParams } from 'viem';
 
@@ -147,11 +146,11 @@ const AddressAddToWallet = ({ className, token, tokenId, isLoading, variant = 'i
 
   return (
     <Tooltip content={ `Add token to ${ WALLETS_INFO[wallet].name }` }>
-      <Box className={ className } display="inline-flex" cursor="pointer" onClick={ handleClick } flexShrink={ 0 } aria-label="Add token to wallet">
+      <span className={ `inline-flex cursor-pointer shrink-0 ${ className || '' }` } onClick={ handleClick } aria-label="Add token to wallet">
         <IconSvg name={ WALLETS_INFO[wallet].icon } boxSize={ iconSize }/>
-      </Box>
+      </span>
     </Tooltip>
   );
 };
 
-export default React.memo(chakra(AddressAddToWallet));
+export default React.memo(AddressAddToWallet);

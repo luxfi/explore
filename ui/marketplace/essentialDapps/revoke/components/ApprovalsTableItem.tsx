@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -47,7 +46,7 @@ export default function ApprovalsTableItem({
   return (
     <TableRow className="font-medium">
       <TableCell verticalAlign="middle">
-        <Flex flexDir="column" gap={ 2 } mr={ 2 }>
+        <div flexDir="column" gap={ 2 } mr={ 2 }>
           <TokenEntity
             token={{
               address_hash: approval.address,
@@ -73,7 +72,7 @@ export default function ApprovalsTableItem({
             chain={ selectedChain }
             link={{ variant: 'secondary', noIcon: true, external: true }}
           />
-        </Flex>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <AddressEntity

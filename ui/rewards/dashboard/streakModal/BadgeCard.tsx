@@ -1,5 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
-
 import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
 import { Image } from 'toolkit/chakra/image';
@@ -32,44 +30,32 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
   const progress = Math.min(currentStreak, target);
 
   return (
-    <Flex direction={{ base: 'row', lg: 'column' }} alignItems="center" gap={ 3 } flex={ 1 }>
-      <Flex
-        p={{ base: 2.5, lg: 4 }}
-        borderRadius="lg"
-        bgColor={ isUnlocked ? BADGE_BG_COLORS[index] : { _light: 'gray.50', _dark: 'whiteAlpha.100' } }
-        alignItems="center"
-        justifyContent="center"
-        w={{ base: '92px', lg: 'full' }}
-        flexShrink={ 0 }
+    <div className="flex flex-row lg:flex-col items-center gap-3 flex-1">
+      <div
+        className="flex p-2.5 lg:p-4 rounded-lg items-center justify-center w-[92px] lg:w-full shrink-0"
+        style={{ backgroundColor: isUnlocked ? BADGE_BG_COLORS[index] : undefined }}
       >
         <Image
           src={ isUnlocked ? BADGES[index] : GHOST_BADGES[index] }
           alt="Streak badge"
           h={{ base: '54px', lg: '82px' }}
         />
-      </Flex>
-      <Flex direction="column" gap={ 3 } w="full" alignItems={{ base: 'flex-start', lg: 'center' }}>
-        <Text textStyle="sm">{ target } Day streak</Text>
-        <Flex
-          w="full"
-          alignItems="center"
-          justifyContent={{ base: 'flex-start', lg: 'center' }}
-          gap={ 2 }
-          px={{ base: 0, lg: 2 }}
-          h="32px"
-        >
+      </div>
+      <div className="flex flex-col gap-3 w-full items-start lg:items-center">
+        <span className="text-sm">{ target } Day streak</span>
+        <div className="flex w-full items-center justify-start lg:justify-center gap-2 px-0 lg:px-2 h-[32px]">
           { (() => {
             if (badge.is_minted) {
               return (
-                <Text textStyle="xs" color="green.500">
+                <span className="text-xs text-green-500">
                   Minted
-                </Text>
+                </span>
               );
             }
             if (badge.is_whitelisted) {
               return (
                 <Link
-                  href={ `https://badges.lux.network/mint/${ badge.address }` }
+                  href={ `https://badges.blockscout.com/mint/${ badge.address }` }
                   external
                   className="text-sm"
                 >
@@ -79,9 +65,9 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
             }
             return (
               <>
-                <Text textStyle="xs" color="text.secondary" minW="50px">
+                <span className="text-xs text-[var(--color-text-secondary)] min-w-[50px]">
                   { progress }/{ target }
-                </Text>
+                </span>
                 <Progress
                   value={ progress }
                   min={ 0 }
@@ -92,8 +78,8 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
               </>
             );
           })() }
-        </Flex>
-      </Flex>
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 }

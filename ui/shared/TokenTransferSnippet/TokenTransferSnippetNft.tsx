@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
@@ -22,7 +21,7 @@ const NftTokenTransferSnippet = ({ value, token, tokenId, instance }: Props) => 
       if (token.type === 'ERC-404') {
         return null;
       }
-      return <chakra.span color="text.secondary"> N/A </chakra.span>;
+      return <span className="text-[var(--color-text-secondary)]"> N/A </span>;
     }
 
     return (
@@ -43,15 +42,15 @@ const NftTokenTransferSnippet = ({ value, token, tokenId, instance }: Props) => 
     <>
       { num ? (
         <>
-          <chakra.span color="text.secondary">for</chakra.span>
+          <span className="text-[var(--color-text-secondary)]">for</span>
           <span>{ num }</span>
-          <chakra.span color="text.secondary">token ID</chakra.span>
+          <span className="text-[var(--color-text-secondary)]">token ID</span>
         </>
       ) : (
-        <chakra.span color="text.secondary">for token ID</chakra.span>
+        <span className="text-[var(--color-text-secondary)]">for token ID</span>
       ) }
       { tokenIdContent }
-      <chakra.span color="text.secondary">of</chakra.span>
+      <span className="text-[var(--color-text-secondary)]">of</span>
       <TokenEntity
         token={ token }
         noCopy

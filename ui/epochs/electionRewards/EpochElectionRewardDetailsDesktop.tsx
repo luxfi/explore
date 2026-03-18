@@ -1,4 +1,3 @@
-import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -36,7 +35,7 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
   const titles = getRewardDetailsTableTitles(type);
 
   return (
-    <Box
+    <div
       p={ 4 }
       bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
       borderRadius="base"
@@ -46,20 +45,20 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
       textStyle="sm"
     >
       { query.data && (
-        <Grid
+        <div
           gridTemplateColumns="min-content min-content min-content"
           rowGap={ 5 }
           columnGap={ 5 }
         >
-          <GridItem fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
+          <div fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
             { titles[0] }
-          </GridItem>
-          <GridItem fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap" textAlign="right">
+          </div>
+          <div fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap" textAlign="right">
             Amount { token.symbol }
-          </GridItem>
-          <GridItem fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
+          </div>
+          <div fontWeight={ 600 } mb={ 1 } whiteSpace="nowrap">
             { titles[1] }
-          </GridItem>
+          </div>
 
           { query.data?.pages
             .map((page) => page.items)
@@ -67,30 +66,30 @@ const CeloEpochElectionRewardDetailsDesktop = ({ type, token }: Props) => {
             .map((item, index) => {
               return (
                 <React.Fragment key={ index }>
-                  <GridItem>
+                  <div>
                     <AddressEntity address={ item.account } noIcon truncation="constant"/>
-                  </GridItem>
-                  <GridItem textAlign="right">
+                  </div>
+                  <div textAlign="right">
                     <AssetValue
                       amount={ item.amount }
                       decimals={ token.decimals }
                     />
-                  </GridItem>
-                  <GridItem>
+                  </div>
+                  <div>
                     <AddressEntity address={ item.associated_account } noIcon truncation="constant"/>
-                  </GridItem>
+                  </div>
                 </React.Fragment>
               );
             }) }
-        </Grid>
+        </div>
       ) }
 
       { query.isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
 
-      { query.isError && <Text color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</Text> }
+      { query.isError && <span color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</span> }
 
-      <Box h="0" w="100px" ref={ cutRef }/>
-    </Box>
+      <div h="0" w="100px" ref={ cutRef }/>
+    </div>
   );
 };
 

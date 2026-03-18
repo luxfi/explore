@@ -1,4 +1,3 @@
-import { chakra, Grid, HStack, Stat } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -16,6 +15,16 @@ interface Props {
   chainInfo: ClusterChainConfig | undefined;
   isLoading?: boolean;
 }
+
+const DeltaIndicator = ({ delta }: { delta: number }) => {
+  const isPositive = delta > 0;
+  return (
+    <span className={ `inline-flex items-center gap-0.5 ${ isPositive ? 'text-green-500' : 'text-red-500' }` }>
+      <span>{ delta.toFixed(2) }%</span>
+      <span>{ isPositive ? '\u25B2' : '\u25BC' }</span>
+    </span>
+  );
+};
 
 const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => {
   const activeAddresses = {
@@ -35,8 +44,8 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
 
   return (
     <ListItemMobile rowGap={ 3 } py={ 4 } fontSize="sm" alignItems="stretch">
-      <HStack justifyContent="space-between" fontWeight={ 600 }>
-        <HStack maxW="50%">
+      <div className="flex flex-row justify-between font-semibold">
+        <div className="flex flex-row items-center gap-2 max-w-[50%]">
           <ChainIcon data={ chainInfo } isLoading={ isLoading }/>
           <Link
             href={ chainInfo?.explorer_url }
@@ -46,72 +55,57 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
           >
             <TruncatedText text={ chainInfo?.name ?? 'Unknown chain' } loading={ isLoading }/>
           </Link>
-        </HStack>
-        <HStack gap={ 0 } flexShrink={ 0 }>
+        </div>
+        <div className="flex flex-row items-center gap-0 shrink-0">
           <Skeleton loading={ isLoading } color="text.secondary"><span>{ data.chain_id }</span></Skeleton>
           <CopyToClipboard text={ String(data.chain_id) } isLoading={ isLoading }/>
-        </HStack>
-      </HStack>
-      <Grid gridTemplateColumns="140px 1fr" columnGap={ 2 } rowGap={ 3 }>
+        </div>
+      </div>
+      <div className="grid" style={{ gridTemplateColumns: '140px 1fr', columnGap: '8px', rowGap: '12px' }}>
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
           <span>Active addresses</span>
-          <chakra.span color="text.secondary"> 7D</chakra.span>
+          <span className="text-[var(--color-text-secondary)]"> 7D</span>
         </Skeleton>
-        <HStack gap={ 1 }>
+        <div className="flex flex-row items-center gap-1">
           <Skeleton loading={ isLoading }>
             <span>{ activeAddresses.value.toLocaleString() }</span>
           </Skeleton>
           { activeAddresses.delta ? (
             <Skeleton loading={ isLoading }>
-              <Stat.Root positive={ activeAddresses.delta > 0 }>
-                <Stat.ValueText>
-                  { activeAddresses.delta.toFixed(2) }%
-                </Stat.ValueText>
-                { activeAddresses.delta > 0 ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-              </Stat.Root>
+              <DeltaIndicator delta={ activeAddresses.delta }/>
             </Skeleton>
           ) : null }
-        </HStack>
+        </div>
 
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
           <span>New addresses</span>
-          <chakra.span color="text.secondary"> 7D</chakra.span>
+          <span className="text-[var(--color-text-secondary)]"> 7D</span>
         </Skeleton>
-        <HStack gap={ 1 }>
+        <div className="flex flex-row items-center gap-1">
           <Skeleton loading={ isLoading }>
             <span>{ newAddresses.value.toLocaleString() }</span>
           </Skeleton>
           { newAddresses.delta ? (
             <Skeleton loading={ isLoading }>
-              <Stat.Root positive={ newAddresses.delta > 0 }>
-                <Stat.ValueText>
-                  { newAddresses.delta.toFixed(2) }%
-                </Stat.ValueText>
-                { newAddresses.delta > 0 ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-              </Stat.Root>
+              <DeltaIndicator delta={ newAddresses.delta }/>
             </Skeleton>
           ) : null }
-        </HStack>
+        </div>
 
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
           <span>Daily txs</span>
-          <chakra.span color="text.secondary"> 7D</chakra.span>
+          <span className="text-[var(--color-text-secondary)]"> 7D</span>
         </Skeleton>
-        <HStack gap={ 1 }>
+        <div className="flex flex-row items-center gap-1">
           <Skeleton loading={ isLoading }>
             <span>{ dailyTransactions.value.toLocaleString() }</span>
           </Skeleton>
           { dailyTransactions.delta ? (
             <Skeleton loading={ isLoading }>
-              <Stat.Root positive={ dailyTransactions.delta > 0 }>
-                <Stat.ValueText>
-                  { dailyTransactions.delta.toFixed(2) }%
-                </Stat.ValueText>
-                { dailyTransactions.delta > 0 ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-              </Stat.Root>
+              <DeltaIndicator delta={ dailyTransactions.delta }/>
             </Skeleton>
           ) : null }
-        </HStack>
+        </div>
 
         <Skeleton loading={ isLoading } fontWeight={ 500 }>
           <span>TPS</span>
@@ -119,7 +113,7 @@ const MultichainEcosystemsListItem = ({ data, chainInfo, isLoading }: Props) => 
         <Skeleton loading={ isLoading }>
           <span>{ Number(data.tps ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
         </Skeleton>
-      </Grid>
+      </div>
     </ListItemMobile>
   );
 };

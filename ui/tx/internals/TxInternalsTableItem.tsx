@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -19,32 +18,32 @@ const TxInternalTableItem = ({ type, from, to, value, success, error, gas_limit:
   const toData = to ? to : createdContract;
 
   return (
-    <TableRow alignItems="top">
+    <TableRow>
       <TableCell>
-        <Flex rowGap={ 2 } flexWrap="wrap">
+        <div>
           { typeTitle && (
-            <Box w="126px" display="inline-block">
+            <div>
               <Badge colorPalette="cyan" className="mr-5" loading={ isLoading }>{ typeTitle }</Badge>
-            </Box>
+            </div>
           ) }
           { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
-        </Flex>
+        </div>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <AddressFromTo
           from={ from }
           to={ toData }
           isLoading={ isLoading }
         />
       </TableCell>
-      <TableCell isNumeric verticalAlign="middle">
+      <TableCell isNumeric>
         <NativeCoinValue
           amount={ value }
           noSymbol
           loading={ isLoading }
         />
       </TableCell>
-      <TableCell isNumeric verticalAlign="middle">
+      <TableCell isNumeric>
         <NativeCoinValue
           amount={ gasLimit }
           units="wei"

@@ -1,5 +1,4 @@
-import { Flex, useToken } from '@chakra-ui/react';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useEffect, useState } from 'react';
 
 import { getFeaturePayload } from 'configs/app/features/types';
 
@@ -32,8 +31,21 @@ function getExplorerUrls() {
 export default function Swap() {
   const isMobile = useIsMobile();
   const { colorMode } = useColorMode();
-  const [ mainColor ] = useToken('colors', 'blue.600');
-  const [ borderColor ] = useToken('colors', colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.100');
+  const colorRef = useRef<HTMLDivElement>(null);
+  const [ mainColor, setMainColor ] = useState('#2563eb');
+  const [ borderColor, setBorderColor ] = useState('rgba(0,0,0,0.06)');
+
+  useEffect(() => {
+    if (colorRef.current) {
+      const styles = getComputedStyle(colorRef.current);
+      setMainColor(styles.getPropertyValue('--color-blue-600').trim() || '#2563eb');
+      setBorderColor(
+        colorMode === 'light'
+          ? 'rgba(0,0,0,0.06)'
+          : 'rgba(255,255,255,0.06)',
+      );
+    }
+  }, [ colorMode ]);
 
   const message = useMemo(() => ({
     type: 'config',
@@ -48,7 +60,7 @@ export default function Swap() {
   }), [ mainColor, borderColor ]);
 
   return (
-    <Flex flex="1" flexDir="column" justifyContent="space-between" gap={ 6 }>
+    <div ref={ colorRef } className="flex flex-1 flex-col justify-between gap-6">
       <MarketplaceAppIframe
         appId="swap"
         appUrl={ dappConfig?.url }
@@ -64,6 +76,6 @@ export default function Swap() {
           ml="auto"
         />
       ) }
-    </Flex>
+    </div>
   );
 };

@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import { pickBy } from 'es-toolkit';
 import React from 'react';
 
@@ -17,11 +16,9 @@ interface Props {
 
 const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
   const isMobile = useIsMobile();
-  const bgColorSuccess = { _light: 'green.50', _dark: 'green.800' };
-  const bgColorError = { _light: 'red.50', _dark: 'red.800' };
 
   return (
-    <Flex flexDir="column" rowGap={ 3 }>
+    <div className="flex flex-col gap-y-3">
       { data.items.map((item, index) => {
 
         const startOverButtonQuery = pickBy({
@@ -33,17 +30,18 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
         }, Boolean);
 
         return (
-          <Flex key={ index } flexDir={{ base: 'column', lg: 'row' }}>
-            <Box flexGrow={ 1 }>
-              <Grid
-                gridTemplateColumns={{ base: '1fr', lg: '1fr 1fr' }}
-                bgColor={ item.error ? bgColorError : bgColorSuccess }
-                borderRadius="base"
-                rowGap={ 3 }
+          <div key={ index } className="flex flex-col lg:flex-row">
+            <div className="grow">
+              <div
+                className={ `grid grid-cols-1 lg:grid-cols-2 gap-y-3 rounded-base ${
+                  item.error
+                    ? 'bg-red-50 dark:bg-red-800'
+                    : 'bg-green-50 dark:bg-green-800'
+                }` }
               >
-                <GridItem px={{ base: 4, lg: 6 }} pt={{ base: 2, lg: 4 }} pb={{ base: 0, lg: 4 }} overflow="hidden">
-                  <Box fontSize="sm" color="text.secondary" fontWeight={ 500 }>Smart contract / Address (0x...)</Box>
-                  <Flex flexDir="column" rowGap={ 2 } mt={ 2 }>
+                <div className="px-4 lg:px-6 pt-2 lg:pt-4 pb-0 lg:pb-4 overflow-hidden">
+                  <div className="text-sm text-[var(--color-text-secondary)] font-medium">Smart contract / Address (0x...)</div>
+                  <div className="flex flex-col gap-y-2 mt-2">
                     { item.addresses.map((hash) => (
                       <AddressEntity
                         key={ hash }
@@ -51,11 +49,11 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
                         noIcon
                       />
                     )) }
-                  </Flex>
-                </GridItem>
-                <GridItem px={{ base: 4, lg: 6 }} pb={{ base: 2, lg: 4 }} pt={{ base: 0, lg: 4 }}>
-                  <Box fontSize="sm" color="text.secondary" fontWeight={ 500 }>Tag</Box>
-                  <Flex rowGap={ 2 } columnGap={ 2 } mt={ 2 } justifyContent="flex-start" flexWrap="wrap">
+                  </div>
+                </div>
+                <div className="px-4 lg:px-6 pb-2 lg:pb-4 pt-0 lg:pt-4">
+                  <div className="text-sm text-[var(--color-text-secondary)] font-medium">Tag</div>
+                  <div className="flex gap-2 mt-2 justify-start flex-wrap">
                     { item.tags.map((tag) => (
                       <EntityTag
                         key={ tag.name }
@@ -64,11 +62,11 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
                         noLink
                       />
                     )) }
-                  </Flex>
-                </GridItem>
-              </Grid>
-              { item.error && <Box color="red.500" mt={ 1 } fontSize="sm">{ item.error }</Box> }
-            </Box>
+                  </div>
+                </div>
+              </div>
+              { item.error && <div className="text-red-500 mt-1 text-sm">{ item.error }</div> }
+            </div>
             { item.error && (
               <Link
                 href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }
@@ -82,11 +80,11 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
                 </Button>
               </Link>
             ) }
-            { !item.error && !isMobile && <Box w="95px" ml={ 6 } flexShrink={ 0 }/> }
-          </Flex>
+            { !item.error && !isMobile && <div className="w-[95px] ml-6 shrink-0"/> }
+          </div>
         );
       }) }
-    </Flex>
+    </div>
   );
 };
 

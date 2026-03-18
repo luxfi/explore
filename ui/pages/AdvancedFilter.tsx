@@ -1,10 +1,3 @@
-import {
-  Box,
-  Text,
-  chakra,
-  Flex,
-  HStack,
-} from '@chakra-ui/react';
 import { omit } from 'es-toolkit';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -146,7 +139,7 @@ const AdvancedFilter = () => {
 
   const content = (
     <AddressHighlightProvider>
-      <Box maxW="100%" display="grid" overflowX="scroll" whiteSpace="nowrap">
+      <div className="overflow-x-scroll whitespace-nowrap grid max-w-full">
         <TableRoot tableLayout="fixed" minWidth="950px" w="100%">
           <TableHeaderSticky>
             <TableRow>
@@ -162,9 +155,9 @@ const AdvancedFilter = () => {
                     whiteSpace="normal"
                   >
                     { Boolean(column.name) && (
-                      <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
+                      <span className="mr-2 leading-[24px] align-middle">
                         { column.id === 'age' ? 'Timestamp' : column.name }
-                      </chakra.span>
+                      </span>
                     ) }
                     <FilterByColumn
                       column={ column.id }
@@ -221,7 +214,7 @@ const AdvancedFilter = () => {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
+      </div>
     </AddressHighlightProvider>
   );
 
@@ -239,16 +232,16 @@ const AdvancedFilter = () => {
         title="Advanced filter"
         withTextAd
       />
-      <Flex mb={ 4 } justifyContent="space-between" alignItems="start">
-        <Text fontSize="lg" mr={ 3 } lineHeight="24px" w="100px">Filtered by:</Text>
+      <div className="flex items-start justify-between mb-4">
+        <span className="text-lg w-[100px] mr-3 leading-[24px]">Filtered by:</span>
         { filterTags.length !== 0 && (
           <Link onClick={ clearAllFilters } className="flex items-center justify-end gap-2 text-sm w-[150px]">
             <IconSvg name="repeat" boxSize={ 5 }/>
             Reset filters
           </Link>
         ) }
-      </Flex>
-      <HStack gap={ 2 } flexWrap="wrap" mb={ 6 }>
+      </div>
+      <div className="flex flex-wrap mb-6 gap-2">
         { multichainContext?.chain && (
           <Tag variant="filter" label="Chain">
             { multichainContext.chain.app_config.chain.name }
@@ -269,7 +262,7 @@ const AdvancedFilter = () => {
             </Tag>
           </>
         ) }
-      </HStack>
+      </div>
       <DataListDisplay
         isError={ isError }
         itemsNum={ data?.items.length }

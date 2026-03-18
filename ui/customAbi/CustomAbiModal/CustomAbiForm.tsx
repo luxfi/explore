@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -128,7 +127,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           asComponent="Textarea"
           className="mb-8 min-h-[300px] [&_textarea]:bg-[var(--color-dialog-bg)]"
         />
-        <Box>
+        <div>
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }
@@ -136,7 +135,7 @@ const CustomAbiForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAler
           >
             { data && 'id' in data ? 'Save' : 'Create custom ABI' }
           </Button>
-        </Box>
+        </div>
       </form>
     </FormProvider>
   );

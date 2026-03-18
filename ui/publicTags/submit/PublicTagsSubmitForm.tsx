@@ -1,4 +1,3 @@
-import { chakra, Grid, GridItem } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -96,20 +95,16 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
-        <Grid
-          columnGap={ 3 }
-          rowGap={ 3 }
-          templateColumns={{ base: '1fr', lg: '1fr 1fr minmax(0, 200px)', xl: '1fr 1fr minmax(0, 250px)' }}
-        >
-          <GridItem colSpan={{ base: 1, lg: 3 }}>
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[1fr_1fr_minmax(0,200px)] xl:grid-cols-[1fr_1fr_minmax(0,250px)]">
+          <div className="col-span-1 lg:col-span-3">
             <Heading level="2">
               Company info
             </Heading>
-          </GridItem>
+          </div>
           <FormFieldText<FormFields> name="requesterName" required placeholder="Your name"/>
           <FormFieldEmail<FormFields> name="requesterEmail" required/>
 
@@ -118,15 +113,15 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
           <FormFieldUrl<FormFields> name="companyWebsite" placeholder="Company website"/>
           { !isMobile && <div/> }
 
-          <GridItem colSpan={{ base: 1, lg: 3 }} mt={{ base: 3, lg: 5 }}>
+          <div className="col-span-1 lg:col-span-3 mt-3 lg:mt-5">
             <Heading level="2" className="flex items-center gap-1">
               Public tags/labels
               <Hint label="Submit a public tag proposal for our moderation team to review"/>
             </Heading>
-          </GridItem>
+          </div>
           <PublicTagsSubmitFieldAddresses/>
           <PublicTagsSubmitFieldTags tagTypes={ config?.tagTypes }/>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <div className="col-span-1 lg:col-span-2">
             <FormFieldText<FormFields>
               name="description"
               required
@@ -140,11 +135,11 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
               size="2xl"
               className="max-h-[160px]"
             />
-          </GridItem>
+          </div>
 
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <div className="col-span-1 lg:col-span-2">
             <ReCaptcha { ...recaptcha }/>
-          </GridItem>
+          </div>
           { !isMobile && <div/> }
 
           <Button
@@ -157,8 +152,8 @@ const PublicTagsSubmitForm = ({ config, userInfo, onSubmitResult }: Props) => {
           >
             Send request
           </Button>
-        </Grid>
-      </chakra.form>
+        </div>
+      </form>
     </FormProvider>
   );
 };

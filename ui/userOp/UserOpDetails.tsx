@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import React from 'react';
@@ -49,9 +48,7 @@ const UserOpDetails = ({ query }: Props) => {
   }
 
   return (
-    <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 220px) minmax(0, 1fr)' }}
-    >
+    <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
         hint="Unique character string assigned to every User operation"
         isLoading={ isPlaceholderData }
@@ -107,8 +104,6 @@ const UserOpDetails = ({ query }: Props) => {
             Revert reason
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            wordBreak="break-all"
-            whiteSpace="normal"
           >
             <Skeleton loading={ isPlaceholderData }>
               { data.revert_reason }
@@ -169,7 +164,6 @@ const UserOpDetails = ({ query }: Props) => {
           { BigNumber(data.gas_used).toFormat() }
         </Skeleton>
         <Utilization
-          ml={ 4 }
           colorScheme="gray"
           value={ BigNumber(data.gas_used).dividedBy(BigNumber(data.gas)).toNumber() }
           isLoading={ isPlaceholderData }
@@ -210,8 +204,6 @@ const UserOpDetails = ({ query }: Props) => {
 
       { /* ADDITIONAL INFO */ }
       <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
-
         <DetailedInfo.ItemLabel
           hint="Gas limit for execution phase"
         >
@@ -341,8 +333,6 @@ const UserOpDetails = ({ query }: Props) => {
           Signature
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
-          wordBreak="break-all"
-          whiteSpace="normal"
         >
           { data.signature }
         </DetailedInfo.ItemValue>
@@ -353,8 +343,6 @@ const UserOpDetails = ({ query }: Props) => {
           Nonce
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
-          wordBreak="break-all"
-          whiteSpace="normal"
         >
           { data.nonce }
         </DetailedInfo.ItemValue>

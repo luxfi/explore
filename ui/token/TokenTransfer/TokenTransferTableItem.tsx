@@ -1,4 +1,3 @@
-import { Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -34,19 +33,18 @@ const TokenTransferTableItem = ({
 }: Props) => {
 
   return (
-    <TableRow alignItems="top">
+    <TableRow>
       { chainData && (
         <TableCell>
-          <ChainIcon data={ chainData } isLoading={ isLoading } my="5px"/>
+          <ChainIcon data={ chainData } isLoading={ isLoading }/>
         </TableCell>
       ) }
       <TableCell>
-        <Flex flexDirection="column" alignItems="flex-start" mt="5px" rowGap={ 3 }>
+        <div>
           { txHash ? (
             <TxEntity
               hash={ txHash }
               isLoading={ isLoading }
-              fontWeight={ 600 }
               noIcon
               truncation="constant_long"
             />
@@ -55,17 +53,15 @@ const TokenTransferTableItem = ({
             timestamp={ timestamp }
             enableIncrement
             isLoading={ isLoading }
-            display="inline-block"
             color="text.secondary"
-            fontWeight="400"
           />
-        </Flex>
+        </div>
       </TableCell>
       <TableCell>
         { method ? (
-          <Box my="3px">
+          <div>
             <Badge loading={ isLoading } truncated>{ method }</Badge>
-          </Box>
+          </div>
         ) : null }
       </TableCell>
       <TableCell>
@@ -73,7 +69,6 @@ const TokenTransferTableItem = ({
           from={ from }
           to={ to }
           isLoading={ isLoading }
-          mt="5px"
           mode={{ lg: 'compact', xl: 'long' }}
           tokenHash={ token?.address_hash }
           tokenSymbol={ token?.symbol ?? undefined }
@@ -94,9 +89,9 @@ const TokenTransferTableItem = ({
         </TableCell>
       ) }
       { token && (hasTokenTransferValue(token.type)) && (
-        <TableCell isNumeric verticalAlign="top">
+        <TableCell isNumeric>
           { isConfidentialTokenType(token.type) ? (
-            <ConfidentialValue loading={ isLoading } mt="7px" className="break-all"/>
+            <ConfidentialValue loading={ isLoading } className="break-all"/>
           ) : (
             <AssetValue
               amount={ total && 'value' in total ? total.value : null }
@@ -104,8 +99,6 @@ const TokenTransferTableItem = ({
               exchangeRate={ token?.exchange_rate }
               loading={ isLoading }
               layout="vertical"
-              mt="7px"
-              rowGap="10px"
             />
           ) }
         </TableCell>

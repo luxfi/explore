@@ -1,8 +1,3 @@
-import {
-  Box,
-  Flex,
-  Grid,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -58,7 +53,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     if (isMobile) {
       return (
         <>
-          <Flex justifyContent="space-between" alignItems="center" mb={ 1 }>
+          <div justifyContent="space-between" alignItems="center" mb={ 1 }>
             { l1BlockLink }
             <TimeWithTooltip
               timestamp={ timestamp }
@@ -66,8 +61,8 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
               isLoading={ isLoading }
               color="text.secondary"
             />
-          </Flex>
-          <Grid gridTemplateColumns="56px auto">
+          </div>
+          <div gridTemplateColumns="56px auto">
             <Skeleton loading={ isLoading } className="my-[5px] w-fit">
               { layerLabels.parent } txn
             </Skeleton>
@@ -76,13 +71,13 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
               { layerLabels.current } txn
             </Skeleton>
             { l2TxLink }
-          </Grid>
+          </div>
         </>
       );
     }
 
     return (
-      <Grid width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
+      <div width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
         { l1BlockLink }
         <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
           { layerLabels.parent } txn
@@ -101,12 +96,12 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
           { layerLabels.current } txn
         </Skeleton>
         { l2TxLink }
-      </Grid>
+      </div>
     );
   })();
 
   return (
-    <Box
+    <div
       width="100%"
       borderTop="1px solid"
       borderColor="border.divider"
@@ -117,7 +112,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
       lineHeight={ 5 }
     >
       { content }
-    </Box>
+    </div>
   );
 };
 

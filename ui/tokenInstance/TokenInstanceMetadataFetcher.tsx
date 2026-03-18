@@ -1,4 +1,3 @@
-import { Spinner, Center } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -170,9 +169,9 @@ const TokenInstanceMetadataFetcher = ({ hash, id }: Props) => {
         <DialogBody className="mb-0 min-h-[78px]">
           { config.services.reCaptchaV2.siteKey ? (
             <>
-              <Center h="80px">
-                <Spinner size="lg"/>
-              </Center>
+              <div>
+                <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-8 w-8"/>
+              </div>
               <ReCaptcha { ...recaptcha } hideWarning/>
             </>
           ) : (

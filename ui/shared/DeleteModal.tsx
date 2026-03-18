@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+
 import { useMutation } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
@@ -54,7 +54,7 @@ const DeleteModal: React.FC<Props> = ({
       <DialogContent>
         <DialogHeader>{ title }</DialogHeader>
         <DialogBody>
-          { isAlertVisible && <Box mb={ 4 }><FormSubmitAlert/></Box> }
+          { isAlertVisible && <div mb={ 4 }><FormSubmitAlert/></div> }
           { renderContent() }
         </DialogBody>
         <DialogFooter>

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -137,7 +136,7 @@ const ZetaChainCCTxs = ({
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div>
         { pagination.page === 1 && !hasFilters && (
           <SocketNewItemsNotice.Mobile
             showErrorAlert={ showSocketErrorAlert }
@@ -151,11 +150,10 @@ const ZetaChainCCTxs = ({
             key={ item.index + (isPlaceholderData ? index : '') }
             tx={ item }
             isLoading={ isPlaceholderData }
-            animation={ initialList.getAnimationProp(item) }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div>
         <ZetaChainCCTxsTable
           txs={ items ?? [] }
           top={ top || 0 }
@@ -168,12 +166,12 @@ const ZetaChainCCTxs = ({
           showSocketErrorAlert={ showSocketErrorAlert }
           socketInfoNum={ showOverloadNotice ? 1 : 0 }
         />
-      </Box>
+      </div>
     </>
   );
 
   const actionBar = (isMobile && pagination.isVisible) ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar>
       <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>
   ) : null;

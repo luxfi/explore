@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -38,7 +37,7 @@ const BeaconChainDeposits = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <BeaconChainDepositsListItem
             key={ item.index + (isPlaceholderData ? String(index) : '') }
@@ -47,15 +46,15 @@ const BeaconChainDeposits = () => {
             isLoading={ isPlaceholderData }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <BeaconChainDepositsTable
           items={ data.items }
           view="list"
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -67,9 +66,9 @@ const BeaconChainDeposits = () => {
     return (
       <Skeleton loading={ countersQuery.isPlaceholderData || isPlaceholderData } display="flex" className="flex-wrap">
         { countersQuery.data && (
-          <Text lineHeight={{ base: '24px', lg: '32px' }}>
+          <span className="leading-[24px] lg:leading-[32px]">
             { BigNumber(countersQuery.data.deposits_count).toFormat() } deposits processed
-          </Text>
+          </span>
         ) }
       </Skeleton>
     );

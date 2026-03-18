@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FheOperation } from 'types/api/fheOperations';
@@ -12,7 +11,7 @@ interface Props {
 
 const TxFHEOperationsList = ({ data, isLoading }: Props) => {
   return (
-    <Box hideFrom="lg">
+    <div className="lg:hidden">
       { data.map((op) => (
         <TxFHEOperationsListItem
           key={ op.log_index }
@@ -20,7 +19,7 @@ const TxFHEOperationsList = ({ data, isLoading }: Props) => {
           isLoading={ isLoading }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

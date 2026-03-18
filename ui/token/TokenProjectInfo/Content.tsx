@@ -1,4 +1,3 @@
-import { Flex, Text, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenVerifiedInfo } from 'types/api/token';
@@ -45,7 +44,7 @@ export function hasContent(data: TokenVerifiedInfo): boolean {
 const Content = ({ data }: Props) => {
   const docs = data.docs ? <DocsLink href={ data.docs }/> : null;
   const support = data.support ? <SupportLink url={ data.support }/> : null;
-  const description = data.projectDescription ? <Text fontSize="sm" mt={ 3 }>{ data.projectDescription }</Text> : null;
+  const description = data.projectDescription ? <span>{ data.projectDescription }</span> : null;
 
   const socialLinks = SOCIAL_LINKS
     .map((link) => ({ ...link, href: data[link.field] }))
@@ -56,36 +55,36 @@ const Content = ({ data }: Props) => {
     .filter(({ href }) => href);
 
   return (
-    <Flex fontSize="sm" flexDir="column" rowGap={ 5 }>
+    <div>
       { (description || docs || support) && (
         <div>
-          <Text color="text.secondary" fontSize="xs">Description and support info</Text>
+          <span className="text-[var(--color-text-secondary)]">Description and support info</span>
           { description }
           { (docs || support) && (
-            <Flex alignItems="center" flexWrap="wrap" columnGap={ 6 } mt={ 3 }>
+            <div>
               { support }
               { docs }
-            </Flex>
+            </div>
           ) }
         </div>
       ) }
       { socialLinks.length > 0 && (
         <div>
-          <Text color="text.secondary" fontSize="xs">Links</Text>
-          <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} columnGap={ 4 } rowGap={ 3 } mt={ 3 }>
+          <span className="text-[var(--color-text-secondary)]">Links</span>
+          <div>
             { socialLinks.map((link) => <ServiceLink key={ link.field } { ...link }/>) }
-          </Grid>
+          </div>
         </div>
       ) }
       { priceTickersLinks.length > 0 && (
         <div>
-          <Text color="text.secondary" fontSize="xs">Crypto markets</Text>
-          <Grid templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} columnGap={ 4 } rowGap={ 3 } mt={ 3 }>
+          <span className="text-[var(--color-text-secondary)]">Crypto markets</span>
+          <div>
             { priceTickersLinks.map((link) => <ServiceLink key={ link.field } { ...link }/>) }
-          </Grid>
+          </div>
         </div>
       ) }
-    </Flex>
+    </div>
   );
 };
 

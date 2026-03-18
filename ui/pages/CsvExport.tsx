@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -147,18 +146,18 @@ const CsvExport = () => {
     }
 
     const chainInfo = multichainContext?.chain ? (
-      <Flex display="inline-flex" alignItems="center" columnGap={ 2 }>
+      <div className="items-center inline-flex gap-x-2">
         <span>on</span>
         <ChainIcon data={ multichainContext.chain }/>
         <span>{ multichainContext.chain.app_config.chain.name }</span>
-      </Flex>
+      </div>
     ) : null;
 
     const limit = (configQuery.data?.limit || 10_000).toLocaleString(undefined, { maximumFractionDigits: 3, notation: 'compact' });
 
     if (exportTypeParam === 'holders' && tokenQuery.data) {
       return (
-        <Flex mb={ 10 } whiteSpace="pre-wrap" flexWrap="wrap">
+        <div className="flex flex-wrap whitespace-pre-wrap mb-10">
           <span>Export { exportType.text } for token </span>
           <TokenEntity
             token={ tokenQuery.data }
@@ -171,7 +170,7 @@ const CsvExport = () => {
           { chainInfo }
           <span> to CSV file. </span>
           <span>Exports are limited to the top { limit } holders by amount held.</span>
-        </Flex>
+        </div>
       );
     }
 
@@ -180,7 +179,7 @@ const CsvExport = () => {
     }
 
     return (
-      <Flex mb={ 10 } whiteSpace="pre-wrap" flexWrap="wrap">
+      <div className="flex flex-wrap whitespace-pre-wrap mb-10">
         <span>Export { exportType.text } for address </span>
         <AddressEntity
           address={ addressQuery.data }
@@ -192,7 +191,7 @@ const CsvExport = () => {
         { chainInfo }
         <span> to CSV file. </span>
         <span>Exports are limited to the last { limit } { exportType.text }.</span>
-      </Flex>
+      </div>
     );
   })();
 

@@ -1,10 +1,9 @@
-import { Box, createListCollection } from '@chakra-ui/react';
 import { noop } from 'es-toolkit';
 import React from 'react';
 
 import { Checkbox } from 'toolkit/chakra/checkbox';
 import type { SelectOption } from 'toolkit/chakra/select';
-import { Select, SelectAsync } from 'toolkit/chakra/select';
+import { createListCollection, Select, SelectAsync } from 'toolkit/chakra/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 import IconSvg from 'ui/shared/IconSvg';
 import Sort from 'ui/shared/sort/Sort';
@@ -17,7 +16,7 @@ const frameworks = createListCollection<SelectOption>({
   items: [
     { label: 'React.js is the most popular framework', value: 'react', icon: <IconSvg name="navigation/api_keys" boxSize={ 5 } flexShrink={ 0 }/> },
     { label: 'Vue.js is the second most popular framework', value: 'vue' },
-    { value: 'angular', label: 'Angular', renderLabel: () => <div>Angular is <Box as="span" color="red" fontWeight="700">not awesome</Box></div> },
+    { value: 'angular', label: 'Angular', renderLabel: () => <div>Angular is <span className="text-[var(--color-red)] font-bold">not awesome</span></div> },
     { label: 'Svelte', value: 'svelte' },
   ],
 });

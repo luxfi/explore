@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -19,4 +18,4 @@ const TestnetWarning = ({ isLoading, className }: Props) => {
   );
 };
 
-export default React.memo(chakra(TestnetWarning));
+export default React.memo(TestnetWarning);

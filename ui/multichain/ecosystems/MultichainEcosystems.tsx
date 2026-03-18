@@ -1,4 +1,3 @@
-import { Box, createListCollection } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -17,6 +16,7 @@ import Sort from 'ui/shared/sort/Sort';
 import MultichainEcosystemsListItem from './MultichainEcosystemsListItem';
 import MultichainEcosystemsTable from './MultichainEcosystemsTable';
 import { SORT_OPTIONS } from './utils';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,
@@ -43,15 +43,15 @@ const MultichainEcosystems = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div hideBelow="lg">
         <MultichainEcosystemsTable
           data={ data.items }
           sort={ sort }
           setSorting={ handleSortChange }
           isLoading={ isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div hideFrom="lg">
         <ActionBar>
           <Sort
             name="chain_metrics_sorting"
@@ -69,7 +69,7 @@ const MultichainEcosystems = () => {
             isLoading={ isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

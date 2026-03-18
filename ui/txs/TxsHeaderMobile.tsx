@@ -1,9 +1,9 @@
-import { HStack, chakra, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TransactionsSortingValue } from 'types/api/transaction';
 import type { PaginationParams } from 'ui/shared/pagination/types';
 
+import { createListCollection } from 'toolkit/chakra/select';
 // import { FilterInput } from 'toolkit/components/filters/FilterInput';
 
 import ActionBar from 'ui/shared/ActionBar';
@@ -38,7 +38,7 @@ const TxsHeaderMobile = ({ filterComponent, sorting, setSorting, paginationProps
 
   return (
     <ActionBar className={ className }>
-      <HStack>
+      <div className="flex flex-row">
         { tableViewButton }
         { filterComponent }
         { setSorting && (
@@ -54,15 +54,14 @@ const TxsHeaderMobile = ({ filterComponent, sorting, setSorting, paginationProps
         { /* <FilterInput
           // eslint-disable-next-line react/jsx-no-bind
           onChange={ () => {} }
-          maxW="360px"
           size="xs"
           placeholder="Search by addresses, hash, method..."
         /> */ }
         { linkSlot }
-      </HStack>
+      </div>
       { showPagination && <Pagination { ...paginationProps }/> }
     </ActionBar>
   );
 };
 
-export default chakra(TxsHeaderMobile);
+export default TxsHeaderMobile;

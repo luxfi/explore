@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { range } from 'es-toolkit';
 import React from 'react';
 
@@ -54,15 +53,15 @@ const ContractAbi = ({ abi, addressHash, sourceAddress, tab, visibleItems }: Pro
 
   return (
     <div>
-      <Flex mb={ 3 }>
-        <Box fontWeight={ 500 } mr="auto">Contract information</Box>
+      <div className="flex" mb={ 3 }>
+        <div fontWeight={ 500 } mr="auto">Contract information</div>
         { abi.length > 1 && (
           <Link onClick={ handleExpandAll } variant="secondary">
             { expandedSections.length === abi.length ? 'Collapse' : 'Expand' } all
           </Link>
         ) }
         <Link onClick={ handleReset } ml={ 3 } variant="secondary">Reset</Link>
-      </Flex>
+      </div>
       <AccordionRoot multiple lazyMount position="relative" onValueChange={ handleAccordionStateChange } value={ expandedSections }>
         { abi.map((item, index) => (
           <ContractAbiItem

@@ -1,9 +1,8 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import hexToUtf8 from 'lib/hexToUtf8';
 import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 const OPTIONS = [
@@ -54,7 +53,7 @@ const RawInputData = ({ hex, rightSlot: rightSlotProp, defaultDataType = 'Hex', 
       isLoading={ isLoading }
       textareaMaxHeight="220px"
       textareaMinHeight={ minHeight || '160px' }
-      w="100%"
+      className="w-full"
     />
   );
 };

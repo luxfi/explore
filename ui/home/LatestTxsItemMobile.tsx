@@ -1,10 +1,3 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -33,23 +26,23 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
   const protocolTag = tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
 
   return (
-    <Box
+    <div
       width="100%"
       borderBottom="1px solid"
       borderColor="border.divider"
       py={ 4 }
       display={{ base: 'block', lg: 'none' }}
     >
-      <Flex justifyContent="space-between">
-        <HStack>
+      <div justifyContent="space-between">
+        <div>
           <TxType types={ tx.transaction_types } isLoading={ isLoading }/>
           { tx.status !== 'ok' && <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/> }
           <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
           { protocolTag && <EntityTag data={ protocolTag } isLoading={ isLoading } minW="0" noColors/> }
-        </HStack>
+        </div>
         <TxAdditionalInfo tx={ tx } isMobile isLoading={ isLoading }/>
-      </Flex>
-      <Flex
+      </div>
+      <div
         mt={ 2 }
         alignItems="center"
         width="100%"
@@ -71,7 +64,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           fontWeight="400"
           ml={ 3 }
         />
-      </Flex>
+      </div>
       <AddressFromTo
         from={ tx.from }
         to={ dataTo }
@@ -79,10 +72,10 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         fontWeight="500"
       />
       { !(config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee) ? (
-        <VStack rowGap={ 2 } mt={ 3 } alignItems="flex-start">
+        <div rowGap={ 2 } mt={ 3 } alignItems="flex-start">
           { !config.UI.views.tx.hiddenFields?.value && (
             <Skeleton loading={ isLoading } w="fit-content">
-              <Text as="span">Value </Text>
+              <span as="span">Value </span>
               <NativeCoinValue
                 amount={ tx.value }
                 accuracy={ 5 }
@@ -93,13 +86,13 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
             <Skeleton loading={ isLoading } w="fit-content" display="flex" className="whitespace-pre">
-              <Text as="span">Fee </Text>
+              <span as="span">Fee </span>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>
           ) }
-        </VStack>
+        </div>
       ) : null }
-    </Box>
+    </div>
   );
 };
 

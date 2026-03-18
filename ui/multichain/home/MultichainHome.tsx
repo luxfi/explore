@@ -1,4 +1,3 @@
-import { Box, HStack, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -19,13 +18,13 @@ const MultichainHome = () => {
   const chainMetricsQuery = useApiQuery('multichainAggregator:chain_metrics');
 
   return (
-    <Box as="main">
+    <div as="main">
       <HeroBanner/>
       <Stats/>
       <LatestTxs/>
       { chains && chains.length > 0 && (
-        <VStack rowGap={ 3 } alignItems="stretch">
-          <HStack gap={{ base: 2, lg: 3 }} w="100%" flexWrap="wrap" alignItems="stretch">
+        <div rowGap={ 3 } alignItems="stretch">
+          <div gap={{ base: 2, lg: 3 }} w="100%" flexWrap="wrap" alignItems="stretch">
             { chains.slice(0, 4).map((chain) => (
               <MultichainProvider key={ chain.id } chainId={ chain.id }>
                 <ChainWidget
@@ -35,11 +34,11 @@ const MultichainHome = () => {
                 />
               </MultichainProvider>
             )) }
-          </HStack>
+          </div>
           <Link textStyle="sm" justifyContent="center" href={ route({ pathname: '/ecosystems' }) }>View all chains</Link>
-        </VStack>
+        </div>
       ) }
-    </Box>
+    </div>
   );
 };
 

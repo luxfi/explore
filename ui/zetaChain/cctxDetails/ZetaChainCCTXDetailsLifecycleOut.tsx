@@ -1,4 +1,3 @@
-import { Flex, Grid, Text } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -46,7 +45,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     if (isCCTX) {
       return (
         <>
-          <Text color="text.secondary" fontWeight="medium">CCTX</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">CCTX</span>
           <TxEntityZetaChainCC
             hash={ outboundParam.hash }
             isLoading={ isLoading }
@@ -57,7 +56,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     }
     return (
       <>
-        <Text color="text.secondary" fontWeight="medium">Transaction</Text>
+        <span className="font-medium text-[var(--color-text-secondary)]">Transaction</span>
         { chainToId !== config.chain.id ? (
           <TxEntityZetaChainExternal chainId={ chainToId } hash={ outboundParam.hash } noIcon/>
         ) : (
@@ -71,16 +70,16 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     content = (
       <>
         { transactionOrCCTX }
-        <Text color="text.secondary" fontWeight="medium">Status</Text>
+        <span className="font-medium text-[var(--color-text-secondary)]">Status</span>
         <StatusTag type="ok" text="Success"/>
-        <Text color="text.secondary" fontWeight="medium">Receiver</Text>
+        <span className="font-medium text-[var(--color-text-secondary)]">Receiver</span>
         <AddressEntityZetaChain
           address={{ hash: outboundParam.receiver }}
           chainId={ outboundParam.receiver_chain_id?.toString() }
           isLoading={ isLoading }
           truncation="constant"
         />
-        <Text color="text.secondary" fontWeight="medium">Transferred</Text>
+        <span className="font-medium text-[var(--color-text-secondary)]">Transferred</span>
         <ZetaChainCCTXValue
           coinType={ outboundParam.coin_type }
           tokenSymbol={ tx.token_symbol }
@@ -88,10 +87,10 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
           decimals={ tx.decimals ?? null }
           isLoading={ isLoading }
         />
-        <Text color="text.secondary" fontWeight="medium">Gas used</Text>
-        <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
+        <span className="font-medium text-[var(--color-text-secondary)]">Gas used</span>
+        <span className="overflow-hidden">
           { BigNumber(outboundParam.gas_used || 0).div(10 ** gasDecimals).toFormat() }
-        </Text>
+        </span>
       </>
     );
     text = `Sent tx to ${ chainTo?.name || 'Unknown chain' }`;
@@ -101,7 +100,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
       content = (
         <>
           { transactionOrCCTX }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Status</span>
           <StatusTag type="error" text="Failed"/>
         </>
       );
@@ -110,7 +109,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     } else {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Reverting to</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Reverting to</span>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -125,15 +124,15 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
   } else if (tx.cctx_status?.status === CctxStatus.PendingOutbound) {
     content = (
       <>
-        <Text color="text.secondary" fontWeight="medium">Destination</Text>
+        <span className="font-medium text-[var(--color-text-secondary)]">Destination</span>
         <AddressEntityZetaChain
           address={{ hash: outboundParam.receiver }}
           chainId={ outboundParam.receiver_chain_id?.toString() }
           isLoading={ isLoading }
           truncation="constant"
         />
-        <Text color="text.secondary" fontWeight="medium">Nonce</Text>
-        <Text>{ outboundParam.tss_nonce }</Text>
+        <span className="font-medium text-[var(--color-text-secondary)]">Nonce</span>
+        <span>{ outboundParam.tss_nonce }</span>
       </>
     );
     text = `Waiting for outbound tx to ${ chainTo?.name || 'Unknown chain' }`;
@@ -143,7 +142,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
       content = (
         <>
           { transactionOrCCTX }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Status</span>
           <StatusTag type="error" text="Failed"/>
         </>
       );
@@ -152,7 +151,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     } else {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Origin</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Origin</span>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -160,9 +159,9 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
             truncation="constant"
           />
           { transactionOrCCTX }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Status</span>
           <StatusTag type="ok" text="Success"/>
-          <Text color="text.secondary" fontWeight="medium">Transferred</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Transferred</span>
           <ZetaChainCCTXValue
             coinType={ outboundParam.coin_type }
             tokenSymbol={ tx.token_symbol }
@@ -170,10 +169,10 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
             decimals={ tx.decimals ?? null }
             isLoading={ isLoading }
           />
-          <Text color="text.secondary" fontWeight="medium">Gas used</Text>
-          <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">
+          <span className="font-medium text-[var(--color-text-secondary)]">Gas used</span>
+          <span className="overflow-hidden">
             { BigNumber(outboundParam.gas_used || 0).div(10 ** gasDecimals).toFormat() }&nbsp;
-          </Text>
+          </span>
         </>
       );
       text = `Reverted to ${ chainTo?.name || 'Unknown chain' }`;
@@ -183,7 +182,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     if (!isLast) {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Receiver</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Receiver</span>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -197,7 +196,7 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
     } else {
       content = (
         <>
-          <Text color="text.secondary" fontWeight="medium">Sender</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Sender</span>
           <AddressEntityZetaChain
             address={{ hash: outboundParam.receiver }}
             chainId={ outboundParam.receiver_chain_id?.toString() }
@@ -215,29 +214,19 @@ const ZetaChainCCTXDetailsLifecycleOut = ({ outboundParam, tx, isLoading, isLast
   return (
     <>
       { /* we need this block here to cover the vertical line (if it's the last block in lifecycle) */ }
-      <Flex
-        h="100%"
-        w="100%"
-        bg={ (isLast && !hasTxAfter) ? 'bg.primary' : 'transparent' }
-        zIndex={ 1 }
+      <div className="flex w-full"
       >
-        <IconSvg name="verification-steps/finalized" boxSize={ 5 } bg="bg.primary" zIndex={ 1 } color={ color }/>
-      </Flex>
+        <IconSvg name="verification-steps/finalized" className="w-5 h-5"/>
+      </div>
       <Skeleton loading={ isLoading } className="w-full overflow-hidden">
-        <Flex color={ color } maxH="20px" alignItems="center" mb={ 2.5 }>
+        <div className="flex">
           { text }
-        </Flex>
-        <Grid
-          templateColumns="100px 1fr"
-          gap={ 3 }
-          bg={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.100' }}
-          py={ 3 }
-          px={ 4 }
-          borderBottomRadius="md"
-          fontSize="sm"
+        </div>
+        <div className="grid rounded-b-md"
+          style={{ gridTemplateColumns: "100px 1fr" }}
         >
           { content }
-        </Grid>
+        </div>
       </Skeleton>
     </>
   );

@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
 
@@ -17,7 +16,7 @@ const TxFHEOperationsListItem = (props: Props) => {
 
   return (
     <ListItemMobile>
-      <Flex gap={ 2 } flexWrap="wrap" alignItems="center">
+      <div>
         <Badge colorPalette={ getTypeColor(type) } loading={ isLoading }>
           { capitalize(type) }
         </Badge>
@@ -27,31 +26,31 @@ const TxFHEOperationsListItem = (props: Props) => {
         <Badge colorPalette="gray" loading={ isLoading }>
           { isScalar ? 'Scalar' : 'Non-scalar' }
         </Badge>
-      </Flex>
+      </div>
 
-      <Grid templateColumns="110px 1fr" rowGap={ 2 } columnGap={ 2 }>
-        <Text fontWeight="medium">Index</Text>
+      <div>
+        <span>Index</span>
         <Skeleton loading={ isLoading } color="text.secondary">
           { logIndex }
         </Skeleton>
 
-        <Text fontWeight="medium">Operation</Text>
+        <span>Operation</span>
         <Skeleton loading={ isLoading } color="text.secondary">
           { operation }
         </Skeleton>
 
-        <Text fontWeight="medium">HCU cost</Text>
+        <span>HCU cost</span>
         <Skeleton loading={ isLoading } color="text.secondary">
           { hcuCost.toLocaleString() }
         </Skeleton>
 
-        <Text fontWeight="medium">HCU depth</Text>
+        <span>HCU depth</span>
         <Skeleton loading={ isLoading } color="text.secondary">
           { hcuDepth.toLocaleString() }
         </Skeleton>
 
-        <Text fontWeight="medium">Caller</Text>
-        <Box minW={ 0 }>
+        <span>Caller</span>
+        <div>
           { caller && caller.hash ? (
             <AddressEntity
               address={ caller }
@@ -59,10 +58,10 @@ const TxFHEOperationsListItem = (props: Props) => {
               isLoading={ isLoading }
             />
           ) : (
-            <Text color="text.secondary">—</Text>
+            <span className="text-[var(--color-text-secondary)]">—</span>
           ) }
-        </Box>
-      </Grid>
+        </div>
+      </div>
     </ListItemMobile>
   );
 };

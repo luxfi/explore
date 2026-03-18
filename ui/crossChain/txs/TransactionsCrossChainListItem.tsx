@@ -1,5 +1,3 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
-import { chakra, Grid, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
@@ -22,7 +20,7 @@ import TextSeparator from 'ui/shared/TextSeparator';
 import Time from 'ui/shared/time/Time';
 import TokenValueInterchain from 'ui/shared/value/TokenValueInterchain';
 
-interface Props extends JsxStyleProps {
+interface Props extends Record<string, unknown> {
   data: InterchainMessage;
   isLoading?: boolean;
   currentAddress?: string;
@@ -45,11 +43,11 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
     }
   })();
 
-  const dashElement = <chakra.span color="text.secondary">{ mdash }</chakra.span>;
+  const dashElement = <span color="text.secondary">{ mdash }</span>;
 
   return (
     <ListItemMobile rowGap={ rowGap } { ...rest }>
-      <HStack>
+      <div className="flex flex-row items-center">
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
         { currentAddress && (
           <CrossChainFromToTag
@@ -57,7 +55,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
             isLoading={ isLoading }
           />
         ) }
-      </HStack>
+      </div>
       <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } fontWeight={ 600 } noIcon={ false } truncation="dynamic" w="100%"/>
       { timestamp && (
         <Skeleton loading={ isLoading } display="flex" alignItems="center" color="text.secondary">
@@ -66,7 +64,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
           <Time timestamp={ timestamp } format="lll_s"/>
         </Skeleton>
       ) }
-      <Grid templateColumns="120px minmax(0, 1fr)" columnGap={ 2 } rowGap={ rowGap }>
+      <div templateColumns="120px minmax(0, 1fr)" columnGap={ 2 } rowGap={ rowGap }>
         <Skeleton loading={ isLoading }>
           Source tx
         </Skeleton>
@@ -164,7 +162,7 @@ const TransactionsCrossChainListItem = ({ data, isLoading, rowGap = 3, currentAd
         { data.bridge ? (
           <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading }/>
         ) : dashElement }
-      </Grid>
+      </div>
     </ListItemMobile>
   );
 };

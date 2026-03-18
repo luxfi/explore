@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AdvancedFilterResponseItem } from 'types/api/advancedFilter';
@@ -44,9 +43,9 @@ const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
       return <TimeWithTooltip timestamp={ item.timestamp } isLoading={ isLoading } color="text.secondary" fontWeight={ 400 }/>;
     case 'from':
       return (
-        <Flex w="100%">
+        <div className="flex" w="100%">
           <AddressEntity address={ item.from } truncation="constant" isLoading={ isLoading }/>
-        </Flex>
+        </div>
       );
     case 'to': {
       const address = item.to ? item.to : item.created_contract;
@@ -54,9 +53,9 @@ const ItemByColumn = ({ item, column, isLoading, chainConfig }: Props) => {
         return null;
       }
       return (
-        <Flex w="100%">
+        <div className="flex" w="100%">
           <AddressEntity address={ address } truncation="constant" isLoading={ isLoading }/>
-        </Flex>
+        </div>
       );
     }
     case 'or_and':

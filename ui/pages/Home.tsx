@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -34,21 +33,21 @@ const Home = () => {
 
   return (
     <HomeRpcDataContextProvider>
-      <Box as="main">
+      <main>
         <HeroBanner/>
-        <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 2 } rowGap={ 1 } mt={ 3 } _empty={{ mt: 0 }}>
+        <div className="flex mt-3 gap-x-2 gap-y-1 flex-col lg:flex-row">
           <Stats/>
           <ChainIndicators/>
-        </Flex>
+        </div>
         { !isMobile && config.UI.homepage.highlights && <Highlights mt={ 3 }/> }
         { isMobile && <AdBanner mt={ 6 } mx="auto" justifyContent="center" format="mobile"/> }
-        <Flex mt={ 8 } direction={{ base: 'column', lg: 'row' }} columnGap={ 12 } rowGap={ 6 }>
+        <div className="flex mt-8 gap-x-12 gap-y-6 flex-col lg:flex-row">
           { leftWidget }
-          <Box flexGrow={ 1 }>
+          <div className="flex grow">
             <Transactions/>
-          </Box>
-        </Flex>
-      </Box>
+          </div>
+        </div>
+      </main>
     </HomeRpcDataContextProvider>
   );
 };

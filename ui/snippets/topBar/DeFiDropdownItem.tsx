@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { DeFiDropdownItem as TDeFiDropdownItem } from 'types/client/deFiDropdown';
@@ -28,7 +27,7 @@ const DeFiDropdownItem = ({ item }: Props) => {
       onClick={ item.onClick }
     >
       { item.icon && <IconSvg name={ item.icon } boxSize={ 5 } mr={ 2 }/> }
-      <Text as="span" fontSize="sm">{ item.text }</Text>
+      <span className="text-sm">{ item.text }</span>
     </Link>
   );
 };

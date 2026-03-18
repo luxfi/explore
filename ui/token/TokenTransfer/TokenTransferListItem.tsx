@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -33,14 +32,13 @@ const TokenTransferListItem = ({
   chainData,
 }: Props) => {
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Flex justifyContent="space-between" alignItems="center" lineHeight="24px" width="100%">
+    <ListItemMobile>
+      <div width="100%">
         { txHash && (
           <TxEntity
             isLoading={ isLoading }
             hash={ txHash }
             truncation="constant_long"
-            fontWeight="700"
             chain={ chainData }
           />
         ) }
@@ -49,11 +47,8 @@ const TokenTransferListItem = ({
           enableIncrement
           isLoading={ isLoading }
           color="text.secondary"
-          fontWeight="400"
-          fontSize="sm"
-          display="inline-block"
         />
-      </Flex>
+      </div>
       { method && <Badge loading={ isLoading }>{ method }</Badge> }
       <AddressFromTo
         from={ from }
@@ -62,10 +57,9 @@ const TokenTransferListItem = ({
         tokenHash={ token?.address_hash }
         tokenSymbol={ token?.symbol ?? undefined }
         w="100%"
-        fontWeight="500"
       />
       { total && 'value' in total && token && (hasTokenTransferValue(token.type)) && !isConfidentialTokenType(token.type) && (
-        <Flex alignItems="center" columnGap={ 2 } maxW="100%" w="full">
+        <div>
           <Skeleton
             className="inline-flex items-center shrink-0 font-medium max-w-1/2 whitespace-pre overflow-hidden"
             loading={ isLoading }
@@ -80,10 +74,10 @@ const TokenTransferListItem = ({
             loading={ isLoading }
             color="text.secondary"
           />
-        </Flex>
+        </div>
       ) }
       { token && isConfidentialTokenType(token.type) && (
-        <Flex alignItems="center" columnGap={ 2 } maxW="100%" w="full">
+        <div>
           <Skeleton
             className="inline-flex items-center shrink-0 font-medium max-w-1/2 whitespace-pre overflow-hidden"
             loading={ isLoading }
@@ -96,7 +90,7 @@ const TokenTransferListItem = ({
             color="text.secondary"
             className="break-all overflow-hidden grow"
           />
-        </Flex>
+        </div>
       ) }
       { total && 'token_id' in total && token && (NFT_TOKEN_TYPE_IDS.includes(token.type)) && total.token_id !== null && (
         <NftEntity

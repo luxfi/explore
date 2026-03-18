@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { CollapsibleList } from 'toolkit/chakra/collapsible';
@@ -16,7 +15,7 @@ const TxStateTokenIdList = ({ items, tokenAddress, isLoading }: Props) => {
       return <NftEntity key={ index } hash={ tokenAddress } id={ item.total.token_id } isLoading={ isLoading }/>;
     }
 
-    return <Text key={ index } color="text.secondary">N/A</Text>;
+    return <span key={ index }>N/A</span>;
   }, [ isLoading, tokenAddress ]);
 
   return (

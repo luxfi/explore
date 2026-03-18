@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
@@ -7,19 +6,11 @@ interface Props {
 
 const ChainIndicatorsContainer = ({ children }: Props) => {
   return (
-    <Flex
-      px={{ base: 3, lg: 4 }}
-      py={ 3 }
-      borderRadius="base"
-      bgColor={{ _light: 'theme.stats.bg._light', _dark: 'theme.stats.bg._dark' }}
-      columnGap={{ base: 3, lg: 4 }}
-      rowGap={ 0 }
-      flexBasis="50%"
-      flexGrow={ 1 }
-      alignItems="stretch"
+    <div
+      className="px-3 lg:px-4 py-3 rounded-[var(--radius-base,8px)] gap-x-3 lg:gap-x-4 gap-y-0 basis-1/2 grow flex items-stretch bg-[var(--color-theme-stats-bg-light)] dark:bg-[var(--color-theme-stats-bg-dark)]"
     >
       { children }
-    </Flex>
+    </div>
   );
 };
 

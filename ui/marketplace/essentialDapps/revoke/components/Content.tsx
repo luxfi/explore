@@ -1,4 +1,4 @@
-import { Flex, Text, Separator } from '@chakra-ui/react';
+import { Separator } from 'toolkit/chakra/separator';
 import React, { useState, useCallback, useMemo } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -70,8 +70,8 @@ const Content = ({
   }, []);
 
   return (
-    <Flex flexDir="column" w="full">
-      <Flex
+    <div flexDir="column" w="full">
+      <div
         flexDir={{ base: 'column', lg: 'row' }}
         gap={ 2 }
         mt={ -2 }
@@ -82,7 +82,7 @@ const Content = ({
         zIndex="1"
         bg={{ _light: 'white', _dark: 'black' }}
       >
-        <Flex
+        <div
           flexDir="column"
           alignItems="flex-start"
           flex={ 1 }
@@ -91,7 +91,7 @@ const Content = ({
           p={ 6 }
           borderRadius="base"
         >
-          <Flex
+          <div
             flexDir={{ base: 'column', md: 'row' }}
             gap={ 3 }
             alignItems={{ base: 'flex-start', md: 'center' }}
@@ -99,7 +99,7 @@ const Content = ({
             w="full"
             flexWrap="wrap"
           >
-            <Flex gap={ 2 } alignItems="center">
+            <div gap={ 2 } alignItems="center">
               <AddressEntity
                 address={{ hash: searchAddress }}
                 truncation="constant"
@@ -113,9 +113,9 @@ const Content = ({
                   { isAddressMatch ? 'Connected' : 'Not connected' }
                 </Badge>
               </Tooltip>
-            </Flex>
-          </Flex>
-          <Flex gap={ 3 } alignItems="center" flexWrap="wrap">
+            </div>
+          </div>
+          <div gap={ 3 } alignItems="center" flexWrap="wrap">
             <Skeleton
               loading={ coinBalanceQuery.isPlaceholderData }
               display="flex"
@@ -124,21 +124,21 @@ const Content = ({
               { (coinBalanceQuery.isPlaceholderData ||
                 coinBalanceQuery.data) && (
                 <>
-                  <Flex gap={ 2 } alignItems="center" ml={{ base: 0, lg: '5px' }}>
+                  <div gap={ 2 } alignItems="center" ml={{ base: 0, lg: '5px' }}>
                     <Image
                       src={ coinBalanceQuery.data.coinImage }
                       alt={ coinBalanceQuery.data.symbol }
                       boxSize={ 5 }
                       fallback={ <TokenLogoPlaceholder/> }
                     />
-                    <Text textStyle="sm" fontWeight="500">
+                    <span textStyle="sm" fontWeight="500">
                       { coinBalanceQuery.data.balance }{ ' ' }
                       { coinBalanceQuery.data.symbol }
-                    </Text>
-                  </Flex>
-                  <Text textStyle="sm" fontWeight="500" color="text.secondary">
+                    </span>
+                  </div>
+                  <span textStyle="sm" fontWeight="500" color="text.secondary">
                     ${ coinBalanceQuery.data.balanceUsd }
-                  </Text>
+                  </span>
                 </>
               ) }
             </Skeleton>
@@ -150,24 +150,24 @@ const Content = ({
             >
               View details
             </Link>
-          </Flex>
-        </Flex>
-        <Flex
+          </div>
+        </div>
+        <div
           w={{ base: 'full', lg: '400px' }}
           bg={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
           p={ 6 }
           borderRadius="base"
         >
-          <Flex
+          <div
             flexDir="column"
             flex={ 1 }
             justifyContent="center"
             alignItems="center"
             gap={ 2 }
           >
-            <Text textStyle="sm" fontWeight="500" color="text.secondary">
+            <span textStyle="sm" fontWeight="500" color="text.secondary">
               Total approvals
-            </Text>
+            </span>
             <Skeleton
               loading={ approvalsQuery.isPlaceholderData }
               minW="40px"
@@ -177,21 +177,21 @@ const Content = ({
                 { approvals?.length || 0 }
               </Heading>
             </Skeleton>
-          </Flex>
+          </div>
           <Separator
             orientation="vertical"
             mx={{ base: 4, md: 8 }}
           />
-          <Flex
+          <div
             flexDir="column"
             flex={ 1 }
             justifyContent="center"
             alignItems="center"
             gap={ 2 }
           >
-            <Text textStyle="sm" fontWeight="500" color="text.secondary">
+            <span textStyle="sm" fontWeight="500" color="text.secondary">
               Total value at risk
-            </Text>
+            </span>
             <Skeleton
               loading={ approvalsQuery.isPlaceholderData }
               minW="40px"
@@ -201,9 +201,9 @@ const Content = ({
                 ${ totalValueAtRiskUsd }
               </Heading>
             </Skeleton>
-          </Flex>
-        </Flex>
-      </Flex>
+          </div>
+        </div>
+      </div>
       <Approvals
         selectedChain={ selectedChain }
         approvals={ approvals || [] }
@@ -211,7 +211,7 @@ const Content = ({
         isAddressMatch={ isAddressMatch }
         hideApproval={ hideApproval }
       />
-    </Flex>
+    </div>
   );
 };
 

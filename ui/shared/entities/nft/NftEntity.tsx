@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -61,7 +60,7 @@ const Icon = (props: IconProps) => {
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'hash' | 'id'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/token/[hash]/instance/[id]', query: { hash: props.hash, id: props.id } },
     { chain: props.chain, external: props.external },
@@ -79,7 +78,7 @@ const Link = chakra((props: LinkProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'id'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
@@ -109,7 +108,7 @@ const NftEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(NftEntity));
+export default React.memo(NftEntity);
 
 export {
   Container,

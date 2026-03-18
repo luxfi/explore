@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -121,7 +120,7 @@ export default function ApprovalsListItem({
       <ListItemMobileGrid.Value color="inherit">
         <Skeleton loading={ isLoading } display="flex" className="flex-col gap-y-2">
           <Time timestamp={ approval.timestamp }/>
-          <Text>{ dayjs(approval.timestamp).fromNow() }</Text>
+          <span>{ dayjs(approval.timestamp).fromNow() }</span>
         </Skeleton>
       </ListItemMobileGrid.Value>
       { isAddressMatch && (

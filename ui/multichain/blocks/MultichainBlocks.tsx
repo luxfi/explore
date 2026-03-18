@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -100,13 +99,13 @@ const MultichainBlocks = () => {
   );
 
   const rightSlot = (
-    <HStack gap={ 8 } hideBelow="lg">
+    <div gap={ 8 } hideBelow="lg">
       <Link href={ route({ pathname: '/block/countdown' }, { chain: currentChainInfo }) }>
         <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
         <span>Block countdown</span>
       </Link>
       <Pagination { ...currentQuery.pagination }/>
-    </HStack>
+    </div>
   );
 
   return (

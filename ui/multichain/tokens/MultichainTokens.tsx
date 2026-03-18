@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -120,11 +119,11 @@ const MultichainTokens = () => {
 
   const actionBar = isMobile ? (
     <>
-      <HStack gap={ 3 }>
+      <div className="flex gap-3">
         { filter }
         { chainSelect }
         { searchInput }
-      </HStack>
+      </div>
       { tokensQuery.pagination.isVisible && (
         <ActionBar mt={ 0 } justifyContent="flex-end">
           <Pagination { ...tokensQuery.pagination }/>
@@ -136,11 +135,11 @@ const MultichainTokens = () => {
       mt={ -6 }
       justifyContent="space-between"
     >
-      <HStack gap={ 3 }>
+      <div className="flex gap-3">
         { filter }
         { chainSelect }
         { searchInput }
-      </HStack>
+      </div>
       <Pagination { ...tokensQuery.pagination }/>
     </ActionBar>
   );

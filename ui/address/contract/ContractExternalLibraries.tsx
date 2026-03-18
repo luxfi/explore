@@ -1,4 +1,3 @@
-import { Box, Flex, Separator, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractExternalLibrary } from 'types/api/contract';
@@ -23,8 +22,8 @@ interface Props {
 
 const Item = (data: SmartContractExternalLibrary) => {
   return (
-    <Flex flexDir="column" py={ 2 } w="100%" rowGap={ 1 }>
-      <Box>{ data.name }</Box>
+    <div className="flex" flexDir="column" py={ 2 } w="100%" rowGap={ 1 }>
+      <div>{ data.name }</div>
       <AddressEntity
         address={{ hash: data.address_hash, is_contract: true }}
         query={{ tab: 'contract' }}
@@ -32,7 +31,7 @@ const Item = (data: SmartContractExternalLibrary) => {
         fontWeight="500"
         target="_blank"
       />
-    </Flex>
+    </div>
   );
 };
 
@@ -73,15 +72,15 @@ const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
         The linked library{ apos }s source code may not be the real one.
         Check the source code at the library address (if any) if you want to be sure in case if there is any library linked
       </Alert>
-      <VStack
-        separator={ <Separator/> }
+      <div className="flex flex-col"
+        separator={ <hr/> }
         gap={ 2 }
         mt={ 4 }
         maxH={{ lg: '50vh' }}
         overflowY="scroll"
       >
         { data.map((item) => <Item key={ item.address_hash } { ...item }/>) }
-      </VStack>
+      </div>
     </>
   );
 

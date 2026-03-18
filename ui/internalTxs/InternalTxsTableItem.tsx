@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -44,7 +43,7 @@ const InternalTxsTableItem = ({
         </TableCell>
       ) }
       <TableCell>
-        <Flex rowGap={ 3 } flexDir="column" my="2px">
+        <div rowGap={ 3 } flexDir="column" my="2px">
           <TxEntity
             hash={ txnHash }
             isLoading={ isLoading }
@@ -61,15 +60,15 @@ const InternalTxsTableItem = ({
             fontSize="sm"
             w="fit-content"
           />
-        </Flex>
+        </div>
       </TableCell>
       <TableCell>
-        <Flex rowGap={ 2 } flexDir="column">
+        <div rowGap={ 2 } flexDir="column">
           { typeTitle && (
             <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge>
           ) }
           { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
-        </Flex>
+        </div>
       </TableCell>
       { showBlockInfo && (
         <TableCell>

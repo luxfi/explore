@@ -1,33 +1,23 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
-interface Props extends BoxProps {
+import { cn } from 'lib/utils/cn';
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   text?: string;
 }
 
-export const ContentLoader = React.memo(({ text, ...props }: Props) => {
+export const ContentLoader = React.memo(({ text, className, ...props }: Props) => {
   return (
-    <Box display="inline-block" { ...props }>
-      <Box
-        width="100%"
-        height="6px"
-        position="relative"
-        _after={{
-          content: `" "`,
-          position: 'absolute',
-          width: '60px',
-          height: '6px',
-          animation: `fromLeftToRight 700ms ease-in-out infinite alternate`,
-          left: '0%',
-          top: 0,
-          backgroundColor: 'gray.400',
-          borderRadius: 'full',
-        }}
-      />
-      <Text mt={ 6 } color="text.secondary">
+    <div className={ cn('inline-block', className) } { ...props }>
+      <div className="w-full h-[6px] relative">
+        <div
+          className="absolute w-[60px] h-[6px] rounded-full bg-gray-400 left-0 top-0"
+          style={{ animation: 'fromLeftToRight 700ms ease-in-out infinite alternate' }}
+        />
+      </div>
+      <span className="block mt-6 text-[var(--chakra-colors-text-secondary)]">
         { text || 'Loading data, please wait...' }
-      </Text>
-    </Box>
+      </span>
+    </div>
   );
 });

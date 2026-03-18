@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import dayjs from 'lib/date/dayjs';
@@ -15,15 +14,15 @@ const NameDomainExpiryStatus = ({ date }: Props) => {
   const hasExpired = dayjs(date).isBefore(dayjs());
 
   if (hasExpired) {
-    return <chakra.span color="red.600">Expired</chakra.span>;
+    return <span className="text-red-600">Expired</span>;
   }
 
   const diff = dayjs(date).diff(dayjs(), 'day');
   if (diff < 30) {
-    return <chakra.span color="red.600">{ diff } days left</chakra.span>;
+    return <span className="text-red-600">{ diff } days left</span>;
   }
 
-  return <chakra.span color="text.secondary">Expires { dayjs(date).fromNow() }</chakra.span>;
+  return <span className="text-[var(--color-text-secondary)]">Expires { dayjs(date).fromNow() }</span>;
 };
 
 export default React.memo(NameDomainExpiryStatus);

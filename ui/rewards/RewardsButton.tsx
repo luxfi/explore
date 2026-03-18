@@ -1,8 +1,8 @@
-import { chakra } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import type { ButtonProps } from 'toolkit/chakra/button';
@@ -26,7 +26,7 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
 
   return (
     <Tooltip
-      content="Earn Merits for using Lux Explorer"
+      content={ `Earn Merits for using ${ config.chain.name || '' } Explorer`.trim() }
       openDelay={ 500 }
       disabled={ isMobile || isLoading || isAuth }
     >
@@ -45,12 +45,11 @@ const RewardsButton = ({ variant = 'header', size }: Props) => {
           boxSize={ variant === 'hero' ? 6 : 5 }
           flexShrink={ 0 }
         />
-        <chakra.span
-          display={{ base: 'none', md: 'inline' }}
-          fontWeight={ isAuth ? '700' : '600' }
+        <span
+          className={ `hidden md:inline ${ isAuth ? 'font-bold' : 'font-semibold' }` }
         >
           { isAuth ? (balancesQuery.data?.total || 'N/A') : 'Merits' }
-        </chakra.span>
+        </span>
       </Button>
     </Tooltip>
   );

@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Circle } from '@chakra-ui/react';
 import React from 'react';
 import type { FieldValues, Path } from 'react-hook-form';
 import { useController, useFormContext } from 'react-hook-form';
@@ -17,7 +15,7 @@ export interface FormFieldColorProps<
   FormFields extends FieldValues,
   Name extends Path<FormFields> = Path<FormFields>,
 > extends FormFieldPropsBase<FormFields, Name> {
-  sampleDefaultBgColor?: BoxProps['bgColor'];
+  sampleDefaultBgColor?: string;
 }
 
 const FormFieldColorContent = <
@@ -71,12 +69,11 @@ const FormFieldColorContent = <
   }, [ field, onBlur ]);
 
   const endElement = (
-    <Circle
-      size="30px"
-      bgColor={ field.value && colorValidator(field.value) === true ? field.value : sampleDefaultBgColor }
-      borderColor="gray.300"
-      borderWidth="1px"
-      mx="15px"
+    <div
+      className="w-[30px] h-[30px] rounded-full border border-gray-300 mx-[15px] shrink-0"
+      style={{
+        backgroundColor: field.value && colorValidator(field.value) === true ? field.value : (sampleDefaultBgColor || undefined),
+      }}
     />
   );
 

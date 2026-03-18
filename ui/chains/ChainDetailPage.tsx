@@ -1,8 +1,8 @@
-import { Box, Flex, Grid, Text } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import config from 'configs/app';
 import { useBlockchains, useCurrentValidators, useSubnets } from 'lib/api/pchain';
 import type { PChainBlockchain, PChainValidator } from 'lib/api/pchain';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -27,98 +27,98 @@ const PRIMARY_CHAIN_META: Readonly<Record<string, {
     fullName: 'Contract Chain',
     vm: 'EVM',
     vmId: 'mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6',
-    description: 'The C-Chain is an EVM-compatible blockchain on the Lux Network used for smart contracts and DeFi applications.',
+    description: 'The C-Chain is an EVM-compatible blockchain on the network used for smart contracts and DeFi applications.',
   },
   'p-chain': {
     name: 'P-Chain',
     fullName: 'Platform Chain',
     vm: 'PVM',
     vmId: 'rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWsBY6MALT',
-    description: 'The P-Chain manages validators, staking, and subnet creation across the Lux Network.',
+    description: 'The P-Chain manages validators, staking, and subnet creation across the network.',
   },
   'x-chain': {
     name: 'X-Chain',
     fullName: 'Exchange Chain',
     vm: 'AVM',
     vmId: 'jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq',
-    description: 'The X-Chain is a DAG-based chain for creating and exchanging digital assets on the Lux Network.',
+    description: 'The X-Chain is a DAG-based chain for creating and exchanging digital assets on the network.',
   },
   'd-chain': {
     name: 'D-Chain',
     fullName: 'DEX Chain',
     vm: 'DexVM',
     vmId: '',
-    description: 'The D-Chain is a decentralized exchange chain on the Lux Network for on-chain order books and token swaps.',
+    description: 'The D-Chain is a decentralized exchange chain on the network for on-chain order books and token swaps.',
   },
   'a-chain': {
     name: 'A-Chain',
     fullName: 'AI Chain',
     vm: 'AIVM',
     vmId: '',
-    description: 'The A-Chain powers AI workloads on the Lux Network, providing decentralized inference and model serving.',
+    description: 'The A-Chain powers AI workloads on the network, providing decentralized inference and model serving.',
   },
   'b-chain': {
     name: 'B-Chain',
     fullName: 'Bridge Chain',
     vm: 'BridgeVM',
     vmId: '',
-    description: 'The B-Chain is the bridge relay chain on the Lux Network, enabling cross-chain asset transfers via Teleporter.',
+    description: 'The B-Chain is the bridge relay chain on the network, enabling cross-chain asset transfers via Teleporter.',
   },
   'q-chain': {
     name: 'Q-Chain',
     fullName: 'Quantum Chain',
     vm: 'QuantumVM',
     vmId: '',
-    description: 'The Q-Chain provides post-quantum cryptographic primitives and quantum-resistant operations on the Lux Network.',
+    description: 'The Q-Chain provides post-quantum cryptographic primitives and quantum-resistant operations on the network.',
   },
   't-chain': {
     name: 'T-Chain',
     fullName: 'Threshold Chain',
     vm: 'ThresholdVM',
     vmId: '',
-    description: 'The T-Chain enables threshold signature schemes and distributed key generation on the Lux Network.',
+    description: 'The T-Chain enables threshold signature schemes and distributed key generation on the network.',
   },
   'z-chain': {
     name: 'Z-Chain',
     fullName: 'ZK Chain',
     vm: 'ZKVM',
     vmId: '',
-    description: 'The Z-Chain handles zero-knowledge proof generation and verification on the Lux Network.',
+    description: 'The Z-Chain handles zero-knowledge proof generation and verification on the network.',
   },
   'g-chain': {
     name: 'G-Chain',
     fullName: 'Graph Chain',
     vm: 'GraphVM',
     vmId: '',
-    description: 'The G-Chain provides decentralized graph indexing and query services on the Lux Network.',
+    description: 'The G-Chain provides decentralized graph indexing and query services on the network.',
   },
   'k-chain': {
     name: 'K-Chain',
     fullName: 'Key Chain',
     vm: 'KeyVM',
     vmId: '',
-    description: 'The K-Chain provides decentralized key management and custody services on the Lux Network.',
+    description: 'The K-Chain provides decentralized key management and custody services on the network.',
   },
   'o-chain': {
     name: 'O-Chain',
     fullName: 'Oracle Chain',
     vm: 'OracleVM',
     vmId: '',
-    description: 'The O-Chain provides decentralized oracle services, bringing off-chain data on-chain for the Lux Network.',
+    description: 'The O-Chain provides decentralized oracle services, bringing off-chain data on-chain for the network.',
   },
   'r-chain': {
     name: 'R-Chain',
     fullName: 'Relay Chain',
     vm: 'RelayVM',
     vmId: '',
-    description: 'The R-Chain handles cross-chain message relay and interoperability routing on the Lux Network.',
+    description: 'The R-Chain handles cross-chain message relay and interoperability routing on the network.',
   },
   'i-chain': {
     name: 'I-Chain',
     fullName: 'Identity Chain',
     vm: 'IdentityVM',
     vmId: '',
-    description: 'The I-Chain manages decentralized identity, DIDs, and verifiable credentials on the Lux Network.',
+    description: 'The I-Chain manages decentralized identity, DIDs, and verifiable credentials on the network.',
   },
 };
 
@@ -130,10 +130,10 @@ const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
 };
 
 const SUBNET_DESCRIPTIONS: Readonly<Record<string, string>> = {
-  zoo: 'Zoo is an L1 blockchain on the Lux Network for the Zoo Labs Foundation open AI research network.',
-  hanzo: 'Hanzo is an L1 blockchain on the Lux Network for Hanzo AI infrastructure and agent frameworks.',
-  spc: 'SPC is an L1 blockchain on the Lux Network.',
-  pars: 'Pars is an L1 blockchain on the Lux Network.',
+  zoo: 'Zoo is an L1 blockchain on the network for the Zoo Labs Foundation open AI research network.',
+  hanzo: 'Hanzo is an L1 blockchain on the network for Hanzo AI infrastructure and agent frameworks.',
+  spc: 'SPC is an L1 blockchain on the network.',
+  pars: 'Pars is an L1 blockchain on the network.',
 };
 
 const EXPLORER_URLS: Readonly<Record<string, string>> = {
@@ -211,7 +211,7 @@ interface InfoRowProps {
 }
 
 const InfoRow = ({ label, value, isMono = false, canCopy = false }: InfoRowProps) => (
-  <Flex
+  <div
     py={ 3 }
     px={ 4 }
     borderBottom="1px solid"
@@ -220,7 +220,7 @@ const InfoRow = ({ label, value, isMono = false, canCopy = false }: InfoRowProps
     gap={ 4 }
     flexWrap={{ base: 'wrap', lg: 'nowrap' }}
   >
-    <Box
+    <div
       minW={{ base: '100%', lg: '200px' }}
       flexShrink={ 0 }
       color="text.secondary"
@@ -228,19 +228,19 @@ const InfoRow = ({ label, value, isMono = false, canCopy = false }: InfoRowProps
       fontWeight={ 500 }
     >
       { label }
-    </Box>
-    <Flex flex={ 1 } align="center" gap={ 1 } minW={ 0 }>
-      <Text
+    </div>
+    <div flex={ 1 } align="center" gap={ 1 } minW={ 0 }>
+      <span
         fontSize="sm"
         color="text.primary"
         fontFamily={ isMono ? 'mono' : 'body' }
         wordBreak="break-all"
       >
         { value }
-      </Text>
+      </span>
       { canCopy && <CopyToClipboard text={ value }/> }
-    </Flex>
-  </Flex>
+    </div>
+  </div>
 );
 
 interface ValidatorRowProps {
@@ -253,7 +253,7 @@ const ValidatorRow = ({ validator, index }: ValidatorRowProps) => {
   const uptime = parseFloat(validator.uptime || '0') * 100;
 
   return (
-    <Flex
+    <div
       py={ 3 }
       px={ 4 }
       borderBottom="1px solid"
@@ -264,33 +264,33 @@ const ValidatorRow = ({ validator, index }: ValidatorRowProps) => {
       align="center"
       flexWrap={{ base: 'wrap', lg: 'nowrap' }}
     >
-      <Box w="40px" flexShrink={ 0 } color="text.secondary" fontSize="sm">
+      <div w="40px" flexShrink={ 0 } color="text.secondary" fontSize="sm">
         { index + 1 }
-      </Box>
-      <Box flex={ 2 } minW={ 0 }>
-        <Text fontSize="sm" fontFamily="mono" color="text.primary" title={ validator.nodeID }>
+      </div>
+      <div flex={ 2 } minW={ 0 }>
+        <span fontSize="sm" fontFamily="mono" color="text.primary" title={ validator.nodeID }>
           { truncateId(validator.nodeID, 24) }
-        </Text>
-      </Box>
-      <Box flex={ 1 } textAlign="right">
-        <Text fontSize="sm" color="text.primary" fontWeight={ 500 }>
-          { formatStake(stake) } LUX
-        </Text>
-      </Box>
-      <Box w="80px" textAlign="right" flexShrink={ 0 }>
-        <Text fontSize="sm" color="text.primary">
+        </span>
+      </div>
+      <div flex={ 1 } textAlign="right">
+        <span fontSize="sm" color="text.primary" fontWeight={ 500 }>
+          { formatStake(stake) } { config.chain.currency.symbol || 'LUX' }
+        </span>
+      </div>
+      <div w="80px" textAlign="right" flexShrink={ 0 }>
+        <span fontSize="sm" color="text.primary">
           { uptime.toFixed(1) }%
-        </Text>
-      </Box>
-      <Box w="40px" flexShrink={ 0 } textAlign="center">
-        <Box
+        </span>
+      </div>
+      <div w="40px" flexShrink={ 0 } textAlign="center">
+        <div
           bgColor={ validator.connected ? 'green.400' : 'gray.400' }
           borderRadius="full"
           boxSize="8px"
           display="inline-block"
         />
-      </Box>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
@@ -327,7 +327,7 @@ const ChainDetailPage = () => {
     slug;
   const chainDescription = resolvedChain.meta?.description ??
     SUBNET_DESCRIPTIONS[slug] ??
-    `${ chainName } is a blockchain on the Lux Network.`;
+    `${ chainName } is a blockchain on the network.`;
 
   const blockchainId = resolvedChain.blockchain?.id ?? '';
   const subnetId = resolvedChain.blockchain?.subnetID ?? (resolvedChain.isPrimary ? PRIMARY_NETWORK_ID : '');
@@ -357,15 +357,15 @@ const ChainDetailPage = () => {
       <PageTitle
         title={ chainName }
         secondRow={ (
-          <Flex align="center" gap={ 2 }>
-            <Text fontSize="sm" color="text.secondary">Chain Details</Text>
+          <div align="center" gap={ 2 }>
+            <span fontSize="sm" color="text.secondary">Chain Details</span>
             { resolvedChain.isPrimary && <Tag size="sm" variant="subtle">Primary Network</Tag> }
             { !resolvedChain.isPrimary && resolvedChain.blockchain && <Tag size="sm" variant="subtle">L1</Tag> }
-          </Flex>
+          </div>
         ) }
       />
 
-      <Box
+      <div
         p={ 4 }
         mb={ 6 }
         border="1px solid"
@@ -373,63 +373,63 @@ const ChainDetailPage = () => {
         borderRadius="lg"
         bgColor={ INFO_ROW_BG }
       >
-        <Text fontSize="sm" color="text.secondary" lineHeight="1.6">
+        <span fontSize="sm" color="text.secondary" lineHeight="1.6">
           { chainDescription }
-        </Text>
-      </Box>
+        </span>
+      </div>
 
-      <Grid
+      <div
         templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
         gap={ 3 }
         mb={ 6 }
       >
-        <Box p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <Text fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
+          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
             Validators
-          </Text>
+          </span>
           <Skeleton loading={ isLoading }>
-            <Text fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
               { validators.length }
-            </Text>
+            </span>
           </Skeleton>
-        </Box>
-        <Box p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <Text fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        </div>
+        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
+          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
             Total Stake
-          </Text>
+          </span>
           <Skeleton loading={ isLoading }>
-            <Text fontSize="xl" fontWeight={ 700 } color="text.primary">
-              { formatStake(totalStake) } LUX
-            </Text>
+            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
+              { formatStake(totalStake) } { config.chain.currency.symbol || 'LUX' }
+            </span>
           </Skeleton>
-        </Box>
-        <Box p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <Text fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        </div>
+        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
+          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
             Subnet Chains
-          </Text>
+          </span>
           <Skeleton loading={ isLoading }>
-            <Text fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
               { subnetChains.length }
-            </Text>
+            </span>
           </Skeleton>
-        </Box>
-        <Box p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <Text fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        </div>
+        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
+          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
             Threshold
-          </Text>
+          </span>
           <Skeleton loading={ isLoading }>
-            <Text fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
               { subnet?.threshold ?? '-' }
-            </Text>
+            </span>
           </Skeleton>
-        </Box>
-      </Grid>
+        </div>
+      </div>
 
-      <Box mb={ 6 }>
-        <Text fontSize="sm" fontWeight={ 600 } color="text.primary" mb={ 3 }>
+      <div mb={ 6 }>
+        <span fontSize="sm" fontWeight={ 600 } color="text.primary" mb={ 3 }>
           Chain Info
-        </Text>
-        <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+        </span>
+        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
           <InfoRow label="Chain Name" value={ chainName }/>
           { blockchainId && <InfoRow label="Blockchain ID" value={ blockchainId } isMono canCopy/> }
           { subnetId && <InfoRow label="Subnet ID" value={ subnetId } isMono canCopy/> }
@@ -439,22 +439,22 @@ const ChainDetailPage = () => {
           { explorerUrl && <InfoRow label="Explorer" value={ explorerUrl }/> }
           { resolvedChain.isPrimary && <InfoRow label="Network" value="Primary Network"/> }
           { !resolvedChain.isPrimary && <InfoRow label="Network" value="L1 Subnet"/> }
-        </Box>
-      </Box>
+        </div>
+      </div>
 
       { indexerStats && (
-        <Box mb={ 6 }>
-          <Flex align="center" gap={ 2 } mb={ 3 }>
-            <Text fontSize="sm" fontWeight={ 600 } color="text.primary">
+        <div mb={ 6 }>
+          <div align="center" gap={ 2 } mb={ 3 }>
+            <span fontSize="sm" fontWeight={ 600 } color="text.primary">
               Indexer Stats
-            </Text>
+            </span>
             { indexerStats.dag_stats && (
               <Tag size="sm" variant="subtle">
                 { indexerStats.dag_stats.chain_type.toUpperCase() }
               </Tag>
             ) }
-          </Flex>
-          <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+          </div>
+          <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
             { indexerStats.dag_stats && (
               <>
                 <InfoRow label="Total Vertices" value={ String(indexerStats.dag_stats.total_vertices) }/>
@@ -471,20 +471,20 @@ const ChainDetailPage = () => {
                 value={ typeof value === 'object' ? JSON.stringify(value) : String(value) }
               />
             )) }
-          </Box>
-        </Box>
+          </div>
+        </div>
       ) }
 
       { subnetChains.length > 0 && (
-        <Box mb={ 6 }>
-          <Flex align="center" gap={ 2 } mb={ 3 }>
-            <Text fontSize="sm" fontWeight={ 600 } color="text.primary">
+        <div mb={ 6 }>
+          <div align="center" gap={ 2 } mb={ 3 }>
+            <span fontSize="sm" fontWeight={ 600 } color="text.primary">
               Chains in Subnet
-            </Text>
+            </span>
             <Tag size="sm" variant="subtle">{ subnetChains.length }</Tag>
-          </Flex>
-          <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-            <Flex
+          </div>
+          <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+            <div
               px={ 4 }
               py={ 2 }
               gap={ 4 }
@@ -492,18 +492,18 @@ const ChainDetailPage = () => {
               borderColor="border.divider"
               display={{ base: 'none', lg: 'flex' }}
             >
-              <Box flex={ 1 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+              <div flex={ 1 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
                 Name
-              </Box>
-              <Box flex={ 2 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+              </div>
+              <div flex={ 2 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
                 Blockchain ID
-              </Box>
-              <Box w="120px" color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+              </div>
+              <div w="120px" color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
                 VM
-              </Box>
-            </Flex>
+              </div>
+            </div>
             { subnetChains.map((chain) => (
-              <Flex
+              <div
                 key={ chain.id }
                 px={ 4 }
                 py={ 3 }
@@ -515,21 +515,21 @@ const ChainDetailPage = () => {
                 transition="background 0.15s"
                 flexWrap={{ base: 'wrap', lg: 'nowrap' }}
               >
-                <Box flex={ 1 }>
-                  <Text fontSize="sm" fontWeight={ 500 } color="text.primary">
+                <div flex={ 1 }>
+                  <span fontSize="sm" fontWeight={ 500 } color="text.primary">
                     { chain.name }
-                  </Text>
-                </Box>
-                <Box flex={ 2 } minW={ 0 }>
-                  <Flex align="center" gap={ 1 }>
-                    <Text fontSize="sm" fontFamily="mono" color="text.secondary" title={ chain.id }>
+                  </span>
+                </div>
+                <div flex={ 2 } minW={ 0 }>
+                  <div align="center" gap={ 1 }>
+                    <span fontSize="sm" fontFamily="mono" color="text.secondary" title={ chain.id }>
                       { truncateId(chain.id, 24) }
-                    </Text>
+                    </span>
                     <CopyToClipboard text={ chain.id } size="2xs"/>
-                  </Flex>
-                </Box>
-                <Box w="120px">
-                  <Box
+                  </div>
+                </div>
+                <div w="120px">
+                  <div
                     bgColor={{ _light: 'gray.100', _dark: 'whiteAlpha.100' }}
                     color="text.secondary"
                     borderRadius="sm"
@@ -540,25 +540,25 @@ const ChainDetailPage = () => {
                     display="inline-block"
                   >
                     { KNOWN_VM_IDS[chain.vmID] ?? truncateId(chain.vmID, 12) }
-                  </Box>
-                </Box>
-              </Flex>
+                  </div>
+                </div>
+              </div>
             )) }
-          </Box>
-        </Box>
+          </div>
+        </div>
       ) }
 
-      <Box mb={ 6 }>
-        <Flex align="center" gap={ 2 } mb={ 3 }>
-          <Text fontSize="sm" fontWeight={ 600 } color="text.primary">
+      <div mb={ 6 }>
+        <div align="center" gap={ 2 } mb={ 3 }>
+          <span fontSize="sm" fontWeight={ 600 } color="text.primary">
             Validators
-          </Text>
+          </span>
           <Skeleton loading={ validatorsLoading }>
             <Tag size="sm" variant="subtle">{ validators.length }</Tag>
           </Skeleton>
-        </Flex>
-        <Box border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          <Flex
+        </div>
+        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+          <div
             px={ 4 }
             py={ 2 }
             gap={ 4 }
@@ -567,16 +567,16 @@ const ChainDetailPage = () => {
             display={{ base: 'none', lg: 'flex' }}
             align="center"
           >
-            <Box w="40px" flexShrink={ 0 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+            <div w="40px" flexShrink={ 0 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
               #
-            </Box>
-            <Box flex={ 2 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+            </div>
+            <div flex={ 2 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
               Node ID
-            </Box>
-            <Box flex={ 1 } textAlign="right" color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+            </div>
+            <div flex={ 1 } textAlign="right" color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
               Stake
-            </Box>
-            <Box
+            </div>
+            <div
               w="80px"
               textAlign="right"
               flexShrink={ 0 }
@@ -587,8 +587,8 @@ const ChainDetailPage = () => {
               letterSpacing="wider"
             >
               Uptime
-            </Box>
-            <Box
+            </div>
+            <div
               w="40px"
               flexShrink={ 0 }
               textAlign="center"
@@ -599,29 +599,29 @@ const ChainDetailPage = () => {
               letterSpacing="wider"
             >
               { '\u2022' }
-            </Box>
-          </Flex>
+            </div>
+          </div>
 
           { validatorsLoading && (
-            <Box px={ 4 } py={ 6 }>
+            <div px={ 4 } py={ 6 }>
               <Skeleton loading h="16px" mb={ 3 }/>
               <Skeleton loading h="16px" mb={ 3 }/>
               <Skeleton loading h="16px" mb={ 3 }/>
               <Skeleton loading h="16px"/>
-            </Box>
+            </div>
           ) }
 
           { !validatorsLoading && validators.length === 0 && (
-            <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+            <div px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
               No validators found
-            </Box>
+            </div>
           ) }
 
           { !validatorsLoading && validators.map((v, i) => (
             <ValidatorRow key={ v.nodeID } validator={ v } index={ i }/>
           )) }
-        </Box>
-      </Box>
+        </div>
+      </div>
     </>
   );
 };

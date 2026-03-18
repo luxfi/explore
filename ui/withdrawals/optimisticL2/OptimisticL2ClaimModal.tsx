@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -166,7 +165,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
         </DialogHeader>
         <DialogBody>
           <FormProvider { ...formApi }>
-            <chakra.form
+            <form
               noValidate
               onSubmit={ formApi.handleSubmit(onFormSubmit) }
             >
@@ -175,7 +174,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                 name="address"
                 required
                 placeholder="Address (0x...)"
-                bgColor="dialog.bg"
+               
                 className="mt-6"
               />
               { isWeb3WalletConnected ? (
@@ -199,7 +198,7 @@ const OptimisticL2ClaimModal = ({ data, onOpenChange, proofSubmitterAddress, onS
                   Connect wallet
                 </Button>
               ) }
-            </chakra.form>
+            </form>
           </FormProvider>
         </DialogBody>
       </DialogContent>

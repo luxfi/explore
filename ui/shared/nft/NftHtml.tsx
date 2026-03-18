@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -57,12 +56,11 @@ const NftHtml = ({ src, transport, onLoad, onError, onClick, ...rest }: Props) =
       onClick={ onClick }
       className="h-full"
     >
-      <chakra.iframe
+      <iframe
         ref={ ref }
-        h="100%"
-        w="100%"
+        className="h-full w-full"
         sandbox="allow-scripts"
-        opacity={ isLoaded ? 1 : 0 }
+        style={{ opacity: isLoaded ? 1 : 0 }}
       />
     </LinkOverlay>
   );

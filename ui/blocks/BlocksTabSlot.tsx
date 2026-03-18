@@ -1,4 +1,3 @@
-import { Flex, Box, Text } from '@chakra-ui/react';
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
 
@@ -30,25 +29,25 @@ const BlocksTabSlot = ({ pagination }: Props) => {
   const networkUtilization = getNetworkUtilizationParams(statsQuery.data?.network_utilization_percentage ?? 0);
 
   return (
-    <Flex alignItems="center" columnGap={ 8 } display={{ base: 'none', lg: 'flex' }}>
+    <div alignItems="center" columnGap={ 8 } display={{ base: 'none', lg: 'flex' }}>
       { statsQuery.data?.network_utilization_percentage !== undefined && (
-        <Box>
-          <Text as="span" fontSize="sm">
+        <div>
+          <span fontSize="sm">
             Network utilization (last 50 blocks):{ nbsp }
-          </Text>
+          </span>
           <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
             <Skeleton display="inline-block" color={ networkUtilization.color } fontWeight={ 600 } loading={ statsQuery.isPlaceholderData } className="text-sm">
               <span>{ statsQuery.data.network_utilization_percentage.toFixed(2) }%</span>
             </Skeleton>
           </Tooltip>
-        </Box>
+        </div>
       ) }
       <Link href={ route({ pathname: '/block/countdown' }) }>
         <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
         <span>Block countdown</span>
       </Link>
       { pagination && <Pagination className="my-1" { ...pagination }/> }
-    </Flex>
+    </div>
   );
 };
 

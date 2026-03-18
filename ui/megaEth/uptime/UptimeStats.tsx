@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { UptimeRealTimeData } from 'types/api/megaEth';
@@ -12,7 +11,7 @@ interface Props {
 const UptimeStats = ({ realtimeData }: Props) => {
 
   return (
-    <Box
+    <div
       columnGap={ 2 }
       rowGap={ 2 }
       mb={ 8 }
@@ -40,7 +39,7 @@ const UptimeStats = ({ realtimeData }: Props) => {
         valuePostfix=" ms"
         value={ realtimeData ? Number(realtimeData.instant_mini_block_interval).toLocaleString(undefined, { maximumFractionDigits: 2 }) : '-' }
       />
-    </Box>
+    </div>
   );
 };
 

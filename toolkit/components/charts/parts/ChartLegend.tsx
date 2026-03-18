@@ -1,10 +1,8 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, Circle, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TimeChartData } from '../types';
 
-export interface ChartLegendProps extends BoxProps {
+export interface ChartLegendProps extends React.HTMLAttributes<HTMLDivElement> {
   data: TimeChartData;
   selectedIndexes?: Array<number>;
   onItemClick?: (index: number) => void;
@@ -22,7 +20,7 @@ export const ChartLegend = React.memo(({ data, selectedIndexes, onItemClick, ...
   );
 
   return (
-    <Box display="flex" columnGap={ 3 } { ...props }>
+    <div className="flex gap-x-3" { ...props }>
       { data.map((item, index) => {
         const isSelected = selectedIndexes?.includes(index);
         const lineColor = (() => {
@@ -34,28 +32,25 @@ export const ChartLegend = React.memo(({ data, selectedIndexes, onItemClick, ...
         })();
 
         return (
-          <Box
+          <div
             key={ item.name }
             data-index={ index }
-            display="flex"
-            alignItems="center"
-            columnGap={ 1 }
-            p="2px"
+            className="flex items-center gap-x-1 p-[2px] cursor-pointer"
             onClick={ handleItemClick }
-            cursor="pointer"
           >
-            <Circle
-              size={ 2 }
-              bgColor={ isSelected ? lineColor : 'transparent' }
-              borderWidth={ 2 }
-              borderColor={ lineColor }
+            <div
+              className="w-2 h-2 rounded-full border-2 shrink-0"
+              style={{
+                backgroundColor: isSelected ? lineColor : 'transparent',
+                borderColor: lineColor,
+              }}
             />
-            <Text fontSize="xs" color="text.secondary">
+            <span className="text-xs text-[var(--chakra-colors-text-secondary)]">
               { item.name }
-            </Text>
-          </Box>
+            </span>
+          </div>
         );
       }) }
-    </Box>
+    </div>
   );
 });

@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
@@ -18,7 +17,7 @@ type Props = {
 
 const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
   return (
-    <Grid
+    <div
       gridTemplateColumns="18px 120px 80px 350px auto"
       gridGap={ 3 }
       width="100%"
@@ -46,7 +45,7 @@ const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
         decimals={ tx.decimals }
         isLoading={ isLoading }
       />
-    </Grid>
+    </div>
   );
 };
 

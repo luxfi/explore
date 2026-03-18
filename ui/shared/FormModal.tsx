@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { DialogRootProps } from 'toolkit/chakra/dialog';
@@ -36,14 +35,14 @@ export default function FormModal<TData>({
         <DialogHeader>{ title }</DialogHeader>
         <DialogBody>
           { (isAlertVisible || text) && (
-            <Box marginBottom={{ base: 6, lg: 8 }}>
+            <div marginBottom={{ base: 6, lg: 8 }}>
               { text && (
-                <Text lineHeight="30px" mb={ 3 }>
+                <span className="leading-[30px]" className="mb-3">
                   { text }
-                </Text>
+                </span>
               ) }
               { isAlertVisible && <FormSubmitAlert/> }
-            </Box>
+            </div>
           ) }
           { renderForm() }
         </DialogBody>

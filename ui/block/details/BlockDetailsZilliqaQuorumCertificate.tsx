@@ -1,4 +1,3 @@
-import { Separator, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ZilliqaNestedQuorumCertificate, ZilliqaQuorumCertificate } from 'types/api/block';
@@ -43,27 +42,27 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
         { data.nested_quorum_certificates ? 'Aggregate quorum certificate' : 'Quorum certificate' }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
-        <Grid
+        <div
           textStyle="sm"
           gridTemplateColumns="min-content 1fr"
           columnGap={ 5 }
           mt={{ base: 2, lg: 1.5 }}
         >
-          <GridItem fontWeight={ 600 }>View</GridItem>
-          <GridItem>{ data.view }</GridItem>
+          <div fontWeight={ 600 }>View</div>
+          <div>{ data.view }</div>
           <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <GridItem fontWeight={ 600 }>Signature</GridItem>
-          <GridItem whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
+          <div fontWeight={ 600 }>Signature</div>
+          <div whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
             { data.signature }
             <CopyToClipboard text={ data.signature }/>
-          </GridItem>
+          </div>
           <DetailedInfo.ItemDivider my={{ base: 2, lg: 2 }} colSpan={ 2 }/>
-          <GridItem fontWeight={ 600 }>Signers</GridItem>
-          <GridItem whiteSpace="pre-wrap">{ formatSigners(data.signers) }</GridItem>
-        </Grid>
+          <div fontWeight={ 600 }>Signers</div>
+          <div whiteSpace="pre-wrap">{ formatSigners(data.signers) }</div>
+        </div>
         { data.nested_quorum_certificates && data.nested_quorum_certificates.length > 0 && (
           <>
-            <Separator mt={ 2 } w="100%"/>
+            <hr mt={ 2 } w="100%"/>
             <AccordionRoot
               multiple
               className="w-full text-sm"
@@ -80,7 +79,7 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
                 </AccordionItemTrigger>
                 <AccordionItemContent className="flex flex-col gap-2 p-0">
                   { data.nested_quorum_certificates?.map((item, index) => (
-                    <Grid
+                    <div
                       key={ index }
                       gridTemplateColumns="90px minmax(0, 1fr)"
                       columnGap={ 3 }
@@ -90,18 +89,18 @@ const BlockDetailsZilliqaQuorumCertificate = ({ data }: Props) => {
                       borderRadius="md"
                       _first={{ borderTopRightRadius: 0, borderTopLeftRadius: 0 }}
                     >
-                      <GridItem>View</GridItem>
-                      <GridItem>{ item.view }</GridItem>
-                      <GridItem>Signature</GridItem>
-                      <GridItem whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
+                      <div>View</div>
+                      <div>{ item.view }</div>
+                      <div>Signature</div>
+                      <div whiteSpace="pre-wrap" wordBreak="break-word" display="flex" alignItems="flex-start">
                         { item.signature }
                         <CopyToClipboard text={ item.signature }/>
-                      </GridItem>
-                      <GridItem>Signers</GridItem>
-                      <GridItem whiteSpace="pre-wrap">{ formatSigners(item.signers) }</GridItem>
-                      <GridItem whiteSpace="pre-wrap">Proposed by validator</GridItem>
-                      <GridItem >{ item.proposed_by_validator_index }</GridItem>
-                    </Grid>
+                      </div>
+                      <div>Signers</div>
+                      <div whiteSpace="pre-wrap">{ formatSigners(item.signers) }</div>
+                      <div whiteSpace="pre-wrap">Proposed by validator</div>
+                      <div >{ item.proposed_by_validator_index }</div>
+                    </div>
                   )) }
                 </AccordionItemContent>
               </AccordionItem>

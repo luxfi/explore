@@ -1,4 +1,3 @@
-import { Grid, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -22,24 +21,15 @@ const SearchBarSuggestDomain = ({ data, isMobile, searchTerm, addressFormat }: I
   })();
 
   const name = (
-    <Text
-      fontWeight={ 700 }
-      overflow="hidden"
-      whiteSpace="nowrap"
-      textOverflow="ellipsis"
-    >
+    <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis">
       <span dangerouslySetInnerHTML={{ __html: highlightText(data.ens_info.name, searchTerm) }}/>
-    </Text>
+    </span>
   );
 
   const address = hash ? (
-    <Text
-      overflow="hidden"
-      whiteSpace="nowrap"
-      color="text.secondary"
-    >
+    <span className="overflow-hidden whitespace-nowrap text-[var(--color-text-secondary)]">
       <HashStringShortenDynamic hash={ hash } noTooltip/>
-    </Text>
+    </span>
   ) : null;
 
   const isContractVerified = 'is_smart_contract_verified' in data && data.is_smart_contract_verified &&
@@ -50,39 +40,39 @@ const SearchBarSuggestDomain = ({ data, isMobile, searchTerm, addressFormat }: I
   const expiresText = data.ens_info?.expiry_date ? ` expires ${ dayjs(data.ens_info.expiry_date).fromNow() }` : '';
   const ensNamesCount = namesCount > 39 ? '40+' : `+${ namesCount - 1 }`;
   const additionalInfo = (
-    <Text color="text.secondary" textAlign={ isMobile ? 'start' : 'end' }>
+    <span className={ `text-[var(--color-text-secondary)] ${ isMobile ? 'text-start' : 'text-end' }` }>
       { namesCount > 1 ? ensNamesCount : expiresText }
-    </Text>
+    </span>
   );
 
   if (isMobile) {
     return (
       <>
-        <Flex alignItems="center" overflow="hidden">
+        <div className="flex items-center overflow-hidden">
           { icon }
           { name }
-        </Flex>
-        <Flex alignItems="center" overflow="hidden" gap={ 1 }>
+        </div>
+        <div className="flex items-center overflow-hidden gap-1">
           { address }
           { isContractVerified }
-        </Flex>
+        </div>
         { additionalInfo }
       </>
     );
   }
 
   return (
-    <Grid alignItems="center" gridTemplateColumns="228px minmax(auto, max-content) auto" gap={ 2 }>
-      <Flex alignItems="center">
+    <div className="grid items-center gap-2" style={{ gridTemplateColumns: '228px minmax(auto, max-content) auto' }}>
+      <div className="flex items-center">
         { icon }
         { name }
-      </Flex>
-      <Flex alignItems="center" overflow="hidden" gap={ 1 }>
+      </div>
+      <div className="flex items-center overflow-hidden gap-1">
         { address }
         { isContractVerified }
-      </Flex>
+      </div>
       { additionalInfo }
-    </Grid>
+    </div>
   );
 };
 

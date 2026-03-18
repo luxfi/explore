@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -108,7 +107,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
           bgColor="dialog.bg"
           className="mb-8"
         />
-        <Box marginTop={ 8 }>
+        <div marginTop={ 8 }>
           <Button
             type="submit"
             disabled={ !formApi.formState.isDirty }
@@ -116,7 +115,7 @@ const TransactionForm: React.FC<Props> = ({ data, onOpenChange, onSuccess, setAl
           >
             { data ? 'Save changes' : 'Add tag' }
           </Button>
-        </Box>
+        </div>
       </form>
     </FormProvider>
   );

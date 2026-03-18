@@ -1,8 +1,8 @@
-import { Box, chakra, Flex, Separator } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
+import { Separator } from 'toolkit/chakra/separator';
 import RewardsButton from 'ui/rewards/RewardsButton';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
@@ -31,25 +31,21 @@ const NavigationDesktop = () => {
   }, [ accountNavItems, isAuth ]);
 
   return (
-    <Box borderColor="border.divider" borderBottomWidth="1px">
-      <Flex
-        display={{ base: 'none', lg: 'flex' }}
-        alignItems="center"
-        px={ 6 }
-        py={ 2 }
-        maxW={ `${ CONTENT_MAX_WIDTH }px` }
-        m="0 auto"
+    <div className="border-b border-[var(--color-border-divider)]">
+      <div
+        className="hidden lg:flex items-center px-6 py-2 mx-auto"
+        style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
       >
         <NetworkLogo/>
-        <TestnetBadge ml={ 3 }/>
-        <RollupStageBadge ml={ 3 }/>
-        <chakra.nav ml="auto">
-          <Flex as="ul" columnGap={ 2 } alignItems="center">
+        <TestnetBadge className="ml-3"/>
+        <RollupStageBadge className="ml-3"/>
+        <nav className="ml-auto">
+          <ul className="flex gap-x-2 items-center">
             { mainNavItems.map((item) => {
               if (isGroupItem(item)) {
                 return <NavLinkGroup key={ item.text } item={ item }/>;
               } else {
-                return <NavLink key={ item.text } item={ item } noIcon py={ 1.5 } w="fit-content"/>;
+                return <NavLink key={ item.text } item={ item } noIcon className="py-1.5 w-fit"/>;
               }
             }) }
             { accountNavGroup && (
@@ -58,15 +54,15 @@ const NavigationDesktop = () => {
                 <NavLinkGroup key={ accountNavGroup.text } item={ accountNavGroup }/>
               </>
             ) }
-          </Flex>
-        </chakra.nav>
-        <Flex gap={ 2 } ml={ 8 }>
+          </ul>
+        </nav>
+        <div className="flex gap-2 ml-8">
           <NavigationPromoBanner/>
           { config.features.rewards.isEnabled && <RewardsButton size="sm"/> }
           <UserProfileDesktop buttonSize="sm"/>
-        </Flex>
-      </Flex>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

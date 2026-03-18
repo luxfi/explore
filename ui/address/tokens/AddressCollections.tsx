@@ -1,4 +1,3 @@
-import { Box, Flex, Text, Grid, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NFTTokenType } from 'types/api/token';
@@ -54,8 +53,8 @@ const AddressCollections = ({ collectionsQuery, address, tokenTypes, onTokenType
     }, { chain: multichainContext?.chain });
     const hasOverload = Number(item.amount) > item.token_instances.length;
     return (
-      <Box key={ item.token.address_hash + index } mb={ 6 }>
-        <Flex mb={ 3 } flexWrap="wrap" lineHeight="30px">
+      <div key={ item.token.address_hash + index } mb={ 6 }>
+        <div className="flex" mb={ 3 } flexWrap="wrap" lineHeight="30px">
           <TokenEntity
             width="auto"
             noSymbol
@@ -66,13 +65,13 @@ const AddressCollections = ({ collectionsQuery, address, tokenTypes, onTokenType
             chain={ multichainContext?.chain }
           />
           <Skeleton loading={ isPlaceholderData } mr={ 3 }>
-            <Text color="text.secondary" whiteSpace="pre">{ ` - ${ Number(item.amount).toLocaleString() } item${ Number(item.amount) > 1 ? 's' : '' }` }</Text>
+            <span color="text.secondary" whiteSpace="pre">{ ` - ${ Number(item.amount).toLocaleString() } item${ Number(item.amount) > 1 ? 's' : '' }` }</span>
           </Skeleton>
           <Link href={ collectionUrl } loading={ isPlaceholderData }>
             View in collection
           </Link>
-        </Flex>
-        <Grid
+        </div>
+        <div className="grid"
           w="100%"
           mb={ 6 }
           columnGap={{ base: 3, lg: 6 }}
@@ -95,17 +94,17 @@ const AddressCollections = ({ collectionsQuery, address, tokenTypes, onTokenType
           { hasOverload && (
             <Link href={ collectionUrl }>
               <NFTItemContainer display="flex" alignItems="center" justifyContent="center" flexDirection="column" minH="248px">
-                <HStack gap={ 2 } mb={ 3 }>
+                <div className="flex flex-row" gap={ 2 } mb={ 3 }>
                   <NftFallback bgColor={{ _light: 'unset', _dark: 'unset' }} w="30px" h="30px" boxSize="30px" p={ 0 }/>
                   <NftFallback bgColor={{ _light: 'unset', _dark: 'unset' }} w="30px" h="30px" boxSize="30px" p={ 0 }/>
                   <NftFallback bgColor={{ _light: 'unset', _dark: 'unset' }} w="30px" h="30px" boxSize="30px" p={ 0 }/>
-                </HStack>
+                </div>
                 View all NFTs
               </NFTItemContainer>
             </Link>
           ) }
-        </Grid>
-      </Box>
+        </div>
+      </div>
     );
   }) : null;
 

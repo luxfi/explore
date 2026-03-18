@@ -1,4 +1,3 @@
-import { Grid, VStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
@@ -21,39 +20,31 @@ type Props = {
 
 const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
   return (
-    <VStack
-      width="100%"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      py={ 3 }
-      fontSize="sm"
-      alignItems="start"
-      gap={ 2 }
-      animation={ animation }
+    <div className="flex flex-col"
     >
       <ZetaChainCCTXReducedStatus status={ tx.status_reduced } isLoading={ isLoading } type="full"/>
-      <TxEntityZetaChainCC hash={ tx.index } isLoading={ isLoading } truncation="constant_long" fontWeight={ 600 }/>
+      <TxEntityZetaChainCC hash={ tx.index } isLoading={ isLoading } truncation="constant_long" className="font-semibold"/>
       <Skeleton loading={ isLoading } className="flex text-[var(--color-text-secondary)] gap-2 justify-start">
         { dayjs(Number(tx.last_update_timestamp) * SECOND).fromNow() }
-        <TextSeparator mx={ 0 }/>
+        <TextSeparator/>
         <Time timestamp={ Number(tx.last_update_timestamp) * SECOND } format="lll_s"/>
       </Skeleton>
-      <Grid gridTemplateColumns="100px 1fr" gap={ 2 }>
-        <Text>Sender</Text>
+      <div className="grid">
+        <span>Sender</span>
         <AddressEntityZetaChain
           address={{ hash: tx.sender_address }}
           chainId={ tx.source_chain_id.toString() }
           isLoading={ isLoading }
           truncation="constant"
         />
-        <Text>Receiver</Text>
+        <span>Receiver</span>
         <AddressEntityZetaChain
           address={{ hash: tx.receiver_address }}
           chainId={ tx.target_chain_id.toString() }
           isLoading={ isLoading }
           truncation="constant"
         />
-        <Text>Asset</Text>
+        <span>Asset</span>
         <ZetaChainCCTXValue
           coinType={ tx.coin_type }
           tokenSymbol={ tx.token_symbol }
@@ -61,8 +52,8 @@ const LatestZetaChainCCTXItem = ({ tx, isLoading, animation }: Props) => {
           decimals={ tx.decimals }
           isLoading={ isLoading }
         />
-      </Grid>
-    </VStack>
+      </div>
+    </div>
   );
 };
 

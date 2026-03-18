@@ -1,8 +1,3 @@
-import {
-  Box,
-  Flex,
-  chakra,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -35,16 +30,7 @@ const GasTracker = () => {
   const isLoading = isPlaceholderData;
 
   const titleSecondRow = (
-    <Flex
-      alignItems={{ base: 'flex-start', lg: 'center' }}
-      fontFamily="heading"
-      fontSize="lg"
-      fontWeight={ 500 }
-      w="100%"
-      columnGap={ 3 }
-      rowGap={ 1 }
-      flexDir={{ base: 'column', lg: 'row' }}
-    >
+    <div className="flex font-heading text-lg w-full gap-x-3 gap-y-1 font-medium items-start lg:items-center flex-col lg:flex-row">
       { typeof data?.network_utilization_percentage === 'number' &&
         <GasTrackerNetworkUtilization percentage={ data.network_utilization_percentage } isLoading={ isLoading }/> }
       { data?.gas_price_updated_at && (
@@ -64,11 +50,11 @@ const GasTracker = () => {
       { data?.coin_price && (
         <Skeleton loading={ isLoading } ml={ 0 } display="flex" alignItems="center" className="lg:ml-auto whitespace-pre">
           <NativeTokenIcon mr={ 2 } boxSize={ 6 }/>
-          <chakra.span color="text.secondary">{ config.chain.currency.symbol }</chakra.span>
+          <span className="text-[var(--color-text-secondary)]">{ config.chain.currency.symbol }</span>
           <span> ${ Number(data.coin_price).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
         </Skeleton>
       ) }
-    </Flex>
+    </div>
   );
 
   const snippets = (() => {
@@ -91,9 +77,9 @@ const GasTracker = () => {
       <Heading level="2" className="mt-8 mb-4">{ `Track ${ config.chain.name } gas fees` }</Heading>
       { snippets }
       { config.features.stats.isEnabled && (
-        <Box mt={ 12 } _empty={{ display: 'none' }}>
+        <div className="mt-12">
           <GasTrackerChart/>
-        </Box>
+        </div>
       ) }
       { faq }
     </>

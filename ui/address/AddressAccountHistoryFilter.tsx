@@ -1,4 +1,4 @@
-import { createListCollection } from '@chakra-ui/react';
+import { createListCollection } from 'toolkit/chakra/select';
 import React from 'react';
 
 import type { NovesHistoryFilterValue } from 'types/api/noves';

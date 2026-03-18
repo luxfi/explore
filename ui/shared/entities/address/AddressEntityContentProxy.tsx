@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -21,10 +20,10 @@ const AddressEntityContentProxy = (props: ContentProps) => {
 
   const content = (
     <>
-      <Box fontWeight={ 600 }>
+      <div className="font-semibold">
         Proxy contract
         { props.address.name ? ` (${ props.address.name })` : '' }
-      </Box>
+      </div>
       <AddressEntity
         address={{ hash: props.address.hash, filecoin: props.address.filecoin }}
         noLink
@@ -34,11 +33,11 @@ const AddressEntityContentProxy = (props: ContentProps) => {
         justifyContent="center"
         w="100%"
       />
-      <Box fontWeight={ 600 } mt={ 2 }>
+      <div className="font-semibold mt-2">
         Implementation{ implementations.length > 1 ? 's' : '' }
         { implementationName ? ` (${ implementationName })` : '' }
-      </Box>
-      <Flex flexWrap="wrap" columnGap={ 3 }>
+      </div>
+      <div className="flex flex-wrap gap-x-3">
         { implementations.map((item) => (
           <AddressEntity
             key={ item.address_hash }
@@ -52,20 +51,20 @@ const AddressEntityContentProxy = (props: ContentProps) => {
             justifyContent={ colNum === 1 ? 'center' : undefined }
           />
         )) }
-      </Flex>
+      </div>
     </>
   );
 
   return (
     <Tooltip content={ content } interactive contentProps={{ className: 'max-w-[calc(100vw-8px)] lg:max-w-[410px]' }} triggerProps={{ className: 'min-w-0' }}>
-      <Box display="inline-flex" w="100%">
+      <span className="inline-flex w-full">
         <EntityBase.Content
           { ...props }
           truncation={ nameTag || implementationName || props.address.name ? 'tail' : props.truncation }
           text={ nameTag || implementationName || props.address.name || props.altHash || props.address.hash }
           noTooltip
         />
-      </Box>
+      </span>
     </Tooltip>
   );
 };

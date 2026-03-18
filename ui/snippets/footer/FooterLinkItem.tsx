@@ -1,4 +1,3 @@
-import { Center } from '@chakra-ui/react';
 import React from 'react';
 
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
@@ -48,9 +47,9 @@ const FooterLinkItem = ({ icon, iconSize, iconUrl, text, url, isLoading }: Props
 
     if (icon) {
       return (
-        <Center minW={ 6 }>
+        <div className="flex items-center justify-center min-w-6">
           <IconSvg boxSize={ iconSize || 5 } name={ icon }/>
-        </Center>
+        </div>
       );
     }
 

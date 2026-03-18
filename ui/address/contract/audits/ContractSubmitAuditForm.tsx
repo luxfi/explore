@@ -1,4 +1,3 @@
-import { VStack } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -84,7 +83,7 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
   return (
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ handleSubmit(onFormSubmit) } autoComplete="off" ref={ containerRef }>
-        <VStack gap={ 5 } alignItems="flex-start">
+        <div className="flex flex-col" gap={ 5 } alignItems="flex-start">
           <FormFieldText<Inputs> name="submitter_name" required placeholder="Submitter name"/>
           <FormFieldEmail<Inputs> name="submitter_email" required placeholder="Submitter email"/>
           <FormFieldCheckbox<Inputs, 'is_project_owner'>
@@ -108,7 +107,7 @@ const ContractSubmitAuditForm = ({ address, onSuccess }: Props) => {
             asComponent="Textarea"
             inputProps={{ style: { maxHeight: '160px' } }}
           />
-        </VStack>
+        </div>
         <Button
           type="submit"
           mt={ 8 }

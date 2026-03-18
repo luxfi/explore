@@ -1,4 +1,3 @@
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -59,13 +58,13 @@ const GasTrackerChart = () => {
   }
 
   return (
-    <Box>
-      <Flex justifyContent="space-between" alignItems="center" mb={ 6 }>
-        <chakra.h3 textStyle="h3">Gas price history</chakra.h3>
+    <div>
+      <div justifyContent="space-between" alignItems="center" mb={ 6 }>
+        <h3 textStyle="h3">Gas price history</h3>
         <Link href={ route({ pathname: '/stats', hash: 'gas' }) }>Charts & stats</Link>
-      </Flex>
+      </div>
       { content }
-    </Box>
+    </div>
   );
 };
 

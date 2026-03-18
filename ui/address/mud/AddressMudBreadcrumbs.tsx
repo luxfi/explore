@@ -1,4 +1,3 @@
-import { Box, chakra, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -40,21 +39,21 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
 
   if (isLast) {
     return (
-      <Grid gap={ 2 } overflow="hidden" templateColumns="auto 24px" alignItems="center">
-        <Box
+      <div className="grid" gap={ 2 } overflow="hidden" templateColumns="auto 24px" alignItems="center">
+        <div
           overflow="hidden"
           whiteSpace="nowrap"
           textOverflow="ellipsis"
         >
           { text }
-        </Box>
+        </div>
         <CopyToClipboard text={ currentUrl } type="link" className="mx-0 text-[var(--color-icon-secondary)]"/>
-      </Grid>
+      </div>
     );
   }
 
   return (
-    <Grid gap={ 2 } overflow="hidden" templateColumns="auto 24px" alignItems="center">
+    <div className="grid" gap={ 2 } overflow="hidden" templateColumns="auto 24px" alignItems="center">
       <Link
         href={ href }
         onClick={ onLinkClick }
@@ -63,7 +62,7 @@ const BreadcrumbItem = ({ text, href, isLast }: BreadcrumbItemProps) => {
         { text }
       </Link>
       { !isLast && <IconSvg name="arrows/east" boxSize={ 6 } color={{ _light: 'gray.300', _dark: 'gray.600' }}/> }
-    </Grid>
+    </div>
   );
 };
 
@@ -74,7 +73,7 @@ const AddressMudBreadcrumbs = (props: TableViewProps | RecordViewProps) => {
   const addressQuery = useAddressQuery({ hash: props.hash });
 
   return (
-    <Box
+    <div
       display={ isMobile ? 'flex' : 'grid' }
       flexWrap="wrap"
       gridTemplateColumns="20px auto auto auto"
@@ -102,8 +101,8 @@ const AddressMudBreadcrumbs = (props: TableViewProps | RecordViewProps) => {
 
         />
       ) }
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(AddressMudBreadcrumbs));
+export default React.memo(AddressMudBreadcrumbs);

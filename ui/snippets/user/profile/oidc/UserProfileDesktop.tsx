@@ -1,7 +1,6 @@
 // OIDC user profile desktop component.
 // Login redirects to lux.id; popover shows account, wallet, settings, and logout.
 
-import { Box, Flex, HStack, VStack } from '@chakra-ui/react';
 import type { ButtonProps } from 'toolkit/chakra/button';
 import React from 'react';
 
@@ -100,17 +99,17 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
     if (data) {
       const handle = data.nickname || (data.email ? data.email.split('@')[0] : 'Account');
       return (
-        <HStack gap={ 2 }>
-          <IconSvg name="profile" boxSize={ 5 }/>
-          <Box display={{ base: 'none', md: 'block' }}>{ handle }</Box>
-        </HStack>
+        <div>
+          <IconSvg name="profile"/>
+          <div>{ handle }</div>
+        </div>
       );
     }
     return (
-      <HStack gap={ 2 }>
-        <IconSvg name="profile" boxSize={ 5 }/>
-        <Box display={{ base: 'none', md: 'block' }}>Sign in</Box>
-      </HStack>
+      <div>
+        <IconSvg name="profile"/>
+        <div>Sign in</div>
+      </div>
     );
   })();
 
@@ -137,16 +136,16 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           { /* Account section — shown when logged in */ }
           { data && (
             <>
-              <Box fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider" mb={ 2 }>
+              <div>
                 Account
-              </Box>
-              <Box fontSize="sm" fontWeight={ 600 } mb={ 1 }>
+              </div>
+              <div>
                 { data.nickname || data.name || (data.email ? data.email.split('@')[0] : 'User') }
-              </Box>
+              </div>
               { data.email && (
-                <Box fontSize="xs" color="text.secondary" mb={ 2 }>
+                <div>
                   { data.email }
-                </Box>
+                </div>
               ) }
               <Link href="/auth/profile" className="block text-sm px-0 py-1 text-[var(--color-text-primary)] hover:text-[var(--color-link-primary-hover)]" variant="plain">
                 My profile
@@ -173,17 +172,15 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           { /* Wallet section */ }
           { isWalletEnabled && walletAddress && (
             <>
-              <Box fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider" mb={ 2 }>
+              <div>
                 Wallet
-              </Box>
-              <Flex alignItems="center" columnGap={ 2 } justifyContent="space-between" mb={ 2 }>
+              </div>
+              <div>
                 <AddressEntity
                   address={{ hash: walletAddress, ens_domain_name: walletDomain }}
                   truncation="dynamic"
-                  fontSize="sm"
-                  fontWeight={ 700 }
                 />
-              </Flex>
+              </div>
               <Button size="sm" className="w-full" variant="outline" onClick={ handleDisconnectWallet }>
                 Disconnect wallet
               </Button>
@@ -200,18 +197,18 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
           ) }
 
           { /* Settings section */ }
-          <Box fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider" mb={ 2 }>
+          <div>
             Settings
-          </Box>
+          </div>
           <SettingsColorTheme onSelect={ profileMenu.onClose }/>
           <Separator className="my-3"/>
           <SettingsIdentIcon/>
           <SettingsAddressFormat/>
           <Separator className="my-3"/>
-          <VStack gap={ 1 }>
+          <div>
             <SettingsScamTokens/>
             <SettingsLocalTime/>
-          </VStack>
+          </div>
 
           { /* Sign out */ }
           { data && (

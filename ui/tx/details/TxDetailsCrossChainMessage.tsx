@@ -1,4 +1,3 @@
-import { chakra, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
@@ -21,7 +20,7 @@ interface Props {
 const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
 
   return (
-    <HStack columnGap={ 3 } rowGap={ 0 } flexWrap="wrap">
+    <div>
       <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading }/>
       <DetailedInfoItemBreakdown.Container loading={ isLoading }>
         <DetailedInfoItemBreakdown.Row
@@ -30,12 +29,10 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
           <DetailedInfoTimestamp
             timestamp={ data.receive_timestamp || data.send_timestamp }
             isLoading={ isLoading }
-            flexWrap={{ base: 'wrap', lg: 'nowrap' }}
           />
         </DetailedInfoItemBreakdown.Row>
         <DetailedInfoItemBreakdown.Row
           label="Status"
-          alignSelf="center"
         >
           <CrossChainTxsStatusTag status={ data.status } loading={ isLoading } mode="full"/>
         </DetailedInfoItemBreakdown.Row>
@@ -46,7 +43,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
             <ChainLabel
               data={ data.source_chain }
               isLoading={ isLoading }
-              fallback={ <chakra.span color="text.secondary">{ mdash }</chakra.span> }
+              fallback={ <span className="text-[var(--color-text-secondary)]">{ mdash }</span> }
             />
           </DetailedInfoItemBreakdown.Row>
         ) }
@@ -69,7 +66,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
             <ChainLabel
               data={ data.destination_chain }
               isLoading={ isLoading }
-              fallback={ <chakra.span color="text.secondary">{ mdash }</chakra.span> }
+              fallback={ <span className="text-[var(--color-text-secondary)]">{ mdash }</span> }
             />
           </DetailedInfoItemBreakdown.Row>
         ) }
@@ -110,7 +107,7 @@ const TxDetailsCrossChainMessage = ({ data, isLoading }: Props) => {
           </DetailedInfoItemBreakdown.Row>
         ) }
       </DetailedInfoItemBreakdown.Container>
-    </HStack>
+    </div>
   );
 };
 

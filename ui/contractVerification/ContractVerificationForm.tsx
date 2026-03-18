@@ -1,4 +1,3 @@
-import { Grid, Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -193,18 +192,18 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ handleSubmit(onFormSubmit) }
         onChange={ handleFormChange }
       >
-        <Grid as="section" columnGap="30px" rowGap={{ base: 2, lg: 5 }} templateColumns={{ base: '1fr', lg: 'minmax(auto, 680px) minmax(0, 340px)' }}>
+        <section className="grid gap-x-[30px] gap-y-2 lg:gap-y-5 grid-cols-1 lg:grid-cols-[minmax(auto,680px)_minmax(0,340px)]">
           { !hash && <ContractVerificationFieldAddress/> }
           <ContractVerificationFieldLicenseType/>
           <ContractVerificationFieldMethod methods={ config.verification_options }/>
-        </Grid>
+        </section>
         { content }
-        { formState.errors.root?.message && <Text color="text.error" mt={ 4 } fontSize="sm" whiteSpace="pre-wrap">{ formState.errors.root.message }</Text> }
+        { formState.errors.root?.message && <span className="text-[var(--color-text-error)] mt-4 text-sm whitespace-pre-wrap">{ formState.errors.root.message }</span> }
         { Boolean(method) && methodValue !== 'solidity-hardhat' && methodValue !== 'solidity-foundry' && methodValue !== 'sourcify' && (
           <Button
             size="md"
@@ -216,7 +215,7 @@ const ContractVerificationForm = ({ method: methodFromQuery, config, hash }: Pro
             Verify & publish
           </Button>
         ) }
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

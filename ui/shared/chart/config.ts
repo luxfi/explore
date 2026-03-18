@@ -1,4 +1,3 @@
-import { useToken } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ChartConfig } from 'toolkit/components/charts/types';
@@ -25,12 +24,21 @@ export function useChartsConfig(): Array<ChartConfig> {
 }
 
 export function useDefaultLineColor() {
-  const [ lineColor ] = useToken('colors', useColorModeValue('theme.graph.line._light', 'theme.graph.line._dark'));
+  const lineColor = useColorModeValue(
+    'var(--color-theme-graph-line-light, #4299E1)',
+    'var(--color-theme-graph-line-dark, #63B3ED)',
+  );
   return React.useMemo(() => lineColor, [ lineColor ]);
 }
 
 export function useDefaultGradient() {
-  const [ startColor ] = useToken('colors', useColorModeValue('theme.graph.gradient.start._light', 'theme.graph.gradient.start._dark'));
-  const [ stopColor ] = useToken('colors', useColorModeValue('theme.graph.gradient.stop._light', 'theme.graph.gradient.stop._dark'));
+  const startColor = useColorModeValue(
+    'var(--color-theme-graph-gradient-start-light, #4299E1)',
+    'var(--color-theme-graph-gradient-start-dark, #63B3ED)',
+  );
+  const stopColor = useColorModeValue(
+    'var(--color-theme-graph-gradient-stop-light, #fff)',
+    'var(--color-theme-graph-gradient-stop-dark, #1A202C)',
+  );
   return React.useMemo(() => ({ startColor, stopColor }), [ startColor, stopColor ]);
 }

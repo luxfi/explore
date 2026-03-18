@@ -1,4 +1,3 @@
-import { Text, Box, Flex, Center } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -28,29 +27,25 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
   const refLink = referralsQuery.data?.link || 'N/A';
   const shareText = `I joined the @luxnetwork Rewards Program and got my first ${ registrationReward || 'N/A' } #Merits! Use this link for a sign-up bonus and start earning rewards with @luxnetwork block explorer.\n\n${ refLink }`; // eslint-disable-line max-len
 
-  const textColor = { _light: 'blue.700', _dark: 'blue.100' };
-
   return (
     <>
-      <Flex
-        alignItems="center"
-        background={{ _light: 'linear-gradient(254.96deg, #9CD8FF 9.09%, #D0EFFF 88.45%)', _dark: 'linear-gradient(255deg, #1B253B 9.09%, #222C3F 88.45%)' }}
-        borderRadius="md"
-        p={ 2 }
-        pl={{ base: isReferral ? 4 : 8, md: 8 }}
-        mb={ 8 }
-        h="90px"
+      <div
+        className="flex items-center rounded-md p-2 mb-8 h-[90px]"
+        style={{
+          paddingLeft: isReferral ? undefined : '2rem',
+          background: 'var(--color-light, linear-gradient(254.96deg, #9CD8FF 9.09%, #D0EFFF 88.45%))',
+        }}
       >
-        <MeritsIcon boxSize={{ base: isReferral ? 8 : 12, md: 12 }} mr={{ base: isReferral ? 1 : 2, md: 2 }}/>
+        <MeritsIcon className={ `w-12 h-12 mr-2 ${ isReferral ? 'w-8 md:w-12 h-8 md:h-12 mr-1 md:mr-2' : '' }` }/>
         <Skeleton loading={ rewardsConfigQuery.isLoading }>
-          <Text fontSize={{ base: isReferral ? '24px' : '30px', md: '30px' }} fontWeight="700" color={ textColor }>
+          <span className="text-[30px] font-bold text-blue-700 dark:text-blue-100" style={{ fontSize: isReferral ? undefined : '30px' }}>
             +{ (isReferral ? registrationWithReferralReward : registrationReward) || 'N/A' }
-          </Text>
+          </span>
         </Skeleton>
         { isReferral && (
-          <Flex alignItems="center" h="56px">
-            <Box w="1px" h="full" bgColor={{ _light: 'whiteAlpha.800', _dark: 'whiteAlpha.100' }} mx={{ base: 3, md: 8 }}/>
-            <Flex flexDirection="column" justifyContent="space-between" gap={ 2 }>
+          <div className="flex items-center h-[56px]">
+            <div className="w-px h-full bg-[var(--color-whiteAlpha-800)] dark:bg-[var(--color-whiteAlpha-100)] mx-3 md:mx-8"/>
+            <div className="flex flex-col justify-between gap-2">
               { [
                 {
                   title: 'Registration',
@@ -61,37 +56,32 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
                   value: referralReward || 'N/A',
                 },
               ].map(({ title, value }) => (
-                <Flex key={ title } alignItems="center" gap={{ base: 1, md: 2 }}>
-                  <MeritsIcon boxSize={{ base: 5, md: 6 }}/>
+                <div key={ title } className="flex items-center gap-1 md:gap-2">
+                  <MeritsIcon className="w-5 md:w-6 h-5 md:h-6"/>
                   <Skeleton loading={ rewardsConfigQuery.isLoading }>
-                    <Text fontSize="sm" fontWeight="700" color={ textColor }>
+                    <span className="text-sm font-bold text-blue-700 dark:text-blue-100">
                       +{ value }
-                    </Text>
+                    </span>
                   </Skeleton>
-                  <Text fontSize="sm" color={ textColor }>
+                  <span className="text-sm text-blue-700 dark:text-blue-100">
                     { title }
-                  </Text>
-                </Flex>
+                  </span>
+                </div>
               )) }
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         ) }
-      </Flex>
-      <Flex flexDirection="column" alignItems="flex-start" px={ 3 } mb={ 8 }>
-        <Flex alignItems="center" gap={ 2 }>
-          <Center
-            boxSize={ 8 }
-            borderRadius="8px"
-            color={{ _light: 'blue.500', _dark: 'blue.100' }}
-            bgColor={{ _light: 'blue.50', _dark: 'blue.800' }}
-          >
+      </div>
+      <div className="flex flex-col items-start px-3 mb-8">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-blue-500 dark:text-blue-100 bg-blue-50 dark:bg-blue-800">
             <IconSvg name="profile" boxSize={ 5 }/>
-          </Center>
-          <Text fontSize="lg" fontWeight="500">
+          </div>
+          <span className="text-lg font-medium">
             Referral program
-          </Text>
-        </Flex>
-        <Text fontSize="md" mt={ 2 }>
+          </span>
+        </div>
+        <p className="text-base mt-2">
           Receive a{ ' ' }
           <Skeleton as="span" loading={ rewardsConfigQuery.isLoading } className="inline">
             { rewardsConfigQuery.data?.rewards?.referral_share ?
@@ -100,45 +90,39 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
             }
           </Skeleton>
           { ' ' }bonus on all Merits earned by your referrals
-        </Text>
+        </p>
         <RewardsReadOnlyInputWithCopy
           label="Referral link"
           value={ refLink }
           isLoading={ referralsQuery.isLoading }
-          mt={ 3 }
-          w="100%"
+          className="mt-3 w-full"
         />
-        <Skeleton loading={ referralsQuery.isLoading } mt={ 6 }>
+        <Skeleton loading={ referralsQuery.isLoading } className="mt-6">
           <Button asChild>
             <a href={ `https://x.com/intent/tweet?text=${ encodeURIComponent(shareText) }` } target="_blank" rel="noopener noreferrer">
               Share on <IconSvg name="social/twitter" boxSize={ 6 } ml={ 1 }/>
             </a>
           </Button>
         </Skeleton>
-      </Flex>
-      <Flex flexDirection="column" alignItems="flex-start" px={ 3 }>
-        <Flex alignItems="center" gap={ 2 }>
-          <Center
-            boxSize={ 8 }
-            borderRadius="8px"
-            color={{ _light: 'blue.500', _dark: 'blue.100' }}
-            bgColor={{ _light: 'blue.50', _dark: 'blue.800' }}
-          >
+      </div>
+      <div className="flex flex-col items-start px-3">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-blue-500 dark:text-blue-100 bg-blue-50 dark:bg-blue-800">
             { /* FIXME use non-navigation icon */ }
             <IconSvg name="navigation/stats" boxSize={ 6 }/>
-          </Center>
-          <Text fontSize="lg" fontWeight="500">
+          </div>
+          <span className="text-lg font-medium">
             Dashboard
-          </Text>
-        </Flex>
-        <Text fontSize="md" mt={ 2 }>
+          </span>
+        </div>
+        <p className="text-base mt-2">
           Explore your current Merits balance, find activities to boost your Merits,
           and view your capybara NFT badge collection on the dashboard
-        </Text>
+        </p>
         <Button asChild className="mt-3">
           <a href={ route({ pathname: '/account/merits' }) }>Open</a>
         </Button>
-      </Flex>
+      </div>
     </>
   );
 };

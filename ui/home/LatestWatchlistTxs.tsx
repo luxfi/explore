@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -28,14 +27,14 @@ const LatestWatchlistTxs = () => {
   }
 
   if (!data?.length) {
-    return <Text>No latest transactions found.</Text>;
+    return <span>No latest transactions found.</span>;
   }
 
   if (data) {
     const txsUrl = route({ pathname: '/txs', query: { tab: 'watchlist' } });
     return (
       <>
-        <Box mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
+        <div mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
           { data.slice(0, txsCount).map(((tx, index) => (
             <LatestTxsItemMobile
               key={ tx.hash + (isPlaceholderData ? index : '') }
@@ -43,8 +42,8 @@ const LatestWatchlistTxs = () => {
               isLoading={ isPlaceholderData }
             />
           ))) }
-        </Box>
-        <Box mb={ 4 } display={{ base: 'none', lg: 'block' }} textStyle="sm">
+        </div>
+        <div mb={ 4 } display={{ base: 'none', lg: 'block' }} textStyle="sm">
           { data.slice(0, txsCount).map(((tx, index) => (
             <LatestTxsItem
               key={ tx.hash + (isPlaceholderData ? index : '') }
@@ -52,10 +51,10 @@ const LatestWatchlistTxs = () => {
               isLoading={ isPlaceholderData }
             />
           ))) }
-        </Box>
-        <Flex justifyContent="center">
+        </div>
+        <div justifyContent="center">
           <Link className="text-sm" href={ txsUrl }>View all watch list transactions</Link>
-        </Flex>
+        </div>
       </>
     );
   }

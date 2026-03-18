@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Log } from 'types/api/log';
@@ -49,11 +48,11 @@ const TxLogs = ({ txQuery, logsFilter }: Props) => {
   }
 
   if (!items.length) {
-    return <Text as="span">There are no logs for this transaction.</Text>;
+    return <span>There are no logs for this transaction.</span>;
   }
 
   return (
-    <Box>
+    <div>
       { pagination.isVisible && (
         <ActionBar mt={ -6 }>
           <Pagination className="ml-auto" { ...pagination }/>
@@ -68,7 +67,7 @@ const TxLogs = ({ txQuery, logsFilter }: Props) => {
           defaultDataType={ txQuery.data?.zilliqa?.is_scilla ? 'UTF-8' : undefined }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

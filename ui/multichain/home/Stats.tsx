@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -40,9 +39,9 @@ const Stats = () => {
   }, [ statsQuery.data ]);
 
   return (
-    <Flex mt={ 6 } gap={ 2 } flexDirection={{ base: 'column', lg: 'row' }}>
+    <div mt={ 6 } gap={ 2 } flexDirection={{ base: 'column', lg: 'row' }}>
       { items.length > 0 && (
-        <Flex gap={ 2 } flexDirection={{ base: 'row', lg: 'column' }} w={{ base: '100%', lg: '270px' }}>
+        <div gap={ 2 } flexDirection={{ base: 'row', lg: 'column' }} w={{ base: '100%', lg: '270px' }}>
           { items.map((item) => (
             <StatsWidget
               key={ item.id }
@@ -54,10 +53,10 @@ const Stats = () => {
               w={{ base: 'calc((100% - 8px) / 2)', lg: '100%' }}
             />
           )) }
-        </Flex>
+        </div>
       ) }
       <ChainIndicators/>
-    </Flex>
+    </div>
   );
 };
 

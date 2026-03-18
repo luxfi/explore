@@ -1,4 +1,3 @@
-import { Box, Text, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -36,9 +35,9 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
     <>
       <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } className="mb-3"/>
       { tx.blob_versioned_hashes && tx.blob_versioned_hashes.length > 0 && (
-        <Box { ...sectionProps } mb={ 4 }>
-          <Flex alignItems="center" justifyContent="space-between">
-            <Text { ...sectionTitleProps }>Blobs: { tx.blob_versioned_hashes.length }</Text>
+        <div { ...sectionProps }>
+          <div className="flex">
+            <span { ...sectionTitleProps }>Blobs: { tx.blob_versioned_hashes.length }</span>
             { tx.blob_versioned_hashes.length > 3 && (
               <Link
                 href={ route({ pathname: '/tx/[hash]', query: { hash: tx.hash, tab: 'blobs' } }) }
@@ -47,102 +46,102 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
                 view all
               </Link>
             ) }
-          </Flex>
-          <Flex flexDir="column" rowGap={ 3 }>
+          </div>
+          <div className="flex flex-col">
             { tx.blob_versioned_hashes.slice(0, 3).map((hash, index) => (
-              <Flex key={ hash } columnGap={ 2 }>
-                <Box fontWeight={ 500 }>{ index + 1 }</Box>
+              <div className="flex" key={ hash }>
+                <div className="font-medium">{ index + 1 }</div>
                 <BlobEntity hash={ hash } noIcon/>
-              </Flex>
+              </div>
             )) }
-          </Flex>
-        </Box>
+          </div>
+        </div>
       ) }
-      <Box { ...sectionProps } mb={ 4 }>
-        <Text { ...sectionTitleProps }>Value</Text>
+      <div { ...sectionProps }>
+        <span { ...sectionTitleProps }>Value</span>
         <NativeCoinValue
           amount={ tx.value }
           exchangeRate={ tx.exchange_rate }
           historicalExchangeRate={ tx.historic_exchange_rate }
           noTooltip
         />
-      </Box>
+      </div>
       { !config.UI.views.tx.hiddenFields?.tx_fee && (tx.stability_fee !== undefined || tx.fee.value !== null) && (
-        <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Transaction fee</Text>
-          <TxFee tx={ tx } rowGap={ 0 } noTooltip/>
-        </Box>
+        <div { ...sectionProps }>
+          <span { ...sectionTitleProps }>Transaction fee</span>
+          <TxFee tx={ tx } noTooltip/>
+        </div>
       ) }
       { tx.gas_used !== null && (
-        <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Gas limit & usage by transaction</Text>
-          <Flex>
-            <Text>{ BigNumber(tx.gas_used).toFormat() }</Text>
+        <div { ...sectionProps }>
+          <span { ...sectionTitleProps }>Gas limit & usage by transaction</span>
+          <div className="flex">
+            <span>{ BigNumber(tx.gas_used).toFormat() }</span>
             <TextSeparator/>
-            <Text>{ BigNumber(tx.gas_limit).toFormat() }</Text>
-            <Utilization ml={ 4 } value={ Number(BigNumber(tx.gas_used).dividedBy(BigNumber(tx.gas_limit)).toFixed(2)) }/>
-          </Flex>
-        </Box>
+            <span>{ BigNumber(tx.gas_limit).toFormat() }</span>
+            <Utilization value={ Number(BigNumber(tx.gas_used).dividedBy(BigNumber(tx.gas_limit)).toFixed(2)) }/>
+          </div>
+        </div>
       ) }
       { !config.UI.views.tx.hiddenFields?.gas_fees &&
         (tx.base_fee_per_gas !== null || tx.max_fee_per_gas !== null || tx.max_priority_fee_per_gas !== null) && (
-        <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Gas fees ({ currencyUnits.gwei })</Text>
+        <div { ...sectionProps }>
+          <span { ...sectionTitleProps }>Gas fees ({ currencyUnits.gwei })</span>
           { tx.base_fee_per_gas !== null && (
-            <Box>
-              <Text as="span" fontWeight="500">Base: </Text>
+            <div>
+              <span className="font-medium">Base: </span>
               <NativeCoinValue
                 amount={ tx.base_fee_per_gas }
                 units="gwei"
                 unitsTooltip="wei"
                 noSymbol
-                fontWeight="700"
+                className="font-bold"
               />
-            </Box>
+            </div>
           ) }
           { tx.max_fee_per_gas !== null && (
-            <Box mt={ 1 }>
-              <Text as="span" fontWeight="500">Max: </Text>
+            <div>
+              <span className="font-medium">Max: </span>
               <NativeCoinValue
                 amount={ tx.max_fee_per_gas }
                 units="gwei"
                 unitsTooltip="wei"
                 noSymbol
-                fontWeight="700"
+                className="font-bold"
               />
-            </Box>
+            </div>
           ) }
           { tx.max_priority_fee_per_gas !== null && (
-            <Box mt={ 1 }>
-              <Text as="span" fontWeight="500">Max priority: </Text>
+            <div>
+              <span className="font-medium">Max priority: </span>
               <NativeCoinValue
                 amount={ tx.max_priority_fee_per_gas }
                 units="gwei"
                 unitsTooltip="wei"
                 noSymbol
-                fontWeight="700"
+                className="font-bold"
               />
-            </Box>
+            </div>
           ) }
-        </Box>
+        </div>
       ) }
       { !(tx.blob_versioned_hashes && tx.blob_versioned_hashes.length > 0) && (
-        <Box { ...sectionProps } mb={ 4 }>
-          <Text { ...sectionTitleProps }>Others</Text>
-          <Box>
-            <Text as="span" fontWeight="500">Txn type: </Text>
-            <Text fontWeight="600" as="span">{ tx.type }</Text>
-            { tx.type === 2 && <Text fontWeight="400" as="span" ml={ 1 } color="text.secondary">(EIP-1559)</Text> }
-          </Box>
-          <Box mt={ 1 }>
-            <Text as="span" fontWeight="500">Nonce: </Text>
-            <Text fontWeight="600" as="span">{ tx.nonce }</Text>
-          </Box>
-          <Box mt={ 1 }>
-            <Text as="span" fontWeight="500">Position: </Text>
-            <Text fontWeight="600" as="span">{ tx.position }</Text>
-          </Box>
-        </Box>
+        <div { ...sectionProps }>
+          <span { ...sectionTitleProps }>Others</span>
+          <div>
+            <span className="font-medium">Txn type: </span>
+            <span className="font-semibold">{ tx.type }</span>
+            { tx.type === 2 && <span>(EIP-1559)</span> }
+          </div>
+          <div>
+            <span className="font-medium">Nonce: </span>
+            <span className="font-semibold">{ tx.nonce }</span>
+          </div>
+          <div>
+            <span className="font-medium">Position: </span>
+            <span className="font-semibold">{ tx.position }</span>
+          </div>
+        </div>
       ) }
       <Link href={ route({ pathname: '/tx/[hash]', query: { hash: tx.hash } }, multichainContext) }>More details</Link>
     </>

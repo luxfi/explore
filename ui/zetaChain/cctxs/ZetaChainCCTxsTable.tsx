@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
@@ -51,11 +50,11 @@ const ZetaChainCCTxsTable = ({
       <TableRoot minWidth="950px">
         <TableHeaderSticky top={ top }>
           <TableRow>
-            <TableColumnHeader width="300px">
-              <Flex alignItems="center" columnGap={ 2 }>
-                <chakra.span lineHeight="24px" verticalAlign="middle">
+            <TableColumnHeader>
+              <div className="flex">
+                <span verticalAlign="middle">
                   CCTx hash
-                </chakra.span>
+                </span>
                 <ZetaChainFilterByColumn
                   column="age"
                   columnName="Age"
@@ -63,13 +62,13 @@ const ZetaChainCCTxsTable = ({
                   handleFilterChange={ onFilterChange }
                   isLoading={ isPlaceholderData }
                 />
-                <TimeFormatToggle ml={ 0 }/>
-              </Flex>
+                <TimeFormatToggle/>
+              </div>
             </TableColumnHeader>
-            <TableColumnHeader width="105px">
-              <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
+            <TableColumnHeader>
+              <span verticalAlign="middle">
                 Status
-              </chakra.span>
+              </span>
               { showStatusFilter && (
                 <ZetaChainFilterByColumn
                   column="status"
@@ -80,10 +79,10 @@ const ZetaChainCCTxsTable = ({
                 />
               ) }
             </TableColumnHeader>
-            <TableColumnHeader width="200px">
-              <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
+            <TableColumnHeader>
+              <span verticalAlign="middle">
                 Sender
-              </chakra.span>
+              </span>
               <ZetaChainFilterByColumn
                 column="sender"
                 columnName="Sender"
@@ -92,10 +91,10 @@ const ZetaChainCCTxsTable = ({
                 isLoading={ isPlaceholderData }
               />
             </TableColumnHeader>
-            <TableColumnHeader width="165px">
-              <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
+            <TableColumnHeader>
+              <span verticalAlign="middle">
                 Receiver
-              </chakra.span>
+              </span>
               <ZetaChainFilterByColumn
                 column="receiver"
                 columnName="Receiver"
@@ -104,10 +103,10 @@ const ZetaChainCCTxsTable = ({
                 isLoading={ isPlaceholderData }
               />
             </TableColumnHeader>
-            <TableColumnHeader width="100%" isNumeric>
-              <chakra.span mr={ 2 } lineHeight="24px" verticalAlign="middle">
+            <TableColumnHeader isNumeric>
+              <span verticalAlign="middle">
                 Value
-              </chakra.span>
+              </span>
               <ZetaChainFilterByColumn
                 column="asset"
                 columnName="Asset"
@@ -133,7 +132,6 @@ const ZetaChainCCTxsTable = ({
               tx={ item }
               enableTimeIncrement={ enableTimeIncrement }
               isLoading={ isLoading }
-              animation={ initialList.getAnimationProp(item) }
             />
           )) }
         </TableBody>

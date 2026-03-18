@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NavLink } from './types';
@@ -14,8 +13,8 @@ const UserProfileContentNavLink = ({ href, icon, text, onClick }: NavLink) => {
       onClick={ onClick }
       variant="menu"
     >
-      <IconSvg name={ icon } boxSize={ 5 } flexShrink={ 0 }/>
-      <Box textStyle="sm" fontWeight="500">{ text }</Box>
+      <IconSvg name={ icon }/>
+      <div>{ text }</div>
     </Link>
   );
 };

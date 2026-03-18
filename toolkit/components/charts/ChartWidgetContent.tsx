@@ -1,4 +1,3 @@
-import { Box, Center, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AxesConfigFn, Resolution, TimeChartData } from './types';
@@ -37,21 +36,12 @@ export const ChartWidgetContent = React.memo(({
 }: ChartWidgetContentProps) => {
   if (isError) {
     return (
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        flexGrow={ 1 }
-        py={ 4 }
-      >
-        <Text
-          color="text.secondary"
-          fontSize="sm"
-          textAlign="center"
-        >
+      <div className="flex items-center justify-center grow py-4">
+        <span className="text-[var(--chakra-colors-text-secondary)] text-sm text-center">
           { `The data didn${ apos }t load. Please, ` }
           <Link href={ window.document.location.href }>try to reload the page.</Link>
-        </Text>
-      </Flex>
+        </span>
+      </div>
     );
   }
 
@@ -61,14 +51,14 @@ export const ChartWidgetContent = React.memo(({
 
   if (empty || charts.length === 0) {
     return (
-      <Center flexGrow={ 1 }>
-        <Text color="text.secondary" fontSize="sm">{ emptyText || 'No data' }</Text>
-      </Center>
+      <div className="flex items-center justify-center grow">
+        <span className="text-[var(--chakra-colors-text-secondary)] text-sm">{ emptyText || 'No data' }</span>
+      </div>
     );
   }
 
   return (
-    <Box flexGrow={ 1 } maxW="100%" position="relative" h="100%">
+    <div className="grow max-w-full relative h-full">
       <Chart
         charts={ charts }
         zoomRange={ zoomRange }
@@ -79,6 +69,6 @@ export const ChartWidgetContent = React.memo(({
         axesConfig={ axesConfig }
       />
       { /* watermark disabled for white-label branding */ }
-    </Box>
+    </div>
   );
 });

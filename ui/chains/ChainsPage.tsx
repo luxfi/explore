@@ -1,8 +1,9 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { useBlockchains } from 'lib/api/pchain';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
@@ -59,7 +60,7 @@ interface TableHeaderProps {
 }
 
 const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
-  <Flex
+  <div
     px={ 4 }
     py={ 2 }
     gap={ 4 }
@@ -67,7 +68,7 @@ const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
     borderColor="border.divider"
     display={{ base: 'none', lg: 'flex' }}
   >
-    <Box
+    <div
       minW="180px"
       maxW="220px"
       flexShrink={ 0 }
@@ -78,22 +79,22 @@ const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
       letterSpacing="wider"
     >
       Chain
-    </Box>
-    <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+    </div>
+    <div flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
       Blockchain ID
-    </Box>
+    </div>
     { showSubnetId && (
-      <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+      <div flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
         Subnet ID
-      </Box>
+      </div>
     ) }
-    <Box flexShrink={ 0 } w="120px" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+    <div flexShrink={ 0 } w="120px" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
       VM
-    </Box>
-    <Box flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" ml="auto">
+    </div>
+    <div flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" ml="auto">
       Status
-    </Box>
-  </Flex>
+    </div>
+  </div>
 );
 
 // ---------------------------------------------------------------------------
@@ -107,23 +108,15 @@ interface TabButtonProps {
 }
 
 const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
-  <Box
-    as="button"
-    px={ 4 }
-    py={ 2 }
-    fontSize="sm"
-    fontWeight={ isActive ? '600' : '400' }
-    color={ isActive ? 'text.primary' : 'text.secondary' }
-    borderBottom="2px solid"
-    borderColor={ isActive ? 'text.primary' : 'transparent' }
-    bg="transparent"
-    cursor="pointer"
-    transition="all 0.15s"
-    _hover={{ color: 'text.primary' }}
+  <button
+    className={ cn(
+      'px-4 py-2 text-sm bg-transparent cursor-pointer transition-all duration-150 border-b-2 hover:text-[var(--color-text-primary)]',
+      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+    ) }
     onClick={ onClick }
   >
     { label }
-  </Box>
+  </button>
 );
 
 // ---------------------------------------------------------------------------
@@ -154,14 +147,14 @@ const ChainsPage = () => {
       <PageTitle
         title="Chains"
         secondRow={ (
-          <Box fontSize="sm" color="text.secondary">
-            All blockchains on the Lux Network
-          </Box>
+          <div fontSize="sm" color="text.secondary">
+            All blockchains on { config.chain.name || 'the network' }
+          </div>
         ) }
       />
 
       { /* Tabs */ }
-      <Flex
+      <div
         borderBottom="1px solid"
         borderColor="border.divider"
         mb={ 4 }
@@ -177,11 +170,11 @@ const ChainsPage = () => {
           isActive={ activeTab === TAB_IDS.subnets }
           onClick={ handleSubnetsClick }
         />
-      </Flex>
+      </div>
 
       { /* Primary Network tab */ }
       { activeTab === TAB_IDS.primary && (
-        <Box
+        <div
           border="1px solid"
           borderColor="border.divider"
           borderRadius="md"
@@ -199,12 +192,12 @@ const ChainsPage = () => {
               href={ `/chains/${ chain.slug }` }
             />
           )) }
-        </Box>
+        </div>
       ) }
 
       { /* L1/L2/L3 tab */ }
       { activeTab === TAB_IDS.subnets && (
-        <Box
+        <div
           border="1px solid"
           borderColor="border.divider"
           borderRadius="md"
@@ -212,17 +205,17 @@ const ChainsPage = () => {
         >
           <TableHeader showSubnetId/>
           { isLoading && (
-            <Box px={ 4 } py={ 6 }>
+            <div px={ 4 } py={ 6 }>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px"/>
-            </Box>
+            </div>
           ) }
           { !isLoading && l1Chains.length === 0 && (
-            <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+            <div px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
               No L1/L2/L3 chains found
-            </Box>
+            </div>
           ) }
           { !isLoading && l1Chains.map((chain) => (
             <ChainRow
@@ -237,7 +230,7 @@ const ChainsPage = () => {
               href={ `/chains/${ chain.name.toLowerCase() }` }
             />
           )) }
-        </Box>
+        </div>
       ) }
     </>
   );

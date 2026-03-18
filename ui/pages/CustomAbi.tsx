@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type { CustomAbi } from 'types/api/account';
@@ -64,7 +63,7 @@ const CustomAbiPage: React.FC = () => {
 
     const list = (
       <>
-        <Box display={{ base: 'block', lg: 'none' }}>
+        <div className="block lg:hidden">
           { data?.map((item, index) => (
             <CustomAbiListItem
               key={ item.id + (isPlaceholderData ? String(index) : '') }
@@ -74,15 +73,15 @@ const CustomAbiPage: React.FC = () => {
               onEditClick={ onEditClick }
             />
           )) }
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>
+        </div>
+        <div className="hidden lg:block">
           <CustomAbiTable
             data={ data }
             isLoading={ isPlaceholderData }
             onDeleteClick={ onDeleteClick }
             onEditClick={ onEditClick }
           />
-        </Box>
+        </div>
       </>
     );
 

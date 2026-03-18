@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as visualizer from '@luxfi/visualizer-types';
@@ -77,11 +76,10 @@ const Sol2UmlDiagram = ({ addressHash }: Props) => {
 
   return (
     <Tooltip content="Click on image to zoom" positioning={{ placement: 'top' }}>
-      <chakra.img
+      <img
         src={ imgUrl }
         alt={ `Contract ${ contractQuery.data.name } UML diagram` }
         onClick={ handleClick }
-        cursor="pointer"
         filter={{ _light: 'invert(0)', _dark: 'invert(1)' }}
       />
     </Tooltip>

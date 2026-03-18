@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -195,7 +194,7 @@ const ArbitrumL2TxnBatchDetails = ({ query }: Props) => {
           className="mt-6 lg:col-[1/3]"
           text={ [ 'Show data availability info', 'Hide data availability info' ] }
         >
-          <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
+          <div className="lg:col-span-2 mt-1 lg:mt-4"/>
 
           { data.data_availability.batch_data_container === 'in_anytrust' && (
             <ArbitrumL2TxnBatchDetailsAnyTrustDA data={ data.data_availability }/>

@@ -1,4 +1,3 @@
-import { Box, Spinner, HStack, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { StepStatus } from './types';
@@ -27,12 +26,12 @@ export const Trigger = ({ status, text, isFirst, isLast, isLoading, isDisabled }
     switch (status) {
       case 'pending': {
         return (
-          <HStack gap={ 2 }>
-            <Spinner size="md"/>
-            <Box color="text.secondary">
+          <div className="flex flex-row gap-2">
+            <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5"/>
+            <div className="text-[var(--color-text-secondary)]">
               { text }
-            </Box>
-          </HStack>
+            </div>
+          </div>
         );
       }
       default: {
@@ -50,12 +49,12 @@ export const Trigger = ({ status, text, isFirst, isLast, isLoading, isDisabled }
           }
         })();
         return (
-          <HStack gap={ 2 } color={ color }>
+          <div className="flex flex-row gap-2" style={{ color: color  }}>
             <IconSvg name={ icon } boxSize={ 5 } isLoading={ isLoading }/>
             <Skeleton loading={ isLoading }>
               { text }
             </Skeleton>
-          </HStack>
+          </div>
         );
       }
     }
@@ -106,17 +105,9 @@ export const ItemContent = ({ isLast, className, ...rest }: ContentProps) => {
 
 export const ItemBody = (props: React.ComponentPropsWithoutRef<typeof Grid>) => {
   return (
-    <Grid
-      gridTemplateColumns="112px minmax(0, 1fr)"
-      alignItems="flex-start"
-      columnGap={ 3 }
-      rowGap={ 1 }
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
+    <div className="grid items-start rounded-bl rounded-br gap-x-3 gap-y-1 text-sm bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]" style={{ gridTemplateColumns: '112px minmax(0, 1fr)' }}
       p="6px"
       pl="18px"
-      textStyle="sm"
-      borderBottomLeftRadius="base"
-      borderBottomRightRadius="base"
       { ...props }
     />
   );
@@ -130,12 +121,12 @@ interface ItemRowProps {
 export const ItemRow = ({ label, children }: ItemRowProps) => {
   return (
     <>
-      <GridItem color="text.secondary" py="6px">
+      <div className="text-[var(--color-text-secondary)]" py="6px">
         { label }
-      </GridItem>
-      <GridItem>
+      </div>
+      <div>
         { children }
-      </GridItem>
+      </div>
     </>
   );
 };

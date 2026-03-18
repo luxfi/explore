@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -45,18 +44,15 @@ const TxDetailsTokenTransfers = ({ data, txHash, isOverflow }: Props) => {
               { title }
             </DetailedInfo.ItemLabel>
             <DetailedInfo.ItemValue position="relative" multiRow>
-              <Flex
-                flexDirection="column"
-                alignItems="flex-start"
-                rowGap={ 1 }
-                w="100%"
+              <div
+               
               >
                 { items.map((item, index) => <TokenTransferSnippet key={ index } data={ item }/>) }
-              </Flex>
+              </div>
               { isOverflow && (
                 <>
                   { /* FIXME use non-navigation icon */ }
-                  <IconSvg name="navigation/tokens" boxSize={ 6 }/>
+                  <IconSvg name="navigation/tokens"/>
                   <Link href={ viewAllUrl }>
                     View all
                   </Link>

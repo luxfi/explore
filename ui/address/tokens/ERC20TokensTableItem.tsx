@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -51,7 +50,7 @@ const ERC20TokensTableItem = ({
   return (
     <TableRow className="group" >
       <TableCell verticalAlign={ cellVerticalAlign }>
-        <HStack gap={ 2 }>
+        <div className="flex flex-row" gap={ 2 }>
           <TokenEntity
             token={ token }
             chain={ chainInfo }
@@ -62,11 +61,11 @@ const ERC20TokensTableItem = ({
             width="auto"
           />
           { isNativeToken && <NativeTokenTag/> }
-        </HStack>
+        </div>
         { hasAdditionalTokenTypes && <Tag loading={ isLoading } className="mt-2">{ getTokenTypeName(token.type) }</Tag> }
       </TableCell>
       <TableCell verticalAlign={ cellVerticalAlign }>
-        <Flex alignItems="center" width="150px" justifyContent="space-between">
+        <div className="flex" alignItems="center" width="150px" justifyContent="space-between">
           <AddressEntity
             address={{ hash: token.address_hash }}
             isLoading={ isLoading }
@@ -74,7 +73,7 @@ const ERC20TokensTableItem = ({
             noIcon
           />
           <AddressAddToWallet token={ token } ml={ 4 } isLoading={ isLoading } opacity="0" _groupHover={{ opacity: 1 }}/>
-        </Flex>
+        </div>
       </TableCell>
       <TableCell isNumeric verticalAlign={ cellVerticalAlign }>
         { token.exchange_rate ? (

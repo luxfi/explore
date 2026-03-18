@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -19,7 +18,7 @@ const TransactionsCrossChainStats = (props: Props) => {
   }
 
   return (
-    <Box
+    <div
       display="grid"
       gridTemplateColumns="1fr"
       rowGap={ 3 }
@@ -33,7 +32,7 @@ const TransactionsCrossChainStats = (props: Props) => {
         period="24h"
         isLoading={ isPlaceholderData }
       />
-    </Box>
+    </div>
   );
 };
 

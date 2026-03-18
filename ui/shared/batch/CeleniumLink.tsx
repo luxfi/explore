@@ -1,9 +1,8 @@
-import { Flex, Icon } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 // eslint-disable-next-line no-restricted-imports
-import celeniumIcon from 'icons/brands/celenium.svg';
+import CeleniumSvg from 'icons/brands/celenium.svg';
 import hexToBase64 from 'lib/hexToBase64';
 import { Link } from 'toolkit/chakra/link';
 
@@ -40,10 +39,10 @@ const CeleniumLink = (props: Props) => {
   }
 
   return (
-    <Flex alignItems="center" columnGap={ 2 }>
-      <Icon as={ celeniumIcon } boxSize={ 5 }/>
+    <div className="flex items-center gap-x-2">
+      <CeleniumSvg className="w-5 h-5"/>
       <Link external href={ getCeleniumUrl(props) }>Blob page</Link>
-    </Flex>
+    </div>
   );
 };
 

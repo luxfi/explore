@@ -1,4 +1,3 @@
-import { HStack, Box, useBreakpointValue, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NavItem } from 'types/client/navigation';
@@ -31,12 +30,20 @@ const NavLink = ({ item, onClick, isCollapsed, isDisabled }: Props) => {
   const isExpanded = isCollapsed === false;
 
   const styleProps = useNavLinkStyleProps({ isCollapsed, isExpanded, isActive: isInternalLink && item.isActive });
-  const isXLScreen = useBreakpointValue({ base: false, xl: true });
+
+  const [ isXLScreen, setIsXLScreen ] = React.useState(false);
+  React.useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1280px)');
+    const handler = (e: MediaQueryListEvent) => setIsXLScreen(e.matches);
+    setIsXLScreen(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   const isHighlighted = checkRouteHighlight(item);
 
   return (
-    <Box as="li" listStyleType="none" w="100%">
+    <li className="list-none w-full">
       <Link
         href={ isInternalLink ? route(item.nextRoute) : item.url }
         external={ !isInternalLink }
@@ -62,25 +69,28 @@ const NavLink = ({ item, onClick, isCollapsed, isDisabled }: Props) => {
           }}
           interactive
         >
-          <HStack gap={ 0 } overflow="hidden">
+          <div className="flex gap-0 overflow-hidden items-center">
             <NavLinkIcon item={ item }/>
-            <chakra.span
+            <span
               { ...styleProps.textProps }
-              ml={ 3 }
-              display={{ base: 'inline', lg: isExpanded ? 'inline' : 'none', xl: isCollapsed ? 'none' : 'inline' }}
+              className={ cn(
+                'ml-3',
+                isExpanded ? 'inline' : 'lg:hidden',
+                isCollapsed ? 'xl:hidden' : 'xl:inline',
+              ) }
             >
               <span>{ item.text }</span>
-            </chakra.span>
+            </span>
             { isHighlighted && (
               <LightningLabel
                 iconColor={ isInternalLink && item.isActive ? 'link.navigation.bg.selected' : 'link.navigation.bg.group' }
                 isCollapsed={ isCollapsed }
               />
             ) }
-          </HStack>
+          </div>
         </Tooltip>
       </Link>
-    </Box>
+    </li>
   );
 };
 

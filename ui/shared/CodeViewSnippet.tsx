@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -22,17 +21,17 @@ const CodeViewSnippet = ({ data, copyData, language, title, className, rightSlot
   }, [ data ]);
 
   return (
-    <Box className={ className } as="section" title={ title }>
+    <section className={ className } title={ title }>
       { (title || rightSlot) && (
-        <Flex justifyContent={ title ? 'space-between' : 'flex-end' } alignItems="center" mb={ 3 }>
+        <div className={ `flex items-center mb-3 ${ title ? 'justify-between' : 'justify-end' }` }>
           { title && <Skeleton loading={ isLoading } fontWeight={ 500 }>{ title }</Skeleton> }
           { rightSlot }
           <CopyToClipboard text={ copyData ?? data } isLoading={ isLoading }/>
-        </Flex>
+        </div>
       ) }
       { isLoading ? <Skeleton loading height="500px" w="100%"/> : <CodeEditor data={ editorData } language={ language }/> }
-    </Box>
+    </section>
   );
 };
 
-export default React.memo(chakra(CodeViewSnippet));
+export default React.memo(CodeViewSnippet);

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import config from 'configs/app';
@@ -48,12 +47,12 @@ const RewardsDashboard = () => {
 
   return (
     <>
-      <Flex gap={ 3 } justifyContent="space-between" mb={ 6 }>
+      <div className="flex justify-between mb-6 gap-3">
         <PageTitle
           title="Dashboard"
           secondRow={ (
             <span>
-              <Link external href={ `https://merits.lux.network/?tab=users&utm_source=${ config.chain.id }&utm_medium=text-banner` }>
+              <Link external href={ `https://merits.blockscout.com/?tab=users&utm_source=${ config.chain.id }&utm_medium=text-banner` }>
                 Explore the Merits Hub
               </Link>{ ' ' }
               to earn, spend, and learn more about the program.
@@ -62,10 +61,10 @@ const RewardsDashboard = () => {
           mb={ 0 }
         />
         { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
-      </Flex>
-      <Flex flexDirection="column" alignItems="flex-start" w="full" gap={ 6 }>
+      </div>
+      <div className="flex flex-col items-start w-full gap-6">
         { isError && <Alert status="error">Failed to load some data. Please try again later.</Alert> }
-        <Flex gap={ 6 } flexDirection={{ base: 'column', md: 'row' }} w="full">
+        <div className="flex w-full gap-6 flex-col md:flex-row">
           <RewardsDashboardCard
             title="All Merits"
             description="Claim your daily Merits and any Merits received from referrals."
@@ -75,7 +74,7 @@ const RewardsDashboard = () => {
             hint={ (
               <>
                 Total number of Merits earned from all activities.{ ' ' }
-                <Link external href="https://docs.lux.network/using-blockscout/merits">
+                <Link external href="https://docs.blockscout.com/using-blockscout/merits">
                   More info on Merits
                 </Link>
               </>
@@ -109,7 +108,7 @@ const RewardsDashboard = () => {
             hint={ (
               <>
                 See the{ ' ' }
-                <Link external href="https://docs.lux.network/using-blockscout/merits/streak-rewards">docs</Link>{ ' ' }
+                <Link external href="https://docs.blockscout.com/using-blockscout/merits/streak-rewards">docs</Link>{ ' ' }
                 to learn how your streak number affects daily rewards
               </>
             ) }
@@ -130,7 +129,7 @@ const RewardsDashboard = () => {
               isBottomTextLoading={ isBadgesLoading }
             />
           </RewardsDashboardCard>
-        </Flex>
+        </div>
         <RoutedTabs
           className="w-full"
           tabs={ [
@@ -151,7 +150,7 @@ const RewardsDashboard = () => {
             },
           ] }
         />
-      </Flex>
+      </div>
       { !isBadgesLoading && !dailyRewardQuery.isPending && (
         <RewardsStreakModal
           open={ streakModal.open }

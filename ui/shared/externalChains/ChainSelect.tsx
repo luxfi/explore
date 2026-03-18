@@ -1,4 +1,3 @@
-import { Box, createListCollection, Separator } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -6,8 +5,9 @@ import type { ExternalChain } from 'types/externalChains';
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import type { SelectOption, SelectProps, ViewMode } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
+import { Separator } from 'toolkit/chakra/separator';
 import IconSvg from 'ui/shared/IconSvg';
 
 import ChainIcon from './ChainIcon';
@@ -59,13 +59,13 @@ const ChainSelect = ({ loading, mode, chainsConfig, chainIds, withAllOption, ...
   }, [ inputValue ]);
 
   const contentHeader = allItems.length > 10 ? (
-    <Box px="4" pt={ 4 } pb={ 2 } position="sticky" top={ 0 } zIndex={ 1 } bgColor="popover.bg">
+    <div px="4" className="pt-4 pb-2 bg-[var(--color-popover-bg)]" className="sticky" top={ 0 } zIndex={ 1 }>
       <FilterInput
         placeholder="Find chain"
         initialValue={ inputValue }
         onChange={ handleFilterChange }
       />
-    </Box>
+    </div>
   ) : null;
 
   if (allItems.length === 0) {

@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+
 import React from 'react';
 
 import config from 'configs/app';
@@ -119,9 +119,9 @@ const AppErrorTooManyRequests = ({ bypassOptions, reset }: Props) => {
     <>
       <AppErrorIcon statusCode={ 429 }/>
       <AppErrorTitle title="Too many requests"/>
-      <Text color="text.secondary" mt={ 3 }>
+      <p className="text-[var(--color-text-secondary)] mt-3">
         { text }
-      </Text>
+      </p>
       <ReCaptcha { ...recaptcha }/>
       { bypassOptions !== 'no_bypass' && <Button onClick={ handleSubmit } disabled={ recaptcha.isInitError } className="mt-8">I'm not a robot</Button> }
     </>

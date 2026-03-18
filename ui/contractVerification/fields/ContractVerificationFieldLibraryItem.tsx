@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -38,9 +37,9 @@ const ContractVerificationFieldLibraryItem = ({ index, fieldsLength, onAddFieldC
   return (
     <>
       <ContractVerificationFormRow>
-        <Flex alignItems="center" justifyContent="space-between" ref={ ref } mt={ index !== 0 ? 6 : 0 }>
-          <Text color="text.secondary" fontSize="sm">Contract library { index + 1 }</Text>
-          <Flex columnGap={ 5 }>
+        <div alignItems="center" justifyContent="space-between" ref={ ref } mt={ index !== 0 ? 6 : 0 }>
+          <span color="text.secondary" fontSize="sm">Contract library { index + 1 }</span>
+          <div columnGap={ 5 }>
             { fieldsLength > 1 && (
               <RemoveButton
                 onClick={ handleRemoveButtonClick }
@@ -53,8 +52,8 @@ const ContractVerificationFieldLibraryItem = ({ index, fieldsLength, onAddFieldC
                 disabled={ isDisabled }
               />
             ) }
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </ContractVerificationFormRow>
       <ContractVerificationFormRow>
         <FormFieldText<FormFields, `libraries.${ number }.name`>

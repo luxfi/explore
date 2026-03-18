@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractSecurityAuditSubmission } from 'types/api/contract';
@@ -38,7 +37,7 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
   return (
     <>
       { data?.items && data.items.length > 0 && (
-        <Box position="relative">
+        <div position="relative">
           <ContainerWithScrollY
             gradientHeight={ 24 }
             rowGap={ 1 }
@@ -52,7 +51,7 @@ const ContractSecurityAudits = ({ addressHash }: Props) => {
               </Link>
             )) }
           </ContainerWithScrollY>
-        </Box>
+        </div>
       ) }
       <Button variant="outline" size="sm" onClick={ modalProps.onOpen }>Submit audit</Button>
       <FormModal<SmartContractSecurityAuditSubmission>

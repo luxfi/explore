@@ -1,4 +1,3 @@
-import { Flex, VStack, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PaginationParams } from 'ui/shared/pagination/types';
@@ -43,7 +42,7 @@ const ClustersActionBar = ({
   const showActionBarOnDesktop = shouldShowActionBar(pagination.isVisible, true);
 
   const filters = (
-    <Flex columnGap={ 3 } rowGap={ 3 } flexDir={{ base: 'column', lg: 'row' }}>
+    <div className="flex gap-x-3 gap-y-3 flex-col lg:flex-row">
       <ButtonGroupRadio
         defaultValue={ viewMode }
         onChange={ handleViewModeChange }
@@ -65,21 +64,21 @@ const ClustersActionBar = ({
         size="sm"
         loading={ isInitialLoading }
       />
-    </Flex>
+    </div>
   );
 
   return (
     <>
-      <VStack gap={ 3 } mb={ 6 } hideFrom="lg" align="stretch">
+      <div className="flex lg:hidden items-stretch mb-6 gap-3">
         { filters }
-      </VStack>
+      </div>
       <ActionBar
         mt={ -6 }
         display={{ base: showActionBarOnMobile ? 'flex' : 'none', lg: showActionBarOnDesktop ? 'flex' : 'none' }}
       >
-        <Box hideBelow="lg">
+        <div className="hidden lg:block">
           { filters }
-        </Box>
+        </div>
         <Pagination { ...pagination } className="ml-auto"/>
       </ActionBar>
     </>

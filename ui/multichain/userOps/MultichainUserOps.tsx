@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import multichainConfig from 'configs/multichain';
@@ -35,7 +34,7 @@ const MultichainUserOps = () => {
 
   const content = query.data?.items ? (
     <MultichainProvider chainId={ query.chainValue?.[0] }>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <UserOpsTable
           items={ query.data.items }
           top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
@@ -43,8 +42,8 @@ const MultichainUserOps = () => {
           showTx
           showSender
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { query.data.items.map((item, index) => (
           <UserOpsListItem
             key={ item.hash + (query.isPlaceholderData ? String(index) : '') }
@@ -55,7 +54,7 @@ const MultichainUserOps = () => {
             chainData={ chainConfig }
           />
         )) }
-      </Box>
+      </div>
     </MultichainProvider>
   ) : null;
 

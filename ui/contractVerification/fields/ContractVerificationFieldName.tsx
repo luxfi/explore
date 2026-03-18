@@ -1,4 +1,3 @@
-import { chakra, Code } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -23,8 +22,8 @@ const ContractVerificationFieldName = ({ hint }: Props) => {
       { hint ? <span>{ hint }</span> : (
         <>
           <span>Must match the name specified in the code. For example, in </span>
-          <Code color="text.secondary">{ `contract MyContract {..}` }</Code>
-          <span>. <chakra.span fontWeight={ 600 }>MyContract</chakra.span> is the contract name.</span>
+          <code className="text-[var(--color-text-secondary)]">{ `contract MyContract {..}` }</code>
+          <span>. <span fontWeight={ 600 }>MyContract</span> is the contract name.</span>
         </>
       ) }
     </ContractVerificationFormRow>

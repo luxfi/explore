@@ -1,4 +1,3 @@
-import { Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
@@ -44,9 +43,9 @@ const AppActionButton = ({ data, className, txHash, source }: Props) => {
           mr={ 2 }
         />
       ) }
-      <Text textStyle="sm" fontWeight="500" color="currentColor">
+      <span className="text-sm font-medium text-current">
         { appActionButtonText }
-      </Text>
+      </span>
     </>
   );
 
@@ -68,4 +67,4 @@ const AppActionButton = ({ data, className, txHash, source }: Props) => {
   );
 };
 
-export default chakra(AppActionButton);
+export default AppActionButton;

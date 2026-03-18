@@ -1,4 +1,3 @@
-import { chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
@@ -25,7 +24,7 @@ interface Props {
 
 const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: Props) => {
 
-  const dashElement = <chakra.span color="text.secondary" lineHeight="24px">{ mdash }</chakra.span>;
+  const dashElement = <span color="text.secondary" lineHeight="24px">{ mdash }</span>;
 
   return (
     <TableRow>
@@ -41,7 +40,7 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
         </TableCell>
       ) }
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.source_token && (
             <TokenValueInterchain
               token={ data.source_token }
@@ -64,13 +63,13 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
               />
             ) : dashElement
           }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
         <AddressFromToIcon type="unspecified" isLoading={ isLoading } mt={ 0.5 }/>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.destination_token && (
             <TokenValueInterchain
               token={ data.destination_token }
@@ -93,10 +92,10 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
               />
             ) : dashElement
           }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -112,10 +111,10 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs gap-1"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -131,7 +130,7 @@ const TokenTransfersCrossChainTableItem = ({ data, isLoading, currentAddress }: 
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs gap-1"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
         <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>

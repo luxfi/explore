@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import type { FC } from 'react';
 import React from 'react';
 
@@ -45,24 +44,23 @@ const NovesActionSnippet: FC<Props> = ({ item, isLoaded }) => {
   );
 
   return (
-    <Skeleton borderRadius="sm" loading={ !isLoaded }>
-      <Box hideFrom="lg" display="flex" gap={ 2 } cursor="pointer" flexWrap="wrap">
-        <Text fontWeight="700" >
+    <Skeleton loading={ !isLoaded }>
+      <div className="lg:hidden">
+        <span >
           { item.action.label }
-        </Text>
-        <Text fontWeight="500">
+        </span>
+        <span>
           { item.action.amount }
-        </Text>
+        </span>
         <TokenEntity
           token={ token }
           noCopy
           noSymbol
           noLink={ !validTokenAddress }
-          fontWeight="500"
           color="link.primary"
           w="fit-content"
         />
-      </Box>
+      </div>
 
       <Tooltip
         content={ tooltipContent }
@@ -71,29 +69,28 @@ const NovesActionSnippet: FC<Props> = ({ item, isLoaded }) => {
         positioning={{ placement: 'bottom' }}
         interactive
       >
-        <Box hideBelow="lg" display="flex" gap={ 2 } cursor="pointer" w="fit-content" maxW="100%" alignItems="center">
+        <div className="hidden lg:block">
           <IconSvg
             name="lightning"
             height="5"
             width="5"
             color="icon.primary"
           />
-          <Text fontWeight="700" >
+          <span >
             { item.action.label }
-          </Text>
-          <Text fontWeight="500">
+          </span>
+          <span>
             { item.action.amount }
-          </Text>
+          </span>
           <TokenEntity
             token={ token }
             noCopy
             jointSymbol
             noLink={ !validTokenAddress }
-            fontWeight="500"
             color="link.primary"
             w="fit-content"
           />
-        </Box>
+        </div>
       </Tooltip>
     </Skeleton>
   );

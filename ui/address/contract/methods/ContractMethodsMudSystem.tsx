@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -46,7 +45,7 @@ const ContractMethodsMudSystem = ({ items }: Props) => {
   const filters = useMethodsFilters({ abi });
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex" flexDir="column" rowGap={ 6 }>
       <ContractMethodsAlerts isLoading={ systemInfoQuery.isPending }/>
       <div>
         <ContractSourceAddressSelector
@@ -77,7 +76,7 @@ const ContractMethodsMudSystem = ({ items }: Props) => {
           sourceAddress={ selectedItem.address_hash }
         />
       </ContractMethodsContainer>
-    </Flex>
+    </div>
   );
 };
 

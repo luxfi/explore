@@ -1,4 +1,3 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
 import { GrowthBookProvider } from '@growthbook/growthbook-react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -43,16 +42,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const ERROR_SCREEN_STYLES: HTMLChakraProps<'div'> = {
-  h: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  width: 'fit-content',
-  maxW: '800px',
-  margin: { base: '0 auto', lg: '0 auto' },
-  p: { base: 4, lg: 0 },
+const ERROR_SCREEN_STYLES = {
+  className: 'h-screen flex flex-col items-start justify-center w-fit max-w-[800px] mx-auto p-4 lg:p-0',
 };
 
 const CONSOLE_SCAM_WARNING = `⚠️WARNING: Do not paste or execute any scripts here!

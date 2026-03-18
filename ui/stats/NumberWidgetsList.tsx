@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -21,9 +20,7 @@ const NumberWidgetsList = () => {
   }
 
   return (
-    <Grid
-      gridTemplateColumns={{ base: 'repeat(2, 50%)', lg: 'repeat(4, 25%)' }}
-      gridGap={{ base: 1, lg: 2 }}
+    <div
     >
       {
         data?.counters?.map(({ id, title, value, units, description }, index) => {
@@ -50,7 +47,7 @@ const NumberWidgetsList = () => {
           );
         })
       }
-    </Grid>
+    </div>
   );
 };
 

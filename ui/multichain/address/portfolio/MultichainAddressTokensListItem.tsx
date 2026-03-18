@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -64,7 +63,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
           w="full"
         />
       ) }
-      <Grid
+      <div
         gridTemplateColumns="minmax(auto, 100px) 1fr"
         rowGap={ 3 }
       >
@@ -102,7 +101,7 @@ const MultichainAddressTokensListItem = ({ data, isLoading }: Props) => {
             />
           </>
         ) }
-      </Grid>
+      </div>
     </ListItemMobile>
   );
 };

@@ -1,7 +1,3 @@
-import {
-  HStack,
-  Flex,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import type { NovesDescribeTxsResponse } from 'types/api/noves';
@@ -53,9 +49,9 @@ const TxsListItem = ({
   const protocolTag = tx.to?.hash !== currentAddress && tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
 
   return (
-    <ListItemMobile display="block" width="100%" animation={ animation } key={ tx.hash }>
-      <Flex justifyContent="space-between" alignItems="flex-start" mt={ 4 }>
-        <HStack flexWrap="wrap">
+    <ListItemMobile className="block" key={ tx.hash }>
+      <div className="flex">
+        <div className="flex flex-row">
           { translationIsLoading || translationData ? (
             <TxTranslationType
               txTypes={ tx.transaction_types }
@@ -68,15 +64,15 @@ const TxsListItem = ({
           { tx.status !== 'ok' && <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/> }
           <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
           { protocolTag && <EntityTag data={ protocolTag } isLoading={ isLoading } noColors/> }
-        </HStack>
+        </div>
         <TxAdditionalInfo tx={ tx } isMobile isLoading={ isLoading }/>
-      </Flex>
-      <Flex justifyContent="space-between" lineHeight="24px" mt={ 3 } alignItems="center">
+      </div>
+      <div className="flex">
         <TxEntity
           isLoading={ isLoading }
           hash={ tx.hash }
           truncation="constant_long"
-          fontWeight="700"
+          className="font-bold"
           icon={ !tx.is_pending_update && tx.transaction_types.includes('blob_transaction') ? { name: 'blob' } : undefined }
           chain={ chainData }
           isPendingUpdate={ tx.is_pending_update }
@@ -85,13 +81,11 @@ const TxsListItem = ({
           timestamp={ tx.timestamp }
           enableIncrement={ enableTimeIncrement }
           isLoading={ isLoading }
-          color="text.secondary"
-          fontWeight="400"
-          fontSize="sm"
+         
         />
-      </Flex>
+      </div>
       { tx.method && (
-        <Flex mt={ 3 }>
+        <div className="flex">
           <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Method </Skeleton>
           <Skeleton
             loading={ isLoading }
@@ -99,47 +93,45 @@ const TxsListItem = ({
           >
             <span>{ tx.method }</span>
           </Skeleton>
-        </Flex>
+        </div>
       ) }
       { showBlockInfo && tx.block_number !== null && (
-        <Flex mt={ 2 }>
+        <div className="flex">
           <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Block </Skeleton>
           <BlockEntity
             isLoading={ isLoading }
             number={ tx.block_number }
             noIcon
           />
-        </Flex>
+        </div>
       ) }
       <AddressFromTo
         from={ tx.from }
         to={ dataTo }
         current={ currentAddress }
         isLoading={ isLoading }
-        mt={ 6 }
-        fontWeight="500"
+        className="font-medium"
       />
       { !config.UI.views.tx.hiddenFields?.value && (
-        <Flex mt={ 2 } columnGap={ 2 }>
+        <div className="flex">
           <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Value</Skeleton>
           <NativeCoinValue
             amount={ tx.value }
             exchangeRate={ tx.exchange_rate }
             historicalExchangeRate={ tx.historic_exchange_rate }
             loading={ isLoading }
-            color="text.secondary"
           />
-        </Flex>
+        </div>
       ) }
       { !config.UI.views.tx.hiddenFields?.tx_fee && (
-        <Flex mt={ 2 } mb={ 3 } columnGap={ 2 }>
+        <div className="flex">
           { (tx.stability_fee !== undefined || tx.fee.value !== null) && (
             <>
               <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Fee</Skeleton>
-              <TxFee tx={ tx } loading={ isLoading } color="text.secondary"/>
+              <TxFee tx={ tx } loading={ isLoading }/>
             </>
           ) }
-        </Flex>
+        </div>
       ) }
     </ListItemMobile>
   );

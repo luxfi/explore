@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import type { FC } from 'react';
 import React from 'react';
 
@@ -36,7 +35,7 @@ const NovesFromTo: FC<Props> = ({ isLoaded, txData, currentAddress = '', item })
 
   return (
     <Skeleton borderRadius="sm" loading={ !isLoaded } className="rounded-sm">
-      <Box display="flex">
+      <div className="flex">
         <Badge
           colorPalette={ isSent ? 'yellow' : 'green' }
           className="px-0 w-[113px] shrink-0 justify-center"
@@ -53,7 +52,7 @@ const NovesFromTo: FC<Props> = ({ isLoaded, txData, currentAddress = '', item })
           ml={ 2 }
           truncation="dynamic"
         />
-      </Box>
+      </div>
     </Skeleton>
   );
 };

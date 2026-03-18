@@ -1,4 +1,3 @@
-import { chakra, Flex, Text } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
@@ -71,13 +70,13 @@ const MarketplaceAppCard = ({
         className,
       ) }
     >
-      <Flex
+      <div
         flexDirection="column"
         height="100%"
         alignContent="start"
         gap={ 2 }
       >
-        <Flex gap={ 4 }>
+        <div gap={ 4 }>
           <Skeleton
             loading={ isLoading }
             w="64px"
@@ -94,7 +93,7 @@ const MarketplaceAppCard = ({
             />
           </Skeleton>
 
-          <Flex flexDirection="column" gap={ 2 } pt={ 1 }>
+          <div flexDirection="column" gap={ 2 } pt={ 1 }>
             <Skeleton
               loading={ isLoading }
               display="inline-flex"
@@ -124,20 +123,20 @@ const MarketplaceAppCard = ({
             >
               <span>{ categoriesLabel }</span>
             </Skeleton>
-          </Flex>
-        </Flex>
+          </div>
+        </div>
 
         <Skeleton
           loading={ isLoading }
           asChild
         >
-          <Text lineClamp={ 2 } textStyle="sm">
+          <span lineClamp={ 2 } textStyle="sm">
             { shortDescription }
-          </Text>
+          </span>
         </Skeleton>
 
         { !isLoading && (
-          <Flex
+          <div
             alignItems="center"
             justifyContent="space-between"
             marginTop="auto"
@@ -150,7 +149,7 @@ const MarketplaceAppCard = ({
             >
               Info
             </Link>
-            <Flex alignItems="center" gap={ 3 }>
+            <div alignItems="center" gap={ 3 }>
               <Rating
                 appId={ id }
                 rating={ rating }
@@ -159,7 +158,7 @@ const MarketplaceAppCard = ({
                 isLoading={ isLoading }
                 source="Discovery"
               />
-              <Flex gap={ 2 }>
+              <div gap={ 2 }>
                 <IconButton
                   aria-label="Mark as favorite"
                   title="Mark as favorite"
@@ -177,13 +176,13 @@ const MarketplaceAppCard = ({
                   size="md"
                   className="rounded-[var(--radius-base,8px)] ml-0"
                 />
-              </Flex>
-            </Flex>
-          </Flex>
+              </div>
+            </div>
+          </div>
         ) }
-      </Flex>
+      </div>
     </LinkBox>
   );
 };
 
-export default React.memo(chakra(MarketplaceAppCard));
+export default MarketplaceAppCard;

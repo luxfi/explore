@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressNFT } from 'types/api/address';
@@ -40,20 +39,20 @@ const NFTItem = ({ value, isLoading, withTokenLink, chain, ...tokenInstance }: P
           autoplayVideo={ false }
         />
       </Link>
-      <Flex justifyContent="space-between" w="100%" flexWrap="wrap">
-        <Flex ml={ 1 } overflow="hidden">
-          <Text whiteSpace="pre" color="text.secondary">ID# </Text>
+      <div className="flex" justifyContent="space-between" w="100%" flexWrap="wrap">
+        <div className="flex" ml={ 1 } overflow="hidden">
+          <span whiteSpace="pre" color="text.secondary">ID# </span>
           <NftEntity hash={ token.address_hash } id={ tokenInstance.id } isLoading={ isLoading } noIcon/>
-        </Flex>
+        </div>
         <Skeleton loading={ isLoading } overflow="hidden" ml={ 1 }>
           { valueResult && (
-            <Flex>
-              <Text color="text.secondary" whiteSpace="pre">Qty </Text>
-              <Text overflow="hidden" wordBreak="break-all">{ valueResult }</Text>
-            </Flex>
+            <div className="flex">
+              <span color="text.secondary" whiteSpace="pre">Qty </span>
+              <span overflow="hidden" wordBreak="break-all">{ valueResult }</span>
+            </div>
           ) }
         </Skeleton>
-      </Flex>
+      </div>
       { withTokenLink && (
         <TokenEntity
           mt={ 2 }

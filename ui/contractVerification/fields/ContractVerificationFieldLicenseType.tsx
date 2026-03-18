@@ -1,9 +1,9 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
 
 import { CONTRACT_LICENSES } from 'lib/contracts/licenses';
+import { createListCollection } from 'toolkit/chakra/select';
 import type { SelectOption } from 'toolkit/chakra/select';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
 

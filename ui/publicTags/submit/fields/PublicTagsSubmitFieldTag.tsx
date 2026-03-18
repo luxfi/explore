@@ -1,4 +1,3 @@
-import { chakra, Flex, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 import { type FieldError, type FieldErrorsImpl, type Merge } from 'react-hook-form';
 
@@ -34,8 +33,6 @@ interface Props {
 
 const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRemoveClick, tagTypes, field }: Props) => {
   const isMobile = useIsMobile();
-  const bgColorDefault = { _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' };
-  const bgColorError = { _light: 'red.50', _dark: 'red.900' };
 
   const handleAddClick = React.useCallback(() => {
     onAddClick?.(index);
@@ -47,29 +44,31 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
 
   return (
     <>
-      <GridItem colSpan={{ base: 1, lg: 2 }} p="10px" borderRadius="base" bgColor={ errors ? bgColorError : bgColorDefault }>
-        <Grid
-          rowGap={ 3 }
-          columnGap={ 3 }
-          templateColumns={{ base: '1fr', lg: 'repeat(4, 1fr)' }}
-        >
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+      <div
+        className={ `col-span-1 lg:col-span-2 p-[10px] rounded-base ${
+          errors
+            ? 'bg-red-50 dark:bg-red-900'
+            : 'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)]'
+        }` }
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-4">
+          <div className="col-span-1 lg:col-span-2">
             <FormFieldText<FormFields>
               name={ `tags.${ index }.name` }
               placeholder="Tag (max 35 characters)"
               required
               rules={{ maxLength: 35 }}
             />
-          </GridItem>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          </div>
+          <div className="col-span-1 lg:col-span-2">
             <PublicTagsSubmitFieldTagType index={ index } tagTypes={ tagTypes }/>
-          </GridItem>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+          </div>
+          <div className="col-span-1 lg:col-span-2">
             <FormFieldUrl<FormFields>
               name={ `tags.${ index }.url` }
               placeholder="Label URL"
             />
-          </GridItem>
+          </div>
           <FormFieldColor<FormFields>
             name={ `tags.${ index }.bgColor` }
             placeholder="Background (Hex)"
@@ -80,10 +79,10 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
             placeholder="Text (Hex)"
             sampleDefaultBgColor={ CIRCLE_BG_COLOR_DEFAULT.textColor }
           />
-          <GridItem colSpan={{ base: 1, lg: 4 }}>
+          <div className="col-span-1 lg:col-span-4">
             <PublicTagsSubmitFieldTagIcon index={ index }/>
-          </GridItem>
-          <GridItem colSpan={{ base: 1, lg: 4 }}>
+          </div>
+          <div className="col-span-1 lg:col-span-4">
             <FormFieldText<FormFields>
               name={ `tags.${ index }.tooltipDescription` }
               placeholder="Label description (max 80 characters)"
@@ -91,16 +90,11 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
               asComponent="Textarea"
               className="max-h-[160px]"
             />
-          </GridItem>
-        </Grid>
-      </GridItem>
-      <GridItem py={{ lg: '10px' }}>
-        <Flex
-          alignItems="center"
-          columnGap={ 3 }
-          justifyContent={{ base: 'flex-end', lg: 'flex-start' }}
-          h={{ base: 'auto', lg: '60px' }}
-        >
+          </div>
+        </div>
+      </div>
+      <div className="lg:py-[10px]">
+        <div className="flex items-center gap-x-3 justify-end lg:justify-start h-auto lg:h-[60px]">
           { onAddClick && (
             <AddButton
               data-index={ index }
@@ -115,9 +109,9 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
               disabled={ isDisabled }
             />
           ) }
-        </Flex>
+        </div>
         { !isMobile && (
-          <Flex flexDir="column" alignItems="flex-start" mt={ 4 } rowGap={ 2 }>
+          <div className="flex flex-col items-start mt-4 gap-y-2">
             <EntityTag
               data={{
                 name: field.name || 'Tag name',
@@ -134,12 +128,12 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
               }}
               noLink
             />
-            <chakra.span color="text.secondary" fontSize="sm">
+            <span className="text-[var(--color-text-secondary)] text-sm">
               { tagTypes?.find(({ type }) => type === field.type[0])?.description }
-            </chakra.span>
-          </Flex>
+            </span>
+          </div>
         ) }
-      </GridItem>
+      </div>
     </>
   );
 };

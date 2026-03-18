@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -60,4 +59,4 @@ const TxAdditionalInfo = ({ hash, tx, isMobile, isLoading, className }: Props) =
   );
 };
 
-export default React.memo(chakra(TxAdditionalInfo));
+export default React.memo(TxAdditionalInfo);

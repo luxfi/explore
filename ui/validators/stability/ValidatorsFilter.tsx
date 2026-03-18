@@ -1,8 +1,8 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ValidatorsStabilityFilters } from 'types/api/validators';
 
+import { createListCollection } from 'toolkit/chakra/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 
 const OPTIONS = [

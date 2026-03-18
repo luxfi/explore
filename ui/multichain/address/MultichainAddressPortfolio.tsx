@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -90,13 +89,13 @@ const MultichainAddressPortfolio = ({ addressData, isLoading }: Props) => {
 
       return (
         <>
-          <HStack gap={ 2 }>
+          <div gap={ 2 }>
             { (hasData || hasActiveFilters) && !(isMobile && query.pagination.isVisible) &&
               <AddressNftTypeFilter value={ nftTokenTypes } onChange={ onTokenTypesChange }/> }
             { (hasData || hasActiveFilters) && isMobile &&
                 <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange } className="ml-0 lg:ml-6"/> }
             { chainSelect }
-          </HStack>
+          </div>
           { (hasData || hasActiveFilters) && !isMobile && <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange } className="ml-6"/> }
           { query.pagination.isVisible && !isMobile && <Pagination { ...query.pagination } className="ml-auto"/> }
         </>
@@ -127,7 +126,7 @@ const MultichainAddressPortfolio = ({ addressData, isLoading }: Props) => {
 
   return (
     <>
-      <Box ref={ scrollRef }/>
+      <div ref={ scrollRef }/>
       <RoutedTabs
         variant="secondary"
         size="sm"

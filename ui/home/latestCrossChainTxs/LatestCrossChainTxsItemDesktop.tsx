@@ -1,4 +1,3 @@
-import { chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
@@ -25,13 +24,13 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
         <CrossChainTxsStatusTag status={ data.status } loading={ isLoading }/>
       </TableCell>
       <TableCell>
-        <VStack alignItems="start">
+        <div alignItems="start">
           <CrossChainMessageEntity id={ data.message_id } isLoading={ isLoading } lineHeight="24px" fontWeight={ 700 }/>
           <TimeWithTooltip timestamp={ data.send_timestamp || data.receive_timestamp } isLoading={ isLoading } color="text.secondary" timeFormat="absolute"/>
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -43,17 +42,17 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
               lineHeight="24px"
             />
           ) : (
-            <chakra.span color="text.secondary">{ mdash }</chakra.span>
+            <span className="text-[var(--color-text-secondary)]">{ mdash }</span>
           ) }
           <ChainLabel
             data={ data.source_chain }
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -65,14 +64,14 @@ const LatestCrossChainTxsItemDesktop = ({ data, isLoading }: Props) => {
               lineHeight="24px"
             />
           ) : (
-            <chakra.span color="text.secondary">{ mdash }</chakra.span>
+            <span className="text-[var(--color-text-secondary)]">{ mdash }</span>
           ) }
           <ChainLabel
             data={ data.destination_chain }
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs"
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
         <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>

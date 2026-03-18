@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
@@ -38,4 +37,4 @@ const NativeTokenIcon = ({ isLoading, className }: Props) => {
   );
 };
 
-export default chakra(NativeTokenIcon);
+export default NativeTokenIcon;

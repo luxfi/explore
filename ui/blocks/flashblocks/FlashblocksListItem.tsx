@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FlashblockItem } from 'types/client/flashblocks';
@@ -17,23 +16,23 @@ interface Props {
 const FlashblocksListItem = ({ data }: Props) => {
   return (
     <ListItemMobile rowGap={ 3 }>
-      <Flex justifyContent="space-between" w="100%">
+      <div justifyContent="space-between" w="100%">
         { data.block_number ? (
           <FlashblockEntity
             number={ data.block_number }
             index={ data.index }
             fontWeight={ 600 }
           />
-        ) : <Text color="text.secondary">N/A</Text> }
-      </Flex>
+        ) : <span color="text.secondary">N/A</span> }
+      </div>
       { data.timestamp && (
-        <Flex columnGap={ 2 }>
-          <Text fontWeight={ 500 }>Timestamp</Text>
+        <div columnGap={ 2 }>
+          <span fontWeight={ 500 }>Timestamp</span>
           <Time color="text.secondary" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/>
-        </Flex>
+        </div>
       ) }
-      <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Txn</Text>
+      <div columnGap={ 2 }>
+        <span fontWeight={ 500 }>Txn</span>
         { data.transactions_count > 0 ? (
           <Link href={ route({
             pathname: '/block/[height_or_hash]',
@@ -42,13 +41,13 @@ const FlashblocksListItem = ({ data }: Props) => {
             { data.transactions_count }
           </Link>
         ) :
-          <Text color="text.secondary">{ data.transactions_count }</Text>
+          <span color="text.secondary">{ data.transactions_count }</span>
         }
-      </Flex>
-      <Flex columnGap={ 2 }>
-        <Text fontWeight={ 500 }>Gas used</Text>
-        <Text color="text.secondary">{ data.gas_used.toLocaleString() }</Text>
-      </Flex>
+      </div>
+      <div columnGap={ 2 }>
+        <span fontWeight={ 500 }>Gas used</span>
+        <span color="text.secondary">{ data.gas_used.toLocaleString() }</span>
+      </div>
     </ListItemMobile>
   );
 };

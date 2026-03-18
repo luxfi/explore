@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ColorThemeId } from 'types/settings';
@@ -77,9 +76,9 @@ const SettingsColorTheme = ({ onSelect }: Props) => {
 
   return (
     <div>
-      <Box fontWeight={ 600 }>Color theme</Box>
-      <Box color="text.secondary" mt={ 1 } mb={ 2 }>{ activeTheme?.label }</Box>
-      <Flex>
+      <div className="font-semibold">Color theme</div>
+      <div className="text-[var(--color-text-secondary)] mt-1 mb-2">{ activeTheme?.label }</div>
+      <div className="flex">
         { COLOR_THEMES.map((theme) => {
           return (
             <SettingsSample
@@ -92,7 +91,7 @@ const SettingsColorTheme = ({ onSelect }: Props) => {
             />
           );
         }) }
-      </Flex>
+      </div>
     </div>
   );
 };

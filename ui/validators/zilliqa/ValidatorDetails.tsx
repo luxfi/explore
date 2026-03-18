@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ValidatorZilliqa } from 'types/api/validators';
@@ -28,7 +27,7 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
         Index
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isLoading } display="inline">
+        <Skeleton loading={ isLoading } className="inline">
           { data.index }
         </Skeleton>
       </DetailedInfo.ItemValue>
@@ -41,7 +40,7 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
         <NativeCoinValue
-          startElement={ <NativeTokenIcon isLoading={ isLoading } boxSize={ 5 } mr={ 2 }/> }
+          startElement={ <NativeTokenIcon isLoading={ isLoading } boxSize={ 5 }/> }
           amount={ data.balance }
           loading={ isLoading }
         />
@@ -54,12 +53,12 @@ const ValidatorDetails = ({ data, isLoading }: Props) => {
         Peer ID
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Flex alignItems="center" w="100%" minWidth={ 0 }>
+        <div className="flex w-full">
           <Skeleton loading={ isLoading } className="max-w-[calc(100%-28px)] overflow-hidden">
             <HashStringShortenDynamic hash={ data.peer_id }/>
           </Skeleton>
           <CopyToClipboard text={ data.peer_id } isLoading={ isLoading }/>
-        </Flex>
+        </div>
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel

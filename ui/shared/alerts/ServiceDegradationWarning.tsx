@@ -1,4 +1,3 @@
-import { Spinner, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { Alert } from 'toolkit/chakra/alert';
@@ -14,11 +13,11 @@ const ServiceDegradationWarning = ({ isLoading, className }: Props) => {
       loading={ isLoading }
       status="info"
       className={ className }
-      startElement={ <Spinner size="sm" my="3px" flexShrink={ 0 }/> }
+      startElement={ <div className="animate-spin rounded-full border-2 border-current border-t-transparent w-4 h-4 my-[3px] shrink-0"/> }
     >
       Data sync in progress... page will refresh automatically once data is available
     </Alert>
   );
 };
 
-export default React.memo(chakra(ServiceDegradationWarning));
+export default React.memo(ServiceDegradationWarning);

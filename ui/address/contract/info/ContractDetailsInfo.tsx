@@ -1,4 +1,3 @@
-import { Flex, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -29,10 +28,10 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
   const multichainContext = useMultichainContext();
 
   const contractNameWithCertifiedIcon = data ? (
-    <Flex alignItems="center">
+    <div className="flex" alignItems="center">
       { data.name }
       { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 } ml={ 2 }/> }
-    </Flex>
+    </div>
   ) : null;
 
   const licenseLink = (() => {
@@ -72,7 +71,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
   const isStylusContract = data.language === 'stylus_rust';
 
   return (
-    <Grid templateColumns={{ base: 'auto 1fr', lg: 'auto 1fr auto 1fr' }} rowGap={ 4 } columnGap={ 3 } mb={ 8 }>
+    <div className="grid" templateColumns={{ base: 'auto 1fr', lg: 'auto 1fr auto 1fr' }} rowGap={ 4 } columnGap={ 3 } mb={ 8 }>
       { addressData.creator_address_hash && addressData.creation_transaction_hash && multichainContext && (
         <ContractDetailsInfoCreator
           addressHash={ addressData.creator_address_hash }
@@ -187,7 +186,7 @@ const ContractDetailsInfo = ({ data, isLoading, addressData }: Props) => {
           <ContractSecurityAudits addressHash={ addressData.hash }/>
         </ContractDetailsInfoItem>
       ) }
-    </Grid>
+    </div>
   );
 };
 

@@ -1,8 +1,3 @@
-import {
-  List,
-  Box,
-  createListCollection,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -10,6 +5,7 @@ import type { SmartContractVerificationMethod, SmartContractVerificationConfig }
 
 import { Heading } from 'toolkit/chakra/heading';
 import { Link } from 'toolkit/chakra/link';
+import { createListCollection } from 'toolkit/chakra/select';
 import type { SelectOption } from 'toolkit/chakra/select';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
 import { Hint } from 'toolkit/components/Hint/Hint';
@@ -32,14 +28,14 @@ const ContractVerificationFieldMethod = ({ methods }: Props) => {
   const renderPopoverListItem = React.useCallback((method: SmartContractVerificationMethod) => {
     switch (method) {
       case 'flattened-code':
-        return <List.Item key={ method }>Verification through a single file.</List.Item>;
+        return <li key={ method }>Verification through a single file.</li>;
       case 'multi-part':
-        return <List.Item key={ method }>Verification of multi-part Solidity files.</List.Item>;
+        return <li key={ method }>Verification of multi-part Solidity files.</li>;
       case 'sourcify':
-        return <List.Item key={ method }>Verification through <Link href="https://sourcify.dev/" external noIcon className="dark">Sourcify</Link>.</List.Item>;
+        return <li key={ method }>Verification through <Link href="https://sourcify.dev/" external noIcon className="dark">Sourcify</Link>.</li>;
       case 'standard-input':
         return (
-          <List.Item key={ method }>
+          <li key={ method }>
             <span>Verification using </span>
             <Link
               href="https://docs.soliditylang.org/en/latest/using-the-compiler.html#input-description"
@@ -49,15 +45,15 @@ const ContractVerificationFieldMethod = ({ methods }: Props) => {
               Standard input JSON
             </Link>
             <span> file.</span>
-          </List.Item>
+          </li>
         );
       case 'vyper-code':
-        return <List.Item key={ method }>Verification of Vyper contract.</List.Item>;
+        return <li key={ method }>Verification of Vyper contract.</li>;
       case 'vyper-multi-part':
-        return <List.Item key={ method }>Verification of multi-part Vyper files.</List.Item>;
+        return <li key={ method }>Verification of multi-part Vyper files.</li>;
       case 'vyper-standard-input':
         return (
-          <List.Item key={ method }>
+          <li key={ method }>
             <span>Verification of Vyper contract using </span>
             <Link
               href="https://docs.vyperlang.org/en/stable/compiling-a-contract.html#compiler-input-and-output-json-description"
@@ -67,30 +63,30 @@ const ContractVerificationFieldMethod = ({ methods }: Props) => {
               Standard input JSON
             </Link>
             <span> file.</span>
-          </List.Item>
+          </li>
         );
       case 'solidity-hardhat':
-        return <List.Item key={ method }>Verification through Hardhat plugin.</List.Item>;
+        return <li key={ method }>Verification through Hardhat plugin.</li>;
       case 'solidity-foundry':
-        return <List.Item key={ method }>Verification through Foundry.</List.Item>;
+        return <li key={ method }>Verification through Foundry.</li>;
       case 'stylus-github-repository':
-        return <List.Item key={ method }>Verification of Stylus contract via GitHub repository.</List.Item>;
+        return <li key={ method }>Verification of Stylus contract via GitHub repository.</li>;
     }
   }, []);
 
   const tooltipContent = (
-    <Box>
-      <span>Currently, Lux Explorer supports { methods.length } methods:</span>
-      <List.Root as="ol" pl={ 5 }>
+    <div>
+      <span>Currently, this explorer supports { methods.length } methods:</span>
+      <ol as="ol" pl={ 5 }>
         { methods.map(renderPopoverListItem) }
-      </List.Root>
-    </Box>
+      </ol>
+    </div>
   );
 
   return (
     <>
       <Heading level="2" className="mt-10 lg:mt-6 lg:col-[1/3]">
-        Currently, Lux Explorer supports { methods.length }{ nbsp }contract verification methods
+        Currently, this explorer supports { methods.length }{ nbsp }contract verification methods
         <Hint
           label={ tooltipContent }
           tooltipProps={{ interactive: true, contentProps: { className: 'text-left' } }}

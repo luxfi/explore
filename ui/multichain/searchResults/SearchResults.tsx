@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -124,7 +123,7 @@ const SearchResults = () => {
       <>
         <PageTitle title="Search results"/>
         <Skeleton loading={ totalResults === undefined } mb={ 6 } w="fit-content">
-          Found <chakra.span fontWeight={ 700 }>{ totalResults?.num }{ totalResults?.isOverflow ? '+' : '' }</chakra.span> matching results
+          Found <span className="font-bold">{ totalResults?.num }{ totalResults?.isOverflow ? '+' : '' }</span> matching results
         </Skeleton>
         <RoutedTabs
           tabs={ tabs }

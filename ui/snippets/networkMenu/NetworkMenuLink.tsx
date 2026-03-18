@@ -1,4 +1,3 @@
-import { Box, Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FeaturedNetwork } from 'types/networks';
@@ -42,39 +41,28 @@ const NetworkMenuLink = ({ title, icon, isActive: isActiveProp, isMobile, url, i
   })();
 
   return (
-    <Box as="li" listStyleType="none">
-      <chakra.a
-        display="flex"
+    <li className="list-none">
+      <a
+        className={ `flex px-2 py-[5px] items-center cursor-pointer rounded-base ${ isActive ? 'opacity-60 pointer-events-none' : '' } hover:text-[var(--color-hover)]` }
         href={ url }
         target="_blank"
         rel="noopener noreferrer"
-        px={ 2 }
-        py="5px"
-        opacity={ isActive ? 0.6 : 1 }
-        alignItems="center"
-        cursor="pointer"
-        pointerEvents={ isActive ? 'none' : 'initial' }
-        borderRadius="base"
-        _hover={{ color: isActive ? 'text.primary' : 'hover' }}
       >
         { iconEl }
-        <Text
-          marginLeft={ 2 }
-          color="inherit"
-          fontSize="sm"
-          lineHeight={ isMobile ? '20px' : '24px' }
+        <span
+          className={ `ml-2 text-inherit text-sm ${ isMobile ? 'leading-5' : 'leading-6' }` }
         >
           { title }
-        </Text>
+        </span>
         { isActive && (
           <IconSvg
             name="check"
             boxSize="20px"
-            marginLeft="auto"
+            className="ml-auto"
           />
         ) }
-      </chakra.a>
-    </Box>
+      </a>
+    </li>
   );
 };
 

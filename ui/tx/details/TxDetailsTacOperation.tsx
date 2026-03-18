@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as tac from '@luxfi/tac-operation-lifecycle-types';
@@ -31,8 +30,6 @@ const TxDetailsTacOperation = ({ tacOperations, isLoading, txHash }: Props) => {
       <DetailedInfo.ItemValueWithScroll
         gradientHeight={ 48 }
         onScrollVisibilityChange={ setHasScroll }
-        rowGap={ 3 }
-        maxH="200px"
       >
         { tacOperations.map((tacOperation) => {
           const tags = [
@@ -40,20 +37,19 @@ const TxDetailsTacOperation = ({ tacOperations, isLoading, txHash }: Props) => {
           ];
 
           return (
-            <HStack key={ tacOperation.operation_id } rowGap={ 0 } columnGap={ 3 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+            <div key={ tacOperation.operation_id }>
               <OperationEntity
                 id={ tacOperation.operation_id }
                 type={ tacOperation.type }
                 isLoading={ isLoading }
-                my={{ base: '5px', lg: 0 }}
               />
               { tags.length > 0 && (
-                <HStack flexShrink={ 0 } flexWrap="wrap" my={{ base: '3px', lg: 0 }}>
+                <div>
                   <TacOperationStatus status={ tacOperation.type } isLoading={ isLoading }/>
                   { tags.map((tag) => <Tag key={ tag } loading={ isLoading } className="shrink-0">{ tag }</Tag>) }
-                </HStack>
+                </div>
               ) }
-            </HStack>
+            </div>
           );
         }) }
       </DetailedInfo.ItemValueWithScroll>

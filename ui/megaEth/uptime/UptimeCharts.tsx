@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import * as d3 from 'd3';
 import React from 'react';
 
@@ -219,20 +218,20 @@ const UptimeCharts = ({ historyData }: Props) => {
   }, [ setInterval ]);
 
   return (
-    <Box>
-      <Flex
+    <div>
+      <div
         alignItems="center"
         justifyContent="space-between"
         mb={ 6 }
       >
         <Heading level="2">Real-time statistics</Heading>
         <TagGroupSelect<IntervalId> items={ INTERVALS } onChange={ handleIntervalChange } value={ interval } tagSize="lg"/>
-      </Flex>
-      <Grid
+      </div>
+      <div
         templateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
         gap={ 4 }
       >
-        <GridItem colSpan={{ base: 1, lg: 2 }} minH={{ base: '220px', lg: '320px' }}>
+        <div colSpan={{ base: 1, lg: 2 }} minH={{ base: '220px', lg: '320px' }}>
           <ChartWidget
             title="TPS"
             charts={ tpsCharts }
@@ -240,8 +239,8 @@ const UptimeCharts = ({ historyData }: Props) => {
             isError={ false }
             axesConfig={ axesConfig }
           />
-        </GridItem>
-        <GridItem minH={{ base: '220px', lg: '320px' }}>
+        </div>
+        <div minH={{ base: '220px', lg: '320px' }}>
           <ChartWidget
             title="MGas/s"
             charts={ gasCharts }
@@ -249,8 +248,8 @@ const UptimeCharts = ({ historyData }: Props) => {
             isError={ false }
             axesConfig={ axesConfig }
           />
-        </GridItem>
-        <GridItem minH={{ base: '220px', lg: '320px' }}>
+        </div>
+        <div minH={{ base: '220px', lg: '320px' }}>
           <ChartWidget
             title="Block time (ms)"
             charts={ blockIntervalCharts }
@@ -258,9 +257,9 @@ const UptimeCharts = ({ historyData }: Props) => {
             isError={ false }
             axesConfig={ axesConfig }
           />
-        </GridItem>
-      </Grid>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

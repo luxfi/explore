@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochDetails } from 'types/api/epochs';
@@ -24,7 +23,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
 
   const processingRange = (() => {
     if (!data.start_processing_block_number || !data.end_processing_block_number) {
-      return <Box color="text.secondary">N/A</Box>;
+      return <div color="text.secondary">N/A</div>;
     }
 
     if (data.start_processing_block_number === data.end_processing_block_number) {
@@ -34,7 +33,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
     return (
       <>
         <BlockEntity number={ data.start_processing_block_number } isLoading={ isLoading } noIcon/>
-        <chakra.span color="text.secondary" whiteSpace="pre"> - </chakra.span>
+        <span color="text.secondary" whiteSpace="pre"> - </span>
         <BlockEntity number={ data.end_processing_block_number } isLoading={ isLoading } noIcon/>
       </>
     );
@@ -42,7 +41,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
 
   const totalFundRewards = (() => {
     if (!data.distribution?.transfers_total?.total?.value) {
-      return <Box color="text.secondary">N/A</Box>;
+      return <div color="text.secondary">N/A</div>;
     }
 
     if (data.distribution?.transfers_total?.token) {
@@ -90,7 +89,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
         <DetailedInfo.ItemValue>
           { data.timestamp ?
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/> :
-            <Box color="text.secondary" whiteSpace="pre-wrap">Epochs are finalized approximately once a day</Box> }
+            <div color="text.secondary" whiteSpace="pre-wrap">Epochs are finalized approximately once a day</div> }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
         // eslint-disable-next-line max-len
@@ -116,7 +115,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
               noAddressIcons={ isMobile }
             />
           ) : (
-            <Box color="text.secondary">N/A</Box>
+            <div color="text.secondary">N/A</div>
           ) }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel
@@ -133,7 +132,7 @@ const EpochDetails = ({ data, isLoading }: Props) => {
               noAddressIcons={ isMobile }
             />
           ) : (
-            <Box color="text.secondary">N/A</Box>
+            <div color="text.secondary">N/A</div>
           ) }
         </DetailedInfo.ItemValue>
         <DetailedInfo.ItemLabel

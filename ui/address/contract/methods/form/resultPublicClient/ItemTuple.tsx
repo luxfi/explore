@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { AbiParameter } from 'viem';
 
@@ -16,12 +15,12 @@ interface Props {
 
 const ItemTuple = ({ abiParameter, data, mode, level }: Props) => {
   return (
-    <chakra.span display="block">
-      <chakra.span display="block">
+    <span display="block">
+      <span display="block">
         <span>{ printRowOffset(level) }</span>
-        <chakra.span fontWeight={ 500 }>{ abiParameter.name || abiParameter.internalType }</chakra.span>
+        <span fontWeight={ 500 }>{ abiParameter.name || abiParameter.internalType }</span>
         <span> { '{' }</span>
-      </chakra.span>
+      </span>
       { 'components' in abiParameter && abiParameter.components.map((component, index) => {
         const itemData = (() => {
           if (typeof data !== 'object' || data === null) {
@@ -47,8 +46,8 @@ const ItemTuple = ({ abiParameter, data, mode, level }: Props) => {
           />
         );
       }) }
-      <chakra.span display="block">{ printRowOffset(level) }{ '}' }</chakra.span>
-    </chakra.span>
+      <span display="block">{ printRowOffset(level) }{ '}' }</span>
+    </span>
   );
 };
 

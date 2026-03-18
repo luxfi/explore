@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import * as tac from '@luxfi/tac-operation-lifecycle-types';
@@ -30,14 +29,7 @@ const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
 
         { data.transactions.length > 0 && (
           <ItemRow label="Transactions">
-            <Box
-              display="flex"
-              flexDirection="column"
-              rowGap={ 3 }
-              py="6px"
-              width="100%"
-              overflow="hidden"
-            >
+            <div className="flex flex-col overflow-hidden gap-y-3 py-[6px] w-full">
               {
                 data.transactions.map((tx) => {
                   if (tx.type === tac.BlockchainType.TON) {
@@ -47,21 +39,15 @@ const TacOperationLifecycleAccordionItemContent = ({ isLast, data }: Props) => {
                   return <TxEntity key={ tx.hash } hash={ tx.hash } icon={{ name: 'brands/tac' }}/>;
                 })
               }
-            </Box>
+            </div>
           </ItemRow>
         ) }
 
         { data.note && (
           <ItemRow label="Note">
-            <Box
-              display="inline-flex"
-              alignItems="center"
-              py="6px"
-              whiteSpace="pre-wrap"
-              wordBreak="break-word"
-            >
+            <div className="items-center whitespace-pre-wrap break-words inline-flex py-[6px]">
               { data.note }
-            </Box>
+            </div>
           </ItemRow>
         ) }
       </ItemBody>

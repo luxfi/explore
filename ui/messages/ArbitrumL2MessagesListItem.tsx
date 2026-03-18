@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumL2MessagesItem } from 'types/api/arbitrumL2';
@@ -44,7 +43,7 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
                 isLoading={ isLoading }
                 fontWeight={ 600 }
               />
-            ) : <chakra.span>N/A</chakra.span> }
+            ) : <span>N/A</span> }
           </ListItemMobileGrid.Value>
         </>
       ) }
@@ -79,9 +78,9 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
             truncation="constant_long"
           />
         ) : (
-          <chakra.span>
+          <span>
             N/A
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 
@@ -115,9 +114,9 @@ const ArbitrumL2MessagesListItem = ({ item, isLoading, direction }: Props) => {
             noCopy
           />
         ) : (
-          <chakra.span>
+          <span>
             N/A
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 

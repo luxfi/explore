@@ -1,4 +1,3 @@
-import { Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractConflictingImplementation } from 'types/api/contract';
@@ -24,19 +23,19 @@ const ConflictingImplementationsModal = ({ data, children }: Props) => {
       <DialogContent>
         <DialogHeader>Detected proxy implementations</DialogHeader>
         <DialogBody>
-          <Text>
+          <span>
             Multiple proxy patterns were detected for this contract.
             This may be due to an unsupported custom proxy design or due to a malicious proxy spoofing attempt.
             Review carefully.
-          </Text>
-          <VStack alignItems="stretch" mt={ 6 } textStyle="sm">
+          </span>
+          <div className="flex flex-col" alignItems="stretch" mt={ 6 } textStyle="sm">
             { data.map((item) => {
               const addressNum = item.implementations.length;
               const addressText = addressNum === 1 ? 'Implementation:' : 'Implementations:';
               const proxyType = PROXY_TYPES[item.proxy_type]?.name || PROXY_TYPES.unknown?.name;
 
               return (
-                <Grid
+                <div className="grid"
                   key={ item.proxy_type }
                   templateColumns="115px minmax(0px, 1fr)"
                   w="100%"
@@ -46,31 +45,31 @@ const ConflictingImplementationsModal = ({ data, children }: Props) => {
                   borderRadius="md"
                   bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
                 >
-                  <GridItem>Proxy type:</GridItem>
-                  <GridItem>{ proxyType }</GridItem>
-                  <GridItem>{ addressText }</GridItem>
-                  <GridItem>
-                    <VStack alignItems="stretch">
+                  <div>Proxy type:</div>
+                  <div>{ proxyType }</div>
+                  <div>{ addressText }</div>
+                  <div>
+                    <div className="flex flex-col" alignItems="stretch">
                       { item.implementations.map((implementation) => (
                         <AddressEntity
                           key={ implementation.address_hash }
                           address={{ hash: implementation.address_hash, name: implementation.name }}
                         />
                       )) }
-                    </VStack>
-                  </GridItem>
-                </Grid>
+                    </div>
+                  </div>
+                </div>
               );
             }) }
-          </VStack>
-          <HStack mt={ 6 } gap={ 6 }>
+          </div>
+          <div className="flex flex-row" mt={ 6 } gap={ 6 }>
             <DialogActionTrigger asChild>
               <Button>Got it, thanks</Button>
             </DialogActionTrigger>
             <Link external noIcon href="https://discord.gg/luxnetwork">
               Contact us
             </Link>
-          </HStack>
+          </div>
         </DialogBody>
       </DialogContent>
     </DialogRoot>

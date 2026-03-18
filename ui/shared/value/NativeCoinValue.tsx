@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -66,10 +65,10 @@ const NativeCoinValue = ({
       const valueToCopy = copyOriginalValue ? BigNumber(amount || 0).div(new BigNumber(10).pow(decimals)).toFixed() : displayedValue.toFixed();
 
       return (
-        <Box display="inline" whiteSpace="wrap" wordBreak="break-all">
+        <span className="inline whitespace-normal break-all">
           { displayedValue.toFormat() }{ thinsp }{ unitName }
           <CopyToClipboard text={ valueToCopy } className="align-bottom" noTooltip/>
-        </Box>
+        </span>
       );
     }
   }, [ unitsTooltip, units, amount, copyOriginalValue, decimals ]);

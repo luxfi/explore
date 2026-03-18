@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 // import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -40,17 +39,15 @@ const UserOpSubHeading = ({ hash }: Props) => {
 
   if (hasInterpretation) {
     return (
-      <Flex mr={{ base: 0, lg: 6 }} flexWrap="wrap" alignItems="center">
+      <div className="flex">
         <TxInterpretation
           summary={ txInterpretationQuery.data?.data.summaries[0] }
           isLoading={ txInterpretationQuery.isPlaceholderData }
-          fontSize="lg"
-          mr={ hasViewAllInterpretationsLink ? 3 : 0 }
           chainData={ multichainContext?.chain }
         />
         { hasViewAllInterpretationsLink &&
           <Link href={ `#${ TX_ACTIONS_BLOCK_ID }` }>View all</Link> }
-      </Flex>
+      </div>
     );
     // fallback will be added later
 
@@ -75,7 +72,7 @@ const UserOpSubHeading = ({ hash }: Props) => {
     //         },
     //       }}
     //       isLoading={ txQuery.isPlaceholderData }
-    //       fontSize="lg"
+    //
     //     />
     //   );
   } else {

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { groupBy, mapValues } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -189,14 +188,14 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
 
   const tokensContent = tokensQuery.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div hideBelow="lg">
         <MultichainAddressTokensTable
           data={ tokensQuery.data.items }
           top={ ACTION_BAR_HEIGHT_DESKTOP }
           isLoading={ tokensQuery.isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div hideFrom="lg">
         { tokensQuery.data.items.map((item, index) => (
           <MultichainAddressTokensListItem
             key={ item.token.address_hash + (tokensQuery.isPlaceholderData ? index : '') + (item.chain_values ? Object.keys(item.chain_values).join(',') : '') }
@@ -204,20 +203,20 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
             isLoading={ tokensQuery.isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = (
     <>
-      <Box hideFrom="lg" my={ 6 }>
+      <div hideFrom="lg" my={ 6 }>
         { searchInput }
-      </Box>
+      </div>
       { (!isMobile || tokensQuery.pagination.isVisible) && (
         <ActionBar mt={{ base: -6, lg: 0 }}>
-          <Box hideBelow="lg">
+          <div hideBelow="lg">
             { searchInput }
-          </Box>
+          </div>
           <Pagination className="ml-auto" { ...tokensQuery.pagination }/>
         </ActionBar>
       ) }
@@ -225,7 +224,7 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
   );
 
   return (
-    <Box>
+    <div>
       <MultichainAddressPortfolioNetWorth
         addressHash={ hash }
         netWorth={ portfolioQuery.data?.portfolio?.total_value }
@@ -250,7 +249,7 @@ const MultichainAddressPortfolioTokens = ({ addressData, isLoading, onChainChang
       >
         { tokensContent }
       </DataListDisplay>
-    </Box>
+    </div>
   );
 };
 

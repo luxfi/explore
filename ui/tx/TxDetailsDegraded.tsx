@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import type { Chain, GetBlockReturnType, GetTransactionReturnType, TransactionReceipt } from 'viem';
@@ -100,10 +99,10 @@ const TxDetailsDegraded = ({ hash, txQuery }: Props) => {
 
   return (
     <>
-      <Flex rowGap={{ base: 1, lg: 2 }} mb={{ base: 3, lg: 6 }} flexDir="column">
+      <div className="flex flex-col gap-y-1 lg:gap-y-2 mb-3 lg:mb-6">
         <TestnetWarning isLoading={ query.isPlaceholderData }/>
         { originalError?.status !== 404 && <ServiceDegradationWarning isLoading={ query.isPlaceholderData }/> }
-      </Flex>
+      </div>
       <TxInfo data={ query.data } isLoading={ query.isPlaceholderData } noTxActions/>
     </>
   );

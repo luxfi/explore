@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
@@ -62,7 +61,7 @@ const FeaturedApp = ({
 
   return (
     <LinkBox>
-      <Flex
+      <div
         gap={ 4 }
         borderRadius="md"
         height="100px"
@@ -84,8 +83,8 @@ const FeaturedApp = ({
           />
         </Skeleton>
 
-        <Flex flexDirection="column" flex={ 1 } gap={ 1 }>
-          <Flex alignItems="center" gap={ 3 }>
+        <div flexDirection="column" flex={ 1 } gap={ 1 }>
+          <div alignItems="center" gap={ 3 }>
             <Skeleton loading={ isLoading } display="flex" alignItems="center">
               <Heading level="3">
                 <MarketplaceAppCardLink
@@ -129,18 +128,18 @@ const FeaturedApp = ({
                 <FavoriteIcon isFavorite={ isFavorite }/>
               </IconButton>
             ) }
-          </Flex>
+          </div>
 
           <Skeleton
             loading={ isLoading }
             asChild
           >
-            <Text lineClamp={ 2 } textStyle="sm">
+            <span lineClamp={ 2 } textStyle="sm">
               { shortDescription }
-            </Text>
+            </span>
           </Skeleton>
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </LinkBox>
   );
 };

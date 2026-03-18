@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import type { Abi } from 'viem';
@@ -28,7 +27,7 @@ const ContractMethodsRegular = ({ abi, isLoading }: Props) => {
   const filters = useMethodsFilters({ abi: formattedAbi });
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex" flexDir="column" rowGap={ 6 }>
       <ContractMethodsAlerts isLoading={ isLoading }/>
       <ContractMethodsFilters
         defaultMethodType={ filters.methodType }
@@ -39,7 +38,7 @@ const ContractMethodsRegular = ({ abi, isLoading }: Props) => {
       <ContractMethodsContainer isLoading={ isLoading } isEmpty={ formattedAbi.length === 0 } type={ filters.methodType }>
         <ContractAbi abi={ formattedAbi } tab={ tab } addressHash={ addressHash } visibleItems={ filters.visibleItems }/>
       </ContractMethodsContainer>
-    </Flex>
+    </div>
   );
 };
 

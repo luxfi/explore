@@ -1,4 +1,3 @@
-import { Grid, chakra, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -9,26 +8,13 @@ interface ContainerProps {
   children: React.ReactNode;
 }
 
-const Container = chakra(({ animation, children, className }: ContainerProps) => {
+const Container = (({ animation, children, className }: ContainerProps) => {
   return (
-    <Grid
-      w="100%"
-      animation={ animation }
-      rowGap={ 2 }
-      columnGap={ 2 }
-      gridTemplateColumns="86px auto"
-      alignItems="start"
-      paddingY={ 4 }
-      borderColor="border.divider"
-      borderTopWidth="1px"
-      _last={{
-        borderBottomWidth: '1px',
-      }}
+    <div className="grid items-start gap-x-2 gap-y-2 w-full text-sm border-t border-[var(--color-border-divider)] py-4" style={{ gridTemplateColumns: '86px auto' }}
       className={ className }
-      textStyle="sm"
     >
       { children }
-    </Grid>
+    </div>
   );
 });
 
@@ -38,7 +24,7 @@ interface LabelProps {
   isLoading?: boolean;
 }
 
-const Label = chakra(({ children, className, isLoading }: LabelProps) => {
+const Label = (({ children, className, isLoading }: LabelProps) => {
   return (
     <Skeleton
       className={ className }
@@ -57,16 +43,13 @@ interface ValueProps {
   children: React.ReactNode;
 }
 
-const Value = chakra(({ children, className }: ValueProps) => {
+const Value = (({ children, className }: ValueProps) => {
   return (
-    <GridItem
-      className={ className }
-      py="5px"
-      color="text.secondary"
-      overflow="hidden"
+    <div       className={ className }
+      py="5px" className="text-[var(--color-text-secondary)]" className="overflow-hidden"
     >
       { children }
-    </GridItem>
+    </div>
   );
 });
 

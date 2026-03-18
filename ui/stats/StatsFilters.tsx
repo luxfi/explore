@@ -1,10 +1,9 @@
-import { createListCollection, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as stats from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ChartIntervalSelect from 'ui/shared/chart/ChartIntervalSelect';
 
@@ -44,19 +43,10 @@ const StatsFilters = ({
   }, [ onSectionChange ]);
 
   return (
-    <Grid
-      gap={{ base: 2, lg: 6 }}
-      templateAreas={{
-        base: `"section interval"
-                "input input"`,
-        lg: `"section interval input"`,
-      }}
-      gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', lg: 'auto auto 1fr' }}
-      alignItems="center"
+    <div
+     
     >
-      <GridItem
-        w={{ base: '100%', lg: 'auto' }}
-        area="section"
+      <div className="w-full lg:w-auto"
       >
         <Select
           collection={ collection }
@@ -66,18 +56,15 @@ const StatsFilters = ({
           w={{ base: '100%', lg: '136px' }}
           loading={ isLoading }
         />
-      </GridItem>
+      </div>
 
-      <GridItem
-        w={{ base: '100%', lg: 'auto' }}
-        area="interval"
+      <div className="w-full lg:w-auto"
       >
         <ChartIntervalSelect interval={ interval } onIntervalChange={ onIntervalChange } isLoading={ isLoading } selectTagSize="md"/>
-      </GridItem>
+      </div>
 
-      <GridItem
-        w="100%"
-        area="input"
+      <div
+       
       >
         <FilterInput
           key={ initialFilterValue }
@@ -87,8 +74,8 @@ const StatsFilters = ({
           initialValue={ initialFilterValue }
           size="sm"
         />
-      </GridItem>
-    </Grid>
+      </div>
+    </div>
   );
 };
 

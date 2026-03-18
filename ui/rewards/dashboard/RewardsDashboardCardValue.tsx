@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Heading } from 'toolkit/chakra/heading';
@@ -18,14 +17,14 @@ type Props = {
 };
 
 const RewardsDashboardCardValue = ({ label, value, withIcon, hint, isLoading, bottomText, isBottomTextLoading }: Props) => (
-  <Flex key={ label } flexDirection="column" alignItems="center" gap={{ base: 1, md: 2 }}>
+  <div key={ label } className="flex flex-col items-center gap-1 md:gap-2">
     { label && (
-      <Flex alignItems="center" gap={ 1 }>
+      <div className="flex items-center gap-1">
         { hint && <Hint label={ hint }/> }
-        <Text textStyle="xs" fontWeight="500" color="text.secondary">
+        <span className="text-xs font-medium text-[var(--color-text-secondary)]">
           { label }
-        </Text>
-      </Flex>
+        </span>
+      </div>
     ) }
     <Skeleton
       loading={ isLoading }
@@ -35,19 +34,19 @@ const RewardsDashboardCardValue = ({ label, value, withIcon, hint, isLoading, bo
       gap={ 2 }
       minW="100px"
     >
-      { withIcon && <MeritsIcon boxSize={ 8 }/> }
+      { withIcon && <MeritsIcon className="w-8 h-8"/> }
       <Heading level="1">
         { value }
       </Heading>
     </Skeleton>
     { bottomText && (
       <Skeleton loading={ isBottomTextLoading || isLoading } minW="100px">
-        <Text textStyle={{ base: 'xs', md: 'sm' }} color="text.secondary">
+        <span className="text-xs md:text-sm text-[var(--color-text-secondary)]">
           { bottomText }
-        </Text>
+        </span>
       </Skeleton>
     ) }
-  </Flex>
+  </div>
 );
 
 export default RewardsDashboardCardValue;

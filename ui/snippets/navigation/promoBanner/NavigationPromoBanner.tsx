@@ -1,4 +1,3 @@
-import { Flex, Box, useBreakpointValue, chakra } from '@chakra-ui/react';
 import React, { useCallback, useState, useEffect } from 'react';
 import { keccak256, stringToBytes } from 'viem';
 
@@ -19,8 +18,16 @@ type Props = {
 
 const NavigationPromoBanner = ({ isCollapsed }: Props) => {
   const isMobile = useIsMobile();
-  const isXLScreen = useBreakpointValue({ base: false, xl: true });
+  const [ isXLScreen, setIsXLScreen ] = React.useState(false);
   const isHorizontalNavigation = isHorizontal && !isMobile;
+
+  React.useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1280px)');
+    const handler = (e: MediaQueryListEvent) => setIsXLScreen(e.matches);
+    setIsXLScreen(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   const [ isShown, setIsShown ] = useState(false);
   const [ promoBannerHash, setPromoBannerHash ] = useState('');
@@ -47,24 +54,13 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
   }
 
   return (
-    <Flex flex={ 1 } mt={ isHorizontalNavigation ? 0 : 3 } pointerEvents="none">
-      <chakra.a
+    <div className={ `flex flex-1 pointer-events-none ${ isHorizontalNavigation ? '' : 'mt-3' }` }>
+      <a
         href={ promoBanner.link_url }
         target="_blank"
         rel="noopener noreferrer"
-        pointerEvents="auto"
-        w="full"
-        minW={ isHorizontalNavigation ? 'auto' : '60px' }
-        mt="auto"
-        position={ isHorizontalNavigation ? undefined : 'sticky' }
-        bottom={ isHorizontalNavigation ? undefined : { base: 0, lg: 6 } }
-        overflow="hidden"
-        _hover={{
-          opacity: 0.8,
-          _icon: {
-            display: 'block',
-          },
-        }}
+        className={ `pointer-events-auto w-full mt-auto overflow-hidden hover:opacity-80 ${ isHorizontalNavigation ? '' : 'sticky bottom-0 lg:bottom-6' }` }
+        style={{ minWidth: isHorizontalNavigation ? 'auto' : '60px' }}
       >
         <Tooltip
           content={ !isTooltipDisabled && (
@@ -84,7 +80,7 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
           }}
           interactive
         >
-          <Box w="full" position="relative">
+          <div className="w-full relative">
             <NavigationPromoBannerContent
               isCollapsed={ isCollapsed }
               isHorizontalNavigation={ isHorizontalNavigation }
@@ -102,10 +98,10 @@ const NavigationPromoBanner = ({ isCollapsed }: Props) => {
               right="0"
               display={ isMobile ? 'block' : 'none' }
             />
-          </Box>
+          </div>
         </Tooltip>
-      </chakra.a>
-    </Flex>
+      </a>
+    </div>
   );
 };
 

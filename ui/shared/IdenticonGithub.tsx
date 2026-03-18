@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
@@ -23,13 +22,7 @@ interface Props {
 
 const IdenticonGithub = ({ iconSize, seed }: Props) => {
   return (
-    <Box
-      boxSize={ `${ iconSize * 2 }px` }
-      transformOrigin="left top"
-      transform="scale(0.5)"
-      borderRadius="full"
-      overflow="hidden"
-      bg={{ _light: 'gray.100', _dark: 'white' }}
+    <div       boxSize={ `${ iconSize * 2 }px` } style={{ transformOrigin: 'left top' }} style={{ transform: 'scale(0.5)' }} className="rounded-full bg-[var(--color-gray-100)] dark:bg-[var(--color-white)]" className="overflow-hidden"
     >
       <Identicon
         bg="transparent"
@@ -37,8 +30,8 @@ const IdenticonGithub = ({ iconSize, seed }: Props) => {
         // the displayed size is doubled for retina displays and then scaled down
         size={ iconSize * 2 }
       />
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(IdenticonGithub));
+export default React.memo(IdenticonGithub);

@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -39,7 +38,7 @@ const OptimisticL2OutputRoots = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map(((item, index) => (
           <OptimisticL2OutputRootsListItem
             key={ item.l2_output_index + (isPlaceholderData ? String(index) : '') }
@@ -47,10 +46,10 @@ const OptimisticL2OutputRoots = () => {
             isLoading={ isPlaceholderData }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <OptimisticL2OutputRootsTable items={ data.items } top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
@@ -62,8 +61,8 @@ const OptimisticL2OutputRoots = () => {
     return (
       <Skeleton loading={ countersQuery.isPlaceholderData || isPlaceholderData } display="flex" className="flex-wrap">
         { layerLabels.current } output index
-        <Text fontWeight={ 600 } whiteSpace="pre"> #{ data.items[0].l2_output_index } </Text>to
-        <Text fontWeight={ 600 } whiteSpace="pre"> #{ data.items[data.items.length - 1].l2_output_index } </Text>
+        <span className="whitespace-pre font-semibold"> #{ data.items[0].l2_output_index } </span>to
+        <span className="whitespace-pre font-semibold"> #{ data.items[data.items.length - 1].l2_output_index } </span>
         (total of { countersQuery.data?.toLocaleString() } roots)
       </Skeleton>
     );

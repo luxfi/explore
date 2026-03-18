@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SkeletonProps } from 'toolkit/chakra/skeleton';
@@ -17,14 +16,14 @@ const ContractDetailsInfoItem = ({ label, children, isLoading, hint, contentProp
   return (
     <>
       <Skeleton loading={ isLoading } flexShrink={ 0 } fontWeight={ 500 }>
-        <Flex alignItems="center">
+        <div className="flex" alignItems="center">
           { label }
           { hint && <Hint label={ hint } ml={ 2 }/> }
-        </Flex>
+        </div>
       </Skeleton>
       <Skeleton loading={ isLoading } className="break-all max-w-full overflow-hidden" { ...contentProps }>{ children }</Skeleton>
     </>
   );
 };
 
-export default React.memo(chakra(ContractDetailsInfoItem));
+export default React.memo(ContractDetailsInfoItem);

@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction, WrappedTransactionFields } from 'types/api/transaction';
@@ -8,7 +6,7 @@ import config from 'configs/app';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 import TokenValue from 'ui/shared/value/TokenValue';
 
-interface Props extends BoxProps {
+interface Props {
   loading?: boolean;
   tx: Transaction | Pick<Transaction, WrappedTransactionFields>;
   hasExchangeRateToggle?: boolean;
@@ -18,6 +16,8 @@ interface Props extends BoxProps {
   noSymbol?: boolean;
   noUsd?: boolean;
   layout?: 'horizontal' | 'vertical';
+  className?: string;
+  [key: string]: unknown;
 }
 
 const TxFee = ({ tx, accuracy, accuracyUsd, loading, noSymbol: noSymbolProp, noUsd, noTooltip, hasExchangeRateToggle, ...rest }: Props) => {
@@ -69,4 +69,4 @@ const TxFee = ({ tx, accuracy, accuracyUsd, loading, noSymbol: noSymbolProp, noU
   );
 };
 
-export default React.memo(chakra(TxFee));
+export default React.memo(TxFee);

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { MouseEvent } from 'react';
 
@@ -34,4 +33,4 @@ const MarketplaceAppCardLink = ({ url, external, id, title, onClick, className }
   );
 };
 
-export default chakra(MarketplaceAppCardLink);
+export default MarketplaceAppCardLink;

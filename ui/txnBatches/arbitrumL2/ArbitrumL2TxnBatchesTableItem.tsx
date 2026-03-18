@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
@@ -36,10 +35,10 @@ const ArbitrumL2TxnBatchesTableItem = ({ item, isLoading }: Props) => {
         />
       </TableCell>
       <TableCell verticalAlign="middle">
-        <HStack gap={ 1 }>
+        <div className="flex flex-row gap-1">
           <ArbitrumL2TxnBatchStatus status={ item.commitment_transaction.status } isLoading={ isLoading }/>
           <ArbitrumL2TxnBatchDA dataContainer={ item.batch_data_container } isLoading={ isLoading }/>
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <BlockEntityL1

@@ -1,4 +1,3 @@
-import { Box, Flex, chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
@@ -26,7 +25,7 @@ const getDisplayedAddress = (address: AddressProp, altHash?: string) => {
   return address.filecoin?.robust ?? address.filecoin?.id ?? altHash ?? address.hash;
 };
 
-const Link = chakra((props: LinkProps) => {
+const Link = (props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/address/[hash]', query: { ...props.query, hash: props.address.hash } },
     { chain: props.chain, external: props.external },
@@ -40,7 +39,7 @@ const Link = chakra((props: LinkProps) => {
       { props.children }
     </EntityBase.Link>
   );
-});
+};
 
 type IconProps = Pick<EntityProps, 'address' | 'isSafeAddress'> & EntityBase.IconBaseProps;
 
@@ -119,21 +118,21 @@ const Icon = (props: IconProps) => {
       interactive={ props.tooltipInteractive }
       positioning={ shield ? { offset: { mainAxis: 8 } } : undefined }
     >
-      <Flex marginRight={ styles.marginRight } position="relative">
+      <div style={{ marginRight: styles.marginRight, position: 'relative' }}>
         <AddressIdenticon
           size={ props.size ?? (props.variant === 'heading' ? 30 : 20) }
           hash={ getDisplayedAddress(props.address) }
         />
         { shield && <EntityBase.IconShield { ...shield }/> }
         { isDelegatedAddress && <AddressIconDelegated isVerified={ Boolean(props.address.is_verified) }/> }
-      </Flex>
+      </div>
     </Tooltip>
   );
 };
 
 export type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'address'> & { altHash?: string };
 
-const Content = chakra((props: ContentProps) => {
+const Content = (props: ContentProps) => {
   const displayedAddress = getDisplayedAddress(props.address, props.altHash);
   const nameTag = (() => {
     const tagData = props.address.metadata?.tags.find(tag => tag.tagType === 'name');
@@ -155,12 +154,12 @@ const Content = chakra((props: ContentProps) => {
     const styles = getContentProps(props.variant);
 
     const label = (
-      <VStack gap={ 0 } py={ 1 } color="inherit">
-        <Box fontWeight={ 600 } whiteSpace="pre-wrap" wordBreak="break-word">{ nameText }</Box>
-        <Box whiteSpace="pre-wrap" wordBreak="break-word">
+      <div className="flex flex-col gap-0 py-1 text-inherit">
+        <div className="font-semibold whitespace-pre-wrap break-words">{ nameText }</div>
+        <div className="whitespace-pre-wrap break-words">
           { displayedAddress }
-        </Box>
-      </VStack>
+        </div>
+      </div>
     );
 
     return (
@@ -184,7 +183,7 @@ const Content = chakra((props: ContentProps) => {
       text={ displayedAddress }
     />
   );
-});
+};
 
 type CopyProps = Omit<EntityBase.CopyBaseProps, 'text'> & Pick<EntityProps, 'address'> & { altHash?: string };
 
@@ -242,7 +241,7 @@ const AddressEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(AddressEntity));
+export default React.memo(AddressEntity);
 
 export {
   Container,

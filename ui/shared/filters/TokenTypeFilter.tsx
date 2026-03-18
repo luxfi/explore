@@ -1,4 +1,3 @@
-import { Text, Flex, useCheckboxGroup, Fieldset } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NFTTokenType, TokenType } from 'types/api/token';
@@ -15,7 +14,7 @@ type Props<T extends TokenType | NFTTokenType> = {
   chainConfig?: Array<ClusterChainConfig['app_config']> | ClusterChainConfig['app_config'];
 };
 const TokenTypeFilter = <T extends TokenType | NFTTokenType>({ nftOnly, onChange, defaultValue, chainConfig }: Props<T>) => {
-  const { value, setValue } = useCheckboxGroup({ defaultValue });
+  const [ value, setValue ] = React.useState<Array<string>>(defaultValue ?? []);
 
   const handleReset = React.useCallback(() => {
     if (value.length === 0) {
@@ -36,8 +35,8 @@ const TokenTypeFilter = <T extends TokenType | NFTTokenType>({ nftOnly, onChange
 
   return (
     <>
-      <Flex justifyContent="space-between" textStyle="sm">
-        <Text fontWeight={ 600 } color="text.secondary">Type</Text>
+      <div className="flex justify-between text-sm">
+        <span className="font-semibold text-[var(--color-text-secondary)]">Type</span>
         <Button
           variant="link"
           onClick={ handleReset }
@@ -46,18 +45,18 @@ const TokenTypeFilter = <T extends TokenType | NFTTokenType>({ nftOnly, onChange
         >
           Reset
         </Button>
-      </Flex>
-      <Fieldset.Root>
+      </div>
+      <fieldset>
         <CheckboxGroup defaultValue={ defaultValue } onValueChange={ handleChange } value={ value } name="token_type">
-          <Fieldset.Content>
+          <div>
             { Object.keys(tokenTypes).map((id) => (
               <Checkbox key={ id } value={ id }>
                 { tokenTypes[id as keyof typeof tokenTypes] }
               </Checkbox>
             )) }
-          </Fieldset.Content>
+          </div>
         </CheckboxGroup>
-      </Fieldset.Root>
+      </fieldset>
     </>
   );
 };

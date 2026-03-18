@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -65,9 +64,7 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
   const parentChainCurrency = rollupFeature.isEnabled ? rollupFeature.parentChain.currency?.symbol : undefined;
 
   return (
-    <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+    <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
         hint={ `Batch number indicates the length of batches produced by grouping ${ layerLabels.current } blocks to be proven on ${ layerLabels.parent }.` }
         isLoading={ isPlaceholderData }
@@ -79,7 +76,6 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -131,16 +127,12 @@ const ZkSyncL2TxnBatchDetails = ({ query }: Props) => {
       <ZkSyncL2TxnBatchHashesInfo isLoading={ isPlaceholderData } data={ data }/>
 
       <CollapsibleDetails loading={ isPlaceholderData } className="mt-6 lg:col-[1/3]">
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
-
         <DetailedInfo.ItemLabel
           hint={ `${ layerLabels.parent } batch root is a hash that summarizes batch data and submitted to ${ layerLabels.parent }` }
         >
           Root hash
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue
-          flexWrap="nowrap"
-          alignSelf="flex-start"
         >
           <TruncatedText text={ data.root_hash }/>
           <CopyToClipboard text={ data.root_hash }/>

@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { GetInstancesResponse } from '@luxfi/points-types';
@@ -32,12 +31,12 @@ const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
           Choose explorer
         </DialogHeader>
         <DialogBody>
-          <Flex flexDir="column" gap={ 6 }>
-            <Text>
+          <div className="flex flex-col gap-6">
+            <p>
               Choose explorer that you want to interact with and earn
               Merits
-            </Text>
-            <Flex flexWrap="wrap" gap={ 2 }>
+            </p>
+            <div className="flex flex-wrap gap-2">
               { items?.map((instance) => (
                 <Link
                   external
@@ -58,18 +57,13 @@ const RewardsInstancesModal = ({ isOpen, onClose, items }: Props) => {
                       />
                     ) }
                   />
-                  <Text
-                    textStyle="sm"
-                    fontWeight="500"
-                    color="text.primary"
-                    _groupHover={{ color: 'inherit' }}
-                  >
+                  <span className="text-sm font-medium text-[var(--color-text-primary)] group-hover:text-inherit">
                     { instance.name }
-                  </Text>
+                  </span>
                 </Link>
               )) }
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </DialogBody>
       </DialogContent>
     </DialogRoot>

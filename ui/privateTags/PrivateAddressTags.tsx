@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type { AddressTag } from 'types/api/account';
@@ -76,7 +75,7 @@ const PrivateAddressTags = () => {
         emptyText=""
         actionBar={ actionBar }
       >
-        <Box display={{ base: 'block', lg: 'none' }}>
+        <div className="block lg:hidden">
           { addressTagsData?.items.map((item: AddressTag, index: number) => (
             <AddressTagListItem
               item={ item }
@@ -86,8 +85,8 @@ const PrivateAddressTags = () => {
               isLoading={ isPlaceholderData }
             />
           )) }
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>
+        </div>
+        <div className="hidden lg:block">
           <AddressTagTable
             isLoading={ isPlaceholderData }
             data={ addressTagsData?.items }
@@ -95,7 +94,7 @@ const PrivateAddressTags = () => {
             onEditClick={ onEditClick }
             top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           />
-        </Box>
+        </div>
       </DataListDisplay>
       <Skeleton mt={ 8 } loading={ isPlaceholderData } display="inline-block">
         <Button

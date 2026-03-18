@@ -1,4 +1,4 @@
-import { Text, Flex, HStack, VStack, Separator, Box, chakra } from '@chakra-ui/react';
+import { Separator } from 'toolkit/chakra/separator';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -46,7 +46,7 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
   const topTokensContent = (() => {
     if (!topTokens) {
       return (
-        <chakra.span color="text.secondary">There are no tokens at this address</chakra.span>
+        <span className="text-[var(--color-text-secondary)]">There are no tokens at this address</span>
       );
     }
 
@@ -54,7 +54,7 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
       <>
         <Skeleton loading={ isLoading } className="w-full lg:w-[225px] rounded-full overflow-hidden" h={ 3 } display="flex" alignItems="center">
           { topTokens.map((token, index) => (
-            <Box
+            <div
               key={ token.symbol }
               h="100%"
               w={ `${ token.share * 100 }%` }
@@ -63,9 +63,9 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
             />
           )) }
         </Skeleton>
-        <HStack flexWrap="wrap">
+        <div flexWrap="wrap">
           { topTokens.map((token, index) => (
-            <HStack key={ token.symbol }>
+            <div key={ token.symbol }>
               <Skeleton
                 w="16px"
                 h="16px"
@@ -76,26 +76,26 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
               </Skeleton>
               <Skeleton loading={ isLoading } fontWeight={ 600 } className="whitespace-pre">
                 <span>{ token.symbol }</span>
-                <chakra.span color="text.secondary"> { formatPercentage(token.share) }</chakra.span>
+                <span className="text-[var(--color-text-secondary)]"> { formatPercentage(token.share) }</span>
               </Skeleton>
-            </HStack>
+            </div>
           )) }
-        </HStack>
+        </div>
       </>
     );
 
   })();
 
   return (
-    <HStack alignItems="center" w="full" h={{ base: 'auto', lg: '100px' }}>
-      <VStack
+    <div alignItems="center" w="full" h={{ base: 'auto', lg: '100px' }}>
+      <div
         flexGrow={ 1 }
         borderRadius="base"
         overflow="hidden"
         h="100%"
         rowGap="1px"
       >
-        <Flex
+        <div
           alignItems={{ base: 'flex-start', lg: 'center' }}
           bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
           flexBasis="50%"
@@ -106,12 +106,12 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
           flexDirection={{ base: 'column', lg: 'row' }}
           textStyle="sm"
         >
-          <Flex alignItems="center">
+          <div alignItems="center">
             <IconSvg name="wallet" boxSize={ 5 } flexShrink={ 0 } color="icon.primary"/>
-            <Text ml={ 2 } fontWeight={ 500 }>Total net worth</Text>
-            <Text color="text.secondary"> (without NFT)</Text>
-          </Flex>
-          <Flex >
+            <span ml={ 2 } fontWeight={ 500 }>Total net worth</span>
+            <span color="text.secondary"> (without NFT)</span>
+          </div>
+          <div >
             <SimpleValue
               value={ BigNumber(netWorth ?? 0) }
               prefix="$"
@@ -122,7 +122,7 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
             { multichainBalanceFeature.isEnabled && (
               <>
                 <Separator mx={ 3 } height="16px" orientation="vertical"/>
-                <HStack gap={ 3 }>
+                <div gap={ 3 }>
                   { multichainBalanceFeature.providers.map((item) => (
                     <AddressMultichainButton
                       key={ item.name }
@@ -131,12 +131,12 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
                       onClick={ handleMultichainClick }
                     />
                   )) }
-                </HStack>
+                </div>
               </>
             ) }
-          </Flex>
-        </Flex>
-        <Flex
+          </div>
+        </div>
+        <div
           alignItems={{ base: 'flex-start', lg: 'center' }}
           bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
           flexBasis="50%"
@@ -147,10 +147,10 @@ const MultichainAddressPortfolioNetWorth = ({ addressHash, netWorth, isLoading, 
           textStyle="xs"
         >
           { topTokensContent }
-        </Flex>
-      </VStack>
+        </div>
+      </div>
       { !isMobile && <AdBanner format="mobile" w="fit-content"/> }
-    </HStack>
+    </div>
   );
 };
 

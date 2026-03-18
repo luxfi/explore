@@ -1,9 +1,8 @@
-import type { FlexProps } from '@chakra-ui/react';
-import { Separator, Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { Badge } from 'toolkit/chakra/badge';
 import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Separator } from 'toolkit/chakra/separator';
 
 interface Props {
   methodId: string;
@@ -20,10 +19,8 @@ interface ItemProps extends FlexProps {
 
 const Item = ({ label, children, isLoading, ...rest }: ItemProps) => {
   return (
-    <Flex
-      w="100%"
+    <div className="flex gap-y-2 w-full"
       columnGap={{ base: 2, lg: 5 }}
-      rowGap={ 2 }
       px={{ base: 0, lg: 4 }}
       flexDir={{ base: 'column', lg: 'row' }}
       alignItems={{ base: 'flex-start', lg: 'center' }}
@@ -33,30 +30,28 @@ const Item = ({ label, children, isLoading, ...rest }: ItemProps) => {
         { label }
       </Skeleton >
       { children }
-    </Flex>
+    </div>
   );
 };
 
 const LogDecodedInputDataHeader = ({ methodId, methodCall, isLoading, rightSlot }: Props) => {
   return (
-    <VStack
-      align="flex-start"
-      separator={ <Separator w="100%" borderColor="border.divider"/> }
+    <div className="flex flex-col w-full border-[var(--color-border-divider)] items-start"
       textStyle="sm"
       flexGrow={ 1 }
       gap={ 2 }
       w="100%"
     >
-      <Flex columnGap={ 2 } w="100%">
+      <div className="flex gap-x-2 w-full">
         <Item label="Method id" isLoading={ isLoading } flexDir="row" alignItems="center">
           <Badge loading={ isLoading }>{ methodId }</Badge>
         </Item>
         { rightSlot }
-      </Flex>
+      </div>
       <Item label="Call" isLoading={ isLoading }>
         <Skeleton loading={ isLoading } className="whitespace-pre-wrap break-all flex-grow">{ methodCall }</Skeleton>
       </Item>
-    </VStack>
+    </div>
   );
 };
 

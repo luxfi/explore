@@ -1,4 +1,3 @@
-import { chakra, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -12,32 +11,32 @@ import Time from 'ui/shared/time/Time';
 const SearchBarSuggestTx = ({ data, isMobile, chainInfo }: ItemsProps<SearchResultTx | multichain.QuickSearchResultTransaction>) => {
   const icon = <TxEntity.Icon chain={ chainInfo }/>;
   const hash = (
-    <chakra.mark overflow="hidden" whiteSpace="nowrap" fontWeight={ 700 }>
+    <mark className="overflow-hidden whitespace-nowrap font-bold">
       <HashStringShortenDynamic hash={ data.transaction_hash } noTooltip/>
-    </chakra.mark>
+    </mark>
   );
   const date = 'timestamp' in data && data.timestamp ? <Time timestamp={ data.timestamp } format="lll_s"/> : undefined;
 
   if (isMobile) {
     return (
       <>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           { icon }
           { hash }
-        </Flex>
-        <Text color="text.secondary">{ date }</Text>
+        </div>
+        <span className="text-[var(--color-text-secondary)]">{ date }</span>
       </>
     );
   }
 
   return (
-    <Flex columnGap={ 2 }>
-      <Flex alignItems="center" minW={ 0 }>
+    <div className="flex gap-x-2">
+      <div className="flex items-center min-w-0">
         { icon }
         { hash }
-      </Flex>
-      <Text color="text.secondary" textAlign="end" flexShrink={ 0 } ml="auto">{ date }</Text>
-    </Flex>
+      </div>
+      <span className="text-[var(--color-text-secondary)] text-end shrink-0 ml-auto">{ date }</span>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Text, Stack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressFromToFilter } from 'types/api/address';
@@ -45,18 +44,18 @@ const TokenTransferFilter = ({
     <PopoverFilter appliedFiltersNum={ appliedFiltersNum } contentProps={{ className: 'w-[220px]' }} isLoading={ isInitialLoading }>
       { withAddressFilter && (
         <>
-          <Text color="text.secondary" fontWeight={ 600 }>Address</Text>
+          <span className="text-[var(--color-text-secondary)] font-semibold">Address</span>
           <RadioGroup
             size="lg"
             onValueChange={ handleAddressFilterChange }
             defaultValue={ defaultAddressFilter || 'all' }
             className="pb-4 border-b border-solid border-[var(--color-border-divider)]"
           >
-            <Stack gap={ 4 }>
-              <Radio value="all"><Text fontSize="md">All</Text></Radio>
-              <Radio value="from"><Text fontSize="md">Outgoing transfers</Text></Radio>
-              <Radio value="to"><Text fontSize="md">Incoming transfers</Text></Radio>
-            </Stack>
+            <div className="flex flex-col gap-4">
+              <Radio value="all"><span className="text-base">All</span></Radio>
+              <Radio value="from"><span className="text-base">Outgoing transfers</span></Radio>
+              <Radio value="to"><span className="text-base">Incoming transfers</span></Radio>
+            </div>
           </RadioGroup>
         </>
       ) }

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -43,7 +42,7 @@ const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading, pr
   const filters = useMethodsFilters({ abi });
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex" flexDir="column" rowGap={ 6 }>
       <ContractMethodsAlerts isLoading={ isInitialLoading } proxyType={ proxyType } conflictingImplementations={ conflictingImplementations }/>
       <div>
         <ContractSourceAddressSelector
@@ -76,7 +75,7 @@ const ContractMethodsProxy = ({ implementations, isLoading: isInitialLoading, pr
           sourceAddress={ selectedItem.address_hash }
         />
       </ContractMethodsContainer>
-    </Flex>
+    </div>
   );
 };
 

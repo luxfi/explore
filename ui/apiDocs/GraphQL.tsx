@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { GraphiQL } from 'graphiql';
 import React from 'react';
@@ -84,11 +83,11 @@ const GraphQL = () => {
   });
 
   return (
-    <Box h="100vh" overflowX="scroll" css={ graphQLStyle }>
-      <Box h="100vh" minW="900px" css={ graphQLStyle }>
+    <div h="100vh" overflowX="scroll" css={ graphQLStyle }>
+      <div h="100vh" minW="900px" css={ graphQLStyle }>
         <GraphiQL fetcher={ fetcher } defaultQuery={ initialQuery } key={ colorModeState }/>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

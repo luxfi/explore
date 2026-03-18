@@ -1,4 +1,3 @@
-import { Box, Grid } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type * as stats from '@luxfi/stats-types';
@@ -69,7 +68,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
   }
 
   return (
-    <Box>
+    <div>
       { isSomeChartLoadingError && (
         <ChartsLoadingErrorAlert/>
       ) }
@@ -77,12 +76,8 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
       <section ref={ sectionRef }>
         {
           charts?.map((section) => (
-            <Box
+            <div
               key={ section.id }
-              mb={{ base: 6, lg: 8 }}
-              _last={{
-                marginBottom: 0,
-              }}
             >
               <Skeleton loading={ isPlaceholderData } className="mb-3 lg:mb-4 inline-flex items-center gap-2" id={ section.id }>
                 <Heading level="2" id={ section.id }>
@@ -90,14 +85,13 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                 </Heading>
                 { isGasTrackerEnabled && section.id === 'gas' && homeStatsQuery.data && homeStatsQuery.data.gas_prices && (
                   <GasInfoTooltip data={ homeStatsQuery.data } dataUpdatedAt={ homeStatsQuery.dataUpdatedAt }>
-                    <IconSvg name="info" boxSize={ 5 } display="block" cursor="pointer" color="icon.secondary" _hover={{ color: 'hover' }}/>
+                    <IconSvg name="info" color="icon.secondary"/>
                   </GasInfoTooltip>
                 ) }
               </Skeleton>
 
-              <Grid
-                templateColumns={{ lg: 'repeat(2, minmax(0, 1fr))' }}
-                gap={{ base: 3, lg: 4 }}
+              <div
+               
               >
                 { section.charts.map((chart) => (
                   <ChartWidgetContainer
@@ -111,12 +105,12 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                     href={{ pathname: '/stats/[id]', query: { id: chart.id, ...(chain?.id ? { chain_id: chain.id } : {}) } }}
                   />
                 )) }
-              </Grid>
-            </Box>
+              </div>
+            </div>
           ))
         }
       </section>
-    </Box>
+    </div>
   );
 };
 

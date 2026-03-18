@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { TableColumnHeader, TableHeaderSticky, TableRoot, TableRow, TableCell, TableBody, TableColumnHeaderSortable } from 'toolkit/chakra/table';
@@ -85,7 +84,7 @@ const TableShowcase = () => {
                 )) }
               </TableBody>
             </TableRoot>
-            <Box h="1000px"/>
+            <div className="h-[1000px]"/>
           </Sample>
         </SamplesStack>
       </Section>

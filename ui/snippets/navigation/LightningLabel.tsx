@@ -1,9 +1,10 @@
-import { useBreakpointValue, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
 
 export const LIGHTNING_LABEL_CLASS_NAME = 'lightning-label';
+
+const XL_BREAKPOINT = 1280;
 
 interface Props {
   className?: string;
@@ -12,7 +13,15 @@ interface Props {
 }
 
 const LightningLabel = ({ className, iconColor, isCollapsed }: Props) => {
-  const isLgScreen = useBreakpointValue({ base: false, lg: true, xl: false });
+  const [ isLgScreen, setIsLgScreen ] = React.useState(false);
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(min-width: 1024px) and (max-width: ${ XL_BREAKPOINT - 1 }px)`);
+    const handler = (e: MediaQueryListEvent) => setIsLgScreen(e.matches);
+    setIsLgScreen(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   const isExpanded = isCollapsed === false;
 
@@ -40,4 +49,4 @@ const LightningLabel = ({ className, iconColor, isCollapsed }: Props) => {
   );
 };
 
-export default chakra(LightningLabel);
+export default LightningLabel;

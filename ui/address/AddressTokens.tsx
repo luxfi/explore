@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -118,12 +117,12 @@ const AddressTokens = ({ shouldRender = true, isQueryEnabled = true }: Props) =>
 
   const rightSlot = (
     <>
-      <HStack gap={ 3 }>
+      <div className="flex flex-row gap-3">
         { isNftTab && (hasNftData || hasActiveFilters) &&
           <AddressNftDisplayTypeRadio value={ nftDisplayType } onChange={ onDisplayTypeChange }/> }
         { isNftTab && (hasNftData || hasActiveFilters) && !(isMobile && pagination.isVisible) &&
           <AddressNftTypeFilter value={ nftTokenTypes } onChange={ onTokenTypesChange }/> }
-      </HStack>
+      </div>
       { pagination.isVisible && !isMobile && <Pagination { ...pagination }/> }
     </>
   );
@@ -132,7 +131,7 @@ const AddressTokens = ({ shouldRender = true, isQueryEnabled = true }: Props) =>
     <>
       <TokenBalances/>
       { /* should stay before tabs to scroll up with pagination */ }
-      <Box ref={ scrollRef }></Box>
+      <div ref={ scrollRef }></div>
       <RoutedTabs
         tabs={ tabs }
         variant="secondary"

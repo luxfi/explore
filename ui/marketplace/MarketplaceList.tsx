@@ -1,4 +1,3 @@
-import { Grid, Box } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React, { useCallback } from 'react';
 import type { MouseEvent } from 'react';
@@ -39,7 +38,7 @@ const MarketplaceList = ({
 
   return apps.length > 0 ? (
     <>
-      <Grid
+      <div
         templateColumns={{ md: 'repeat(auto-fill, minmax(270px, 1fr))' }}
         autoRows="1fr"
         gap={{ base: '16px', md: '24px' }}
@@ -70,8 +69,8 @@ const MarketplaceList = ({
             graphLinks={ graphLinksQuery.data?.[app.id] }
           />
         )) }
-      </Grid>
-      <Box ref={ cutRef } h={ 0 }/>
+      </div>
+      <div ref={ cutRef } h={ 0 }/>
     </>
   ) : (
     <EmptySearchResult selectedCategoryId={ selectedCategoryId } favoriteApps={ favoriteApps }/>

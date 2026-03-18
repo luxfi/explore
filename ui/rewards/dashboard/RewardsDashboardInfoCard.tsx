@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { Image } from 'toolkit/chakra/image';
@@ -22,16 +21,7 @@ const RewardsDashboardInfoCard = ({ title, description, imageSrc, imageWidth, im
     title={ title }
     description={ description }
   >
-    <Flex
-      flex={ 1 }
-      gap={ 4 }
-      pl={ 10 }
-      pr={ 7 }
-      py={{ base: 4, lg: 0 }}
-      flexDirection={{ base: 'column', lg: 'row' }}
-      justifyContent="space-between"
-      alignItems="center"
-    >
+    <div className="flex flex-1 gap-4 pl-10 pr-7 py-4 lg:py-0 flex-col lg:flex-row justify-between items-center">
       <Image
         src={ imageSrc }
         alt={ title }
@@ -46,7 +36,7 @@ const RewardsDashboardInfoCard = ({ title, description, imageSrc, imageWidth, im
       >
         { linkText }
       </Link>
-    </Flex>
+    </div>
   </RewardsDashboardCard>
 );
 

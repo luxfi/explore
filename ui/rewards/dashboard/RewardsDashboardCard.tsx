@@ -1,6 +1,6 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { Badge } from 'toolkit/chakra/badge';
 import { Heading } from 'toolkit/chakra/heading';
 import { Hint } from 'toolkit/components/Hint/Hint';
@@ -25,57 +25,50 @@ const RewardsDashboardCard = ({
   contentDirection = 'column', children, blurFilter, label, isLoading,
 }: Props) => {
   return (
-    <Flex
-      as="section"
-      flexDirection={{ base: contentDirection === 'row' ? 'column' : contentDirection, md: contentDirection }}
-      justifyContent={ contentDirection === 'column-reverse' ? 'flex-end' : 'flex-start' }
-      p={{ base: 1.5, md: 2 }}
-      border="1px solid"
-      borderColor={{ _light: 'gray.200', _dark: 'whiteAlpha.200' }}
-      borderRadius="lg"
-      gap={{ base: 4, md: contentDirection === 'row' ? 10 : 4 }}
-      w={ contentDirection === 'row' ? 'full' : 'auto' }
-      flex={ contentDirection !== 'row' ? 1 : '0 1 auto' }
+    <section
+      className={ cn(
+        'flex p-1.5 md:p-2 border border-gray-200 dark:border-[var(--color-whiteAlpha-200)] rounded-lg gap-4',
+        contentDirection === 'row' ? 'flex-col md:flex-row md:gap-10 w-full' : '',
+        contentDirection === 'column' ? 'flex-col' : '',
+        contentDirection === 'column-reverse' ? 'flex-col-reverse justify-end' : '',
+        contentDirection !== 'row' ? 'flex-1' : 'flex-none',
+      ) }
     >
-      <Flex
-        flexDirection="column"
-        gap={ 2 }
-        px={{ base: 1.5, md: 3 }}
-        pb={ contentDirection === 'column-reverse' ? { base: 1.5, md: 3 } : 0 }
-        pt={ contentDirection === 'column-reverse' ? 0 : { base: 1.5, md: 3 } }
-        w={{ base: 'full', md: contentDirection === 'row' ? '340px' : 'full' }}
-        flex={ 1 }
+      <div
+        className={ cn(
+          'flex flex-col gap-2 px-1.5 md:px-3',
+          contentDirection === 'column-reverse' ? 'pb-1.5 md:pb-3' : 'pt-1.5 md:pt-3',
+          contentDirection === 'row' ? 'w-full md:w-[340px] flex-1' : 'w-full',
+        ) }
       >
         { label && <Badge loading={ isLoading }>{ label }</Badge> }
         { title && (
-          <Flex alignItems="center" gap={ 2 }>
+          <div className="flex items-center gap-2">
             <Heading level="3">{ title }</Heading>
             { hint && <Hint label={ hint } tooltipProps={{ interactive: true }}/> }
             { availableSoon && <Badge colorPalette="blue">Available soon</Badge> }
-          </Flex>
+          </div>
         ) }
-        <Text as="div" fontSize="sm">
+        <div className="text-sm">
           { description }
-        </Text>
-        <Flex flexDirection="column" mt={ contentDirection === 'column-reverse' ? 'auto' : 0 }>
+        </div>
+        <div className={ cn('flex flex-col', contentDirection === 'column-reverse' ? 'mt-auto' : '') }>
           { contentAfter }
-        </Flex>
-      </Flex>
-      <Flex
-        alignItems="center"
-        justifyContent="space-around"
-        borderRadius={{ base: 'lg', md: '8px' }}
-        backgroundColor={{ _light: 'gray.50', _dark: 'whiteAlpha.50' }}
-        minH={{ base: '104px', md: '128px' }}
-        mt={ contentDirection === 'column' ? 'auto' : 0 }
-        filter="auto"
-        blur={ blurFilter ? '4px' : '0' }
-        flex={ contentDirection === 'row' ? 1 : '0 1 auto' }
+        </div>
+      </div>
+      <div
+        className={ cn(
+          'flex items-center justify-around rounded-lg md:rounded-[8px] min-h-[104px] md:min-h-[128px]',
+          'bg-gray-50 dark:bg-[var(--color-whiteAlpha-50)]',
+          contentDirection === 'column' ? 'mt-auto' : '',
+          contentDirection === 'row' ? 'flex-1' : 'flex-none',
+          blurFilter ? 'blur-[4px]' : '',
+        ) }
         { ...cardValueStyle }
       >
         { children }
-      </Flex>
-    </Flex>
+      </div>
+    </section>
   );
 };
 

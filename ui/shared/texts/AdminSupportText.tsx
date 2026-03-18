@@ -1,6 +1,6 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
+import { getEnvValue } from 'configs/app/utils';
 import { Link } from 'toolkit/chakra/link';
 
 interface Props {
@@ -8,13 +8,16 @@ interface Props {
 }
 
 const AdminSupportText = ({ className }: Props) => {
+  const supportUrl = getEnvValue('NEXT_PUBLIC_NETWORK_SUPPORT_URL') || 'mailto:help@blockscout.com';
+  const supportLabel = supportUrl.startsWith('mailto:') ? supportUrl.replace('mailto:', '') : 'support';
+
   return (
-    <Box className={ className }>
+    <div className={ className }>
       <span>Need help? Contact the support team at </span>
-      <Link href="mailto:help@lux.network">help@lux.network</Link>
+      <Link href={ supportUrl }>{ supportLabel }</Link>
       <span> for assistance!</span>
-    </Box>
+    </div>
   );
 };
 
-export default chakra(AdminSupportText);
+export default AdminSupportText;

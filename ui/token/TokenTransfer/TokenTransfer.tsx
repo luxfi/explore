@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -74,7 +73,7 @@ const TokenTransfer = ({ transfersQuery, tokenId, tokenQuery, tabsHeight = TABS_
 
   const content = data?.items && token ? (
     <>
-      <Box display={{ base: 'none', lg: 'block' }}>
+      <div>
         <TokenTransferTable
           data={ data?.items }
           top={ tabsHeight }
@@ -86,8 +85,8 @@ const TokenTransfer = ({ transfersQuery, tokenId, tokenQuery, tabsHeight = TABS_
           instance={ tokenInstance }
           isLoading={ isLoading }
         />
-      </Box>
-      <Box display={{ base: 'block', lg: 'none' }}>
+      </div>
+      <div>
         { pagination.page === 1 && (
           <SocketNewItemsNotice.Mobile
             num={ newItemsCount }
@@ -97,12 +96,12 @@ const TokenTransfer = ({ transfersQuery, tokenId, tokenQuery, tabsHeight = TABS_
           />
         ) }
         <TokenTransferList data={ data?.items } tokenId={ tokenId } instance={ tokenInstance } isLoading={ isLoading }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   const actionBar = isMobile && pagination.isVisible ? (
-    <ActionBar mt={ -6 }>
+    <ActionBar>
       <TokenAdvancedFilterLink token={ token }/>
       <Pagination className="ml-auto" { ...pagination }/>
     </ActionBar>

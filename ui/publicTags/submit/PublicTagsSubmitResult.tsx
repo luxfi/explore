@@ -1,4 +1,3 @@
-import { Flex, Grid, GridItem } from '@chakra-ui/react';
 import { pickBy } from 'es-toolkit';
 import React from 'react';
 
@@ -45,31 +44,31 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
       ) }
 
       <Heading level="2">Company info</Heading>
-      <Grid rowGap={ 3 } columnGap={ 6 } gridTemplateColumns="170px 1fr" mt={ 6 }>
-        <GridItem>Your name</GridItem>
-        <GridItem>{ groupedData.requesterName }</GridItem>
-        <GridItem>Email</GridItem>
-        <GridItem>{ groupedData.requesterEmail }</GridItem>
+      <div className="grid gap-y-3 gap-x-6 mt-6" style={{ gridTemplateColumns: '170px 1fr' }}>
+        <div>Your name</div>
+        <div>{ groupedData.requesterName }</div>
+        <div>Email</div>
+        <div>{ groupedData.requesterEmail }</div>
         { groupedData.companyName && (
           <>
-            <GridItem>Company name</GridItem>
-            <GridItem>{ groupedData.companyName }</GridItem>
+            <div>Company name</div>
+            <div>{ groupedData.companyName }</div>
           </>
         ) }
         { companyWebsite && (
           <>
-            <GridItem>Company website</GridItem>
-            <GridItem>
+            <div>Company website</div>
+            <div>
               <Link external href={ companyWebsite.href }>{ companyWebsite.domain }</Link>
-            </GridItem>
+            </div>
           </>
         ) }
-      </Grid>
+      </div>
 
       <Heading level="2" className="mt-8 mb-5">Public tags/labels</Heading>
       { hasErrors ? <PublicTagsSubmitResultWithErrors data={ groupedData }/> : <PublicTagsSubmitResultSuccess data={ groupedData }/> }
 
-      <Flex flexDir={{ base: 'column', lg: 'row' }} columnGap={ 6 } mt={ 8 } rowGap={ 3 }>
+      <div className="flex flex-col lg:flex-row gap-x-6 mt-8 gap-y-3">
         { hasErrors && (
           <Link href={ route({ pathname: '/public-tags/submit', query: startOverButtonQuery }) }>
             <Button variant="outline" className="w-full lg:w-auto">
@@ -80,7 +79,7 @@ const PublicTagsSubmitResult = ({ data }: Props) => {
         <Link href={ route({ pathname: '/public-tags/submit' }) }>
           <Button className="w-full lg:w-auto">Add new tag</Button>
         </Link>
-      </Flex>
+      </div>
     </div>
   );
 };

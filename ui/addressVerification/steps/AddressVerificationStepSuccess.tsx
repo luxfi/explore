@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { Alert } from 'toolkit/chakra/alert';
@@ -13,14 +12,14 @@ interface Props {
 
 const AddressVerificationStepSuccess = ({ onAddTokenInfoClick, onShowListClick, isToken, address }: Props) => {
   return (
-    <Box>
+    <div>
       <Alert status="success" descriptionProps={{ className: 'whitespace-pre-wrap break-words' }} className="mb-3 inline-block">
         <span>The address ownership for </span>
-        <chakra.span fontWeight={ 700 }>{ address }</chakra.span>
+        <span fontWeight={ 700 }>{ address }</span>
         <span> is verified.</span>
       </Alert>
       <p>You may now submit the “Add token information” request</p>
-      <Flex alignItems="center" mt={ 8 } columnGap={ 5 } flexWrap="wrap" rowGap={ 5 }>
+      <div className="flex" alignItems="center" mt={ 8 } columnGap={ 5 } flexWrap="wrap" rowGap={ 5 }>
         <Button variant={ isToken ? 'outline' : 'solid' } onClick={ onShowListClick }>
           View my verified addresses
         </Button>
@@ -29,8 +28,8 @@ const AddressVerificationStepSuccess = ({ onAddTokenInfoClick, onShowListClick, 
             Add token information
           </Button>
         ) }
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 };
 

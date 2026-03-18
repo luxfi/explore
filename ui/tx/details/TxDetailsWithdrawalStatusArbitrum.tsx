@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumTransactionMessageStatus, Transaction } from 'types/api/transaction';
@@ -76,7 +75,7 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
               steps={ steps as unknown as Array<ArbitrumTransactionMessageStatus> }
               currentStep={ data.arbitrum.message_related_info.message_status }
             />
-          ) : <Text color="text.secondary">Could not determine</Text> }
+          ) : <span className="text-[var(--color-text-secondary)]">Could not determine</span> }
         </DetailedInfo.ItemValue>
       </>
     );
@@ -91,7 +90,7 @@ const TxDetailsWithdrawalStatusArbitrum = ({ data }: Props) => {
       <DetailedInfo.ItemValue>
         { data.arbitrum.message_related_info.associated_l1_transaction_hash ?
           <TxEntityL1 hash={ data.arbitrum.message_related_info.associated_l1_transaction_hash }/> :
-          <Text color="text.secondary">Waiting for confirmation</Text>
+          <span className="text-[var(--color-text-secondary)]">Waiting for confirmation</span>
         }
       </DetailedInfo.ItemValue>
     </>

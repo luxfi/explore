@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -30,7 +29,7 @@ const GetGasButton = () => {
 
       return (
         <>
-          <Box h="1px" w="8px" bg="border.divider" mx={ 1 }/>
+          <div className="h-px w-2 bg-[var(--color-border-divider)] mx-1"/>
           <Link
             href={ isInternal ? route({ pathname: '/apps/[id]', query: { id: dappId, url } }) : url }
             external={ !isInternal }

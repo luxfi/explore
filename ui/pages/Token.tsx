@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -288,7 +287,7 @@ const TokenPageContent = () => {
       <TokenDetails tokenQuery={ tokenQuery }/>
 
       { /* should stay before tabs to scroll up with pagination */ }
-      <Box ref={ scrollRef }></Box>
+      <div ref={ scrollRef }></div>
 
       <RoutedTabs
         tabs={ tabs }

@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -36,7 +35,7 @@ const SearchResultsList = <T extends QueryType>({ queryType, query, maxItems = I
   });
 
   return (
-    <Flex flexDir="column" textStyle="sm">
+    <div className="flex flex-col">
       { query.data?.pages?.slice(0, maxItems !== Infinity ? 1 : Infinity).map((page, index) => (
         <React.Fragment key={ index }>
           { page.items.slice(0, maxItems).map((item) => {
@@ -91,8 +90,8 @@ const SearchResultsList = <T extends QueryType>({ queryType, query, maxItems = I
 
       { query.isFetching && <ContentLoader maxW="240px" mt={ 6 }/> }
 
-      <Box h="0" w="100px" ref={ cutRef }/>
-    </Flex>
+      <div className="w-[100px] h-0" ref={ cutRef }/>
+    </div>
   );
 };
 

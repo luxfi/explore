@@ -1,4 +1,3 @@
-import { Center } from '@chakra-ui/react';
 import React from 'react';
 
 import { Image } from 'toolkit/chakra/image';
@@ -9,7 +8,7 @@ interface Props {
 
 const BlobDataImage = ({ src }: Props) => {
   return (
-    <Center
+    <div className="flex items-center justify-center"
       bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
       p={ 4 }
       minH="200px"
@@ -24,7 +23,7 @@ const BlobDataImage = ({ src }: Props) => {
         objectPosition="center"
         alt="Blob image representation"
       />
-    </Center>
+    </div>
   );
 };
 

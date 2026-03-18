@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -27,7 +26,7 @@ const TableColumnFilterWrapper = ({ columnName, className, children, isLoading, 
           size="sm"
         >
           <IconSvg name="filter" className="w-[19px] h-[19px]"/>
-          { Boolean(value) && <chakra.span>{ value }</chakra.span> }
+          { Boolean(value) && <span>{ value }</span> }
         </Button>
       </PopoverTrigger>
       <PopoverContent className={ className }>
@@ -39,4 +38,4 @@ const TableColumnFilterWrapper = ({ columnName, className, children, isLoading, 
   );
 };
 
-export default chakra(TableColumnFilterWrapper);
+export default TableColumnFilterWrapper;

@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { MarketplaceApp } from 'types/client/marketplace';
@@ -107,12 +106,12 @@ const MarketplaceAppModal = ({
       size={{ lgDown: 'full', lg: 'md' }}
     >
       <DialogContent>
-        <Box
+        <div
           display="grid"
           gridTemplateColumns={{ base: 'auto 1fr' }}
           marginBottom={{ base: 6, md: 8 }}
         >
-          <Flex
+          <div
             alignItems="center"
             justifyContent="center"
             w={{ base: '72px', md: '144px' }}
@@ -125,9 +124,9 @@ const MarketplaceAppModal = ({
               alt={ `${ title } app icon` }
               borderRadius="md"
             />
-          </Flex>
+          </div>
 
-          <Flex alignItems="center" mb={{ md: 2 }} gridColumn={ 2 }>
+          <div alignItems="center" mb={{ md: 2 }} gridColumn={ 2 }>
             <Heading
               level="2"
               className="font-medium mr-2"
@@ -137,19 +136,19 @@ const MarketplaceAppModal = ({
             <MarketplaceAppIntegrationIcon external={ external } internalWallet={ internalWallet }/>
             <MarketplaceAppGraphLinks links={ graphLinks } ml={ 2 }/>
             <DialogCloseTrigger className="ml-auto"/>
-          </Flex>
+          </div>
 
-          <Text
+          <span
             color="text.secondary"
             gridColumn={ 2 }
             textStyle={{ base: 'sm', md: 'md' }}
             fontWeight="normal"
           >
             By{ nbsp }{ author }
-          </Text>
+          </span>
 
           { isRatingEnabled && (
-            <Box
+            <div
               gridColumn={{ base: '1 / 3', md: 2 }}
               marginTop={{ base: 6, md: 3 }}
               py={{ base: 0, md: 1.5 }}
@@ -164,15 +163,15 @@ const MarketplaceAppModal = ({
                 source="App modal"
                 popoverContentProps={{ className: 'z-[1400]' }}
               />
-            </Box>
+            </div>
           ) }
 
-          <Box
+          <div
             gridColumn={{ base: '1 / 3', md: 2 }}
             marginTop={{ base: 6, md: 3 }}
           >
-            <Flex flexWrap="wrap" gap={ 6 }>
-              <Flex width={{ base: '100%', md: 'auto' }} gap={ 2 }>
+            <div flexWrap="wrap" gap={ 6 }>
+              <div width={{ base: '100%', md: 'auto' }} gap={ 2 }>
                 <Link href={ external ? url : route({ pathname: '/apps/[id]', query: { id: data.id } }) } external={ external } noIcon>
                   <Button size="sm">
                     Launch app
@@ -197,19 +196,19 @@ const MarketplaceAppModal = ({
                   size="md"
                   className="ml-0 rounded-[var(--radius-base,8px)]"
                 />
-              </Flex>
-            </Flex>
-          </Box>
-        </Box>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <DialogBody className="mb-6">
-          <Text>{ description }</Text>
+          <span>{ description }</span>
         </DialogBody>
 
         <DialogFooter
           className="flex flex-col md:flex-row justify-start md:justify-between items-start gap-3"
         >
-          <Flex gap={ 2 } flexWrap="wrap">
+          <div gap={ 2 } flexWrap="wrap">
             { categories.map((category) => (
               <Badge
                 colorPalette="blue"
@@ -218,9 +217,9 @@ const MarketplaceAppModal = ({
                 { category }
               </Badge>
             )) }
-          </Flex>
+          </div>
 
-          <Flex alignItems="center" gap={ 3 } my="2px">
+          <div alignItems="center" gap={ 3 } my="2px">
             { site && (
               <Link
                 external
@@ -235,14 +234,14 @@ const MarketplaceAppModal = ({
                   marginRight={ 2 }
                 />
 
-                <Text
+                <span
                   color="inherit"
                   whiteSpace="nowrap"
                   overflow="hidden"
                   textOverflow="ellipsis"
                 >
                   { makePrettyLink(site)?.domain }
-                </Text>
+                </span>
               </Link>
             ) }
 
@@ -263,7 +262,7 @@ const MarketplaceAppModal = ({
                 />
               </Link>
             )) }
-          </Flex>
+          </div>
         </DialogFooter>
       </DialogContent>
     </DialogRoot>

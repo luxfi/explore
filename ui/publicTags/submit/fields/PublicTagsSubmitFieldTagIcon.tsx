@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -19,7 +18,7 @@ const PublicTagsSubmitFieldTagIcon = ({ index }: Props) => {
   const imageField = useImageField({ name: `tags.${ index }.iconUrl`, isRequired: false });
 
   return (
-    <Flex columnGap={ 3 }>
+    <div className="flex gap-x-3">
       <FormFieldUrl<FormFields>
         name={ `tags.${ index }.iconUrl` }
         placeholder="Label icon URL"
@@ -32,7 +31,7 @@ const PublicTagsSubmitFieldTagIcon = ({ index }: Props) => {
           boxSize="30px"
         />
       </PublicTagsSubmitFieldTagIconPreview>
-    </Flex>
+    </div>
   );
 };
 

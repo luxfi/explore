@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { upperFirst } from 'es-toolkit';
 import React from 'react';
 
@@ -23,7 +22,7 @@ const FlashblocksStats = ({ itemsNum, txsNum, initialTs }: Props) => {
   }
 
   return (
-    <Box
+    <div
       display="grid"
       gridTemplateColumns={{ base: '1fr', lg: `repeat(3, calc(${ 100 / 3 }% - 9px))` }}
       gap={{ base: 1, lg: 3 }}
@@ -45,7 +44,7 @@ const FlashblocksStats = ({ itemsNum, txsNum, initialTs }: Props) => {
             '-'
         }
       />
-    </Box>
+    </div>
   );
 };
 

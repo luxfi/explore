@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -95,7 +94,7 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
 
   const content = query.data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { query.pagination.page === 1 && enableSocket && (
           <SocketNewItemsNotice.Mobile
             num={ newItemsCount }
@@ -105,8 +104,8 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
           />
         ) }
         <BlocksList data={ query.data.items } isLoading={ query.isPlaceholderData } page={ query.pagination.page } chainData={ chainData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <BlocksTable
           data={ query.data.items }
           top={ top || (query.pagination.isVisible ? TABS_HEIGHT : 0) }
@@ -117,7 +116,7 @@ const BlocksContent = ({ type, query, enableSocket = true, top }: Props) => {
           showSocketErrorAlert={ showSocketAlert }
           chainData={ chainData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 

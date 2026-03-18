@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PChainValidator, ValidatorStats } from 'lib/api/pchain';
@@ -24,22 +23,16 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <Box
-    border="1px solid"
-    borderColor="border.divider"
-    borderRadius="lg"
-    p={ 5 }
-    bgColor={{ _light: 'gray.50', _dark: 'whiteAlpha.50' }}
-  >
-    <Box fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+  <div>
+    <div className="font-semibold">
       { label }
-    </Box>
+    </div>
     <Skeleton loading={ isLoading }>
-      <Box fontSize="2xl" fontWeight="700" color="text.primary">
+      <div className="font-bold">
         { value }
-      </Box>
+      </div>
     </Skeleton>
-  </Box>
+  </div>
 );
 
 // ---------------------------------------------------------------------------
@@ -62,28 +55,22 @@ const StakeBreakdown = ({ stats, isLoading }: StakeBreakdownProps) => {
     '0';
 
   return (
-    <Box
-      border="1px solid"
-      borderColor="border.divider"
-      borderRadius="lg"
-      p={ 5 }
-      bgColor={{ _light: 'gray.50', _dark: 'whiteAlpha.50' }}
-    >
-      <Box fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+    <div>
+      <div className="font-semibold">
         Total Stake
-      </Box>
+      </div>
       <Skeleton loading={ isLoading }>
-        <Box fontSize="2xl" fontWeight="700" color="text.primary" mb={ 3 }>
+        <div className="font-bold">
           { formatStake(stats.totalStake) } LUX
-        </Box>
+        </div>
       </Skeleton>
       <Skeleton loading={ isLoading }>
-        <Flex gap={ 4 } fontSize="sm" color="text.secondary">
-          <Box>Validators: { formatStake(validatorStake) } LUX ({ validatorPct }%)</Box>
-          <Box>Delegated: { formatStake(stats.totalDelegatedStake) } LUX ({ delegationPct }%)</Box>
-        </Flex>
+        <div className="flex">
+          <div>Validators: { formatStake(validatorStake) } LUX ({ validatorPct }%)</div>
+          <div>Delegated: { formatStake(stats.totalDelegatedStake) } LUX ({ delegationPct }%)</div>
+        </div>
       </Skeleton>
-    </Box>
+    </div>
   );
 };
 
@@ -109,96 +96,64 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
   );
 
   return (
-    <Box
-      border="1px solid"
-      borderColor="border.divider"
-      borderRadius="lg"
-      overflow="hidden"
+    <div
+      className="overflow-hidden"
     >
-      <Box px={ 4 } py={ 3 } fontWeight="600" fontSize="sm" color="text.primary" borderBottom="1px solid" borderColor="border.divider">
+      <div className="font-semibold">
         Active Validators (Top { TOP_VALIDATORS_COUNT })
-      </Box>
+      </div>
 
       { /* Header */ }
-      <Flex
-        px={ 4 }
-        py={ 2 }
-        gap={ 4 }
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        display={{ base: 'none', lg: 'flex' }}
-      >
-        <Box w="320px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+      <div className="flex">
+        <div className="font-semibold">
           Node ID
-        </Box>
-        <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+        </div>
+        <div className="font-semibold">
           Stake
-        </Box>
-        <Box w="120px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+        </div>
+        <div className="font-semibold">
           Delegation Fee
-        </Box>
-        <Box w="80px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="center">
+        </div>
+        <div className="font-semibold">
           Connected
-        </Box>
-        <Box w="80px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+        </div>
+        <div className="font-semibold">
           Uptime
-        </Box>
-      </Flex>
+        </div>
+      </div>
 
       { /* Rows */ }
       { isLoading && (
-        <Box px={ 4 } py={ 6 }>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px"/>
-        </Box>
+        <div>
+          <Skeleton loading/>
+          <Skeleton loading/>
+          <Skeleton loading/>
+        </div>
       ) }
 
       { !isLoading && sorted.map((v) => (
-        <Flex
-          key={ v.nodeID }
-          px={ 4 }
-          py={ 3 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          alignItems="center"
-          _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-          transition="background 0.15s"
-          flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-        >
-          <Box
-            w={{ base: '100%', lg: '320px' }}
-            flexShrink={ 0 }
-            fontFamily="mono"
-            fontSize="sm"
-            color="text.primary"
+        <div className="flex" key={ v.nodeID }>
+          <div
             title={ v.nodeID }
-            overflow="hidden"
-            textOverflow="ellipsis"
-            whiteSpace="nowrap"
+            className="overflow-hidden"
           >
             { truncateNodeId(v.nodeID) }
-          </Box>
-          <Box flex={ 1 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="text-left lg:text-right">
             { formatStake(v.stakeAmount ?? v.weight) } LUX
-          </Box>
-          <Box w={{ base: 'auto', lg: '120px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="text-left lg:text-right">
             { v.delegationFee }%
-          </Box>
-          <Flex w={{ base: 'auto', lg: '80px' }} flexShrink={ 0 } justifyContent={{ base: 'flex-start', lg: 'center' }} alignItems="center">
-            <Box
-              bgColor={ v.connected !== false ? 'green.400' : 'red.400' }
-              borderRadius="full"
-              boxSize="8px"
-            />
-          </Flex>
-          <Box w={{ base: 'auto', lg: '80px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="flex justify-start lg:justify-center">
+            <div/>
+          </div>
+          <div className="text-left lg:text-right">
             { formatUptime(v.uptime) }
-          </Box>
-        </Flex>
+          </div>
+        </div>
       )) }
-    </Box>
+    </div>
   );
 };
 
@@ -214,12 +169,11 @@ interface ValidatorsDashboardProps {
 
 const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboardProps) => {
   return (
-    <Flex direction="column" gap={ 6 }>
+    <div className="flex flex-col gap-6">
       { /* Stat cards */ }
-      <Box
-        display="grid"
-        gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
-        gap={ 3 }
+      <div
+        className="grid"
+        style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
       >
         <StatCard
           label="Validators"
@@ -241,14 +195,14 @@ const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboa
           value={ `${ stats.averageUptime.toFixed(1) }%` }
           isLoading={ isLoading }
         />
-      </Box>
+      </div>
 
       { /* Stake breakdown */ }
       <StakeBreakdown stats={ stats } isLoading={ isLoading }/>
 
       { /* Active validators table */ }
       <ActiveValidatorsTable validators={ validators } isLoading={ isLoading }/>
-    </Flex>
+    </div>
   );
 };
 

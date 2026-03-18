@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -33,7 +32,7 @@ const AddressesListItem = ({
 
   return (
     <ListItemMobile rowGap={ 3 }>
-      <Flex alignItems="center" justifyContent="space-between" w="100%">
+      <div className="flex" alignItems="center" justifyContent="space-between" w="100%">
         <AddressEntity
           address={ item }
           isLoading={ isLoading }
@@ -44,30 +43,30 @@ const AddressesListItem = ({
         <Skeleton loading={ isLoading } fontSize="sm" ml="auto" minW={ 6 } color="text.secondary">
           <span>{ index }</span>
         </Skeleton>
-      </Flex>
+      </div>
       { item.public_tags !== null && item.public_tags.length > 0 && item.public_tags.map(tag => (
         <Tag key={ tag.label } loading={ isLoading } truncated>{ tag.display_name }</Tag>
       )) }
-      <HStack gap={ 3 } maxW="100%" alignItems="flex-start">
+      <div className="flex flex-row" gap={ 3 } maxW="100%" alignItems="flex-start">
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 } flexShrink={ 0 }>{ `Balance ${ currencyUnits.ether }` }</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary" minW="0" whiteSpace="pre-wrap">
           <span>{ isBalancePending ? 'Pending' : addressBalance.dp(8).toFormat() }</span>
         </Skeleton>
-      </HStack>
+      </div>
       { !totalSupply.eq(ZERO) && !isBalancePending && (
-        <HStack gap={ 3 }>
+        <div className="flex flex-row" gap={ 3 }>
           <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Percentage</Skeleton>
           <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
             <span>{ addressBalance.div(BigNumber(totalSupply)).multipliedBy(100).dp(8).toFormat() + '%' }</span>
           </Skeleton>
-        </HStack>
+        </div>
       ) }
-      <HStack gap={ 3 }>
+      <div className="flex flex-row" gap={ 3 }>
         <Skeleton loading={ isLoading } fontSize="sm" fontWeight={ 500 }>Txn count</Skeleton>
         <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>
         </Skeleton>
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

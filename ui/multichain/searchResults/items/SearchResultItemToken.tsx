@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import { mapValues } from 'es-toolkit';
 import React from 'react';
 
@@ -30,7 +29,7 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
     <SearchResultListItem
       href={ route({ pathname: '/token/[hash]', query: { hash: data.address_hash } }, { chain }) }
     >
-      <Box w={{ base: '100%', lg: '200px' }}>
+      <div w={{ base: '100%', lg: '200px' }}>
         <TokenEntity
           token={{
             address_hash: data.address_hash,
@@ -46,9 +45,9 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
           noCopy
           fontWeight={{ base: '600', lg: '700' }}
         />
-      </Box>
-      <Flex alignItems="center" w={{ base: '100%', lg: 'auto' }} flexGrow={ 1 }>
-        <Box
+      </div>
+      <div alignItems="center" w={{ base: '100%', lg: 'auto' }} flexGrow={ 1 }>
+        <div
           overflow="hidden"
           whiteSpace="nowrap"
           textOverflow="ellipsis"
@@ -59,9 +58,9 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
           { isMobile ? shortenString(data.address_hash) : (
             <HashStringShortenDynamic hash={ data.address_hash }/>
           ) }
-        </Box>
+        </div>
         { isVerified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
-        <Text
+        <span
           overflow="hidden"
           whiteSpace="nowrap"
           textOverflow="ellipsis"
@@ -71,8 +70,8 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
         >
           { (data.type as string) === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
           { (data.type as string) !== 'ERC-20' && data.total_supply && `Items ${ Number(data.total_supply).toLocaleString() }` }
-        </Text>
-      </Flex>
+        </span>
+      </div>
     </SearchResultListItem>
   );
 };

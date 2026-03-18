@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -40,4 +39,4 @@ const NativeTokenIcon = ({ isLoading, className, type }: Props) => {
   );
 };
 
-export default chakra(NativeTokenIcon);
+export default NativeTokenIcon;

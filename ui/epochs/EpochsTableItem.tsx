@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochListItem } from 'types/api/epochs';
@@ -19,7 +18,7 @@ const EpochsTableItem = ({ item, isLoading }: Props) => {
   return (
     <TableRow>
       <TableCell verticalAlign="middle">
-        <HStack gap={ 2 }>
+        <div gap={ 2 }>
           <EpochEntity number={ String(item.number) } noIcon fontWeight={ 700 } isLoading={ isLoading }/>
           <Skeleton loading={ isLoading } color="text.secondary" fontWeight={ 500 }><span>{ item.type }</span></Skeleton>
           <TimeWithTooltip
@@ -29,7 +28,7 @@ const EpochsTableItem = ({ item, isLoading }: Props) => {
             display="inline-block"
             fontWeight={ 400 }
           />
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
         <CeloEpochStatus

@@ -1,4 +1,3 @@
-import { Box, HStack, Stat } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -22,6 +21,16 @@ interface Props {
   chainInfo: ClusterChainConfig | undefined;
   isLoading?: boolean;
 }
+
+const DeltaIndicator = ({ delta }: { delta: number }) => {
+  const isPositive = delta > 0;
+  return (
+    <span className={ `inline-flex items-center gap-0.5 ${ isPositive ? 'text-green-500' : 'text-red-500' }` }>
+      <span>{ delta.toFixed(2) }%</span>
+      <span>{ isPositive ? '\u25B2' : '\u25BC' }</span>
+    </span>
+  );
+};
 
 const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) => {
 
@@ -48,8 +57,8 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
   return (
     <TableRow alignItems="top">
       <TableCell verticalAlign="middle">
-        <HStack gap={ 3 }>
-          <HStack>
+        <div className="flex flex-row items-center gap-3">
+          <div className="flex flex-row items-center gap-2">
             <ChainIcon data={ chainInfo } isLoading={ isLoading }/>
             <Link
               href={ chainInfo?.explorer_url }
@@ -59,66 +68,51 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
             >
               <TruncatedText text={ chainInfo?.name ?? 'Unknown chain' } loading={ isLoading }/>
             </Link>
-          </HStack>
-          <HStack gap={ 0 } flexShrink={ 0 }>
+          </div>
+          <div className="flex flex-row items-center gap-0 shrink-0">
             <Skeleton loading={ isLoading } color="text.secondary"><span>{ data.chain_id }</span></Skeleton>
             <CopyToClipboard text={ String(data.chain_id) } isLoading={ isLoading }/>
-          </HStack>
-        </HStack>
+          </div>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <HStack>
+        <div className="flex flex-row items-center gap-2">
           <Skeleton loading={ isLoading }>
             <span>{ activeAddresses.value.toLocaleString() }</span>
           </Skeleton>
           { activeAddresses.delta ? (
             <Skeleton loading={ isLoading }>
-              <Stat.Root positive={ activeAddresses.delta > 0 }>
-                <Stat.ValueText>
-                  { activeAddresses.delta.toFixed(2) }%
-                </Stat.ValueText>
-                { activeAddresses.delta > 0 ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-              </Stat.Root>
+              <DeltaIndicator delta={ activeAddresses.delta }/>
             </Skeleton>
           ) : null }
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <HStack>
+        <div className="flex flex-row items-center gap-2">
           <Skeleton loading={ isLoading }>
             <span>{ newAddresses.value.toLocaleString() }</span>
           </Skeleton>
           { newAddresses.delta ? (
             <Skeleton loading={ isLoading }>
-              <Stat.Root positive={ newAddresses.delta > 0 }>
-                <Stat.ValueText>
-                  { newAddresses.delta.toFixed(2) }%
-                </Stat.ValueText>
-                { newAddresses.delta > 0 ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-              </Stat.Root>
+              <DeltaIndicator delta={ newAddresses.delta }/>
             </Skeleton>
           ) : null }
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <HStack>
+        <div className="flex flex-row items-center gap-2">
           <Skeleton loading={ isLoading }>
             <span>{ dailyTransactions.value.toLocaleString() }</span>
           </Skeleton>
           { dailyTransactions.delta ? (
             <Skeleton loading={ isLoading }>
-              <Stat.Root positive={ dailyTransactions.delta > 0 }>
-                <Stat.ValueText>
-                  { dailyTransactions.delta.toFixed(2) }%
-                </Stat.ValueText>
-                { dailyTransactions.delta > 0 ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-              </Stat.Root>
+              <DeltaIndicator delta={ dailyTransactions.delta }/>
             </Skeleton>
           ) : null }
-        </HStack>
+        </div>
       </TableCell>
       <TableCell verticalAlign="middle">
-        <HStack justifyContent="space-between">
+        <div className="flex flex-row items-center justify-between">
           <Skeleton loading={ isLoading }>
             <span>{ Number(data.tps ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 }) }</span>
           </Skeleton>
@@ -134,8 +128,8 @@ const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) =>
                 <IconSvg name={ walletIcon } boxSize={ 5 }/>
               </IconButton>
             </Tooltip>
-          ) : <Box boxSize={ 8 }/> }
-        </HStack>
+          ) : <div className="w-8 h-8"/> }
+        </div>
       </TableCell>
     </TableRow>
   );

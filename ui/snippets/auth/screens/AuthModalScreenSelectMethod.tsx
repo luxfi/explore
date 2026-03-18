@@ -1,4 +1,3 @@
-import { VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Screen } from '../types';
@@ -29,10 +28,10 @@ const AuthModalScreenSelectMethod = ({ onSelectMethod }: Props) => {
   }, [ onSelectMethod ]);
 
   return (
-    <VStack gap={ 3 } mt={ 4 } align="stretch">
+    <div className="flex flex-col gap-3 mt-4 items-stretch">
       <Button variant="outline" onClick={ handleConnectWalletClick }>Continue with Web3 wallet</Button>
       <Button variant="outline" onClick={ handleEmailClick }>Continue with email</Button>
-    </VStack>
+    </div>
   );
 };
 

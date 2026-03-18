@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 import type { AbiParameter } from 'viem';
 
@@ -68,15 +67,15 @@ const ItemArray = ({ abiParameter, data, level, arrayMatch, mode }: Props) => {
   })();
 
   return (
-    <chakra.span display="block">
-      <chakra.span display="block">
+    <span display="block">
+      <span display="block">
         <span>{ printRowOffset(level) }</span>
         <ItemLabel abiParameter={ abiParameter }/>
         <span>[{ data.length === 0 ? ' ]' : '' }</span>
-      </chakra.span>
+      </span>
       { content }
       { data.length > 0 && <p>{ printRowOffset(level) }]</p> }
-    </chakra.span>
+    </span>
   );
 };
 

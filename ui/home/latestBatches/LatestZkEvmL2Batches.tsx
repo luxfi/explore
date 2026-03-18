@@ -1,4 +1,3 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -68,7 +67,7 @@ const LatestZkEvmL2Batches = () => {
 
       return (
         <>
-          <VStack gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
+          <div gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
             { dataToShow.map(((batch, index) => {
               const status = <ZkEvmL2TxnBatchStatus status={ batch.status } isLoading={ isPlaceholderData }/>;
               return (
@@ -83,21 +82,21 @@ const LatestZkEvmL2Batches = () => {
                 />
               );
             })) }
-          </VStack>
-          <Flex justifyContent="center">
+          </div>
+          <div justifyContent="center">
             <Link className="text-sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
-          </Flex>
+          </div>
         </>
       );
     }
-    return <Box textStyle="sm">No latest batches found.</Box>;
+    return <div textStyle="sm">No latest batches found.</div>;
   })();
 
   return (
-    <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
+    <div width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
       <Heading level="3" className="mb-3">Latest batches</Heading>
       { content }
-    </Box>
+    </div>
   );
 };
 

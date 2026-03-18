@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
 import type { TransactionTag } from 'types/api/account';
@@ -75,7 +74,7 @@ const PrivateTransactionTags = () => {
         emptyText=""
         actionBar={ actionBar }
       >
-        <Box display={{ base: 'block', lg: 'none' }}>
+        <div className="block lg:hidden">
           { transactionTagsData?.items.map((item, index) => (
             <TransactionTagListItem
               key={ item.id + (isPlaceholderData ? String(index) : '') }
@@ -85,8 +84,8 @@ const PrivateTransactionTags = () => {
               onEditClick={ onEditClick }
             />
           )) }
-        </Box>
-        <Box display={{ base: 'none', lg: 'block' }}>
+        </div>
+        <div className="hidden lg:block">
           <TransactionTagTable
             data={ transactionTagsData?.items }
             isLoading={ isPlaceholderData }
@@ -94,7 +93,7 @@ const PrivateTransactionTags = () => {
             onEditClick={ onEditClick }
             top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           />
-        </Box>
+        </div>
       </DataListDisplay>
       <Skeleton mt={ 8 } loading={ isPlaceholderData } display="inline-block">
         <Button

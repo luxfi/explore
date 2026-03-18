@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
@@ -42,13 +41,13 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
                   } else {
                     return Object.entries(item).map(([ name, value ], index) => {
                       return (
-                        <Flex key={ index } columnGap={ 3 }>
-                          <MetadataAccordionItemTitle name={ name } fontWeight={ 400 } w={{ base: '90px' }}/>
+                        <div key={ index }>
+                          <MetadataAccordionItemTitle name={ name } w={{ base: '90px' }}/>
                           <MetadataItemPrimitive
                             value={ typeof value === 'object' ? JSON.stringify(value, undefined, 2) : value }
                             level={ level }
                           />
-                        </Flex>
+                        </div>
                       );
                     });
                   }
@@ -63,15 +62,11 @@ const MetadataItemArray = ({ name, value, level }: Props) => {
           })();
 
           return (
-            <Flex
+            <div
               key={ index }
-              py={ 2 }
-              _notFirst={{ borderColor: 'border.divider', borderTopWidth: '1px' }}
-              flexDir="column"
-              rowGap={ 2 }
             >
               { content }
-            </Flex>
+            </div>
           );
         }) }
       </AccordionItemContent>

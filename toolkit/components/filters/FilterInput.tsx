@@ -1,4 +1,3 @@
-import { Icon } from '@chakra-ui/react';
 import type { ChangeEvent } from 'react';
 import React, { useCallback, useState } from 'react';
 

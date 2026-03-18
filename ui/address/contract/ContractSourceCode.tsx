@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContract } from 'types/api/contract';
@@ -63,7 +62,7 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
     <Skeleton loading={ isLoading } fontWeight={ 500 }>
       <span>Contract source code</span>
       { data?.language &&
-        <Text whiteSpace="pre" as="span" color="text.secondary"> ({ formatLanguageName(data.language) })</Text> }
+        <span whiteSpace="pre" as="span" color="text.secondary"> ({ formatLanguageName(data.language) })</span> }
     </Skeleton>
   );
 
@@ -122,13 +121,13 @@ export const ContractSourceCode = ({ data, isLoading, sourceAddress }: Props) =>
 
   return (
     <section>
-      <Flex alignItems="center" mb={ 3 } columnGap={ 3 } rowGap={ 2 } flexWrap="wrap">
+      <div className="flex" alignItems="center" mb={ 3 } columnGap={ 3 } rowGap={ 2 } flexWrap="wrap">
         { heading }
         { externalLibraries }
         { diagramLink }
         { ides }
         { copyToClipboard }
-      </Flex>
+      </div>
       { content }
     </section>
   );

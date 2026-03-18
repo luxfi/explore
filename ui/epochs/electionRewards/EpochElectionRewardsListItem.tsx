@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CeloEpochElectionReward, CeloEpochDetails } from 'types/api/epochs';
@@ -23,7 +22,7 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
   const section = useDisclosure();
 
   return (
-    <Box
+    <div
       py={ 3 }
       borderBottomWidth="1px"
       borderColor="border.divider"
@@ -31,7 +30,7 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
       onClick={ isLoading || !data.count ? undefined : section.onToggle }
       cursor={ isLoading || !data.count ? undefined : 'pointer' }
     >
-      <Flex my="3px" columnGap={ 3 } alignItems="center" flexWrap="wrap" rowGap={ 2 }>
+      <div my="3px" columnGap={ 3 } alignItems="center" flexWrap="wrap" rowGap={ 2 }>
         { data.count ? (
           <Skeleton loading={ isLoading } display="flex" borderRadius="sm">
             <IconButton
@@ -47,7 +46,7 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
               />
             </IconButton>
           </Skeleton>
-        ) : <Box boxSize={ 6 }/> }
+        ) : <div boxSize={ 6 }/> }
         <EpochRewardTypeTag type={ type } isLoading={ isLoading }/>
         <Skeleton loading={ isLoading } ml="auto">{ getRewardNumText(type, data.count) }</Skeleton>
         <TokenValue
@@ -57,13 +56,13 @@ const EpochElectionRewardsListItem = ({ data, isLoading, type }: Props) => {
           loading={ isLoading }
           fontWeight={ 500 }
         />
-      </Flex>
+      </div>
       { section.open && (
-        <Box mt={ 2 }>
+        <div mt={ 2 }>
           <EpochElectionRewardDetailsMobile type={ type } token={ data.token }/>
-        </Box>
+        </div>
       ) }
-    </Box>
+    </div>
   );
 };
 

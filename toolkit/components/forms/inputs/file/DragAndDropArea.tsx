@@ -1,6 +1,7 @@
-import { chakra, Center } from '@chakra-ui/react';
 import type { DragEvent } from 'react';
 import React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 import { getAllFileEntries, convertFileEntryToFile } from './utils';
 
@@ -13,7 +14,7 @@ interface Props {
   fullFilePath?: boolean;
 }
 
-export const DragAndDropArea = chakra(({ onDrop, children, className, isDisabled, fullFilePath, isInvalid }: Props) => {
+export const DragAndDropArea = ({ onDrop, children, className, isDisabled, fullFilePath, isInvalid }: Props) => {
   const [ isDragOver, setIsDragOver ] = React.useState(false);
 
   const handleDrop = React.useCallback(async(event: DragEvent<HTMLDivElement>) => {
@@ -52,22 +53,18 @@ export const DragAndDropArea = chakra(({ onDrop, children, className, isDisabled
   }, [ isDisabled ]);
 
   return (
-    <Center
-      className={ className }
-      w="100%"
-      minH="120px"
-      borderWidth="2px"
-      borderRadius="base"
-      borderStyle="dashed"
-      borderColor={ isDragOver ? 'input.border.hover' : 'input.border' }
-      cursor="pointer"
-      textAlign="center"
+    <div
+      className={ cn(
+        'flex items-center justify-center w-full min-h-[120px] border-2 border-dashed rounded-lg cursor-pointer text-center',
+        'text-[var(--chakra-colors-input-placeholder)]',
+        'hover:border-[var(--chakra-colors-input-border-hover)]',
+        isDragOver ? 'border-[var(--chakra-colors-input-border-hover)]' : 'border-[var(--chakra-colors-input-border)]',
+        isDisabled && 'opacity-20',
+        isInvalid && 'border-[var(--chakra-colors-input-border-error)] text-[var(--chakra-colors-input-placeholder-error)]',
+        className,
+      ) }
       { ...(isDisabled ? { 'data-disabled': true } : {}) }
       { ...(isInvalid ? { 'data-invalid': true } : {}) }
-      color="input.placeholder"
-      _disabled={{ opacity: 'control.disabled' }}
-      _invalid={{ borderColor: 'input.border.error', color: 'input.placeholder.error' }}
-      _hover={{ borderColor: 'input.border.hover' }}
       onClick={ handleClick }
       onDrop={ handleDrop }
       onDragOver={ handleDragOver }
@@ -75,6 +72,6 @@ export const DragAndDropArea = chakra(({ onDrop, children, className, isDisabled
       onDragLeave={ handleDragLeave }
     >
       { children }
-    </Center>
+    </div>
   );
-});
+};

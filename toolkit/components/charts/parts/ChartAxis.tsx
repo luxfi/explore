@@ -1,8 +1,8 @@
-import { useToken } from '@chakra-ui/react';
 import * as d3 from 'd3';
 import React from 'react';
 
 import { useColorModeValue } from '../../../chakra/color-mode';
+import { useToken } from '../../../hooks/useToken';
 
 export interface ChartAxisProps extends Omit<React.SVGProps<SVGGElement>, 'scale'> {
   type: 'left' | 'bottom';

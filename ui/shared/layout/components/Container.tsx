@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
@@ -8,15 +7,11 @@ interface Props {
 
 const Container = ({ children, className }: Props) => {
   return (
-    <Box
-      className={ className }
-      minWidth={{ base: '100vw', lg: 'fit-content' }}
-      m="0 auto"
-      bgColor="bg.primary"
+    <div       className={ className } className="min-w-[100vw] lg:min-w-[fit-content]" className="mx-auto bg-[var(--color-bg-primary)]"
     >
       { children }
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(Container));
+export default React.memo(Container);

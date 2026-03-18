@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -20,7 +18,7 @@ import { distributeEntityProps, getIconProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'token'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route(
     { pathname: '/token/[hash]', query: { ...props.query, hash: props.token.address_hash } },
     { chain: props.chain, external: props.external },
@@ -77,7 +75,7 @@ const Icon = (props: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'token' | 'jointSymbol' | 'onlySymbol'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   const nameString = [
     !props.onlySymbol && (props.token.name ?? 'Unnamed token'),
     props.onlySymbol && (props.token.symbol ?? props.token.name ?? 'Unnamed token'),
@@ -113,15 +111,9 @@ const Symbol = (props: SymbolProps) => {
     >
       <div>(</div>
       <TruncatedTextTooltip label={ symbol }>
-        <chakra.span
-          display="inline-block"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          height="fit-content"
-        >
+        <span className="inline-block whitespace-nowrap overflow-hidden text-ellipsis h-fit">
           { symbol }
-        </chakra.span>
+        </span>
       </TruncatedTextTooltip>
       <div>)</div>
     </Skeleton>
@@ -198,7 +190,7 @@ const TokenEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(TokenEntity));
+export default React.memo(TokenEntity);
 
 export {
   Container,

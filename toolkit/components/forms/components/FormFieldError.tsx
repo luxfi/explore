@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
@@ -6,6 +5,10 @@ interface Props {
   className?: string;
 }
 
-export const FormFieldError = chakra(({ message, className }: Props) => {
-  return <Box className={ className } color="text.error" textStyle="sm" mt={ 2 } wordBreak="break-word">{ message }</Box>;
-});
+export const FormFieldError = ({ message, className }: Props) => {
+  return (
+    <div className={ [ 'text-[var(--chakra-colors-text-error)] text-sm mt-2 break-words', className ].filter(Boolean).join(' ') }>
+      { message }
+    </div>
+  );
+};

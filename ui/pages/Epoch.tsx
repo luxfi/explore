@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -60,8 +59,8 @@ const EpochPageContent = () => {
     const truncationProps = isTruncated ? { truncation: 'constant' as const, truncationMaxSymbols: 6 } : undefined;
 
     return (
-      <HStack textStyle={{ base: 'heading.sm', lg: 'heading.md' }} flexWrap="wrap">
-        <Box color="text.secondary">Ranging from</Box>
+      <div className="flex flex-wrap">
+        <div className="text-[var(--color-text-secondary)]">Ranging from</div>
         <BlockEntity
           number={ epochQuery.data.start_block_number }
           variant="subheading"
@@ -69,11 +68,11 @@ const EpochPageContent = () => {
         />
         { epochQuery.data.end_block_number && (
           <>
-            <Box color="text.secondary">to</Box>
+            <div className="text-[var(--color-text-secondary)]">to</div>
             <BlockEntity number={ epochQuery.data.end_block_number } variant="subheading" { ...truncationProps }/>
           </>
         ) }
-      </HStack>
+      </div>
     );
   })();
 

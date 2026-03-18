@@ -1,4 +1,3 @@
-import { Box, createListCollection, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -15,6 +14,7 @@ import VerifiedContractsCounters from 'ui/verifiedContracts/VerifiedContractsCou
 import VerifiedContractsFilter from 'ui/verifiedContracts/VerifiedContractsFilter';
 import VerifiedContractsList from 'ui/verifiedContracts/VerifiedContractsList';
 import VerifiedContractsTable from 'ui/verifiedContracts/VerifiedContractsTable';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,
@@ -56,17 +56,17 @@ const VerifiedContracts = () => {
 
   const actionBar = (
     <>
-      <HStack gap={ 3 } mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 gap-3 flex lg:hidden">
         { typeFilter }
         { sortButton }
         { filterInput }
-      </HStack>
+      </div>
       { (!isMobile || pagination.isVisible) && (
         <ActionBar mt={ -6 }>
-          <HStack gap={ 3 } display={{ base: 'none', lg: 'flex' }}>
+          <div className="flex gap-3 hidden lg:flex">
             { typeFilter }
             { filterInput }
-          </HStack>
+          </div>
           <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
@@ -75,17 +75,17 @@ const VerifiedContracts = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <VerifiedContractsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <VerifiedContractsTable data={ data.items } sort={ sort } setSorting={ onSortChange } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   return (
-    <Box>
+    <div>
       <PageTitle
         title={ config.meta.seo.enhancedDataEnabled ? `Verified ${ config.chain.name } contracts` : 'Verified contracts' }
         withTextAd
@@ -103,7 +103,7 @@ const VerifiedContracts = () => {
       >
         { content }
       </DataListDisplay>
-    </Box>
+    </div>
   );
 };
 

@@ -1,12 +1,3 @@
-import {
-  Box,
-  GridItem,
-  Text,
-  Spinner,
-  Flex,
-  chakra,
-  VStack,
-} from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -128,36 +119,36 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
 
   const executionSuccessBadge = toAddress?.is_contract && data.result === 'success' ? (
     <Tooltip content="Contract execution completed">
-      <chakra.span display="inline-flex" ml={ 2 } mr={ 1 }>
-        <IconSvg name="status/success" boxSize={ 4 } color={{ _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' }} cursor="pointer"/>
-      </chakra.span>
+      <span>
+        <IconSvg name="status/success" color={{ _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' }}/>
+      </span>
     </Tooltip>
   ) : null;
   const executionFailedBadge = toAddress?.is_contract && Boolean(data.status) && data.result !== 'success' ? (
     <Tooltip content="Error occurred during contract execution">
-      <chakra.span display="inline-flex" ml={ 2 } mr={ 1 }>
-        <IconSvg name="status/error" boxSize={ 4 } color="text.error" cursor="pointer"/>
-      </chakra.span>
+      <span>
+        <IconSvg name="status/error" color="text.error"/>
+      </span>
     </Tooltip>
   ) : null;
 
   const hasInterop = rollupFeature.isEnabled && rollupFeature.interopEnabled && data.op_interop_messages && data.op_interop_messages.length > 0;
 
   return (
-    <DetailedInfo.Container templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(215px, auto) minmax(0, 1fr)' }}>
+    <DetailedInfo.Container>
 
       { config.features.metasuites.isEnabled && (
         <>
-          <Box display="none" as="p" id="meta-suites__tx-info-label" data-status={ data.status } data-ready={ !isLoading }/>
-          <Box display="none" as="p" id="meta-suites__tx-info-value"/>
-          <DetailedInfo.ItemDivider display="none" as="p" id="meta-suites__details-info-item-divider"/>
+          <p id="meta-suites__tx-info-label" data-status={ data.status } data-ready={ !isLoading }/>
+          <p id="meta-suites__tx-info-value"/>
+          <DetailedInfo.ItemDivider as="p" id="meta-suites__details-info-item-divider"/>
         </>
       ) }
 
       { socketStatus && (
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mb={ 2 }>
+        <div className="lg:col-span-2">
           <TxSocketAlert status={ socketStatus }/>
-        </GridItem>
+        </div>
       ) }
 
       { tacOperations && tacOperations.length > 0 && <TxDetailsTacOperation tacOperations={ tacOperations } isLoading={ isLoading } txHash={ data.hash }/> }
@@ -175,22 +166,22 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         Transaction hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow={ config.features.externalTxs.isEnabled && externalTxsQuery.data && externalTxsQuery.data.length > 0 }>
-        <Flex flexWrap="nowrap" alignItems="center" overflow="hidden">
-          { data.status === null && <Spinner mr={ 2 } size="sm" flexShrink={ 0 }/> }
+        <div>
+          { data.status === null && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4 mr-2 shrink-0"/> }
           <Skeleton loading={ isLoading } className="overflow-hidden">
             <HashStringShortenDynamic hash={ data.hash }/>
           </Skeleton>
           <CopyToClipboard text={ data.hash } isLoading={ isLoading }/>
           { config.features.metasuites.isEnabled && (
             <>
-              <TextSeparator flexShrink={ 0 } display="none" id="meta-suites__tx-explorer-separator"/>
-              <Box display="none" flexShrink={ 0 } id="meta-suites__tx-explorer-link"/>
+              <TextSeparator id="meta-suites__tx-explorer-separator"/>
+              <div id="meta-suites__tx-explorer-link"/>
             </>
           ) }
-        </Flex>
+        </div>
         { config.features.externalTxs.isEnabled && externalTxsQuery.data && externalTxsQuery.data.length > 0 && (
           <Skeleton loading={ isLoading || externalTxsQuery.isPlaceholderData } className="block lg:inline-flex lg:items-center">
-            { !isMobile && <TextSeparator flexShrink={ 0 }/> }
+            { !isMobile && <TextSeparator/> }
             <TxExternalTxs data={ externalTxsQuery.data }/>
           </Skeleton>
         ) }
@@ -232,17 +223,17 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             Withdrawal status
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Flex flexDir="column" rowGap={ 2 }>
+            <div>
               { data.op_withdrawals.map((withdrawal) => (
-                <Box key={ withdrawal.nonce }>
-                  <Box mb={ 2 } py={{ base: '5px', lg: 1 }}>
+                <div key={ withdrawal.nonce }>
+                  <div>
                     <span>Nonce: </span>
-                    <chakra.span fontWeight={ 600 }>{ withdrawal.nonce }</chakra.span>
-                  </Box>
+                    <span>{ withdrawal.nonce }</span>
+                  </div>
                   <TxDetailsWithdrawalStatusOptimistic data={ withdrawal } txHash={ data.hash } from={ data.from }/>
-                </Box>
+                </div>
               )) }
-            </Flex>
+            </div>
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -291,7 +282,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           >
             Revert reason
           </DetailedInfo.ItemLabel>
-          <DetailedInfo.ItemValue flexWrap="wrap" mt={{ base: '5px', lg: '4px' }}>
+          <DetailedInfo.ItemValue>
             <TxRevertReason { ...data.revert_reason }/>
           </DetailedInfo.ItemValue>
         </>
@@ -323,7 +314,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue multiRow={ Boolean(data.scroll?.l2_block_status) }>
         { data.block_number === null ?
-          <Text>Pending</Text> : (
+          <span>Pending</span> : (
             <BlockEntity
               isLoading={ isLoading }
               number={ data.block_number }
@@ -409,12 +400,12 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           <DetailedInfo.ItemValue multiRow>
             <DetailedInfoTimestamp timestamp={ data.timestamp } isLoading={ isLoading }/>
             { data.confirmation_duration && (
-              <Flex alignItems="center">
-                <TextSeparator hideBelow="lg"/>
+              <div>
+                <TextSeparator className="hidden lg:block"/>
                 <Skeleton loading={ isLoading } color="text.secondary">
                   <span>{ getConfirmationDuration(data.confirmation_duration) }</span>
                 </Skeleton>
-              </Flex>
+              </div>
             ) }
           </DetailedInfo.ItemValue>
         </>
@@ -453,16 +444,16 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       >
         From
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue columnGap={ 3 }>
+      <DetailedInfo.ItemValue>
         <AddressEntity
           address={ data.from }
           isLoading={ isLoading }
         />
-        { data.from.name && <Text>{ data.from.name }</Text> }
+        { data.from.name && <span>{ data.from.name }</span> }
         { addressFromTags.length > 0 && (
-          <Flex columnGap={ 3 }>
+          <div>
             { addressFromTags }
-          </Flex>
+          </div>
         ) }
       </DetailedInfo.ItemValue>
 
@@ -473,22 +464,20 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
         { data.to?.is_contract ? 'Interacted with contract' : 'To' }
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-        columnGap={ 3 }
       >
         { toAddress ? (
           <>
             { data.to && data.to.hash ? (
-              <Flex flexWrap="nowrap" alignItems="center" maxW="100%">
+              <div>
                 <AddressEntity
                   address={ toAddress }
                   isLoading={ isLoading }
                 />
                 { executionSuccessBadge }
                 { executionFailedBadge }
-              </Flex>
+              </div>
             ) : (
-              <Flex width="100%" whiteSpace="pre" alignItems="center" flexShrink={ 0 }>
+              <div width="100%">
                 <span>[Contract </span>
                 <AddressEntity
                   address={ toAddress }
@@ -498,12 +487,12 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 <span>created]</span>
                 { executionSuccessBadge }
                 { executionFailedBadge }
-              </Flex>
+              </div>
             ) }
             { addressToTags.length > 0 && (
-              <Flex columnGap={ 3 }>
+              <div>
                 { addressToTags }
-              </Flex>
+              </div>
             ) }
           </>
         ) : (
@@ -524,7 +513,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             Interop target
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <VStack gap={ 2 } w="100%" overflow="hidden" alignItems="flex-start">
+            <div>
               { data.op_interop_messages
                 .filter((message) => message.target_address_hash)
                 .map((message) => {
@@ -540,7 +529,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                     <AddressEntity address={{ hash: message.target_address_hash }} isLoading={ isLoading } truncation="dynamic" w="100%"/>
                   );
                 }) }
-            </VStack>
+            </div>
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -589,7 +578,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           >
             Sequence tx hash
           </DetailedInfo.ItemLabel>
-          <DetailedInfo.ItemValue flexWrap="nowrap">
+          <DetailedInfo.ItemValue>
             <Skeleton loading={ isLoading } className="overflow-hidden">
               <HashStringShortenDynamic hash={ data.zkevm_sequence_hash }/>
             </Skeleton>
@@ -606,7 +595,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
           >
             Verify tx hash
           </DetailedInfo.ItemLabel>
-          <DetailedInfo.ItemValue flexWrap="nowrap">
+          <DetailedInfo.ItemValue>
             <Skeleton loading={ isLoading } className="overflow-hidden">
               <HashStringShortenDynamic hash={ data.zkevm_verify_hash }/>
             </Skeleton>
@@ -704,7 +693,6 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             <Skeleton loading={ isLoading }>{ BigNumber(data.arbitrum.gas_used_for_l1 || 0).toFormat() }</Skeleton>
             <TextSeparator/>
             <Utilization
-              ml={ 4 }
               value={ BigNumber(data.arbitrum.gas_used_for_l1 || 0).dividedBy(BigNumber(data.gas_used)).toNumber() }
               isLoading={ isLoading }
             />
@@ -720,7 +708,6 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             <Skeleton loading={ isLoading }>{ BigNumber(data.arbitrum.gas_used_for_l2 || 0).toFormat() }</Skeleton>
             <TextSeparator/>
             <Utilization
-              ml={ 4 }
               value={ BigNumber(data.arbitrum.gas_used_for_l2 || 0).dividedBy(BigNumber(data.gas_used)).toNumber() }
               isLoading={ isLoading }
             />
@@ -805,7 +792,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 { layerLabels.parent } gas used by txn
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
-                <Text>{ BigNumber(data.l1_gas_used).toFormat() }</Text>
+                <span>{ BigNumber(data.l1_gas_used).toFormat() }</span>
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -856,7 +843,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 { layerLabels.parent } fee scalar
               </DetailedInfo.ItemLabel>
               <DetailedInfo.ItemValue>
-                <Text>{ data.l1_fee_scalar }</Text>
+                <span>{ data.l1_fee_scalar }</span>
               </DetailedInfo.ItemValue>
             </>
           ) }
@@ -865,7 +852,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
       <TxInfoScrollFees data={ data } isLoading={ isLoading }/>
 
       <CollapsibleDetails loading={ isLoading } className="mt-6 lg:col-span-2" isExpanded={ isExpanded } onClick={ handleCutLinkClick }>
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
+        <div className="lg:col-span-2"/>
 
         <TxDetailsSetMaxGasLimit data={ data }/>
 
@@ -919,7 +906,6 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                       unitsTooltip="wei"
                       noSymbol
                       loading={ isLoading }
-                      fontWeight="600"
                     />
                   ) }
                   { (data.max_fee_per_blob_gas && data.blob_gas_price) && <TextSeparator/> }
@@ -931,7 +917,6 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                       noSymbol
                       loading={ isLoading }
                       startElement="Max: "
-                      fontWeight="600"
                     />
                   ) }
                 </DetailedInfo.ItemValue>
@@ -945,7 +930,6 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
 
         <DetailedInfo.ItemLabel
           hint="Binary data included with the transaction. See logs tab for additional info"
-          mb={{ base: 1, lg: 0 }}
         >
           Raw input
         </DetailedInfo.ItemLabel>
@@ -960,7 +944,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
             >
               Decoded input data
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue flexWrap="wrap" mt={{ base: '5px', lg: '4px' }}>
+            <DetailedInfo.ItemValue>
               <LogDecodedInputData data={ data.decoded_input }/>
             </DetailedInfo.ItemValue>
           </>

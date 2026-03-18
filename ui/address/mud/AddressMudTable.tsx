@@ -1,4 +1,3 @@
-import { Box, HStack, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -81,7 +80,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
   }
 
   const filtersTags = hasActiveFilters ? (
-    <HStack gap={ 3 } mb={ 1 } flexWrap="wrap">
+    <div className="flex flex-row" gap={ 3 } mb={ 1 } flexWrap="wrap">
       { Object.entries(filters).map(([ key, value ]) => {
         const index = key as FilterKeys === 'filter_key0' ? 0 : 1;
         return (
@@ -97,7 +96,7 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
           </Tag>
         );
       }) }
-    </HStack>
+    </div>
   ) : null;
 
   const breadcrumbs = data ? (
@@ -111,10 +110,10 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
 
   const actionBar = (!isMobile || hasActiveFilters || pagination.isVisible) && (
     <ActionBar mt={ -6 } showShadow={ tableHasHorizontalScroll } justifyContent="space-between" alignItems={ hasActiveFilters ? 'start' : 'center' }>
-      <Box>
+      <div>
         { !isMobile && breadcrumbs }
         { filtersTags }
-      </Box>
+      </div>
       <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>
   );
@@ -134,15 +133,15 @@ const AddressMudTable = ({ tableId, isQueryEnabled = true }: Props) => {
 
   const emptyText = (
     <>
-      <chakra.span>There are no records for </chakra.span>
-      { data?.table.table_full_name ? <chakra.span fontWeight={ 600 }>{ data?.table.table_full_name }</chakra.span> : 'this table' }
+      <span>There are no records for </span>
+      { data?.table.table_full_name ? <span fontWeight={ 600 }>{ data?.table.table_full_name }</span> : 'this table' }
     </>
   );
 
   return (
     <>
       { isMobile && (
-        <Box mb={ 6 }>{ breadcrumbs }</Box>
+        <div mb={ 6 }>{ breadcrumbs }</div>
       ) }
       <DataListDisplay
         isError={ isError }

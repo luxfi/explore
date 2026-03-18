@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { Channel } from 'phoenix';
@@ -101,7 +100,7 @@ const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => 
         />
       ) }
       { !mainContractQuery.data?.is_verified && multichainContext && (
-        <Grid templateColumns={{ base: 'auto 1fr', lg: 'auto 1fr auto 1fr' }} rowGap={ 4 } columnGap={ 3 } mb={ 8 } _empty={{ display: 'none' }}>
+        <div className="grid" templateColumns={{ base: 'auto 1fr', lg: 'auto 1fr auto 1fr' }} rowGap={ 4 } columnGap={ 3 } mb={ 8 } _empty={{ display: 'none' }}>
           { addressData.creator_address_hash && addressData.creation_transaction_hash && (
             <ContractDetailsInfoCreator
               addressHash={ addressData.creator_address_hash }
@@ -116,7 +115,7 @@ const ContractDetails = ({ addressData, channel, mainContractQuery }: Props) => 
               proxyType={ addressData.proxy_type }
             />
           ) }
-        </Grid>
+        </div>
       ) }
       <RoutedTabs
         tabs={ tabs }

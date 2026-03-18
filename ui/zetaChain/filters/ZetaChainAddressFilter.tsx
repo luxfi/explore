@@ -1,4 +1,3 @@
-import { Flex, VStack } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import type { ChangeEvent } from 'react';
 import React from 'react';
@@ -38,7 +37,7 @@ type InputProps = {
 
 const AddressFilterInput = ({ address, onChange, onClear, isLast, onAddFieldClick, placeholder }: InputProps) => {
   return (
-    <Flex alignItems="center" w="100%">
+    <div className="flex w-full">
       <InputGroup
         className="grow"
         endElement={ <ClearButton onClick={ onClear } className="mx-2" disabled={ !address }/> }
@@ -51,7 +50,7 @@ const AddressFilterInput = ({ address, onChange, onClear, isLast, onAddFieldClic
           onClick={ onAddFieldClick }
         />
       ) }
-    </Flex>
+    </div>
   );
 };
 
@@ -82,7 +81,6 @@ const ChainSelect = ({ chainsConfig, value, onValueChange, ...props }: ChainSele
       value={ formattedValue }
       onValueChange={ handleValueChange }
       size="sm"
-      w="full"
       positioning={{
         sameWidth: true,
         offset: { mainAxis: 4 },
@@ -171,14 +169,14 @@ const ZetaChainAddressFilter = ({
       onReset={ onReset }
       hasReset
     >
-      <VStack gap={ 3 } align="stretch">
+      <div className="flex flex-col gap-3">
         <ChainSelect
           value={ currentChainValue }
           onValueChange={ handleChainChange }
           chainsConfig={ chains }
           loading={ isChainsLoading }
         />
-        <VStack gap={ 2 } align="stretch">
+        <div className="flex flex-col gap-3">
           { currentValue.map((item, index) => (
             <AddressFilterInput
               key={ index }
@@ -190,8 +188,8 @@ const ZetaChainAddressFilter = ({
               placeholder={ placeholder }
             />
           )) }
-        </VStack>
-      </VStack>
+        </div>
+      </div>
     </TableColumnFilter>
   );
 };

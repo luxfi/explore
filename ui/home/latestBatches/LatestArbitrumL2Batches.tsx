@@ -1,4 +1,3 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 // import { AnimatePresence } from 'framer-motion';
 import React from 'react';
@@ -68,7 +67,7 @@ const LatestArbitrumL2Batches = () => {
 
       return (
         <>
-          <VStack gap={ 2 } mb={ 3 } overflow="hidden" alignItems="stretch">
+          <div className="flex flex-col gap-2 mb-3 overflow-hidden items-stretch">
             { dataToShow.map(((batch, index) => (
               <LatestBatchItem
                 key={ batch.number + (isPlaceholderData ? String(index) : '') }
@@ -79,21 +78,21 @@ const LatestArbitrumL2Batches = () => {
                 animation={ initialList.getAnimationProp(batch) }
               />
             ))) }
-          </VStack>
-          <Flex justifyContent="center">
+          </div>
+          <div className="flex justify-center">
             <Link className="text-sm" href={ route({ pathname: '/batches' }) }>View all batches</Link>
-          </Flex>
+          </div>
         </>
       );
     }
-    return <Box textStyle="sm">No latest batches found.</Box>;
+    return <p className="text-sm">No latest batches found.</p>;
   })();
 
   return (
-    <Box width={{ base: '100%', lg: '280px' }} flexShrink={ 0 }>
+    <div className="w-full lg:w-[280px] shrink-0">
       <Heading level="3" className="mb-3">Latest batches</Heading>
       { content }
-    </Box>
+    </div>
   );
 };
 

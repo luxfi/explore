@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ColorMode } from '../../../../chakra/color-mode';
@@ -15,7 +14,7 @@ interface Props {
   colorMode?: ColorMode;
 }
 
-export const FormFieldImagePreview = chakra(React.memo(({
+export const FormFieldImagePreview = React.memo(({
   src,
   isInvalid,
   onError,
@@ -46,4 +45,4 @@ export const FormFieldImagePreview = chakra(React.memo(({
       onLoad={ onLoad }
     />
   );
-}));
+});

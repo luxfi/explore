@@ -1,7 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { getCurrentChain, getCurrentNetwork, getChainsForNetwork } from 'configs/app/chainRegistry';
+import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 
@@ -28,25 +28,15 @@ const ChainSwitcher = () => {
       onOpenChange={ handleOpenChange }
     >
       <PopoverTrigger>
-        <Box
-          as="button"
-          display="flex"
-          alignItems="center"
-          gap={ 1.5 }
-          px={ 2 }
-          py={ 1 }
-          borderRadius="sm"
-          cursor="pointer"
-          border="1px solid"
-          borderColor="border.divider"
-          fontSize="xs"
-          fontWeight={ 500 }
-          color="text.primary"
-          bg="transparent"
-          _hover={{ bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
-          transition="all 0.15s"
+        <button
+          className={cn(
+            'flex items-center gap-1.5 px-2 py-1 rounded-sm cursor-pointer',
+            'border border-[var(--color-border-divider)] text-xs font-medium',
+            'text-[var(--color-text-primary)] bg-transparent shrink-0',
+            'hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+            'transition-all duration-150',
+          )}
           onClick={ handleToggle }
-          flexShrink={ 0 }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,35 +54,29 @@ const ChainSwitcher = () => {
               clipRule="evenodd"
             />
           </svg>
-        </Box>
+        </button>
       </PopoverTrigger>
       <PopoverContent w="240px">
         <PopoverBody className="p-1">
-          <Box px={ 2 } py={ 1.5 }>
-            <Text fontSize="xs" fontWeight={ 600 } color="text.secondary" textTransform="uppercase" letterSpacing="wider">
+          <div className="px-2 py-1.5">
+            <span className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">
               Switch Chain
-            </Text>
-          </Box>
+            </span>
+          </div>
           { chains.map((chain) => {
             const isCurrent = chain.name === current.name && chain.network === current.network;
             return (
-              <Box
+              <a
                 key={ `${ chain.network }-${ chain.name }` }
-                as={ isCurrent ? 'div' : 'a' }
                 { ...(!isCurrent ? { href: chain.explorerUrl } : {}) }
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                px={ 2.5 }
-                py={ 2 }
-                borderRadius="sm"
-                cursor={ isCurrent ? 'default' : 'pointer' }
-                bg={ isCurrent ? { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } : 'transparent' }
-                _hover={ isCurrent ? {} : { bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } } }
-                transition="background 0.15s"
-                textDecoration="none"
+                className={ cn(
+                  'flex items-center justify-between px-2.5 py-2 rounded-sm no-underline transition-[background] duration-150',
+                  isCurrent
+                    ? 'cursor-default bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]'
+                    : 'cursor-pointer bg-transparent hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+                ) }
               >
-                <Flex alignItems="center" gap={ 2 }>
+                <div className="flex items-center gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox={ chain.branding.logoViewBox }
@@ -101,34 +85,26 @@ const ChainSwitcher = () => {
                     style={{ flexShrink: 0 }}
                     dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
                   />
-                  <Flex direction="column">
-                    <Text fontSize="sm" fontWeight={ isCurrent ? 600 : 400 } color="text.primary">
+                  <div className="flex flex-col">
+                    <span className={ cn('text-sm text-[var(--color-text-primary)]', isCurrent ? 'font-semibold' : 'font-normal') }>
                       { chain.branding.brandName }
-                    </Text>
-                    <Text fontSize="xs" color="text.secondary">
+                    </span>
+                    <span className="text-xs text-[var(--color-text-secondary)]">
                       { chain.label }
-                    </Text>
-                  </Flex>
-                </Flex>
-                <Box
-                  bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
-                  color="text.secondary"
-                  borderRadius="sm"
-                  px={ 1.5 }
-                  py={ 0.5 }
-                  fontSize="2xs"
-                  fontFamily="mono"
-                >
+                    </span>
+                  </div>
+                </div>
+                <span className="bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-1.5 py-0.5 text-[10px] font-mono">
                   { chain.vm }
-                </Box>
-              </Box>
+                </span>
+              </a>
             );
           }) }
-          <Box px={ 2 } py={ 1.5 } borderTop="1px solid" borderColor="border.divider" mt={ 1 }>
+          <div className="px-2 py-1.5 border-t border-[var(--color-border-divider)] mt-1">
             <Link href="/chains" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]" variant="plain">
               View all chains
             </Link>
-          </Box>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

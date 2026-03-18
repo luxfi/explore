@@ -1,4 +1,3 @@
-import { chakra, Text } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -76,11 +75,11 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
-        <Text>Account email, used for transaction notifications from your watchlist.</Text>
+        <p>Account email, used for transaction notifications from your watchlist.</p>
         <FormFieldEmail<EmailFormFields>
           name="email"
           required
@@ -97,7 +96,7 @@ const AuthModalScreenEmail = ({ onSubmit, isAuth, mixpanelConfig }: Props) => {
         >
           Send a code
         </Button>
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

@@ -1,4 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from '@luxfi/interchain-indexer-types';
@@ -13,7 +12,7 @@ import AssetValue from './AssetValue';
 interface Props extends Omit<AssetValueProps, 'asset'> {
   token: TokenInfo;
   chain: ExternalChain | undefined;
-  tokenEntityProps?: Omit<TokenEntityProps, 'token'> & BoxProps;
+  tokenEntityProps?: Omit<TokenEntityProps, 'token'>;
 }
 
 const TokenValueInterchain = ({ token, tokenEntityProps, chain, ...rest }: Props) => {

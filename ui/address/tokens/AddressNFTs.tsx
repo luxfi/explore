@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NFTTokenType } from 'types/api/token';
@@ -35,7 +34,7 @@ const AddressNFTs = ({ tokensQuery, tokenTypes, onTokenTypesChange }: Props) => 
   );
 
   const content = data?.items ? (
-    <Grid
+    <div className="grid"
       w="100%"
       columnGap={{ base: 3, lg: 6 }}
       rowGap={{ base: 3, lg: 6 }}
@@ -54,7 +53,7 @@ const AddressNFTs = ({ tokensQuery, tokenTypes, onTokenTypesChange }: Props) => 
           />
         );
       }) }
-    </Grid>
+    </div>
   ) : null;
 
   return (

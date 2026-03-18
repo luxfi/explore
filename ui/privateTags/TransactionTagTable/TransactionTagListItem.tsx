@@ -1,4 +1,3 @@
-import { HStack, Text, Flex } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { TransactionTag } from 'types/api/account';
@@ -26,18 +25,18 @@ const TransactionTagListItem = ({ item, isLoading, onEditClick, onDeleteClick }:
 
   return (
     <ListItemMobile>
-      <Flex alignItems="flex-start" flexDirection="column" maxW="100%">
+      <div className="flex flex-col items-start max-w-full">
         <TxEntity
           hash={ item.transaction_hash }
           isLoading={ isLoading }
           fontWeight={ 600 }
           maxW="100%"
         />
-        <HStack gap={ 3 } mt={ 4 }>
-          <Text textStyle="sm" fontWeight={ 500 }>Private tag</Text>
+        <div className="flex mt-4 gap-3">
+          <span className="font-medium">Private tag</span>
           <Tag loading={ isLoading } truncated>{ item.name }</Tag>
-        </HStack>
-      </Flex>
+        </div>
+      </div>
       <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
     </ListItemMobile>
   );

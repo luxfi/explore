@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo, TokenInstance } from 'types/api/token';
@@ -75,7 +74,7 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
   };
 
   const titleSecondRow = (
-    <Flex alignItems="center" w="100%" minW={ 0 } columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <div>
       { token && (
         <TokenEntity
           token={ token }
@@ -85,7 +84,6 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
           jointSymbol
           variant="subheading"
           w="auto"
-          maxW="700px"
           chain={ multichainContext?.chain }
         />
       ) }
@@ -93,7 +91,7 @@ const TokenInstancePageTitle = ({ isLoading, token, instance, hash }: Props) => 
       <AddressQrCode hash={ address.hash } isLoading={ isLoading }/>
       <AccountActionsMenu isLoading={ isLoading } showUpdateMetadataItem/>
       { appLink }
-    </Flex>
+    </div>
   );
 
   return (

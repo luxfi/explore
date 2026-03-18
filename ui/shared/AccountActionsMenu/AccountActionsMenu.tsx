@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -64,9 +63,9 @@ const AccountActionsMenu = ({ isLoading, className, showUpdateMetadataItem }: Pr
 
   if (items.length === 1) {
     return (
-      <Box className={ className }>
+      <div className={ className }>
         { items[0].render({ type: 'button', hash }) }
-      </Box>
+      </div>
     );
   }
 
@@ -88,4 +87,4 @@ const AccountActionsMenu = ({ isLoading, className, showUpdateMetadataItem }: Pr
   );
 };
 
-export default React.memo(chakra(AccountActionsMenu));
+export default React.memo(AccountActionsMenu);

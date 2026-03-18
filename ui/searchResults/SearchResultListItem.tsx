@@ -1,4 +1,3 @@
-import { chakra, Flex, Grid, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import xss from 'xss';
 
@@ -64,7 +63,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
         const name = data.name + (data.symbol ? ` (${ data.symbol })` : '');
 
         return (
-          <Flex alignItems="center" overflow="hidden">
+          <div className="flex items-center overflow-hidden">
             <TokenEntity.Icon token={{ ...data, type: data.token_type }} isLoading={ isLoading }/>
             <Link
               href={ route({ pathname: '/token/[hash]', query: { hash: data.address_hash } }) }
@@ -82,7 +81,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 }/> }
             { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" boxSize={ 4 } ml={ 1 } color="green.500"/> }
             { data.reputation && <TokenEntity.Reputation value={ data.reputation }/> }
-          </Flex>
+          </div>
         );
       }
 
@@ -125,7 +124,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
 
       case 'label': {
         return (
-          <Flex alignItems="center">
+          <div className="flex items-center">
             <IconSvg name="publictags" boxSize={ 6 } mr={ 2 } color="icon.primary"/>
             <Link
               href={ route({ pathname: '/address/[hash]', query: { hash: data.address_hash } }) }
@@ -135,14 +134,14 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             >
               <span dangerouslySetInnerHTML={{ __html: highlightText(data.name, searchTerm) }}/>
             </Link>
-          </Flex>
+          </div>
         );
       }
 
       case 'app': {
         const title = <span dangerouslySetInnerHTML={{ __html: highlightText(data.app.title, searchTerm) }}/>;
         return (
-          <Flex alignItems="center">
+          <div className="flex items-center">
             <Image
               borderRadius="base"
               boxSize={ 6 }
@@ -161,7 +160,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             >
               { title }
             </Link>
-          </Flex>
+          </div>
         );
       }
 
@@ -310,11 +309,9 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               loading={ isLoading }
               onClick={ handleLinkClick }
             >
-              <Box
+              <div
                 dangerouslySetInnerHTML={{ __html: highlightText(data.ens_info.name, searchTerm) }}
-                whiteSpace="nowrap"
-                overflow="hidden"
-                textOverflow="ellipsis"
+                className="whitespace-nowrap overflow-hidden text-ellipsis"
               />
             </Link>
           </EnsEntity.Container>
@@ -331,18 +328,18 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
         const hash = data.filecoin_robust_address || (addressFormat === 'bech32' ? toBech32Address(data.address_hash) : data.address_hash);
 
         return (
-          <Grid templateColumns={ templateCols } alignItems="center" gap={ 2 }>
+          <div className="grid items-center gap-2" style={{ gridTemplateColumns: templateCols }}>
             <Skeleton loading={ isLoading } overflow="hidden" display="flex" alignItems="center">
-              <Text whiteSpace="nowrap" overflow="hidden">
+              <span className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ hash } noTooltip/>
-              </Text>
+              </span>
               { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
             </Skeleton>
             <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={ 700 }>
               { data.token_type === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
               { data.token_type !== 'ERC-20' && data.total_supply && `Items ${ Number(data.total_supply).toLocaleString() }` }
             </Skeleton>
-          </Grid>
+          </div>
         );
       }
       case 'block': {
@@ -389,19 +386,19 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
         const hash = data.filecoin_robust_address || (addressFormat === 'bech32' ? toBech32Address(data.address_hash) : data.address_hash);
 
         return (
-          <Flex alignItems="center">
-            <Box overflow="hidden">
+          <div className="flex items-center">
+            <div className="overflow-hidden">
               <HashStringShortenDynamic hash={ hash }/>
-            </Box>
+            </div>
             { data.is_smart_contract_verified && <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 } flexShrink={ 0 }/> }
-          </Flex>
+          </div>
         );
       }
       case 'app': {
         return (
-          <Text lineClamp={ 3 }>
+          <p className="line-clamp-3">
             { data.app.description }
-          </Text>
+          </p>
         );
       }
       case 'metadata_tag':
@@ -412,28 +409,24 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
         const expiresText = data.ens_info?.expiry_date ? ` (expires ${ dayjs(data.ens_info.expiry_date).fromNow() })` : '';
 
         return (addressName || data.type === 'metadata_tag') ? (
-          <Flex alignItems="center" gap={ 2 } justifyContent="space-between" flexWrap="wrap">
+          <div className="flex items-center gap-2 justify-between flex-wrap">
             { addressName && (
-              <Flex alignItems="center">
-                <Text
-                  overflow="hidden"
-                  whiteSpace="nowrap"
-                  textOverflow="ellipsis"
-                >
+              <div className="flex items-center">
+                <span className="overflow-hidden whitespace-nowrap text-ellipsis">
                   <span dangerouslySetInnerHTML={{ __html: shouldHighlightHash ? xss(addressName) : highlightText(addressName, searchTerm) }}/>
                   { data.ens_info && (
                     data.ens_info.names_count > 1 ?
-                      <chakra.span color="text.secondary"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</chakra.span> :
-                      <chakra.span color="text.secondary">{ expiresText }</chakra.span>
+                      <span className="text-[var(--color-text-secondary)]"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span> :
+                      <span className="text-[var(--color-text-secondary)]">{ expiresText }</span>
                   ) }
-                </Text>
+                </span>
                 { data.certified && <ContractCertifiedLabel iconSize={ 4 } boxSize={ 4 } ml={ 1 }/> }
-              </Flex>
+              </div>
             ) }
             { data.type === 'metadata_tag' && (
               <SearchResultEntityTag metadata={ data.metadata } addressHash={ data.address_hash } searchTerm={ searchTerm }/>
             ) }
-          </Flex>
+          </div>
         ) :
           null;
       }
@@ -442,18 +435,18 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
         const hash = data.filecoin_robust_address || (addressFormat === 'bech32' && data.address_hash ? toBech32Address(data.address_hash) : data.address_hash);
 
         return (
-          <Flex alignItems="center" gap={ 3 }>
+          <div className="flex items-center gap-3">
             { hash && (
-              <Box overflow="hidden">
+              <div className="overflow-hidden">
                 <HashStringShortenDynamic hash={ hash }/>
-              </Box>
+              </div>
             ) }
             {
               data.ens_info.names_count > 1 ?
-                <chakra.span color="text.secondary"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</chakra.span> :
-                <chakra.span color="text.secondary">{ expiresText }</chakra.span>
+                <span className="text-[var(--color-text-secondary)]"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span> :
+                <span className="text-[var(--color-text-secondary)]">{ expiresText }</span>
             }
-          </Flex>
+          </div>
         );
       }
 
@@ -466,16 +459,16 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
 
   return (
     <ListItemMobile py={ 3 } textStyle="sm" rowGap={ 2 }>
-      <Grid templateColumns="1fr auto" w="100%" overflow="hidden">
+      <div className="grid w-full overflow-hidden" style={{ gridTemplateColumns: '1fr auto' }}>
         { firstRow }
         <Skeleton loading={ isLoading } color="text.secondary" ml={ 8 } textTransform="capitalize">
           <span>{ category ? searchItemTitles[category].itemTitleShort : '' }</span>
         </Skeleton>
-      </Grid>
+      </div>
       { Boolean(secondRow) && (
-        <Box w="100%" overflow="hidden" whiteSpace={ data.type !== 'app' ? 'nowrap' : undefined }>
+        <div className={ `w-full overflow-hidden ${ data.type !== 'app' ? 'whitespace-nowrap' : '' }` }>
           { secondRow }
-        </Box>
+        </div>
       ) }
     </ListItemMobile>
   );

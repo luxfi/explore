@@ -1,10 +1,9 @@
-import { Flex, Box, HStack, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { getCurrentChain } from 'configs/app/chainRegistry';
+import { getCurrentChain, isChainSelectorEnabled, isNetworkSelectorEnabled } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
@@ -15,7 +14,7 @@ import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 import ChainSwitcher from './ChainSwitcher';
 import NetworkSelector from './NetworkSelector';
 
-// ── Nav link ──
+// -- Nav link --
 
 interface NavLinkProps {
   readonly text: string;
@@ -37,7 +36,7 @@ const NavLinkItem = ({ text, href, isActive }: NavLinkProps) => (
   </Link>
 );
 
-// ── Blockchain sub-menu items ──
+// -- Blockchain sub-menu items --
 
 const BLOCKCHAIN_ITEMS = [
   { text: 'Blocks', pathname: '/blocks' as const },
@@ -47,7 +46,7 @@ const BLOCKCHAIN_ITEMS = [
   { text: 'Verified Contracts', pathname: '/verified-contracts' as const },
 ] as const;
 
-// ── Main component ──
+// -- Main component --
 
 const TopBar = () => {
   const router = useRouter();
@@ -61,38 +60,19 @@ const TopBar = () => {
     pathname === '/verified-contracts';
 
   return (
-    <Box
-      bgColor={{ _light: 'rgba(255, 255, 255, 0.97)', _dark: 'rgba(16, 17, 18, 0.97)' }}
-      position="sticky"
-      top={ 0 }
-      left={ 0 }
-      width="100%"
-      maxWidth="100vw"
-      zIndex="sticky"
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      backdropFilter="blur(16px)"
+    <div
+      className="sticky top-0 left-0 w-full max-w-[100vw] z-sticky border-b border-[var(--color-border-divider)] backdrop-blur-[16px] bg-[rgba(255,255,255,0.97)] dark:bg-[rgba(16,17,18,0.97)]"
     >
-      <Flex
-        py={ 2 }
-        px={{ base: 3, lg: 6 }}
-        m="0 auto"
-        alignItems="center"
-        maxW={ `${ CONTENT_MAX_WIDTH }px` }
-        gap={ 1 }
+      <div
+        className="flex py-2 px-3 lg:px-6 mx-auto items-center gap-1"
+        style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
       >
-        { /* ── Logo + Brand + Chain/Network selectors (grouped) ── */ }
-        <Flex alignItems="center" gap={ 1.5 } flexShrink={ 0 }>
-          <chakra.a
+        { /* -- Logo + Brand + Chain/Network selectors (grouped) -- */ }
+        <div className="flex items-center gap-1.5 shrink-0">
+          <a
             href={ route({ pathname: '/' as const }) }
-            display="flex"
-            alignItems="center"
-            gap="6px"
-            flexShrink={ 0 }
+            className="flex items-center gap-[6px] shrink-0 no-underline hover:no-underline hover:opacity-80 transition-opacity duration-150"
             aria-label={ `${ chain.branding.brandName } home` }
-            textDecoration="none"
-            _hover={{ textDecoration: 'none', opacity: 0.8 }}
-            transition="opacity 0.15s"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -101,61 +81,46 @@ const TopBar = () => {
               height="18"
               dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
             />
-            <chakra.span
-              fontWeight={ 700 }
-              fontSize="sm"
-              letterSpacing="-0.02em"
-              whiteSpace="nowrap"
-              color="text.primary"
-            >
+            <span className="font-bold text-sm tracking-[-0.02em] whitespace-nowrap text-[var(--color-text-primary)]">
               { chain.branding.brandName }
-            </chakra.span>
-          </chakra.a>
+            </span>
+          </a>
 
-          { /* Chain & Network selectors — directly next to brand name */ }
-          <NetworkSelector/>
-          <ChainSwitcher/>
-        </Flex>
+          { /* Chain & Network selectors (hidden in white-label mode unless explicitly enabled) */ }
+          { isNetworkSelectorEnabled() && <NetworkSelector/> }
+          { isChainSelectorEnabled() && <ChainSwitcher/> }
+        </div>
 
-        { /* ── Divider ── */ }
-        <Box h="16px" w="1px" bgColor="border.divider" flexShrink={ 0 } mx={ 1 }/>
+        { /* -- Divider -- */ }
+        <div className="h-4 w-px bg-[var(--color-border-divider)] shrink-0 mx-1"/>
 
-        { /* ── Navigation (no Home — logo click does that) ── */ }
-        <HStack as="nav" gap={ 0 } display={{ base: 'none', lg: 'flex' }} flexShrink={ 0 }>
+        { /* -- Navigation -- */ }
+        <nav className="hidden lg:flex items-center gap-0 shrink-0">
           { /* Blockchain dropdown */ }
           <MenuRoot>
             <MenuTrigger asChild>
-              <chakra.button
-                px={ 2 }
-                py={ 1 }
-                textStyle="xs"
-                fontWeight={ isBlockchainActive ? 600 : 500 }
-                borderRadius="sm"
-                color={ isBlockchainActive ? 'text.primary' : 'text.secondary' }
-                _hover={{ color: 'text.primary', bg: { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }}
-                cursor="pointer"
-                transition="all 0.15s"
-                display="flex"
-                alignItems="center"
-                gap={ 0.5 }
-                bg="transparent"
-                border="none"
+              <button
+                className={ cn(
+                  'px-2 py-1 text-xs rounded-sm cursor-pointer transition-all duration-150',
+                  'flex items-center gap-0.5 bg-transparent border-none',
+                  'hover:text-[var(--color-text-primary)] hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+                  isBlockchainActive ? 'font-semibold text-[var(--color-text-primary)]' : 'font-medium text-[var(--color-text-secondary)]',
+                ) }
               >
                 Blockchain
-                <chakra.svg
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  w="14px"
-                  h="14px"
+                  className="w-[14px] h-[14px]"
                 >
                   <path
                     fillRule="evenodd"
                     d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
                     clipRule="evenodd"
                   />
-                </chakra.svg>
-              </chakra.button>
+                </svg>
+              </button>
             </MenuTrigger>
             <MenuContent minW="180px">
               { BLOCKCHAIN_ITEMS.map((item) => (
@@ -201,22 +166,22 @@ const TopBar = () => {
             href={ route({ pathname: '/dex' as const }) }
             isActive={ pathname === '/dex' }
           />
-        </HStack>
+        </nav>
 
-        { /* ── Search bar (center, flexible) ── */ }
-        <Box flex={ 1 } mx={ 2 } display={{ base: 'none', lg: 'block' }} maxW="480px">
+        { /* -- Search bar (center, flexible) -- */ }
+        <div className="flex-1 mx-2 hidden lg:block max-w-[480px]">
           <SearchBar isHeroBanner={ false }/>
-        </Box>
+        </div>
 
-        { /* ── Spacer ── */ }
-        <Box flex={ 1 } display={{ base: 'block', lg: 'none' }}/>
+        { /* -- Spacer -- */ }
+        <div className="flex-1 block lg:hidden"/>
 
-        { /* ── User profile / Sign in ── */ }
-        <Box flexShrink={ 0 } ml="auto">
+        { /* -- User profile / Sign in -- */ }
+        <div className="shrink-0 ml-auto">
           <UserProfileDesktop buttonSize="sm"/>
-        </Box>
-      </Flex>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

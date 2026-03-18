@@ -1,4 +1,3 @@
-import { Box, Fieldset, Flex, HStack, Text, chakra, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as bens from '@luxfi/bens-types';
@@ -18,6 +17,7 @@ import Sort from 'ui/shared/sort/Sort';
 
 import type { Sort as TSort } from './utils';
 import { SORT_OPTIONS } from './utils';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({ items: SORT_OPTIONS });
 
@@ -75,7 +75,7 @@ const NameDomainsActionBar = ({
     onFilterValueChange(value as EnsDomainLookupFiltersOptions);
   }, [ onFilterValueChange ]);
 
-  const filterGroupDivider = <Box w="100%" borderBottomWidth="1px" borderBottomColor="border.divider" my={ 4 }/>;
+  const filterGroupDivider = <div className="w-full my-4 border-b border-b-[var(--color-border-divider)]"/>;
 
   const appliedFiltersNum = filterValue.length + (protocolsData && protocolsData.length > 1 ? protocolsFilterValue.length : 0);
 
@@ -84,8 +84,8 @@ const NameDomainsActionBar = ({
       <div>
         { protocolsData && protocolsData.length > 1 && (
           <>
-            <Flex justifyContent="space-between" textStyle="sm" mb={ 3 }>
-              <Text fontWeight={ 600 } color="text.secondary">Protocol</Text>
+            <div className="flex justify-between mb-3">
+              <span className="text-[var(--color-text-secondary)] font-semibold">Protocol</span>
               <Button
                 variant="link"
                 onClick={ handleProtocolReset }
@@ -94,13 +94,13 @@ const NameDomainsActionBar = ({
               >
                 Reset
               </Button>
-            </Flex>
+            </div>
             <CheckboxGroup defaultValue={ protocolsFilterValue } onValueChange={ onProtocolsFilterChange } value={ protocolsFilterValue } name="token_type">
               { protocolsData.map((protocol) => {
                 const topLevelDomains = protocol.tld_list.map((domain) => `.${ domain }`).join(' ');
                 return (
                   <Checkbox key={ protocol.id } value={ protocol.id }>
-                    <Flex alignItems="center">
+                    <div className="flex items-center">
                       <Image
                         src={ protocol.icon_url }
                         boxSize={ 5 }
@@ -110,8 +110,8 @@ const NameDomainsActionBar = ({
                         fallback={ <IconSvg name="ENS"/> }
                       />
                       <span>{ protocol.short_name }</span>
-                      <chakra.span color="text.secondary" whiteSpace="pre"> { topLevelDomains }</chakra.span>
-                    </Flex>
+                      <span className="whitespace-pre text-[var(--color-text-secondary)]"> { topLevelDomains }</span>
+                    </div>
                   </Checkbox>
                 );
               }) }
@@ -119,10 +119,10 @@ const NameDomainsActionBar = ({
             { filterGroupDivider }
           </>
         ) }
-        <Fieldset.Root>
+        <fieldset>
           <CheckboxGroup defaultValue={ filterValue } onValueChange={ handleFilterValueChange } value={ filterValue } name="token_type">
-            <Fieldset.Content gap={ 0 }>
-              <Text color="text.secondary" fontWeight={ 600 } mb={ 3 } textStyle="sm">Address</Text>
+            <div>
+              <span className="text-[var(--color-text-secondary)] mb-3 font-semibold">Address</span>
               <Checkbox value="owned_by" disabled={ !isAddressSearch }>
                 Owned by
               </Checkbox>
@@ -134,13 +134,13 @@ const NameDomainsActionBar = ({
                 Resolved to address
               </Checkbox>
               { filterGroupDivider }
-              <Text color="text.secondary" fontWeight={ 600 } mb={ 3 } textStyle="sm">Status</Text>
+              <span className="text-[var(--color-text-secondary)] mb-3 font-semibold">Status</span>
               <Checkbox value="with_inactive">
                 Include expired
               </Checkbox>
-            </Fieldset.Content>
+            </div>
           </CheckboxGroup>
-        </Fieldset.Root>
+        </fieldset>
       </div>
     </PopoverFilter>
   );
@@ -157,19 +157,19 @@ const NameDomainsActionBar = ({
 
   return (
     <>
-      <HStack gap={ 3 } mb={ 6 } hideFrom="lg">
+      <div className="flex lg:hidden mb-6 gap-3">
         { filter }
         { sortButton }
         { searchInput }
-      </HStack>
+      </div>
       <ActionBar
         mt={ -6 }
         display={{ base: pagination.isVisible ? 'flex' : 'none', lg: 'flex' }}
       >
-        <HStack gap={ 3 } hideBelow="lg">
+        <div className="flex hidden lg:block gap-3">
           { filter }
           { searchInput }
-        </HStack>
+        </div>
         <Pagination { ...pagination } className="ml-auto"/>
       </ActionBar>
     </>

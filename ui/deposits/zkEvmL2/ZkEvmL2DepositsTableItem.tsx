@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -65,9 +64,9 @@ const ZkEvmL2DepositsTableItem = ({ item, isLoading }: Props) => {
             noIcon
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span color="text.secondary">
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormFields } from '../types';
@@ -17,7 +16,7 @@ const ContractVerificationFieldOptimization = () => {
 
   return (
     <ContractVerificationFormRow>
-      <Flex columnGap={ 5 } h={{ base: 'auto', lg: '32px' }}>
+      <div columnGap={ 5 } h={{ base: 'auto', lg: '32px' }}>
         <FormFieldCheckbox<FormFields, 'is_optimization_enabled'>
           name="is_optimization_enabled"
           label="Optimization enabled"
@@ -35,7 +34,7 @@ const ContractVerificationFieldOptimization = () => {
             className="min-w-[100px] max-w-[200px] shrink text-sm"
           />
         ) }
-      </Flex>
+      </div>
     </ContractVerificationFormRow>
   );
 };

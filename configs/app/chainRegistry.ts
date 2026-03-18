@@ -289,6 +289,43 @@ export const NETWORKS: ReadonlyArray<NetworkEntry> = [
 
 import { getEnvValue } from 'configs/app/utils';
 
+// ── White-label support ──
+// When the hostname doesn't match any known chain, build branding from env vars.
+// This allows a single Docker image to serve any EVM chain.
+
+function buildWhiteLabelBranding(): ChainBranding {
+  return {
+    brandName: getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || 'Explorer',
+    orgName: getEnvValue('NEXT_PUBLIC_NETWORK_ORG_NAME') || '',
+    websiteUrl: getEnvValue('NEXT_PUBLIC_NETWORK_WEBSITE_URL') || '',
+    description: getEnvValue('NEXT_PUBLIC_NETWORK_DESCRIPTION') || 'Blockchain explorer.',
+    githubUrl: getEnvValue('NEXT_PUBLIC_NETWORK_GITHUB_URL') || '',
+    twitterUrl: getEnvValue('NEXT_PUBLIC_NETWORK_TWITTER_URL') || '',
+    discordUrl: getEnvValue('NEXT_PUBLIC_NETWORK_DISCORD_URL') || '',
+    logoViewBox: '0 0 100 100',
+    logoContent: '<circle cx="50" cy="50" r="40" fill="currentColor"/>',
+    faviconContent: '<circle cx="256" cy="256" r="256"/>',
+  };
+}
+
+function buildWhiteLabelChain(hostname: string): ChainEntry {
+  const branding = buildWhiteLabelBranding();
+  const appHost = getEnvValue('NEXT_PUBLIC_APP_HOST') || hostname;
+  const apiHost = getEnvValue('NEXT_PUBLIC_API_HOST') || '';
+  const protocol = getEnvValue('NEXT_PUBLIC_APP_PROTOCOL') || 'https';
+  const apiProtocol = getEnvValue('NEXT_PUBLIC_API_PROTOCOL') || 'https';
+  return {
+    name: getEnvValue('NEXT_PUBLIC_NETWORK_SHORT_NAME') || branding.brandName,
+    label: branding.brandName,
+    vm: 'EVM',
+    network: (getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true' ? 'testnet' : 'mainnet') as 'mainnet' | 'testnet',
+    hostnames: [ hostname ],
+    explorerUrl: `${ protocol }://${ appHost }`,
+    apiUrl: apiHost ? `${ apiProtocol }://${ apiHost }` : '',
+    branding,
+  };
+}
+
 function getHostname(): string {
   if (typeof window !== 'undefined') {
     return window.location.hostname;
@@ -296,13 +333,54 @@ function getHostname(): string {
   return getEnvValue('NEXT_PUBLIC_APP_HOST') || 'explore.lux.network';
 }
 
+export function isWhiteLabelMode(): boolean {
+  const hostname = getHostname();
+  return !CHAINS.some((c) => c.hostnames.includes(hostname));
+}
+
+export function isChainSelectorEnabled(): boolean {
+  const envVal = getEnvValue('NEXT_PUBLIC_CHAIN_SELECTOR_ENABLED');
+  if (envVal !== undefined && envVal !== '') {
+    return envVal === 'true';
+  }
+  // Disabled by default in white-label mode
+  return !isWhiteLabelMode();
+}
+
+export function isNetworkSelectorEnabled(): boolean {
+  const envVal = getEnvValue('NEXT_PUBLIC_NETWORK_SELECTOR_ENABLED');
+  if (envVal !== undefined && envVal !== '') {
+    return envVal === 'true';
+  }
+  // Disabled by default in white-label mode
+  return !isWhiteLabelMode();
+}
+
 export function getCurrentChain(): ChainEntry {
   const hostname = getHostname();
-  return CHAINS.find((c) => c.hostnames.includes(hostname)) ?? CHAINS[0];
+  const found = CHAINS.find((c) => c.hostnames.includes(hostname));
+  if (found) {
+    return found;
+  }
+  // White-label mode: build from env vars
+  return buildWhiteLabelChain(hostname);
 }
 
 export function getCurrentNetwork(): NetworkEntry {
   const chain = getCurrentChain();
+  if (isWhiteLabelMode()) {
+    // In white-label mode, return a single network entry from env vars
+    const branding = buildWhiteLabelBranding();
+    const appHost = getEnvValue('NEXT_PUBLIC_APP_HOST') || '';
+    const protocol = getEnvValue('NEXT_PUBLIC_APP_PROTOCOL') || 'https';
+    return {
+      name: chain.network === 'testnet' ? 'Testnet' : 'Mainnet',
+      label: branding.brandName,
+      network: chain.network,
+      baseHostname: appHost,
+      explorerUrl: appHost ? `${ protocol }://${ appHost }` : '',
+    };
+  }
   return NETWORKS.find((n) => n.network === chain.network) ?? NETWORKS[0];
 }
 

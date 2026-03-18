@@ -1,15 +1,15 @@
-import type { BoxProps } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
-interface Props extends BoxProps {
+interface Props {
   view?: 'block' | 'tx';
+  className?: string;
 }
 
-const BlockPendingUpdateHint = ({ view = 'block', ...props }: Props) => {
+const BlockPendingUpdateHint = ({ view = 'block', className }: Props) => {
   if (!config.UI.views.block.pendingUpdateAlertEnabled) {
     return null;
   }
@@ -20,7 +20,7 @@ const BlockPendingUpdateHint = ({ view = 'block', ...props }: Props) => {
 
   return (
     <Tooltip content={ tooltipContent }>
-      <IconSvg boxSize={ 5 } color="icon.secondary" name="status/warning" { ...props }/>
+      <IconSvg boxSize={ 5 } color="icon.secondary" name="status/warning" className={ className }/>
     </Tooltip>
   );
 };

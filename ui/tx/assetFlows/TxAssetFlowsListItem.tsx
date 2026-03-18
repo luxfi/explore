@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -17,10 +16,10 @@ type Props = {
 const TxAssetFlowsListItem = (props: Props) => {
 
   return (
-    <ListItemMobile rowGap={ 4 } w="full" >
-      <Skeleton borderRadius="sm" loading={ props.isPlaceholderData } w="full">
+    <ListItemMobile w="full" >
+      <Skeleton loading={ props.isPlaceholderData } w="full">
 
-        <Box display="flex" >
+        <div >
           <IconSvg
             name="lightning"
             height="5"
@@ -28,18 +27,18 @@ const TxAssetFlowsListItem = (props: Props) => {
             color="icon.primary"
           />
 
-          <Text textStyle="sm" fontWeight="medium">
+          <span>
             Action
-          </Text>
-        </Box>
+          </span>
+        </div>
 
       </Skeleton>
 
       <NovesActionSnippet item={ props.item } isLoaded={ !props.isPlaceholderData }/>
 
-      <Box maxW="full">
+      <div>
         <NovesFromTo item={ props.item } isLoaded={ !props.isPlaceholderData }/>
-      </Box>
+      </div>
     </ListItemMobile>
   );
 };

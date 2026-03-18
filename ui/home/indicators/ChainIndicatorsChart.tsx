@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -28,13 +27,13 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
     }
 
     if (value.includes('N/A')) {
-      return <Text fontWeight={ 700 } fontSize="30px" lineHeight="36px" opacity="control.disabled">{ mdash }</Text>;
+      return <span fontWeight={ 700 } fontSize="30px" lineHeight="36px" opacity="control.disabled">{ mdash }</span>;
     }
 
     return (
-      <Text fontWeight={ 700 } fontSize="30px" lineHeight="36px">
+      <span fontWeight={ 700 } fontSize="30px" lineHeight="36px">
         { value }
-      </Text>
+      </span>
     );
   })();
 
@@ -48,7 +47,7 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
     return (
       <Skeleton loading={ isLoading } display="flex" alignItems="center" color={ diffColor } ml={ 2 }>
         <IconSvg name="arrows/up-head" boxSize={ 5 } mr={ 1 } transform={ valueDiff < 0 ? 'rotate(180deg)' : 'rotate(0)' }/>
-        <Text color={ diffColor } fontWeight={ 600 }>{ valueDiff }%</Text>
+        <span color={ diffColor } fontWeight={ 600 }>{ valueDiff }%</span>
       </Skeleton>
     );
   })();
@@ -58,19 +57,19 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
   }
 
   return (
-    <Flex flexGrow={ 1 } flexDir="column">
+    <div flexGrow={ 1 } flexDir="column">
       <Skeleton loading={ isLoading } display="flex" alignItems="center" w="fit-content" className="gap-1">
-        <Text fontWeight={ 500 }>{ title }</Text>
+        <span fontWeight={ 500 }>{ title }</span>
         { hint && <Hint label={ hint }/> }
       </Skeleton>
-      <Flex mb={{ base: 0, lg: 2 }} mt={ 1 } alignItems="end">
+      <div mb={{ base: 0, lg: 2 }} mt={ 1 } alignItems="end">
         { valueTitleElement }
         { valueDiffElement }
-      </Flex>
-      <Flex h={{ base: '80px', lg: '110px' }} alignItems="flex-start" flexGrow={ 1 }>
+      </div>
+      <div h={{ base: '80px', lg: '110px' }} alignItems="flex-start" flexGrow={ 1 }>
         <ChainIndicatorChartContainer { ...chartQuery } isPending={ isLoading }/>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

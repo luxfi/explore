@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EntityTag } from './types';
@@ -24,7 +23,7 @@ const EntityTagIcon = ({ data, noColors }: Props) => {
   }
 
   if (data.tagType === 'protocol' || data.tagType === 'generic') {
-    return <chakra.span color={ iconColor }>#</chakra.span>;
+    return <span style={{ color: iconColor  }}>#</span>;
   }
 
   return null;

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { UserOp } from 'types/api/userOps';
@@ -30,7 +29,6 @@ const UserOpDecodedCallData = ({ data }: Props) => {
       id="decoded-call-data-switch"
       onChange={ handleSwitchChange }
       initialValue={ false }
-      ml={{ base: 0, lg: 'auto' }}
     />
   ) : null;
 
@@ -41,17 +39,12 @@ const UserOpDecodedCallData = ({ data }: Props) => {
       <DetailedInfo.ItemLabel
         hint={ labelText }
       >
-        <Flex alignItems="center" justifyContent="space-between">
+        <div className="flex">
           { labelText }
           { isMobile && toggler }
-        </Flex>
+        </div>
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue
-        flexDir={{ base: 'column', lg: 'row' }}
-        alignItems={{ base: 'flex-start', lg: 'center' }}
-        flexWrap="wrap"
-        mt={{ base: '5px', lg: '4px' }}
-      >
+      <DetailedInfo.ItemValue>
         <LogDecodedInputData data={ callData } rightSlot={ !isMobile && toggler }/>
       </DetailedInfo.ItemValue>
     </>

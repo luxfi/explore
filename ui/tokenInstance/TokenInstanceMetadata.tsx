@@ -1,11 +1,10 @@
-import { Box, Flex, chakra, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
 
 import { Alert } from 'toolkit/chakra/alert';
 import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
@@ -41,7 +40,7 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
   }
 
   if (!data) {
-    return <Box>There is no metadata for this NFT</Box>;
+    return <div>There is no metadata for this NFT</div>;
   }
 
   const content = format[0] === 'Table' ?
@@ -49,14 +48,14 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
     <RawDataSnippet data={ JSON.stringify(data, undefined, 4) } showCopy={ false }/>;
 
   return (
-    <Box>
+    <div>
       { refetchStatus === 'ERROR' && (
         <Alert status="warning" className="mb-6 block lg:flex" title="Oops!">
           <span>We { `couldn't` } refresh metadata. Please try again now or later.</span>
         </Alert>
       ) }
-      <Flex alignItems="center" mb={ 6 }>
-        <chakra.span fontWeight={ 500 }>Metadata</chakra.span>
+      <div>
+        <span>Metadata</span>
         <Select
           collection={ collection }
           placeholder="Select type"
@@ -65,9 +64,9 @@ const TokenInstanceMetadata = ({ data, isPlaceholderData }: Props) => {
           className="ml-5 w-[100px]"
         />
         { format[0] === 'JSON' && <CopyToClipboard text={ JSON.stringify(data) } className="ml-auto"/> }
-      </Flex>
+      </div>
       { content }
-    </Box>
+    </div>
   );
 };
 

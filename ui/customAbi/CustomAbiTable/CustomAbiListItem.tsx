@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { CustomAbi } from 'types/api/account';
@@ -27,7 +26,7 @@ const CustomAbiListItem = ({ item, isLoading, onEditClick, onDeleteClick }: Prop
 
   return (
     <ListItemMobile>
-      <Box maxW="100%">
+      <div maxW="100%">
         <AddressEntity
           address={ item.contract_address }
           fontWeight="600"
@@ -36,7 +35,7 @@ const CustomAbiListItem = ({ item, isLoading, onEditClick, onDeleteClick }: Prop
         <Skeleton textStyle="sm" color="text.secondary" mt={ 0.5 } ml={ 8 } display="inline-block" loading={ isLoading }>
           <span>{ item.name }</span>
         </Skeleton>
-      </Box>
+      </div>
       <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>
     </ListItemMobile>
   );

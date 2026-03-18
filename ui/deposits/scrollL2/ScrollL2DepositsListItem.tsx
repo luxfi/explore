@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ScrollL2MessageItem } from 'types/api/scrollL2';
@@ -69,9 +68,9 @@ const ScrollL2DepositsListItem = ({ item, isLoading }: Props) => {
             truncation="constant_long"
           />
         ) : (
-          <chakra.span>
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 

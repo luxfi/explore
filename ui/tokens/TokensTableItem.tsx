@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -76,53 +75,43 @@ const TokensTableItem = ({
   return (
     <TableRow className="group">
       <TableCell>
-        <Flex alignItems="flex-start">
+        <div>
           <Skeleton
             loading={ isLoading }
-            textStyle="sm"
-            fontWeight={ 600 }
-            mr={ 3 }
-            minW="28px"
           >
             { getItemIndex(index, page) }
           </Skeleton>
-          <Flex overflow="hidden" flexDir="column" rowGap={ 2 }>
+          <div>
             <TokenEntity
               token={ token }
               chain={ chainInfo }
               isLoading={ isLoading }
               jointSymbol
               noCopy
-              textStyle="sm"
-              fontWeight="700"
               noLink={ type === 'NATIVE' }
             />
             { type !== 'NATIVE' && (
-              <Flex columnGap={ 2 } py="5px" alignItems="center">
+              <div>
                 <AddressEntity
                   address={ tokenAddress }
                   isLoading={ isLoading }
                   noIcon
-                  textStyle="sm"
-                  fontWeight={ 500 }
                   link={{ variant: 'secondary' }}
                 />
                 <AddressAddToWallet
                   token={ token }
                   isLoading={ isLoading }
                   iconSize={ 5 }
-                  opacity={ 0 }
-                  _groupHover={{ opacity: 1 }}
                   chainConfig={ chainInfo?.app_config }
                 />
-              </Flex>
+              </div>
             ) }
-            <Flex columnGap={ 1 }>
+            <div>
               <Tag loading={ isLoading }>{ getTokenTypeName(type, chainInfo?.app_config) }</Tag>
               { bridgedChainTag && <Tag loading={ isLoading }>{ bridgedChainTag }</Tag> }
-            </Flex>
-          </Flex>
-        </Flex>
+            </div>
+          </div>
+        </div>
       </TableCell>
       <TableCell isNumeric>
         { exchangeRate ? (
@@ -147,7 +136,6 @@ const TokensTableItem = ({
       <TableCell isNumeric>
         <Skeleton
           loading={ isLoading }
-          display="inline-block"
         >
           { Number(holdersCount).toLocaleString() }
         </Skeleton>

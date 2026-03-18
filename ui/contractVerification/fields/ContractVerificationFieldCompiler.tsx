@@ -1,4 +1,3 @@
-import { chakra, Code, createListCollection } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -7,6 +6,7 @@ import type { SmartContractVerificationConfig } from 'types/client/contract';
 
 import { Checkbox } from 'toolkit/chakra/checkbox';
 import { FormFieldSelectAsync } from 'toolkit/components/forms/fields/FormFieldSelectAsync';
+import { createListCollection } from 'toolkit/chakra/select';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 
@@ -84,13 +84,13 @@ const ContractVerificationFieldCompiler = ({ isVyper, isStylus, config }: Props)
         required
       />
       { isVyper || isStylus ? null : (
-        <chakra.div>
+        <div>
           <span >The compiler version is specified in </span>
-          <Code color="text.secondary">pragma solidity X.X.X</Code>
+          <code className="text-[var(--color-text-secondary)]">pragma solidity X.X.X</code>
           <span>. Use the compiler version rather than the nightly build. If using the Solidity compiler, run </span>
-          <Code color="text.secondary">solc —version</Code>
+          <code className="text-[var(--color-text-secondary)]">solc —version</code>
           <span> to check.</span>
-        </chakra.div>
+        </div>
       ) }
     </ContractVerificationFormRow>
   );

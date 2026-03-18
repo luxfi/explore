@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
@@ -58,10 +57,9 @@ const TokenNftMarketplaces = ({ hash, id, isLoading, appActionData, source }: Pr
         Marketplaces
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        py={ appActionData ? '1px' : '6px' }
       >
         <Skeleton loading={ isLoading } className="flex flex-wrap items-center">
-          <HStack gap={ 3 }>
+          <div>
             { items.map((item) => {
               return (
                 <Tooltip content={ `View on ${ item.name }` } key={ item.name }>
@@ -69,14 +67,12 @@ const TokenNftMarketplaces = ({ hash, id, isLoading, appActionData, source }: Pr
                     <Image
                       src={ item.logo_url }
                       alt={ `${ item.name } marketplace logo` }
-                      boxSize={ 5 }
-                      borderRadius="full"
                     />
                   </Link>
                 </Tooltip>
               );
             }) }
-          </HStack>
+          </div>
           { appActionData && (
             <>
               <TextSeparator/>

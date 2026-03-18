@@ -1,4 +1,3 @@
-import { Stat, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -27,25 +26,27 @@ const AddressCoinBalanceListItem = (props: Props) => {
 
   return (
     <ListItemMobile rowGap={ 2 }>
-      <Flex justifyContent="space-between" w="100%">
+      <div className="flex" justifyContent="space-between" w="100%">
         <NativeCoinValue
           amount={ props.value }
           loading={ props.isLoading }
           fontWeight={ 600 }
         />
         <Skeleton loading={ props.isLoading }>
-          <Stat.Root flexGrow="0" positive={ isPositiveDelta } size="sm">
-            <Stat.ValueText fontWeight={ 600 }>
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="font-semibold text-sm">
               <SimpleValue
                 value={ deltaBn }
                 loading={ props.isLoading }
               />
-            </Stat.ValueText>
-            { isPositiveDelta ? <Stat.UpIndicator/> : <Stat.DownIndicator/> }
-          </Stat.Root>
+            </span>
+            <span className={ isPositiveDelta ? 'text-green-500' : 'text-red-500' }>
+              { isPositiveDelta ? '\u25B2' : '\u25BC' }
+            </span>
+          </div>
         </Skeleton>
-      </Flex>
-      <Flex columnGap={ 2 } w="100%">
+      </div>
+      <div className="flex" columnGap={ 2 } w="100%">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Block</Skeleton>
         <BlockEntity
           isLoading={ props.isLoading }
@@ -54,9 +55,9 @@ const AddressCoinBalanceListItem = (props: Props) => {
           fontWeight={ 700 }
           chain={ props.chainData }
         />
-      </Flex>
+      </div>
       { props.transaction_hash && (
-        <Flex columnGap={ 2 } w="100%">
+        <div className="flex" columnGap={ 2 } w="100%">
           <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Txs</Skeleton>
           <TxEntity
             hash={ props.transaction_hash }
@@ -65,9 +66,9 @@ const AddressCoinBalanceListItem = (props: Props) => {
             fontWeight={ 700 }
             maxW="150px"
           />
-        </Flex>
+        </div>
       ) }
-      <Flex columnGap={ 2 } w="100%">
+      <div className="flex" columnGap={ 2 } w="100%">
         <Skeleton loading={ props.isLoading } fontWeight={ 500 } flexShrink={ 0 }>Age</Skeleton>
         <TimeWithTooltip
           timestamp={ props.block_timestamp }
@@ -75,7 +76,7 @@ const AddressCoinBalanceListItem = (props: Props) => {
           isLoading={ props.isLoading }
           color="text.secondary"
         />
-      </Flex>
+      </div>
     </ListItemMobile>
   );
 };

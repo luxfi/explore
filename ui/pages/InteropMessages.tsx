@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -47,7 +46,7 @@ const InteropMessages = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { interopMessagesQuery.data?.items.map((item, index) => (
           <InteropMessagesListItem
             key={ item.init_transaction_hash + (interopMessagesQuery.isPlaceholderData ? index : '') }
@@ -55,14 +54,14 @@ const InteropMessages = () => {
             isLoading={ interopMessagesQuery.isPlaceholderData }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <InteropMessagesTable
           items={ interopMessagesQuery.data?.items }
           top={ interopMessagesQuery.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ interopMessagesQuery.isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   );
 

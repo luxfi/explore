@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -15,17 +14,17 @@ type Props = {
 const TokenBalancesItem = ({ name, icon, value, valueSecondary, isLoading, contentAfter }: Props) => {
 
   return (
-    <Box px="12px" py="10px" bgColor={{ _light: 'theme.stats.bg._light', _dark: 'theme.stats.bg._dark' }} borderRadius="base">
-      <Text color="text.secondary" textStyle="xs" fontWeight={ 500 } mb={ 1 }>{ name }</Text>
-      <Flex alignItems="center">
+    <div px="12px" py="10px" bgColor={{ _light: 'theme.stats.bg._light', _dark: 'theme.stats.bg._dark' }} borderRadius="base">
+      <span color="text.secondary" textStyle="xs" fontWeight={ 500 } mb={ 1 }>{ name }</span>
+      <div className="flex" alignItems="center">
         { icon }
         <Skeleton loading={ isLoading } fontWeight="500" whiteSpace="pre-wrap" wordBreak="break-word" display="flex" ml={ 2 }>
           { value }
-          { Boolean(valueSecondary) && <Text color="text.secondary"> ({ valueSecondary })</Text> }
+          { Boolean(valueSecondary) && <span color="text.secondary"> ({ valueSecondary })</span> }
         </Skeleton>
         { contentAfter }
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 };
 

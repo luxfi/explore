@@ -1,5 +1,3 @@
-import { Flex } from '@chakra-ui/react';
-
 import { useRewardsContext } from 'lib/contexts/rewards';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
@@ -26,26 +24,20 @@ export default function ReferralsTab() {
       ) }
       contentDirection="row"
     >
-      <Flex
-        flex={ 1 }
-        gap={{ base: 2, lg: 6 }}
-        px={{ base: 4, lg: 6 }}
-        py={{ base: 4, lg: 0 }}
-        flexDirection={{ base: 'column', lg: 'row' }}
-      >
+      <div className="flex flex-1 gap-2 lg:gap-6 px-4 lg:px-6 py-4 lg:py-0 flex-col lg:flex-row">
         <RewardsReadOnlyInputWithCopy
           label="Referral link"
           value={ referralsQuery.data?.link || 'N/A' }
           isLoading={ referralsQuery.isPending }
-          flex={ 2 }
+          className="flex-[2]"
         />
         <RewardsReadOnlyInputWithCopy
           label="Referral code"
           value={ referralsQuery.data?.code || 'N/A' }
           isLoading={ referralsQuery.isPending }
-          flex={ 1 }
+          className="flex-1"
         />
-      </Flex>
+      </div>
     </RewardsDashboardCard>
   );
 }

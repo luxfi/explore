@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
@@ -107,7 +106,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             ZRC-2 Address
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } display="inline-block">
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               <AddressEntity address={{ hash: zilliqa.zrc2_address_hash }} isLoading={ tokenQuery.isPlaceholderData }/>
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -123,7 +122,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Price
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } display="inline-block">
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               <span>{ `$${ Number(exchangeRate).toLocaleString(undefined, { minimumSignificantDigits: 4 }) }` }</span>
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -139,7 +138,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Market cap
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } display="inline-block">
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               <span>{ `$${ BigNumber(marketCap).toFormat() }` }</span>
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -154,13 +153,10 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Max total supply
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            alignSelf="center"
-            wordBreak="break-word"
-            whiteSpace="pre-wrap"
           >
             <AssetValue
               amount={ totalSupply }
-              asset={ <chakra.span maxW="50%" overflow="hidden" textOverflow="ellipsis"> { symbol }</chakra.span> }
+              asset={ <span> { symbol }</span> }
               accuracy={ 3 }
               decimals={ decimals ?? '0' }
               loading={ tokenQuery.isPlaceholderData }
@@ -203,7 +199,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Decimals
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ tokenQuery.isPlaceholderData } minW={ 6 }>
+            <Skeleton loading={ tokenQuery.isPlaceholderData }>
               { decimals }
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -227,7 +223,6 @@ const TokenDetails = ({ tokenQuery }: Props) => {
             Dapp
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            py="1px"
           >
             <AppActionButton data={ appActionData } height="30px" source="NFT collection"/>
           </DetailedInfo.ItemValue>

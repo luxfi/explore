@@ -1,5 +1,3 @@
-import { HStack, Text, Box } from '@chakra-ui/react';
-
 import config from 'configs/app';
 import { Image } from 'toolkit/chakra/image';
 
@@ -21,17 +19,16 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
   }
 
   return 'text' in promoBanner ? (
-    <HStack
+    <div
       { ...navLinkStyleProps.itemProps }
-      minW={ isHorizontalNavigation ? 'auto' : 'full' }
-      maxW={ isHorizontalNavigation ? 'auto' : 'full' }
-      w={ isHorizontalNavigation ? 'auto' : '180px' }
-      gap={ 2 }
-      overflow="hidden"
-      whiteSpace="nowrap"
-      py={ isHorizontalNavigation ? 1.5 : 2 }
-      px={ isHorizontalNavigation ? 1.5 : { base: 3, lg: isExpanded ? 3 : '15px', xl: isCollapsed ? '15px' : 3 } }
-      bgColor={{ _light: promoBanner.bg_color.light, _dark: promoBanner.bg_color.dark }}
+      className={ `flex flex-row gap-2 overflow-hidden whitespace-nowrap ${ isHorizontalNavigation ? 'py-1.5 px-1.5' : 'py-2' }` }
+      style={{
+        minWidth: isHorizontalNavigation ? 'auto' : '100%',
+        maxWidth: isHorizontalNavigation ? 'auto' : '100%',
+        width: isHorizontalNavigation ? 'auto' : '180px',
+        padding: !isHorizontalNavigation ? undefined : undefined,
+        backgroundColor: `var(--color-${ promoBanner.bg_color.light })`,
+      }}
     >
       <Image
         src={ promoBanner.img_url }
@@ -39,20 +36,21 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
         boxSize={ isHorizontalNavigation ? '20px' : '30px' }
       />
       { !isHorizontalNavigation && (
-        <Text
+        <span
           { ...navLinkStyleProps.textProps }
-          fontWeight="medium"
-          color={{ _light: promoBanner.text_color.light, _dark: promoBanner.text_color.dark }}
-          overflow="hidden"
+          className="font-medium overflow-hidden"
+          style={{
+            color: `var(--color-${ promoBanner.text_color.light })`,
+          }}
         >
           { promoBanner.text }
-        </Text>
+        </span>
       ) }
-    </HStack>
+    </div>
   ) : (
-    <Box
-      position="relative"
-      minH={ isHorizontalNavigation ? 'auto' : '60px' }
+    <div
+      className="relative"
+      style={{ minHeight: isHorizontalNavigation ? 'auto' : '60px' }}
     >
       <Image
         src={ promoBanner.img_url.small }
@@ -89,7 +87,7 @@ const NavigationPromoBannerContent = ({ isCollapsed, isHorizontalNavigation }: P
           isExpanded ? 'opacity-100' : (isCollapsed ? 'opacity-0' : 'lg:opacity-0 xl:opacity-100')
         }
       />
-    </Box>
+    </div>
   );
 };
 

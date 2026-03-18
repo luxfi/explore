@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -20,25 +19,25 @@ const MyProfileWallet = ({ profileQuery, onAddWallet }: Props) => {
   return (
     <section>
       <Heading level="2" className="mb-3">My linked wallet</Heading>
-      <Text mb={ 3 } >
+      <span className="mb-3">
         This wallet address is used for login{ ' ' }
         { config.features.rewards.isEnabled && (
           <>
             and participation in the Merits Program.
-            <Link external href="https://docs.lux.network/using-blockscout/merits" className="ml-1">
+            <Link external href="https://docs.blockscout.com/using-blockscout/merits" className="ml-1">
               Learn more
             </Link>
           </>
         ) }
-      </Text>
+      </span>
       { profileQuery.data?.address_hash ? (
-        <Box px={ 3 } py="18px" bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }} borderRadius="base">
+        <div className="rounded px-3 py-[18px]">
           <AddressEntity
             address={{ hash: profileQuery.data.address_hash }}
             fontWeight="500"
             noAltHash
           />
-        </Box>
+        </div>
       ) : <Button size="sm" onClick={ onAddWallet }>Link wallet</Button> }
     </section>
   );

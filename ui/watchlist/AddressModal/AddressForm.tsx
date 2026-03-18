@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -118,7 +117,7 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
         <FormFieldAddress<Inputs>
           name="address"
           required
-          bgColor="dialog.bg"
+         
           className="mb-5"
         />
         <FormFieldText<Inputs>
@@ -128,18 +127,18 @@ const AddressForm: React.FC<Props> = ({ data, onSuccess, setAlertVisible, isAdd,
           rules={{
             maxLength: TAG_MAX_LENGTH,
           }}
-          bgColor="dialog.bg"
+         
           className="mb-8"
         />
         { hasEmail ? (
           <>
-            <Text color="text.secondary" fontSize="sm" marginBottom={ 5 }>
+            <span>
               Please select what types of notifications you will receive
-            </Text>
-            <Box marginBottom={ 8 }>
+            </span>
+            <div>
               <AddressFormNotifications/>
-            </Box>
-            <Text color="text.secondary" fontSize="sm" marginBottom={{ base: '10px', lg: 5 }}>Notification methods</Text>
+            </div>
+            <span>Notification methods</span>
             <FormFieldCheckbox<Inputs, 'notification'>
               name="notification"
               label="Email notifications"

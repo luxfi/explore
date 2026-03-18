@@ -1,11 +1,10 @@
-import type { StackProps } from '@chakra-ui/react';
-import { createListCollection, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
 import dayjs from 'lib/date/dayjs';
 import { IconButton } from 'toolkit/chakra/icon-button';
 import type { SelectOption } from 'toolkit/chakra/select';
+import { createListCollection } from 'toolkit/chakra/select';
 import { SelectContent, SelectItem, SelectRoot, SelectControl } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
@@ -24,13 +23,14 @@ const collection = createListCollection<SelectOption>({
 
 type Format = (typeof FORMAT_OPTIONS)[number]['value'];
 
-interface Props extends StackProps {
+interface Props {
   timestamp: string | number;
   isLoading?: boolean;
   noRelativeTime?: boolean;
+  className?: string;
 };
 
-const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }: Props) => {
+const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, className }: Props) => {
 
   const settings = useSettingsContext();
 
@@ -53,7 +53,7 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
   })();
 
   return (
-    <HStack maxW="100%" minW="0" { ...rest }>
+    <div className={ `flex flex-row gap-2 items-center max-w-full min-w-0 ${ className || '' }` }>
       { !noRelativeTime && (
         <>
           <Skeleton loading={ isLoading } flexShrink={ 0 }>
@@ -62,7 +62,7 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
           <TextSeparator mx={ 0 }/>
         </>
       ) }
-      <HStack gap={ 1 } minW="0">
+      <div className="flex flex-row gap-1 items-center min-w-0">
         <SelectRoot
           name="time_format"
           collection={ collection }
@@ -100,8 +100,8 @@ const DetailedInfoTimestamp = ({ timestamp, isLoading, noRelativeTime, ...rest }
           loading={ isLoading }
           minW="0"
         />
-      </HStack>
-    </HStack>
+      </div>
+    </div>
   );
 };
 

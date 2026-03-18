@@ -1,4 +1,3 @@
-import { Box, createListCollection, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -20,6 +19,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import getSortParamsFromValue from 'ui/shared/sort/getSortParamsFromValue';
 import getSortValueFromQuery from 'ui/shared/sort/getSortValueFromQuery';
 import Sort from 'ui/shared/sort/Sort';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,
@@ -62,7 +62,7 @@ const HotContracts = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data?.items.map((item, index) => (
           <HotContractsListItem
             key={ item.contract_address.hash + (isPlaceholderData ? index : '') }
@@ -71,8 +71,8 @@ const HotContracts = () => {
             exchangeRate={ statsQuery.data?.coin_price ?? null }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <HotContractsTable
           items={ data?.items }
           isLoading={ isPlaceholderData }
@@ -80,20 +80,20 @@ const HotContracts = () => {
           setSorting={ handleSortChange }
           exchangeRate={ statsQuery.data?.coin_price ?? null }
         />
-      </Box>
+      </div>
     </>
   );
 
   const actionBar = (
     <ActionBar mt={ -6 }>
-      <Flex alignItems="center">
+      <div className="flex items-center">
         <HotContractsIntervalSelect
           interval={ interval }
           onIntervalChange={ handleIntervalChange }
           isLoading={ isPlaceholderData }
         />
         { [ '1d', '7d', '30d' ].includes(interval) && (
-          <Skeleton loading={ isPlaceholderData } color="text.secondary" hideBelow="lg" textStyle="sm" ml={ 6 }>
+          <Skeleton loading={ isPlaceholderData } color="text.secondary" className="hidden lg:block" textStyle="sm" ml={ 6 }>
             <span>The data is updated once a day.</span>
           </Skeleton>
         ) }
@@ -103,10 +103,10 @@ const HotContracts = () => {
           collection={ sortCollection }
           onValueChange={ handleSortChange }
           isLoading={ isPlaceholderData }
-          hideFrom="lg"
+          className="lg:hidden"
           className="ml-2"
         />
-      </Flex>
+      </div>
       <Pagination { ...pagination } className="ml-auto"/>
     </ActionBar>
   );

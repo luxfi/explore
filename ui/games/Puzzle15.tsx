@@ -1,4 +1,3 @@
-import { Grid, Box, Flex, Text } from '@chakra-ui/react';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import config from 'configs/app';
@@ -141,9 +140,9 @@ const Puzzle15 = () => {
   }, [ isWon, moveTile ]);
 
   return (
-    <Flex flexDirection="column" alignItems="center" justifyContent="center" my={ 10 }>
+    <div flexDirection="column" alignItems="center" justifyContent="center" my={ 10 }>
       { isWon && <Confetti/> }
-      <Grid templateColumns="repeat(4, 1fr)" w="400px" h="400px">
+      <div templateColumns="repeat(4, 1fr)" w="400px" h="400px">
         { tiles.map((tile, index) => (
           <div
             key={ tile }
@@ -153,7 +152,7 @@ const Puzzle15 = () => {
               transform: 'translate3d(0, 0, 0)',
             }}
           >
-            <Box position="relative">
+            <div position="relative">
               <canvas
                 ref={ (el) => {
                   canvasRefs.current[index] = el;
@@ -168,7 +167,7 @@ const Puzzle15 = () => {
                   imageRendering: 'pixelated',
                 }}
               />
-              <Box
+              <div
                 position="absolute"
                 top="0"
                 left="0"
@@ -185,30 +184,30 @@ const Puzzle15 = () => {
                 transition="opacity 0.2s"
               >
                 { tile !== 15 && tile + 1 }
-              </Box>
-            </Box>
+              </div>
+            </div>
           </div>
         )) }
-      </Grid>
+      </div>
       { !isWon && (
         <>
-          <Text mt={ 10 }>Put the pieces together and win a prize</Text>
-          <Text mb={ 1 }>Click on a square to move it</Text>
+          <span mt={ 10 }>Put the pieces together and win a prize</span>
+          <span mb={ 1 }>Click on a square to move it</span>
         </>
       ) }
       { isWon && easterEggPuzzleBadgeFeature.isEnabled && (
-        <Flex flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
-          <Text fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</Text>
-          <Text fontSize="lg" textAlign="center">Congratulations! You're eligible to claim an epic hidden badge!</Text>
+        <div flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
+          <span fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</span>
+          <span fontSize="lg" textAlign="center">Congratulations! You're eligible to claim an epic hidden badge!</span>
           <Link
             href={ easterEggPuzzleBadgeFeature.badgeClaimLink }
             external noIcon
           >
             <Button>Claim</Button>
           </Link>
-        </Flex>
+        </div>
       ) }
-    </Flex>
+    </div>
   );
 };
 

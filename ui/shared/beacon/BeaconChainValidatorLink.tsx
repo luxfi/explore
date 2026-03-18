@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+
 import React from 'react';
 
 import config from 'configs/app';
@@ -18,15 +18,9 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
 
   if (!feature.validatorUrlTemplate) {
     content = (
-      <Text
-        display="inline-block"
-        textOverflow="ellipsis"
-        overflow="hidden"
-        whiteSpace="nowrap"
-        maxW="100%"
-      >
+      <span className="inline-block text-ellipsis overflow-hidden whitespace-nowrap max-w-full">
         { pubkey }
-      </Text>
+      </span>
     );
   } else {
     content = (
@@ -38,7 +32,7 @@ const BeaconChainValidatorLink = ({ pubkey, isLoading }: { pubkey: string; isLoa
         style={{ gridTemplateColumns: 'auto 20px' }}
       >
         <TruncatedTextTooltip label={ pubkey }>
-          <Text overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">{ pubkey }</Text>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">{ pubkey }</span>
         </TruncatedTextTooltip>
       </Link>
     );

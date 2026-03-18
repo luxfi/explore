@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -42,8 +41,8 @@ const TokenTransferListItem = ({
 }: Props) => {
   return (
     <ListItemMobile rowGap={ 3 }>
-      <Flex w="100%" justifyContent="space-between">
-        <Flex flexWrap="wrap" rowGap={ 1 } mr={ showTxInfo && txHash ? 2 : 0 } columnGap={ 2 } overflow="hidden">
+      <div className="flex w-full justify-between">
+        <div className={ `flex flex-wrap gap-y-1 gap-x-2 overflow-hidden ${ showTxInfo && txHash ? 'mr-2' : '' }` }>
           { token && (
             <>
               <TokenEntity
@@ -57,16 +56,16 @@ const TokenTransferListItem = ({
             </>
           ) }
           <Badge colorPalette="orange" loading={ isLoading }>{ getTokenTransferTypeText(type) }</Badge>
-        </Flex>
+        </div>
         { showTxInfo && txHash && (
           <TxAdditionalInfo hash={ txHash } isMobile isLoading={ isLoading }/>
         ) }
-      </Flex>
+      </div>
       { total && 'token_id' in total && total.token_id !== null && token && (
         <NftEntity hash={ token.address_hash } id={ total.token_id } instance={ total.token_instance } isLoading={ isLoading }/>
       ) }
       { showTxInfo && (
-        <Flex justifyContent="space-between" alignItems="center" lineHeight="24px" width="100%">
+        <div className="flex justify-between items-center leading-6 w-full">
           { txHash && (
             <TxEntity
               isLoading={ isLoading }
@@ -84,7 +83,7 @@ const TokenTransferListItem = ({
             fontWeight="400"
             fontSize="sm"
           />
-        </Flex>
+        </div>
       ) }
       <AddressFromTo
         from={ from }
@@ -94,7 +93,7 @@ const TokenTransferListItem = ({
         w="100%"
       />
       { total && 'value' in total && total.value !== null && (
-        <Flex columnGap={ 2 } w="100%">
+        <div className="flex gap-x-2 w-full">
           <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 } className="font-medium shrink-0">Value</Skeleton>
           <AssetValue
             amount={ total && 'value' in total && total.value !== null ? total.value : null }
@@ -103,14 +102,14 @@ const TokenTransferListItem = ({
             loading={ isLoading }
             color="text.secondary"
           />
-        </Flex>
+        </div>
       ) }
 
       { token && isConfidentialTokenType(token.type) && (!total || !('value' in total) || total.value === null) && (
-        <Flex columnGap={ 2 } w="100%">
+        <div className="flex gap-x-2 w-full">
           <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 } className="font-medium shrink-0">Value</Skeleton>
           <ConfidentialValue loading={ isLoading } color="text.secondary"/>
-        </Flex>
+        </div>
       ) }
     </ListItemMobile>
   );

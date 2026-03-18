@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
@@ -29,10 +28,10 @@ const TransactionsCrossChainTable = ({ data, isLoading, top, stickyHeader, curre
             { currentAddress && <TableColumnHeader w="44px"/> }
             <TableColumnHeader>Message</TableColumnHeader>
             <TableColumnHeader>
-              <Flex alignItems="center" flexWrap="nowrap">
+              <div alignItems="center" flexWrap="nowrap">
                 Timestamp
                 <TimeFormatToggle/>
-              </Flex>
+              </div>
             </TableColumnHeader>
             <TableColumnHeader>Msg sender</TableColumnHeader>
             <TableColumnHeader>Source tx</TableColumnHeader>

@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -41,7 +40,7 @@ const TokenSelectItem = ({ data }: Props) => {
       return (
         <>
           <TruncatedText text={ text }/>
-          { data.token.exchange_rate && <chakra.span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</chakra.span> }
+          { data.token.exchange_rate && <span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
         </>
       );
     }
@@ -55,7 +54,7 @@ const TokenSelectItem = ({ data }: Props) => {
       return (
         <>
           <TruncatedText text={ text }/>
-          { data.token.exchange_rate && <chakra.span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</chakra.span> }
+          { data.token.exchange_rate && <span ml={ 2 }>@{ Number(data.token.exchange_rate).toLocaleString() }</span> }
         </>
       );
     }
@@ -68,9 +67,9 @@ const TokenSelectItem = ({ data }: Props) => {
       case 'ERC-1155': {
         return (
           <>
-            <chakra.span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
+            <span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
               #{ data.token_id || 0 }
-            </chakra.span>
+            </span>
             <span>
               { BigNumber(data.value).toFormat() }
             </span>
@@ -81,9 +80,9 @@ const TokenSelectItem = ({ data }: Props) => {
         return (
           <>
             { data.token_id !== null && (
-              <chakra.span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
+              <span textOverflow="ellipsis" overflow="hidden" mr={ 6 }>
                 #{ data.token_id || 0 }
-              </chakra.span>
+              </span>
             ) }
             { data.value !== null && (
               <span>
@@ -106,7 +105,7 @@ const TokenSelectItem = ({ data }: Props) => {
       className="px-1 py-2.5 flex flex-col gap-y-2 border-b border-[var(--color-border-divider)] hover:bg-blue-50 dark:hover:bg-gray-800 text-inherit text-sm"
       href={ url }
     >
-      <Flex alignItems="center" w="100%">
+      <div className="flex" alignItems="center" w="100%">
         <TokenEntity
           token={ data.token }
           chain={ chain }
@@ -124,10 +123,10 @@ const TokenSelectItem = ({ data }: Props) => {
             className={ `font-bold min-w-[120px] ml-auto text-right ${ isNativeToken ? 'text-[var(--color-text-secondary)]' : '' }` }
           />
         ) }
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between" w="100%" whiteSpace="nowrap" color={ isNativeToken ? 'text.secondary' : undefined }>
+      </div>
+      <div className="flex" alignItems="center" justifyContent="space-between" w="100%" whiteSpace="nowrap" color={ isNativeToken ? 'text.secondary' : undefined }>
         { secondRow }
-      </Flex>
+      </div>
     </Link>
   );
 };

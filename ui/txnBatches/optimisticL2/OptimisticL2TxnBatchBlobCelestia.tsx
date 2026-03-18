@@ -1,4 +1,3 @@
-import { Flex, GridItem, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { OptimisticL2BlobTypeCelestia } from 'types/api/optimisticL2';
@@ -19,34 +18,34 @@ interface Props {
 
 const OptimisticL2TxnBatchBlobCelestia = ({ blobs, isLoading }: Props) => {
   return (
-    <VStack rowGap={ 2 } w="100%">
+    <div className="flex flex-col w-full" style={{ rowGap: "8px" }}>
       { blobs.map((blob) => {
         return (
-          <OptimisticL2TxnBatchBlobWrapper key={ blob.commitment } isLoading={ isLoading } gridTemplateColumns="auto 1fr auto">
-            <GridItem fontWeight={ 600 }>Commitment</GridItem>
-            <GridItem overflow="hidden">
-              <Flex minW="0" w="calc(100% - 20px)">
+          <OptimisticL2TxnBatchBlobWrapper key={ blob.commitment } isLoading={ isLoading }>
+            <div className="font-semibold">Commitment</div>
+            <div className="overflow-hidden">
+              <div className="flex min-w-0" style={{ width: "calc(100% - 20px)" }}>
                 <HashStringShortenDynamic hash={ blob.commitment }/>
                 <CopyToClipboard text={ blob.commitment }/>
-              </Flex>
-            </GridItem>
-            <CeleniumLink commitment={ blob.commitment } namespace={ blob.namespace } height={ blob.height } fallback={ <GridItem/> }/>
-            <GridItem fontWeight={ 600 }>Height</GridItem>
-            <GridItem colSpan={ 2 }>
+              </div>
+            </div>
+            <CeleniumLink commitment={ blob.commitment } namespace={ blob.namespace } height={ blob.height } fallback={ <div/> }/>
+            <div className="font-semibold">Height</div>
+            <div style={{ gridColumn: "span 2" }}>
               { blob.height }
-            </GridItem>
-            <GridItem fontWeight={ 600 }>Timestamp</GridItem>
-            <GridItem overflow="hidden" colSpan={ 2 }>
-              <DetailedInfoTimestamp timestamp={ blob.l1_timestamp } isLoading={ isLoading } flexWrap={{ base: 'wrap', lg: 'nowrap' }}/>
-            </GridItem>
-            <GridItem fontWeight={ 600 }>{ layerLabels.parent } txn hash</GridItem>
-            <GridItem overflow="hidden" colSpan={ 2 }>
+            </div>
+            <div className="font-semibold">Timestamp</div>
+            <div className="overflow-hidden" style={{ gridColumn: "span 2" }}>
+              <DetailedInfoTimestamp timestamp={ blob.l1_timestamp } isLoading={ isLoading }/>
+            </div>
+            <div className="font-semibold">{ layerLabels.parent } txn hash</div>
+            <div className="overflow-hidden" style={{ gridColumn: "span 2" }}>
               <TxEntityL1 hash={ blob.l1_transaction_hash } noIcon/>
-            </GridItem>
+            </div>
           </OptimisticL2TxnBatchBlobWrapper>
         );
       }) }
-    </VStack>
+    </div>
 
   );
 };

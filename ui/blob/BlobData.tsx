@@ -1,4 +1,3 @@
-import { createListCollection, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import * as blobUtils from 'lib/blob';
@@ -9,7 +8,7 @@ import hexToBytes from 'lib/hexToBytes';
 import hexToUtf8 from 'lib/hexToUtf8';
 import { Button } from 'toolkit/chakra/button';
 import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { downloadBlob } from 'toolkit/utils/file';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -120,7 +119,7 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
         Blob data
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="wrap">
-        <Flex alignItems="center" w="100%" mb={{ base: 1, lg: 3 }} mt={{ base: 1, lg: 0 }}>
+        <div className="flex" alignItems="center" w="100%" mb={{ base: 1, lg: 3 }} mt={{ base: 1, lg: 0 }}>
           <Select
             collection={ collection }
             placeholder="Select type"
@@ -139,7 +138,7 @@ const BlobData = ({ data, isLoading, hash }: Props) => {
             </Button>
           </Skeleton>
           <CopyToClipboard text={ data } isLoading={ isLoading }/>
-        </Flex>
+        </div>
         { content }
       </DetailedInfo.ItemValue>
     </>

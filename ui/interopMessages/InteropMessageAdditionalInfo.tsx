@@ -1,4 +1,3 @@
-import { chakra, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
@@ -21,19 +20,19 @@ const InteropMessageAdditionalInfo = ({ payload, isLoading, className }: Props) 
       </PopoverTrigger>
       <PopoverContent className="w-[330px]">
         <PopoverBody>
-          <Flex alignItems="center" justifyContent="space-between" mb={ 3 }>
-            <Text color="text.secondary" fontWeight="600">Message payload</Text>
+          <div alignItems="center" justifyContent="space-between" mb={ 3 }>
+            <span color="text.secondary" fontWeight="600">Message payload</span>
             <PopoverCloseTriggerWrapper>
               <CopyToClipboard text={ payload }/>
             </PopoverCloseTriggerWrapper>
-          </Flex>
-          <Text>
+          </div>
+          <span>
             { payload }
-          </Text>
+          </span>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
   );
 };
 
-export default React.memo(chakra(InteropMessageAdditionalInfo));
+export default InteropMessageAdditionalInfo;

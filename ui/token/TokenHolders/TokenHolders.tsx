@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -37,7 +36,7 @@ const TokenHolders = ({ holdersQuery, token, shouldRender = true, tabsHeight = T
   }
 
   const actionBar = isMobile && holdersQuery.pagination.isVisible && (
-    <ActionBar mt={ -6 }>
+    <ActionBar>
       { token && (
         <AddressCsvExportLink
           address={ token.address_hash }
@@ -53,21 +52,21 @@ const TokenHolders = ({ holdersQuery, token, shouldRender = true, tabsHeight = T
 
   const content = items && token ? (
     <>
-      <Box display={{ base: 'none', lg: 'block' }}>
+      <div>
         <TokenHoldersTable
           data={ items }
           token={ token }
           top={ tabsHeight }
           isLoading={ holdersQuery.isPlaceholderData }
         />
-      </Box>
-      <Box display={{ base: 'block', lg: 'none' }}>
+      </div>
+      <div>
         <TokenHoldersList
           data={ items }
           token={ token }
           isLoading={ holdersQuery.isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 

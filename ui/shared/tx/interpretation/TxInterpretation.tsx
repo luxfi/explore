@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -42,14 +40,14 @@ import {
 
 const nameServicesFeature = config.features.nameServices;
 
-interface Props extends BoxProps {
+interface Props {
   summary?: TxInterpretationSummary;
   isLoading?: boolean;
   addressDataMap?: Record<string, AddressParam>;
   className?: string;
   isNoves?: boolean;
   chainData?: ClusterChainConfig;
-};
+}
 
 type NonStringTxInterpretationVariable = Exclude<TxInterpretationVariable, TxInterpretationVariableString>;
 
@@ -76,7 +74,7 @@ const TxInterpretationElementByType = (
   switch (type) {
     case 'address': {
       return (
-        <chakra.span display="inline-block" verticalAlign="top" _notFirst={{ marginLeft: 1 }}>
+        <span className="inline-block align-top [&:not(:first-child)]:ml-1">
           <AddressEntity
             address={ addressDataMap?.[value.hash] || value }
             icon={{ marginRight: 1 }}
@@ -84,12 +82,12 @@ const TxInterpretationElementByType = (
             onClick={ onAddressClick }
             whiteSpace="initial"
           />
-        </chakra.span>
+        </span>
       );
     }
     case 'token':
       return (
-        <chakra.span display="inline-block" verticalAlign="top" _notFirst={{ marginLeft: 1 }}>
+        <span className="inline-block align-top [&:not(:first-child)]:ml-1">
           <TokenEntity
             token={ value }
             icon={{ marginRight: 1 }}
@@ -101,12 +99,12 @@ const TxInterpretationElementByType = (
             whiteSpace="initial"
             onClick={ onTokenClick }
           />
-        </chakra.span>
+        </span>
       );
     case 'domain': {
       if (nameServicesFeature.isEnabled && nameServicesFeature.ens.isEnabled) {
         return (
-          <chakra.span display="inline-block" verticalAlign="top" _notFirst={{ marginLeft: 1 }}>
+          <span className="inline-block align-top [&:not(:first-child)]:ml-1">
             <EnsEntity
               domain={ value }
               icon={{ marginRight: 1 }}
@@ -115,10 +113,10 @@ const TxInterpretationElementByType = (
               whiteSpace="initial"
               onClick={ onDomainClick }
             />
-          </chakra.span>
+          </span>
         );
       }
-      return <chakra.span color="text.secondary" whiteSpace="pre">{ value + ' ' }</chakra.span>;
+      return <span className="text-[var(--color-text-secondary)] whitespace-pre">{ value + ' ' }</span>;
     }
     case 'currency': {
       let numberString = '';
@@ -131,10 +129,10 @@ const TxInterpretationElementByType = (
       } else {
         numberString = BigNumber(value).dividedBy(1000000).toFormat(2) + 'M';
       }
-      return <chakra.span>{ numberString + ' ' }</chakra.span>;
+      return <span>{ numberString + ' ' }</span>;
     }
     case 'timestamp': {
-      return <chakra.span color="text.secondary" whiteSpace="pre">{ dayjs(Number(value) * SECOND).format('MMM DD YYYY') }</chakra.span>;
+      return <span className="text-[var(--color-text-secondary)] whitespace-pre">{ dayjs(Number(value) * SECOND).format('MMM DD YYYY') }</span>;
     }
     case 'external_link': {
       return <Link external href={ value.link }>{ value.name }</Link>;
@@ -173,10 +171,10 @@ const TxInterpretationElementByType = (
       })();
 
       return (
-        <chakra.span display="inline-flex" alignItems="center" verticalAlign="top" _notFirst={{ marginLeft: 1 }} gap={ 1 } mr={ 2 }>
+        <span className="inline-flex items-center align-top [&:not(:first-child)]:ml-1 gap-1 mr-2">
           { icon && <Image src={ icon } alt={ value.name } width={ 5 } height={ 5 }/> }
           { name }
-        </chakra.span>
+        </span>
       );
     }
     case 'link': {
@@ -185,7 +183,7 @@ const TxInterpretationElementByType = (
   }
 };
 
-const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chainData, isNoves, ...rest }: Props) => {
+const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chainData, isNoves }: Props) => {
   const novesLogoUrl = useColorModeValue('/static/noves-logo.svg', '/static/noves-logo-dark.svg');
   if (!summary) {
     return null;
@@ -208,7 +206,7 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
   return (
     <Skeleton loading={ isLoading } className={ `${ className ?? '' } font-medium whitespace-pre-wrap`.trim() } fontWeight={ 500 }>
       <Tooltip content={ tooltipContent } contentProps={{ className: 'whitespace-pre-wrap' }}>
-        <Box display="inline-flex" position="relative" mr={ chainData ? '14px' : 1 } verticalAlign="text-top">
+        <span className={ `inline-flex relative align-text-top ${ chainData ? 'mr-[14px]' : 'mr-1' }` }>
           <IconSvg name="lightning" boxSize={ 5 } color="icon.primary"/>
           { chainData && (
             <span className="absolute top-[6px] left-[12px] rounded-full border border-solid border-[var(--color-bg-primary)] bg-[var(--color-bg-primary)]">
@@ -219,14 +217,14 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
               />
             </span>
           ) }
-        </Box>
+        </span>
       </Tooltip>
       { chunks.map((chunk, index) => {
         let content = null;
         if (variablesNames[index] === NATIVE_COIN_SYMBOL_VAR_NAME) {
-          content = <chakra.span>{ currencyUnits.ether + ' ' }</chakra.span>;
+          content = <span>{ currencyUnits.ether + ' ' }</span>;
         } else if (variablesNames[index] === WEI_VAR_NAME) {
-          content = <chakra.span>{ currencyUnits.wei + ' ' }</chakra.span>;
+          content = <span>{ currencyUnits.wei + ' ' }</span>;
         } else {
           content = (
             <TxInterpretationElementByType
@@ -236,10 +234,10 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
           );
         }
         return (
-          <chakra.span key={ chunk + index }>
-            <chakra.span color="text.secondary">{ chunk.trim() + (chunk.trim() && variablesNames[index] ? ' ' : '') }</chakra.span>
+          <span key={ chunk + index }>
+            <span className="text-[var(--color-text-secondary)]">{ chunk.trim() + (chunk.trim() && variablesNames[index] ? ' ' : '') }</span>
             { index < variablesNames.length && content }
-          </chakra.span>
+          </span>
         );
       }) }
       { isNoves && (
@@ -254,4 +252,4 @@ const TxInterpretation = ({ summary, isLoading, addressDataMap, className, chain
   );
 };
 
-export default chakra(TxInterpretation);
+export default TxInterpretation;

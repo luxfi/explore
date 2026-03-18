@@ -1,4 +1,3 @@
-import { chakra, Box, Text, Flex, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -57,22 +56,17 @@ const SearchBarSuggestAddress = ({ data, isMobile, searchTerm, addressFormat }: 
   const expiresText = 'ens_info' in data && data.ens_info?.expiry_date ? ` (expires ${ dayjs(data.ens_info.expiry_date).fromNow() })` : '';
 
   const nameEl = addressName && (
-    <Flex alignItems="center" overflow="hidden">
-      <Text
-        color="text.secondary"
-        overflow="hidden"
-        whiteSpace="nowrap"
-        textOverflow="ellipsis"
-      >
-        <chakra.span fontWeight={ 500 } dangerouslySetInnerHTML={{ __html: highlightText(addressName, searchTerm) }}/>
+    <div className="flex items-center overflow-hidden">
+      <span className="text-[var(--color-text-secondary)] overflow-hidden whitespace-nowrap text-ellipsis">
+        <span className="font-medium" dangerouslySetInnerHTML={{ __html: highlightText(addressName, searchTerm) }}/>
         { 'ens_info' in data && data.ens_info && (
           data.ens_info.names_count > 1 ?
             <span> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span> :
             <span>{ expiresText }</span>
         ) }
-      </Text>
+      </span>
       { 'certified' in data && data.certified && <ContractCertifiedLabel boxSize={ 4 } iconSize={ 4 } ml={ 1 } flexShrink={ 0 }/> }
-    </Flex>
+    </div>
   );
   const tagEl = data.type === 'metadata_tag' ? (
     <SearchResultEntityTag metadata={ data.metadata } addressHash={ hash } searchTerm={ searchTerm } className="lg:ml-auto"/>
@@ -82,46 +76,38 @@ const SearchBarSuggestAddress = ({ data, isMobile, searchTerm, addressFormat }: 
   if (isMobile) {
     return (
       <>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           { icon }
-          <Box
-            as={ shouldHighlightHash ? 'mark' : 'span' }
-            display="block"
-            overflow="hidden"
-            whiteSpace="nowrap"
-            fontWeight={ 700 }
+          <span
+            className={ `block overflow-hidden whitespace-nowrap font-bold ${ shouldHighlightHash ? '' : '' }` }
+            { ...(shouldHighlightHash ? {} : {}) }
           >
-            { addressEl }
-          </Box>
-        </Flex>
-        <Flex alignItems="center" justifyContent="space-between" flexWrap="wrap" gap={ 2 }>
+            { shouldHighlightHash ? <mark className="block overflow-hidden whitespace-nowrap font-bold">{ addressEl }</mark> : <span className="block overflow-hidden whitespace-nowrap font-bold">{ addressEl }</span> }
+          </span>
+        </div>
+        <div className="flex items-center justify-between flex-wrap gap-2">
           { nameEl }
           { tagEl }
-        </Flex>
+        </div>
       </>
     );
   }
 
   return (
-    <Grid templateColumns="repeat(2, minmax(0, 1fr))" gap={ 2 }>
-      <Flex alignItems="center" mr={ 2 } minWidth={ 0 }>
+    <div className="grid grid-cols-2 gap-2">
+      <div className="flex items-center mr-2 min-w-0">
         { icon }
-        <Box
-          as={ shouldHighlightHash ? 'mark' : 'span' }
-          display="block"
-          overflow="hidden"
-          whiteSpace="nowrap"
-          fontWeight={ 700 }
-          minWidth={ 0 }
-        >
-          { addressEl }
-        </Box>
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between" gap={ 2 } minWidth={ 0 }>
+        { shouldHighlightHash ? (
+          <mark className="block overflow-hidden whitespace-nowrap font-bold min-w-0">{ addressEl }</mark>
+        ) : (
+          <span className="block overflow-hidden whitespace-nowrap font-bold min-w-0">{ addressEl }</span>
+        ) }
+      </div>
+      <div className="flex items-center justify-between gap-2 min-w-0">
         { nameEl }
         { tagEl }
-      </Flex>
-    </Grid>
+      </div>
+    </div>
   );
 };
 

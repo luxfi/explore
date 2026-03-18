@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -26,7 +25,7 @@ const ContractDetailsAlertVerificationStatus = ({ data, isLoading, addressData }
         <>
           <span>This contract has been { data.is_partially_verified ? 'partially ' : '' }verified using </span>
           <Link
-            href="https://docs.lux.network/verification/bytecode-database"
+            href="https://docs.blockscout.com/verification/bytecode-database"
             external
           >
             Bytecode Database
@@ -63,7 +62,7 @@ const ContractDetailsAlertVerificationStatus = ({ data, isLoading, addressData }
         isLoading={ isLoading }
         addressHash={ addressData.hash }
       />
-      { sourceElement && <Box w="100%">{ sourceElement }</Box> }
+      { sourceElement && <div w="100%">{ sourceElement }</div> }
     </Alert>
   );
 };

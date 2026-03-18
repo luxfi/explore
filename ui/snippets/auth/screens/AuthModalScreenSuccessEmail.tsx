@@ -1,4 +1,3 @@
-import { chakra, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Screen } from '../types';
@@ -22,12 +21,12 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
 
   if (isAuth) {
     return (
-      <Box>
-        <Text>
+      <div>
+        <p>
           Your account was linked to{ ' ' }
-          <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
+          <span className="font-bold">{ email }</span>{ ' ' }
           email. Use for the next login.
-        </Text>
+        </p>
         <Button
           className="mt-6"
           variant="outline"
@@ -35,19 +34,19 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
         >
           Got it!
         </Button>
-      </Box>
+      </div>
     );
   }
 
   return (
-    <Box>
-      <Text>
-        <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
+    <div>
+      <p>
+        <span className="font-bold">{ email }</span>{ ' ' }
         email has been successfully used to log in to your Lux account.
-      </Text>
+      </p>
       { !profile?.address_hash && config.features.blockchainInteraction.isEnabled ? (
         <>
-          <Text mt={ 6 }>Add your web3 wallet to safely interact with smart contracts and dapps inside Lux Explorer.</Text>
+          <p className="mt-6">Add your web3 wallet to safely interact with smart contracts and dapps inside the explorer.</p>
           <Button className="mt-6" onClick={ handleConnectWalletClick }>Connect wallet</Button>
         </>
       ) : (
@@ -59,7 +58,7 @@ const AuthModalScreenSuccessEmail = ({ email, onConnectWallet, onClose, isAuth, 
           Got it!
         </Button>
       ) }
-    </Box>
+    </div>
   );
 };
 

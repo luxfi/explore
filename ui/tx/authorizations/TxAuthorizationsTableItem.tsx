@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TxAuthorization } from 'types/api/transaction';
@@ -15,28 +14,28 @@ interface Props extends TxAuthorization {
 
 const TxAuthorizationsItem = ({ address_hash: addressHash, authority, chain_id: chainId, nonce, isLoading, status }: Props) => {
   return (
-    <TableRow alignItems="top">
+    <TableRow>
       <TableCell>
-        <Flex>
+        <div>
           <AddressEntity address={{ hash: addressHash }} isLoading={ isLoading } noIcon/>
-        </Flex>
+        </div>
       </TableCell>
-      <TableCell verticalAlign="middle">
-        <Flex>
+      <TableCell>
+        <div>
           <AddressEntity address={{ hash: authority }} isLoading={ isLoading } noIcon/>
-        </Flex>
+        </div>
       </TableCell>
-      <TableCell verticalAlign="middle">
-        <Skeleton loading={ isLoading } display="inline-block">
+      <TableCell>
+        <Skeleton loading={ isLoading }>
           { chainId === Number(config.chain.id) ? 'this' : 'any' }
         </Skeleton>
       </TableCell>
-      <TableCell verticalAlign="middle">
-        <Skeleton loading={ isLoading } display="inline-block">
+      <TableCell>
+        <Skeleton loading={ isLoading }>
           { nonce }
         </Skeleton>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <TxAuthorizationStatus status={ status } loading={ isLoading }/>
       </TableCell>
     </TableRow>

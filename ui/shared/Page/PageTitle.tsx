@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import { debounce } from 'es-toolkit';
 import React from 'react';
 
@@ -68,15 +67,10 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
   }, [ tooltip ]);
 
   return (
-    <Flex className={ className } flexDir="column" rowGap={ 3 } mb={ 6 }>
-      <Flex
-        flexDir="row"
-        flexWrap="wrap"
-        rowGap={ 3 }
-        columnGap={ 3 }
-        alignItems="center"
+    <div className="flex flex-col gap-y-3 mb-6" className={ className }>
+      <div className="flex items-center flex-row flex-wrap gap-x-3 gap-y-3"
       >
-        <Flex h={{ base: 'auto', lg: isLoading ? 10 : 'auto' }} maxW="100%" alignItems="center">
+        <div className="flex items-center" h={{ base: 'auto', lg: isLoading ? 10 : 'auto' }} maxW="100%">
           { beforeTitle }
           <Skeleton
             loading={ isLoading }
@@ -109,17 +103,17 @@ const PageTitle = ({ title, contentAfter, withTextAd, className, isLoading = fal
             </Tooltip>
           </Skeleton>
           { afterTitle }
-        </Flex>
+        </div>
         { contentAfter }
         { withTextAd && <TextAd order={{ base: -1, lg: 100 }} mb={{ base: 6, lg: 0 }} ml="auto" w={{ base: '100%', lg: 'auto' }}/> }
-      </Flex>
+      </div>
       { secondRow && (
         <Skeleton loading={ isLoading } alignItems="center" display="flex" className="min-h-10 overflow-hidden empty:hidden">
           { secondRow }
         </Skeleton>
       ) }
-    </Flex>
+    </div>
   );
 };
 
-export default chakra(PageTitle);
+export default PageTitle;

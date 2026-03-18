@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 
 import type { EssentialDappsConfig } from 'types/client/marketplace';
 
@@ -40,7 +39,7 @@ const essentialDapps = [
 
 const EssentialDappsList = () => {
   return (
-    <Flex
+    <div
       gap={{ base: 2, md: 3 }}
       mb={ 8 }
       w="full"
@@ -65,7 +64,7 @@ const EssentialDappsList = () => {
           darkImageUrl={ dapp.darkImageUrl }
         />
       )) }
-    </Flex>
+    </div>
   );
 };
 

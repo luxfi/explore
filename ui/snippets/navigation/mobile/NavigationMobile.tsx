@@ -1,4 +1,3 @@
-import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
@@ -56,26 +55,18 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
   const isCollapsed = isMarketplaceAppPage ? false : undefined;
 
   return (
-    <Flex position="relative" flexDirection="column" flexGrow={ 1 }>
-      <Box
-        display="flex"
-        flexDirection="column"
-        flexGrow={ 1 }
-        transform={ isOpen ? 'translateX(calc(-100% - 24px))' : 'translateX(0)' }
-        transition={ `transform ${ ANIMATION_DURATION }ms ease-in-out` }
-        maxHeight={ openedGroupIndex > -1 ? '100vh' : 'unset' }
-        overflowY={ openedGroupIndex > -1 ? 'hidden' : 'unset' }
+    <div className="relative flex flex-col grow">
+      <div
+        className="flex flex-col grow"
+        style={{
+          transform: isOpen ? 'translateX(calc(-100% - 24px))' : 'translateX(0)',
+          transition: `transform ${ ANIMATION_DURATION }ms ease-in-out`,
+          maxHeight: openedGroupIndex > -1 ? '100vh' : 'unset',
+          overflowY: openedGroupIndex > -1 ? 'hidden' : 'unset',
+        }}
       >
-        <Box
-          as="nav"
-          mt={ 6 }
-        >
-          <VStack
-            w="100%"
-            as="ul"
-            gap="1"
-            alignItems="flex-start"
-          >
+        <nav className="mt-6">
+          <ul className="flex flex-col w-full gap-1 items-start">
             { mainNavItems.map((item, index) => {
               if (isGroupItem(item)) {
                 return <NavLinkGroup key={ item.text } item={ item } onClick={ onGroupItemOpen(index) } isExpanded={ isMarketplaceAppPage }/>;
@@ -83,65 +74,48 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
                 return <NavLink key={ item.text } item={ item } onClick={ onNavLinkClick } isCollapsed={ isCollapsed }/>;
               }
             }) }
-          </VStack>
-        </Box>
+          </ul>
+        </nav>
         { isAuth && (
-          <Box
-            as="nav"
-            mt={ 3 }
-            pt={ 3 }
-            borderTopWidth="1px"
-            borderColor="border.divider"
-          >
-            <VStack as="ul" gap="1" alignItems="flex-start">
+          <nav className="mt-3 pt-3 border-t border-[var(--color-border-divider)]">
+            <ul className="flex flex-col gap-1 items-start">
               <NavLinkRewards onClick={ onNavLinkClick } isCollapsed={ isCollapsed }/>
               { accountNavItems.map((item) => <NavLink key={ item.text } item={ item } onClick={ onNavLinkClick } isCollapsed={ isCollapsed }/>) }
-            </VStack>
-          </Box>
+            </ul>
+          </nav>
         ) }
         <NavigationPromoBanner isCollapsed={ isCollapsed }/>
-      </Box>
-      <Box
+      </div>
+      <div
         key="sub"
-        w="100%"
-        mt={ 6 }
-        position="absolute"
-        top={ 0 }
-        left={ isOpen ? 0 : 'calc(100% + 24px)' }
-        transition={ `left ${ ANIMATION_DURATION }ms ease-in-out` }
+        className="w-full mt-6 absolute top-0"
+        style={{
+          left: isOpen ? 0 : 'calc(100% + 24px)',
+          transition: `left ${ ANIMATION_DURATION }ms ease-in-out`,
+        }}
       >
-        <Flex alignItems="center" px={ 2 } py={ 2.5 } w="100%" h="50px" onClick={ onGroupItemClose } mb={ 1 }>
+        <div className="flex items-center px-2 py-2.5 w-full h-[50px] cursor-pointer mb-1" onClick={ onGroupItemClose }>
           <IconSvg name="arrows/east-mini" boxSize={ 6 } mr={ 2 } color={ iconColor }/>
-          <Text color="text.secondary" fontSize="sm">{ mainNavItems[openedGroupIndex]?.text }</Text>
-        </Flex>
-        <Box
-          w="100%"
-          as="ul"
-        >
+          <span className="text-[var(--color-text-secondary)] text-sm">{ mainNavItems[openedGroupIndex]?.text }</span>
+        </div>
+        <ul className="w-full">
           { openedItem && isGroupItem(openedItem) && openedItem.subItems?.map(
             (item, index) => Array.isArray(item) ? (
-              <Box
+              <ul
                 key={ index }
-                w="100%"
-                as="ul"
-                _notLast={{
-                  mb: 2,
-                  pb: 2,
-                  borderBottomWidth: '1px',
-                  borderColor: 'border.divider',
-                }}
+                className="w-full [&:not(:last-child)]:mb-2 [&:not(:last-child)]:pb-2 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-[var(--color-border-divider)]"
               >
                 { item.map(subItem => <NavLink key={ subItem.text } item={ subItem } onClick={ onNavLinkClick } isCollapsed={ isCollapsed }/>) }
-              </Box>
+              </ul>
             ) : (
-              <Box key={ item.text } mb={ 1 }>
+              <li key={ item.text } className="mb-1 list-none">
                 <NavLink item={ item } onClick={ onNavLinkClick } isCollapsed={ isCollapsed }/>
-              </Box>
+              </li>
             ),
           ) }
-        </Box>
-      </Box>
-    </Flex>
+        </ul>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -27,20 +26,14 @@ const ValidatorZilliqa = () => {
   const isLoading = query.isPlaceholderData;
 
   const titleSecondRow = (
-    <Flex
-      columnGap={ 3 }
-      rowGap={ 3 }
-      alignItems="center"
-      w="100%"
-      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-    >
+    <div className="flex items-center w-full gap-x-3 gap-y-3 flex-wrap lg:flex-nowrap">
       <ValidatorEntity
         id={ query.data?.bls_public_key ?? '' }
         isLoading={ isLoading }
         variant="subheading"
         noLink
       />
-    </Flex>
+    </div>
   );
 
   return (

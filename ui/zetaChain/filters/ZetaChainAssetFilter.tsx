@@ -1,4 +1,3 @@
-import { Flex, Text, Spinner } from '@chakra-ui/react';
 import { isEqual } from 'es-toolkit';
 import React from 'react';
 
@@ -136,23 +135,23 @@ const ZetaChainAssetFilter = ({ value = null, handleFilterChange }: Props) => {
         loading={ tokensQuery.isLoading }
       />
       { !searchTerm && currentValue && (
-        <Flex key={ currentValue.address_hash } alignItems="center">
-          <Flex alignItems="center" gap={ 2 } flexGrow={ 1 }>
+        <div className="flex" key={ currentValue.address_hash }>
+          <div className="flex">
             { currentValue.symbol === 'ZETA' ? (
-              <NativeTokenIcon boxSize={ 5 } mr={ 2 }/>
+              <NativeTokenIcon className="w-5 h-5"/>
             ) : (
               <TokenEntity.Icon token={ currentValue }/>
             ) }
             <TokenEntity.Content token={ currentValue } onlySymbol/>
-          </Flex>
+          </div>
           <ClearButton onClick={ handleRemove }/>
-        </Flex>
+        </div>
       ) }
-      { tokensQuery.isLoading && <Spinner display="block" mt={ 3 }/> }
+      { tokensQuery.isLoading && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5 block"/> }
       { tokensQuery.data && !searchTerm && (
         <>
-          <Text color="text.secondary" fontWeight="600" mt={ 3 }>Popular</Text>
-          <Flex rowGap={ 3 } flexWrap="wrap" gap={ 3 } mb={ 2 }>
+          <span className="font-semibold">Popular</span>
+          <div className="flex">
             { [ ZETA_NATIVE_TOKEN, ...filteredTokens.map(token => ({
               address_hash: token.zrc20_contract_address,
               symbol: token.symbol,
@@ -171,27 +170,22 @@ const ZetaChainAssetFilter = ({ value = null, handleFilterChange }: Props) => {
                   onClick={ onTokenClick(token) }
                   variant="select"
                 >
-                  <Flex flexGrow={ 1 } alignItems="center">
-                    { token.address_hash === ZETA_NATIVE_TOKEN.address_hash ? <NativeTokenIcon boxSize={ 5 } mr={ 2 }/> : <TokenEntity.Icon token={ token }/> }
+                  <div className="flex">
+                    { token.address_hash === ZETA_NATIVE_TOKEN.address_hash ? <NativeTokenIcon className="w-5 h-5"/> : <TokenEntity.Icon token={ token }/> }
                     { token.symbol || token.name || token.address_hash }
-                  </Flex>
+                  </div>
                 </Tag>
               </PopoverCloseTriggerWrapper>
             )) }
-          </Flex>
+          </div>
         </>
       ) }
-      { searchTerm && tokensQuery.data && !filteredTokens.length && <Text>No tokens found</Text> }
+      { searchTerm && tokensQuery.data && !filteredTokens.length && <span>No tokens found</span> }
       { searchTerm && tokensQuery.data && Boolean(filteredTokens.length) && (
-        <Flex display="flex" flexDir="column" rowGap={ 3 } maxH="250px" overflowY="scroll" mt={ 3 } ml="-4px">
+        <div className="flex flex-col ml-[-4px]">
           { filteredTokens.map(token => (
             <PopoverCloseTriggerWrapper key={ token.zrc20_contract_address }>
-              <Flex
-                alignItems="center"
-                p={ 2 }
-                borderRadius="md"
-                cursor="pointer"
-                _hover={{ bg: 'gray.50' }}
+              <div className="flex cursor-pointer"
                 onClick={ onTokenClick(token) }
               >
                 { /* FIXME: I'd use TokenEntity here, but it prevents onTokenClick callback from being called */ }
@@ -208,10 +202,10 @@ const ZetaChainAssetFilter = ({ value = null, handleFilterChange }: Props) => {
                   circulating_market_cap: null,
                 } as TokenInfo}/>
                 { token.symbol || token.name || token.zrc20_contract_address }
-              </Flex>
+              </div>
             </PopoverCloseTriggerWrapper>
           )) }
-        </Flex>
+        </div>
       ) }
     </TableColumnFilter>
   );

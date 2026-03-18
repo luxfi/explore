@@ -1,4 +1,3 @@
-import { chakra, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { getFeaturePayload } from 'configs/app/features/types';
@@ -63,10 +62,10 @@ const TriggerButton = (
               />
             ) }
             { (rating && !fullView) ? (
-              <chakra.span color="text.primary" transition="inherit" display="inline-flex">
+              <span className="text-[var(--color-text-primary)] transition-[inherit] inline-flex">
                 { rating }
-                <Text color="text.secondary" ml={ 1 }>({ count })</Text>
-              </chakra.span>
+                <span color="text.secondary" ml={ 1 }>({ count })</span>
+              </span>
             ) : (
               'Rate it!'
             ) }

@@ -1,4 +1,3 @@
-import { Text, VStack, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { HighlightsBannerConfig } from 'types/homepage';
@@ -78,8 +77,8 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
       ) }
       style={ containerStyle }
     >
-      <HStack overflow="hidden" w="100%" gap={ 3 }>
-        <VStack
+      <div overflow="hidden" w="100%" gap={ 3 }>
+        <div
           alignItems="flex-start"
           gap={ 3 }
           w={ totalNum === 2 ? '294px' : '193px' }
@@ -91,7 +90,7 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
           >
             { data.title }
           </Heading>
-          <Text
+          <span
             textStyle="sm"
             color={{
               _light: data.description_color?.[0] || '#718096',
@@ -99,8 +98,8 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
             }}
           >
             { data.description }
-          </Text>
-        </VStack>
+          </span>
+        </div>
         { imageSrc && !isLoading && (
           <Image
             src={ imageSrc }
@@ -112,7 +111,7 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
             mr={ 6 }
           />
         ) }
-      </HStack>
+      </div>
     </Container>
   );
 };

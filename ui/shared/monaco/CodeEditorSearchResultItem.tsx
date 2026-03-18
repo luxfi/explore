@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SearchResult } from './types';
@@ -32,27 +31,18 @@ const CodeEditorSearchResultItem = ({ lineContent, filePath, onClick, startLineN
   const themeColors = useThemeColors();
 
   return (
-    <Box
-      pr="8px"
-      pl="36px"
-      fontSize="13px"
-      lineHeight="22px"
-      whiteSpace="nowrap"
-      overflow="hidden"
-      textOverflow="ellipsis"
-      cursor="pointer"
+    <div       pr="8px"
+      pl="36px" className="text-[13px] leading-[22px]" className="whitespace-nowrap text-ellipsis cursor-pointer" className="overflow-hidden"
       data-file-path={ filePath }
       data-line-number={ startLineNumber }
-      onClick={ onClick }
-      transitionDuration="0"
-      _hover={{ bgColor: themeColors['custom.list.hoverBackground'] }}
+      onClick={ onClick } style={{ transitionDuration: '0' }}
     >
       <span>{ lineContent.slice(start, startColumn - 1) }</span>
-      <chakra.span bgColor={ themeColors['custom.findMatchHighlightBackground'] }>
+      <span style={{ backgroundColor: themeColors['custom.findMatchHighlightBackground'] }}>
         { lineContent.slice(startColumn - 1, endColumn - 1) }
-      </chakra.span>
+      </span>
       <span>{ lineContent.slice(endColumn - 1) }</span>
-    </Box>
+    </div>
   );
 };
 

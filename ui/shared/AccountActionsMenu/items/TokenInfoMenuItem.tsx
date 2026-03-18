@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -87,7 +86,7 @@ const TokenInfoMenuItem = ({ hash, type }: ItemProps) => {
             { ({ onClick }) => (
               <MenuItem onClick={ onClick } value="add-token-info">
                 { icon }
-                <chakra.span>{ label }</chakra.span>
+                <span>{ label }</span>
               </MenuItem>
             ) }
           </AuthGuard>

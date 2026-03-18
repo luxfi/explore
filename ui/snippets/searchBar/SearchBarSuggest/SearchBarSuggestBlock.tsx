@@ -1,4 +1,3 @@
-import { Text, Flex, Grid, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ItemsProps } from './types';
@@ -19,57 +18,45 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
 
   if (hasOnlyHash) {
     const hash = (
-      <Box
-        overflow="hidden"
-        whiteSpace="nowrap"
-        as="mark"
-        display="block"
-      >
+      <mark className="overflow-hidden whitespace-nowrap block">
         <HashStringShortenDynamic hash={ data.block_hash } noTooltip/>
-      </Box>
+      </mark>
     );
     return (
-      <Flex alignItems="center">
+      <div className="flex items-center">
         { icon }
         { hash }
-      </Flex>
+      </div>
     );
   }
 
   const blockNumber = (
-    <Text
-      fontWeight={ 700 }
-      overflow="hidden"
-      whiteSpace="nowrap"
-      textOverflow="ellipsis"
-    >
+    <span className="font-bold overflow-hidden whitespace-nowrap text-ellipsis">
       <span dangerouslySetInnerHTML={{ __html: highlightText(data.block_number.toString(), searchTerm) }}/>
-    </Text>
+    </span>
   );
   const hash = data.block_hash && !isFutureBlock ? (
-    <Text
-      color="text.secondary"
-      overflow="hidden"
-      whiteSpace="nowrap"
-      as={ shouldHighlightHash ? 'mark' : 'span' }
-      display="block"
-    >
-      <HashStringShortenDynamic hash={ data.block_hash } noTooltip/>
-    </Text>
+    <span className={ `text-[var(--color-text-secondary)] overflow-hidden whitespace-nowrap block ${ shouldHighlightHash ? '' : '' }` }>
+      { shouldHighlightHash ? (
+        <mark className="block"><HashStringShortenDynamic hash={ data.block_hash } noTooltip/></mark>
+      ) : (
+        <HashStringShortenDynamic hash={ data.block_hash } noTooltip/>
+      ) }
+    </span>
   ) : null;
   const date = 'timestamp' in data && data.timestamp && !isFutureBlock ? <Time timestamp={ data.timestamp } color="text.secondary" format="lll_s"/> : undefined;
-  const futureBlockText = <Text color="text.secondary">Learn estimated time for this block to be created.</Text>;
+  const futureBlockText = <span className="text-[var(--color-text-secondary)]">Learn estimated time for this block to be created.</span>;
   const blockType = 'block_type' in data ? data.block_type : undefined;
 
   if (isMobile) {
     return (
       <>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           { icon }
           { blockNumber }
           { blockType === 'reorg' && <Tag className="ml-auto">Reorg</Tag> }
           { blockType === 'uncle' && <Tag className="ml-auto">Uncle</Tag> }
-        </Flex>
+        </div>
         { hash }
         { isFutureBlock ? futureBlockText : date }
       </>
@@ -77,18 +64,18 @@ const SearchBarSuggestBlock = ({ data, isMobile, searchTerm, chainInfo }: ItemsP
   }
 
   return (
-    <Grid templateColumns="228px minmax(auto, max-content) auto" gap={ 2 }>
-      <Flex alignItems="center">
+    <div className="grid gap-2" style={{ gridTemplateColumns: '228px minmax(auto, max-content) auto' }}>
+      <div className="flex items-center">
         { icon }
         { blockNumber }
-      </Flex>
-      <Flex columnGap={ 3 } minW={ 0 } alignItems="center">
+      </div>
+      <div className="flex gap-x-3 min-w-0 items-center">
         { blockType === 'reorg' && <Tag className="shrink-0">Reorg</Tag> }
         { blockType === 'uncle' && <Tag className="shrink-0">Uncle</Tag> }
         { isFutureBlock ? futureBlockText : hash }
-      </Flex>
-      { date && <Text color="text.secondary" textAlign="end">{ date }</Text> }
-    </Grid>
+      </div>
+      { date && <span className="text-[var(--color-text-secondary)] text-end">{ date }</span> }
+    </div>
   );
 };
 

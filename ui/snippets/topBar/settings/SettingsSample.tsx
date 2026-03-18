@@ -1,6 +1,6 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 
 interface Props {
@@ -12,45 +12,25 @@ interface Props {
 }
 
 const SettingsSample = ({ label, value, bg, onClick, isActive }: Props) => {
-  const bgColor = { base: 'white', _dark: 'gray.900' };
-  const activeBgColor = { base: 'gray.100', _dark: 'whiteAlpha.100' };
-  const activeBorderColor = { base: 'blackAlpha.800', _dark: 'gray.50' };
-
   return (
-    <Box p="9px" bgColor={ isActive ? activeBgColor : 'transparent' } borderRadius="base">
+    <div className={ cn('p-[9px] rounded', isActive ? 'bg-gray-100 dark:bg-[var(--color-whiteAlpha-100)]' : 'bg-transparent') }>
       <Tooltip content={ label }>
-        <Box
-          bg={ bg }
-          boxSize="22px"
-          borderRadius="full"
-          borderWidth="1px"
-          borderColor={ isActive ? activeBgColor : bgColor }
-          position="relative"
-          cursor="pointer"
-          _before={{
-            position: 'absolute',
-            display: 'block',
-            boxSizing: 'content-box',
-            content: '""',
-            top: '-3px',
-            left: '-3px',
-            width: 'calc(100% + 2px)',
-            height: 'calc(100% + 2px)',
-            borderStyle: 'solid',
-            borderRadius: 'full',
-            borderWidth: '2px',
-            borderColor: isActive ? activeBorderColor : 'transparent',
-          }}
-          _hover={{
-            _before: {
-              borderColor: isActive ? activeBorderColor : 'hover',
-            },
-          }}
+        <div
+          className={ cn(
+            'w-[22px] h-[22px] rounded-full border cursor-pointer relative',
+            'before:absolute before:block before:content-[\'\'] before:-top-[3px] before:-left-[3px]',
+            'before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-solid before:rounded-full before:border-2',
+            'before:box-content',
+            isActive
+              ? 'border-gray-100 dark:border-[var(--color-whiteAlpha-100)] before:border-[var(--color-blackAlpha-800)] dark:before:border-gray-50'
+              : 'border-white dark:border-gray-900 before:border-transparent hover:before:border-[var(--color-hover)]',
+          ) }
+          style={{ background: bg }}
           data-value={ value }
           onClick={ onClick }
         />
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 

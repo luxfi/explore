@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ButtonGroupRadioProps } from 'toolkit/chakra/button';
@@ -21,11 +20,11 @@ const AddressNftDisplayTypeRadio = ({ value, onChange, ...rest }: Props) => {
     >
       <Button value="collection" size="sm" className="px-3">
         <IconSvg name="collection" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg">By collection</chakra.span>
+        <span className="hidden lg:inline">By collection</span>
       </Button>
       <Button value="list" size="sm" className="px-3">
         <IconSvg name="apps" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg">List</chakra.span>
+        <span className="hidden lg:inline">List</span>
       </Button>
     </ButtonGroupRadio>
   );

@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
 
@@ -18,42 +17,42 @@ const TxFHEOperationsTableItem = (props: Props) => {
 
   return (
     <TableRow>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Skeleton loading={ isLoading }>
           { logIndex }
         </Skeleton>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Skeleton loading={ isLoading }>
           { operation }
         </Skeleton>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Badge colorPalette={ getTypeColor(type) } loading={ isLoading }>
           { capitalize(type) }
         </Badge>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Badge colorPalette="gray" loading={ isLoading }>
           { fheType }
         </Badge>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Badge colorPalette="gray" loading={ isLoading }>
           { isScalar ? 'Scalar' : 'Non-scalar' }
         </Badge>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Skeleton loading={ isLoading }>
           { hcuCost.toLocaleString() }
         </Skeleton>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         <Skeleton loading={ isLoading } color="text.secondary">
           { hcuDepthValue.toLocaleString() }
         </Skeleton>
       </TableCell>
-      <TableCell verticalAlign="middle">
+      <TableCell>
         { caller && caller.hash ? (
           <AddressEntity
             address={ caller }
@@ -61,7 +60,7 @@ const TxFHEOperationsTableItem = (props: Props) => {
             isLoading={ isLoading }
           />
         ) : (
-          <Text color="text.secondary">—</Text>
+          <span className="text-[var(--color-text-secondary)]">—</span>
         ) }
       </TableCell>
     </TableRow>

@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { IconButton } from 'toolkit/chakra/icon-button';
@@ -27,4 +26,4 @@ const AdditionalInfoButton = (props: Props, ref: React.ForwardedRef<HTMLButtonEl
   );
 };
 
-export default chakra(React.forwardRef(AdditionalInfoButton));
+export default React.forwardRef(AdditionalInfoButton);

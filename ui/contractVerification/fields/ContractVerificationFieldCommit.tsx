@@ -1,4 +1,3 @@
-import { Code } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -106,7 +105,7 @@ const ContractVerificationFieldCommit = ({ latestCommitHash }: Props) => {
       { latestCommitHash ? (
         <div>
           <span >We have found the latest commit hash for the repository: </span>
-          <Code color="text.secondary">{ latestCommitHash.slice(0, 7) }</Code>
+          <code className="text-[var(--color-text-secondary)]">{ latestCommitHash.slice(0, 7) }</code>
           <span>. If you want to use it, </span>
           <Link onClick={ handleUseLatestCommitClick }>click here</Link>
           <span>.</span>

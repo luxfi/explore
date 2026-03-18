@@ -1,4 +1,3 @@
-import { Flex, Text, chakra } from '@chakra-ui/react';
 import { useCallback, useMemo, useState } from 'react';
 
 import { getFeaturePayload } from 'configs/app/features/types';
@@ -111,15 +110,15 @@ export default function ActivityTab() {
   const tasks = useMemo(() => (
     [
       {
-        title: 'Lux Explorer activity',
+        title: `${ config.chain.name || '' } Explorer activity`,
         description: (
           <>
-            Use Lux Explorer tools like{ ' ' }
+            Use { config.chain.name || '' } Explorer tools like{ ' ' }
             <Link
               external={ !marketplaceFeature?.essentialDapps }
               href={ marketplaceFeature?.essentialDapps ?
                 route({ pathname: '/apps' }) :
-                'https://explore.lux.network/apps?utm_source=lux&utm_medium=transactions-task'
+                `${ config.app.baseUrl }/apps?utm_source=explorer&utm_medium=transactions-task`
               }
             >
               Essential dapps
@@ -144,7 +143,7 @@ export default function ActivityTab() {
             <Link href={ route({ pathname: '/contract-verification' }) }>
               verify a smart contract
             </Link>{ ' ' }
-            on the Lux Explorer to earn Merits.
+            on the { config.chain.name || '' } Explorer to earn Merits.
           </>
         ),
         percentile: activities.contracts?.percentile,
@@ -154,11 +153,11 @@ export default function ActivityTab() {
         maxAmount: getMaxAmount(rewardsConfigQuery.data?.rewards?.verified_contracts_activity_rewards),
       },
       {
-        title: 'Lux Explorer usage',
+        title: `${ config.chain.name || '' } Explorer usage`,
         description: (
           <>
-            Use Lux Explorer in your daily routine { mdash } check transactions, explore addresses,
-            or add tokens/networks to MetaMask via Lux Explorer.
+            Use { config.chain.name || '' } Explorer in your daily routine { mdash } check transactions, explore addresses,
+            or add tokens/networks to MetaMask via { config.chain.name || '' } Explorer.
           </>
         ),
         percentile: activities.usage?.percentile,
@@ -177,16 +176,12 @@ export default function ActivityTab() {
   };
 
   const labelComponents = Object.fromEntries(Object.entries(labels).map(([ key, value ], index) => [ key, (
-    <Flex key={ index } flex={ 1 } alignItems="center" gap={ 1 } _first={{ minW: { base: 'auto', md: '200px' } }}>
-      <Text
-        textStyle={{ base: 'sm', md: 'xs' }}
-        color={{ base: 'text.primary', md: 'text.secondary' }}
-        fontWeight="500"
-      >
+    <div key={ index } className={ `flex flex-1 items-center gap-1 ${ index === 0 ? 'min-w-0 md:min-w-[200px]' : '' }` }>
+      <span className="text-sm md:text-xs text-[var(--color-text-primary)] md:text-[var(--color-text-secondary)] font-medium">
         { value.text }
-      </Text>
+      </span>
       <Hint label={ value.hint }/>
-    </Flex>
+    </div>
   ) ]));
 
   const openTaskDetails = useCallback((index: number) => () => {
@@ -202,27 +197,14 @@ export default function ActivityTab() {
 
   return (
     <>
-      <Flex
-        p={{ base: 1.5, md: 2 }}
-        border="1px solid"
-        borderColor={{ _light: 'gray.200', _dark: 'whiteAlpha.200' }}
-        borderRadius="lg"
-        gap={{ base: 4, md: 10 }}
-        flexDirection={{ base: 'column', md: 'row' }}
-      >
-        <Flex
-          display={{ base: 'contents', md: 'flex' }}
-          flexDirection="column"
-          w="340px"
-          p={ 3 }
-          pr={ 0 }
-        >
-          <Flex flexDirection="column" p={{ base: 1.5, md: 0 }} pb={ 0 }>
+      <div className="flex p-1.5 md:p-2 border border-gray-200 dark:border-[var(--color-whiteAlpha-200)] rounded-lg gap-4 md:gap-10 flex-col md:flex-row">
+        <div className="contents md:flex md:flex-col md:w-[340px] md:p-3 md:pr-0">
+          <div className="flex flex-col p-1.5 md:p-0 pb-0">
             <Heading level="3" className="mb-2">Your activity</Heading>
-            <Text textStyle="sm" mb={{ base: 2, md: 4 }}>
-              Use Lux Explorer and related products daily to earn Merits. Check each task for details and how to get started.
-            </Text>
-            <Flex alignItems="center" gap={ 3 } mb={{ base: 0, md: 4 }}>
+            <p className="text-sm mb-2 md:mb-4">
+              Use { config.chain.name || '' } Explorer and related products daily to earn Merits. Check each task for details and how to get started.
+            </p>
+            <div className="flex items-center gap-3 mb-0 md:mb-4">
               <Button
                 loadingSkeleton={ instancesQuery.isLoading }
                 onClick={ explorersModal.onOpen }
@@ -231,136 +213,110 @@ export default function ActivityTab() {
               </Button>
               <Link
                 external
-                href="https://docs.lux.network/using-blockscout/merits/activity-pass"
+                href="https://docs.blockscout.com/using-blockscout/merits/activity-pass"
                 className="text-base font-medium text-center"
               >
                 Learn more
               </Link>
-            </Flex>
-          </Flex>
-          <Flex
-            flexDirection="column"
-            gap={ 2.5 }
-            mt="auto"
-            order={{ base: 3, md: 'auto' }}
-            px={{ base: 1.5, md: 0 }}
-          >
-            <IconSvg name="status/warning" boxSize={ 6 } color="icon.primary"/>
-            <Text textStyle="sm">
-              <chakra.span fontWeight="600">Your current Merit count is not final!</chakra.span><br/>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2.5 mt-auto order-3 md:order-none px-1.5 md:px-0">
+            <IconSvg name="status/warning" className="w-6 h-6 text-[var(--color-icon-primary)]"/>
+            <p className="text-sm">
+              <span className="font-semibold">Your current Merit count is not final!</span><br/>
               Merits are calculated based on the activity of all users and may increase or decrease by the end of the weekly period.
-            </Text>
-          </Flex>
-        </Flex>
-        <Flex display={{ base: 'flex', md: 'none' }} justifyContent="space-between" px={ 3 }>
-          <Flex alignItems="center" gap={ 1 }>
-            <Text textStyle="sm" fontWeight="500">
+            </p>
+          </div>
+        </div>
+        <div className="flex md:hidden justify-between px-3">
+          <div className="flex items-center gap-1">
+            <span className="text-sm font-medium">
               Period
-            </Text>
+            </span>
             <Hint label={ labels.period.hint }/>
-          </Flex>
-          <Text textStyle="sm" fontWeight="500" color="text.secondary">
+          </div>
+          <span className="text-sm font-medium text-[var(--color-text-secondary)]">
             { period }
-          </Text>
-        </Flex>
-        <Flex
-          display={{ base: 'contents', md: 'flex' }}
-          flex={ 1 }
-          flexDirection="column"
-          gap={ 1 }
-        >
-          <Flex p={ 3 } gap={ 8 } display={{ base: 'none', md: 'flex' }}>
+          </span>
+        </div>
+        <div className="contents md:flex md:flex-1 md:flex-col md:gap-1">
+          <div className="hidden md:flex p-3 gap-8">
             { Object.values(labelComponents) }
-          </Flex>
-          <Flex flexDirection="column" gap={{ base: 1.5, md: 1 }}>
+          </div>
+          <div className="flex flex-col gap-1.5 md:gap-1">
             { tasks.map((item, index) => (
-              <Flex
+              <div
                 key={ index }
-                flexDirection={{ base: 'column', md: 'row' }}
-                px={ 3 }
-                py={ 4 }
-                gap={{ base: 6, md: 8 }}
-                borderRadius={{ base: 'lg', md: '8px' }}
-                backgroundColor={{ _light: 'gray.50', _dark: 'whiteAlpha.50' }}
+                className="flex flex-col md:flex-row px-3 py-4 gap-6 md:gap-8 rounded-lg md:rounded-[8px] bg-gray-50 dark:bg-[var(--color-whiteAlpha-50)]"
               >
-                <Flex
-                  flex={ 1 }
-                  flexDirection={{ base: 'row', md: 'column' }}
-                  gap={ 2 }
-                  alignItems={{ base: 'center', md: 'flex-start' }}
-                  justifyContent={{ base: 'space-between', md: 'flex-start' }}
-                  minW={{ base: 'auto', md: '200px' }}
-                >
-                  <Text textStyle="sm" fontWeight={{ base: '700', md: '500' }}>
+                <div className="flex flex-1 flex-row md:flex-col gap-2 items-center md:items-start justify-between md:justify-start min-w-0 md:min-w-[200px]">
+                  <span className="text-sm font-bold md:font-medium">
                     { item.title }
-                  </Text>
+                  </span>
                   <Link
                     className="text-sm md:text-xs font-normal md:font-medium"
                     onClick={ openTaskDetails(index) }
                   >
                     Task details
                   </Link>
-                </Flex>
-                <Flex display={{ base: 'flex', md: 'contents' }} gap={ 8 }>
-                  <Flex flex={ 1 } flexDirection="column" gap={ 2 } alignItems="flex-start">
-                    <Flex display={{ base: 'flex', md: 'none' }}>
+                </div>
+                <div className="flex md:contents gap-8">
+                  <div className="flex flex-1 flex-col gap-2 items-start">
+                    <div className="flex md:hidden">
                       { labelComponents.performanceRank }
-                    </Flex>
+                    </div>
                     <Skeleton loading={ isActivityDataLoading }>
                       <Heading level="3">
                         { item.percentile }
                       </Heading>
                     </Skeleton>
                     <Skeleton loading={ isActivityDataLoading }>
-                      <Text textStyle={{ base: 'sm', md: 'xs' }} color="text.secondary" fontWeight="500">
+                      <span className="text-sm md:text-xs text-[var(--color-text-secondary)] font-medium">
                         { item.percentileDiff } vs { isMobile ? 'prev.' : 'previous' } week
-                      </Text>
+                      </span>
                     </Skeleton>
-                  </Flex>
-                  <Flex flex={ 1 } flexDirection="column" gap={ 2 } alignItems="flex-start">
-                    <Flex display={{ base: 'flex', md: 'none' }}>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-2 items-start">
+                    <div className="flex md:hidden">
                       { labelComponents.meritsEarned }
-                    </Flex>
+                    </div>
                     <Skeleton
                       loading={ isActivityDataLoading }
                       display="flex"
                       alignItems="center"
                     >
-                      <MeritsIcon boxSize={ 6 } mr={ 2 }/>
+                      <MeritsIcon className="w-6 h-6 mr-2"/>
                       <Heading level="3" className="mr-0 md:mr-2">
                         { item.amount }
                       </Heading>
-                      <Text textStyle="sm" color="gray.400" fontWeight="500" alignSelf="flex-end" display={{ base: 'none', md: 'inline' }}>
+                      <span className="hidden md:inline text-sm text-gray-400 font-medium self-end">
                         /{ item.maxAmount }
-                      </Text>
+                      </span>
                       <Heading level="3" className="inline md:hidden text-[var(--color-text-secondary)]">
                         /{ item.maxAmount }
                       </Heading>
                     </Skeleton>
                     <Skeleton loading={ isActivityDataLoading }>
-                      <Text textStyle={{ base: 'sm', md: 'xs' }} color="text.secondary" fontWeight="500">
+                      <span className="text-sm md:text-xs text-[var(--color-text-secondary)] font-medium">
                         { item.amountDiff } vs { isMobile ? 'prev.' : 'previous' } week
-                      </Text>
+                      </span>
                     </Skeleton>
-                  </Flex>
-                </Flex>
-              </Flex>
+                  </div>
+                </div>
+              </div>
             )) }
-          </Flex>
-          <Flex
-            p={{ base: 1.5, md: 3 }}
-            order={{ base: 4, md: 'auto' }}
-          >
-            <Text textStyle="xs" color="text.secondary" fontWeight="500">
+          </div>
+          <div className="p-1.5 md:p-3 order-4 md:order-none">
+            <span className="text-xs text-[var(--color-text-secondary)] font-medium">
               Metrics are not updated in real time. Please allow up to one hour for your Performance Rank and earned Merits to reflect recent activity.
               If you experience any issues, feel free to reach out on{ ' ' }
               <Link external href="https://discord.gg/luxnetwork">
                 Discord
               </Link>
-            </Text>
-          </Flex>
-        </Flex>
-      </Flex>
+            </span>
+          </div>
+        </div>
+      </div>
       <RewardsInstancesModal
         isOpen={ explorersModal.open }
         onClose={ explorersModal.onClose }

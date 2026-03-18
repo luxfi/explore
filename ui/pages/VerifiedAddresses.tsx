@@ -1,4 +1,3 @@
-import { List, chakra, Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -153,7 +152,7 @@ const VerifiedAddresses = () => {
     if (addressesQuery.data?.verifiedAddresses) {
       return (
         <>
-          <Box hideFrom="lg" key="content-mobile">
+          <div className="lg:hidden" key="content-mobile">
             { addressesQuery.data.verifiedAddresses.map((item, index) => (
               <VerifiedAddressesListItem
                 key={ item.contractAddress + (isLoading ? index : '') }
@@ -167,8 +166,8 @@ const VerifiedAddresses = () => {
                 isLoading={ isLoading }
               />
             )) }
-          </Box>
-          <Box hideBelow="lg" key="content-desktop">
+          </div>
+          <div className="hidden lg:block" key="content-desktop">
             <VerifiedAddressesTable
               data={ addressesQuery.data.verifiedAddresses }
               applications={ applicationsQuery.data?.submissions }
@@ -176,7 +175,7 @@ const VerifiedAddresses = () => {
               onItemAdd={ handleItemAdd }
               isLoading={ isLoading }
             />
-          </Box>
+          </div>
         </>
       );
     }
@@ -195,21 +194,21 @@ const VerifiedAddresses = () => {
           Once verified, you can update token information, address name tags, and address labels from the
           explorer console without needing to sign additional messages.
         </span>
-        <chakra.p fontWeight={ 600 } mt={ 5 }>
+        <p className="font-semibold mt-5">
           Before starting, make sure that:
-        </chakra.p>
-        <List.Root pl={ 5 } as="ol">
-          <List.Item>The source code for the smart contract is deployed on “{ config.chain.name }”.</List.Item>
-          <List.Item>
+        </p>
+        <ol className="pl-5">
+          <li>The source code for the smart contract is deployed on "{ config.chain.name }".</li>
+          <li>
             <span>The source code is verified (if not yet verified, you can use </span>
-            <Link href="https://docs.lux.network/devs/verification" external noIcon>this tool</Link>
+            <Link href="https://docs.blockscout.com/devs/verification" external noIcon>this tool</Link>
             <span>).</span>
-          </List.Item>
-        </List.Root>
-        <chakra.div mt={ 5 }>
+          </li>
+        </ol>
+        <div className="mt-5">
           Once these steps are complete, click the Add address button below to get started.
-        </chakra.div>
-        <AdminSupportText mt={ 5 }/>
+        </div>
+        <AdminSupportText className="mt-5"/>
       </AccountPageDescription>
       <DataListDisplay
         isError={ profileQuery.isError || addressesQuery.isError || applicationsQuery.isError }

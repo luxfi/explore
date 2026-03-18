@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import BeaconChainDepositsList from 'ui/deposits/beaconChain/BeaconChainDepositsList';
@@ -14,21 +13,21 @@ const TABS_HEIGHT = 88;
 const BlockDeposits = ({ blockDepositsQuery }: Props) => {
   const content = blockDepositsQuery.data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <BeaconChainDepositsList
           items={ blockDepositsQuery.data.items }
           isLoading={ blockDepositsQuery.isPlaceholderData }
           view="block"
         />
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <BeaconChainDepositsTable
           items={ blockDepositsQuery.data.items }
           isLoading={ blockDepositsQuery.isPlaceholderData }
           top={ blockDepositsQuery.pagination.isVisible ? TABS_HEIGHT : 0 }
           view="block"
         />
-      </Box>
+      </div>
     </>
   ) : null ;
 

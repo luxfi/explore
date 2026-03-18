@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -49,14 +48,14 @@ const AddressEpochRewards = ({ shouldRender = true, isQueryEnabled = true }: Pro
 
   const content = rewardsQuery.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <AddressEpochRewardsTable
           items={ rewardsQuery.data.items }
           top={ rewardsQuery.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ rewardsQuery.isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { rewardsQuery.data.items.map((item, index) => (
           <AddressEpochRewardsListItem
             key={ item.epoch_number + item.type + item.account.hash + item.associated_account.hash + (rewardsQuery.isPlaceholderData ? String(index) : '') }
@@ -64,7 +63,7 @@ const AddressEpochRewards = ({ shouldRender = true, isQueryEnabled = true }: Pro
             isLoading={ rewardsQuery.isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

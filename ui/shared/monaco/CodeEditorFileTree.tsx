@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FileTree } from './types';
@@ -32,7 +31,7 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
     <AccordionRoot multiple value={ value } onValueChange={ handleValueChange } noAnimation>
       {
         tree.map((leaf, index) => {
-          const leafName = <chakra.span overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">{ leaf.name }</chakra.span>;
+          const leafName = <span className="overflow-hidden text-ellipsis whitespace-nowrap">{ leaf.name }</span>;
           const isExpanded = value.includes(leaf.name);
 
           if ('children' in leaf) {
@@ -50,12 +49,7 @@ const CodeEditorFileTree = ({ tree, level = 0, onItemClick, isCollapsed, selecte
                   }}
                   noIndicator
                 >
-                  <Box
-                    className="codicon codicon-tree-item-expanded"
-                    transform="rotate(-90deg)"
-                    _groupExpanded={{
-                      transform: 'rotate(0deg)',
-                    }}
+                  <div                     className="codicon codicon-tree-item-expanded" style={{ transform: 'rotate(-90deg)' }}
                     boxSize="16px"
                     mr="2px"
                   />

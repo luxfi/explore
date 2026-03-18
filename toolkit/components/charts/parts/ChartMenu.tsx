@@ -1,4 +1,3 @@
-import { Icon } from '@chakra-ui/react';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import dayjs from 'dayjs';
 import domToImage from 'dom-to-image';
@@ -19,6 +18,7 @@ import { IconButton } from '../../../chakra/icon-button';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '../../../chakra/menu';
 import { useDisclosure } from '../../../hooks/useDisclosure';
 import { saveAsCsv } from '../../../utils/file';
+import { getEnvValue } from '../../../../configs/app/utils';
 import { isBrowser } from '../../../utils/isBrowser';
 import ChartFullscreenDialog from '../ChartFullscreenDialog';
 
@@ -96,7 +96,7 @@ const ChartMenu = ({
           })
           .then((dataUrl) => {
             const link = document.createElement('a');
-            link.download = `${ title }${ chainPostfix } (Lux Explorer chart).png`;
+            link.download = `${ title }${ chainPostfix } (${ getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || 'Explorer' } chart).png`;
             link.href = dataUrl;
             link.click();
             link.remove();
@@ -113,7 +113,7 @@ const ChartMenu = ({
       item.dateLabel ?? dayjs(item.date).format('YYYY-MM-DD'),
       ...charts.map((chart) => String(chart.items[index].value)),
     ]);
-    saveAsCsv(headerRows, dataRows, `${ title }${ chainPostfix } (Lux Explorer stats)`);
+    saveAsCsv(headerRows, dataRows, `${ title }${ chainPostfix } (${ getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || 'Explorer' } stats)`);
   }, [ charts, title, chainPostfix ]);
 
   // TS thinks window.navigator.share can't be undefined, but it can
@@ -139,7 +139,7 @@ const ChartMenu = ({
       <MenuRoot>
         <MenuTrigger asChild>
           <IconButton variant="icon_background" size="md" aria-label="Open chart options menu" loadingSkeleton={ isLoading }>
-            <Icon><DotsIcon/></Icon>
+            <DotsIcon className="w-5 h-5"/>
           </IconButton>
         </MenuTrigger>
         <MenuContent>
@@ -149,7 +149,7 @@ const ChartMenu = ({
               onClick={ hasShare ? handleShare : handleCopy }
               closeOnSelect={ hasShare ? false : true }
             >
-              <Icon boxSize={ 5 }>{ hasShare ? <ShareIcon/> : <CopyIcon/> }</Icon>
+              { hasShare ? <ShareIcon className="w-5 h-5"/> : <CopyIcon className="w-5 h-5"/> }
               { hasShare ? 'Share' : 'Copy link' }
             </MenuItem>
           ) }
@@ -158,7 +158,7 @@ const ChartMenu = ({
               value="fullscreen"
               onClick={ showChartFullscreen }
             >
-              <Icon boxSize={ 5 }><ScopeIcon/></Icon>
+              <ScopeIcon className="w-5 h-5"/>
               View fullscreen
             </MenuItem>
           ) }
@@ -167,7 +167,7 @@ const ChartMenu = ({
               value="save-png"
               onClick={ handleFileSaveClick }
             >
-              <Icon boxSize={ 5 }><ImageIcon/></Icon>
+              <ImageIcon className="w-5 h-5"/>
               Save as PNG
             </MenuItem>
           ) }
@@ -176,7 +176,7 @@ const ChartMenu = ({
               value="save-csv"
               onClick={ handleSVGSavingClick }
             >
-              <Icon boxSize={ 5 }><CsvIcon/></Icon>
+              <CsvIcon className="w-5 h-5"/>
               Save as CSV
             </MenuItem>
           ) }

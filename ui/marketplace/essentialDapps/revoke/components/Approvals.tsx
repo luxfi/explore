@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
 import type { AllowanceType } from 'types/client/revoke';
@@ -25,7 +24,7 @@ export default function Approvals({
 }: Props) {
   const content = (
     <>
-      <Flex hideFrom="lg" flexDirection="column">
+      <div hideFrom="lg" flexDirection="column">
         { approvals.map((approval, index) => (
           <ApprovalsListItem
             key={ index }
@@ -36,8 +35,8 @@ export default function Approvals({
             hideApproval={ hideApproval }
           />
         )) }
-      </Flex>
-      <Box hideBelow="lg">
+      </div>
+      <div hideBelow="lg">
         <ApprovalsTable
           selectedChain={ selectedChain }
           approvals={ approvals }
@@ -45,7 +44,7 @@ export default function Approvals({
           isAddressMatch={ isAddressMatch }
           hideApproval={ hideApproval }
         />
-      </Box>
+      </div>
     </>
   );
 

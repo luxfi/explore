@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -27,15 +26,15 @@ const ContractVerificationSolidityFoundry = () => {
   return (
     <ContractVerificationMethod title="Contract verification via Foundry">
       <ContractVerificationFormRow>
-        <Flex flexDir="column">
+        <div flexDir="column">
           <ContractVerificationFormCodeSnippet code={ codeSnippet }/>
-        </Flex>
-        <Box whiteSpace="pre-wrap">
+        </div>
+        <div whiteSpace="pre-wrap">
           <span>Full tutorial about contract verification via Foundry is available </span>
-          <Link href="https://docs.lux.network/devs/verification/foundry-verification" external>
+          <Link href="https://docs.blockscout.com/devs/verification/foundry-verification" external>
             here
           </Link>
-        </Box>
+        </div>
       </ContractVerificationFormRow>
     </ContractVerificationMethod>
   );

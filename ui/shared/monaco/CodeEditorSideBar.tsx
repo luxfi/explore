@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { throttle } from 'es-toolkit';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
@@ -90,25 +89,11 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
 
   return (
     <>
-      <Box
-        w={ `${ CONTAINER_WIDTH }px` }
-        flexShrink={ 0 }
-        bgColor={ themeColors['sideBar.background'] }
-        fontSize="13px"
-        overflowY="scroll"
+      <div style={{ width: `${ CONTAINER_WIDTH }px` }} className="shrink-0 text-[13px] z-[2] absolute lg:relative" style={{ backgroundColor: themeColors['sideBar.background']  , transitionProperty: 'right', transitionDuration: '200ms', transitionTimingFunction: 'ease-in-out', right: isDrawerOpen ? '0' : `-${ CONTAINER_WIDTH }px`}} className="overflow-y-scroll rounded-br-md rounded-tr-md h-full"
         onScroll={ handleScrollThrottled.current }
-        position={{ base: 'absolute', lg: 'relative' }}
-        right={{ base: isDrawerOpen ? '0' : `-${ CONTAINER_WIDTH }px`, lg: '0' }}
         top={{ base: 0, lg: undefined }}
-        h="100%"
         pb="22px"
         boxShadow={{ base: isDrawerOpen ? 'md' : 'none', lg: 'none' }}
-        zIndex={{ base: '2', lg: undefined }}
-        transitionProperty="right"
-        transitionDuration="normal"
-        transitionTimingFunction="ease-in-out"
-        borderTopRightRadius="md"
-        borderBottomRightRadius="md"
       >
         <TabsRoot unmountOnExit={ false } variant="unstyled" size="free" value={ activeTab } onValueChange={ handleTabChange }>
           <TabsList
@@ -141,32 +126,21 @@ const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, m
             />
           </TabsContent>
         </TabsRoot>
-      </Box>
-      <Box
-        boxSize="24px"
-        p="4px"
-        position="absolute"
-        display={{ base: 'block', lg: 'none' }}
+      </div>
+      <div         boxSize="24px"
+        p="4px" className="absolute rounded-tl-[4px] rounded-bl-[4px] z-[1] shadow-md block lg:hidden"
         right={ isDrawerOpen ? `${ CONTAINER_WIDTH - 1 }px` : '0' }
         top="calc(50% - 12px)"
         backgroundColor={ themeColors['sideBar.background'] }
-        borderTopLeftRadius="4px"
-        borderBottomLeftRadius="4px"
-        boxShadow="md"
-        onClick={ handleSideBarButtonClick }
-        zIndex="1"
-        transitionProperty="right"
-        transitionDuration="normal"
-        transitionTimingFunction="ease-in-out"
+        onClick={ handleSideBarButtonClick } style={{ transitionProperty: 'right' , transitionDuration: '200ms', transitionTimingFunction: 'ease-in-out'}}
         title={ isDrawerOpen ? 'Open sidebar' : 'Close sidebar' }
         aria-label={ isDrawerOpen ? 'Open sidebar' : 'Close sidebar' }
       >
-        <Box
-          className="codicon codicon-tree-item-expanded"
+        <div           className="codicon codicon-tree-item-expanded"
           transform={ isDrawerOpen ? 'rotate(-90deg)' : 'rotate(+90deg)' }
           boxSize="16px"
         />
-      </Box>
+      </div>
     </>
   );
 };

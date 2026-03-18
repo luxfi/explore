@@ -1,8 +1,8 @@
-import { Text, Box, Flex, Separator } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 
+import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import * as cookies from 'lib/cookies';
 import useWallet from 'lib/web3/useWallet';
@@ -12,6 +12,7 @@ import { Field } from 'toolkit/chakra/field';
 import { Image } from 'toolkit/chakra/image';
 import { Input } from 'toolkit/chakra/input';
 import { Link } from 'toolkit/chakra/link';
+import { Separator } from 'toolkit/chakra/separator';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Switch } from 'toolkit/chakra/switch';
 import { apos } from 'toolkit/utils/htmlEntities';
@@ -120,16 +121,16 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
         mb={ 3 }
         fallback={ <Skeleton loading w="full" h="120px"/> }
       />
-      <Box mb={ 6 }>
-        Merits are awarded for a variety of different Lux Explorer activities. Connect a wallet to get started.
-        <Link external href="https://docs.lux.network/using-blockscout/merits" className="ml-1 font-medium">
-          More about Lux Explorer Merits
+      <div className="mb-6">
+        Merits are awarded for a variety of different { config.chain.name || '' } Explorer activities. Connect a wallet to get started.
+        <Link external href="https://docs.blockscout.com/using-blockscout/merits" className="ml-1 font-medium">
+          More about { config.chain.name || '' } Explorer Merits
         </Link>
-      </Box>
+      </div>
       { isSignUp && isLoggedIntoAccountWithWallet && (
-        <Box mb={ 6 }>
-          <Separator mb={ 6 }/>
-          <Flex w="full" alignItems="center" justifyContent="space-between">
+        <div className="mb-6">
+          <Separator className="mb-6"/>
+          <div className="flex w-full items-center justify-between">
             I have a referral code
             <Switch
               size="md"
@@ -137,7 +138,7 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
               onCheckedChange={ handleToggleChange }
               aria-label="Referral code switch"
             />
-          </Flex>
+          </div>
           { isRefCodeUsed && (
             <Field
               label="Code"
@@ -155,11 +156,11 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
               />
             </Field>
           ) }
-        </Box>
+        </div>
       ) }
       { isAddressMismatch && (
         <Alert status="warning" className="mb-4">
-          Your wallet address doesn{ apos }t match the one in your Lux Explorer account. Please connect the correct wallet.
+          Your wallet address doesn{ apos }t match the one in your { config.chain.name || '' } Explorer account. Please connect the correct wallet.
         </Alert>
       ) }
       <Button
@@ -172,9 +173,9 @@ const LoginStepContent = ({ goNext, closeModal, openAuthModal }: Props) => {
       >
         { buttonText }
       </Button>
-      <Text textStyle="sm" color="text.secondary" textAlign="center">
-        Already registered for Lux Explorer Merits on another network or chain? Connect the same wallet here.
-      </Text>
+      <p className="text-sm text-[var(--color-text-secondary)] text-center">
+        Already registered for { config.chain.name || '' } Explorer Merits on another network or chain? Connect the same wallet here.
+      </p>
     </>
   );
 };

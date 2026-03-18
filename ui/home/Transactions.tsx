@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -47,10 +46,10 @@ const Transactions = () => {
     ].filter(Boolean);
     return (
       <>
-        <HStack mb={ 3 }>
+        <div mb={ 3 }>
           <Heading level="3" >Transactions</Heading>
           { isRpcData && <FallbackRpcIcon/> }
-        </HStack>
+        </div>
         <AdaptiveTabs tabs={ tabs } unmountOnExit={ false } listProps={{ mb: 3 }}/>
       </>
     );
@@ -64,10 +63,10 @@ const Transactions = () => {
 
     return (
       <>
-        <HStack mb={ 3 }>
+        <div mb={ 3 }>
           <Heading level="3" >Latest transactions</Heading>
           { isRpcData && <FallbackRpcIcon/> }
-        </HStack>
+        </div>
         <AdaptiveTabs tabs={ tabs } unmountOnExit={ false } listProps={{ mb: 3 }}/>
       </>
     );
@@ -75,10 +74,10 @@ const Transactions = () => {
 
   return (
     <>
-      <HStack mb={ 3 }>
+      <div mb={ 3 }>
         <Heading level="3" >Latest transactions</Heading>
         { isRpcData && <FallbackRpcIcon/> }
-      </HStack>
+      </div>
       <LatestTxs/>
     </>
   );

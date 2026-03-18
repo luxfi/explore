@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { IconName } from 'ui/shared/IconSvg';
@@ -37,4 +36,4 @@ const CodeEditorFileIcon = ({ className, fileName }: Props) => {
   return <IconSvg className={ className } name={ name } boxSize="16px"/>;
 };
 
-export default React.memo(chakra(CodeEditorFileIcon));
+export default React.memo(CodeEditorFileIcon);

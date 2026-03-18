@@ -1,5 +1,3 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { AspectRatio, Box } from '@chakra-ui/react';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -17,7 +15,7 @@ import useNftMediaInfo from './useNftMediaInfo';
 import type { MediaType, Size } from './utils';
 import { mediaStyleProps } from './utils';
 
-interface Props extends Omit<HTMLChakraProps<'div'>, 'size'> {
+interface Props extends Omit<React.HTMLAttributes<HTMLDivElement>, 'size'> {
   data: TokenInstance;
   size?: Size;
   allowedTypes?: Array<MediaType>;
@@ -104,27 +102,18 @@ const NftMedia = ({ data, size = 'original', allowedTypes, isLoading, withFullsc
 
   return (
     <>
-      <AspectRatio
+      <div className="relative overflow-hidden rounded-md isolate" style={{ aspectRatio: '1/1' }}
         ref={ ref }
-        ratio={ 1 / 1 }
-        overflow="hidden"
-        borderRadius="md"
-        isolation="isolate"
         { ...rest }
       >
         <>
-          <Box
-            css={{
-              '& > img, & > video': {
-                objectFit: 'contain',
-              },
-            }}
-          >
+          <div className="[&>img]:object-contain [&>video]:object-contain">
+
             { content }
-          </Box>
+          </div>
           { isMediaLoading && <Skeleton loading={ true } className="absolute left-0 top-0 w-full h-full z-[1]"/> }
         </>
-      </AspectRatio>
+      </div>
       { open && (
         <NftMediaFullscreenModal open={ open } onOpenChange={ onOpenChange } data={ data } allowedTypes={ allowedTypes } field={ mediaInfoField }/>
       ) }

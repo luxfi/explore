@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import getNetworkUtilizationParams from 'lib/networks/getNetworkUtilizationParams';
@@ -16,7 +15,7 @@ const GasTrackerNetworkUtilization = ({ percentage, isLoading }: Props) => {
   return (
     <Skeleton loading={ isLoading } className="whitespace-pre-wrap">
       <span>Network utilization </span>
-      <chakra.span color={ color }>{ percentage.toFixed(2) }% { mdash } { load } load</chakra.span>
+      <span color={ color }>{ percentage.toFixed(2) }% { mdash } { load } load</span>
     </Skeleton>
   );
 };

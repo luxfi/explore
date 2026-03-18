@@ -1,8 +1,8 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PaginationParams } from './types';
 
+import { cn } from 'lib/utils/cn';
 import { Button } from 'toolkit/chakra/button';
 import { IconButton } from 'toolkit/chakra/icon-button';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -22,11 +22,7 @@ const Pagination = (props: Props) => {
   const showSkeleton = page === 1 && !hasPages && isLoading;
 
   return (
-    <Flex
-      as="nav"
-      alignItems="center"
-      className={ className }
-    >
+    <nav className={ cn('flex items-center', className) }>
       <Skeleton loading={ showSkeleton } mr="12px">
         <Button
           variant="pagination"
@@ -66,8 +62,7 @@ const Pagination = (props: Props) => {
       >
         <IconSvg name="arrows/east-mini" boxSize={ 5 } className="rotate-180"/>
       </IconButton>
-    </Flex>
-
+    </nav>
   );
 };
 

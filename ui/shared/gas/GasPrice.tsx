@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { GasPriceInfo } from 'types/api/stats';
@@ -69,7 +68,7 @@ const GasPrice = ({ data, prefix, className, unitMode = 'primary' }: Props) => {
 
         if (!secondaryUnits || !valueInSecondaryUnits) {
           // in primary mode we always want to show something
-          // this will return "N/A <units>"
+          // this will return"N/A <units>"
           return <span className={ className }>{ formatGasValue(data, primaryUnits) }</span>;
         } else {
           return <span className={ className }>{ prefix }{ formatGasValue(data, secondaryUnits) }</span>;
@@ -81,4 +80,4 @@ const GasPrice = ({ data, prefix, className, unitMode = 'primary' }: Props) => {
   }
 };
 
-export default chakra(GasPrice);
+export default GasPrice;

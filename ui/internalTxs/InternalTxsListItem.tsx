@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -39,11 +38,11 @@ const InternalTxsListItem = ({
 
   return (
     <ListItemMobile rowGap={ 3 }>
-      <Flex columnGap={ 2 }>
+      <div columnGap={ 2 }>
         { typeTitle && <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge> }
         { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
-      </Flex>
-      <Flex justifyContent="space-between" width="100%">
+      </div>
+      <div justifyContent="space-between" width="100%">
         <TxEntity
           hash={ txnHash }
           isLoading={ isLoading }
@@ -58,9 +57,9 @@ const InternalTxsListItem = ({
           fontWeight="400"
           fontSize="sm"
         />
-      </Flex>
+      </div>
       { showBlockInfo && (
-        <HStack gap={ 1 }>
+        <div gap={ 1 }>
           <Skeleton loading={ isLoading } className="text-sm font-medium">Block</Skeleton>
           <BlockEntity
             isLoading={ isLoading }
@@ -68,7 +67,7 @@ const InternalTxsListItem = ({
             noIcon
             textStyle="sm"
           />
-        </HStack>
+        </div>
       ) }
       <AddressFromTo
         from={ from }
@@ -77,7 +76,7 @@ const InternalTxsListItem = ({
         isLoading={ isLoading }
         w="100%"
       />
-      <HStack gap={ 3 }>
+      <div gap={ 3 }>
         <Skeleton loading={ isLoading } className="text-sm font-medium">Value { currencyUnits.ether }</Skeleton>
         <NativeCoinValue
           amount={ value }
@@ -88,7 +87,7 @@ const InternalTxsListItem = ({
           fontSize="sm"
           color="text.secondary"
         />
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

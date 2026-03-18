@@ -24,7 +24,7 @@ function composeMessage(address: string, nonceBlockscout: string, nonceRewards: 
     `${ urlObj.hostname } wants you to sign in with your Ethereum account:`,
     address,
     '',
-    `Sign in to Lux Explorer & Lux Rewards program. Merits nonce: ${ nonceRewards }.`,
+    `Sign in to ${ config.chain.name || '' } Explorer & Rewards program. Merits nonce: ${ nonceRewards }.`.trim(),
     '',
     `URI: ${ urlObj.origin }`,
     'Version: 1',

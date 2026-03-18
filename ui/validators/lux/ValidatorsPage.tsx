@@ -1,7 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import { useCurrentValidators } from 'lib/api/pchain';
+import { cn } from 'lib/utils/cn';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 import DelegatorsList from './DelegatorsList';
@@ -31,23 +32,15 @@ interface TabButtonProps {
 }
 
 const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
-  <Box
-    as="button"
-    px={ 4 }
-    py={ 2 }
-    fontSize="sm"
-    fontWeight={ isActive ? '600' : '400' }
-    color={ isActive ? 'text.primary' : 'text.secondary' }
-    borderBottom="2px solid"
-    borderColor={ isActive ? 'text.primary' : 'transparent' }
-    bg="transparent"
-    cursor="pointer"
-    transition="all 0.15s"
-    _hover={{ color: 'text.primary' }}
+  <button
+    className={ cn(
+      'px-4 py-2 text-sm border-b-2 bg-transparent cursor-pointer transition-all hover:text-[var(--color-text-primary)]',
+      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+    ) }
     onClick={ onClick }
   >
     { label }
-  </Box>
+  </button>
 );
 
 // ---------------------------------------------------------------------------
@@ -75,18 +68,14 @@ const ValidatorsPage = () => {
       <PageTitle
         title="Validators"
         secondRow={ (
-          <Box fontSize="sm" color="text.secondary">
-            P-Chain validators securing the Lux Network
-          </Box>
+          <div>
+            P-Chain validators securing { config.chain.name || 'the network' }
+          </div>
         ) }
       />
 
       { /* Tabs */ }
-      <Flex
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        mb={ 6 }
-        gap={ 0 }
+      <div className="flex"
       >
         <TabButton
           label="Dashboard"
@@ -103,7 +92,7 @@ const ValidatorsPage = () => {
           isActive={ activeTab === TABS.delegators }
           onClick={ handleDelegatorsClick }
         />
-      </Flex>
+      </div>
 
       { /* Tab content */ }
       { activeTab === TABS.dashboard && (

@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 
 import { AccordionItem, AccordionItemTrigger, AccordionItemContent } from 'toolkit/chakra/accordion';
 
@@ -14,7 +13,7 @@ const GasTrackerFaqItem = ({ question, answer }: Props) => {
         { question }
       </AccordionItemTrigger>
       <AccordionItemContent className="pb-4 px-0">
-        <Text color="text.secondary">{ answer }</Text>
+        <span color="text.secondary">{ answer }</span>
       </AccordionItemContent>
     </AccordionItem>
   );

@@ -1,5 +1,3 @@
-import type { GridProps, HTMLChakraProps } from '@chakra-ui/react';
-import { Box, Grid, Flex, Text, VStack } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
@@ -97,104 +95,83 @@ const Footer = () => {
 
   const colNum = isPlaceholderData ? 1 : Math.min(linksData?.length || Infinity, MAX_LINKS_COLUMNS) + 1;
 
-  const renderNetworkInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
+  const renderNetworkInfo = React.useCallback(() => {
     return (
-      <Flex
-        alignItems="center"
-        gridArea={ gridArea }
-        flexWrap="wrap"
-        justifyContent="flex-start"
-        columnGap={ 3 }
-        rowGap={ 2 }
-        mb={{ base: 5, lg: 10 }}
-        _empty={{ display: 'none' }}
-      >
+      <div className="flex items-center flex-wrap justify-start gap-x-3 gap-y-2 mb-5 lg:mb-10 empty:hidden">
         { !config.UI.indexingAlert.intTxs.isHidden && <IntTxsIndexingStatus/> }
         { !config.features.multichain.isEnabled && <NetworkAddToWallet source="Footer"/> }
-      </Flex>
+      </div>
     );
   }, []);
 
-  const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
-    const logoColor = { base: 'gray.600', _dark: 'white' };
-
+  const renderProjectInfo = React.useCallback(() => {
     return (
-      <Box gridArea={ gridArea }>
+      <div>
         <Link href={ branding.websiteUrl } external noIcon className="inline-flex" style={{ color: 'inherit' }}>
-          <Text fontWeight="700" fontSize="lg">{ branding.brandName }</Text>
+          <span className="font-bold text-lg">{ branding.brandName }</span>
         </Link>
-        <Text mt={ 3 } fontSize="xs">
+        <p className="mt-3 text-xs">
           { branding.description }
-        </Text>
-        <Box mt={ 6 } alignItems="start" textStyle="xs">
+        </p>
+        <div className="mt-6 text-xs">
           { apiVersionUrl && (
-            <Text>
+            <p>
               Backend: <Link href={ apiVersionUrl } external noIcon>{ backendVersionData?.backend_version }</Link>
-            </Text>
+            </p>
           ) }
           { frontendLink && (
-            <Text>
+            <p>
               Frontend: { frontendLink }
-            </Text>
+            </p>
           ) }
-          <Text>
+          <p>
             { copy } { (new Date()).getFullYear() } { branding.orgName }
-          </Text>
-        </Box>
-      </Box>
+          </p>
+        </div>
+      </div>
     );
   }, [ apiVersionUrl, backendVersionData?.backend_version, frontendLink, branding ]);
 
-  const containerProps: HTMLChakraProps<'div'> = {
-    as: 'footer',
-    borderTopWidth: '1px',
-    borderTopColor: 'border.divider',
-  };
-
-  const contentProps: GridProps = {
-    px: { base: 4, lg: config.UI.navigation.layout === 'horizontal' ? 6 : 12, '2xl': 6 },
-    py: { base: 4, lg: 8 },
-    gridTemplateColumns: { base: '1fr', lg: 'minmax(auto, 470px) 1fr' },
-    columnGap: { lg: '32px', xl: '100px' },
-    maxW: `${ CONTENT_MAX_WIDTH }px`,
-    m: '0 auto',
-  };
-
-  const renderRecaptcha = (gridArea?: GridProps['gridArea']) => {
+  const renderRecaptcha = () => {
     if (!config.services.reCaptchaV2.siteKey) {
-      return <Box gridArea={ gridArea }/>;
+      return <div/>;
     }
 
     return (
-      <Box gridArea={ gridArea } textStyle="xs" mt={ 6 }>
+      <div className="text-xs mt-6">
         <span>This site is protected by reCAPTCHA and the Google </span>
         <Link href="https://policies.google.com/privacy" external noIcon>Privacy Policy</Link>
         <span> and </span>
         <Link href="https://policies.google.com/terms" external noIcon>Terms of Service</Link>
         <span> apply.</span>
-      </Box>
+      </div>
     );
   };
 
+  const horizontalPadding = config.UI.navigation.layout === 'horizontal' ? 'lg:px-6' : 'lg:px-12';
+
   if (config.UI.footer.links) {
     return (
-      <Box { ...containerProps }>
-        <Grid { ...contentProps }>
+      <footer className="border-t border-[var(--color-border-divider)]">
+        <div
+          className={ `grid px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto gap-x-8 lg:gap-x-[100px]` }
+          style={{
+            maxWidth: `${ CONTENT_MAX_WIDTH }px`,
+            gridTemplateColumns: 'minmax(auto, 470px) 1fr',
+          }}
+        >
           <div>
             { renderNetworkInfo() }
             { renderProjectInfo() }
             { renderRecaptcha() }
           </div>
 
-          <Grid
-            gap={{ base: 6, lg: colNum === MAX_LINKS_COLUMNS + 1 ? 2 : 8, xl: 12 }}
-            gridTemplateColumns={{
-              base: 'repeat(auto-fill, 160px)',
-              lg: `repeat(${ colNum }, 135px)`,
-              xl: `repeat(${ colNum }, 160px)`,
+          <div
+            className="grid gap-2 lg:gap-8 xl:gap-12 mt-8 lg:mt-0"
+            style={{
+              gridTemplateColumns: `repeat(${ colNum }, 160px)`,
+              justifyContent: 'flex-end',
             }}
-            justifyContent={{ lg: 'flex-end' }}
-            mt={{ base: 8, lg: 0 }}
           >
             {
               ([
@@ -203,59 +180,47 @@ const Footer = () => {
               ])
                 .slice(0, colNum)
                 .map(linkGroup => (
-                  <Box key={ linkGroup.title }>
+                  <div key={ linkGroup.title }>
                     <Skeleton className="font-medium mb-3 inline-block" loading={ isPlaceholderData }>{ linkGroup.title }</Skeleton>
-                    <VStack gap={ 1 } alignItems="start">
+                    <div className="flex flex-col gap-1 items-start">
                       { linkGroup.links.map(link => <FooterLinkItem { ...link } key={ link.text } isLoading={ isPlaceholderData }/>) }
-                    </VStack>
-                  </Box>
+                    </div>
+                  </div>
                 ))
             }
-          </Grid>
-        </Grid>
-      </Box>
+          </div>
+        </div>
+      </footer>
     );
   }
 
   return (
-    <Box { ...containerProps }>
-      <Grid
-        { ...contentProps }
-        gridTemplateAreas={{
-          lg: `
-          "network links-top"
-          "info links-bottom"
-          "recaptcha links-bottom"
-        `,
+    <footer className="border-t border-[var(--color-border-divider)]">
+      <div
+        className={ `grid px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto` }
+        style={{
+          maxWidth: `${ CONTENT_MAX_WIDTH }px`,
+          gridTemplateColumns: 'minmax(auto, 470px) 1fr',
+          columnGap: '100px',
         }}
       >
+        { renderNetworkInfo() }
+        { renderProjectInfo() }
+        { renderRecaptcha() }
 
-        { renderNetworkInfo({ lg: 'network' }) }
-        { renderProjectInfo({ lg: 'info' }) }
-        { renderRecaptcha({ lg: 'recaptcha' }) }
-
-        <Grid
-          gridArea={{ lg: 'links-bottom' }}
-          gap={ 1 }
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, 160px)',
-            lg: 'repeat(2, 160px)',
-            xl: 'repeat(3, 160px)',
+        <div
+          className="grid gap-1 mt-8 lg:mt-0"
+          style={{
+            gridTemplateColumns: 'repeat(auto-fill, 160px)',
+            gridAutoFlow: 'column',
+            alignContent: 'start',
+            justifyContent: 'flex-end',
           }}
-          gridTemplateRows={{
-            base: 'auto',
-            lg: 'repeat(3, auto)',
-            xl: 'repeat(2, auto)',
-          }}
-          gridAutoFlow={{ base: 'row', lg: 'column' }}
-          alignContent="start"
-          justifyContent={{ lg: 'flex-end' }}
-          mt={{ base: 8, lg: 0 }}
         >
           { FOOTER_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
-        </Grid>
-      </Grid>
-    </Box>
+        </div>
+      </div>
+    </footer>
   );
 };
 

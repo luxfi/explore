@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Pool } from 'types/api/pools';
@@ -15,7 +14,7 @@ import * as TokenEntity from '../token/TokenEntity';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'pool'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route({ pathname: '/pools/[hash]', query: { hash: props.pool.pool_id } });
 
   return (
@@ -33,10 +32,8 @@ type IconProps = Pick<EntityProps, 'pool' | 'className'> & EntityBase.IconBasePr
 const Icon = (props: IconProps) => {
   const borderColor = { _light: 'whiteAlpha.800', _dark: 'blackAlpha.800' };
   return (
-    <Flex>
-      <Flex
-        bgColor="bg.primary"
-        borderRadius="full"
+    <div className="flex">
+      <div className="flex rounded-full bg-[var(--color-bg-primary)]"
         border="1px solid"
         borderColor={ borderColor }
       >
@@ -53,11 +50,8 @@ const Icon = (props: IconProps) => {
           }}
           isLoading={ props.isLoading }
         />
-      </Flex>
-      <Flex
-        transform="translateX(-8px)"
-        bgColor="bg.primary"
-        borderRadius="full"
+      </div>
+      <div className="flex rounded-full bg-[var(--color-bg-primary)]" style={{ transform: 'translateX(-8px)' }}
         border="1px solid"
         borderColor={ borderColor }
       >
@@ -74,14 +68,14 @@ const Icon = (props: IconProps) => {
           }}
           isLoading={ props.isLoading }
         />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'pool'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   const nameString = getPoolTitle(props.pool);
 
   return (
@@ -118,7 +112,7 @@ const PoolEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(PoolEntity));
+export default React.memo(PoolEntity);
 
 export {
   Container,

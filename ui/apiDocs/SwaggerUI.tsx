@@ -4,8 +4,6 @@ const SwaggerUIReact = dynamic(() => import('swagger-ui-react'), {
   ssr: false,
 });
 
-import type { SystemStyleObject } from '@chakra-ui/react';
-import { Box, useToken } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
@@ -32,10 +30,9 @@ interface Props {
 
 const SwaggerUI = ({ url, requestInterceptor }: Props) => {
   const mainColor = { _light: 'blackAlpha.800', _dark: 'whiteAlpha.800' };
-  const borderColor = useToken('colors', 'border.divider');
   const mainBgColor = { _light: 'blackAlpha.100', _dark: 'whiteAlpha.200' };
 
-  const swaggerStyle: SystemStyleObject = {
+  const swaggerStyle: Record<string, unknown> = {
     '& .swagger-ui .scheme-container, & .opblock-tag': {
       display: 'none',
     },
@@ -65,18 +62,18 @@ const SwaggerUI = ({ url, requestInterceptor }: Props) => {
       color: { _light: 'blue.600', _dark: 'blue.400' },
     },
     '& .swagger-ui .btn.try-out__btn': {
-      borderColor: useToken('colors', 'link.primary'),
-      color: useToken('colors', 'link.primary'),
+      borderColor: 'var(--color-link-primary)',
+      color: 'var(--color-link-primary)',
       borderRadius: 'sm',
     },
     '& .swagger-ui .btn.try-out__btn:hover': {
       boxShadow: 'none',
-      borderColor: useToken('colors', 'link.primary.hover'),
-      color: useToken('colors', 'link.primary.hover'),
+      borderColor: 'var(--color-link-primary-hover)',
+      color: 'var(--color-link-primary-hover)',
     },
     '& .swagger-ui .btn.try-out__btn.cancel': {
-      borderColor: useToken('colors', 'text.error'),
-      color: useToken('colors', 'text.error'),
+      borderColor: 'var(--color-text-error)',
+      color: 'var(--color-text-error)',
     },
     '& .swagger-ui .btn.try-out__btn.cancel:hover': {
       borderColor: { _light: 'red.600', _dark: 'red.500' },
@@ -85,7 +82,7 @@ const SwaggerUI = ({ url, requestInterceptor }: Props) => {
 
     // MODELS
     '& .swagger-ui section.models': {
-      borderColor: borderColor,
+      borderColor: 'var(--color-border-divider)',
     },
     '& .swagger-ui section.models h4': {
       color: mainColor,
@@ -108,19 +105,19 @@ const SwaggerUI = ({ url, requestInterceptor }: Props) => {
       borderRadius: 'sm',
     },
     '& .swagger-ui .model .property.primitive': {
-      color: useToken('colors', 'text_.secondary'),
+      color: 'var(--color-text-secondary)',
       wordBreak: 'break-all',
     },
   };
 
   return (
-    <Box css={ swaggerStyle }>
+    <div css={ swaggerStyle }>
       <SwaggerUIReact
         url={ url }
         plugins={ [ NeverShowInfoPlugin ] }
         requestInterceptor={ requestInterceptor }
       />
-    </Box>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -25,7 +24,7 @@ const AuthModalStory = ({ flow }: Props) => {
     <>
       <Button onClick={ authModal.onOpen }>{ flow === 'email_login' ? 'Log in' : 'Link email' }</Button>
       { authModal.open && <AuthModal initialScreen={ initialScreen } onClose={ handleClose }/> }
-      <Box>Status: { isAuth ? 'Authenticated' : 'Not authenticated' }</Box>
+      <div>Status: { isAuth ? 'Authenticated' : 'Not authenticated' }</div>
     </>
   );
 };

@@ -1,8 +1,3 @@
-import {
-  Box,
-  Flex,
-  Grid,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import type { HomeStats } from 'types/api/stats';
@@ -40,26 +35,26 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, placement }: Props) => 
       3 : 2;
 
   const content = (
-    <Flex flexDir="column" textStyle="xs" rowGap={ 3 } className="dark">
+    <div className="flex flex-col gap-y-3 text-xs" className="dark">
       { data.gas_price_updated_at && (
-        <Flex justifyContent="space-between" alignItems="center">
-          <Box color="text.secondary">Last update</Box>
-          <Flex color="text.secondary" justifyContent="flex-end" alignItems="center" columnGap={ 2 } ml={ 3 }>
+        <div className="flex items-center justify-between">
+          <div className="text-[var(--color-text-secondary)]">Last update</div>
+          <div className="flex items-center justify-end gap-x-2 ml-3 text-[var(--color-text-secondary)]">
             <Time timestamp={ data.gas_price_updated_at } format="MMM DD, HH:mm:ss"/>
             { data.gas_prices_update_in !== 0 &&
               <GasInfoUpdateTimer key={ dataUpdatedAt } startTime={ dataUpdatedAt } duration={ data.gas_prices_update_in }/> }
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       ) }
-      <Grid rowGap={ 2 } columnGap="10px" gridTemplateColumns={ `repeat(${ columnNum }, minmax(min-content, auto))` }>
+      <div className="grid gap-y-2" columnGap="10px" gridTemplateColumns={ `repeat(${ columnNum }, minmax(min-content, auto))` }>
         <GasInfoTooltipRow name="Fast" info={ data.gas_prices.fast }/>
         <GasInfoTooltipRow name="Normal" info={ data.gas_prices.average }/>
         <GasInfoTooltipRow name="Slow" info={ data.gas_prices.slow }/>
-      </Grid>
+      </div>
       <Link href={ route({ pathname: '/gas-tracker' }) }>
         Gas tracker overview
       </Link>
-    </Flex>
+    </div>
   );
 
   return (

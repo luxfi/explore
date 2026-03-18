@@ -1,4 +1,3 @@
-import { HStack, StackSeparator } from '@chakra-ui/react';
 import React from 'react';
 
 import { SECOND } from 'toolkit/utils/consts';
@@ -35,18 +34,18 @@ const BlockCountdownTimer = ({ value: initialValue, onFinish }: Props) => {
   const periods = splitSecondsInPeriods(value);
 
   return (
-    <HStack
+    <div
       bgColor={{ _light: 'gray.50', _dark: 'whiteAlpha.100' }}
       mt={{ base: 6, lg: 8 }}
       p={{ base: 3, lg: 4 }}
       borderRadius="base"
-      separator={ <StackSeparator borderColor="border.divider"/> }
+      
     >
       <BlockCountdownTimerItem label="Days" value={ periods.days }/>
       <BlockCountdownTimerItem label="Hours" value={ periods.hours }/>
       <BlockCountdownTimerItem label="Minutes" value={ periods.minutes }/>
       <BlockCountdownTimerItem label="Seconds" value={ periods.seconds }/>
-    </HStack>
+    </div>
   );
 };
 

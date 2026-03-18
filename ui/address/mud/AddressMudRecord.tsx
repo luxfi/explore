@@ -1,4 +1,3 @@
-import { Box, Flex, Separator, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -52,7 +51,7 @@ const AddressMudRecord = ({ tableId, recordId, isQueryEnabled = true }: Props) =
           mb={ 6 }
         />
       ) }
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot borderRadius="8px" style={{ tableLayout: 'auto' }} width="100%" overflow="hidden">
           { data?.schema.key_names.length && data?.schema.key_names.map((keyName, index) => (
             <TableRow key={ keyName } borderBottomStyle={ index === data.schema.key_names.length - 1 ? 'hidden' : 'solid' }>
@@ -60,33 +59,33 @@ const AddressMudRecord = ({ tableId, recordId, isQueryEnabled = true }: Props) =
                 { keyName } ({ data.schema.key_types[index] })
               </TableCell>
               <TableCell colSpan={ 2 } fontSize="sm">
-                <Flex justifyContent="space-between">
+                <div className="flex" justifyContent="space-between">
                   <TruncatedText text={ getValueString(data.record.decoded[keyName]) } className="mr-2"/>
                   { index === 0 && <Time color="text.secondary" timestamp={ data.record.timestamp }/> }
-                </Flex>
+                </div>
               </TableCell>
             </TableRow>
           )) }
           <AddressMudRecordValues data={ data }/>
         </TableRoot>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         <>
           { data?.schema.key_names.length && data?.schema.key_names.map((keyName, index) => (
-            <VStack gap={ 1 } key={ keyName } alignItems="start" fontSize="sm">
-              <Separator/>
-              <Text fontWeight={ 600 } whiteSpace="nowrap">
+            <div className="flex flex-col" gap={ 1 } key={ keyName } alignItems="start" fontSize="sm">
+              <hr/>
+              <span fontWeight={ 600 } whiteSpace="nowrap">
                 { keyName } ({ data.schema.key_types[index] })
-              </Text>
-              <Text wordBreak="break-word">{ getValueString(data.record.decoded[keyName]) }</Text>
+              </span>
+              <span wordBreak="break-word">{ getValueString(data.record.decoded[keyName]) }</span>
               { index === 0 && <Time color="text.secondary" timestamp={ data.record.timestamp }/> }
-            </VStack>
+            </div>
           )) }
           <TableRoot borderRadius="8px" style={{ tableLayout: 'auto' }} width="100%" mt={ 2 } overflow="hidden">
             <AddressMudRecordValues data={ data }/>
           </TableRoot>
         </>
-      </Box>
+      </div>
     </>
   );
 };

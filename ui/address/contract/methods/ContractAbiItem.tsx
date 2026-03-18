@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { Element } from 'react-scroll';
 
@@ -71,7 +70,7 @@ const ContractAbiItem = ({ data, index, id, addressHash, sourceAddress, tab, onS
           columnGap={ 2 }
         >
           <CopyToClipboard text={ url } type="link" ml={ 0 } as="div"/>
-          <Box fontWeight={ 500 } display="flex" alignItems="center">
+          <div fontWeight={ 500 } display="flex" alignItems="center">
             { index + 1 }. { data.type === 'fallback' || data.type === 'receive' ? data.type : data.name }
             { data.type === 'fallback' && (
               <Hint
@@ -97,7 +96,7 @@ const ContractAbiItem = ({ data, index, id, addressHash, sourceAddress, tab, onS
                 as="div"
               />
             ) }
-          </Box>
+          </div>
           <Badge colorPalette={ isRead ? 'purple_alt' : 'blue_alt' } flexShrink={ 0 }>{ isRead ? 'read' : 'write' }</Badge>
           { 'method_id' in data && (
             <Badge

@@ -1,6 +1,6 @@
-import { Flex, Separator, VStack } from '@chakra-ui/react';
 import React from 'react';
 
+import { Separator } from 'toolkit/chakra/separator';
 import { IconButton } from 'toolkit/chakra/icon-button';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -38,7 +38,7 @@ const Settings = () => {
       lazyMount={ false }
     >
       <Tooltip content="Website settings" disableOnMobile open={ tooltip.open } onOpenChange={ handleTooltipOpenChange }>
-        <Flex alignItems="center">
+        <div className="flex items-center">
           <PopoverTrigger>
             <IconButton
               variant="link"
@@ -49,7 +49,7 @@ const Settings = () => {
               <IconSvg name="gear"/>
             </IconButton>
           </PopoverTrigger>
-        </Flex>
+        </div>
       </Tooltip>
       <PopoverContent className="overflow-y-hidden text-sm" style={{ width: 'auto' }}>
         <PopoverBody>
@@ -58,11 +58,11 @@ const Settings = () => {
           <SettingsIdentIcon/>
           <SettingsAddressFormat/>
           <Separator my={ 3 }/>
-          <VStack gap={ 1 }>
+          <div className="flex flex-col gap-1">
             <SettingsScamTokens/>
             <SettingsPoorReputationTokens/>
             <SettingsLocalTime/>
-          </VStack>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

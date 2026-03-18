@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { Switch } from 'toolkit/chakra/switch';
@@ -24,7 +23,7 @@ const UserOpCallDataSwitch = ({ className, initialValue, isDisabled, onChange, i
   }, [ onChange ]);
 
   return (
-    <Flex ml="auto" alignItems="center" gap={ 2 }>
+    <div className="flex" ml="auto">
       <Switch
         className={ className }
         id={ id }
@@ -34,12 +33,12 @@ const UserOpCallDataSwitch = ({ className, initialValue, isDisabled, onChange, i
         direction="rtl"
         labelProps={{ className: 'font-semibold text-sm' }}
       >
-        <chakra.span hideBelow="lg">Show external call data</chakra.span>
-        <chakra.span hideFrom="lg">External call data</chakra.span>
+        <span>Show external call data</span>
+        <span>External call data</span>
       </Switch>
       <Hint label="Inner call data is a predicted decoded call from this user operation"/>
-    </Flex>
+    </div>
   );
 };
 
-export default React.memo(chakra(UserOpCallDataSwitch));
+export default React.memo(UserOpCallDataSwitch);

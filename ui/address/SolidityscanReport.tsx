@@ -1,10 +1,9 @@
-import { Box, Text, Icon } from '@chakra-ui/react';
 import React from 'react';
 
 // This icon doesn't work properly when it is in the sprite
 // Probably because of the gradient
 // eslint-disable-next-line no-restricted-imports
-import solidityScanIcon from 'icons/brands/solidity_scan.svg';
+import SolidityScanIcon from 'icons/brands/solidity_scan.svg';
 import useFetchReport from 'lib/solidityScan/useFetchReport';
 import { Link } from 'toolkit/chakra/link';
 import { PopoverBody, PopoverContent, PopoverRoot } from 'toolkit/chakra/popover';
@@ -44,17 +43,17 @@ const SolidityscanReport = ({ hash }: Props) => {
       />
       <PopoverContent className="w-screen lg:w-[328px]">
         <PopoverBody className="text-sm">
-          <Box mb={ 5 } lineHeight="25px">
+          <div className="mb-5 leading-[25px]">
             Contract analyzed for 240+ vulnerability patterns by
-            <Icon as={ solidityScanIcon } mr={ 1 } ml="6px" w="23px" h="20px" display="inline-block" verticalAlign="middle"/>
-            <Text fontWeight={ 600 } display="inline-block">SolidityScan</Text>
-          </Box>
+            <span className="inline-block align-middle mr-1 ml-[6px] w-[23px] h-[20px]"><SolidityScanIcon/></span>
+            <span className="font-semibold inline-block">SolidityScan</span>
+          </div>
           <SolidityscanReportScore score={ score } mb={ 5 }/>
           { vulnerabilities && vulnerabilitiesCount > 0 && (
-            <Box mb={ 5 }>
-              <Text py="7px" color="text.secondary" textStyle="xs" fontWeight={ 500 }>Vulnerabilities distribution</Text>
+            <div className="mb-5">
+              <span className="py-[7px] text-[var(--color-text-secondary)] text-xs font-medium">Vulnerabilities distribution</span>
               <SolidityscanReportDetails vulnerabilities={ vulnerabilities } vulnerabilitiesCount={ vulnerabilitiesCount }/>
-            </Box>
+            </div>
           ) }
           <Link href={ data.scan_report.scanner_reference_url } external>View full report</Link>
         </PopoverBody>

@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -26,18 +25,18 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
     if (address) {
       const text = domain || shortenString(address);
       return (
-        <HStack gap={ 2 }>
+        <div>
           <UserIdenticon address={ address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-          <Box display={{ base: 'none', md: 'block' }}>{ text }</Box>
-        </HStack>
+          <div>{ text }</div>
+        </div>
       );
     }
 
     return (
-      <HStack gap={ 2 }>
-        <IconSvg name="profile" boxSize={ 5 }/>
-        <Box display={{ base: 'none', md: 'block' }}>Menu</Box>
-      </HStack>
+      <div>
+        <IconSvg name="profile"/>
+        <div>Menu</div>
+      </div>
     );
   })();
 

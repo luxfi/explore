@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressMudRecord } from 'types/api/address';
@@ -31,9 +30,9 @@ const AddressMudRecordValues = ({ data }: Props) => {
             <TableCell fontWeight={ 400 } w="100px" py={ 0 } pb={ 4 } pr={ 0 } wordBreak="break-all">{ valName }</TableCell>
             <TableCell fontWeight={ 400 } w="90px" py={ 0 } pb={ 4 } wordBreak="break-all">{ data.schema.value_types[index] }</TableCell>
             <TableCell fontWeight={ 400 } wordBreak="break-word" py={ 0 } pb={ 4 }>
-              <Box>
+              <div>
                 { getValueString(data.record.decoded[valName]) }
-              </Box>
+              </div>
             </TableCell>
           </TableRow>
         ))

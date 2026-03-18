@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumL2MessagesItem } from 'types/api/arbitrumL2';
@@ -41,7 +40,7 @@ const ArbitrumL2MessagesTableItem = ({ item, direction, isLoading }: Props) => {
               fontWeight={ 600 }
               noIcon
             />
-          ) : <chakra.span color="text.secondary">N/A</chakra.span> }
+          ) : <span className="text-[var(--color-text-secondary)]">N/A</span> }
         </TableCell>
       ) }
       { direction === 'from-rollup' && (
@@ -68,9 +67,9 @@ const ArbitrumL2MessagesTableItem = ({ item, direction, isLoading }: Props) => {
             noIcon
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span className="text-[var(--color-text-secondary)]">
             N/A
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
       <TableCell verticalAlign="middle" pr={ 12 }>
@@ -95,9 +94,9 @@ const ArbitrumL2MessagesTableItem = ({ item, direction, isLoading }: Props) => {
             noCopy
           />
         ) : (
-          <chakra.span color="text.secondary">
+          <span className="text-[var(--color-text-secondary)]">
             N/A
-          </chakra.span>
+          </span>
         ) }
       </TableCell>
     </TableRow>

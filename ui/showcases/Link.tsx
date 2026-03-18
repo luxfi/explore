@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -96,9 +95,9 @@ const LinkShowcase = () => {
             <AddressEntity address={ addressMock.withoutName }/>
             <AddressEntity address={ addressMock.withoutName } link={{ external: true }}/>
             <AddressEntity address={{ ...addressMock.filecoin, name: null }}/>
-            <Box maxW="200px">
+            <div className="max-w-[200px]">
               <AddressEntity address={ addressMock.withoutName }/>
-            </Box>
+            </div>
             <AddressEntity address={ addressMock.withoutName } isLoading/>
           </Sample>
           <Sample label="Variant: content, subheading" vertical>
@@ -109,9 +108,9 @@ const LinkShowcase = () => {
             <AddressEntity address={ addressMock.withName }/>
             <AddressEntity address={ addressMock.withNameTag }/>
             <AddressEntity address={ addressMock.withEns }/>
-            <Box maxW="150px">
+            <div className="max-w-[150px]">
               <AddressEntity address={ addressMock.withEns }/>
-            </Box>
+            </div>
           </Sample>
           <Sample label="Contract" vertical>
             <AddressEntity address={{ ...addressMock.contract, is_verified: false, name: null, implementations: [] }}/>
@@ -125,12 +124,12 @@ const LinkShowcase = () => {
         <SamplesStack>
           <Sample label="With info" vertical w="100%">
             <TokenEntity token={ TOKEN }/>
-            <Box maxW="200px">
+            <div className="max-w-[200px]">
               <TokenEntity token={{ ...TOKEN, name: 'Token with very very very long name' }} noSymbol/>
-            </Box>
-            <Box maxW="300px">
+            </div>
+            <div className="max-w-[300px]">
               <TokenEntity token={{ ...TOKEN, symbol: 'Token with very very very long symbol' }}/>
-            </Box>
+            </div>
             <TokenEntity token={ TOKEN } jointSymbol/>
             <TokenEntity token={ TOKEN } onlySymbol/>
             <TokenEntity token={ TOKEN } isLoading/>
@@ -150,9 +149,9 @@ const LinkShowcase = () => {
           <Sample label="Default" vertical w="100%">
             <TxEntity hash={ txMock.base.hash }/>
             <TxEntity hash={ txMock.base.hash } link={{ external: true }}/>
-            <Box maxW="200px">
+            <div className="max-w-[200px]">
               <TxEntity hash={ txMock.base.hash }/>
-            </Box>
+            </div>
             <TxEntity hash={ txMock.base.hash } isLoading/>
           </Sample>
         </SamplesStack>
@@ -162,9 +161,9 @@ const LinkShowcase = () => {
           <Sample label="Default" vertical w="100%">
             <BlockEntity number={ blockMock.base.height }/>
             <BlockEntity number={ blockMock.base.height } link={{ external: true }} icon={{ name: 'txn_batches' }}/>
-            <Box maxW="150px">
+            <div className="max-w-[150px]">
               <BlockEntity number={ 1234567890123456 }/>
-            </Box>
+            </div>
             <BlockEntity number={ blockMock.base.height } isLoading/>
           </Sample>
         </SamplesStack>
@@ -173,9 +172,9 @@ const LinkShowcase = () => {
         <SamplesStack>
           <Sample label="Default" vertical w="100%">
             <NftEntity id="42" hash={ TOKEN.address_hash }/>
-            <Box maxW="250px">
+            <div className="max-w-[250px]">
               <NftEntity id="32925298983216553915666621415831103694597106215670571463977478984525997408266" hash={ TOKEN.address_hash }/>
-            </Box>
+            </div>
             <NftEntity id="4200000" hash={ TOKEN.address_hash } isLoading/>
           </Sample>
         </SamplesStack>
@@ -184,9 +183,9 @@ const LinkShowcase = () => {
         <SamplesStack>
           <Sample label="Default" vertical w="100%">
             <EnsEntity domain={ ensMock.ensDomainA.name } protocol={ ensMock.ensDomainA.protocol }/>
-            <Box maxW="150px">
+            <div className="max-w-[150px]">
               <EnsEntity domain={ ensMock.ensDomainB.name } protocol={ ensMock.ensDomainB.protocol }/>
-            </Box>
+            </div>
             <EnsEntity domain={ ensMock.ensDomainA.name } protocol={ ensMock.ensDomainA.protocol } isLoading/>
           </Sample>
           <Sample label="Variant: content, subheading" vertical w="100%">
@@ -199,9 +198,9 @@ const LinkShowcase = () => {
         <SamplesStack>
           <Sample label="Default" vertical w="100%">
             <BlobEntity hash={ blobsMock.base1.hash }/>
-            <Box maxW="200px">
+            <div className="max-w-[200px]">
               <BlobEntity hash={ blobsMock.base1.hash } link={{ external: true }}/>
-            </Box>
+            </div>
             <BlobEntity hash={ blobsMock.base1.hash } isLoading/>
           </Sample>
         </SamplesStack>
@@ -214,9 +213,9 @@ const LinkShowcase = () => {
               base_token_icon_url: 'https://coin-images.coingecko.com/coins/images/39926/large/usds.webp?1726666683',
               quote_token_icon_url: 'https://coin-images.coingecko.com/coins/images/39925/large/sky.jpg?1724827980',
             }}/>
-            <Box maxW="150px">
+            <div className="max-w-[150px]">
               <PoolEntity pool={ poolMock.noIcons } link={{ external: true }}/>
-            </Box>
+            </div>
             <PoolEntity pool={ poolMock.noIcons } isLoading/>
           </Sample>
         </SamplesStack>

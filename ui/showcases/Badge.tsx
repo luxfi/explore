@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { Badge } from 'toolkit/chakra/badge';
@@ -115,11 +114,11 @@ const BadgeShowcase = () => {
         <SectionHeader>Truncate</SectionHeader>
         <SamplesStack>
           <Sample label="truncated: true">
-            <Box maxW="150px">
+            <div className="max-w-[150px]">
               <Badge truncated>
                 Very long content that should be truncated
               </Badge>
-            </Box>
+            </div>
           </Sample>
         </SamplesStack>
       </Section>

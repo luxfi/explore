@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -126,7 +125,7 @@ const AddressMudRecordsTable = ({
   const hasHorizontalScroll = isMobile || isOpened;
 
   if (hasCut && !colsCutCount) {
-    return <Box w="100%" ref={ containerRef }></Box>;
+    return <div w="100%" ref={ containerRef }></div>;
   }
 
   const cutButton = (
@@ -139,7 +138,7 @@ const AddressMudRecordsTable = ({
 
   return (
     // can't implement both horizontal table scroll and sticky header
-    <Box maxW="100%" overflowX={ hasHorizontalScroll ? 'scroll' : 'unset' } whiteSpace="nowrap" ref={ tableRef }>
+    <div maxW="100%" overflowX={ hasHorizontalScroll ? 'scroll' : 'unset' } whiteSpace="nowrap" ref={ tableRef }>
       <TableRoot style={{ tableLayout: 'fixed' }}>
         <TableHeaderSticky top={ hasHorizontalScroll ? 0 : top } display={ hasHorizontalScroll ? 'table' : 'table-header-group' } w="100%">
           <TableRow>
@@ -148,32 +147,32 @@ const AddressMudRecordsTable = ({
               return (
                 <TableColumnHeader key={ keyName } { ...tdStyles }>
                   { index < 2 ? (
-                    <Flex alignItems="center">
+                    <div className="flex" alignItems="center">
                       <Link
                         onClick={ onKeySortClick }
                         data-id={ index }
                         className="flex items-start leading-5 mr-2"
                       >
                         { sorting?.sort === `key${ index }` && sorting.order && (
-                          <Box minW="24px" w="24px" mr={ 2 }>
+                          <div minW="24px" w="24px" mr={ 2 }>
                             <IconSvg
                               name="arrows/east"
                               boxSize={ 5 }
                               transform={ sorting.order === 'asc' ? 'rotate(-90deg)' : 'rotate(90deg)' }
                             />
-                          </Box>
+                          </div>
                         ) }
                         { text }
                       </Link>
-                      <Box minW="20px" w="20px">
+                      <div minW="20px" w="20px">
                         <AddressMudRecordsKeyFilter
                           value={ filters[index === 0 ? 'filter_key0' : 'filter_key1'] }
                           title={ text }
                           columnName={ keyName }
                           handleFilterChange={ handleFilterChange(index === 0 ? 'filter_key0' : 'filter_key1') }
                         />
-                      </Box>
-                    </Flex>
+                      </div>
+                    </div>
                   ) : text }
                 </TableColumnHeader>
               );
@@ -215,7 +214,7 @@ const AddressMudRecordsTable = ({
           )) }
         </TableBody>
       </TableRoot>
-    </Box>
+    </div>
   );
 };
 

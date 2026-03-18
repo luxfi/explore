@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContract } from 'types/api/contract';
@@ -73,10 +72,10 @@ const ContractDetailsConstructorArgs = ({ data, isLoading }: Props) => {
     const decoded = data.decoded_constructor_args
       .map(([ value, { name, type } ], index) => {
         return (
-          <Box key={ index }>
+          <div key={ index }>
             <span>Arg [{ index }] { name || '' } ({ type }): </span>
             <DecodedItemValue value={ value } type={ type }/>
-          </Box>
+          </div>
         );
       });
 

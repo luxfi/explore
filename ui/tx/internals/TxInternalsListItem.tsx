@@ -1,4 +1,3 @@
-import { Flex, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
@@ -19,29 +18,28 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
   const toData = to ? to : createdContract;
 
   return (
-    <ListItemMobile rowGap={ 3 }>
-      <Flex columnGap={ 2 }>
+    <ListItemMobile>
+      <div>
         { typeTitle && <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge> }
         { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
-      </Flex>
+      </div>
       <AddressFromTo
         from={ from }
         to={ toData }
         isLoading={ isLoading }
         w="100%"
-        fontWeight="500"
       />
-      <HStack gap={ 3 } textStyle="sm" >
-        <Skeleton loading={ isLoading } fontWeight={ 500 }><span>Value { currencyUnits.ether }</span></Skeleton>
+      <div >
+        <Skeleton loading={ isLoading }><span>Value { currencyUnits.ether }</span></Skeleton>
         <NativeCoinValue
           amount={ value }
           noSymbol
           loading={ isLoading }
           color="text.secondary"
         />
-      </HStack>
-      <HStack gap={ 3 } textStyle="sm" >
-        <Skeleton loading={ isLoading } fontWeight={ 500 }><span>Gas limit</span></Skeleton>
+      </div>
+      <div >
+        <Skeleton loading={ isLoading }><span>Gas limit</span></Skeleton>
         <NativeCoinValue
           amount={ gasLimit }
           units="wei"
@@ -49,7 +47,7 @@ const TxInternalsListItem = ({ type, from, to, value, success, error, gas_limit:
           loading={ isLoading }
           color="text.secondary"
         />
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

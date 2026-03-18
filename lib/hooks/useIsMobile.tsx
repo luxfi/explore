@@ -1,9 +1,24 @@
-import { useBreakpointValue } from '@chakra-ui/react';
+import React from 'react';
 
-// The default behavior of useBreakpointValue was changed in the commit - https://github.com/chakra-ui/chakra-ui/commit/7f30a7b7eebae236b55fe639a202bbf354677143
-// So, with ssr = true during the initial render it will return base value
-// which can cause issues in some components (for example, in AdaptiveTabs while calculating tabs cut)
-// Since we don't use SSR in our project, the default value should be false
-export default function useIsMobile(ssr = false) {
-  return useBreakpointValue({ base: true, lg: false }, { ssr });
+// Matches the 'lg' breakpoint (1024px) used in Tailwind/theme config.
+// Returns true when viewport is below the lg breakpoint.
+const LG_BREAKPOINT = 1024;
+
+export default function useIsMobile(_ssr = false) {
+  const [ isMobile, setIsMobile ] = React.useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return window.innerWidth < LG_BREAKPOINT;
+  });
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${ LG_BREAKPOINT - 1 }px)`);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return isMobile;
 }

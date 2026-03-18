@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -15,6 +14,7 @@ import type {
 import type { VerifiedAddress } from 'types/api/account';
 
 import config from 'configs/app';
+import { getEnvValue } from 'configs/app/utils';
 import useApiFetch from 'lib/api/useApiFetch';
 import shortenString from 'lib/shortenString';
 import useWallet from 'lib/web3/useWallet';
@@ -152,7 +152,9 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
     );
   })();
 
-  const contactUsLink = <span>contact us <Link href="mailto:support@lux.network" rel="noopener noreferrer">support@lux.network</Link></span>;
+  const supportUrl = getEnvValue('NEXT_PUBLIC_NETWORK_SUPPORT_URL') || 'mailto:support@blockscout.com';
+  const supportLabel = supportUrl.startsWith('mailto:') ? supportUrl.replace('mailto:', '') : 'support';
+  const contactUsLink = <span>contact us <Link href={ supportUrl } rel="noopener noreferrer">{ supportLabel }</Link></span>;
 
   const rootError = (() => {
     switch (formState.errors.root?.type) {
@@ -169,22 +171,22 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
         const signer = shortenString(formState.errors.root.message || '');
         const expectedSigners = [ contractCreator, contractOwner ].filter(Boolean).map(s => shortenString(s)).join(', ');
         return (
-          <Box>
+          <div>
             <span>This address </span>
             <span>{ signer }</span>
             <span> is not a creator/owner of the requested contract and cannot claim ownership. Only </span>
             <span>{ expectedSigners }</span>
             <span> can verify ownership of this contract.</span>
-          </Box>
+          </div>
         );
       }
       case 'UNKNOWN_STATUS': {
         return (
-          <Box>
+          <div>
             <span>We are not able to process the verify account ownership for this contract address. Kindly </span>
             { contactUsLink }
             <span> for further assistance.</span>
-          </Box>
+          </div>
         );
       }
       case undefined: {
@@ -197,33 +199,33 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
     <FormProvider { ...formApi }>
       <form noValidate onSubmit={ onSubmit }>
         { rootError && <Alert status="warning" className="mb-6">{ rootError }</Alert> }
-        <Box mb={ 8 }>
-          <span>Please select the address to sign and copy the message and sign it using the Lux Explorer message provider of your choice. </span>
-          <Link href="https://docs.lux.network/using-lux-explorer/my-account/verified-addresses/copy-and-sign-message" external noIcon>
+        <div mb={ 8 }>
+          <span>Please select the address to sign and copy the message and sign it using the explorer message provider of your choice. </span>
+          <Link href="https://docs.blockscout.com/using-blockscout/my-account/verified-addresses/copy-and-sign-message" external noIcon>
             Additional instructions
           </Link>
           <span>. If you do not see your address here but are sure that you are the owner of the contract, kindly </span>
           { contactUsLink }
           <span> for further assistance.</span>
-        </Box>
+        </div>
         { (contractOwner || contractCreator) && (
-          <Flex flexDir="column" rowGap={ 4 } mb={ 4 }>
+          <div className="flex" flexDir="column" rowGap={ 4 } mb={ 4 }>
             { contractCreator && (
-              <Box>
-                <chakra.span fontWeight={ 600 }>Contract creator: </chakra.span>
-                <chakra.span>{ contractCreator }</chakra.span>
-              </Box>
+              <div>
+                <span fontWeight={ 600 }>Contract creator: </span>
+                <span>{ contractCreator }</span>
+              </div>
             ) }
             { contractOwner && (
-              <Box>
-                <chakra.span fontWeight={ 600 }>Contract owner: </chakra.span>
-                <chakra.span>{ contractOwner }</chakra.span>
-              </Box>
+              <div>
+                <span fontWeight={ 600 }>Contract owner: </span>
+                <span>{ contractOwner }</span>
+              </div>
             ) }
-          </Flex>
+          </div>
         ) }
-        <Flex rowGap={ 5 } flexDir="column">
-          <Flex flexDir="column">
+        <div className="flex" rowGap={ 5 } flexDir="column">
+          <div className="flex" flexDir="column">
             <CopyToClipboard text={ signingMessage } className="ml-auto"/>
             <FormFieldText<Fields>
               name="message"
@@ -235,7 +237,7 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
                 className: 'h-[175px] lg:h-[100px] min-h-auto',
               }}
             />
-          </Flex>
+          </div>
           { !noWeb3Provider && (
             <RadioGroup
               onValueChange={ handleSignMethodChange }
@@ -255,11 +257,11 @@ const AddressVerificationStepSignature = ({ address, signingMessage, contractCre
               bgColor="dialog.bg"
             />
           ) }
-        </Flex>
-        <Flex alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>
+        </div>
+        <div className="flex" alignItems={{ base: 'flex-start', lg: 'center' }} mt={ 8 } columnGap={ 5 } rowGap={ 2 } flexDir={{ base: 'column', lg: 'row' }}>
           { button }
           <AdminSupportText/>
-        </Flex>
+        </div>
       </form>
     </FormProvider>
   );

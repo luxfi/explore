@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import InternalTxsList from 'ui/internalTxs/InternalTxsList';
@@ -16,12 +15,12 @@ const BlockInternalTxs = ({ query, top }: Props) => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <InternalTxsList data={ data.items } isLoading={ isPlaceholderData } showBlockInfo={ false }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <InternalTxsTable data={ data.items } isLoading={ isPlaceholderData } top={ top } showBlockInfo={ false }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

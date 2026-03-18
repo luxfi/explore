@@ -1,5 +1,3 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { chakra, Center } from '@chakra-ui/react';
 import React from 'react';
 import type { ChangeEvent, FormEvent, FocusEvent } from 'react';
 
@@ -13,7 +11,7 @@ import IconSvg from 'ui/shared/IconSvg';
 
 const nameServicesFeature = config.features.nameServices;
 
-interface Props extends Omit<HTMLChakraProps<'form'>, 'onChange'> {
+interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onChange'> {
   onChange?: (value: string) => void;
   onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
   onBlur?: (event: FocusEvent<HTMLFormElement>) => void;
@@ -25,6 +23,12 @@ interface Props extends Omit<HTMLChakraProps<'form'>, 'onChange'> {
   isSuggestOpen?: boolean;
   value?: string;
   readOnly?: boolean;
+  mb?: number;
+  w?: string;
+  backgroundColor?: string;
+  borderRadius?: string;
+  position?: string;
+  zIndex?: string;
 }
 
 const SearchBarInput = (
@@ -34,11 +38,6 @@ const SearchBarInput = (
   const innerRef = React.useRef<HTMLFormElement>(null);
   React.useImperativeHandle(ref, () => innerRef.current as HTMLFormElement, []);
   const isMobile = useIsMobile();
-
-  const borderWidthHeroBanner = useColorModeValue(
-    config.UI.homepage.heroBanner?.search?.border_width?.[0] ?? '0px',
-    config.UI.homepage.heroBanner?.search?.border_width?.[1] ?? '0px',
-  );
 
   const handleChange = React.useCallback((event: ChangeEvent<HTMLInputElement>) => {
     onChange?.(event.target.value);
@@ -96,31 +95,28 @@ const SearchBarInput = (
     <>
       <ClearButton onClick={ onClear } visible={ Boolean(value?.length) } className="mx-2"/>
       { !isMobile && (
-        <Center
-          boxSize="20px"
-          mr={ 2 }
-          borderRadius="sm"
-          borderWidth="1px"
-          borderColor="input.element"
+        <div
+          className="flex items-center justify-center size-5 mr-2 rounded-sm border border-solid"
+          style={{ borderColor: 'var(--color-input-element)' }}
         >
           /
-        </Center>
+        </div>
       ) }
     </>
   );
 
   return (
-    <chakra.form
+    <form
       ref={ innerRef }
       noValidate
       onSubmit={ onSubmit }
       onBlur={ onBlur }
       onClick={ onFormClick }
-      w="100%"
-      backgroundColor="bg.primary"
-      borderRadius="base"
-      position="relative"
-      zIndex={ isSuggestOpen ? 'modal' : 'auto' }
+      className="w-full rounded-base relative"
+      style={{
+        backgroundColor: 'var(--color-bg-primary)',
+        zIndex: isSuggestOpen ? 'var(--zIndex-modal)' : 'auto',
+      }}
       { ...rest }
     >
       <InputGroup
@@ -138,7 +134,7 @@ const SearchBarInput = (
           enterKeyHint="search"
         />
       </InputGroup>
-    </chakra.form>
+    </form>
   );
 };
 

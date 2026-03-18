@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -87,9 +86,9 @@ const Pool = () => {
     } else if (data?.pool_id) {
       return (
         <Skeleton loading={ isPlaceholderData } display="flex" alignItems="center" className="overflow-hidden">
-          <Flex overflow="hidden">
+          <div className="overflow-hidden">
             <HashStringShortenDynamic hash={ data?.pool_id }/>
-          </Flex>
+          </div>
           <CopyToClipboard text={ data?.pool_id }/>
         </Skeleton>
       );
@@ -99,9 +98,9 @@ const Pool = () => {
   }, [ data, isPlaceholderData, addressQuery.isPlaceholderData, addressQuery.data ]);
 
   const titleSecondRow = (
-    <Flex alignItems="center" justifyContent="space-between" w="100%">
+    <div className="flex items-center justify-between w-full">
       { poolIdOrContract }
-      <Flex gap={ 2 } ml={ 2 }>
+      <div className="flex ml-2 gap-2">
         <InfoButton>
           { `This Liquidity Provider (LP) token represents ${ data?.base_token_symbol }/${ data?.quote_token_symbol } pairing.` }
         </InfoButton>
@@ -113,8 +112,8 @@ const Pool = () => {
             shortText=""
           />
         ) }
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 
   const poolTitle = data ? getPoolTitle(data) : '';

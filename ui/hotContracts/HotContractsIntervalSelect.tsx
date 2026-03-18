@@ -1,11 +1,10 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { HotContractsInterval } from 'types/api/contracts';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from 'toolkit/chakra/select';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';
 
 import { INTERVAL_ITEMS } from './utils';

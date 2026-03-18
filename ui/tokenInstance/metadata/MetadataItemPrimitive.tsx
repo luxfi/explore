@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 import type { Primitive } from 'react-hook-form';
 
@@ -52,10 +51,10 @@ const MetadataItemPrimitive = ({ name, value, level, ...rest }: Props) => {
   }
 
   return (
-    <Box>
+    <div>
       { name && <MetadataAccordionItemTitle name={ name }/> }
       { content }
-    </Box>
+    </div>
   );
 };
 

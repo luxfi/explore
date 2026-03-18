@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
@@ -97,7 +96,7 @@ const WatchList: React.FC = () => {
           emptyText=""
           actionBar={ actionBar }
         >
-          <Box display={{ base: 'block', lg: 'none' }}>
+          <div className="block lg:hidden">
             { data?.items.map((item, index) => (
               <WatchListItem
                 key={ item.address_hash + (isPlaceholderData ? index : '') }
@@ -108,8 +107,8 @@ const WatchList: React.FC = () => {
                 hasEmail={ hasEmail }
               />
             )) }
-          </Box>
-          <Box display={{ base: 'none', lg: 'block' }}>
+          </div>
+          <div className="hidden lg:block">
             <WatchlistTable
               data={ data?.items }
               isLoading={ isPlaceholderData }
@@ -118,7 +117,7 @@ const WatchList: React.FC = () => {
               top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
               hasEmail={ hasEmail }
             />
-          </Box>
+          </div>
         </DataListDisplay>
         <Skeleton mt={ 8 } loading={ isPlaceholderData } display="inline-block">
           <Button

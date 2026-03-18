@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -49,18 +48,16 @@ export interface ContainerBaseProps extends Pick<EntityBaseProps, 'className'> {
   onMouseLeave?: (event: React.MouseEvent) => void;
 }
 
-const Container = chakra(({ className, children, ...props }: ContainerBaseProps) => {
+const Container = ({ className, children, ...props }: ContainerBaseProps) => {
   return (
-    <Flex
-      className={ className }
-      alignItems="center"
-      minWidth={ 0 } // for content truncation - https://css-tricks.com/flexbox-truncated-text/
+    <div
+      className={ cn('flex items-center min-w-0', className) }
       { ...props }
     >
       { children }
-    </Flex>
+    </div>
   );
-});
+};
 
 export interface LinkBaseProps extends Pick<EntityBaseProps, 'className' | 'onClick' | 'isLoading' | 'href' | 'noLink' | 'query' | 'chain'> {
   children: React.ReactNode;
@@ -69,7 +66,7 @@ export interface LinkBaseProps extends Pick<EntityBaseProps, 'className' | 'onCl
   external?: LinkProps['external'];
 }
 
-const Link = chakra(({ isLoading, children, external, onClick, href, noLink, variant, noIcon }: LinkBaseProps) => {
+const Link = ({ isLoading, children, external, onClick, href, noLink, variant, noIcon }: LinkBaseProps) => {
   const styles = {
     display: 'inline-flex',
     alignItems: 'center',
@@ -93,7 +90,7 @@ const Link = chakra(({ isLoading, children, external, onClick, href, noLink, var
       { children }
     </LinkToolkit>
   );
-});
+};
 
 // Common props for entity icons (Image or IconSvg based)
 type EntityIconCommonProps = {
@@ -170,10 +167,10 @@ const Icon = (props: IconBaseProps) => {
   })();
 
   const content = (
-    <Box position="relative" display="inline-flex" alignItems="center" flexShrink={ 0 }>
+    <span className="relative inline-flex items-center shrink-0">
       { iconElement }
       { shield && <IconShield isLoading={ isLoading } variant={ variant } { ...shield }/> }
-    </Box>
+    </span>
   );
 
   if (!hint) {
@@ -228,7 +225,7 @@ export interface ContentBaseProps extends Pick<
   tooltipInteractive?: boolean;
 }
 
-const Content = chakra(({
+const Content = ({
   className,
   isLoading,
   asProp,
@@ -288,8 +285,10 @@ const Content = chakra(({
             tooltipInteractive={ tooltipInteractive }
           />
         );
-      case 'none':
-        return <chakra.span as={ asProp }>{ text }</chakra.span>;
+      case 'none': {
+        const Tag = asProp ?? 'span';
+        return <Tag>{ text }</Tag>;
+      }
     }
   })();
 
@@ -304,7 +303,7 @@ const Content = chakra(({
       { children }
     </Skeleton>
   );
-});
+};
 
 export type CopyBaseProps =
   Pick<CopyToClipboardProps, 'isLoading' | 'text' | 'tooltipInteractive'> &

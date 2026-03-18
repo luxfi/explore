@@ -1,23 +1,18 @@
-import type { IconProps } from '@chakra-ui/react';
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
 
 import LogoIcon from 'icons/networks/logo-placeholder.svg';
 
-export const ChartWatermark = React.memo((props: IconProps) => {
+interface ChartWatermarkProps extends React.SVGAttributes<SVGSVGElement> {}
+
+export const ChartWatermark = React.memo((props: ChartWatermarkProps) => {
+  const { className, ...rest } = props;
   return (
-    <Icon
-      position="absolute"
-      opacity={ 0.1 }
-      top="50%"
-      left="50%"
-      transform="translate(-50%, -50%)"
-      pointerEvents="none"
+    <svg
+      className="absolute opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[var(--chakra-colors-link-primary)] dark:text-white"
       viewBox="0 0 114 20"
-      color={{ _light: 'link.primary', _dark: 'white' }}
-      { ...props }
+      { ...rest }
     >
       <LogoIcon/>
-    </Icon>
+    </svg>
   );
 });

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
@@ -38,7 +37,7 @@ const AddressAccountHistoryTableItem = (props: Props) => {
       </TableCell>
       <TableCell px={ 3 } py="18px" fontSize="sm" >
         <Skeleton borderRadius="sm" loading={ props.isPlaceholderData }>
-          <Box display="flex">
+          <div className="flex">
             <IconSvg
               name="lightning"
               height="5"
@@ -55,13 +54,13 @@ const AddressAccountHistoryTableItem = (props: Props) => {
             >
               { parsedDescription }
             </Link>
-          </Box>
+          </div>
         </Skeleton>
       </TableCell>
       <TableCell px={ 3 } py="18px" fontSize="sm">
-        <Box flexShrink={ 0 } >
+        <div className="shrink-0">
           <NovesFromTo txData={ props.tx } currentAddress={ props.currentAddress } isLoaded={ !props.isPlaceholderData }/>
-        </Box>
+        </div>
       </TableCell>
     </TableRow>
   );

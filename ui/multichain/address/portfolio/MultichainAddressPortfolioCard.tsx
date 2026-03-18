@@ -1,4 +1,3 @@
-import { HStack, VStack } from '@chakra-ui/react';
 import type BigNumber from 'bignumber.js';
 import { clamp } from 'es-toolkit';
 import React from 'react';
@@ -41,7 +40,7 @@ const MultichainAddressPortfolioCard = ({ chain, value, share, isLoading, isSele
   }, [ chain.id, onClick ]);
 
   return (
-    <HStack
+    <div
       p={ 3 }
       w={ cardWidth }
       borderRadius="base"
@@ -59,18 +58,18 @@ const MultichainAddressPortfolioCard = ({ chain, value, share, isLoading, isSele
       aria-label={ `${ chain.name } portfolio selector` }
     >
       <ChainIcon data={ chain } boxSize="30px" flexShrink={ 0 } isLoading={ isLoading } noTooltip/>
-      <VStack alignItems="flex-start" gap={ 1 } overflow="hidden">
+      <div alignItems="flex-start" gap={ 1 } overflow="hidden">
         <TruncatedText text={ chain.name } loading={ isLoading } className="text-[var(--color-text-secondary)] max-w-full"/>
-        <HStack gap={ 1 } maxW="100%">
+        <div gap={ 1 } maxW="100%">
           <SimpleValue value={ value } prefix="$" loading={ isLoading } noTooltip accuracy={ DEFAULT_ACCURACY_USD }/>
           { share !== undefined && share > 0 && (
             <Skeleton loading={ isLoading } color="text.secondary" flexShrink={ 0 }>
               <span>{ formatPercentage(share) }</span>
             </Skeleton>
           ) }
-        </HStack>
-      </VStack>
-    </HStack>
+        </div>
+      </div>
+    </div>
   );
 };
 

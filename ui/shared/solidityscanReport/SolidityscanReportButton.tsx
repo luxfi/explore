@@ -1,4 +1,3 @@
-import { Spinner, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
@@ -23,7 +22,7 @@ const SolidityscanReportButton = ({ score, isLoading, tooltipDisabled, ...rest }
 
   return (
     <Tooltip content="Security score" disabled={ tooltipDisabled } disableOnMobile closeOnClick>
-      <Box>
+      <div>
         <PopoverTrigger>
           <Button
             size="sm"
@@ -36,11 +35,11 @@ const SolidityscanReportButton = ({ score, isLoading, tooltipDisabled, ...rest }
             { ...rest }
           >
             <IconSvg name={ score < 80 ? 'score/score-not-ok' : 'score/score-ok' } boxSize={ 5 }/>
-            { isLoading && <Spinner size="sm"/> }
+            { isLoading && <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4"/> }
             { !isLoading && score }
           </Button>
         </PopoverTrigger>
-      </Box>
+      </div>
     </Tooltip>
   );
 };

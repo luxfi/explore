@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -21,7 +20,7 @@ const TxWatchListTags = ({ tx, isLoading }: Props) => {
   }
 
   return (
-    <Flex columnGap={ 2 } rowGap={ 2 } flexWrap="wrap" overflow="hidden" maxW="100%">
+    <div className="flex gap-x-2 gap-y-2 flex-wrap overflow-hidden max-w-full">
       { tags.map((tag) => (
         <Badge
           key={ tag.label }
@@ -33,7 +32,7 @@ const TxWatchListTags = ({ tx, isLoading }: Props) => {
           { tag.display_name }
         </Badge>
       )) }
-    </Flex>
+    </div>
   );
 };
 

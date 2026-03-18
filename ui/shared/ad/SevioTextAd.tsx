@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import Script from 'next/script';
 import React, { useCallback, useEffect, useRef } from 'react';
 
@@ -9,10 +8,6 @@ import { Skeleton } from 'toolkit/chakra/skeleton';
 const adTextFeature = config.features.adsText;
 
 const AD_LOAD_TIMEOUT = 1_000;
-
-// Sevio native ad template (configured on the Sevio platform):
-// <img src="[%thumbnail%]" width="20" height="20" style="display: inline-block; vertical-align: text-bottom; margin-right: 4px;" alt="" />
-// <strong>Sponsored:</strong> [%sponsored%] &#8211; [%title%] <a href="[%clickURL%]" target="_blank">[%ctatext%]</a>
 
 type Status = 'loading' | 'loaded' | 'empty';
 
@@ -30,8 +25,6 @@ const SevioTextAd = ({ className }: { className?: string }) => {
     window.sevioads.push([ { zone, adType, inventoryId, accountId } ]);
   }, []);
 
-  // Watch for Sevio injecting content into the ad div.
-  // When it does, cancel the timeout and mark the ad as loaded.
   useEffect(() => {
     const node = adRef.current;
     if (!node) {
@@ -59,15 +52,12 @@ const SevioTextAd = ({ className }: { className?: string }) => {
     };
   }, []);
 
-  // Once the Sevio script is loaded, give it a short window to inject the ad.
-  // If nothing appears within that window, assume no ad was served and hide the skeleton.
   const handleScriptLoad = useCallback(() => {
     timeoutRef.current = setTimeout(() => {
       setStatus((prev) => prev === 'loading' ? 'empty' : prev);
     }, AD_LOAD_TIMEOUT);
   }, []);
 
-  // Script failed to load — no ad will ever appear, skip straight to empty.
   const handleScriptError = useCallback(() => {
     setStatus('empty');
   }, []);
@@ -90,27 +80,20 @@ const SevioTextAd = ({ className }: { className?: string }) => {
           display="block"
         />
       ) }
-      <Box
-        className={ status === 'loaded' ? className : undefined }
-        display={ status === 'loaded' ? undefined : 'none' }
-        textStyle={{ base: 'xs', lg: 'md' }}
-        color={{ base: 'text.secondary', lg: 'text.primary' }}
-        css={{
-          '& .sevioads *': {
-            fontFamily: 'inherit',
-            fontSize: 'inherit',
-          },
-          '& .sevioads strong': {
-            color: 'inherit',
-          },
-          '& .sevioads a': {
-            color: 'link.primary',
-            _hover: {
-              color: 'link.primary.hover',
-            },
-          },
-        }}
+      <div
+        className={ cn(
+          status === 'loaded' ? className : undefined,
+          status === 'loaded' ? 'text-xs lg:text-base' : 'hidden',
+          'text-[var(--color-text-secondary)] lg:text-[var(--color-text-primary)]',
+        ) }
+        style={ status !== 'loaded' ? { display: 'none' } : undefined }
       >
+        <style>{ `
+          .sevioads * { font-family: inherit; font-size: inherit; }
+          .sevioads strong { color: inherit; }
+          .sevioads a { color: var(--color-link-primary); }
+          .sevioads a:hover { color: var(--color-link-primary-hover); }
+        ` }</style>
         <Script
           strategy="lazyOnload"
           src="https://cdn.adx.ws/scripts/loader.js"
@@ -118,9 +101,9 @@ const SevioTextAd = ({ className }: { className?: string }) => {
           onError={ handleScriptError }
         />
         <div ref={ adRef } className="sevioads" data-zone={ zone }/>
-      </Box>
+      </div>
     </>
   );
 };
 
-export default chakra(SevioTextAd);
+export default SevioTextAd;

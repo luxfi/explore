@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -61,17 +60,17 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
 
       return {
         before: (
-          <Skeleton loading={ isLoading } display="inline-block" className="break-all">
+          <Skeleton loading={ isLoading } className="break-all">
             { beforeBn.toFormat() } { currencyUnits.ether }
           </Skeleton>
         ),
         after: (
-          <Skeleton loading={ isLoading } display="inline-block" className="break-all">
+          <Skeleton loading={ isLoading } className="break-all">
             { afterBn.toFormat() } { currencyUnits.ether }
           </Skeleton>
         ),
         change: (
-          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor } className="break-all">
+          <Skeleton loading={ isLoading } color={ changeColor } className="break-all">
             <span>{ changeSign }{ nbsp }{ differenceBn.abs().toFormat() }</span>
           </Skeleton>
         ),
@@ -107,7 +106,7 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
         const changeSign = differenceBn.isGreaterThanOrEqualTo(0) ? '+' : '-';
 
         return (
-          <Skeleton loading={ isLoading } display="inline-block" color={ changeColor } className="break-all">
+          <Skeleton loading={ isLoading } color={ changeColor } className="break-all">
             <span>{ changeSign }{ nbsp }{ differenceBn.abs().toFormat() }</span>
           </Skeleton>
         );
@@ -133,18 +132,18 @@ export function getStateElements(data: TxStateChange, isLoading?: boolean) {
 
       return {
         before: data.balance_before ? (
-          <Flex whiteSpace="pre-wrap" justifyContent={{ base: 'flex-start', lg: 'flex-end' }} flexWrap="wrap">
+          <div>
             <Skeleton loading={ isLoading } className="break-all">{ beforeBn.toFormat() }</Skeleton>
             <span>{ space }</span>
             { tokenLink }
-          </Flex>
+          </div>
         ) : null,
         after: data.balance_after ? (
-          <Flex whiteSpace="pre-wrap" justifyContent={{ base: 'flex-start', lg: 'flex-end' }} flexWrap="wrap">
+          <div>
             <Skeleton loading={ isLoading } className="break-all">{ afterBn.toFormat() }</Skeleton>
             <span>{ space }</span>
             { tokenLink }
-          </Flex>
+          </div>
         ) : null,
         change,
         tag,

@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Blob } from 'types/api/blobs';
@@ -23,11 +22,11 @@ const BlobInfo = ({ data, isLoading }: Props) => {
       templateColumns={{ base: 'minmax(0, 1fr)', lg: '216px minmax(728px, auto)' }}
     >
       { !data.blob_data && (
-        <GridItem colSpan={{ base: undefined, lg: 2 }} mb={ 3 }>
+        <div className="lg:col-span-2 mb-3">
           <Skeleton loading={ isLoading }>
             <Alert status="warning">This blob is not yet indexed</Alert>
           </Skeleton>
-        </GridItem>
+        </div>
       ) }
 
       { data.kzg_proof && (

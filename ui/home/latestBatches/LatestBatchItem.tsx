@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -19,14 +18,11 @@ type Props = {
 
 const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animation }: Props) => {
   return (
-    <Box
-      animation={ animation }
-      borderRadius="md"
-      border="1px solid"
-      borderColor="border.divider"
-      p={ 3 }
+    <div
+      className="rounded-md border border-solid border-[var(--color-border-divider)] p-3"
+      style={ animation ? { animation } : undefined }
     >
-      <Flex alignItems="center" overflow="hidden" w="100%" mb={ 3 }>
+      <div className="flex items-center overflow-hidden w-full mb-3">
         <BatchEntityL2
           isLoading={ isLoading }
           number={ number }
@@ -46,9 +42,9 @@ const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animat
           flexShrink={ 0 }
           ml={ 2 }
         />
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between" w="100%" flexWrap="wrap" textStyle="sm">
-        <Flex alignItems="center">
+      </div>
+      <div className="flex items-center justify-between w-full flex-wrap text-sm">
+        <div className="flex items-center">
           <Skeleton loading={ isLoading } mr={ 2 }>Txn</Skeleton>
           <Link
             href={ route({ pathname: '/batches/[number]', query: { number: number.toString(), tab: 'txs' } }) }
@@ -56,10 +52,10 @@ const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animat
           >
             { txCount }
           </Link>
-        </Flex>
+        </div>
         { status }
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 };
 

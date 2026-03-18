@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { IconButton } from 'toolkit/chakra/icon-button';
@@ -27,15 +26,15 @@ const PrevNext = ({ className, onClick, prevLabel, nextLabel, isPrevDisabled, is
 
   if (isLoading) {
     return (
-      <Flex columnGap="10px" className={ className }>
+      <div className="flex" columnGap="10px" className={ className }>
         <Skeleton loading={ true } className="size-6 rounded-sm"/>
         <Skeleton loading={ true } className="size-6 rounded-sm"/>
-      </Flex>
+      </div>
     );
   }
 
   return (
-    <Box className={ className } display="flex">
+    <div className={ className } className="flex">
       <Tooltip content={ prevLabel }>
         <IconButton
           aria-label="prev"
@@ -58,8 +57,8 @@ const PrevNext = ({ className, onClick, prevLabel, nextLabel, isPrevDisabled, is
           <IconSvg name="arrows/east-mini" className="rotate-180"/>
         </IconButton>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 
-export default chakra(PrevNext);
+export default PrevNext;

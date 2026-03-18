@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { OptimisticL2OutputRootsItem } from 'types/api/optimisticL2';
@@ -60,12 +59,12 @@ const OptimisticL2OutputRootsListItem = ({ item, isLoading }: Props) => {
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Output root</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <Flex overflow="hidden" whiteSpace="nowrap" alignItems="center" w="100%" justifyContent="start">
+        <div className="flex items-center justify-start overflow-hidden whitespace-nowrap w-full">
           <Skeleton loading={ isLoading } color="text.secondary">
             <HashStringShorten hash={ item.output_root } type="long"/>
           </Skeleton>
           <CopyToClipboard text={ item.output_root } isLoading={ isLoading }/>
-        </Flex>
+        </div>
       </ListItemMobileGrid.Value>
 
     </ListItemMobileGrid.Container>

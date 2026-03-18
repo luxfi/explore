@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import { clamp } from 'es-toolkit';
 
 import { Progress } from 'toolkit/chakra/progress';
@@ -16,8 +15,8 @@ export default function ProgressSegment({ value, target, prevTarget, isFirst }: 
   const progress = clamp(value, prevTarget, target);
 
   return (
-    <Flex gap={ 0 } flex={{ base: isFirst ? 0.7 : 1, lg: 1 }} minW="0">
-      <Flex flex={ 1 } alignItems="center" h={{ base: '32px', lg: '40px' }} mx={ -2.5 }>
+    <div className={ `flex gap-0 min-w-0 ${ isFirst ? 'flex-[0.7] lg:flex-1' : 'flex-1' }` }>
+      <div className="flex flex-1 items-center h-[32px] lg:h-[40px] -mx-2.5">
         <Progress
           value={ progress }
           min={ prevTarget }
@@ -29,33 +28,23 @@ export default function ProgressSegment({ value, target, prevTarget, isFirst }: 
             borderEndRadius: 0,
           }}
         />
-      </Flex>
-      <Flex
-        direction="column"
-        alignItems="center"
-        gap={ 2 }
-        flexShrink={ 0 }
-        w="60px"
-      >
-        <Flex h={{ base: '32px', lg: '40px' }} alignItems="center">
-          <Flex
-            w="40px"
-            h="32px"
-            borderRadius="lg"
-            bgColor={ isDone ? 'green.400' : 'progress.track' }
-            alignItems="center"
-            justifyContent="center"
-            zIndex={ 1 }
+      </div>
+      <div className="flex flex-col items-center gap-2 shrink-0 w-[60px]">
+        <div className="flex h-[32px] lg:h-[40px] items-center">
+          <div
+            className={ `flex w-[40px] h-[32px] rounded-lg items-center justify-center z-[1] ${
+              isDone ? 'bg-green-400' : 'bg-[var(--color-progress-track)]'
+            }` }
           >
             { isDone ? (
               <IconSvg name="check" boxSize={ 5 } color="white"/>
             ) : (
               <IconSvg name="hexagon" boxSize={ 4 } color="icon.secondary"/>
             ) }
-          </Flex>
-        </Flex>
-        <Text textStyle="xs" color="text.secondary">{ target } Days</Text>
-      </Flex>
-    </Flex>
+          </div>
+        </div>
+        <span className="text-xs text-[var(--color-text-secondary)]">{ target } Days</span>
+      </div>
+    </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Box, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -39,33 +38,33 @@ const Flashblocks = () => {
   }
 
   return (
-    <Box>
+    <div>
       <FlashblocksStats itemsNum={ itemsNum } txsNum={ txsNum } initialTs={ initialTs }/>
-      <HStack gap={ 2 } mb={ 4 }>
+      <div gap={ 2 } mb={ 4 }>
         <Switch size="md" className="flex-row-reverse" onCheckedChange={ handleFormatChange } checked={ isRealTime }>
           Real-time feed
         </Switch>
         <Hint
           label={ `Real-time ${ flashblocksFeature.name }s show the latest ${ flashblocksFeature.name }s with real-time updates in the chronological order. ` }
         />
-      </HStack>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <FlashblocksTable
           items={ items }
           newItemsNum={ newItemsNum }
           onAlertLinkClick={ handleAlertLinkClick }
           showAlertError={ showAlertError }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         <FlashblocksList
           data={ items }
           newItemsNum={ newItemsNum }
           onAlertLinkClick={ handleAlertLinkClick }
           showAlertError={ showAlertError }
         />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { MudWorldItem } from 'types/api/mudWorlds';
@@ -28,7 +27,7 @@ const MudWorldsListItem = ({
         mr={ 2 }
         truncation="constant_long"
       />
-      <HStack gap={ 3 } maxW="100%" alignItems="flex-start" textStyle="sm">
+      <div gap={ 3 } maxW="100%" alignItems="flex-start" textStyle="sm">
         <Skeleton loading={ isLoading } fontWeight={ 500 } flexShrink={ 0 }><span>{ `Balance ${ currencyUnits.ether }` }</span></Skeleton>
         <NativeCoinValue
           amount={ item.coin_balance }
@@ -36,13 +35,13 @@ const MudWorldsListItem = ({
           loading={ isLoading }
           color="text.secondary"
         />
-      </HStack>
-      <HStack gap={ 3 }>
+      </div>
+      <div gap={ 3 }>
         <Skeleton loading={ isLoading } className="text-sm font-medium">Txn count</Skeleton>
         <Skeleton loading={ isLoading } className="text-sm" color="text.secondary">
           <span>{ Number(item.transactions_count).toLocaleString() }</span>
         </Skeleton>
-      </HStack>
+      </div>
     </ListItemMobile>
   );
 };

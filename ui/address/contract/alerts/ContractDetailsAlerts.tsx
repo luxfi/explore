@@ -1,4 +1,3 @@
-import { chakra, Box, Flex } from '@chakra-ui/react';
 import type { Channel } from 'phoenix';
 import React from 'react';
 
@@ -37,14 +36,14 @@ const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props)
   });
 
   return (
-    <Flex flexDir="column" rowGap={ 1 } mb={ 6 } _empty={{ display: 'none' }}>
+    <div className="flex" flexDir="column" rowGap={ 1 } mb={ 6 } _empty={{ display: 'none' }}>
       { data?.is_blueprint && (
-        <Box>
+        <div>
           <span>This is an </span>
           <Link external href="https://eips.ethereum.org/EIPS/eip-5202">
             ERC-5202 Blueprint contract
           </Link>
-        </Box>
+        </div>
       ) }
       <ContractDetailsAlertVerificationStatus data={ data } isLoading={ isLoading } addressData={ addressData }/>
       { addressData.proxy_type && (
@@ -68,14 +67,14 @@ const ContractDetailsAlerts = ({ data, isLoading, addressData, channel }: Props)
             fontSize="sm"
             fontWeight="500"
           />
-          <chakra.span mt={ 1 }>All functions displayed below are from ABI of that contract. In order to verify current contract, proceed with </chakra.span>
+          <span mt={ 1 }>All functions displayed below are from ABI of that contract. In order to verify current contract, proceed with </span>
           <Link href={ route({ pathname: '/address/[hash]/contract-verification', query: { hash: addressData.hash } }) }>
             Verify & Publish
           </Link>
           <span> page</span>
         </Alert>
       ) }
-    </Flex>
+    </div>
   );
 };
 

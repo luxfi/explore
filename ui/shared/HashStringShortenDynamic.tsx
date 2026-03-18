@@ -8,8 +8,6 @@
 
 // so i did it with js
 
-import type { BoxProps } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/react';
 import { debounce } from 'es-toolkit';
 import React, { useCallback, useEffect, useRef } from 'react';
 import type { FontFace } from 'use-font-face-observer';
@@ -92,7 +90,7 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', noTooltip, tailLen
     };
   }, [ calculateString ]);
 
-  const content = <chakra.span ref={ elementRef } as={ as } { ...props }>{ displayedString }</chakra.span>;
+  const content = <span ref={ elementRef } { ...props }>{ displayedString }</span>;
   const isTruncated = hash.length !== displayedString.length;
 
   if (isTruncated && !noTooltip) {

@@ -1,4 +1,3 @@
-import { chakra, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TimeChartData } from 'toolkit/components/charts/types';
@@ -25,13 +24,13 @@ const ChainIndicatorChartContainer = ({ data, isError, isPending }: Props) => {
   }
 
   if (data[0].items.length === 0) {
-    return <chakra.span fontSize="xs">no data</chakra.span>;
+    return <span fontSize="xs">no data</span>;
   }
 
   return (
-    <Box mx="-10px" my="-5px" h="calc(100% + 10px)" w="calc(100% + 20px)">
+    <div mx="-10px" my="-5px" h="calc(100% + 10px)" w="calc(100% + 20px)">
       <ChainIndicatorChartContent data={ data }/>
-    </Box>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import { createListCollection, HStack } from '@chakra-ui/react';
+import { createListCollection } from 'toolkit/chakra/select';
 import React from 'react';
 
 import type { TokensSortingValue } from 'types/api/tokens';
@@ -50,7 +50,7 @@ const TokensActionBar = ({
 
   return (
     <>
-      <HStack gap={ 3 } mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div>
         { filter }
         <Sort
           name="tokens_sorting"
@@ -59,17 +59,13 @@ const TokensActionBar = ({
           onValueChange={ handleSortChange }
         />
         { searchInput }
-      </HStack>
+      </div>
       <ActionBar
-        mt={ inTabsSlot ? 0 : -6 }
-        py={{ lg: inTabsSlot ? 0 : undefined }}
-        justifyContent={ inTabsSlot ? 'space-between' : undefined }
-        display={{ base: pagination.isVisible ? 'flex' : 'none', lg: 'flex' }}
       >
-        <HStack gap={ 3 } display={{ base: 'none', lg: 'flex' }}>
+        <div>
           { filter }
           { searchInput }
-        </HStack>
+        </div>
         <Pagination { ...pagination } className={ inTabsSlot ? 'ml-8' : 'ml-auto' }/>
       </ActionBar>
     </>

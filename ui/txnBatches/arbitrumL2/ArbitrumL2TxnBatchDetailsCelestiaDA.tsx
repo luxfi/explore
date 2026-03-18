@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumL2TxnBatchDACelestia } from 'types/api/arbitrumL2';
@@ -28,14 +27,14 @@ const ArbitrumL2TxnBatchDetailsCelestiaDA = ({ data }: Props) => {
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
-        hint="The Data Availability blob’s unique cryptographic proof"
+        hint="The Data Availability blob's unique cryptographic proof"
       >
         Commitment
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue flexWrap="nowrap">
-        <Flex overflow="hidden" minW="0">
+        <div className="overflow-hidden min-w-0">
           <HashStringShortenDynamic hash={ data.transaction_commitment }/>
-        </Flex>
+        </div>
         <CopyToClipboard text={ data.transaction_commitment } className="mr-3"/>
         { feature.isEnabled && feature.DA.celestia.namespace && (
           <CeleniumLink

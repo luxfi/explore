@@ -1,4 +1,3 @@
-import { Box, chakra, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -18,7 +17,7 @@ const clustersFeature = nameServicesFeature.isEnabled && nameServicesFeature.clu
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'clusterName'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route({ pathname: '/name-services/clusters/[name]', query: { name: encodeURIComponent(props.clusterName) } });
 
   return (
@@ -45,16 +44,9 @@ const Icon = (props: IconProps) => {
   }
 
   const fallbackElement = (
-    <Box
-      display="inline-flex"
-      alignItems="center"
-      justifyContent="center"
-      width={ styles.boxSize }
-      height={ styles.boxSize }
-      backgroundColor="clusters"
-      borderRadius="base"
-      mr={ 2 }
-      flexShrink={ 0 }
+    <div
+      className="inline-flex items-center justify-center rounded mr-2 shrink-0 bg-[var(--color-clusters)]"
+      style={{ width: styles.boxSize, height: styles.boxSize }}
     >
       <IconSvg
         name="clusters"
@@ -63,7 +55,7 @@ const Icon = (props: IconProps) => {
         color="white"
         style={{ filter: 'brightness(0) invert(1)' }}
       />
-    </Box>
+    </div>
   );
 
   const profileImageElement = (
@@ -81,27 +73,20 @@ const Icon = (props: IconProps) => {
 
   const tooltipContent = (
     <>
-      <Flex alignItems="center" textStyle="md">
-        <Box
-          display="inline-flex"
-          alignItems="center"
-          justifyContent="center"
-          boxSize={ 5 }
-          backgroundColor="clusters"
-          borderRadius="sm"
-          mr={ 2 }
-        >
+      <div className="flex items-center text-base">
+        <div className="inline-flex items-center justify-center rounded-sm mr-2 size-5 bg-[var(--color-clusters)]">
+
           <IconSvg name="clusters" boxSize={ 4 } color="white" style={{ filter: 'brightness(0) invert(1)' }}/>
-        </Box>
+        </div>
         <div>
           <span>Clusters</span>
-          <chakra.span color="text.secondary" whiteSpace="pre"> - Universal name service</chakra.span>
+          <span style={{ color: 'var(--color-text-secondary)', whiteSpace: 'pre' }}> - Universal name service</span>
         </div>
-      </Flex>
-      <Text>
+      </div>
+      <span>
         Clusters provides unified naming across multiple blockchains including EVM, Solana, Bitcoin, and more.
         Manage all your wallet addresses under one human-readable name.
-      </Text>
+      </span>
       <LinkToolkit
         href="https://clusters.xyz"
         className="inline-flex items-center"
@@ -132,7 +117,7 @@ const Icon = (props: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'clusterName'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   const shouldShowTrailingSlash = !props.clusterName.includes('/');
   const displayName = shouldShowTrailingSlash ? `${ props.clusterName }/` : props.clusterName;
 
@@ -175,7 +160,7 @@ const ClustersEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(ClustersEntity));
+export default React.memo(ClustersEntity);
 
 export {
   Container,

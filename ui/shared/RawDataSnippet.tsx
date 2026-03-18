@@ -1,7 +1,6 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
 import CopyToClipboard from './CopyToClipboard';
@@ -12,8 +11,8 @@ interface Props {
   className?: string;
   rightSlot?: React.ReactNode;
   beforeSlot?: React.ReactNode;
-  textareaMaxHeight?: BoxProps['maxH'];
-  textareaMinHeight?: BoxProps['minH'];
+  textareaMaxHeight?: string;
+  textareaMinHeight?: string;
   showCopy?: boolean;
   isLoading?: boolean;
   contentProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -31,20 +30,14 @@ const RawDataSnippet = ({
   isLoading,
   contentProps,
 }: Props) => {
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=1362573
-  // there is a problem with scrollbar color in chromium
-  // so blackAlpha.50 here is replaced with #f5f5f6
-  // and whiteAlpha.50 is replaced with #1a1b1b
-  // const bgColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
-  const bgColor = { _light: '#f5f5f6', _dark: '#1a1b1b' };
   return (
-    <Box className={ className } as="section" title={ title }>
+    <section className={ className } title={ title }>
       { (title || rightSlot || showCopy) && (
-        <Flex justifyContent={ title ? 'space-between' : 'flex-end' } alignItems="center" mb={{ base: 1, lg: 3 }}>
+        <div className={ cn('flex items-center mb-1 lg:mb-3', title ? 'justify-between' : 'justify-end') }>
           { title && <Skeleton fontWeight={ 500 } loading={ isLoading } className="font-medium">{ title }</Skeleton> }
           { rightSlot }
           { typeof data === 'string' && showCopy && <CopyToClipboard text={ data } isLoading={ isLoading }/> }
-        </Flex>
+        </div>
       ) }
       { beforeSlot }
       <Skeleton
@@ -52,16 +45,16 @@ const RawDataSnippet = ({
         borderRadius="md"
         className="p-4 text-sm break-all whitespace-pre-wrap overflow-x-hidden overflow-y-auto"
         style={{
-          maxHeight: (textareaMaxHeight as string) || '400px',
-          minHeight: (textareaMinHeight as string) || (isLoading ? '200px' : undefined),
+          maxHeight: textareaMaxHeight || '400px',
+          minHeight: textareaMinHeight || (isLoading ? '200px' : undefined),
           backgroundColor: isLoading ? 'inherit' : undefined,
         }}
         { ...contentProps }
       >
         { data }
       </Skeleton>
-    </Box>
+    </section>
   );
 };
 
-export default React.memo(chakra(RawDataSnippet));
+export default React.memo(RawDataSnippet);

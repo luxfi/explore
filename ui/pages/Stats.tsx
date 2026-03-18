@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -35,11 +34,11 @@ const Stats = () => {
 
       <NetworkStats/>
 
-      <Box mb={{ base: 6, sm: 8 }}>
+      <div className="mb-6 sm:mb-8">
         <NumberWidgetsList/>
-      </Box>
+      </div>
 
-      <Box mb={{ base: 6, sm: 8 }}>
+      <div className="mb-6 sm:mb-8">
         <StatsFilters
           isLoading={ isPlaceholderData }
           initialFilterValue={ initialFilterQuery }
@@ -50,7 +49,7 @@ const Stats = () => {
           onIntervalChange={ handleIntervalChange }
           onFilterInputChange={ handleFilterChange }
         />
-      </Box>
+      </div>
 
       <ChartsWidgetsList
         initialFilterQuery={ initialFilterQuery }

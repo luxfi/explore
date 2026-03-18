@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -105,14 +104,14 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ handleSubmit(onFormSubmit) }
       >
-        <Flex columnGap={ 5 } rowGap={ 3 } flexDir={{ base: 'column', lg: 'row' }} alignItems={{ base: 'flex-start', lg: 'center' }} flexWrap="wrap">
+        <div columnGap={ 5 } rowGap={ 3 } flexDir={{ base: 'column', lg: 'row' }} alignItems={{ base: 'flex-start', lg: 'center' }} flexWrap="wrap">
           { exportType !== 'holders' && <CsvExportFormField name="from" formApi={ formApi }/> }
           { exportType !== 'holders' && <CsvExportFormField name="to" formApi={ formApi }/> }
-        </Flex>
+        </div>
         <ReCaptcha { ...recaptcha }/>
         <Button
           variant="solid"
@@ -124,7 +123,7 @@ const CsvExportForm = ({ hash, resource, filterType, filterValue, fileNameTempla
         >
           Download
         </Button>
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

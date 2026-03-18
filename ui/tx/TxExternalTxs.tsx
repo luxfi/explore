@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -19,12 +18,12 @@ const TxExternalTxs: React.FC<Props> = ({ data }) => {
   }
 
   const content = (
-    <Box textStyle="sm">
-      <Flex alignItems="center" gap={ 2 } fontSize="md" mb={ 3 }>
+    <div className="text-sm">
+      <div className="flex items-center gap-2 text-base mb-3">
         <Image src={ externalTxFeature.chainLogoUrl } alt={ externalTxFeature.chainName } width={ 5 } height={ 5 }/>
         { externalTxFeature.chainName } transaction{ data.length > 1 ? 's' : '' }
-      </Flex>
-      <Flex flexDirection="column" gap={ 2 } w="100%" maxHeight="460px" overflowY="auto">
+      </div>
+      <div className="flex flex-col gap-2 w-full max-h-[460px] overflow-y-auto">
         { data.map((txHash) => (
           <TxEntity
             key={ txHash }
@@ -36,8 +35,8 @@ const TxExternalTxs: React.FC<Props> = ({ data }) => {
             noTooltip
           />
         )) }
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 
   return (

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -43,12 +42,12 @@ const MultichainAddressInternalTxs = ({ addressData, isLoading }: Props) => {
 
   const content = data?.items ? (
     <MultichainProvider chainId={ chainValue?.[0] }>
-      <Box hideFrom="lg">
+      <div hideFrom="lg">
         <InternalTxsList data={ data.items } currentAddress={ hash } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div hideBelow="lg">
         <InternalTxsTable data={ data.items } currentAddress={ hash } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </MultichainProvider>
   ) : null ;
 

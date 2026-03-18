@@ -1,4 +1,3 @@
-import { Flex, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CrossChainTx } from '@luxfi/zetachain-cctx-types';
@@ -36,33 +35,23 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
     <>
       <IconSvg
         name="verification-steps/finalized"
-        boxSize={ 5 }
-        bg="bg.primary"
-        zIndex={ 1 }
-        color={ color }
+        className="w-5 h-5"
       />
       <Skeleton loading={ isLoading }>
-        <Flex color={ color } maxH="20px" mb={ 2.5 } alignItems="center">
+        <div className="flex">
           { `Sender tx from ${ chainFrom?.name || 'unknown chain' }` }
-        </Flex>
-        <Grid
-          templateColumns="100px 1fr"
-          gap={ 3 }
-          bg={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.100' }}
-          py={ 3 }
-          px={ 4 }
-          borderBottomRadius="md"
-          overflow="hidden"
-          fontSize="sm"
+        </div>
+        <div className="grid overflow-hidden rounded-b-md"
+          style={{ gridTemplateColumns: "100px 1fr" }}
         >
           { isCCTX ? (
             <>
-              <Text color="text.secondary" fontWeight="medium">CCTX</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">CCTX</span>
               <TxEntityZetaChainCC hash={ inboundParams.observed_hash } isLoading={ isLoading } noIcon/>
             </>
           ) : (
             <>
-              <Text color="text.secondary" fontWeight="medium">Transaction</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Transaction</span>
               { chainFromId !== config.chain.id ? (
                 <TxEntityZetaChainExternal chainId={ chainFromId } hash={ inboundParams.observed_hash } noIcon/>
               ) : (
@@ -70,14 +59,14 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
               ) }
             </>
           ) }
-          <Text color="text.secondary" fontWeight="medium">Status</Text>
+          <span className="font-medium text-[var(--color-text-secondary)]">Status</span>
           <StatusTag
             type={ inboundParams.status === InboundStatus.SUCCESS ? 'ok' : 'error' }
             text={ inboundParams.status === InboundStatus.SUCCESS ? 'Success' : 'Failed' }
           />
           { inboundParams.sender && (
             <>
-              <Text color="text.secondary" fontWeight="medium">Sender</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Sender</span>
               <AddressEntityZetaChain
                 address={{ hash: inboundParams.sender }}
                 chainId={ inboundParams.sender_chain_id.toString() }
@@ -88,7 +77,7 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
           ) }
           { inboundParams.amount && (
             <>
-              <Text color="text.secondary" fontWeight="medium">Transferred</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Transferred</span>
               <ZetaChainCCTXValue
                 coinType={ inboundParams.coin_type }
                 tokenSymbol={ tx.token_symbol }
@@ -98,7 +87,7 @@ const ZetaChainCCTXDetailsLifecycleIn = ({ tx, isLoading }: Props) => {
               />
             </>
           ) }
-        </Grid>
+        </div>
       </Skeleton>
     </>
   );

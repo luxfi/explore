@@ -1,9 +1,3 @@
-import {
-  Text,
-  chakra,
-  Box,
-  VStack,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -28,16 +22,16 @@ const MarketplaceAppGraphLinks = ({ className, links }: Props) => {
   }
 
   const content = (
-    <VStack gap={ 4 } align="start" textStyle="sm" w="260px">
-      <Text>{ `This dapp uses ${ links.length > 1 ? 'several subgraphs' : 'a subgraph' } powered by The Graph` }</Text>
+    <div gap={ 4 } align="start" textStyle="sm" w="260px">
+      <span>{ `This dapp uses ${ links.length > 1 ? 'several subgraphs' : 'a subgraph' } powered by The Graph` }</span>
       { links.map(link => (
         <Link external key={ link.url } href={ link.url }>{ link.title }</Link>
       )) }
-    </VStack>
+    </div>
   );
 
   return (
-    <Box position="relative" className={ className } display="inline-flex" alignItems="center" onClick={ handleButtonClick }>
+    <div position="relative" className={ className } display="inline-flex" alignItems="center" onClick={ handleButtonClick }>
       <Tooltip
         variant="popover"
         content={ content }
@@ -46,8 +40,8 @@ const MarketplaceAppGraphLinks = ({ className, links }: Props) => {
       >
         <IconSvg name="brands/graph" boxSize={ 5 } onClick={ handleButtonClick }/>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 
-export default React.memo(chakra(MarketplaceAppGraphLinks));
+export default MarketplaceAppGraphLinks;

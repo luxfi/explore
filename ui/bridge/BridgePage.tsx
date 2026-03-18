@@ -1,9 +1,9 @@
 // Cross-chain bridge/teleporter page for the Lux multi-chain explorer.
 // Shows cross-chain transfers between Primary Network chains and L1 subnets.
 
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
+import config from 'configs/app';
 import { useBridgeData } from 'lib/api/bchain';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
@@ -44,22 +44,22 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <Box
+  <div
     border="1px solid"
     borderColor="border.divider"
     borderRadius="lg"
     p={ 5 }
     bgColor={ STAT_CARD_BG }
   >
-    <Box fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+    <div fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
       { label }
-    </Box>
+    </div>
     <Skeleton loading={ isLoading }>
-      <Box fontSize="2xl" fontWeight="700" color="text.primary">
+      <div fontSize="2xl" fontWeight="700" color="text.primary">
         { value }
-      </Box>
+      </div>
     </Skeleton>
-  </Box>
+  </div>
 );
 
 interface ChainPairCardProps {
@@ -69,7 +69,7 @@ interface ChainPairCardProps {
 }
 
 const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
-  <Flex
+  <div
     alignItems="center"
     py={ 3 }
     px={ 4 }
@@ -80,27 +80,27 @@ const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
     gap={ 4 }
     flexWrap={{ base: 'wrap', lg: 'nowrap' }}
   >
-    <Box minW="160px" flexShrink={ 0 }>
-      <Text fontWeight="500" fontSize="sm" color="text.primary">
+    <div minW="160px" flexShrink={ 0 }>
+      <span fontWeight="500" fontSize="sm" color="text.primary">
         { source }
-      </Text>
-    </Box>
-    <Text color="text.secondary" fontSize="sm" flexShrink={ 0 }>
+      </span>
+    </div>
+    <span color="text.secondary" fontSize="sm" flexShrink={ 0 }>
       { '\u2192' }
-    </Text>
-    <Box minW="160px" flexShrink={ 0 }>
-      <Text fontWeight="500" fontSize="sm" color="text.primary">
+    </span>
+    <div minW="160px" flexShrink={ 0 }>
+      <span fontWeight="500" fontSize="sm" color="text.primary">
         { destination }
-      </Text>
-    </Box>
-    <Flex ml={{ base: 0, lg: 'auto' }} alignItems="center">
+      </span>
+    </div>
+    <div ml={{ base: 0, lg: 'auto' }} alignItems="center">
       { status === 'active' ? (
         <Tag size="sm" variant="subtle" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Tag>
       ) : (
         <Tag size="sm" variant="subtle">Coming Soon</Tag>
       ) }
-    </Flex>
-  </Flex>
+    </div>
+  </div>
 );
 
 // ── Main component ──
@@ -151,14 +151,14 @@ const BridgePage = () => {
       <PageTitle
         title="Bridge"
         secondRow={ (
-          <Box fontSize="sm" color="text.secondary">
-            Cross-chain transfers between Lux Network chains
-          </Box>
+          <div fontSize="sm" color="text.secondary">
+            Cross-chain transfers between { config.chain.name || 'network' } chains
+          </div>
         ) }
       />
 
       { /* Stats */ }
-      <Box
+      <div
         display="grid"
         gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
         gap={ 3 }
@@ -184,21 +184,21 @@ const BridgePage = () => {
           value={ String(bridgePairs.filter((p) => p.status === 'active').length) }
           isLoading={ isLoading }
         />
-      </Box>
+      </div>
 
       { /* Bridge routes table */ }
-      <Box
+      <div
         border="1px solid"
         borderColor="border.divider"
         borderRadius="lg"
         overflow="hidden"
       >
-        <Box px={ 4 } py={ 3 } fontWeight="600" fontSize="sm" color="text.primary" borderBottom="1px solid" borderColor="border.divider">
+        <div px={ 4 } py={ 3 } fontWeight="600" fontSize="sm" color="text.primary" borderBottom="1px solid" borderColor="border.divider">
           Bridge Routes
-        </Box>
+        </div>
 
         { /* Table header */ }
-        <Flex
+        <div
           px={ 4 }
           py={ 2 }
           gap={ 4 }
@@ -206,26 +206,26 @@ const BridgePage = () => {
           borderColor="border.divider"
           display={{ base: 'none', lg: 'flex' }}
         >
-          <Box minW="160px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+          <div minW="160px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
             Source
-          </Box>
-          <Box w="20px" flexShrink={ 0 }/>
-          <Box minW="160px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+          </div>
+          <div w="20px" flexShrink={ 0 }/>
+          <div minW="160px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
             Destination
-          </Box>
-          <Box ml="auto" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+          </div>
+          <div ml="auto" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
             Status
-          </Box>
-        </Flex>
+          </div>
+        </div>
 
         { /* Loading */ }
         { isLoading && (
-          <Box px={ 4 } py={ 6 }>
+          <div px={ 4 } py={ 6 }>
             <Skeleton loading h="16px" mb={ 3 }/>
             <Skeleton loading h="16px" mb={ 3 }/>
             <Skeleton loading h="16px" mb={ 3 }/>
             <Skeleton loading h="16px"/>
-          </Box>
+          </div>
         ) }
 
         { /* Routes */ }
@@ -237,10 +237,10 @@ const BridgePage = () => {
             status={ pair.status }
           />
         )) }
-      </Box>
+      </div>
 
       { /* Info card */ }
-      <Box
+      <div
         mt={ 6 }
         p={ 5 }
         border="1px solid"
@@ -248,16 +248,16 @@ const BridgePage = () => {
         borderRadius="lg"
         bgColor={ STAT_CARD_BG }
       >
-        <Text fontWeight="600" fontSize="sm" color="text.primary" mb={ 2 }>
-          Lux Network Bridge
-        </Text>
-        <Text fontSize="sm" color="text.secondary" lineHeight="1.6">
-          The Lux Bridge enables cross-chain asset transfers between the 14 Primary Network
+        <span fontWeight="600" fontSize="sm" color="text.primary" mb={ 2 }>
+          { config.chain.name || 'Network' } Bridge
+        </span>
+        <span fontSize="sm" color="text.secondary" lineHeight="1.6">
+          The bridge enables cross-chain asset transfers between the Primary Network
           chains and L1 subnet chains. Atomic swaps between core chains (C, P, X) are
-          currently active. Teleporter-based transfers to L1 subnets (Zoo, Hanzo, SPC, Pars)
-          are coming soon via the B-Chain bridge relay.
-        </Text>
-      </Box>
+          currently active. Teleporter-based transfers to L1 subnets are
+          coming soon via the B-Chain bridge relay.
+        </span>
+      </div>
     </>
   );
 };

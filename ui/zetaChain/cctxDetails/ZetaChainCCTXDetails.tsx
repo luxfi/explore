@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, VStack, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { CrossChainTx } from '@luxfi/zetachain-cctx-types';
@@ -54,7 +53,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
   const { transactionsBefore, transactionsAfter } = getTransactionsBeforeAndAfter(data);
 
   return (
-    <DetailedInfo.Container templateColumns={{ base: 'minmax(0, 1fr)', lg: 'max-content minmax(728px, auto)' }}>
+    <DetailedInfo.Container>
       { data.inbound_params?.sender && (
         <>
           <DetailedInfo.ItemLabel
@@ -130,7 +129,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
             <RawDataSnippet
               data={ data.relayed_message }
               textareaMaxHeight="100px"
-              w="100%"
+              className="w-full"
               isLoading={ isLoading }
               showCopy={ false }
             />
@@ -154,14 +153,14 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       >
         Status and state
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue flexWrap="wrap">
-        <Flex alignItems="center" gap={ 2 }>
+      <DetailedInfo.ItemValue>
+        <div className="flex">
           <ZetaChainCCTXReducedStatus status={ data.cctx_status_reduced } isLoading={ isLoading } type="full"/>
           { data.cctx_status?.status && <ZetaChainCCTXStatusTag status={ data.cctx_status.status } isLoading={ isLoading }/> }
-        </Flex>
+        </div>
         { data.cctx_status?.error_message && (
           <CollapsibleDetails className="ml-2">
-            <RawDataSnippet data={ data.cctx_status.error_message } minW="100%"/>
+            <RawDataSnippet data={ data.cctx_status.error_message }/>
           </CollapsibleDetails>
         ) }
       </DetailedInfo.ItemValue>
@@ -174,7 +173,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
             Status message
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <RawDataSnippet data={ data.cctx_status.status_message } minW="100%" showCopy={ false }/>
+            <RawDataSnippet data={ data.cctx_status.status_message } showCopy={ false }/>
           </DetailedInfo.ItemValue>
         </>
       ) }
@@ -210,13 +209,12 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
       >
         Lifecycle
       </DetailedInfo.ItemLabel>
-      <DetailedInfo.ItemValue position="relative" mb={ 7 } pl={ 0 } mt={{ base: 2, lg: 1 }}>
-        <Box position="absolute" top="4px" left="9px" width="2px" height="100%" bg="border.divider"/>
-        <Grid templateColumns="20px 1fr" rowGap={ 6 } columnGap={ 2 } w="100%">
+      <DetailedInfo.ItemValue>
+        <div className="grid w-full" style={{ gridTemplateColumns: "20px 1fr" }}>
           { transactionsBefore.length > 0 && (
             <>
-              <IconSvg name="verification-steps/finalized" boxSize={ 5 } bg="bg.primary" zIndex={ 1 } color="text.secondary"/>
-              <VStack gap={ 2 } alignItems="flex-start">
+              <IconSvg name="verification-steps/finalized" className="w-5 h-5"/>
+              <div className="flex flex-col">
                 { transactionsBefore.map((tx) => (
                   <ZetaChainCCTXDetailsRelatedTx
                     key={ tx.index }
@@ -224,7 +222,7 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
                     isLoading={ isLoading }
                   />
                 )) }
-              </VStack>
+              </div>
             </>
           ) }
           { /* Current Transaction */ }
@@ -247,15 +245,11 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
           { transactionsAfter.length > 0 && (
             <>
               { /* we need this block here to cover the vertical line (because it's the last block in lifecycle) */ }
-              <Flex
-                h="100%"
-                w="100%"
-                bg="bg.primary"
-                zIndex={ 1 }
+              <div className="flex w-full"
               >
-                <IconSvg name="interop" boxSize={ 5 } bg="bg.primary" zIndex={ 1 } color="text.secondary"/>
-              </Flex>
-              <VStack gap={ 2 } alignItems="flex-start">
+                <IconSvg name="interop" className="w-5 h-5"/>
+              </div>
+              <div className="flex flex-col">
                 { transactionsAfter.map((tx) => (
                   <ZetaChainCCTXDetailsRelatedTx
                     key={ tx.index }
@@ -263,10 +257,10 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
                     isLoading={ isLoading }
                   />
                 )) }
-              </VStack>
+              </div>
             </>
           ) }
-        </Grid>
+        </div>
       </DetailedInfo.ItemValue>
       { data.revert_options && (
         <>
@@ -276,52 +270,41 @@ const ZetaChainCCTXDetails = ({ data, isLoading }: Props) => {
           >
             Revert options
           </DetailedInfo.ItemLabel>
-          <DetailedInfo.ItemValue gap={ 2 } flexWrap="wrap">
-            <Grid
-              templateColumns="130px 1fr"
-              gap={ 3 }
-              overflow="hidden"
-              p={ 4 }
-              w="100%"
-              bg={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-              borderRadius="md"
-              fontSize="sm"
+          <DetailedInfo.ItemValue>
+            <div className="grid overflow-hidden w-full"
+              style={{ gridTemplateColumns: "130px 1fr" }}
             >
-              <Text fontWeight="medium" color="text.secondary">Abort address</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Abort address</span>
               <AddressEntityZetaChain
                 address={{ hash: data.revert_options.abort_address }}
                 chainId={ data.outbound_params[0].receiver_chain_id?.toString() }
                 isLoading={ isLoading }
-                w="100%"
+                className="w-full"
               />
-              <Text fontWeight="medium" color="text.secondary">Call</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Call</span>
               <Skeleton loading={ isLoading }>{ data.revert_options.call_on_revert.toString() }</Skeleton>
-              <Text fontWeight="medium" color="text.secondary">Revert address</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Revert address</span>
               <AddressEntityZetaChain
                 address={{ hash: data.revert_options.revert_address }}
                 chainId={ data.outbound_params[1]?.receiver_chain_id?.toString() }
                 isLoading={ isLoading }
-                w="100%"
+                className="w-full"
               />
               { data.revert_options.revert_message && (
                 <>
-                  <Text fontWeight="medium" color="text.secondary">Message</Text>
-                  <Skeleton loading={ isLoading } display="flex" justifyContent="space-between">
-                    <Text
-                      wordBreak="break-all"
-                      overflowWrap="break-word"
-                      whiteSpace="pre-wrap"
-                      maxW="100%"
+                  <span className="font-medium text-[var(--color-text-secondary)]">Message</span>
+                  <Skeleton loading={ isLoading } className="flex">
+                    <span
                     >
                       { base64ToHex(data.revert_options.revert_message) }
-                    </Text>
+                    </span>
                     <CopyToClipboard text={ base64ToHex(data.revert_options.revert_message) } isLoading={ isLoading }/>
                   </Skeleton>
                 </>
               ) }
-              <Text fontWeight="medium" color="text.secondary">Gas limit</Text>
+              <span className="font-medium text-[var(--color-text-secondary)]">Gas limit</span>
               <Skeleton loading={ isLoading }>{ Number(data.revert_options.revert_gas_limit).toLocaleString() }</Skeleton>
-            </Grid>
+            </div>
           </DetailedInfo.ItemValue>
         </>
       ) }

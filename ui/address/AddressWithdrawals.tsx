@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -41,7 +40,7 @@ const AddressWithdrawals = ({ shouldRender = true, isQueryEnabled = true }: Prop
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.items.map((item, index) => (
           <BeaconChainWithdrawalsListItem
             key={ item.index + Number(isPlaceholderData ? index : '') }
@@ -50,15 +49,15 @@ const AddressWithdrawals = ({ shouldRender = true, isQueryEnabled = true }: Prop
             isLoading={ isPlaceholderData }
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <BeaconChainWithdrawalsTable
           items={ data.items }
           view="address"
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null ;
 

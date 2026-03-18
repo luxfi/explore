@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { chunk } from 'es-toolkit';
 import React, { useMemo, useState } from 'react';
 
@@ -52,11 +51,11 @@ export default function TxAssetFlows(props: FlowViewProps) {
 
   const actionBar = (
     <ActionBar mt={ -6 } pb={{ base: 6, md: 5 }} flexDir={{ base: 'column', md: 'initial' }} gap={{ base: '2', md: 'initial' }} >
-      <Box display="flex" alignItems="center" gap={ 1 }>
+      <div className="flex items-center gap-1">
         <Skeleton borderRadius="sm" loading={ isPlaceholderData } >
-          <Text fontWeight="400" mr={ 1 }>
+          <span className="font-normal mr-1">
             Wallet
-          </Text>
+          </span>
         </Skeleton>
 
         <AddressEntity
@@ -65,14 +64,14 @@ export default function TxAssetFlows(props: FlowViewProps) {
           truncation="dynamic"
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
       <Pagination className="ml-auto lg:ml-8" { ...paginationProps }/>
     </ActionBar>
   );
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="block lg:hidden">
         { data?.map((item, i) => (
           <TxAssetFlowsListItem
             key={ `${ i }-${ item.accountAddress }` }
@@ -80,9 +79,9 @@ export default function TxAssetFlows(props: FlowViewProps) {
             isPlaceholderData={ isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
 
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot>
           <TableHeaderSticky top={ 75 }>
             <TableRow>
@@ -104,7 +103,7 @@ export default function TxAssetFlows(props: FlowViewProps) {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
+      </div>
     </>
   );
 

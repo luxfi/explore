@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { type RelatedCctx, CctxStatusReduced } from '@luxfi/zetachain-cctx-types';
@@ -38,9 +37,9 @@ const ZetaChainCCTXDetailsRelatedTx = ({ tx, isLoading }: Props) => {
       style={{ color: `var(--color-${color.replace('.', '-')})` }}
     >
       <ChainIcon data={ chainFrom }/>
-      <IconSvg name="arrows/east" boxSize={ 5 } color="text.secondary"/>
+      <IconSvg name="arrows/east" boxSize={ 5 }/>
       { chainsTo.map((chain, index) => <ChainIcon key={ index } data={ chain }/>) }
-      <Box>CCTX</Box>
+      <div>CCTX</div>
       <TxEntityZetaChainCC hash={ tx.index } isLoading={ isLoading } noIcon truncation="constant"/>
       <ZetaChainCCTXReducedStatus status={ tx.status_reduced } isLoading={ isLoading } type="full"/>
     </Skeleton>

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ArbitrumL2TxnWithdrawalsItem } from 'types/api/arbitrumL2';
@@ -13,7 +12,7 @@ interface Props {
 
 const ArbitrumL2TxnWithdrawalsList = ({ data, isLoading, txHash }: Props) => {
   return (
-    <Box>
+    <div>
       { data.map((item, index) => (
         <ArbitrumL2TxnWithdrawalsListItem
           key={ String(item.id) + (isLoading ? index : '') }
@@ -22,7 +21,7 @@ const ArbitrumL2TxnWithdrawalsList = ({ data, isLoading, txHash }: Props) => {
           txHash={ txHash }
         />
       )) }
-    </Box>
+    </div>
   );
 };
 

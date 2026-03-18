@@ -1,4 +1,3 @@
-import { chakra, HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -29,13 +28,13 @@ const UptimeStatus = ({ status, onReconnect }: Props) => {
   })();
 
   return (
-    <HStack ml="auto" columnGap={ 3 }>
+    <div ml="auto" columnGap={ 3 }>
       { statusTag }
       <Button variant="link" className="gap-1" onClick={ onReconnect } disabled={ status === 'connected' }>
         <IconSvg name="refresh" boxSize={ 5 }/>
-        <chakra.span hideBelow="lg" fontSize="sm">Refresh</chakra.span>
+        <span className="text-sm hidden lg:inline">Refresh</span>
       </Button>
-    </HStack>
+    </div>
   );
 };
 

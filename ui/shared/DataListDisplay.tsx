@@ -1,4 +1,3 @@
-import { Box, Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { EmptyStateProps } from 'toolkit/chakra/empty-state';
@@ -23,10 +22,10 @@ const DataListDisplay = (props: Props) => {
   if (props.isError) {
     if (props.showActionBarIfError) {
       return (
-        <Box className={ props.className }>
+        <div className={ props.className }>
           { props.actionBar }
           <DataFetchAlert/>
-        </Box>
+        </div>
       );
     }
 
@@ -35,10 +34,10 @@ const DataListDisplay = (props: Props) => {
 
   if (props.hasActiveFilters && !props.itemsNum) {
     return (
-      <Box className={ props.className }>
+      <div className={ props.className }>
         { props.actionBar }
         <EmptyState { ...props.emptyStateProps }/>
-      </Box>
+      </div>
     );
   }
 
@@ -46,17 +45,17 @@ const DataListDisplay = (props: Props) => {
     return (
       <>
         { props.showActionBarIfEmpty && props.actionBar }
-        { props.emptyText && <Text className={ props.className }>{ props.emptyText }</Text> }
+        { props.emptyText && <p className={ props.className }>{ props.emptyText }</p> }
       </>
     );
   }
 
   return (
-    <Box className={ props.className }>
+    <div className={ props.className }>
       { props.actionBar }
       { props.children }
-    </Box>
+    </div>
   );
 };
 
-export default chakra(DataListDisplay);
+export default DataListDisplay;

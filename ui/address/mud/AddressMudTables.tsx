@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -63,15 +62,15 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
 
   const content = data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <AddressMudTablesTable
           items={ data.items }
           isLoading={ isPlaceholderData }
           top={ ACTION_BAR_HEIGHT_DESKTOP }
           hash={ hash }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { data.items.map((item, index) => (
           <AddressMudTablesListItem
             key={ item.table.table_id + (isPlaceholderData ? String(index) : '') }
@@ -80,7 +79,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
             hash={ hash }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
@@ -18,7 +17,7 @@ interface Props {
 const TxCrossChainTransfers = ({ data, isLoading, isError }: Props) => {
   const content = data ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { data.map((item, index) => (
           <TokenTransfersCrossChainListItem
             key={ getItemKey(item, isLoading ? index : undefined) }
@@ -33,10 +32,10 @@ const TxCrossChainTransfers = ({ data, isLoading, isError }: Props) => {
             }}
           />
         )) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <TokenTransfersCrossChainTable data={ data } isLoading={ isLoading }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

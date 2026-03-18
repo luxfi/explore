@@ -1,4 +1,3 @@
-import { VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractConflictingImplementation, SmartContractProxyType } from 'types/api/contract';
@@ -16,11 +15,11 @@ interface Props {
 
 const ContractMethodsAlerts = ({ isLoading, isCustomAbi, proxyType, conflictingImplementations }: Props) => {
   return (
-    <VStack gap={ 1 } alignItems="stretch">
+    <div className="flex flex-col" gap={ 1 } alignItems="stretch">
       <ConnectWalletAlert isLoading={ isLoading }/>
       { proxyType && <ContractCodeProxyPattern isLoading={ isLoading } type={ proxyType } conflictingImplementations={ conflictingImplementations }/> }
       { isCustomAbi && <ContractCustomAbiAlert isLoading={ isLoading }/> }
-    </VStack>
+    </div>
   );
 };
 

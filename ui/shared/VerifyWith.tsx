@@ -1,4 +1,3 @@
-import { Box, Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -21,7 +20,7 @@ const VerifyWith = ({ className, links, label, longText, shortText }: Props) => 
   return (
     <PopoverRoot open={ popover.open } onOpenChange={ popover.onOpenChange }>
       <Tooltip content={ label } disabled={ popover.open } disableOnMobile closeOnClick>
-        <Box className={ className }>
+        <div className={ className }>
           <PopoverTrigger>
             <Button
               size="sm"
@@ -35,20 +34,16 @@ const VerifyWith = ({ className, links, label, longText, shortText }: Props) => 
               { shortText && <span className="xl:hidden">{ shortText }</span> }
             </Button>
           </PopoverTrigger>
-        </Box>
+        </div>
       </Tooltip>
       <PopoverContent style={{ width: 'auto' }}>
         <PopoverBody>
           <span className="text-[var(--color-text-secondary)] text-xs">{ label }</span>
-          <Grid
-            alignItems="center"
-            templateColumns={ links.length > 1 ? 'auto auto' : '1fr' }
-            columnGap={ 4 }
-            rowGap={ 2 }
-            mt={ 3 }
+          <div
+            className={ `grid items-center gap-x-4 gap-y-2 mt-3 ${ links.length > 1 ? 'grid-cols-[auto_auto]' : 'grid-cols-1' }` }
           >
             { links }
-          </Grid>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>

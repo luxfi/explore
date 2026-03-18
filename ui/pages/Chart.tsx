@@ -1,4 +1,3 @@
-import { createListCollection, Flex, Text } from '@chakra-ui/react';
 import type { NextRouter } from 'next/router';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -31,6 +30,7 @@ import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import IconSvg from 'ui/shared/IconSvg';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import { STATS_RESOLUTIONS } from 'ui/stats/constants';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const DEFAULT_RESOLUTION = Resolution.DAY;
 
@@ -195,8 +195,8 @@ const Chart = () => {
         secondRow={ info?.description || lineQuery.data?.info?.description }
         withTextAd
       />
-      <Flex alignItems="center" justifyContent="space-between">
-        <Flex alignItems="center" gap={{ base: 3, lg: 6 }} maxW="100%">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center max-w-full gap-3 lg:gap-6">
           { multichainContext?.chain && (
             <ChainSelect
               value={ chainSelect.value }
@@ -204,15 +204,15 @@ const Chart = () => {
               loading={ isInfoLoading }
             />
           ) }
-          <Flex alignItems="center" gap={ 3 }>
-            { !isMobile && <Text>Period</Text> }
+          <div className="flex items-center gap-3">
+            { !isMobile && <span>Period</span> }
             <ChartIntervalSelect interval={ interval } onIntervalChange={ onIntervalChange }/>
-          </Flex>
+          </div>
           { (
             (info?.resolutions && info?.resolutions.length > 1) ||
             (!info && lineQuery.data?.info?.resolutions && lineQuery.data?.info?.resolutions.length > 1)
           ) && (
-            <Flex alignItems="center" gap={ 3 }>
+            <div className="flex items-center gap-3">
               <Skeleton loading={ isInfoLoading }>
                 { isMobile ? 'Res.' : 'Resolution' }
               </Skeleton>
@@ -224,7 +224,7 @@ const Chart = () => {
                 className="w-fit lg:w-[160px]"
                 loading={ isInfoLoading }
               />
-            </Flex>
+            </div>
           ) }
           { (Boolean(zoomRange)) && (
             <Button
@@ -236,8 +236,8 @@ const Chart = () => {
               { !isMobile && 'Reset' }
             </Button>
           ) }
-        </Flex>
-        <Flex alignItems="center" gap={ 3 }>
+        </div>
+        <div className="flex items-center gap-3">
           { /* TS thinks window.navigator.share can't be undefined, but it can */ }
           { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */ }
           { !isMobile && (isInBrowser && ((window.navigator.share as any) ?
@@ -266,15 +266,9 @@ const Chart = () => {
               chartUrl={ isMobile ? window.location.href : undefined }
             />
           ) }
-        </Flex>
-      </Flex>
-      <Flex
-        ref={ ref }
-        flexGrow={ 1 }
-        h="50vh"
-        mt={ 3 }
-        position="relative"
-      >
+        </div>
+      </div>
+      <div className="flex relative h-[50vh] mt-3 grow" ref={ ref }>
         <ChartWidgetContent
           isError={ lineQuery.isError }
           charts={ charts }
@@ -286,7 +280,7 @@ const Chart = () => {
           emptyText="No data for the selected resolution & interval."
           resolution={ resolution }
         />
-      </Flex>
+      </div>
     </>
   );
 };

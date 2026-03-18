@@ -1,4 +1,3 @@
-import { Box, createListCollection, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -29,6 +28,7 @@ import ValidatorsCounters from 'ui/validators/stability/ValidatorsCounters';
 import ValidatorsFilter from 'ui/validators/stability/ValidatorsFilter';
 import ValidatorsList from 'ui/validators/stability/ValidatorsList';
 import ValidatorsTable from 'ui/validators/stability/ValidatorsTable';
+import { createListCollection } from 'toolkit/chakra/select';
 
 const sortCollection = createListCollection({
   items: VALIDATORS_STABILITY_SORT_OPTIONS,
@@ -116,17 +116,17 @@ const ValidatorsStability = () => {
 
   const actionBar = (
     <>
-      <HStack gap={ 3 } mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
+      <div className="mb-6 gap-3 flex lg:hidden">
         { filterMenu }
         { sortButton }
         { /* { filterInput } */ }
-      </HStack>
+      </div>
       { (!isMobile || pagination.isVisible) && (
         <ActionBar mt={ -6 }>
-          <HStack gap={ 3 } display={{ base: 'none', lg: 'flex' }}>
+          <div className="flex gap-3 hidden lg:flex">
             { filterMenu }
             { /* { filterInput } */ }
-          </HStack>
+          </div>
           <Pagination className="ml-auto" { ...pagination }/>
         </ActionBar>
       ) }
@@ -135,17 +135,17 @@ const ValidatorsStability = () => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <ValidatorsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <ValidatorsTable data={ data.items } sort={ sort } setSorting={ handleSortChange } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 
   return (
-    <Box>
+    <div>
       <PageTitle title="Validators" withTextAd/>
       <ValidatorsCounters/>
       <DataListDisplay
@@ -163,7 +163,7 @@ const ValidatorsStability = () => {
       >
         { content }
       </DataListDisplay>
-    </Box>
+    </div>
   );
 };
 

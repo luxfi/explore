@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -92,7 +91,7 @@ const AppError = ({ error, className }: Props) => {
           <>
             <AppErrorIcon statusCode={ statusCode }/>
             <AppErrorTitle title={ title }/>
-            <Text color="text.secondary" mt={ 3 }>{ text }</Text>
+            <p className="text-[var(--color-text-secondary)] mt-3">{ text }</p>
             <Link
               href={ route({ pathname: '/' }) }
             >
@@ -103,7 +102,7 @@ const AppError = ({ error, className }: Props) => {
                 Back to home
               </Button>
             </Link>
-            { statusCode === 404 && <AdBanner mt={ 12 }/> }
+            { statusCode === 404 && <AdBanner className="mt-12"/> }
           </>
         );
       }
@@ -111,9 +110,9 @@ const AppError = ({ error, className }: Props) => {
   })();
 
   return (
-    <Box className={ className } mt={{ base: '52px', lg: '104px' }} maxW="800px">
+    <div className={ `mt-[52px] lg:mt-[104px] max-w-[800px] ${ className || '' }` }>
       { content }
-    </Box>
+    </div>
   );
 };
 

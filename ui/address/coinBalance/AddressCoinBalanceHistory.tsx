@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -29,7 +28,7 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
 
   const content = query.data?.items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot>
           <TableHeaderSticky top={ query.pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }>
             <TableRow>
@@ -56,8 +55,8 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div className="lg:hidden">
         { query.data.items.map((item, index) => (
           <AddressCoinBalanceListItem
             key={ item.block_number + (query.isPlaceholderData ? String(index) : '') }
@@ -67,7 +66,7 @@ const AddressCoinBalanceHistory = ({ query }: Props) => {
             chainData={ chainData }
           />
         )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

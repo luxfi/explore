@@ -1,4 +1,3 @@
-import { Box, chakra, Flex, Grid, Text } from '@chakra-ui/react';
 import { clamp } from 'es-toolkit';
 import React from 'react';
 
@@ -15,14 +14,14 @@ import useLazyLoadedList from 'ui/shared/pagination/useLazyLoadedList';
 
 const DomainsGrid = ({ data }: { data: Array<multichain.Domain> }) => {
   return (
-    <Grid
+    <div
       templateColumns={{ base: `repeat(${ clamp(data.length, 1, 2) }, 1fr)`, lg: `repeat(${ clamp(data.length, 1, 3) }, 1fr)` }}
       columnGap={ 3 }
       rowGap="14px"
       mt={ 2 }
     >
       { data.map((domain) => <EnsEntity key={ domain.name } domain={ domain.name } protocol={ domain.protocol } noLink/>) }
-    </Grid>
+    </div>
   );
 };
 
@@ -69,8 +68,8 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
               loadingSkeleton={ isLoading }
             >
               <IconSvg name="ENS" boxSize={ 5 }/>
-              <chakra.span hideBelow="xl">{ totalRecords }{ totalRecordsPostfix } Domain{ totalRecords > 1 ? 's' : '' }</chakra.span>
-              <chakra.span hideFrom="xl">{ totalRecords }{ totalRecordsPostfix }</chakra.span>
+              <span className="hidden xl:inline">{ totalRecords }{ totalRecordsPostfix } Domain{ totalRecords > 1 ? 's' : '' }</span>
+              <span className="inline xl:hidden">{ totalRecords }{ totalRecordsPostfix }</span>
             </Button>
           </PopoverTrigger>
         </div>
@@ -78,9 +77,9 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
       <PopoverContent className="lg:w-[500px] max-h-[400px] overflow-y-auto" ref={ rootRef }>
         <PopoverBody className="text-sm flex flex-col gap-y-5 items-start">
           { mainDomain && (
-            <Box w="100%">
-              <chakra.span color="text.secondary" textStyle="xs">Primary*</chakra.span>
-              <Flex alignItems="center" textStyle="md" mt={ 2 }>
+            <div w="100%">
+              <span className="text-[var(--color-text-secondary)] text-xs">Primary*</span>
+              <div alignItems="center" textStyle="md" mt={ 2 }>
                 <EnsEntity
                   domain={ mainDomain.name }
                   protocol={ mainDomain.protocol }
@@ -88,26 +87,26 @@ const MultichainAddressEnsDomains = ({ mainDomain, isLoading, hash }: Props) => 
                   noCopy
                   noLink
                 />
-              </Flex>
-            </Box>
+              </div>
+            </div>
           ) }
           { ownedDomains.length > 0 && (
             <div>
-              <chakra.span color="text.secondary" textStyle="xs">Owned by this address</chakra.span>
+              <span className="text-[var(--color-text-secondary)] text-xs">Owned by this address</span>
               <DomainsGrid data={ ownedDomains }/>
             </div>
           ) }
 
           { isFetching && <ContentLoader maxW="200px" mt={ 3 }/> }
 
-          { isError && <Text color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</Text> }
+          { isError && <span color="text.error" mt={ 3 }>Something went wrong. Unable to load next page.</span> }
 
-          <Box h="0" w="100px" ref={ cutRef }/>
+          <div h="0" w="100px" ref={ cutRef }/>
 
           { mainDomain && (
-            <chakra.span textStyle="xs" mt={ -1 }>
+            <span className="text-xs" mt={ -1 }>
               *A domain name is not necessarily held by a person popularly associated with the name
-            </chakra.span>
+            </span>
           ) }
         </PopoverBody>
       </PopoverContent>

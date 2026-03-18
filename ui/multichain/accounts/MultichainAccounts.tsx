@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -38,7 +37,7 @@ const MultichainAccounts = () => {
 
   const content = data?.items ? (
     <MultichainProvider chainId={ chainValue?.[0] }>
-      <Box hideBelow="lg">
+      <div hideBelow="lg">
         <AddressesTable
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           items={ data.items }
@@ -46,8 +45,8 @@ const MultichainAccounts = () => {
           pageStartIndex={ pageStartIndex }
           isLoading={ isPlaceholderData }
         />
-      </Box>
-      <Box hideFrom="lg">
+      </div>
+      <div hideFrom="lg">
         { data.items.map((item, index) => (
           <AddressesListItem
             key={ item.hash + (isPlaceholderData ? index : '') }
@@ -57,7 +56,7 @@ const MultichainAccounts = () => {
             isLoading={ isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
     </MultichainProvider>
   ) : null;
 

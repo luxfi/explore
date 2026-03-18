@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import type BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -24,7 +23,7 @@ export interface Props {
   loading?: boolean;
   overflowed?: boolean;
   tooltipContentBefore?: React.ReactNode;
-  // Legacy Chakra style-prop shims
+  // Legacy style-prop shims
   fontSize?: string;
   lineHeight?: string;
   maxW?: string;
@@ -50,10 +49,10 @@ const SimpleValue = ({
     return (
       <>
         { tooltipContentBefore }
-        <Box display="inline" whiteSpace="wrap" wordBreak="break-all">
+        <span className="inline whitespace-normal break-all">
           { prefix ?? '' }{ value.toFormat() }{ postfix ?? '' }
           <CopyToClipboard text={ value.toFixed() } className="align-bottom" noTooltip/>
-        </Box>
+        </span>
       </>
     );
   }, [ postfix, prefix, value, tooltipContentBefore ]);
@@ -67,9 +66,9 @@ const SimpleValue = ({
         disabled={ noTooltip }
         interactive
       >
-        <chakra.span display="inline-block" maxW="100%" overflow="hidden" textOverflow="ellipsis">
+        <span className="inline-block max-w-full overflow-hidden text-ellipsis">
           { formatBnValue({ value, accuracy, prefix, postfix, overflowed }) }
-        </chakra.span>
+        </span>
       </Tooltip>
       { typeof endElement === 'string' ? <span>{ endElement }</span> : endElement }
     </Skeleton>

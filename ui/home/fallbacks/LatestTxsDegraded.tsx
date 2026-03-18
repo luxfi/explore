@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { clamp } from 'es-toolkit';
 import React from 'react';
 
@@ -39,7 +38,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
   const items = isLoading ? Array(maxNum).fill(TX) : txs.slice(0, maxNum);
 
   if (items.length === 0) {
-    return <Box textStyle="sm">No latest transactions found.</Box>;
+    return <div textStyle="sm">No latest transactions found.</div>;
   }
 
   const txsUrl = route({ pathname: `/txs`, query: zetachainFeature.isEnabled ? { tab: 'evm' } : undefined });
@@ -48,7 +47,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
   return (
     <>
       <LatestTxsDegradedNewItems overflow={ overflow } url={ txsUrl } isLoading={ isLoading }/>
-      <Box mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
+      <div mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
         { items.map(((tx, index) => (
           <LatestTxsItemMobile
             key={ tx.hash + (isLoading ? index : '') }
@@ -56,9 +55,9 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
             isLoading={ isLoading }
           />
         ))) }
-      </Box>
+      </div>
       <AddressHighlightProvider>
-        <Box mb={ 3 } display={{ base: 'none', lg: 'block' }} textStyle="sm">
+        <div mb={ 3 } display={{ base: 'none', lg: 'block' }} textStyle="sm">
           { items.map(((tx, index) => (
             <LatestTxsItem
               key={ tx.hash + (isLoading ? index : '') }
@@ -66,11 +65,11 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
               isLoading={ isLoading }
             />
           ))) }
-        </Box>
+        </div>
       </AddressHighlightProvider>
-      <Flex justifyContent="center">
+      <div justifyContent="center">
         <Link className="text-sm" loading={ isLoading } href={ txsUrl }>View all transactions</Link>
-      </Flex>
+      </div>
     </>
   );
 };

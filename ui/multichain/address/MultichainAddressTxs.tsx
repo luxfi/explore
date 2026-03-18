@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -116,12 +115,12 @@ const MultichainAddressTxs = ({ addressData, isLoading }: Props) => {
 
       return (
         <>
-          <HStack gap={ 2 }>
+          <div gap={ 2 }>
             { txsLocalFilter }
             { chainSelect }
             { countersText }
-          </HStack>
-          <HStack gap={ 6 }>
+          </div>
+          <div gap={ 6 }>
             <AddressCsvExportLink
               address={ hash }
               params={{ type: 'transactions', filterType: 'address', filterValue: txsQueryLocal.filterValue }}
@@ -129,7 +128,7 @@ const MultichainAddressTxs = ({ addressData, isLoading }: Props) => {
               chainData={ chainData }
             />
             <Pagination { ...txsQueryLocal.query.pagination }/>
-          </HStack>
+          </div>
         </>
       );
     }

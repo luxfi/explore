@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { DepositsItem } from 'types/api/deposits';
@@ -18,7 +17,7 @@ const DepositsList = ({ items, view, isLoading }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList(items, !isLoading);
 
   return (
-    <Box>
+    <div>
       { items.slice(0, renderedItemsNum).map((item, index) => {
 
         const key = item.index + (isLoading ? String(index) : '');
@@ -32,7 +31,7 @@ const DepositsList = ({ items, view, isLoading }: Props) => {
         );
       }) }
       <div ref={ cutRef }/>
-    </Box>
+    </div>
   );
 };
 

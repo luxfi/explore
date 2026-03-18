@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
@@ -89,7 +88,7 @@ export default function MarketplaceApp() {
   throwOnResourceLoadError(query);
 
   return (
-    <Flex flexDirection="column" h="100%">
+    <div className="flex flex-col h-full">
       <MarketplaceAppTopBar
         appId={ id }
         data={ data }
@@ -101,6 +100,6 @@ export default function MarketplaceApp() {
         message={ message }
         mx={{ base: -4, lg: -6 }}
       />
-    </Flex>
+    </div>
   );
 };

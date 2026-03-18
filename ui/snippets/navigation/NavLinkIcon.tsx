@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { NavItem, NavGroupItem } from 'types/client/navigation';
@@ -22,4 +21,4 @@ const NavLinkIcon = ({ item, className }: Props) => {
   return null;
 };
 
-export default chakra(NavLinkIcon);
+export default NavLinkIcon;

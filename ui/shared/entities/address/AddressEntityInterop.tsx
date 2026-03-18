@@ -1,4 +1,3 @@
-import { Box, chakra, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ChainInfo } from 'types/api/interop';
@@ -18,26 +17,14 @@ interface Props extends Omit<AddressEntity.EntityProps, 'chain'> {
 
 const IconStub = () => {
   return (
-    <Flex
-      position="absolute"
-      bottom="-2px"
-      right="4px"
-      alignItems="center"
-      justifyContent="center"
-      borderRadius="base"
-      background={{ _light: 'gray.100', _dark: 'gray.700' }}
-      width="14px"
-      height="14px"
-      border="1px solid"
-      borderColor="bg.primary"
-    >
+    <div className="absolute -bottom-[2px] right-[4px] flex items-center justify-center rounded-base bg-gray-100 dark:bg-gray-700 w-[14px] h-[14px] border border-[var(--color-bg-primary)]">
       <IconSvg
         name="networks/icon-placeholder"
         width="10px"
         height="10px"
         color="icon.primary"
       />
-    </Flex>
+    </div>
   );
 };
 
@@ -53,7 +40,7 @@ const AddressEntityInterop = ({ chain, ...props }: Props) => {
   }) : null;
 
   const addressIcon = (
-    <Box position="relative">
+    <div className="relative">
       <AddressEntity.Icon { ...partsProps.icon }/>
       { !props.isLoading && (
         chain?.chain_logo ? (
@@ -72,7 +59,7 @@ const AddressEntityInterop = ({ chain, ...props }: Props) => {
           <IconStub/>
         )
       ) }
-    </Box>
+    </div>
   );
 
   return (
@@ -88,13 +75,13 @@ const AddressEntityInterop = ({ chain, ...props }: Props) => {
           <AddressEntity.Content { ...partsProps.content }/>
         </AddressEntity.Link>
       ) : (
-        <Box overflow="hidden">
+        <div className="overflow-hidden">
           <AddressEntity.Content { ...partsProps.content }/>
-        </Box>
+        </div>
       ) }
       <AddressEntity.Copy { ...partsProps.copy }/>
     </AddressEntity.Container>
   );
 };
 
-export default chakra(AddressEntityInterop);
+export default AddressEntityInterop;

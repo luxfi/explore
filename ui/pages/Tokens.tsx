@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -139,9 +138,9 @@ const Tokens = () => {
     });
 
     return (
-      <Box fontSize="sm" mb={ 4 } mt={ 1 } whiteSpace="pre-wrap" flexWrap="wrap">
+      <div className="flex flex-wrap whitespace-pre-wrap text-sm mb-4 mt-1">
         List of the tokens bridged through { bridgesListText } extensions
-      </Box>
+      </div>
     );
   })();
 

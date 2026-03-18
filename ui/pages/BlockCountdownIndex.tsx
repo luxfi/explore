@@ -1,4 +1,3 @@
-import { chakra, Box, Center } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -26,8 +25,8 @@ const BlockCountdownIndex = () => {
   }, [ router, multichainContext ]);
 
   return (
-    <Center h="100%" justifyContent={{ base: 'flex-start', lg: 'center' }} flexDir="column" textAlign="center" pt={{ base: 8, lg: 0 }}>
-      <Box position="relative">
+    <div className="flex flex-col text-center h-full justify-start lg:justify-center pt-8 lg:pt-0">
+      <div className="relative">
         <IconSvg
           name="block_countdown"
           color={{ _light: 'gray.300', _dark: 'gray.600' }}
@@ -40,30 +39,25 @@ const BlockCountdownIndex = () => {
             className="absolute bottom-[15px] lg:bottom-[22px] left-[105px] lg:left-[150px] lg:w-[60px] lg:h-[60px] bg-[var(--color-bg-primary)] rounded-full"
           />
         ) }
-      </Box>
+      </div>
       <Heading
         level="1"
         className="mt-3 lg:mt-6"
       >
         Block countdown
       </Heading>
-      <Box mt={ 2 }>
+      <div className="mt-2">
         The estimated time for a block to be created and added to the blockchain.
-      </Box>
-      <chakra.form
-        noValidate
-        onSubmit={ handleFormSubmit }
-        w={{ base: '100%', lg: '360px' }}
-        mt={{ base: 3, lg: 6 }}
-      >
+      </div>
+      <form className="w-full lg:w-[360px] mt-3 lg:mt-6" noValidate onSubmit={ handleFormSubmit }>
         <FilterInput
           placeholder="Search by block number"
           size="sm"
           type="number"
           name="search_term"
         />
-      </chakra.form>
-    </Center>
+      </form>
+    </div>
   );
 };
 

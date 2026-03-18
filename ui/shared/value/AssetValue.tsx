@@ -1,5 +1,3 @@
-import type { BoxProps } from '@chakra-ui/react';
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { Tag } from 'toolkit/chakra/tag';
@@ -11,7 +9,7 @@ import calculateUsdValue from './calculateUsdValue';
 import SimpleValue from './SimpleValue';
 import { DEFAULT_ACCURACY, DEFAULT_ACCURACY_USD } from './utils';
 
-export interface Props extends Omit<BoxProps, 'prefix' | 'suffix'>, Omit<CalculateUsdValueParams, 'amount'> {
+export interface Props extends Omit<CalculateUsdValueParams, 'amount'> {
   amount: string | null | undefined;
   asset?: React.ReactNode;
   startElement?: React.ReactNode;
@@ -22,6 +20,9 @@ export interface Props extends Omit<BoxProps, 'prefix' | 'suffix'>, Omit<Calcula
   tooltipContent?: React.ReactNode;
   historicalExchangeRate?: string | null;
   hasExchangeRateToggle?: boolean;
+  className?: string;
+  color?: string;
+  [key: string]: unknown;
 }
 
 const AssetValue = ({
@@ -60,7 +61,7 @@ const AssetValue = ({
   }, [ hasToggle ]);
 
   if (amount === null || amount === undefined) {
-    return <chakra.span { ...rest }>-</chakra.span>;
+    return <span className={ rest.className as string }>-</span>;
   }
 
   const { valueBn, usdBn } = calculateUsdValue({ amount, decimals, accuracy, accuracyUsd, exchangeRate: activeExchangeRate });
@@ -75,8 +76,8 @@ const AssetValue = ({
         tooltipContent={ tooltipContent }
         noTooltip={ noTooltip }
         loading={ loading }
-        className={ (rest as Record<string, unknown>).className as string }
-        color={ (rest as Record<string, unknown>).color as string }
+        className={ rest.className as string }
+        color={ rest.color as string }
       />
     );
   }
@@ -108,7 +109,7 @@ const AssetValue = ({
       return undefined;
     }
 
-    return <Box>{ showHistorical ? 'Estimated value on day of txn' : 'Current value' }</Box>;
+    return <span>{ showHistorical ? 'Estimated value on day of txn' : 'Current value' }</span>;
   })();
 
   const usdValue = hasToggle ? (
@@ -140,18 +141,12 @@ const AssetValue = ({
   );
 
   return (
-    <chakra.span
-      display="inline-flex"
-      flexDirection={ layout === 'vertical' ? 'column' : 'row' }
-      alignItems={ layout === 'vertical' ? 'flex-end' : 'center' }
-      maxW="100%"
-      columnGap={ 1 }
-      rowGap={ 1 }
-      { ...rest }
+    <span
+      className={ `inline-flex max-w-full gap-1 ${ layout === 'vertical' ? 'flex-col items-end' : 'flex-row items-center' } ${ (rest as Record<string, unknown>).className as string ?? '' }` }
     >
       { nativeValue }
       { usdValue }
-    </chakra.span>
+    </span>
   );
 };
 

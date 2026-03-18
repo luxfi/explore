@@ -1,4 +1,3 @@
-import { chakra, Flex, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
@@ -31,7 +30,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
         Token transferred
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue position="relative" multiRow>
-        <Flex
+        <div
           flexDirection="column"
           alignItems="flex-start"
           rowGap={ 1 }
@@ -40,7 +39,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
         >
           { data.slice(0, MAX_NUM).map((item, index) => {
             return (
-              <Flex key={ index } alignItems="center" columnGap={ 2 } rowGap={ 0 } flexWrap="wrap">
+              <div key={ index } alignItems="center" columnGap={ 2 } rowGap={ 0 } flexWrap="wrap">
                 { item.sender ? (
                   <AddressEntityInterchain
                     address={ item.sender }
@@ -49,7 +48,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     noIcon
                     truncation="constant"
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <span color="text.secondary">Unknown</span> }
                 <AddressFromToIcon
                   isLoading={ isLoading }
                   type="unspecified"
@@ -62,7 +61,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     noIcon
                     truncation="constant"
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <span color="text.secondary">Unknown</span> }
                 <Skeleton loading={ isLoading } color="text.secondary">
                   <span>for</span>
                 </Skeleton>
@@ -73,7 +72,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     chain={ item.source_chain }
                     loading={ isLoading }
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
+                ) : <span color="text.secondary">Unknown</span> }
                 <AddressFromToIcon
                   isLoading={ isLoading }
                   type="unspecified"
@@ -85,16 +84,16 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
                     chain={ item.destination_chain }
                     loading={ isLoading }
                   />
-                ) : <chakra.span color="text.secondary">Unknown</chakra.span> }
-              </Flex>
+                ) : <span color="text.secondary">Unknown</span> }
+              </div>
             );
           }) }
-        </Flex>
+        </div>
       </DetailedInfo.ItemValue>
       { data.length > MAX_NUM && (
         <>
-          <GridItem hideBelow="lg"/>
-          <GridItem fontSize="sm" alignItems="center" display="inline-flex" pl={{ base: '28px', lg: 0 }}>
+          <div className="hidden lg:block"/>
+          <div fontSize="sm" alignItems="center" display="inline-flex" pl={{ base: '28px', lg: 0 }}>
             { /* FIXME use non-navigation icon */ }
             <IconSvg name="navigation/tokens" boxSize={ 6 }/>
             <Link
@@ -102,7 +101,7 @@ const TxCrossChainDetailsTransfers = ({ data, id, isLoading }: Props) => {
             >
               View all
             </Link>
-          </GridItem>
+          </div>
         </>
       ) }
     </>

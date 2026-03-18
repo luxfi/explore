@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { type AdvancedFilterParams } from 'types/api/advancedFilter';
@@ -30,12 +29,12 @@ const AddressRelationFilter = ({ value = DEFAULT_VALUE, handleFilterChange, onCl
   }, [ handleFilterChange, onClose ]);
 
   return (
-    <Box w="120px">
+    <div w="120px">
       <RadioGroup onValueChange={ onFilter } value={ value } orientation="vertical">
         <Radio value="or">OR</Radio>
         <Radio value="and">AND</Radio>
       </RadioGroup>
-    </Box>
+    </div>
   );
 };
 

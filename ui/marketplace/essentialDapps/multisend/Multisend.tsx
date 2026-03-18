@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { MultisenderWidget } from '@multisender.app/multisender-react-widget';
 import React from 'react';
 
@@ -13,7 +12,7 @@ const feature = getFeaturePayload(config.features.marketplace);
 const dappConfig = feature?.essentialDapps?.multisend;
 
 const Container = ({ children }: { children: React.ReactNode }) => (
-  <Box
+  <div
     w="full"
     maxW="670px"
     mx="auto"
@@ -493,7 +492,7 @@ const Container = ({ children }: { children: React.ReactNode }) => (
         },
       },
     }}
-  >{ children }</Box>
+  >{ children }</div>
 );
 
 const widgetConfig = Object.fromEntries((dappConfig?.chains ?? []).map((chainId) => {

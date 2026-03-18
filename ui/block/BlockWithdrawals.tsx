@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -14,21 +13,21 @@ const TABS_HEIGHT = 88;
 const BlockWithdrawals = ({ blockWithdrawalsQuery }: Props) => {
   const content = blockWithdrawalsQuery.data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         <BeaconChainWithdrawalsList
           items={ blockWithdrawalsQuery.data.items }
           isLoading={ blockWithdrawalsQuery.isPlaceholderData }
           view="block"
         />
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         <BeaconChainWithdrawalsTable
           items={ blockWithdrawalsQuery.data.items }
           isLoading={ blockWithdrawalsQuery.isPlaceholderData }
           top={ blockWithdrawalsQuery.pagination.isVisible ? TABS_HEIGHT : 0 }
           view="block"
         />
-      </Box>
+      </div>
     </>
   ) : null ;
 

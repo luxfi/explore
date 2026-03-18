@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -56,38 +55,35 @@ const TopBarStats = () => {
   return (
     <>
       { Boolean(config.UI.featuredNetworks.items) && <TextSeparator/> }
-      <Flex
-        alignItems="center"
-        fontWeight={ 500 }
-      >
+      <div className="flex items-center font-medium">
         { hasNativeCoinPrice && (
-          <Flex columnGap={ 1 }>
+          <div className="flex gap-x-1">
             <Skeleton loading={ isPlaceholderData }>
-              <chakra.span color="text.secondary">{ config.chain.currency.symbol } </chakra.span>
+              <span className="text-[var(--color-text-secondary)]">{ config.chain.currency.symbol } </span>
               <span>${ Number(data.coin_price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }</span>
             </Skeleton>
             { data.coin_price_change_percentage && !(isMobile && Boolean(config.UI.featuredNetworks.items)) && (
               <Skeleton loading={ isPlaceholderData }>
-                <chakra.span color={ Number(data.coin_price_change_percentage) >= 0 ? 'green.500' : 'red.500' }>
+                <span className={ Number(data.coin_price_change_percentage) >= 0 ? 'text-green-500' : 'text-red-500' }>
                   { Number(data.coin_price_change_percentage).toFixed(2) }%
-                </chakra.span>
+                </span>
               </Skeleton>
             ) }
-          </Flex>
+          </div>
         ) }
         { hasSecondaryCoinPrice && (
-          <Flex columnGap={ 1 } ml={ data?.coin_price ? 3 : 0 }>
+          <div className={ `flex gap-x-1${ data?.coin_price ? ' ml-3' : '' }` }>
             <Skeleton loading={ isPlaceholderData }>
-              <chakra.span color="text.secondary">{ config.chain.secondaryCoin.symbol } </chakra.span>
+              <span className="text-[var(--color-text-secondary)]">{ config.chain.secondaryCoin.symbol } </span>
               <span>${ Number(data.secondary_coin_price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }</span>
             </Skeleton>
-          </Flex>
+          </div>
         ) }
         { (hasNativeCoinPrice || hasSecondaryCoinPrice) && hasGasInfo && <TextSeparator/> }
         { hasGasInfo && (
           <>
             <Skeleton loading={ isPlaceholderData } whiteSpace="pre-wrap">
-              <chakra.span color="text.secondary">Gas </chakra.span>
+              <span className="text-[var(--color-text-secondary)]">Gas </span>
               <GasInfoTooltip data={ data } dataUpdatedAt={ dataUpdatedAt } placement={ !data?.coin_price ? 'bottom' : undefined }>
                 <Link>
                   <GasPrice data={ data.gas_prices?.average ?? null }/>
@@ -97,7 +93,7 @@ const TopBarStats = () => {
             { !isPlaceholderData && <GetGasButton/> }
           </>
         ) }
-      </Flex>
+      </div>
     </>
   );
 };

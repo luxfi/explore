@@ -1,4 +1,3 @@
-import { Text, Flex, VStack, chakra, Box, Grid, GridItem, Separator } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -51,7 +50,7 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
 
   return (
     <ListItemMobile rowGap={ 3 } fontSize="sm" py={ 3 }>
-      <Flex w="100%">
+      <div className="flex" w="100%">
         <Skeleton loading={ isLoading }>
           <Link className="block">
             <IconSvg
@@ -65,8 +64,8 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
             />
           </Link>
         </Skeleton>
-        <Box flexGrow="1">
-          <Flex justifyContent="space-between" height={ 6 } alignItems="center" mb={ 3 }>
+        <div flexGrow="1">
+          <div className="flex" justifyContent="space-between" height={ 6 } alignItems="center" mb={ 3 }>
             <Skeleton loading={ isLoading }>
               <Link
                 onClick={ onTableClick }
@@ -80,37 +79,37 @@ const AddressMudTablesListItem = ({ item, isLoading, scrollRef, hash }: Props) =
             <Skeleton loading={ isLoading } color="text.secondary">
               { item.table.table_type }
             </Skeleton>
-          </Flex>
+          </div>
           <Skeleton loading={ isLoading } color="text.secondary">
             <HashStringShorten hash={ item.table.table_id } type="long"/>
           </Skeleton>
-        </Box>
-      </Flex>
+        </div>
+      </div>
 
       { isOpened && (
-        <Grid templateColumns="48px 1fr" gap="8px 24px" fontWeight={ 500 } w="100%">
+        <div className="grid" templateColumns="48px 1fr" gap="8px 24px" fontWeight={ 500 } w="100%">
           { Boolean(item.schema.key_names.length) && (
             <>
-              <Text lineHeight="24px">Key</Text>
-              <VStack gap={ 1 } alignItems="start">
+              <span lineHeight="24px">Key</span>
+              <div className="flex flex-col" gap={ 1 } alignItems="start">
                 { item.schema.key_names.map((name, index) => (
                   <Badge key={ name }>
-                    <chakra.span fontWeight={ 700 }>{ item.schema.key_types[index] }</chakra.span> { name }
+                    <span fontWeight={ 700 }>{ item.schema.key_types[index] }</span> { name }
                   </Badge>
                 )) }
-              </VStack>
+              </div>
             </>
           ) }
-          <GridItem colSpan={ 2 }><Separator/></GridItem>
-          <Text lineHeight="24px">Value</Text>
-          <VStack gap={ 1 } alignItems="start">
+          <div colSpan={ 2 }><hr/></div>
+          <span lineHeight="24px">Value</span>
+          <div className="flex flex-col" gap={ 1 } alignItems="start">
             { item.schema.value_names.map((name, index) => (
-              <Text key={ name }>
-                <chakra.span fontWeight={ 700 }>{ item.schema.value_types[index] }</chakra.span> { name }
-              </Text>
+              <span key={ name }>
+                <span fontWeight={ 700 }>{ item.schema.value_types[index] }</span> { name }
+              </span>
             )) }
-          </VStack>
-        </Grid>
+          </div>
+        </div>
       ) }
     </ListItemMobile>
   );

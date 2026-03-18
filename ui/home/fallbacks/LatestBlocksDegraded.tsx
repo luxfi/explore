@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Block } from 'types/api/block';
@@ -42,12 +41,12 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
   const items = isLoading ? Array(maxNum).fill(BLOCK) : blocks.slice(0, maxNum);
 
   if (items.length === 0) {
-    return <Box textStyle="sm">No latest blocks found.</Box>;
+    return <div textStyle="sm">No latest blocks found.</div>;
   }
 
   return (
     <>
-      <Flex gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
+      <div gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
         { items.map(((block, index) => (
           <LatestBlocksItem
             key={ block.height + (isLoading ? String(index) : '') }
@@ -56,10 +55,10 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
             animation={ initialList.getAnimationProp(block) }
           />
         ))) }
-      </Flex>
-      <Flex justifyContent="center">
+      </div>
+      <div justifyContent="center">
         <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>View all blocks</Link>
-      </Flex>
+      </div>
     </>
   );
 };

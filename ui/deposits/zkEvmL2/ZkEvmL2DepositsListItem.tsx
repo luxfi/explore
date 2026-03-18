@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -73,9 +72,9 @@ const ZkEvmL2DepositsListItem = ({ item, isLoading }: Props) => {
             truncation="constant_long"
           />
         ) : (
-          <chakra.span>
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 

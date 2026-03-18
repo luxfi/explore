@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { Button } from 'toolkit/chakra/button';
@@ -20,8 +19,8 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
   }, [ onFilter ]);
   return (
     <>
-      <Flex alignItems="center" justifyContent="space-between" columnGap={ 6 }>
-        <Text color="text.secondary" fontWeight="600">{ title }</Text>
+      <div className="flex items-center justify-between gap-x-6">
+        <span className="text-[var(--color-text-secondary)]" fontWeight="600">{ title }</span>
         { hasReset && (
           <Button
             variant="link"
@@ -32,7 +31,7 @@ const TableColumnFilter = ({ title, isFilled, isTouched, hasReset, onFilter, onR
             Reset
           </Button>
         ) }
-      </Flex>
+      </div>
       { children }
       <PopoverCloseTriggerWrapper>
         <Button

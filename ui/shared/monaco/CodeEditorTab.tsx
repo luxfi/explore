@@ -1,4 +1,3 @@
-import { Flex, chakra, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { alt } from 'toolkit/utils/htmlEntities';
@@ -32,47 +31,25 @@ const CodeEditorTab = ({ isActive, isMainFile, path, onClick, onClose, isCloseDi
   }, [ isCloseDisabled, onClose, path ]);
 
   return (
-    <Flex
-      pl="10px"
-      pr="4px"
-      fontSize="13px"
-      lineHeight="34px"
-      bgColor={ isActive ? themeColors['tab.activeBackground'] : themeColors['tab.inactiveBackground'] }
-      borderRightWidth="1px"
-      borderRightColor={ themeColors['tab.border'] }
-      borderBottomWidth="1px"
-      borderBottomColor={ isActive ? 'transparent' : themeColors['tab.border'] }
-      color={ isActive ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'] }
-      alignItems="center"
-      fontWeight={ 400 }
-      cursor="pointer"
+    <div className="flex items-center cursor-pointer font-normal select-none text-[13px] leading-[34px] border-b border-r"       pl="10px"
+      pr="4px" style={{ backgroundColor: isActive ? themeColors['tab.activeBackground'] : themeColors['tab.inactiveBackground']  , color: isActive ? themeColors['tab.activeForeground'] : themeColors['tab.inactiveForeground'] }} style={{ borderRightColor: themeColors['tab.border']  , borderBottomColor: isActive ? 'transparent' : themeColors['tab.border'] }}
       onClick={ handleClick }
-      _hover={{
-        '& .codicon-close': {
-          visibility: 'visible',
-        },
-      }}
-      userSelect="none"
     >
       <CodeEditorFileIcon mr="4px" fileName={ fileName }/>
       <span>{ fileName }</span>
-      { folderName && <chakra.span fontSize="11px" opacity={ 0.8 } ml={ 1 }>{ folderName[0] === '.' ? '' : '...' }{ folderName }</chakra.span> }
+      { folderName && <span className="text-[11px] opacity-80 ml-1">{ folderName[0] === '.' ? '' : '...' }{ folderName }</span> }
       { isMainFile && <CodeEditorMainFileIndicator ml={ 2 }/> }
-      <Box
-        className="codicon codicon-close"
+      <div         className="codicon codicon-close rounded-sm"
         boxSize="20px"
         ml="4px"
         p="2px"
         title={ `Close ${ isActive ? `(${ alt }W)` : '' }` }
         aria-label="Close"
         onClick={ handleClose }
-        borderRadius="sm"
         opacity={ isCloseDisabled ? 0.3 : 1 }
-        visibility={{ base: 'visible', lg: isActive ? 'visible' : 'hidden' }}
-        color={ themeColors['icon.foreground'] }
-        _hover={{ bgColor: isCloseDisabled ? 'transparent' : themeColors['custom.inputOption.hoverBackground'] }}
+        visibility={{ base: 'visible', lg: isActive ? 'visible' : 'hidden' }} style={{ color: themeColors['icon.foreground']  }}
       />
-    </Flex>
+    </div>
   );
 };
 

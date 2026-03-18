@@ -1,5 +1,3 @@
-import type { SystemStyleObject } from '@chakra-ui/react';
-import { Box, Flex, useToken, Center } from '@chakra-ui/react';
 import type { EditorProps } from '@monaco-editor/react';
 import MonacoEditor from '@monaco-editor/react';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
@@ -58,7 +56,7 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
   const [ containerRect, containerNodeRef ] = useClientRect<HTMLDivElement>();
 
   const { colorMode } = useColorMode();
-  const [ borderRadius ] = useToken('radii', 'md');
+  const borderRadius = '0.375rem';
   const isMobile = useIsMobile();
   const themeColors = useThemeColors();
 
@@ -212,72 +210,35 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
     setIsMetaPressed(false);
   }, []);
 
-  const containerCss: SystemStyleObject = React.useMemo(() => ({
-    '& .editor-container': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: `${ editorWidth }px`,
-      height: '100%',
-    },
-    '& .monaco-editor': {
-      'border-bottom-left-radius': borderRadius,
-    },
-    '& .monaco-editor .overflow-guard': {
-      'border-bottom-left-radius': borderRadius,
-    },
-    '& .monaco-editor .core-guide': {
-      zIndex: 1,
-    },
-    // '.monaco-editor .currentFindMatch': // TODO: find a better way to style this
-    '& .monaco-editor .findMatch': {
-      backgroundColor: themeColors['custom.findMatchHighlightBackground'],
-    },
-    '& .highlight': {
-      backgroundColor: themeColors['custom.findMatchHighlightBackground'],
-    },
-    '&&.meta-pressed .import-link:hover, &&.meta-pressed .import-link:hover + .import-link': {
-      color: themeColors['custom.fileLink.hoverForeground'],
-      textDecoration: 'underline',
-      cursor: 'pointer',
-    },
-    '& .risk-warning-primary': {
-      backgroundColor: themeColors['custom.riskWarning.primaryBackground'],
-    },
-    '& .risk-warning': {
-      backgroundColor: themeColors['custom.riskWarning.background'],
-    },
-    '& .main-contract-header': {
-      backgroundColor: themeColors['custom.mainContract.header'],
-    },
-    '& .main-contract-body': {
-      backgroundColor: themeColors['custom.mainContract.body'],
-    },
-    '& .main-contract-glyph': {
-      zIndex: 1,
-      background: 'url(/static/contract_star.png) no-repeat center center',
-      backgroundSize: '12px',
-      cursor: 'pointer',
-    },
-  }), [ editorWidth, themeColors, borderRadius ]);
+  const containerStyles = React.useMemo(() => `
+    .code-editor-container .editor-container { position: absolute; top: 0; left: 0; width: ${ editorWidth }px; height: 100%; }
+    .code-editor-container .monaco-editor { border-bottom-left-radius: ${ borderRadius }; }
+    .code-editor-container .monaco-editor .overflow-guard { border-bottom-left-radius: ${ borderRadius }; }
+    .code-editor-container .monaco-editor .core-guide { z-index: 1; }
+    .code-editor-container .monaco-editor .findMatch { background-color: ${ themeColors['custom.findMatchHighlightBackground'] }; }
+    .code-editor-container .highlight { background-color: ${ themeColors['custom.findMatchHighlightBackground'] }; }
+    .code-editor-container.meta-pressed .import-link:hover,
+    .code-editor-container.meta-pressed .import-link:hover + .import-link { color: ${ themeColors['custom.fileLink.hoverForeground'] }; text-decoration: underline; cursor: pointer; }
+    .code-editor-container .risk-warning-primary { background-color: ${ themeColors['custom.riskWarning.primaryBackground'] }; }
+    .code-editor-container .risk-warning { background-color: ${ themeColors['custom.riskWarning.background'] }; }
+    .code-editor-container .main-contract-header { background-color: ${ themeColors['custom.mainContract.header'] }; }
+    .code-editor-container .main-contract-body { background-color: ${ themeColors['custom.mainContract.body'] }; }
+    .code-editor-container .main-contract-glyph { z-index: 1; background: url(/static/contract_star.png) no-repeat center center; background-size: 12px; cursor: pointer; }
+  `, [ editorWidth, themeColors, borderRadius ]);
 
   const renderErrorScreen = React.useCallback(() => {
-    return <Center bgColor={ themeColors['editor.background'] } w="100%" h="100%" borderRadius="md">Oops! Something went wrong!</Center>;
+    return <div className="flex items-center justify-center rounded-md w-full h-full" style={{ backgroundColor: themeColors['editor.background']  }}>Oops! Something went wrong!</div>;
   }, [ themeColors ]);
 
   if (data.length === 1) {
-    const css = {
-      ...containerCss,
-      '& .monaco-editor': {
-        'border-radius': borderRadius,
-      },
-      '& .monaco-editor .overflow-guard': {
-        'border-radius': borderRadius,
-      },
-    };
+    const singleStyles = `
+      .code-editor-single .monaco-editor { border-radius: ${ borderRadius }; }
+      .code-editor-single .monaco-editor .overflow-guard { border-radius: ${ borderRadius }; }
+    `;
 
     return (
-      <Box height={ `${ EDITOR_HEIGHT }px` } width="100%" css={ css } ref={ containerNodeRef }>
+      <div className="code-editor-container code-editor-single w-full" style={{ height: `${ EDITOR_HEIGHT }px` }} ref={ containerNodeRef }>
+        <style>{ containerStyles }{ singleStyles }</style>
         <ErrorBoundary renderErrorScreen={ renderErrorScreen }>
           <MonacoEditor
             className="editor-container"
@@ -289,26 +250,22 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
             loading={ <CodeEditorLoading borderRadius="md"/> }
           />
         </ErrorBoundary>
-      </Box>
+      </div>
     );
   }
 
   return (
-    <Flex
-      className={ isMetaPressed ? 'meta-pressed' : undefined }
-      width="100%"
-      height={ `${ EDITOR_HEIGHT + TABS_HEIGHT + BREADCRUMBS_HEIGHT }px` }
-      position="relative"
+    <div
+      className={ `code-editor-container w-full relative rounded-md overflow-hidden lg:overflow-visible ${ isMetaPressed ? 'meta-pressed' : '' }`.trim() }
+      style={{ height: `${ EDITOR_HEIGHT + TABS_HEIGHT + BREADCRUMBS_HEIGHT }px` }}
       ref={ containerNodeRef }
-      css={ containerCss }
-      overflow={{ base: 'hidden', lg: 'visible' }}
-      borderRadius="md"
       onClick={ handleClick }
       onKeyDown={ handleKeyDown }
       onKeyUp={ handleKeyUp }
     >
+      <style>{ containerStyles }</style>
       <ErrorBoundary renderErrorScreen={ renderErrorScreen }>
-        <Box flexGrow={ 1 }>
+        <div className="grow">
           <CodeEditorTabs
             tabs={ tabs }
             activeTab={ data[index].file_path }
@@ -327,7 +284,7 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
             onMount={ handleEditorDidMount }
             loading={ <CodeEditorLoading borderBottomLeftRadius="md"/> }
           />
-        </Box>
+        </div>
         <CodeEditorSideBar
           data={ data }
           onFileSelect={ handleSelectFile }
@@ -337,7 +294,7 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
           mainFile={ mainFile }
         />
       </ErrorBoundary>
-    </Flex>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 
 import { Heading } from 'toolkit/chakra/heading';
 import IconSvg from 'ui/shared/IconSvg';
@@ -21,13 +20,13 @@ const STEPS = [
 
 export default function StartScreen() {
   return (
-    <Flex flexDir="column" w="full" gap={{ base: 3, md: 6 }}>
+    <div flexDir="column" w="full" gap={{ base: 3, md: 6 }}>
       <Heading level="3">
         How to revoke your approvals
       </Heading>
-      <Flex flexDir={{ base: 'column', md: 'row' }} gap={{ base: 2, md: 6 }}>
+      <div flexDir={{ base: 'column', md: 'row' }} gap={{ base: 2, md: 6 }}>
         { STEPS.map((step, index) => (
-          <Flex
+          <div
             key={ index }
             flexDir={{ base: 'column', md: 'row' }}
             alignItems={{ base: 'flex-start', md: 'center' }}
@@ -38,12 +37,12 @@ export default function StartScreen() {
             gap={ 6 }
           >
             <IconSvg name={ step.icon } boxSize={ 6 }/>
-            <Text textStyle="sm">
+            <span textStyle="sm">
               { step.text }
-            </Text>
-          </Flex>
+            </span>
+          </div>
         )) }
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 }

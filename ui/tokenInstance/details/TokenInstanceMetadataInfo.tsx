@@ -1,4 +1,3 @@
-import { Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
@@ -41,14 +40,7 @@ const Item = ({ data, isLoading }: ItemProps) => {
   })();
 
   return (
-    <GridItem
-      bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-      borderRadius="md"
-      px={ 4 }
-      py={ 2 }
-      display="flex"
-      flexDir="column"
-      alignItems="flex-start"
+    <div
     >
       <TruncatedText
         text={ data.trait_type }
@@ -56,7 +48,7 @@ const Item = ({ data, isLoading }: ItemProps) => {
         loading={ isLoading }
       />
       { value }
-    </GridItem>
+    </div>
   );
 };
 
@@ -84,8 +76,6 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
             Name
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            whiteSpace="normal"
-            wordBreak="break-word"
           >
             <Skeleton loading={ isLoading }>
               { metadata.name }
@@ -102,8 +92,6 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
             Description
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue
-            whiteSpace="normal"
-            wordBreak="break-word"
           >
             <Skeleton loading={ isLoading }>
               { metadata.description }
@@ -120,11 +108,11 @@ const TokenInstanceMetadataInfo = ({ data, isLoading: isLoadingProp }: Props) =>
             Attributes
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Grid gap={ 2 } templateColumns="repeat(auto-fill,minmax(160px, 1fr))" w="100%" whiteSpace="normal">
+            <div>
               { metadata.attributes
                 .filter((attribute) => attribute.value)
                 .map((attribute, index) => <Item key={ index } data={ attribute } isLoading={ isLoading }/>) }
-            </Grid>
+            </div>
           </DetailedInfo.ItemValue>
         </>
       ) }

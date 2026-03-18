@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -51,16 +50,16 @@ const ContractVerificationSolidityHardhat = ({ config: formConfig }: { config: S
   return (
     <ContractVerificationMethod title="Contract verification via Solidity Hardhat plugin">
       <ContractVerificationFormRow>
-        <Flex flexDir="column" rowGap={ 3 }>
+        <div flexDir="column" rowGap={ 3 }>
           <ContractVerificationFormCodeSnippet code={ firstCodeSnippet }/>
           <ContractVerificationFormCodeSnippet code={ secondCodeSnippet }/>
-        </Flex>
-        <Box whiteSpace="pre-wrap">
+        </div>
+        <div whiteSpace="pre-wrap">
           <span>Full tutorial about contract verification via Hardhat is available </span>
-          <Link href="https://docs.lux.network/devs/verification/hardhat-verification-plugin" external>
+          <Link href="https://docs.blockscout.com/devs/verification/hardhat-verification-plugin" external>
             here
           </Link>
-        </Box>
+        </div>
       </ContractVerificationFormRow>
     </ContractVerificationMethod>
   );

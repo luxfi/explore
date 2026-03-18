@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -46,10 +45,10 @@ const TxFHEOperations = ({ txQuery }: Props) => {
         operationCount={ data.operation_count }
         isLoading={ isPlaceholderData }
       />
-      <Box>
+      <div>
         <TxFHEOperationsTable data={ data.items } isLoading={ isPlaceholderData }/>
         <TxFHEOperationsList data={ data.items } isLoading={ isPlaceholderData }/>
-      </Box>
+      </div>
     </>
   ) : null;
 

@@ -1,4 +1,3 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -45,52 +44,32 @@ const SearchBarRecentKeywords = ({ onClick, onClear }: Props) => {
   return (
     <>
       { !isMobile && (
-        <Box pb={ 4 } mb={ 5 } borderColor="border.divider" borderBottomWidth="1px" _empty={{ display: 'none' }}>
+        <div className="pb-4 mb-5 border-b border-[var(--color-border-divider)] empty:hidden">
           <TextAd textStyle={{ lg: 'sm' }}/>
-        </Box>
+        </div>
       ) }
-      <Flex mb={ 3 } justifyContent="space-between" fontSize="sm">
-        <Text fontWeight={ 600 } color="text.secondary">Recent</Text>
+      <div className="flex mb-3 justify-between text-sm">
+        <span className="font-semibold text-[var(--color-text-secondary)]">Recent</span>
         <Link onClick={ clearKeywords } variant="secondary">Clear all</Link>
-      </Flex>
-      <Flex flexDirection="column" overflowY="auto">
+      </div>
+      <div className="flex flex-col overflow-y-auto">
         { keywords.map(kw => (
-          <Flex
+          <div
             key={ kw }
-            py={{ base: '9px', lg: 3 }}
-            px={{ base: 0, lg: 1 }}
-            borderColor="border.divider"
-            borderBottomWidth="1px"
-            _last={{
-              borderBottomWidth: '0',
-            }}
-            _hover={{
-              bgColor: { _light: 'gray.100', _dark: 'gray.800' },
-            }}
-            fontSize="sm"
-            _first={{
-              mt: 2,
-            }}
+            className="flex py-[9px] lg:py-3 px-0 lg:px-1 border-b border-[var(--color-border-divider)] last:border-b-0 hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-gray-800)] text-sm first:mt-2 items-center justify-between cursor-pointer gap-x-2 font-normal lg:font-bold min-w-0 grow"
             onClick={ handleClick(kw) }
-            alignItems="center"
-            justifyContent="space-between"
-            cursor="pointer"
-            columnGap={ 2 }
-            fontWeight={{ base: 400, lg: 700 }}
-            minW={ 0 }
-            flexGrow={ 1 }
           >
             { kw.startsWith('0x') ? (
-              <Box overflow="hidden" whiteSpace="nowrap">
+              <div className="overflow-hidden whitespace-nowrap">
                 <HashStringShortenDynamic hash={ kw } noTooltip/>
-              </Box>
+              </div>
             ) :
-              <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis">{ kw }</Text>
+              <span className="overflow-hidden whitespace-nowrap text-ellipsis">{ kw }</span>
             }
             <ClearButton onClick={ removeKeyword(kw) }/>
-          </Flex>
+          </div>
         )) }
-      </Flex>
+      </div>
     </>
   );
 };

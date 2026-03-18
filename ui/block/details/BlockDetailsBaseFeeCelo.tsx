@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressParam } from 'types/api/addressParams';
@@ -22,8 +21,8 @@ const BreakDownItem = ({ amount, percentage, address, addressFrom, token }: Item
   const isBurning = address.hash === ZERO_ADDRESS;
 
   return (
-    <Flex alignItems="center" columnGap={ 2 } flexWrap="wrap">
-      <Box color="text.secondary">{ percentage }% of amount</Box>
+    <div alignItems="center" columnGap={ 2 } flexWrap="wrap">
+      <div color="text.secondary">{ percentage }% of amount</div>
       <TokenValue
         amount={ amount }
         token={ token }
@@ -32,10 +31,10 @@ const BreakDownItem = ({ amount, percentage, address, addressFrom, token }: Item
         <>
           <AddressEntity address={ addressFrom } truncation="constant"/>
           <IconSvg name="flame" boxSize={ 5 } color="icon.primary"/>
-          <Box color="text.secondary">burnt</Box>
+          <div color="text.secondary">burnt</div>
         </>
       ) : <AddressFromTo from={ addressFrom } to={ address }/> }
-    </Flex>
+    </div>
   );
 };
 
@@ -45,11 +44,11 @@ interface Props {
 
 const BlockDetailsBaseFeeCelo = ({ data }: Props) => {
   const totalFeeLabel = (
-    <Box whiteSpace="pre-wrap">
+    <div whiteSpace="pre-wrap">
       <span>The FeeHandler regularly burns 80% of its tokens. Non-CELO tokens are swapped to CELO beforehand. The remaining 20% are sent to the </span>
       <Link external href="https://www.ultragreen.money">Green Fund</Link>
       <span>.</span>
-    </Box>
+    </div>
   );
 
   return (
@@ -71,7 +70,7 @@ const BlockDetailsBaseFeeCelo = ({ data }: Props) => {
           token={ data.token }
         />
         { data.breakdown.length > 0 && (
-          <Flex flexDir="column" rowGap={ 2 } mt={ 2 }>
+          <div flexDir="column" rowGap={ 2 } mt={ 2 }>
             { data.breakdown.map((item, index) => (
               <BreakDownItem
                 key={ index }
@@ -80,7 +79,7 @@ const BlockDetailsBaseFeeCelo = ({ data }: Props) => {
                 token={ data.token }
               />
             )) }
-          </Flex>
+          </div>
         ) }
       </DetailedInfo.ItemValue>
       <DetailedInfo.ItemDivider/>

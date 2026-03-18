@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import { useQueryClient, useIsFetching } from '@tanstack/react-query';
 import { sumBy } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -49,20 +48,20 @@ const TokenSelect = () => {
 
   if (isPending) {
     return (
-      <Flex columnGap={ 3 }>
+      <div className="flex" columnGap={ 3 }>
         <Skeleton loading={ true } h="32px" w="150px" borderRadius="base"/>
         <Skeleton loading={ true } h="32px" w="36px" borderRadius="base"/>
-      </Flex>
+      </div>
     );
   }
 
   const hasTokens = sumBy(Object.values(data), ({ items }) => items.length) > 0;
   if (isError || !hasTokens) {
-    return <Box py="6px">0</Box>;
+    return <div py="6px">0</div>;
   }
 
   return (
-    <Flex columnGap={ 3 } mt={{ base: 1, lg: 0 }}>
+    <div className="flex" columnGap={ 3 } mt={{ base: 1, lg: 0 }}>
       { isMobile ?
         <TokenSelectMobile data={ data } isLoading={ tokensIsFetching === 1 }/> :
         <TokenSelectDesktop data={ data } isLoading={ tokensIsFetching === 1 }/>
@@ -82,7 +81,7 @@ const TokenSelect = () => {
           </IconButton>
         </Link>
       </Tooltip>
-    </Flex>
+    </div>
   );
 };
 

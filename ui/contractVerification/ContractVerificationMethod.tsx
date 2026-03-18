@@ -1,4 +1,3 @@
-import { Grid } from '@chakra-ui/react';
 import React from 'react';
 
 import { Heading } from 'toolkit/chakra/heading';
@@ -19,9 +18,9 @@ const ContractVerificationMethod = ({ title, children, disableScroll }: Props) =
   return (
     <section ref={ ref }>
       <Heading level="2" className="mt-12 mb-5">{ title }</Heading>
-      <Grid columnGap="30px" rowGap={{ base: 2, lg: 5 }} templateColumns={{ base: '1fr', lg: 'minmax(0, 680px) minmax(0, 340px)' }}>
+      <div className="grid gap-x-[30px] gap-y-2 lg:gap-y-5 grid-cols-1 lg:grid-cols-[minmax(0,680px)_minmax(0,340px)]">
         { children }
-      </Grid>
+      </div>
     </section>
   );
 };

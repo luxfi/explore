@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
@@ -12,4 +11,4 @@ const DataFetchAlert = ({ className }: { className?: string }) => {
   );
 };
 
-export default chakra(DataFetchAlert);
+export default DataFetchAlert;

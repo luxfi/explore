@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { OptimisticL2OutputRootsItem } from 'types/api/optimisticL2';
@@ -52,12 +51,12 @@ const OptimisticL2OutputRootsTableItem = ({ item, isLoading }: Props) => {
         />
       </TableCell>
       <TableCell verticalAlign="middle">
-        <Flex overflow="hidden" w="100%" alignItems="center">
+        <div className="flex items-center overflow-hidden w-full">
           <Skeleton loading={ isLoading }>
             <HashStringShorten hash={ item.output_root } type="long"/>
           </Skeleton>
           <CopyToClipboard text={ item.output_root } className="ml-2" isLoading={ isLoading }/>
-        </Flex>
+        </div>
       </TableCell>
     </TableRow>
   );

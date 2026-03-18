@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -60,4 +59,4 @@ const AddressFromToIcon = ({ isLoading, type, className }: Props) => {
   );
 };
 
-export default React.memo(chakra(AddressFromToIcon));
+export default React.memo(AddressFromToIcon);

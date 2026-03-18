@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -16,4 +15,4 @@ const TestnetBadge = ({ className }: Props) => {
   return <Image className={ className } src="/static/labels/testnet.svg" h="14px" w="37px" style={{ color: 'var(--color-red-400)' }}/>;
 };
 
-export default React.memo(chakra(TestnetBadge));
+export default React.memo(TestnetBadge);

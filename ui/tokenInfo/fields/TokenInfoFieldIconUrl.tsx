@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Fields } from '../types';
@@ -22,7 +21,7 @@ const TokenInfoFieldIconUrl = ({ readOnly, size }: Props) => {
   const imageField = useImageField({ name: 'icon_url', isRequired: true });
 
   return (
-    <Flex columnGap={ 5 }>
+    <div>
       <FormFieldUrl<Fields>
         name="icon_url"
         placeholder={ `Link to icon URL, link to download a SVG or 48${ times }48 PNG icon logo` }
@@ -33,12 +32,10 @@ const TokenInfoFieldIconUrl = ({ readOnly, size }: Props) => {
       <TokenInfoIconPreview url={ imageField.preview.src } isInvalid={ imageField.preview.isInvalid }>
         <FormFieldImagePreview
           { ...imageField.preview }
-          fallback={ <TokenLogoPlaceholder boxSize={ 10 }/> }
-          boxSize={ 10 }
-          borderRadius="base"
+          fallback={ <TokenLogoPlaceholder/> }
         />
       </TokenInfoIconPreview>
-    </Flex>
+    </div>
   );
 };
 

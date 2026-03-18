@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -63,8 +62,8 @@ const ContractCodeIde = ({ className, hash, isLoading }: Props) => {
       </PopoverTrigger>
       <PopoverContent w="240px">
         <PopoverBody >
-          <chakra.span color="text.secondary" fontSize="xs">Redactors</chakra.span>
-          <Flex
+          <span color="text.secondary" fontSize="xs">Redactors</span>
+          <div className="flex"
             flexDir="column"
             alignItems="flex-start"
             columnGap={ 6 }
@@ -72,11 +71,11 @@ const ContractCodeIde = ({ className, hash, isLoading }: Props) => {
             mt={ 3 }
           >
             { ideLinks }
-          </Flex>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
   );
 };
 
-export default React.memo(chakra(ContractCodeIde));
+export default React.memo(ContractCodeIde);

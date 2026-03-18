@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
@@ -44,7 +43,7 @@ const ArbitrumL2Messages = ({ direction }: Props) => {
 
   const content = data?.items ? (
     <>
-      <Box hideFrom="lg">
+      <div hideFrom="lg">
         { data.items.map(((item, index) => (
           <ArbitrumL2MessagesListItem
             key={ String(item.id) + (isPlaceholderData ? index : '') }
@@ -53,15 +52,15 @@ const ArbitrumL2Messages = ({ direction }: Props) => {
             direction={ direction }
           />
         ))) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div hideBelow="lg">
         <ArbitrumL2MessagesTable
           items={ data.items }
           direction={ direction }
           top={ pagination.isVisible ? ACTION_BAR_HEIGHT_DESKTOP : 0 }
           isLoading={ isPlaceholderData }
         />
-      </Box>
+      </div>
     </>
   ) : null;
 

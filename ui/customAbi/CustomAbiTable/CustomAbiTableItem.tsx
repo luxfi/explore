@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
 import type { CustomAbi } from 'types/api/account';
@@ -28,7 +27,7 @@ const CustomAbiTableItem = ({ item, isLoading, onEditClick, onDeleteClick }: Pro
   return (
     <TableRow alignItems="top" key={ item.id }>
       <TableCell>
-        <Box maxW="100%">
+        <div maxW="100%">
           <AddressEntity
             address={ item.contract_address }
             fontWeight="600"
@@ -37,7 +36,7 @@ const CustomAbiTableItem = ({ item, isLoading, onEditClick, onDeleteClick }: Pro
           <Skeleton textStyle="sm" color="text.secondary" mt={ 0.5 } ml={ 8 } display="inline-block" loading={ isLoading }>
             <span>{ item.name }</span>
           </Skeleton>
-        </Box>
+        </div>
       </TableCell>
       <TableCell>
         <TableItemActionButtons onDeleteClick={ onItemDeleteClick } onEditClick={ onItemEditClick } isLoading={ isLoading }/>

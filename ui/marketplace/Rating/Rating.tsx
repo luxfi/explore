@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -47,8 +46,8 @@ const Rating = ({
       { fullView && (
         <>
           <RatingComponent defaultValue={ Math.floor(rating || 0) } readOnly key={ rating }/>
-          { rating && <Text fontSize="md" ml={ 2 }>{ rating }</Text> }
-          { ratingsTotalCount && <Text color="text.secondary" textStyle="md" ml={ 1 }>({ ratingsTotalCount })</Text> }
+          { rating && <span fontSize="md" ml={ 2 }>{ rating }</span> }
+          { ratingsTotalCount && <span color="text.secondary" textStyle="md" ml={ 1 }>({ ratingsTotalCount })</span> }
         </>
       ) }
       <PopoverRoot positioning={{ placement: 'bottom' }}>

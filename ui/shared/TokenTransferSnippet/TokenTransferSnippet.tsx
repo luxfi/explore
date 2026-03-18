@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type {
@@ -99,14 +98,7 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
   })();
 
   return (
-    <Flex
-      alignItems="center"
-      flexWrap="wrap"
-      columnGap={ 2 }
-      rowGap={ 0 }
-      flexDir="row"
-      w="100%"
-    >
+    <div className="flex items-center flex-wrap gap-x-2 gap-y-0 flex-row w-full">
       <AddressFromTo
         from={ data.from }
         to={ data.to }
@@ -116,7 +108,7 @@ const TokenTransferSnippet = ({ data, isLoading, noAddressIcons = true }: Props)
         lineHeight={{ lg: '24px' }}
       />
       { content }
-    </Flex>
+    </div>
   );
 };
 

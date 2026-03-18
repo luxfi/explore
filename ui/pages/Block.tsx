@@ -1,4 +1,3 @@
-import { chakra, Flex } from '@chakra-ui/react';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -75,10 +74,10 @@ const BlockPageContent = () => {
       title: 'Details',
       component: (
         <>
-          <Flex rowGap={{ base: 1, lg: 2 }} mb={{ base: 3, lg: 6 }} flexDir="column">
+          <div className="flex flex-col gap-y-1 lg:gap-y-2 mb-3 lg:mb-6">
             { blockQuery.isDegradedData && <ServiceDegradationWarning isLoading={ blockQuery.isPlaceholderData }/> }
             { blockQuery.data?.is_pending_update && <BlockPendingUpdateAlert/> }
-          </Flex>
+          </div>
           <BlockDetails query={ blockQuery }/>
         </>
       ),
@@ -186,9 +185,9 @@ const BlockPageContent = () => {
           fontWeight={ 500 }
           className="font-heading gap-x-2"
         >
-          <chakra.span flexShrink={ 0 }>
+          <span className="shrink-0">
             { capitalize(getNetworkValidatorTitle()) }
-          </chakra.span>
+          </span>
           <AddressEntity address={ blockQuery.data.miner }/>
         </Skeleton>
       ) }

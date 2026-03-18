@@ -1,4 +1,3 @@
-import { Spinner, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import * as tac from '@luxfi/tac-operation-lifecycle-types';
@@ -11,7 +10,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'id'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route({ pathname: '/operation/[id]', query: { id: props.id } });
 
   return (
@@ -29,7 +28,7 @@ type IconProps = EntityBase.IconBaseProps & Pick<EntityProps, 'type'>;
 const Icon = (props: IconProps) => {
   switch (props.type) {
     case tac.OperationType.PENDING: {
-      return <Spinner size="md" marginRight={ props.marginRight ?? '8px' }/>;
+      return <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-5 w-5" style={{ marginRight: props.marginRight ?? '8px' }}/>;
     }
     default: {
       return (
@@ -45,7 +44,7 @@ const Icon = (props: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'id'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
@@ -85,7 +84,7 @@ const OperationEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(OperationEntity));
+export default React.memo(OperationEntity);
 
 export {
   Container,

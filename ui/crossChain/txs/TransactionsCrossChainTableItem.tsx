@@ -1,4 +1,3 @@
-import { chakra, VStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
@@ -44,7 +43,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
     }
   })();
 
-  const dashElement = <chakra.span color="text.secondary" lineHeight="24px">{ mdash }</chakra.span>;
+  const dashElement = <span color="text.secondary" lineHeight="24px">{ mdash }</span>;
 
   return (
     <TableRow>
@@ -88,7 +87,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
         ) : dashElement }
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.source_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.source_chain }
@@ -103,12 +102,12 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
             data={ data.source_chain }
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs gap-1"
-            fallback={ data.source_transaction_hash ? <chakra.span color="text.secondary">{ mdash }</chakra.span> : null }
+            fallback={ data.source_transaction_hash ? <span color="text.secondary">{ mdash }</span> : null }
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           { data.destination_transaction_hash ? (
             <TxEntityInterchain
               chain={ data.destination_chain }
@@ -123,9 +122,9 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
             data={ data.destination_chain }
             isLoading={ isLoading }
             className="text-[var(--color-text-secondary)] text-xs gap-1"
-            fallback={ data.destination_transaction_hash ? <chakra.span color="text.secondary">{ mdash }</chakra.span> : null }
+            fallback={ data.destination_transaction_hash ? <span color="text.secondary">{ mdash }</span> : null }
           />
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
         { txHashWithTransfers ? (
@@ -145,7 +144,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
         ) }
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           {
             firstTransfer?.sender ? (
               <AddressEntityInterchain
@@ -179,13 +178,13 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               View all
             </Link>
           ) }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
         <AddressFromToIcon type="unspecified" isLoading={ isLoading } mt={ 0.5 }/>
       </TableCell>
       <TableCell maxW="150px">
-        <VStack alignItems="start">
+        <div alignItems="start">
           {
             firstTransfer?.recipient ? (
               <AddressEntityInterchain
@@ -210,7 +209,7 @@ const TransactionsCrossChainTableItem = ({ data, isLoading, currentAddress }: Pr
               color="text.secondary"
             />
           ) }
-        </VStack>
+        </div>
       </TableCell>
       <TableCell>
         <CrossChainBridgeLink data={ data.bridge } isLoading={ isLoading } className="leading-6"/>

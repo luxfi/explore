@@ -4,6 +4,7 @@ import React from 'react';
 import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/navigation';
 
 import config from 'configs/app';
+import { getEnvValue } from 'configs/app/utils';
 import { layerLabels } from 'lib/rollups/utils';
 import { rightLineArrow } from 'toolkit/utils/htmlEntities';
 
@@ -349,7 +350,7 @@ export default function useNavItems(): ReturnType {
     const otherNavItems: Array<NavItem> | Array<Array<NavItem>> = [
       config.features.multichain.isEnabled ? {
         text: 'Verify contract',
-        url: 'https://verify.lux.network',
+        url: getEnvValue('NEXT_PUBLIC_VERIFY_CONTRACT_URL') || 'https://verify.blockscout.com',
       } : {
         text: 'Verify contract',
         nextRoute: { pathname: '/contract-verification' as const },

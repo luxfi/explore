@@ -1,9 +1,3 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -84,7 +78,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
     if (isMobile) {
       return (
         <>
-          <Flex justifyContent="space-between" alignItems="center" mb={ 1 }>
+          <div justifyContent="space-between" alignItems="center" mb={ 1 }>
             { l1BlockLink }
             { item.timestamp ? (
               <TimeWithTooltip
@@ -93,9 +87,9 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
                 isLoading={ isLoading }
                 color="text.secondary"
               />
-            ) : <GridItem/> }
-          </Flex>
-          <Grid gridTemplateColumns="56px auto">
+            ) : <div/> }
+          </div>
+          <div gridTemplateColumns="56px auto">
             <Skeleton loading={ isLoading } className="my-[5px] w-fit">
               { layerLabels.parent } txn
             </Skeleton>
@@ -104,13 +98,13 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
               { layerLabels.current } txn
             </Skeleton>
             { l2TxLink }
-          </Grid>
+          </div>
         </>
       );
     }
 
     return (
-      <Grid width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
+      <div width="100%" columnGap={ 4 } rowGap={ 2 } templateColumns="max-content max-content auto" w="100%">
         { l1BlockLink }
         <Skeleton loading={ isLoading } className="w-fit h-fit my-[5px]">
           { layerLabels.parent } txn
@@ -126,17 +120,17 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
             h="fit-content"
             my="2px"
           />
-        ) : <GridItem/> }
+        ) : <div/> }
         <Skeleton loading={ isLoading } className="w-fit h-fit my-[2px]">
           { layerLabels.current } txn
         </Skeleton>
         { l2TxLink }
-      </Grid>
+      </div>
     );
   })();
 
   return (
-    <Box
+    <div
       width="100%"
       borderBottom="1px solid"
       borderColor="border.divider"
@@ -145,7 +139,7 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
       textStyle="sm"
     >
       { content }
-    </Box>
+    </div>
   );
 };
 
@@ -161,7 +155,7 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
         type="deposit"
         isLoading={ isLoading }
       />
-      <Box mb={{ base: 3, lg: 4 }}>
+      <div mb={{ base: 3, lg: 4 }}>
         { items.map(((item, index) => (
           <LatestDepositsItem
             key={ item.l1TxHash + item.l2TxHash + (isLoading ? index : '') }
@@ -169,10 +163,10 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
             isLoading={ isLoading }
           />
         ))) }
-      </Box>
-      <Flex justifyContent="center">
+      </div>
+      <div justifyContent="center">
         <Link className="text-sm" href={ depositsUrl }>View all deposits</Link>
-      </Flex>
+      </div>
     </>
   );
 };

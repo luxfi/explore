@@ -1,4 +1,3 @@
-import { VStack, Flex, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FeaturedNetwork, NetworkGroup } from 'types/networks';
@@ -30,27 +29,27 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
     if (!items || items.length === 0) {
       return (
         <>
-          <Flex alignItems="center">
-            <Flex h="32px" w="105px" bgColor={{ base: 'blackAlpha.50', _dark: 'whiteAlpha.50' }} borderRadius="base" px={ 4 } py={ 2 }>
+          <div className="flex items-center">
+            <div className="flex h-8 w-[105px] bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)] rounded-base px-4 py-2">
               <Skeleton loading h="16px" w="100%"/>
-            </Flex>
+            </div>
             <Skeleton loading className="mx-4" h="16px" w="68px"/>
             <Skeleton loading className="mx-4" h="16px" w="45px"/>
-          </Flex>
-          <Flex mt={ 3 } flexDir="column" rowGap={ 2 }>
-            <Flex mx={ 3 } my={ 2 } alignItems="center">
+          </div>
+          <div className="flex mt-3 flex-col gap-y-2">
+            <div className="flex mx-3 my-2 items-center">
               <Skeleton loading h="30px" w="30px" borderRadius="full"/>
               <Skeleton loading h="16px" w="120px" ml={ 3 }/>
-            </Flex>
-            <Flex mx={ 3 } my={ 2 } alignItems="center">
+            </div>
+            <div className="flex mx-3 my-2 items-center">
               <Skeleton loading h="30px" w="30px" borderRadius="full"/>
               <Skeleton loading h="16px" w="180px" ml={ 3 }/>
-            </Flex>
-            <Flex mx={ 3 } my={ 2 } alignItems="center">
+            </div>
+            <div className="flex mx-3 my-2 items-center">
               <Skeleton loading h="30px" w="30px" borderRadius="full"/>
               <Skeleton loading h="16px" w="150px" ml={ 3 }/>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </>
       );
     }
@@ -69,7 +68,7 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
 
     if (tabs.length === 1) {
       return (
-        <VStack as="ul" gap={ 1 } alignItems="stretch" overflowY="scroll" maxH="516px">
+        <ul className="flex flex-col gap-1 items-stretch overflow-y-scroll max-h-[516px]">
           { items
             .filter((network) => network.group === tabs[0])
             .map((network) => (
@@ -79,18 +78,18 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
               />
             )) }
           { viewAllLink }
-        </VStack>
+        </ul>
       );
     }
 
     if (config.UI.featuredNetworks.mode === 'list') {
       return (
-        <VStack overflowY="scroll" maxH="516px" alignItems="stretch" gap={ 3 }>
+        <div className="flex flex-col overflow-y-scroll max-h-[516px] items-stretch gap-3">
           { tabs.map((tab, index) => {
             return (
-              <Box key={ tab }>
-                <Text fontSize="sm" fontWeight={ 600 } mb={ 2 }>{ tab }</Text>
-                <VStack key={ tab } as="ul" gap={ 1 } alignItems="stretch">
+              <div key={ tab }>
+                <span className="text-sm font-semibold block mb-2">{ tab }</span>
+                <ul className="flex flex-col gap-1 items-stretch">
                   { items
                     .filter((network) => network.group === tab)
                     .map((network) => (
@@ -100,11 +99,11 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
                       />
                     )) }
                   { index === tabs.length - 1 && viewAllLink }
-                </VStack>
-              </Box>
+                </ul>
+              </div>
             );
           }) }
-        </VStack>
+        </div>
       );
     }
 
@@ -131,10 +130,10 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
             )) }
           </TabsList>
         ) }
-        <Box>
+        <div>
           { tabs.map((tab) => (
             <TabsContent key={ tab } value={ tab } className="p-0">
-              <VStack as="ul" gap={ 1 } alignItems="stretch" overflowY="scroll" maxH="516px">
+              <ul className="flex flex-col gap-1 items-stretch overflow-y-scroll max-h-[516px]">
                 { items
                   .filter((network) => network.group === tab)
                   .map((network) => (
@@ -144,10 +143,10 @@ const NetworkMenuContent = ({ items, tabs }: Props) => {
                     />
                   )) }
                 { viewAllLink }
-              </VStack>
+              </ul>
             </TabsContent>
           )) }
-        </Box>
+        </div>
       </TabsRoot>
     );
   })();

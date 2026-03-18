@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
@@ -19,7 +18,7 @@ const MetadataItemObject = ({ name, value, level }: Props) => {
     return (
       <MetadataAccordionItem value={ name } level={ level } isFlat>
         <MetadataAccordionItemTitle name={ name }/>
-        <Box whiteSpace="pre-wrap">{ JSON.stringify(value, undefined, 2) }</Box>
+        <div>{ JSON.stringify(value, undefined, 2) }</div>
       </MetadataAccordionItem>
     );
   }

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { Alert } from 'toolkit/chakra/alert';
@@ -118,16 +117,16 @@ const AlertShowcase = () => {
         <SamplesStack>
           <Sample label="multiple lines, with title, inline=false">
             <Alert status="warning" title="Warning" inline={ false } className="max-w-[500px]" showIcon closable>
-              <Box>
+              <div>
                 Participated in our recent activities? Check your eligibility and claim your NFT Scout badges. More exciting things coming soon!
-              </Box>
+              </div>
             </Alert>
           </Sample>
           <Sample label="multiple lines, no title">
             <Alert status="warning" className="max-w-[500px]">
-              <Box>
+              <div>
                 Participated in our recent activities? Check your eligibility and claim your NFT Scout badges. More exciting things coming soon!
-              </Box>
+              </div>
             </Alert>
           </Sample>
           <Sample label="with spinner">

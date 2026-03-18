@@ -1,4 +1,3 @@
-import { Box, Flex, chakra } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -38,20 +37,20 @@ const DeFiDropdown = () => {
     <PopoverRoot>
       <PopoverTrigger>
         <Button size="2xs" className="gap-0">
-          <chakra.span display={{ base: 'none', lg: 'inline' }} whiteSpace="pre-wrap">
+          <span className="hidden lg:inline whitespace-pre-wrap">
             { config.chain.name || 'Explorer' }{ space }
-          </chakra.span>
+          </span>
           DeFi
           <IconSvg name="arrows/east-mini" boxSize={ 4 } ml={ 1 } transform="rotate(-90deg)"/>
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ width: 'auto', minWidth: '132px' }}>
         <PopoverBody >
-          <Flex flexDirection="column" gap={ 1 }>
+          <div className="flex flex-col gap-1">
             { items.map((item, index) => (
               <DeFiDropdownItem key={ index } item={ item }/>
             )) }
-          </Flex>
+          </div>
         </PopoverBody>
       </PopoverContent>
     </PopoverRoot>
@@ -69,12 +68,12 @@ const DeFiDropdown = () => {
     >
       <Button onClick={ items[0].onClick } size="2xs">
         { items[0].icon && <IconSvg name={ items[0].icon } boxSize={ 3 } mr={{ base: 0, sm: 1 }}/> }
-        <Box display={{ base: 'none', sm: 'inline' }}>
+        <span className="hidden sm:inline">
           { items[0].text }
-        </Box>
+        </span>
       </Button>
     </Link>
   );
 };
 
-export default chakra(React.memo(DeFiDropdown));
+export default React.memo(DeFiDropdown);

@@ -1,4 +1,3 @@
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TabItem } from './types';
@@ -40,7 +39,7 @@ const AdaptiveTabsMenu = ({ tabs, tabsCut, isActive, ...props }: Props, ref: Rea
           aria-label="Open tabs menu"
           { ...props }
         >
-          <Icon boxSize={ 5 }><DotsIcon/></Icon>
+          <DotsIcon className="w-5 h-5"/>
         </IconButton>
       </PopoverTrigger>
       <PopoverContent>

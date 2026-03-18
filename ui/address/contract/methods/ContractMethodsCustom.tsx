@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -72,7 +71,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
   }, [ isLoading, modal.onOpen ]);
 
   return (
-    <Flex flexDir="column" rowGap={ 6 }>
+    <div className="flex" flexDir="column" rowGap={ 6 }>
       { currentInfo ? (
         <>
           <ContractMethodsAlerts
@@ -117,7 +116,7 @@ const ContractMethodsCustom = ({ isLoading: isLoadingProp }: Props) => {
         </>
       ) }
       <CustomAbiModal { ...modal } data={ modalData }/>
-    </Flex>
+    </div>
   );
 };
 

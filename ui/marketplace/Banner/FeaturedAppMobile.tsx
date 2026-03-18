@@ -1,4 +1,3 @@
-import { Flex, Text } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import React from 'react';
 
@@ -48,13 +47,13 @@ const FeaturedAppMobile = ({
       className="rounded-md p-3 sm:p-5 group bg-[var(--color-purple-50)] dark:bg-white/10"
       role="group"
     >
-      <Flex
+      <div
         flexDirection="row"
         height="100%"
         alignContent="start"
         gap={ 4 }
       >
-        <Flex
+        <div
           flexDirection="column"
           alignItems="center"
           justifyContent="space-between"
@@ -74,7 +73,7 @@ const FeaturedAppMobile = ({
           </Skeleton>
 
           { !isLoading && (
-            <Flex
+            <div
               position={{ base: 'relative', sm: 'absolute' }}
               right={{ base: 0, sm: '50px' }}
               top={{ base: 0, sm: '24px' }}
@@ -86,11 +85,11 @@ const FeaturedAppMobile = ({
               >
                 More info
               </Link>
-            </Flex>
+            </div>
           ) }
-        </Flex>
+        </div>
 
-        <Flex flexDirection="column" gap={ 2 }>
+        <div flexDirection="column" gap={ 2 }>
           <Skeleton
             loading={ isLoading }
             className="pr-[25px] sm:pr-[110px]"
@@ -121,11 +120,11 @@ const FeaturedAppMobile = ({
             loading={ isLoading }
             asChild
           >
-            <Text lineClamp={ 3 } textStyle="xs">
+            <span lineClamp={ 3 } textStyle="xs">
               { shortDescription }
-            </Text>
+            </span>
           </Skeleton>
-        </Flex>
+        </div>
 
         { !isLoading && (
           <IconButton
@@ -140,7 +139,7 @@ const FeaturedAppMobile = ({
             <FavoriteIcon isFavorite={ isFavorite }/>
           </IconButton>
         ) }
-      </Flex>
+      </div>
     </LinkBox>
   );
 };

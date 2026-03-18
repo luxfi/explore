@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
 
 const NFTItemContainer = ({ children, className }: Props) => {
   return (
-    <Box
+    <div
       w={{ base: '100%', lg: '210px' }}
       border="1px solid"
       borderColor={{ _light: 'blackAlpha.100', _dark: 'whiteAlpha.200' }}
@@ -20,8 +19,8 @@ const NFTItemContainer = ({ children, className }: Props) => {
       className={ className }
     >
       { children }
-    </Box>
+    </div>
   );
 };
 
-export default chakra(NFTItemContainer);
+export default NFTItemContainer;

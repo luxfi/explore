@@ -1,4 +1,3 @@
-import { Box, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 
@@ -85,7 +84,7 @@ const Clusters = () => {
 
   const content = (
     <>
-      <Box hideFrom="lg">
+      <div className="lg:hidden">
         { showDirectoryView ? (
           directoryData.map((item, index) => (
             <ClustersDirectoryListItem
@@ -104,8 +103,8 @@ const Clusters = () => {
             />
           ))
         ) }
-      </Box>
-      <Box hideBelow="lg">
+      </div>
+      <div className="hidden lg:block">
         { showDirectoryView ? (
           <ClustersDirectoryTable
             data={ directoryData }
@@ -120,7 +119,7 @@ const Clusters = () => {
             top={ ACTION_BAR_HEIGHT_DESKTOP }
           />
         ) }
-      </Box>
+      </div>
     </>
   );
 
@@ -137,10 +136,10 @@ const Clusters = () => {
 
   return (
     <>
-      <Text mb={ 6 } textStyle={{ base: 'sm', lg: 'md' }}>
+      <span className="mb-6">
         <Link href="https://clusters.xyz/?utm_source=blockscout" external noIcon>Clusters</Link>{ ' ' }
         is a cross-chain name service for managing addresses on multiple blockchains using a universal naming directory.
-      </Text>
+      </span>
       <DataListDisplay
         isError={ isError }
         itemsNum={ currentDataLength }

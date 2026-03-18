@@ -1,4 +1,3 @@
-import type { JsxStyleProps } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';

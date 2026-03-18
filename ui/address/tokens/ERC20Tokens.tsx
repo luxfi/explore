@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { AddressTokenBalance } from 'types/api/address';
@@ -34,14 +33,14 @@ const ERC20Tokens = ({ items, isLoading, pagination, isError, top }: Props) => {
 
   const content = items ? (
     <>
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <ERC20TokensTable
           data={ items }
           top={ top ?? (pagination.isVisible ? 72 : 0) }
           isLoading={ isLoading }
           hasAdditionalTokenTypes={ hasAdditionalTokenTypes }/>
-      </Box>
-      <Box hideFrom="lg">{ items.map((item, index) => (
+      </div>
+      <div className="lg:hidden">{ items.map((item, index) => (
         <ERC20TokensListItem
           key={ item.token.address_hash + (isLoading ? index : '') }
           { ...item }
@@ -49,7 +48,7 @@ const ERC20Tokens = ({ items, isLoading, pagination, isError, top }: Props) => {
           hasAdditionalTokenTypes={ hasAdditionalTokenTypes }
         />
       )) }
-      </Box>
+      </div>
     </>
   ) : null;
 

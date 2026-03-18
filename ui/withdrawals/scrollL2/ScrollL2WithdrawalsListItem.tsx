@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ScrollL2MessageItem } from 'types/api/scrollL2';
@@ -30,13 +29,13 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <BlockEntity
           number={ item.origination_transaction_block_number }
           isLoading={ isLoading }
-          fontWeight={ 600 }
+          className="font-semibold"
         />
       </ListItemMobileGrid.Value>
 
       <ListItemMobileGrid.Label isLoading={ isLoading }>Index</ListItemMobileGrid.Label>
       <ListItemMobileGrid.Value>
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } className="inline-block">
           { item.id }
         </Skeleton>
       </ListItemMobileGrid.Value>
@@ -55,7 +54,7 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
         <TimeWithTooltip
           timestamp={ item.origination_timestamp }
           isLoading={ isLoading }
-          display="inline-block"
+          className="inline-block"
         />
       </ListItemMobileGrid.Value>
 
@@ -69,9 +68,9 @@ const ScrollL2WithdrawalsListItem = ({ item, isLoading }: Props) => {
             noCopy
           />
         ) : (
-          <chakra.span>
+          <span>
             Pending Claim
-          </chakra.span>
+          </span>
         ) }
       </ListItemMobileGrid.Value>
 

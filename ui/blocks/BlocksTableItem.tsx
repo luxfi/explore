@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -47,7 +46,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
         </TableCell>
       ) }
       <TableCell >
-        <Flex columnGap={ 2 } alignItems="center" mb={ 2 }>
+        <div columnGap={ 2 } alignItems="center" mb={ 2 }>
           { data.celo?.l1_era_finalized_epoch_number && (
             <Tooltip content={ `Finalized epoch #${ data.celo.l1_era_finalized_epoch_number }` }>
               <IconSvg name="checkered_flag" boxSize={ 5 } p="1px" isLoading={ isLoading } flexShrink={ 0 }/>
@@ -65,7 +64,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
               />
             </span>
           </Tooltip>
-        </Flex>
+        </div>
         <TimeWithTooltip
           timestamp={ data.timestamp }
           enableIncrement={ enableTimeIncrement }
@@ -103,14 +102,14 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
       </TableCell>
       <TableCell >
         <Skeleton loading={ isLoading } display="inline-block">{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
-        <Flex mt={ 2 }>
+        <div mt={ 2 }>
           <BlockGasUsed
             gasUsed={ data.gas_used || undefined }
             gasLimit={ data.gas_limit }
             isLoading={ isLoading }
             gasTarget={ data.gas_target_percentage || undefined }
           />
-        </Flex>
+        </div>
       </TableCell>
       { !isRollup && !config.UI.views.block.hiddenFields?.total_reward && (
         <TableCell >

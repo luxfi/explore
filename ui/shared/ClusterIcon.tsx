@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+
 import React from 'react';
 
 import config from 'configs/app';
@@ -23,22 +23,13 @@ const ClusterIcon = ({
   const clustersFeature = nameServicesFeature.isEnabled && nameServicesFeature.clusters.isEnabled ? nameServicesFeature.clusters : undefined;
 
   const fallbackElement = (
-    <Box
-      display="inline-flex"
-      alignItems="center"
-      justifyContent="center"
-      boxSize={ boxSize }
-      backgroundColor="clusters"
-      borderRadius={ borderRadius }
-      mr={ mr }
-      flexShrink={ flexShrink }
-    >
+    <span className="inline-flex items-center justify-center bg-[var(--color-clusters)] rounded-base mr-2 shrink-0" style={{ width: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : boxSize, height: typeof boxSize === 'number' ? `${ boxSize * 4 }px` : boxSize }}>
       <IconSvg
         name="clusters"
         boxSize={ 3 }
         color="white"
       />
-    </Box>
+    </span>
   );
 
   if (!clustersFeature) {

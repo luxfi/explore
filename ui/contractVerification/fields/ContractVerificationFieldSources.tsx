@@ -1,4 +1,3 @@
-import { Text, Box, Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
 import type { ControllerRenderProps, FieldPathValue, ValidateResult } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -55,12 +54,12 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
 
   const renderUploadButton = React.useCallback(() => {
     return (
-      <VStack gap={ 3 }>
-        <Text fontWeight={ 500 }>{ title }</Text>
+      <div gap={ 3 }>
+        <span fontWeight={ 500 }>{ title }</span>
         <Button size="sm" variant="outline">
           Drop file{ multiple ? 's' : '' } or click here
         </Button>
-      </VStack>
+      </div>
     );
   }, [ multiple, title ]);
 
@@ -68,7 +67,7 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
     const errorList = fileError?.message?.split(';');
 
     return (
-      <Box
+      <div
         display="grid"
         gridTemplateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(0, 1fr) minmax(0, 1fr)' }}
         columnGap={ 3 }
@@ -76,7 +75,7 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
         w="100%"
       >
         { files.map((file, index) => (
-          <Box key={ file.name + file.lastModified + index }>
+          <div key={ file.name + file.lastModified + index }>
             <FileSnippet
               file={ file }
               maxW="initial"
@@ -85,9 +84,9 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
               isDisabled={ formState.isSubmitting }
               error={ errorList?.[index] }
             />
-          </Box>
+          </div>
         )) }
-      </Box>
+      </div>
     );
   }, [ formState.isSubmitting, handleFileRemove, fileError ]);
 
@@ -110,7 +109,7 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
       <>
         <FileInput<FormFields, typeof name> accept={ fileTypes.join(',') } multiple={ multiple } field={ field }>
           { ({ onChange }) => (
-            <Flex
+            <div
               flexDir="column"
               alignItems="flex-start"
               rowGap={ 2 }
@@ -125,7 +124,7 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
               >
                 { hasValue ? renderFiles(field.value) : renderUploadButton() }
               </DragAndDropArea>
-            </Flex>
+            </div>
           ) }
         </FileInput>
         { errorElement }

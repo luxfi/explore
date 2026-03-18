@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -17,4 +16,4 @@ const TextAd = ({ className }: { className?: string }) => {
   return <SevioTextAd className={ className }/>;
 };
 
-export default chakra(TextAd);
+export default TextAd;

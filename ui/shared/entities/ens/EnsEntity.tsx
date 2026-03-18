@@ -1,4 +1,3 @@
-import { chakra, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as bens from '@luxfi/bens-types';
@@ -16,7 +15,7 @@ import { distributeEntityProps, getIconProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'domain' | 'protocol'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = ((props: LinkProps) => {
   const defaultHref = route({
     pathname: '/name-services/domains/[name]',
     query: { name: props.domain, protocol_id: props.protocol?.id },
@@ -46,7 +45,7 @@ const Icon = (props: IconProps) => {
 
     const content = (
       <>
-        <Flex alignItems="center" textStyle="md">
+        <div className="flex items-center text-base">
           <Image
             src={ props.protocol.icon_url }
             boxSize={ 5 }
@@ -57,10 +56,10 @@ const Icon = (props: IconProps) => {
           />
           <div>
             <span>{ props.protocol.short_name }</span>
-            <chakra.span color="text.secondary" whiteSpace="pre"> { props.protocol.tld_list.map((tld) => `.${ tld }`).join((' ')) }</chakra.span>
+            <span style={{ color: 'var(--color-text-secondary)', whiteSpace: 'pre' }}> { props.protocol.tld_list.map((tld) => `.${ tld }`).join((' ')) }</span>
           </div>
-        </Flex>
-        <Text>{ props.protocol.description }</Text>
+        </div>
+        <span>{ props.protocol.description }</span>
         { props.protocol.docs_url && (
           <LinkToolkit
             href={ props.protocol.docs_url }
@@ -103,7 +102,7 @@ const Icon = (props: IconProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'domain'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = ((props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
@@ -144,7 +143,7 @@ const EnsEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(EnsEntity));
+export default React.memo(EnsEntity);
 
 export {
   Container,

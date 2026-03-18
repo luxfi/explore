@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -54,7 +53,7 @@ const BlockDetailsBlobInfo = ({ data }: Props) => {
             Blob gas used
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Text>{ BigNumber(data.blob_gas_used).toFormat() }</Text>
+            <span>{ BigNumber(data.blob_gas_used).toFormat() }</span>
           </DetailedInfo.ItemValue>
         </>
       ) }

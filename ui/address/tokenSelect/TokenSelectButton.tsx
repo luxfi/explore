@@ -1,4 +1,3 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FormattedData } from './types';
@@ -30,7 +29,7 @@ const TokenSelectButton = ({ isOpen, isLoading, data, ...rest }: Props, ref: Rea
   }, [ isLoading, isOpen ]);
 
   return (
-    <Box position="relative" className="group">
+    <div position="relative" className="group">
       <Button
         ref={ ref }
         size="sm"
@@ -42,8 +41,8 @@ const TokenSelectButton = ({ isOpen, isLoading, data, ...rest }: Props, ref: Rea
         { ...rest }
       >
         <IconSvg name="tokens" boxSize={ 4 } mr={ 2 }/>
-        <chakra.span fontWeight={ 600 }>{ prefix }{ num }</chakra.span>
-        <chakra.span
+        <span fontWeight={ 600 }>{ prefix }{ num }</span>
+        <span
           whiteSpace="pre"
           color={ isOpen ? 'inherit' : 'text.secondary' }
           fontWeight={ 400 }
@@ -53,10 +52,10 @@ const TokenSelectButton = ({ isOpen, isLoading, data, ...rest }: Props, ref: Rea
           textOverflow="ellipsis"
         >
           { space }({ prefix }${ usd.toFormat(2) })
-        </chakra.span>
+        </span>
         <IconSvg name="arrows/east-mini" transform={ isOpen ? 'rotate(90deg)' : 'rotate(-90deg)' } transitionDuration="faster" boxSize={ 5 } ml={ 3 }/>
       </Button>
-    </Box>
+    </div>
   );
 };
 

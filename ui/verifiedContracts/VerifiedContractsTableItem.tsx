@@ -1,4 +1,3 @@
-import { Flex, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { VerifiedContract } from 'types/api/contracts';
@@ -36,29 +35,25 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
     <TableRow>
       { chainData && (
         <TableCell>
-          <ChainIcon data={ chainData } isLoading={ isLoading } mt={ 1 }/>
+          <ChainIcon data={ chainData } isLoading={ isLoading }/>
         </TableCell>
       ) }
       <TableCell>
-        <Flex alignItems="center" mt={ 1 }>
+        <div className="flex">
           <AddressEntity
             address={ data.address }
             isLoading={ isLoading }
             query={{ tab: 'contract', ...(chainData ? { chain_id: chainData.id } : {}) }}
             noCopy
           />
-          { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 } ml={ 2 }/> }
-        </Flex>
+          { data.certified && <ContractCertifiedLabel iconSize={ 5 } boxSize={ 5 }/> }
+        </div>
         <AddressEntity
           address={{ hash: data.address.filecoin?.robust ?? data.address.hash }}
           isLoading={ isLoading }
           noLink
           noIcon
           truncation="constant"
-          my={ 1 }
-          ml={ 7 }
-          color="text.secondary"
-          w="fit-content"
         />
       </TableCell>
       <TableCell isNumeric>
@@ -66,7 +61,6 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
           amount={ data.coin_balance }
           noSymbol
           loading={ isLoading }
-          my={ 1 }
         />
       </TableCell>
       <TableCell isNumeric>
@@ -75,7 +69,7 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
         </Skeleton>
       </TableCell>
       <TableCell>
-        <Flex flexWrap="wrap" columnGap={ 2 }>
+        <div className="flex">
           <Skeleton loading={ isLoading } className="my-1">{ formatLanguageName(data.language) }</Skeleton>
           { data.compiler_version && (
             <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] break-all my-1 cursor-pointer">
@@ -84,41 +78,40 @@ const VerifiedContractsTableItem = ({ data, isLoading, chainData }: Props) => {
               </Tooltip>
             </Skeleton>
           ) }
-        </Flex>
+        </div>
         { data.zk_compiler_version && (
-          <Flex flexWrap="wrap" columnGap={ 2 } my={ 1 }>
+          <div className="flex">
             <Skeleton loading={ isLoading }>ZK compiler</Skeleton>
             <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] break-all">
               <span>{ data.zk_compiler_version }</span>
             </Skeleton>
-          </Flex>
+          </div>
         ) }
       </TableCell>
       <TableCell>
         <Tooltip content="Optimization" disabled={ isLoading }>
-          <chakra.span display="inline-block">
+          <span className="inline-block">
             { data.optimization_enabled ?
-              <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
-              <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
-          </chakra.span>
+              <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
+              <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+          </span>
         </Tooltip>
         <Tooltip content="Constructor args" disabled={ isLoading }>
-          <chakra.span display="inline-block" ml={ 2 }>
+          <span className="inline-block">
             { data.has_constructor_args ?
-              <IconSvg name="check" boxSize={ 6 } color="green.500" cursor="pointer" isLoading={ isLoading }/> :
-              <IconSvg name="cross" boxSize={ 6 } color="red.600" cursor="pointer" isLoading={ isLoading }/> }
-          </chakra.span>
+              <IconSvg name="check" boxSize={ 6 } isLoading={ isLoading }/> :
+              <IconSvg name="cross" boxSize={ 6 } isLoading={ isLoading }/> }
+          </span>
         </Tooltip>
       </TableCell>
       <TableCell>
-        <Flex alignItems="center" columnGap={ 2 } my={ 1 }>
-          <IconSvg name="status/success" boxSize={ 4 } color="green.500" isLoading={ isLoading }/>
+        <div className="flex">
+          <IconSvg name="status/success" boxSize={ 4 } isLoading={ isLoading }/>
           <TimeWithTooltip
             timestamp={ data.verified_at }
             isLoading={ isLoading }
-            color="text.secondary"
           />
-        </Flex>
+        </div>
       </TableCell>
       <TableCell>
         <Skeleton loading={ isLoading } className="my-1 inline-block">

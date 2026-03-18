@@ -1,5 +1,3 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { Box } from '@chakra-ui/react';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 
@@ -148,45 +146,36 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
 
     if (!totalResults) {
       return (
-        <Box px="8px" fontSize="13px" lineHeight="18px" mb="8px">
+        <div px="8px" className="text-[13px] leading-[18px]" mb="8px">
           No results found. Review your settings for configured exclusions.
-        </Box>
+        </div>
       );
     }
 
     return (
-      <Box px="8px" fontSize="13px" lineHeight="18px" mb="8px">
+      <div px="8px" className="text-[13px] leading-[18px]" mb="8px">
         { totalResults } result{ totalResults > 1 ? 's' : '' } in { searchResults.length } file{ searchResults.length > 1 ? 's' : '' }
-      </Box>
+      </div>
     );
   })();
 
   const inputEndElement = (
     <>
-      <Box
-        { ...buttonProps }
+      <div         { ...buttonProps }
         className="codicon codicon-case-sensitive"
-        onClick={ handleMatchCaseChange }
-        bgColor={ isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
-        _hover={{ bgColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
+        onClick={ handleMatchCaseChange } style={{ backgroundColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent'  }}
         title="Match Case"
         aria-label="Match Case"
       />
-      <Box
-        { ...buttonProps }
-        className="codicon codicon-whole-word"
-        bgColor={ isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
+      <div         { ...buttonProps }
+        className="codicon codicon-whole-word" style={{ backgroundColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent'  }}
         onClick={ handleMatchWholeWordChange }
-        _hover={{ bgColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
         title="Match Whole Word"
         aria-label="Match Whole Word"
       />
-      <Box
-        { ...buttonProps }
-        className="codicon codicon-regex"
-        bgColor={ isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }
+      <div         { ...buttonProps }
+        className="codicon codicon-regex" style={{ backgroundColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent'  }}
         onClick={ handleMatchRegexChange }
-        _hover={{ bgColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : themeColors['custom.inputOption.hoverBackground'] }}
         title="Use Regular Expression"
         aria-label="Use Regular Expression"
       />

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -71,8 +70,8 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
   const filteredData = isPlaceholderData ? data?.items : data?.items.filter(i => filterValue ? getFromToValue(i, currentAddress) === filterValue : i);
 
   const content = (
-    <Box position="relative">
-      <Box hideFrom="lg">
+    <div className="relative">
+      <div className="lg:hidden">
         { filteredData?.map((item, i) => (
           <AddressAccountHistoryListItem
             key={ `${ i }-${ item.rawTransactionData.transactionHash }` }
@@ -81,9 +80,9 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
             isPlaceholderData={ isPlaceholderData }
           />
         )) }
-      </Box>
+      </div>
 
-      <Box hideBelow="lg">
+      <div className="hidden lg:block">
         <TableRoot>
           <TableHeaderSticky top={ 75 }>
             <TableRow>
@@ -109,8 +108,8 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
             )) }
           </TableBody>
         </TableRoot>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 
   return (

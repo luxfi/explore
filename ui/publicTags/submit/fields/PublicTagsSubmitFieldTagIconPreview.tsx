@@ -1,5 +1,6 @@
-import { Center } from '@chakra-ui/react';
 import React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 interface Props {
   url: string | undefined;
@@ -8,19 +9,17 @@ interface Props {
 }
 
 const PublicTagsSubmitFieldTagIconPreview = ({ url, isInvalid, children }: Props) => {
-  const borderColorActive = isInvalid ? 'error' : 'input.border.filled';
-
   return (
-    <Center
-      boxSize="60px"
-      flexShrink={ 0 }
-      borderWidth="2px"
-      borderColor={ url ? borderColorActive : 'input.border' }
-      borderRadius="base"
-      backgroundColor="bg.primary"
+    <div
+      className={ cn(
+        'flex items-center justify-center w-[60px] h-[60px] shrink-0 border-2 rounded-base bg-[var(--color-bg-primary)]',
+        url
+          ? isInvalid ? 'border-[var(--color-error)]' : 'border-[var(--color-input-border-filled)]'
+          : 'border-[var(--color-input-border)]',
+      ) }
     >
       { children }
-    </Center>
+    </div>
   );
 };
 

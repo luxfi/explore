@@ -1,4 +1,3 @@
-import { Flex, Grid, Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -39,24 +38,20 @@ const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender 
   const isActionBarHidden = !ownerFilter && !inventoryQuery.data?.items.length;
 
   const ownerFilterComponent = ownerFilter && (
-    <Flex
-      alignItems="center"
-      flexWrap="wrap"
-      mb={{ base: isActionBarHidden ? 3 : 6, lg: 3 }}
-      mr={ 4 }
+    <div
     >
-      <Text whiteSpace="nowrap" mr={ 2 } py={ 1 }>Filtered by owner</Text>
-      <Flex alignItems="center" py={ 1 }>
+      <span>Filtered by owner</span>
+      <div>
         <AddressEntity address={{ hash: ownerFilter }} truncation={ isMobile ? 'constant' : 'none' }/>
         <ResetIconButton onClick={ resetOwnerFilter }/>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 
   const actionBar = !isActionBarHidden && (
     <>
       { ownerFilterComponent }
-      <ActionBar mt={ -6 }>
+      <ActionBar>
         { isMobile && <Pagination className="ml-auto" { ...inventoryQuery.pagination }/> }
       </ActionBar>
     </>
@@ -67,11 +62,8 @@ const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender 
 
   const content = items && token ? (
     <AddressHighlightProvider>
-      <Grid
-        w="100%"
-        columnGap={{ base: 3, lg: 6 }}
-        rowGap={{ base: 3, lg: 6 }}
-        gridTemplateColumns={{ base: 'repeat(2, calc((100% - 12px)/2))', lg: 'repeat(auto-fill, minmax(210px, 1fr))' }}
+      <div
+       
       >
         { items.map((item, index) => (
           <TokenInventoryItem
@@ -81,7 +73,7 @@ const TokenInventory = ({ inventoryQuery, tokenQuery, ownerFilter, shouldRender 
             token={ token }
           />
         )) }
-      </Grid>
+      </div>
     </AddressHighlightProvider>
   ) : null;
 

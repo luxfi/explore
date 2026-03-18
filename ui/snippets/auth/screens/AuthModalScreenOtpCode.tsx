@@ -1,4 +1,3 @@
-import { chakra, Box, Text } from '@chakra-ui/react';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -104,15 +103,15 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
 
   return (
     <FormProvider { ...formApi }>
-      <chakra.form
+      <form
         noValidate
         onSubmit={ formApi.handleSubmit(onFormSubmit) }
       >
-        <Text mb={ 6 }>
+        <p className="mb-6">
           Please check{ ' ' }
-          <chakra.span fontWeight="700">{ email }</chakra.span>{ ' ' }
+          <span className="font-bold">{ email }</span>{ ' ' }
           and enter your code below.
-        </Text>
+        </p>
         <AuthModalFieldOtpCode isDisabled={ isCodeSending }/>
         <Button
           variant="link"
@@ -121,7 +120,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
           onClick={ handleResendCodeClick }
         >
           <IconSvg name="repeat" boxSize={ 5 }/>
-          <Box fontSize="sm">Resend code</Box>
+          <span className="text-sm">Resend code</span>
         </Button>
         <ReCaptcha { ...recaptcha }/>
         <Button
@@ -134,7 +133,7 @@ const AuthModalScreenOtpCode = ({ email, onSuccess, isAuth }: Props) => {
         >
           Submit
         </Button>
-      </chakra.form>
+      </form>
     </FormProvider>
   );
 };

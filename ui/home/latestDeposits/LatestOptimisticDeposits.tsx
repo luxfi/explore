@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SocketMessage } from 'lib/socket/types';
@@ -67,7 +66,7 @@ const LatestOptimisticDeposits = () => {
     );
   }
 
-  return <Text>No latest deposits found.</Text>;
+  return <span>No latest deposits found.</span>;
 };
 
 export default LatestOptimisticDeposits;

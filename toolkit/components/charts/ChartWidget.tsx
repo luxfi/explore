@@ -1,11 +1,10 @@
-import type { FlexProps } from '@chakra-ui/react';
-import { Flex, Icon } from '@chakra-ui/react';
 import { range } from 'es-toolkit';
 import React, { useRef } from 'react';
 
 import type { AxesConfigFn, TimeChartData } from './types';
 
 import RepeatIcon from 'icons/repeat.svg';
+import { cn } from 'lib/utils/cn';
 
 import { IconButton } from '../../chakra/icon-button';
 import { Link } from '../../chakra/link';
@@ -17,7 +16,7 @@ import type { ChartMenuItemId } from './parts/ChartMenu';
 import ChartMenu from './parts/ChartMenu';
 import { useChartZoom } from './utils/useChartZoom';
 
-export interface ChartWidgetProps extends FlexProps {
+export interface ChartWidgetProps extends React.HTMLAttributes<HTMLDivElement> {
   charts: TimeChartData;
   title: string;
   description?: string;
@@ -43,6 +42,7 @@ export const ChartWidget = React.memo(({
   chartUrl,
   axesConfig,
   menuItemIds,
+  className,
   ...rest
 }: ChartWidgetProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -102,12 +102,11 @@ export const ChartWidget = React.memo(({
   );
 
   const chartHeader = (
-    <Flex
-      flexGrow={ 1 }
-      flexDir="column"
-      alignItems="flex-start"
-      cursor={ href ? 'pointer' : 'default' }
-      _hover={ href ? { color: 'link.primary.hovered' } : {} }
+    <div
+      className={ cn(
+        'flex grow flex-col items-start',
+        href ? 'cursor-pointer hover:text-[var(--chakra-colors-link-primary-hover)]' : 'cursor-default',
+      ) }
     >
       <Skeleton
         loading={ isLoading }
@@ -127,27 +126,25 @@ export const ChartWidget = React.memo(({
           <span>{ description }</span>
         </Skeleton>
       ) }
-    </Flex>
+    </div>
   );
 
   return (
-    <Flex
-      height="100%"
+    <div
+      className={ cn(
+        'h-full flex flex-col p-3 lg:p-4 rounded-lg border border-gray-200 dark:border-gray-600',
+        className,
+      ) }
       ref={ ref }
-      flexDir="column"
-      padding={{ base: 3, lg: 4 }}
-      borderRadius="lg"
-      borderWidth="1px"
-      borderColor={{ _light: 'gray.200', _dark: 'gray.600' }}
       { ...rest }
     >
-      <Flex columnGap={ 6 } mb={ 2 } alignItems="flex-start">
+      <div className="flex gap-x-6 mb-2 items-start">
         { href ? (
           <Link href={ href }>
             { chartHeader }
           </Link>
         ) : chartHeader }
-        <Flex ml="auto" columnGap={ 2 }>
+        <div className="flex ml-auto gap-x-2">
           <Tooltip content="Reset zoom">
             <IconButton
               hidden={ !zoomRange }
@@ -156,7 +153,7 @@ export const ChartWidget = React.memo(({
               variant="icon_background"
               onClick={ handleZoomReset }
             >
-              <Icon><RepeatIcon/></Icon>
+              <RepeatIcon className="w-5 h-5"/>
             </IconButton>
           </Tooltip>
 
@@ -174,8 +171,8 @@ export const ChartWidget = React.memo(({
               zoomRange={ zoomRange }
             />
           ) }
-        </Flex>
-      </Flex>
+        </div>
+      </div>
 
       { content }
 
@@ -186,6 +183,6 @@ export const ChartWidget = React.memo(({
           onItemClick={ handleLegendItemClick }
         />
       ) }
-    </Flex>
+    </div>
   );
 });

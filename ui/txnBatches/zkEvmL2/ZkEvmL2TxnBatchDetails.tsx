@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -58,9 +57,7 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
   }
 
   return (
-    <DetailedInfo.Container
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}
-    >
+    <DetailedInfo.Container>
       <DetailedInfo.ItemLabel
         isLoading={ isPlaceholderData }
       >
@@ -71,7 +68,6 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
           { data.number }
         </Skeleton>
         <PrevNext
-          ml={ 6 }
           onClick={ handlePrevNextClick }
           prevLabel="View previous txn batch"
           nextLabel="View next txn batch"
@@ -112,10 +108,9 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
           <TxEntityL1
             isLoading={ isPlaceholderData }
             hash={ data.verify_transaction_hash }
-            maxW="100%"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
@@ -139,7 +134,6 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         Global exit root
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap="nowrap"
       >
         <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.global_exit_root }/>
@@ -153,7 +147,6 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         Acc input hash
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap="nowrap"
       >
         <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.acc_input_hash }/>
@@ -171,10 +164,9 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
           <TxEntityL1
             isLoading={ isPlaceholderData }
             hash={ data.sequence_transaction_hash }
-            maxW="100%"
             noCopy
           />
-        ) : <Text>Pending</Text> }
+        ) : <span>Pending</span> }
       </DetailedInfo.ItemValue>
 
       <DetailedInfo.ItemLabel
@@ -183,7 +175,6 @@ const ZkEvmL2TxnBatchDetails = ({ query }: Props) => {
         State root
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue
-        flexWrap="nowrap"
       >
         <Skeleton loading={ isPlaceholderData } className="overflow-hidden">
           <HashStringShortenDynamic hash={ data.state_root }/>

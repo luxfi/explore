@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 
@@ -221,7 +220,7 @@ const NameDomainDetails = ({ query }: Props) => {
               multiRow
             >
               { otherAddresses.map(([ type, address ]) => (
-                <Flex key={ type } columnGap={ 2 } minW="0" w="100%" overflow="hidden">
+                <div className="flex overflow-hidden w-full min-w-0 gap-x-2" key={ type }>
                   <Skeleton loading={ isLoading }>{ type }</Skeleton>
                   <AddressEntity
                     address={{ hash: address }}
@@ -229,7 +228,7 @@ const NameDomainDetails = ({ query }: Props) => {
                     noLink
                     noIcon
                   />
-                </Flex>
+                </div>
               )) }
             </DetailedInfo.ItemValue>
           </>

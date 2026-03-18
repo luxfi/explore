@@ -1,4 +1,3 @@
-import { Text, Box, Flex } from '@chakra-ui/react';
 import { sumBy } from 'es-toolkit';
 import React from 'react';
 
@@ -34,7 +33,7 @@ const TokenSelectMenu = ({ getSort, filteredData, onInputChange, onSortClick, se
         mb={ 5 }
         onChange={ onInputChange }
       />
-      <Flex flexDir="column" rowGap={ 6 }>
+      <div className="flex" flexDir="column" rowGap={ 6 }>
         { Object.entries(filteredData).sort(sortTokenGroups).map(([ tokenType, tokenInfo ]) => {
           if (tokenInfo.items.length === 0) {
             return null;
@@ -51,24 +50,24 @@ const TokenSelectMenu = ({ getSort, filteredData, onInputChange, onSortClick, se
           const numPrefix = tokenInfo.isOverflow ? `>${ thinsp }` : '';
 
           return (
-            <Box key={ type }>
-              <Flex justifyContent="space-between">
-                <Text mb={ 3 } color="gray.500" fontWeight={ 600 } fontSize="sm">
+            <div key={ type }>
+              <div className="flex" justifyContent="space-between">
+                <span mb={ 3 } color="gray.500" fontWeight={ 600 } fontSize="sm">
                   { getTokenTypeName(type) } tokens ({ numPrefix }{ tokenInfo.items.length })
-                </Text>
+                </span>
                 { hasSort && (
                   <Link data-type={ type } onClick={ onSortClick } aria-label={ `Sort ${ getTokenTypeName(type) } tokens` }>
                     <IconSvg name="arrows/east" boxSize={ 5 } transform={ arrowTransform } transitionDuration="faster"/>
                   </Link>
                 ) }
-              </Flex>
+              </div>
               { tokenInfo.items.sort(getSortingFn(type)(sortDirection)).map((data) =>
                 <TokenSelectItem key={ data.token.address_hash + data.token_id } data={ data }/>) }
-            </Box>
+            </div>
           );
         }) }
-      </Flex>
-      { Boolean(searchTerm) && !hasFilteredResult && <Text fontSize="sm">Could not find any matches.</Text> }
+      </div>
+      { Boolean(searchTerm) && !hasFilteredResult && <span fontSize="sm">Could not find any matches.</span> }
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'toolkit/chakra/tabs';
@@ -62,15 +61,15 @@ const TabsShowcase = () => {
 
         <SectionSubHeader>Adaptive tabs</SectionSubHeader>
         <SamplesStack>
-          <Sample gridColumn="1 / 3" w="100%" maxW={{ base: '100vw', lg: '700px' }}>
+          <Sample className="col-span-2 w-full max-w-full lg:max-w-[700px]">
             <AdaptiveTabs
               className="w-full"
               tabs={ tabs }
               defaultValue={ tabs[0].id }
               style={{ outline: '1px dashed lightpink' }}
-              leftSlot={ <Box display={{ base: 'none', lg: 'block' }}>Left element</Box> }
+              leftSlot={ <div className="hidden lg:block">Left element</div> }
               leftSlotProps={{ pr: { base: 0, lg: 4 }, color: 'text.secondary' }}
-              rightSlot={ <Box display={{ base: 'none', lg: 'flex' }} justifyContent="space-between"><span>Right element</span><span>🙈</span></Box> }
+              rightSlot={ <div className="hidden lg:flex justify-between"><span>Right element</span><span>see-no-evil</span></div> }
               rightSlotProps={{ pl: { base: 0, lg: 4 }, color: 'text.secondary', widthAllocation: 'available' }}
             />
           </Sample>

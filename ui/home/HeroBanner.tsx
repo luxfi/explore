@@ -1,6 +1,5 @@
 // we use custom heading size for hero banner
 // eslint-disable-next-line no-restricted-imports
-import { Box, Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -48,7 +47,7 @@ const HeroBanner = () => {
   };
 
   return (
-    <Flex
+    <div
       w="100%"
       background={ background }
       border={ border }
@@ -57,10 +56,9 @@ const HeroBanner = () => {
       columnGap={ 8 }
       alignItems="center"
     >
-      <Box flexGrow={ 1 }>
-        <Flex mb={{ base: 2, lg: 3 }} justifyContent="space-between" alignItems="center" columnGap={ 2 }>
-          <Heading
-            as="h1"
+      <div flexGrow={ 1 }>
+        <div mb={{ base: 2, lg: 3 }} justifyContent="space-between" alignItems="center" columnGap={ 2 }>
+          <h1
             fontSize={{ base: '18px', lg: '30px' }}
             lineHeight={{ base: '24px', lg: '36px' }}
             fontWeight={{ base: 500, lg: 700 }}
@@ -71,22 +69,22 @@ const HeroBanner = () => {
                 `${ config.chain.name } blockchain explorer` :
                 `${ config.chain.name } explorer`
             }
-          </Heading>
+          </h1>
           { config.UI.navigation.layout === 'vertical' && config.features.rewards.isEnabled && (
-            <Box display={{ base: 'none', lg: 'flex' }} gap={ 2 }>
+            <div display={{ base: 'none', lg: 'flex' }} gap={ 2 }>
               <RewardsButton variant="hero"/>
-            </Box>
+            </div>
           ) }
-        </Flex>
-        <Box display={{ base: 'flex', lg: 'none' }}>
+        </div>
+        <div display={{ base: 'flex', lg: 'none' }}>
           <SearchBarMobile isHeroBanner/>
-        </Box>
-        <Box display={{ base: 'none', lg: 'flex' }}>
+        </div>
+        <div display={{ base: 'none', lg: 'flex' }}>
           <SearchBar isHeroBanner/>
-        </Box>
-      </Box>
+        </div>
+      </div>
       { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
-    </Flex>
+    </div>
   );
 };
 

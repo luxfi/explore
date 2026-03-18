@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PChainDelegator, PChainValidator } from 'lib/api/pchain';
@@ -69,112 +68,77 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
   }, [ validators ]);
 
   return (
-    <Box
-      border="1px solid"
-      borderColor="border.divider"
-      borderRadius="lg"
-      overflow="hidden"
+    <div
+      className="overflow-hidden"
     >
       { /* Header */ }
-      <Flex
-        px={ 4 }
-        py={ 2 }
-        gap={ 4 }
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        display={{ base: 'none', lg: 'flex' }}
-      >
-        <Box w="180px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+      <div className="flex">
+        <div className="font-semibold">
           TX ID
-        </Box>
-        <Box w="260px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+        </div>
+        <div className="font-semibold">
           Node ID
-        </Box>
-        <Box flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+        </div>
+        <div className="font-semibold">
           Stake Amount
-        </Box>
-        <Box w="180px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+        </div>
+        <div className="font-semibold">
           Start
-        </Box>
-        <Box w="180px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+        </div>
+        <div className="font-semibold">
           End
-        </Box>
-        <Box w="120px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" textAlign="right">
+        </div>
+        <div className="font-semibold">
           Potential Reward
-        </Box>
-      </Flex>
+        </div>
+      </div>
 
       { /* Loading */ }
       { isLoading && (
-        <Box px={ 4 } py={ 6 }>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px" mb={ 3 }/>
-          <Skeleton loading h="16px"/>
-        </Box>
+        <div>
+          <Skeleton loading/>
+          <Skeleton loading/>
+          <Skeleton loading/>
+        </div>
       ) }
 
       { /* Empty state */ }
       { !isLoading && delegators.length === 0 && (
-        <Box px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+        <div>
           No delegators found
-        </Box>
+        </div>
       ) }
 
       { /* Rows */ }
       { !isLoading && delegators.map((d) => (
-        <Flex
-          key={ `${ d.txID }-${ d.validatorNodeID }` }
-          px={ 4 }
-          py={ 3 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          alignItems="center"
-          _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-          transition="background 0.15s"
-          flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-        >
-          <Box
-            w={{ base: '100%', lg: '180px' }}
-            flexShrink={ 0 }
-            fontFamily="mono"
-            fontSize="sm"
-            color="text.primary"
+        <div className="flex" key={ `${ d.txID }-${ d.validatorNodeID }` }>
+          <div
             title={ d.txID }
-            overflow="hidden"
-            textOverflow="ellipsis"
-            whiteSpace="nowrap"
+            className="overflow-hidden"
           >
             { truncateTxId(d.txID) }
-          </Box>
-          <Box
-            w={{ base: '100%', lg: '260px' }}
-            flexShrink={ 0 }
-            fontFamily="mono"
-            fontSize="sm"
-            color="text.secondary"
+          </div>
+          <div
             title={ d.validatorNodeID }
-            overflow="hidden"
-            textOverflow="ellipsis"
-            whiteSpace="nowrap"
+            className="overflow-hidden"
           >
             { truncateNodeId(d.validatorNodeID) }
-          </Box>
-          <Box flex={ 1 } fontSize="sm" color="text.primary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="text-left lg:text-right">
             { formatStake(d.stakeAmount) } LUX
-          </Box>
-          <Box w={{ base: 'auto', lg: '180px' }} flexShrink={ 0 } fontSize="xs" color="text.secondary">
+          </div>
+          <div>
             { formatTimestamp(d.startTime) }
-          </Box>
-          <Box w={{ base: 'auto', lg: '180px' }} flexShrink={ 0 } fontSize="xs" color="text.secondary">
+          </div>
+          <div>
             { formatTimestamp(d.endTime) }
-          </Box>
-          <Box w={{ base: 'auto', lg: '120px' }} flexShrink={ 0 } fontSize="sm" color="text.secondary" textAlign={{ base: 'left', lg: 'right' }}>
+          </div>
+          <div className="text-left lg:text-right">
             { formatStake(d.potentialReward) } LUX
-          </Box>
-        </Flex>
+          </div>
+        </div>
       )) }
-    </Box>
+    </div>
   );
 };
 

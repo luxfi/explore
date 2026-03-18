@@ -1,16 +1,17 @@
-import type { FlexProps } from '@chakra-ui/react';
-import { Flex, useToken } from '@chakra-ui/react';
 import React from 'react';
 
-export interface Props extends FlexProps {
+import { cn } from 'lib/utils/cn';
+
+export interface Props {
   gradientHeight: number;
   onScrollVisibilityChange?: (isVisible: boolean) => void;
+  children?: React.ReactNode;
+  className?: string;
 };
 
-const ContainerWithScrollY = ({ gradientHeight, children, onScrollVisibilityChange, ...rest }: Props) => {
+const ContainerWithScrollY = ({ gradientHeight, children, onScrollVisibilityChange, className }: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [ hasScroll, setHasScroll ] = React.useState(false);
-  const gradientStopColor = useToken('colors', 'bg.primary');
 
   React.useEffect(() => {
     if (!ref.current) {
@@ -23,25 +24,24 @@ const ContainerWithScrollY = ({ gradientHeight, children, onScrollVisibilityChan
   }, [ gradientHeight, onScrollVisibilityChange ]);
 
   return (
-    <Flex
-      flexDirection="column"
-      overflowY={ hasScroll ? 'scroll' : 'auto' }
+    <div
+      className={ cn('flex flex-col relative', hasScroll ? 'overflow-y-scroll pr-5' : 'overflow-y-auto', className) }
       ref={ ref }
-      _after={ hasScroll ? {
-        position: 'absolute',
-        content: '""',
-        bottom: 0,
-        left: 0,
-        right: '20px',
-        height: `${ gradientHeight }px`,
-        bg: `linear-gradient(to bottom, transparent, ${ gradientStopColor })`,
-      } : undefined }
-      pr={ hasScroll ? 5 : 0 }
-      pb={ hasScroll ? `${ gradientHeight }px` : 0 }
-      { ...rest }
+      style={{
+        paddingBottom: hasScroll ? `${ gradientHeight }px` : 0,
+      }}
     >
       { children }
-    </Flex>
+      { hasScroll && (
+        <div
+          className="absolute bottom-0 left-0 right-[20px]"
+          style={{
+            height: `${ gradientHeight }px`,
+            background: `linear-gradient(to bottom, transparent, var(--color-bg-primary))`,
+          }}
+        />
+      ) }
+    </div>
   );
 };
 

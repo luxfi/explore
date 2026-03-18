@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
@@ -65,4 +64,4 @@ const AddressEntityZetaChain = ({ chainId, address, ...props }: Props) => {
   );
 };
 
-export default chakra(AddressEntityZetaChain);
+export default AddressEntityZetaChain;

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Screen } from 'ui/snippets/auth/types';
@@ -49,13 +48,13 @@ const MyProfile = () => {
       <>
         <AccountPageDescription>
           You can add your email to receive watchlist notifications.
-          Additionally, you can manage your wallet address and email, which can be used for logging into your Lux Explorer account.
+          Additionally, you can manage your wallet address and email, which can be used for logging into your explorer account.
         </AccountPageDescription>
-        <Flex maxW="480px" mt={ 8 } flexDir="column" rowGap={ 12 }>
+        <div className="flex flex-col max-w-[480px] mt-8 gap-y-12">
           <MyProfileEmail profileQuery={ profileQuery }/>
           { config.features.blockchainInteraction.isEnabled &&
             <MyProfileWallet profileQuery={ profileQuery } onAddWallet={ handleAddWalletClick }/> }
-        </Flex>
+        </div>
         { authModal.open && authInitialScreen &&
           <AuthModal initialScreen={ authInitialScreen } onClose={ authModal.onClose } mixpanelConfig={ MIXPANEL_CONFIG }/> }
       </>

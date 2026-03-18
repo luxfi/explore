@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -35,15 +34,15 @@ const MultichainEcosystemsTable = ({ data, isLoading, sort, setSorting }: Props)
           <TableColumnHeader width="30%">Chain name</TableColumnHeader>
           <TableColumnHeaderSortable width="17.5%" sortField="active_accounts" sortValue={ sort } onSortToggle={ onSortToggle }>
             Active addresses
-            <chakra.span color="text.secondary" whiteSpace="pre"> 7D</chakra.span>
+            <span className="text-[var(--color-text-secondary)] whitespace-pre"> 7D</span>
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable width="17.5%" sortField="new_addresses" sortValue={ sort } onSortToggle={ onSortToggle }>
             New addresses
-            <chakra.span color="text.secondary" whiteSpace="pre"> 7D</chakra.span>
+            <span className="text-[var(--color-text-secondary)] whitespace-pre"> 7D</span>
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable width="17.5%" sortField="daily_transactions" sortValue={ sort } onSortToggle={ onSortToggle }>
             Daily txs
-            <chakra.span color="text.secondary" whiteSpace="pre"> 7D</chakra.span>
+            <span className="text-[var(--color-text-secondary)] whitespace-pre"> 7D</span>
           </TableColumnHeaderSortable>
           <TableColumnHeaderSortable width="17.5%" sortField="tps" sortValue={ sort } onSortToggle={ onSortToggle }>
             TPS

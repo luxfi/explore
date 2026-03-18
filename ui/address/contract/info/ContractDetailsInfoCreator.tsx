@@ -1,4 +1,3 @@
-import { Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { SmartContractCreationStatus } from 'types/api/contract';
@@ -23,16 +22,16 @@ const ContractDetailsInfoCreator = ({ addressHash, txHash, creationStatus, isLoa
       isLoading={ isLoading }
       contentProps={{ className: 'lg:[grid-column:2/span_3]' }}
     >
-      <Flex alignItems="center" flexWrap="wrap" columnGap={ 2 } rowGap={ 2 }>
+      <div className="flex" alignItems="center" flexWrap="wrap" columnGap={ 2 } rowGap={ 2 }>
         <AddressEntity
           address={{ hash: addressHash }}
           truncation="constant"
           noIcon
         />
-        <Text whiteSpace="pre" color="text.secondary">at txn</Text>
+        <span whiteSpace="pre" color="text.secondary">at txn</span>
         <TxEntity hash={ txHash } truncation="constant" noIcon/>
         { creationStatus && <ContractCreationStatus status={ creationStatus }/> }
-      </Flex>
+      </div>
     </ContractDetailsInfoItem>
   );
 };

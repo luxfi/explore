@@ -1,4 +1,3 @@
-import { Center, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
@@ -13,10 +12,10 @@ const CodeEditorLoading = ({ className }: Props) => {
   const themeColors = useThemeColors();
 
   return (
-    <Center bgColor={ themeColors['editor.background'] } w="100%" h="100%" overflow="hidden" className={ className }>
+    <div className="flex items-center justify-center overflow-hidden w-full h-full" style={{ backgroundColor: themeColors['editor.background']  }} className={ className }>
       <ContentLoader/>
-    </Center>
+    </div>
   );
 };
 
-export default React.memo(chakra(CodeEditorLoading));
+export default React.memo(CodeEditorLoading);

@@ -1,5 +1,6 @@
-import { Box, chakra } from '@chakra-ui/react';
 import React from 'react';
+
+import { cn } from 'lib/utils/cn';
 
 interface Props {
   className?: string;
@@ -8,10 +9,10 @@ interface Props {
 
 const Content = ({ children, className }: Props) => {
   return (
-    <Box pt={{ base: 0, lg: 6 }} as="main" flexGrow={ 1 } className={ className }>
+    <main className={ cn('pt-0 lg:pt-6 grow', className) }>
       { children }
-    </Box>
+    </main>
   );
 };
 
-export default React.memo(chakra(Content));
+export default React.memo(Content);

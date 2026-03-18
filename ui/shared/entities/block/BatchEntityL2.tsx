@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -25,4 +24,4 @@ const BatchEntityL2 = (props: BlockEntity.EntityProps) => {
   );
 };
 
-export default chakra(BatchEntityL2);
+export default BatchEntityL2;

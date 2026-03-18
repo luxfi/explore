@@ -1,4 +1,3 @@
-import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
@@ -40,7 +39,7 @@ const BlockCeloEpochTag = ({ blockQuery }: Props) => {
   }
 
   return (
-    <HStack gap={ 2 }>
+    <div gap={ 2 }>
       <Tooltip
         key="epoch-tag"
         content="Displays the epoch finalized by this block"
@@ -50,7 +49,7 @@ const BlockCeloEpochTag = ({ blockQuery }: Props) => {
         </Link>
       </Tooltip>
       <BlockCeloEpochTagRegular blockQuery={ blockQuery }/>
-    </HStack>
+    </div>
   );
 };
 

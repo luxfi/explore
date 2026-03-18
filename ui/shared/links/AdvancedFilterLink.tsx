@@ -1,4 +1,3 @@
-import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { RouteParams } from 'nextjs/routes';
@@ -22,7 +21,7 @@ const AdvancedFilterLink = ({ query, routeParams, adaptive = true, className, ..
       { ...rest }
     >
       <IconSvg name="advanced-filter" boxSize={ 5 }/>
-      <chakra.span hideBelow={ adaptive ? 'lg' : undefined }>Advanced</chakra.span>
+      <span className={adaptive ?"hidden lg:inline" :""}>Advanced</span>
     </Link>
   );
 };

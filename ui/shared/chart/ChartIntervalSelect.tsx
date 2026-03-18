@@ -1,8 +1,8 @@
-import { createListCollection } from '@chakra-ui/react';
 import React from 'react';
 
 import type { StatsInterval, StatsIntervalIds } from 'types/client/stats';
 
+import { createListCollection } from 'toolkit/chakra/select';
 import { Select } from 'toolkit/chakra/select';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import type { TagProps } from 'toolkit/chakra/tag';

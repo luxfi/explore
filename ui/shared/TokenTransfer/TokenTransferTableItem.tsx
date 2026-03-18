@@ -1,4 +1,3 @@
-import { Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenTransfer } from 'types/api/tokenTransfer';
@@ -48,9 +47,9 @@ const TokenTransferTableItem = ({
         <TableCell>
           {
             txHash ? (
-              <Box my="3px" textAlign="center">
+              <div className="my-[3px] text-center">
                 <TxAdditionalInfo hash={ txHash } isLoading={ isLoading }/>
-              </Box>
+              </div>
             ) : (
               <div/>
             )
@@ -72,10 +71,10 @@ const TokenTransferTableItem = ({
               noCopy
               mt={ 1 }
             />
-            <Flex columnGap={ 2 } rowGap={ 2 } mt={ 2 } flexWrap="wrap">
+            <div className="flex gap-x-2 gap-y-2 mt-2 flex-wrap">
               <Badge loading={ isLoading }>{ getTokenTypeName(token.type, chainData?.app_config) }</Badge>
               <Badge colorPalette="orange" loading={ isLoading }>{ getTokenTransferTypeText(type) }</Badge>
-            </Flex>
+            </div>
           </>
         ) : 'N/A' }
       </TableCell>
