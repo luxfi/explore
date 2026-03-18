@@ -6,7 +6,7 @@ import ArrowIcon from 'icons/link_external.svg';
 import { cn } from 'lib/utils/cn';
 import stripUtmParams from 'lib/utils/stripUtmParams';
 
-import { Skeleton } from './skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 type LinkVariant = 'primary' | 'secondary' | 'subtle' | 'underlaid' | 'menu' | 'navigation' | 'plain';
 
