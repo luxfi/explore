@@ -187,7 +187,7 @@ const TRIGGER_SIZE_CLASSES: Record<TabsSize, string> = {
 
 const TRIGGER_VARIANT_CLASSES: Record<TabsVariant, string> = {
   solid:
-    'font-semibold gap-1 rounded-base bg-transparent' +
+    'font-semibold gap-1 rounded-md bg-transparent' +
     ' text-tabs-solid-fg' +
     ' data-[state=active]:bg-selected-control-bg data-[state=active]:text-selected-control-text' +
     ' data-[state=active]:hover:text-selected-control-text' +
@@ -195,7 +195,7 @@ const TRIGGER_VARIANT_CLASSES: Record<TabsVariant, string> = {
   secondary:
     'font-medium bg-transparent' +
     ' text-tabs-secondary-fg' +
-    ' border-2 border-solid border-tabs-secondary-border rounded-base' +
+    ' border-2 border-solid border-tabs-secondary-border rounded-md' +
     ' data-[state=active]:bg-selected-control-bg data-[state=active]:text-selected-control-text' +
     ' data-[state=active]:border-transparent data-[state=active]:hover:border-transparent' +
     ' hover:text-hover hover:border-hover',

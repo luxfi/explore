@@ -14,7 +14,7 @@ type TagSize = 'sm' | 'md' | 'lg';
 const tagVariants = cva(
   [
     'inline-flex items-center align-top max-w-full select-text rounded-sm',
-    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500',
   ].join(' '),
   {
     variants: {

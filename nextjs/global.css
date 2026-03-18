@@ -1,4 +1,5 @@
 @import "tailwindcss" layer(tailwind);
+@import "tailwindcss-animate" layer(tailwind);
 @import "../styles/tokens.css";
 
 /*

@@ -104,8 +104,8 @@ const SwitchBase = React.forwardRef<HTMLInputElement, SwitchProps>(
           className={ cn(
             'relative inline-flex shrink-0 items-center rounded-full',
             'bg-gray-300 dark:bg-gray-600',
-            'data-[state=checked]:bg-blue-500',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+            'data-[state=checked]:bg-gray-800 dark:bg-white',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500',
             'transition-colors duration-200',
             sizeClasses.root,
           ) }

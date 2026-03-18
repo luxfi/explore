@@ -54,7 +54,7 @@ const VARIANT_CLASSES: Record<LinkVariant, string> = {
   ),
   underlaid: cn(
     'text-[var(--color-link-primary)] bg-[var(--color-link-underlaid-bg)]',
-    'px-2 py-1.5 rounded-base text-sm',
+    'px-2 py-1.5 rounded-md text-sm',
     'hover:text-[var(--color-link-primary-hover)] hover:no-underline',
     'data-[hover]:text-[var(--color-link-primary-hover)] data-[hover]:no-underline',
   ),

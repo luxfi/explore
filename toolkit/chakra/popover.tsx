@@ -200,7 +200,7 @@ export const PopoverContent = React.forwardRef<
       onInteractOutside={ positioning.closeOnInteractOutside ? undefined : preventInteract }
       className={ cn(
         'z-50 rounded-lg border border-[var(--color-popover-border,var(--color-border-divider))]',
-        'bg-[var(--color-popover-bg,var(--colors-dialog-bg))]',
+        'bg-[var(--color-popover-bg,var(--color-dialog-bg))]',
         'shadow-[var(--shadow-popover,var(--shadow-lg))]',
         'outline-none',
         'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
@@ -237,7 +237,7 @@ export const PopoverArrow = React.forwardRef<
   return (
     <RadixPopover.Arrow
       ref={ ref }
-      className={ cn('fill-[var(--color-popover-bg,var(--colors-dialog-bg))]', className) }
+      className={ cn('fill-[var(--color-popover-bg,var(--color-dialog-bg))]', className) }
       { ...rest }
     />
   );
@@ -315,8 +315,14 @@ export const PopoverBody = React.forwardRef<
     ...(_display ? { display: _display } : {}),
     ...(_flexDir ? { flexDirection: _flexDir as React.CSSProperties['flexDirection'] } : {}),
     ...(_rowGap !== undefined ? { rowGap: typeof _rowGap === 'number' ? `${ _rowGap * 4 }px` : _rowGap } : {}),
-    ...(_px !== undefined ? { paddingLeft: typeof _px === 'number' ? `${ _px * 4 }px` : _px, paddingRight: typeof _px === 'number' ? `${ _px * 4 }px` : _px } : {}),
-    ...(_py !== undefined ? { paddingTop: typeof _py === 'number' ? `${ _py * 4 }px` : _py, paddingBottom: typeof _py === 'number' ? `${ _py * 4 }px` : _py } : {}),
+    ...(_px !== undefined ? {
+      paddingLeft: typeof _px === 'number' ? `${ _px * 4 }px` : _px,
+      paddingRight: typeof _px === 'number' ? `${ _px * 4 }px` : _px,
+    } : {}),
+    ...(_py !== undefined ? {
+      paddingTop: typeof _py === 'number' ? `${ _py * 4 }px` : _py,
+      paddingBottom: typeof _py === 'number' ? `${ _py * 4 }px` : _py,
+    } : {}),
     ...(_alignItems ? { alignItems: _alignItems } : {}),
   };
   return (

@@ -139,15 +139,15 @@ const RadioBase = React.forwardRef<HTMLInputElement, RadioProps>(
           className={ cn(
             'inline-flex items-center justify-center shrink-0 rounded-full',
             'border-2 border-current/30',
-            'data-[state=checked]:border-blue-500',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+            'data-[state=checked]:border-gray-800 dark:border-white',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500',
             'transition-colors duration-150',
             sizeClasses.control,
           ) }
         >
           <RadixRadioGroup.Indicator
             className={ cn(
-              'block rounded-full bg-blue-500',
+              'block rounded-full bg-gray-800 dark:bg-white',
               sizeClasses.indicator,
             ) }
           />

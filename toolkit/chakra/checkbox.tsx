@@ -262,9 +262,11 @@ const CheckboxBase = React.forwardRef<HTMLInputElement, CheckboxProps>(
           className={ cn(
             'inline-flex items-center justify-center shrink-0',
             'border-2 border-current/30',
-            'data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500 data-[state=checked]:text-white',
-            'data-[state=indeterminate]:bg-blue-500 data-[state=indeterminate]:border-blue-500 data-[state=indeterminate]:text-white',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+            'data-[state=checked]:bg-gray-800 data-[state=checked]:text-white',
+            'dark:data-[state=checked]:bg-white dark:data-[state=checked]:text-black',
+            'data-[state=indeterminate]:bg-gray-800 data-[state=indeterminate]:text-white',
+            'dark:data-[state=indeterminate]:bg-white dark:data-[state=indeterminate]:text-black',
+            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500',
             'transition-colors duration-150',
             sizeClasses.control,
           ) }
