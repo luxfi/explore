@@ -9,6 +9,7 @@ import { StatsIntervalId } from 'types/client/stats';
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
+import replaceNativeCoinName from 'lib/stats/replaceNativeCoinName';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as metadata from 'lib/metadata';
 import * as mixpanel from 'lib/mixpanel/index';
@@ -147,8 +148,8 @@ const Chart = () => {
     mixpanel.logEvent(mixpanel.EventTypes.PAGE_WIDGET, { Type: 'Share chart', Info: id });
     try {
       await window.navigator.share({
-        title: info?.title,
-        text: info?.description,
+        title: info?.title ? replaceNativeCoinName(info.title) : undefined,
+        text: info?.description ? replaceNativeCoinName(info.description) : undefined,
         url: window.location.href,
       });
     } catch (error) {}
@@ -189,10 +190,10 @@ const Chart = () => {
   return (
     <>
       <PageTitle
-        title={ info?.title || lineQuery.data?.info?.title || '' }
+        title={ replaceNativeCoinName(info?.title || lineQuery.data?.info?.title || '') }
         className="mb-3"
         isLoading={ isInfoLoading }
-        secondRow={ info?.description || lineQuery.data?.info?.description }
+        secondRow={ replaceNativeCoinName(info?.description || lineQuery.data?.info?.description || '') || undefined }
         withTextAd
       />
       <div className="flex items-center justify-between">
@@ -255,8 +256,8 @@ const Chart = () => {
           { (hasItems || lineQuery.isPlaceholderData) && (
             <ChartMenu
               charts={ charts }
-              title={ info?.title || '' }
-              description={ info?.description || '' }
+              title={ replaceNativeCoinName(info?.title || '') }
+              description={ replaceNativeCoinName(info?.description || '') }
               isLoading={ lineQuery.isPlaceholderData }
               chartRef={ ref }
               resolution={ resolution }

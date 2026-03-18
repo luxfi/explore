@@ -6,6 +6,7 @@ import type { StatsIntervalIds } from 'types/client/stats';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
+import replaceNativeCoinName from 'lib/stats/replaceNativeCoinName';
 import { EmptyState } from '@luxfi/ui/empty-state';
 import { Heading } from '@luxfi/ui/heading';
 import { Skeleton } from '@luxfi/ui/skeleton';
@@ -97,8 +98,8 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                   <ChartWidgetContainer
                     key={ chart.id }
                     id={ chart.id }
-                    title={ chart.title }
-                    description={ chart.description }
+                    title={ replaceNativeCoinName(chart.title) }
+                    description={ replaceNativeCoinName(chart.description) }
                     interval={ interval }
                     isPlaceholderData={ isPlaceholderData }
                     onLoadingError={ handleChartLoadingError }

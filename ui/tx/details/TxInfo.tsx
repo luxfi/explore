@@ -750,7 +750,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 unitsTooltip="wei"
                 noSymbol
                 loading={ isLoading }
-                startElement="Base: "
+                startElement={ <span>Base:&nbsp;</span> }
                 endElement={ (data.max_fee_per_gas || data.max_priority_fee_per_gas) && <TextSeparator/> }
               />
             ) }
@@ -761,7 +761,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 unitsTooltip="wei"
                 noSymbol
                 loading={ isLoading }
-                startElement="Max: "
+                startElement={ <span>Max:&nbsp;</span> }
                 endElement={ data.max_priority_fee_per_gas && <TextSeparator/> }
               />
             ) }
@@ -772,7 +772,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                 unitsTooltip="wei"
                 noSymbol
                 loading={ isLoading }
-                startElement="Max priority: "
+                startElement={ <span>Max priority:&nbsp;</span> }
               />
             ) }
           </DetailedInfo.ItemValue>
@@ -916,7 +916,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
                       unitsTooltip="wei"
                       noSymbol
                       loading={ isLoading }
-                      startElement="Max: "
+                      startElement={ <span>Max:&nbsp;</span> }
                     />
                   ) }
                 </DetailedInfo.ItemValue>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
+import replaceNativeCoinName from 'lib/stats/replaceNativeCoinName';
 import { STATS_COUNTER } from 'stubs/stats';
 import StatsWidget from 'ui/shared/stats/StatsWidget';
 
@@ -38,9 +39,9 @@ const NumberWidgetsList = () => {
           return (
             <StatsWidget
               key={ id + (isPlaceholderData ? index : '') }
-              label={ title }
+              label={ replaceNativeCoinName(title) }
               value={ Number(value).toLocaleString(undefined, { maximumFractionDigits, notation: 'compact' }) }
-              valuePostfix={ unitsStr }
+              valuePostfix={ replaceNativeCoinName(unitsStr) }
               isLoading={ isPlaceholderData }
               hint={ description }
             />

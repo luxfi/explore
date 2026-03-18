@@ -100,7 +100,7 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
           <DetailedInfo.ItemValue>
             { data.scroll?.l1_base_fee !== undefined && (
               <Skeleton loading={ isLoading }>
-                <span>Base: </span>
+                <span>Base:&nbsp;</span>
                 <NativeCoinValue
                   amount={ String(data.scroll?.l1_base_fee || 0) }
                   units="gwei"
@@ -135,7 +135,7 @@ export const TxInfoScrollFees = ({ data, isLoading }: Props) => {
           <DetailedInfo.ItemValue>
             { data.scroll?.l1_blob_base_fee !== undefined && (
               <Skeleton loading={ isLoading }>
-                <span>Base: </span>
+                <span>Base:&nbsp;</span>
                 <NativeCoinValue
                   amount={ String(data.scroll?.l1_blob_base_fee || 0) }
                   units="gwei"

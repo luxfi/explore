@@ -114,7 +114,7 @@ const TxsListItem = ({
       />
       { !config.UI.views.tx.hiddenFields?.value && (
         <div className="flex">
-          <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Value</Skeleton>
+          <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Value </Skeleton>
           <NativeCoinValue
             amount={ tx.value }
             exchangeRate={ tx.exchange_rate }
@@ -127,7 +127,7 @@ const TxsListItem = ({
         <div className="flex">
           { (tx.stability_fee !== undefined || tx.fee.value !== null) && (
             <>
-              <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Fee</Skeleton>
+              <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Fee </Skeleton>
               <TxFee tx={ tx } loading={ isLoading }/>
             </>
           ) }

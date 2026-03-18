@@ -65,7 +65,7 @@ const StakeBreakdown = ({ stats, isLoading }: StakeBreakdownProps) => {
         </div>
       </Skeleton>
       <Skeleton loading={ isLoading }>
-        <div className="flex">
+        <div className="flex gap-6 flex-wrap">
           <div>Validators: { formatStake(validatorStake) } LUX ({ validatorPct }%)</div>
           <div>Delegated: { formatStake(stats.totalDelegatedStake) } LUX ({ delegationPct }%)</div>
         </div>
@@ -104,20 +104,20 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
       </div>
 
       { /* Header */ }
-      <div className="flex">
-        <div className="font-semibold">
+      <div className="flex gap-4 py-2 border-b border-[var(--color-border-divider)]">
+        <div className="font-semibold flex-[3] min-w-0">
           Node ID
         </div>
-        <div className="font-semibold">
+        <div className="font-semibold flex-[2] text-right">
           Stake
         </div>
-        <div className="font-semibold">
+        <div className="font-semibold flex-1 text-right">
           Delegation Fee
         </div>
-        <div className="font-semibold">
+        <div className="font-semibold flex-1 text-center">
           Connected
         </div>
-        <div className="font-semibold">
+        <div className="font-semibold flex-1 text-right">
           Uptime
         </div>
       </div>
@@ -132,23 +132,23 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
       ) }
 
       { !isLoading && sorted.map((v) => (
-        <div className="flex" key={ v.nodeID }>
+        <div className="flex gap-4 py-2 border-b border-[var(--color-border-divider)]" key={ v.nodeID }>
           <div
             title={ v.nodeID }
-            className="overflow-hidden"
+            className="flex-[3] min-w-0 overflow-hidden text-ellipsis"
           >
             { truncateNodeId(v.nodeID) }
           </div>
-          <div className="text-left lg:text-right">
+          <div className="flex-[2] text-right">
             { formatStake(v.stakeAmount ?? v.weight) } LUX
           </div>
-          <div className="text-left lg:text-right">
+          <div className="flex-1 text-right">
             { v.delegationFee }%
           </div>
-          <div className="flex justify-start lg:justify-center">
+          <div className="flex-1 flex justify-center">
             <div/>
           </div>
-          <div className="text-left lg:text-right">
+          <div className="flex-1 text-right">
             { formatUptime(v.uptime) }
           </div>
         </div>
@@ -172,7 +172,7 @@ const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboa
     <div className="flex flex-col gap-6">
       { /* Stat cards */ }
       <div
-        className="grid"
+        className="grid gap-4"
         style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
       >
         <StatCard
