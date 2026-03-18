@@ -58,8 +58,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0
       '@luxfi/ui':
-        specifier: 1.0.1
-        version: 1.0.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(next-themes@0.4.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(next@16.1.6(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 1.0.2
+        version: 1.0.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(next-themes@0.4.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(next@16.1.6(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@luxfi/visualizer-types':
         specifier: 0.2.0
         version: 0.2.0
@@ -2895,8 +2895,8 @@ packages:
   '@luxfi/tac-operation-lifecycle-types@1.1.0':
     resolution: {integrity: sha512-XdF6Cb+ZSm55lQZxKz1PREFgw9pkkoCmKt4/85pLSt+C6S+eXmC1+icPqwJKRXVifU0ik71NDDwa9erv7CUNvQ==}
 
-  '@luxfi/ui@1.0.1':
-    resolution: {integrity: sha512-G5uBxQvm8ak2SDMd9XaLgEh/Xexw/OeycuNQhoHBfqSAzoprWtx3G7bZ8qOcZEyP3Ap9A2Ru4wws20IzYZgulA==}
+  '@luxfi/ui@1.0.2':
+    resolution: {integrity: sha512-LJLo+FT1VJo7GGgZLELYBhEY9w3FqHEspbUtU+oYSrlBG6YlG9aS3Vy0OnKxfCHZEoVsD7L8SbK8LIMBZI5S1A==}
     peerDependencies:
       next: ^14.0.0 || ^15.0.0 || ^16.0.0
       next-themes: ^0.2.1 || ^0.3.0 || ^0.4.0
@@ -17087,7 +17087,7 @@ snapshots:
 
   '@luxfi/tac-operation-lifecycle-types@1.1.0': {}
 
-  '@luxfi/ui@1.0.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(next-themes@0.4.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(next@16.1.6(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@luxfi/ui@1.0.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(next-themes@0.4.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(next@16.1.6(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-avatar': 1.1.11(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
