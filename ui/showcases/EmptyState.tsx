@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EmptyState } from 'toolkit/chakra/empty-state';
+import { EmptyState } from '@luxfi/ui/empty-state';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

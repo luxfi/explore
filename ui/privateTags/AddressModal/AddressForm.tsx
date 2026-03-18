@@ -8,7 +8,7 @@ import type { AddressTag, AddressTagErrors } from 'types/api/account';
 import type { ResourceErrorAccount } from 'lib/api/resources';
 import useApiFetch from 'lib/api/useApiFetch';
 import getErrorMessage from 'lib/getErrorMessage';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 import { FormFieldText } from 'toolkit/components/forms/fields/FormFieldText';
 

@@ -4,10 +4,10 @@ import React from 'react';
 
 import type { AdvancedFilterParams } from 'types/api/advancedFilter';
 
-import { Field } from 'toolkit/chakra/field';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
-import { createListCollection, Select } from 'toolkit/chakra/select';
+import { Field } from '@luxfi/ui/field';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import AddButton from 'toolkit/components/buttons/AddButton';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import { ADDRESS_REGEXP } from 'toolkit/utils/regexp';

@@ -3,8 +3,8 @@ import React from 'react';
 
 import hexToAddress from 'lib/hexToAddress';
 import hexToUtf8 from 'lib/hexToUtf8';
-import { createListCollection, SelectContent, SelectControl, SelectItem, SelectRoot, SelectValueText } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { createListCollection, SelectContent, SelectControl, SelectItem, SelectRoot, SelectValueText } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';

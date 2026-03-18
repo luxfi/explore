@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as blobUtils from 'lib/blob';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 interface Props {

@@ -8,7 +8,7 @@ import multichainConfig from 'configs/multichain';
 import { MultichainProvider } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { EmptyState } from 'toolkit/chakra/empty-state';
+import { EmptyState } from '@luxfi/ui/empty-state';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import ChainSelect from 'ui/multichain/components/ChainSelect';
 import PopoverFilter from 'ui/shared/filters/PopoverFilter';

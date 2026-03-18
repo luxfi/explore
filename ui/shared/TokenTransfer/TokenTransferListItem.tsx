@@ -4,8 +4,8 @@ import type { TokenTransfer } from 'types/api/tokenTransfer';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import { getTokenTypeName, isConfidentialTokenType } from 'lib/token/tokenTypes';
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import NftEntity from 'ui/shared/entities/nft/NftEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';

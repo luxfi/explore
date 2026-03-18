@@ -23,7 +23,7 @@ import useChainFavicon from 'lib/hooks/useChainFavicon';
 import { clientConfig as rollbarConfig, Provider as RollbarProvider } from 'lib/rollbar';
 import { SocketProvider } from 'lib/socket/context';
 import { Provider as ChakraProvider } from 'toolkit/chakra/provider';
-import { Toaster } from 'toolkit/chakra/toaster';
+import { Toaster } from '@luxfi/ui/toaster';
 import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer';
 import GoogleAnalytics from 'ui/shared/GoogleAnalytics';

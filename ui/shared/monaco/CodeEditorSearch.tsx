@@ -4,9 +4,9 @@ import React from 'react';
 import type { File, Monaco, SearchResult } from './types';
 
 import useDebounce from 'lib/hooks/useDebounce';
-import { AccordionRoot } from 'toolkit/chakra/accordion';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { AccordionRoot } from '@luxfi/ui/accordion';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 
 import CodeEditorSearchSection from './CodeEditorSearchSection';
 import CoderEditorCollapseButton from './CoderEditorCollapseButton';

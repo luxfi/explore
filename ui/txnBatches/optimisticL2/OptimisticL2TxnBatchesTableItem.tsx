@@ -6,8 +6,8 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import OptimisticL2TxnBatchDA from 'ui/shared/batch/OptimisticL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';

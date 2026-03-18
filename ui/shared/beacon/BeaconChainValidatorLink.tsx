@@ -3,7 +3,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedTextTooltip } from 'toolkit/components/truncation/TruncatedTextTooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 

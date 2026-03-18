@@ -6,7 +6,7 @@ import { route } from 'nextjs-routes';
 import { getCurrentChain, isChainSelectorEnabled, isNetworkSelectorEnabled } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
-import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { CollapsibleDetailsProps } from 'toolkit/chakra/collapsible';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
+import type { CollapsibleDetailsProps } from '@luxfi/ui/collapsible';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 

@@ -2,10 +2,10 @@ import React from 'react';
 
 import type { ExternalChain } from 'types/externalChains';
 
-import type { ImageProps } from 'toolkit/chakra/image';
-import { Image } from 'toolkit/chakra/image';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { ImageProps } from '@luxfi/ui/image';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import getChainTooltipText from './getChainTooltipText';

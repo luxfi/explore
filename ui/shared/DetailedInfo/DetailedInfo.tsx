@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import * as ContainerWithScrollY from 'ui/shared/ContainerWithScrollY';
 

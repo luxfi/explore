@@ -7,7 +7,7 @@ import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
 import shortenString from 'lib/shortenString';
 import { Link } from 'toolkit/chakra/link';
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import { SECOND } from 'toolkit/utils/consts';
 import IconSvg from 'ui/shared/IconSvg';
 import useZetaChainConfig from 'ui/zetaChain/useZetaChainConfig';

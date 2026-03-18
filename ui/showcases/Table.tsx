@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TableColumnHeader, TableHeaderSticky, TableRoot, TableRow, TableCell, TableBody, TableColumnHeaderSortable } from 'toolkit/chakra/table';
+import { TableColumnHeader, TableHeaderSticky, TableRoot, TableRow, TableCell, TableBody, TableColumnHeaderSortable } from '@luxfi/ui/table';
 import getNextSortValue from 'ui/shared/sort/getNextSortValue';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';

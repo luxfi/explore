@@ -6,10 +6,10 @@ import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { cn } from 'lib/utils/cn';
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
-import type { ButtonProps } from 'toolkit/chakra/button';
-import { Button } from 'toolkit/chakra/button';
-import { PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props extends ButtonProps { rating?: number; count?: number; fullView?: boolean; canRate: boolean }

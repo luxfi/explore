@@ -4,8 +4,8 @@ import React from 'react';
 import type { UserInfo } from 'types/api/account';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
-import { Heading } from 'toolkit/chakra/heading';
+import { Button } from '@luxfi/ui/button';
+import { Heading } from '@luxfi/ui/heading';
 import { Link } from 'toolkit/chakra/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 

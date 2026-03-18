@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 
-import { CollapsibleDetails, CollapsibleList } from 'toolkit/chakra/collapsible';
+import { CollapsibleDetails, CollapsibleList } from '@luxfi/ui/collapsible';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample, SectionSubHeader } from './parts';
 import { TEXT } from './utils';

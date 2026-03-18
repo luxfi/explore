@@ -15,7 +15,7 @@ import useIsMounted from 'lib/hooks/useIsMounted';
 import { isConfidentialTokenType } from 'lib/token/tokenTypes';
 import { TOKEN_COUNTERS } from 'stubs/token';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { TokenTabs } from 'ui/pages/Token';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';
 import useAppActionData from 'ui/shared/AppActionButton/useAppActionData';

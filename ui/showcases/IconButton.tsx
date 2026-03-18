@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { PopoverBody, PopoverContent, PopoverTrigger, PopoverRoot } from 'toolkit/chakra/popover';
+import { Checkbox } from '@luxfi/ui/checkbox';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { PopoverBody, PopoverContent, PopoverTrigger, PopoverRoot } from '@luxfi/ui/popover';
 import IconSvg from 'ui/shared/IconSvg';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';

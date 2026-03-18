@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AccordionItemContent, AccordionItemTrigger, AccordionItem, AccordionRoot } from 'toolkit/chakra/accordion';
+import { AccordionItemContent, AccordionItemTrigger, AccordionItem, AccordionRoot } from '@luxfi/ui/accordion';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

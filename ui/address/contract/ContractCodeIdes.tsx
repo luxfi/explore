@@ -1,11 +1,11 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
-import { Image } from 'toolkit/chakra/image';
+import { Button } from '@luxfi/ui/button';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from 'toolkit/chakra/popover';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from '@luxfi/ui/popover';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 

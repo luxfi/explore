@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type RelatedCctx, CctxStatusReduced } from '@luxfi/zetachain-cctx-types';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import TxEntityZetaChainCC from 'ui/shared/entities/tx/TxEntityZetaChainCC';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import IconSvg from 'ui/shared/IconSvg';

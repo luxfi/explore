@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import RewardsDashboardCard from './RewardsDashboardCard';
 

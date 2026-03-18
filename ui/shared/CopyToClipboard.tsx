@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import type { IconButtonProps } from 'toolkit/chakra/icon-button';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { IconButtonProps } from '@luxfi/ui/icon-button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useClipboard } from 'toolkit/hooks/useClipboard';
 import IconSvg from 'ui/shared/IconSvg';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type AdvancedFilterParams } from 'types/api/advancedFilter';
 
-import { Radio, RadioGroup } from 'toolkit/chakra/radio';
+import { Radio, RadioGroup } from '@luxfi/ui/radio';
 
 const FILTER_PARAM = 'address_relation';
 

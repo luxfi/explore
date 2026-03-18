@@ -14,10 +14,10 @@ import * as metadata from 'lib/metadata';
 import * as mixpanel from 'lib/mixpanel/index';
 import useRoutedChainSelect from 'lib/multichain/useRoutedChainSelect';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Button } from 'toolkit/chakra/button';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import type { SelectOption } from '@luxfi/ui/select';
+import { Select } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { ChartWidgetContent, useChartZoom } from 'toolkit/components/charts';
 import ChartMenu from 'toolkit/components/charts/parts/ChartMenu';
 import { isBrowser } from 'toolkit/utils/isBrowser';
@@ -30,7 +30,7 @@ import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import IconSvg from 'ui/shared/IconSvg';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import { STATS_RESOLUTIONS } from 'ui/stats/constants';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const DEFAULT_RESOLUTION = Resolution.DAY;
 

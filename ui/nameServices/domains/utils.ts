@@ -1,6 +1,6 @@
 import type { EnsLookupSorting } from 'types/api/ens';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 import getNextSortValueShared from 'ui/shared/sort/getNextSortValue';
 
 export type SortField = EnsLookupSorting['sort'];

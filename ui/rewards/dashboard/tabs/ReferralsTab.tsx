@@ -1,5 +1,5 @@
 import { useRewardsContext } from 'lib/contexts/rewards';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import RewardsReadOnlyInputWithCopy from '../../RewardsReadOnlyInputWithCopy';
 import RewardsDashboardCard from '../RewardsDashboardCard';

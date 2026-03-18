@@ -4,7 +4,7 @@ import { CoinType } from '@luxfi/zetachain-cctx-types';
 
 import config from 'configs/app';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
 
 type Props = {

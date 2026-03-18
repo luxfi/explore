@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ClustersLeaderboardObject } from 'types/api/clusters';
 
-import { TableBody, TableHeaderSticky, TableRow, TableColumnHeader, TableRoot } from 'toolkit/chakra/table';
+import { TableBody, TableHeaderSticky, TableRow, TableColumnHeader, TableRoot } from '@luxfi/ui/table';
 
 import ClustersLeaderboardTableItem from './ClustersLeaderboardTableItem';
 

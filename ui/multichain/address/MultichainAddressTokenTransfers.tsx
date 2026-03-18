@@ -10,7 +10,7 @@ import { MultichainProvider } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { SocketProvider } from 'lib/socket/context';
-import { EmptyState } from 'toolkit/chakra/empty-state';
+import { EmptyState } from '@luxfi/ui/empty-state';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import AddressAdvancedFilterLink from 'ui/address/AddressAdvancedFilterLink';
 import AddressCsvExportLink from 'ui/address/AddressCsvExportLink';

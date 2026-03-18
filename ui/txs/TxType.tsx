@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { TransactionType } from 'types/api/transaction';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
-import { Badge } from 'toolkit/chakra/badge';
+import type { BadgeProps } from '@luxfi/ui/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 export interface Props extends BadgeProps {
   types: Array<TransactionType>;

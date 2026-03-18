@@ -9,7 +9,7 @@ import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import useInitialList from 'lib/hooks/useInitialList';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import BlocksTableItem from 'ui/blocks/BlocksTableItem';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';

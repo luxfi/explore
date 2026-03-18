@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IconButtonProps } from 'toolkit/chakra/icon-button';
+import type { IconButtonProps } from '@luxfi/ui/icon-button';
 import AddButton from 'toolkit/components/buttons/AddButton';
 import RemoveButton from 'toolkit/components/buttons/RemoveButton';
 

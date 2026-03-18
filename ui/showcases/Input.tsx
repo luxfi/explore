@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Field } from 'toolkit/chakra/field';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { Field } from '@luxfi/ui/field';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import IconSvg from 'ui/shared/IconSvg';
 

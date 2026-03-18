@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Fields } from '../types';
 
-import type { FieldProps } from 'toolkit/chakra/field';
+import type { FieldProps } from '@luxfi/ui/field';
 import { FormFieldUrl } from 'toolkit/components/forms/fields/FormFieldUrl';
 import { FormFieldImagePreview } from 'toolkit/components/forms/fields/image/FormFieldImagePreview';
 import { useImageField } from 'toolkit/components/forms/fields/image/useImageField';

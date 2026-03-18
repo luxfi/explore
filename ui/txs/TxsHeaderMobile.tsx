@@ -3,7 +3,7 @@ import React from 'react';
 import type { TransactionsSortingValue } from 'types/api/transaction';
 import type { PaginationParams } from 'ui/shared/pagination/types';
 
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 // import { FilterInput } from 'toolkit/components/filters/FilterInput';
 
 import ActionBar from 'ui/shared/ActionBar';

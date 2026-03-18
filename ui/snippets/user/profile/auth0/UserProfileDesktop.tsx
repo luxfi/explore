@@ -1,4 +1,4 @@
-import type { ButtonProps } from 'toolkit/chakra/button';
+import type { ButtonProps } from '@luxfi/ui/button';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -7,7 +7,7 @@ import type { Screen } from 'ui/snippets/auth/types';
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel';
 import useAccount from 'lib/web3/useAccount';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AuthModal from 'ui/snippets/auth/AuthModal';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';

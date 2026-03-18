@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 import IconSvg from 'ui/shared/IconSvg';
 import StatusTag from 'ui/shared/statusTag/StatusTag';
 

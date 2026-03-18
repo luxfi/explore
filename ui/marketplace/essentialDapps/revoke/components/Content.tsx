@@ -1,4 +1,4 @@
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import React, { useState, useCallback, useMemo } from 'react';
 
 import type { EssentialDappsChainConfig } from 'types/client/marketplace';
@@ -7,12 +7,12 @@ import type { AllowanceType } from 'types/client/revoke';
 import { route } from 'nextjs/routes';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Badge } from 'toolkit/chakra/badge';
-import { Heading } from 'toolkit/chakra/heading';
-import { Image } from 'toolkit/chakra/image';
+import { Badge } from '@luxfi/ui/badge';
+import { Heading } from '@luxfi/ui/heading';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import TokenLogoPlaceholder from 'ui/shared/TokenLogoPlaceholder';
 
 import type useApprovalsQuery from '../hooks/useApprovalsQuery';

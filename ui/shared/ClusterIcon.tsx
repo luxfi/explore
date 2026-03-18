@@ -2,8 +2,8 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
-import type { ImageProps } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
+import type { ImageProps } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface ClusterIconProps extends Omit<ImageProps, 'src' | 'alt'> {

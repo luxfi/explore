@@ -2,8 +2,8 @@ import React from 'react';
 
 import config from 'configs/app';
 import { currencyUnits } from 'lib/units';
-import { AccordionRoot } from 'toolkit/chakra/accordion';
-import { Heading } from 'toolkit/chakra/heading';
+import { AccordionRoot } from '@luxfi/ui/accordion';
+import { Heading } from '@luxfi/ui/heading';
 
 import GasTrackerFaqItem from './GasTrackerFaqItem';
 

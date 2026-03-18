@@ -1,4 +1,4 @@
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import type { PaginationParams } from 'ui/shared/pagination/types';

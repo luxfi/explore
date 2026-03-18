@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import type { ColumnsIds } from 'ui/advancedFilter/constants';
 import { TABLE_COLUMNS } from 'ui/advancedFilter/constants';
 import IconSvg from 'ui/shared/IconSvg';

@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { StepStatus } from './types';
 
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from 'toolkit/chakra/accordion';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from '@luxfi/ui/accordion';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 export const Root = (props: React.ComponentPropsWithoutRef<typeof AccordionRoot>) => {

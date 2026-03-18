@@ -4,7 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { layerLabels } from 'lib/rollups/utils';
 import { L2_DEPOSIT_ITEM } from 'stubs/L2';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import OptimisticDepositsListItem from 'ui/deposits/optimisticL2/OptimisticDepositsListItem';
 import OptimisticDepositsTable from 'ui/deposits/optimisticL2/OptimisticDepositsTable';

@@ -3,7 +3,7 @@ import React from 'react';
 import type { Resolution, TimeChartData } from './types';
 
 import RepeatIcon from 'icons/repeat.svg';
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 
 import { Button } from '../../chakra/button';
 import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '../../chakra/dialog';

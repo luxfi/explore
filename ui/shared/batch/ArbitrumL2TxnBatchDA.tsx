@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ArbitrumL2TxnBatchesItem } from 'types/api/arbitrumL2';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 export interface Props {
   dataContainer: ArbitrumL2TxnBatchesItem['batch_data_container'];

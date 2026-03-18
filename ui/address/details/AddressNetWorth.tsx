@@ -4,7 +4,7 @@ import type { Address } from 'types/api/address';
 
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import TextSeparator from 'ui/shared/TextSeparator';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
 import SimpleValue from 'ui/shared/value/SimpleValue';

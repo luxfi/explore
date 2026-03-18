@@ -3,8 +3,8 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Button } from 'toolkit/chakra/button';
-import { DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import { Link } from 'toolkit/chakra/link';
 
 type Props = { isOpen: boolean; onClose: () => void; appId: string };

@@ -6,9 +6,9 @@ import type { FormSubmitHandler, SmartContractMethod } from './types';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
-import { Alert } from 'toolkit/chakra/alert';
-import { Badge } from 'toolkit/chakra/badge';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@luxfi/ui/accordion';
+import { Alert } from '@luxfi/ui/alert';
+import { Badge } from '@luxfi/ui/badge';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props {
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;

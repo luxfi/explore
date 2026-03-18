@@ -1,4 +1,4 @@
-import type { ButtonProps } from 'toolkit/chakra/button';
+import type { ButtonProps } from '@luxfi/ui/button';
 import { DynamicConnectButton, DynamicUserProfile, useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import React from 'react';
 

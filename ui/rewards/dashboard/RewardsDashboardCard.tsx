@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Badge } from 'toolkit/chakra/badge';
-import { Heading } from 'toolkit/chakra/heading';
+import { Badge } from '@luxfi/ui/badge';
+import { Heading } from '@luxfi/ui/heading';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 type Props = {

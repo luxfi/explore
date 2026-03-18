@@ -4,7 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import type { FormFields } from '../types';
 
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { FormFieldError } from 'toolkit/components/forms/components/FormFieldError';
 import { DragAndDropArea } from 'toolkit/components/forms/inputs/file/DragAndDropArea';
 import { FileInput } from 'toolkit/components/forms/inputs/file/FileInput';

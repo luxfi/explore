@@ -3,7 +3,7 @@ import React from 'react';
 import useApiQuery from 'lib/api/useApiQuery';
 import { INTEROP_MESSAGE } from 'stubs/interop';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import InteropMessagesListItem from 'ui/interopMessages/InteropMessagesListItem';
 import InteropMessagesTable from 'ui/interopMessages/InteropMessagesTable';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';

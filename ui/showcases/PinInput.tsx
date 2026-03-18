@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PinInput } from 'toolkit/chakra/pin-input';
+import { PinInput } from '@luxfi/ui/pin-input';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

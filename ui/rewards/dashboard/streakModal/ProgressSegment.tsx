@@ -1,6 +1,6 @@
 import { clamp } from 'es-toolkit';
 
-import { Progress } from 'toolkit/chakra/progress';
+import { Progress } from '@luxfi/ui/progress';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {

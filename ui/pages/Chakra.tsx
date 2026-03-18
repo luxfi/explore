@@ -2,8 +2,8 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { useColorMode } from 'toolkit/chakra/color-mode';
-import { Switch } from 'toolkit/chakra/switch';
-import { TabsList, TabsRoot, TabsTrigger } from 'toolkit/chakra/tabs';
+import { Switch } from '@luxfi/ui/switch';
+import { TabsList, TabsRoot, TabsTrigger } from '@luxfi/ui/tabs';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import AccordionsShowcase from 'ui/showcases/Accordion';
 import AlertShowcase from 'ui/showcases/Alert';

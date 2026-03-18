@@ -4,8 +4,8 @@ import React from 'react';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Button } from 'toolkit/chakra/button';
-import { Heading } from 'toolkit/chakra/heading';
+import { Button } from '@luxfi/ui/button';
+import { Heading } from '@luxfi/ui/heading';
 import { Link } from 'toolkit/chakra/link';
 const easterEggBadgeFeature = config.features.easterEggBadge;
 

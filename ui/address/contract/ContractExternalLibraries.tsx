@@ -3,12 +3,12 @@ import React from 'react';
 import type { SmartContractExternalLibrary } from 'types/api/contract';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
-import { Heading } from 'toolkit/chakra/heading';
-import { PopoverRoot, PopoverBody, PopoverContent, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
+import { Heading } from '@luxfi/ui/heading';
+import { PopoverRoot, PopoverBody, PopoverContent, PopoverTrigger } from '@luxfi/ui/popover';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { apos } from 'toolkit/utils/htmlEntities';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';

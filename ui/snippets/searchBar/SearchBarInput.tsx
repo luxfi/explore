@@ -3,8 +3,8 @@ import type { ChangeEvent, FormEvent, FocusEvent } from 'react';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import IconSvg from 'ui/shared/IconSvg';
 

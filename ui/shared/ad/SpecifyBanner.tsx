@@ -5,7 +5,7 @@ import Specify, { ImageFormat } from '@specify-sh/sdk';
 import type { BannerProps } from './types';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 import {
   DESKTOP_BANNER_HEIGHT,

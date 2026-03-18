@@ -3,7 +3,7 @@ import type { AbiFunction } from 'viem';
 
 import type { AbiFallback, ResultViewMode } from '../types';
 
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 import ResultItem from './resultPublicClient/Item';
 

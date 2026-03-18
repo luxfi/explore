@@ -8,7 +8,7 @@ import {
 } from 'lib/clusters/actionBarUtils';
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import { cn } from 'lib/utils/cn';
-import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
+import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ActionBar from 'ui/shared/ActionBar';
 import Pagination from 'ui/shared/pagination/Pagination';

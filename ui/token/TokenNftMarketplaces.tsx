@@ -3,10 +3,10 @@ import React from 'react';
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import TextSeparator from 'ui/shared/TextSeparator';

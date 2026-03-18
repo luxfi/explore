@@ -3,8 +3,8 @@ import React from 'react';
 import type { InternalTransaction } from 'types/api/internalTransaction';
 import type { ClusterChainConfig } from 'types/multichain';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Badge } from '@luxfi/ui/badge';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';

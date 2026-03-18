@@ -8,7 +8,7 @@ import type { Transaction } from 'types/api/transaction';
 
 import { getResourceKey } from 'lib/api/useApiQuery';
 import getPageType from 'lib/mixpanel/getPageType';
-import { MenuItem } from 'toolkit/chakra/menu';
+import { MenuItem } from '@luxfi/ui/menu';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AddressModal from 'ui/privateTags/AddressModal/AddressModal';
 import TransactionModal from 'ui/privateTags/TransactionModal/TransactionModal';

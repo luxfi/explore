@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ItemProps } from '../types';
 
-import { MenuItem } from 'toolkit/chakra/menu';
+import { MenuItem } from '@luxfi/ui/menu';
 import IconSvg from 'ui/shared/IconSvg';
 import { useMetadataUpdateContext } from 'ui/tokenInstance/contexts/metadataUpdate';
 

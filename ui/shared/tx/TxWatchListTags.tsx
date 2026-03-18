@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 interface Props {
   tx: Transaction;

@@ -5,7 +5,7 @@ import type { WatchlistAddress } from 'types/api/account';
 
 import config from 'configs/app';
 import { currencyUnits } from 'lib/units';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { nbsp } from 'toolkit/utils/htmlEntities';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';

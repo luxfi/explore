@@ -4,7 +4,7 @@ import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import EntityTag from 'ui/shared/EntityTags/EntityTag';

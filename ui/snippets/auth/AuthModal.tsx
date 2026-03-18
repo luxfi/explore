@@ -9,7 +9,7 @@ import { getResourceKey } from 'lib/api/useApiQuery';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useGetCsrfToken from 'lib/hooks/useGetCsrfToken';
 import * as mixpanel from 'lib/mixpanel';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 
 import AuthModalScreenConnectWallet from './screens/AuthModalScreenConnectWallet';
 import AuthModalScreenEmail from './screens/AuthModalScreenEmail';

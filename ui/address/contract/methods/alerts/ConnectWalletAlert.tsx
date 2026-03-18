@@ -3,10 +3,10 @@ import React from 'react';
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 

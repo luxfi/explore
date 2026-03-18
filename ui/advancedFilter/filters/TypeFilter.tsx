@@ -4,7 +4,7 @@ import React from 'react';
 import type { AdvancedFilterParams, AdvancedFilterType } from 'types/api/advancedFilter';
 
 import { useMultichainContext } from 'lib/contexts/multichain';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 
 import { getAdvancedFilterTypes } from '../constants';

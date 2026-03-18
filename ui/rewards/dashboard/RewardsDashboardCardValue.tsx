@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Heading } from 'toolkit/chakra/heading';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 import MeritsIcon from '../MeritsIcon';

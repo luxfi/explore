@@ -4,7 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { layerLabels } from 'lib/rollups/utils';
 import { ARBITRUM_MESSAGES_ITEM } from 'stubs/arbitrumL2';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import ArbitrumL2MessagesListItem from 'ui/messages/ArbitrumL2MessagesListItem';
 import ArbitrumL2MessagesTable from 'ui/messages/ArbitrumL2MessagesTable';

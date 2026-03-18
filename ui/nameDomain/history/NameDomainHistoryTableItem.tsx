@@ -5,8 +5,8 @@ import type * as bens from '@luxfi/bens-types';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { Badge } from 'toolkit/chakra/badge';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Badge } from '@luxfi/ui/badge';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';

@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { Blob } from 'types/api/blobs';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Alert } from '@luxfi/ui/alert';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoSponsoredItem from 'ui/shared/DetailedInfo/DetailedInfoSponsoredItem';

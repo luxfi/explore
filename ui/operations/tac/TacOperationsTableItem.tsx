@@ -2,7 +2,7 @@ import React from 'react';
 
 import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntityTacTon from 'ui/shared/entities/address/AddressEntityTacTon';
 import OperationEntity from 'ui/shared/entities/operation/OperationEntity';
 import TacOperationStatus from 'ui/shared/statusTag/TacOperationStatus';

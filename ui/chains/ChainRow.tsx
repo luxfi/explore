@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface ChainRowProps {
   readonly name: string;

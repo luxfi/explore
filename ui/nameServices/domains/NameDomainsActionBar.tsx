@@ -6,9 +6,9 @@ import type { PaginationParams } from 'ui/shared/pagination/types';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import { cn } from 'lib/utils/cn';
-import { Button } from 'toolkit/chakra/button';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
-import { Image } from 'toolkit/chakra/image';
+import { Button } from '@luxfi/ui/button';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
+import { Image } from '@luxfi/ui/image';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ActionBar from 'ui/shared/ActionBar';
 import PopoverFilter from 'ui/shared/filters/PopoverFilter';
@@ -18,7 +18,7 @@ import Sort from 'ui/shared/sort/Sort';
 
 import type { Sort as TSort } from './utils';
 import { SORT_OPTIONS } from './utils';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({ items: SORT_OPTIONS });
 

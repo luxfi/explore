@@ -6,9 +6,9 @@ import type { ItemProps } from './types';
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { MenuContent, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { MenuContent, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 import MetadataUpdateMenuItem from './items/MetadataUpdateMenuItem';

@@ -3,10 +3,10 @@ import React from 'react';
 import type { FormFields } from '../types';
 import type { SmartContractVerificationMethod, SmartContractVerificationConfig } from 'types/client/contract';
 
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 import { Link } from 'toolkit/chakra/link';
-import { createListCollection } from 'toolkit/chakra/select';
-import type { SelectOption } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
+import type { SelectOption } from '@luxfi/ui/select';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { nbsp } from 'toolkit/utils/htmlEntities';

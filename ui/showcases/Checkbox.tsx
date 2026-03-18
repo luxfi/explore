@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

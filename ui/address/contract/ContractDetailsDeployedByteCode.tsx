@@ -4,9 +4,9 @@ import type { Address } from 'types/api/address';
 
 import config from 'configs/app';
 import hexToUtf8 from 'lib/hexToUtf8';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { createListCollection, Select } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import type { TxAuthorization } from 'types/api/transaction';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 
 import TxAuthorizationsTableItem from './TxAuthorizationsTableItem';
 

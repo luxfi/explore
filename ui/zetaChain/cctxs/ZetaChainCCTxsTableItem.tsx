@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { SECOND } from 'toolkit/utils/consts';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxEntityZetaChainCC from 'ui/shared/entities/tx/TxEntityZetaChainCC';

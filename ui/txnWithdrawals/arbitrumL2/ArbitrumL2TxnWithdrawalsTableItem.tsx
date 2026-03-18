@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { ArbitrumL2TxnWithdrawalsItem } from 'types/api/arbitrumL2';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntityL1 from 'ui/shared/entities/address/AddressEntityL1';
 import ArbitrumL2MessageStatus from 'ui/shared/statusTag/ArbitrumL2MessageStatus';
 

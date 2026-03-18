@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';
 import CrossChainMessageEntity from 'ui/shared/entities/crossChainMessage/CrossChainMessageEntity';

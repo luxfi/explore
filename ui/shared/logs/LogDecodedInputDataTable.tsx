@@ -3,7 +3,7 @@ import React from 'react';
 import type { DecodedInput } from 'types/api/decodedInput';
 import type { ArrayElement } from 'types/utils';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';

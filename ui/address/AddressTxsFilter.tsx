@@ -1,4 +1,4 @@
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 import React from 'react';
 
 import type { AddressFromToFilter } from 'types/api/address';

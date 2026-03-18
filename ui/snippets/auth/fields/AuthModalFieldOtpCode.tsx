@@ -3,7 +3,7 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { OtpCodeFormFields } from '../types';
 
-import { PinInput } from 'toolkit/chakra/pin-input';
+import { PinInput } from '@luxfi/ui/pin-input';
 
 const CODE_LENGTH = 6;
 

@@ -4,7 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { layerLabels } from 'lib/rollups/utils';
 import { SCROLL_L2_MESSAGE_ITEM } from 'stubs/scrollL2';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import ScrollL2DepositsListItem from 'ui/deposits/scrollL2/ScrollL2DepositsListItem';
 import ScrollL2DepositsTable from 'ui/deposits/scrollL2/ScrollL2DepositsTable';

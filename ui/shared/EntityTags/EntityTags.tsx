@@ -4,8 +4,8 @@ import type { EntityTag as TEntityTag } from './types';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Badge } from 'toolkit/chakra/badge';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Badge } from '@luxfi/ui/badge';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 import EntityTag from './EntityTag';
 

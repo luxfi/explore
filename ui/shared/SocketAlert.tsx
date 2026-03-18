@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 import { Link } from 'toolkit/chakra/link';
 
 interface Props {

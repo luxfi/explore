@@ -14,9 +14,9 @@ import getQueryParamString from 'lib/router/getQueryParamString';
 import { useQueryParams } from 'lib/router/useQueryParams';
 import useWeb3Wallet from 'lib/web3/useWallet';
 import wagmiConfig from 'lib/web3/wagmiConfig';
-import { Button } from 'toolkit/chakra/button';
-import { EmptyState } from 'toolkit/chakra/empty-state';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import AddressEntity from './components/AddressEntity';
 import ChainSelect from './components/ChainSelect';

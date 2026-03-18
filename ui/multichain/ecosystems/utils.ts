@@ -1,6 +1,6 @@
 import type { ChainMetricsSortingField, ChainMetricsSortingValue } from 'types/client/multichainAggregator';
 
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export const SORT_OPTIONS: Array<SelectOption<ChainMetricsSortingValue>> = [
   { label: 'Default', value: 'default' },

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import getNetworkUtilizationParams from 'lib/networks/getNetworkUtilizationParams';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { mdash } from 'toolkit/utils/htmlEntities';
 
 interface Props {

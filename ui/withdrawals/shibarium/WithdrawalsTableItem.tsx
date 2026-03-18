@@ -3,7 +3,7 @@ import React from 'react';
 import type { ShibariumWithdrawalsItem } from 'types/api/shibarium';
 
 import config from 'configs/app';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressStringOrParam from 'ui/shared/entities/address/AddressStringOrParam';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';

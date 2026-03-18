@@ -4,7 +4,7 @@ import type { TokenInfo, TokenInstance } from 'types/api/token';
 
 import config from 'configs/app';
 import useIsMounted from 'lib/hooks/useIsMounted';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AppActionButton from 'ui/shared/AppActionButton/AppActionButton';
 import useAppActionData from 'ui/shared/AppActionButton/useAppActionData';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

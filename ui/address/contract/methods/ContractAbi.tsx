@@ -5,7 +5,7 @@ import type { SmartContractMethod } from './types';
 
 import { route } from 'nextjs-routes';
 
-import { AccordionRoot } from 'toolkit/chakra/accordion';
+import { AccordionRoot } from '@luxfi/ui/accordion';
 import { Link } from 'toolkit/chakra/link';
 import { apos } from 'toolkit/utils/htmlEntities';
 

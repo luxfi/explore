@@ -16,7 +16,7 @@ import Sort from 'ui/shared/sort/Sort';
 import MultichainEcosystemsListItem from './MultichainEcosystemsListItem';
 import MultichainEcosystemsTable from './MultichainEcosystemsTable';
 import { SORT_OPTIONS } from './utils';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,

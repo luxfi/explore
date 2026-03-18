@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 import useFetch from 'lib/hooks/useFetch';
-import { EmptyState } from 'toolkit/chakra/empty-state';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { useClipboard } from 'toolkit/hooks/useClipboard';

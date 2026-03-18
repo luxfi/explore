@@ -5,9 +5,9 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import type { ButtonProps } from 'toolkit/chakra/button';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {

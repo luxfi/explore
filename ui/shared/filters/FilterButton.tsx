@@ -1,8 +1,8 @@
 import React from 'react';
 
-import type { ButtonProps } from 'toolkit/chakra/button';
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props extends ButtonProps {

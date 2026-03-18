@@ -7,7 +7,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import { INTERCHAIN_MESSAGE } from 'stubs/interchainIndexer';
 import { generateListStub } from 'stubs/utils';
 import { Link } from 'toolkit/chakra/link';
-import { TableBody, TableRoot } from 'toolkit/chakra/table';
+import { TableBody, TableRoot } from '@luxfi/ui/table';
 import TransactionsCrossChainListItem from 'ui/crossChain/txs/TransactionsCrossChainListItem';
 
 import LatestCrossChainTxsItemDesktop from './LatestCrossChainTxsItemDesktop';

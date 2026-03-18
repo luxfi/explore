@@ -6,7 +6,7 @@ import React from 'react';
 import SolidityScanIcon from 'icons/brands/solidity_scan.svg';
 import useFetchReport from 'lib/solidityScan/useFetchReport';
 import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverRoot } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import SolidityscanReportButton from 'ui/shared/solidityscanReport/SolidityscanReportButton';
 import SolidityscanReportDetails from 'ui/shared/solidityscanReport/SolidityscanReportDetails';

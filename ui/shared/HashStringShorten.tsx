@@ -1,7 +1,7 @@
 import React from 'react';
 
 import shortenString from 'lib/shortenString';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props {
   hash: string;

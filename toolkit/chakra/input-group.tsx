@@ -114,7 +114,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
           <div
             ref={ startElementRef }
             className={ cn(
-              'pointer-events-none absolute inset-y-0 left-0 z-[1] flex items-center text-[var(--chakra-colors-input-element)]',
+              'pointer-events-none absolute inset-y-0 left-0 z-[1] flex items-center text-[var(--color-icon-secondary)]',
               startClassName,
             ) }
             { ...startRest }
@@ -138,7 +138,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
           <div
             ref={ endElementRef }
             className={ cn(
-              'pointer-events-none absolute inset-y-0 right-0 z-[1] flex items-center text-[var(--chakra-colors-input-element)]',
+              'pointer-events-none absolute inset-y-0 right-0 z-[1] flex items-center text-[var(--color-icon-secondary)]',
               endClassName,
             ) }
             { ...endRest }

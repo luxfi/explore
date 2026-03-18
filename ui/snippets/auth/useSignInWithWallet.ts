@@ -12,7 +12,7 @@ import getErrorObj from 'lib/errors/getErrorObj';
 import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import type * as mixpanel from 'lib/mixpanel';
 import useWalletReown from 'lib/web3/wallet/useWalletReown';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 import { YEAR } from 'toolkit/utils/consts';
 
 function composeMessage(address: string, nonceBlockscout: string, nonceRewards: string) {

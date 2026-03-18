@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { SearchResult } from './types';
 
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@luxfi/ui/accordion';
 
 import CodeEditorFileIcon from './CodeEditorFileIcon';
 import CodeEditorSearchResultItem from './CodeEditorSearchResultItem';

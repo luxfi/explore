@@ -1,8 +1,8 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AuthModal from 'ui/snippets/auth/AuthModal';
 import useLinkEmail from 'ui/snippets/auth/linkEmail/useLinkEmail';

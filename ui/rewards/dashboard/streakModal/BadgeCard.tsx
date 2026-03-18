@@ -1,8 +1,8 @@
 import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Progress } from 'toolkit/chakra/progress';
+import { Progress } from '@luxfi/ui/progress';
 
 const BADGE_BG_COLORS = [ '#DFE8F5', '#D2E5FE', '#EFE1FF' ];
 

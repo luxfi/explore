@@ -1,5 +1,5 @@
 
-import { AccordionItem, AccordionItemTrigger, AccordionItemContent } from 'toolkit/chakra/accordion';
+import { AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@luxfi/ui/accordion';
 
 interface Props {
   question: string;

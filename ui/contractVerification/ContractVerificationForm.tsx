@@ -17,8 +17,8 @@ import useRewardsActivity from 'lib/hooks/useRewardsActivity';
 import * as mixpanel from 'lib/mixpanel/index';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Button } from 'toolkit/chakra/button';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { toaster } from '@luxfi/ui/toaster';
 import { useUpdateEffect } from 'toolkit/hooks/useUpdateEffect';
 
 import ContractVerificationFieldAddress from './fields/ContractVerificationFieldAddress';

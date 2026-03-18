@@ -2,9 +2,9 @@ import React from 'react';
 
 import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
-import { Separator } from 'toolkit/chakra/separator';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
-import { Heading } from 'toolkit/chakra/heading';
+import { Separator } from '@luxfi/ui/separator';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
+import { Heading } from '@luxfi/ui/heading';
 
 import BadgeCard from './BadgeCard';
 import ProgressSegment from './ProgressSegment';

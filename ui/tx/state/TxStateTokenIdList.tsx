@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CollapsibleList } from 'toolkit/chakra/collapsible';
+import { CollapsibleList } from '@luxfi/ui/collapsible';
 import NftEntity from 'ui/shared/entities/nft/NftEntity';
 
 interface Props {

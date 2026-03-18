@@ -5,10 +5,10 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 
 import { cn } from 'lib/utils/cn';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Image } from 'toolkit/chakra/image';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Image } from '@luxfi/ui/image';
 import { Link, LinkBox } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { isBrowser } from 'toolkit/utils/isBrowser';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 

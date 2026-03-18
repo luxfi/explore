@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TableRow, TableCell } from 'toolkit/chakra/table';
+import { TableRow, TableCell } from '@luxfi/ui/table';
 import NovesFromTo from 'ui/shared/Noves/NovesFromTo';
 
 import NovesActionSnippet from './components/NovesActionSnippet';

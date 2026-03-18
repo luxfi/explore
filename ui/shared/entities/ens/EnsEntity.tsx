@@ -4,10 +4,10 @@ import type * as bens from '@luxfi/bens-types';
 
 import { route } from 'nextjs-routes';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link as LinkToolkit } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';
 import IconSvg from 'ui/shared/IconSvg';
 

@@ -4,7 +4,7 @@ import React from 'react';
 import type { Block } from 'types/api/block';
 
 import { currencyUnits } from 'lib/units';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ZERO } from 'toolkit/utils/consts';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import IconSvg from 'ui/shared/IconSvg';

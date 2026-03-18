@@ -366,7 +366,7 @@ export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
     return (
       <tr
         ref={ ref }
-        className={ cn('', className) }
+        className={ cn('border-b border-[var(--color-border-divider)]', className) }
         style={ merged }
         { ...(rest as React.HTMLAttributes<HTMLTableRowElement>) }
       >

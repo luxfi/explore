@@ -4,7 +4,7 @@ import config from 'configs/app';
 import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {

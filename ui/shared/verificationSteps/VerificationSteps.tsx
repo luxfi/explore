@@ -3,7 +3,7 @@ import React from 'react';
 import type { Step } from './types';
 
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import VerificationStep from './VerificationStep';
 

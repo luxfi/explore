@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 
 interface Props {
   children: React.ReactNode;

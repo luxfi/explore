@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { TagProps } from 'toolkit/chakra/tag';
-import { Tag } from 'toolkit/chakra/tag';
+import type { TagProps } from '@luxfi/ui/tag';
+import { Tag } from '@luxfi/ui/tag';
 
 type Props<T extends string> = {
   items: Array<{ id: T; title: string }>;

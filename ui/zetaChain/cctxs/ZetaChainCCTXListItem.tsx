@@ -3,7 +3,7 @@ import React from 'react';
 import type { CctxListItem } from '@luxfi/zetachain-cctx-types';
 
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { SECOND } from 'toolkit/utils/consts';
 import AddressEntityZetaChain from 'ui/shared/entities/address/AddressEntityZetaChain';
 import TxEntityZetaChainCC from 'ui/shared/entities/tx/TxEntityZetaChainCC';

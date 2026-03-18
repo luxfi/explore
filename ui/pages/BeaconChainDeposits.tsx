@@ -5,7 +5,7 @@ import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { DEPOSIT } from 'stubs/deposits';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BeaconChainDepositsListItem from 'ui/deposits/beaconChain/BeaconChainDepositsListItem';
 import BeaconChainDepositsTable from 'ui/deposits/beaconChain/BeaconChainDepositsTable';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';

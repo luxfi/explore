@@ -5,7 +5,7 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
 const getGasFeature = config.features.getGasButton;
 

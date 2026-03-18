@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 const DataFetchAlert = ({ className }: { className?: string }) => {
   return (

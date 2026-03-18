@@ -3,12 +3,12 @@ import React from 'react';
 import type { ExternalChain } from 'types/externalChains';
 
 import { cn } from 'lib/utils/cn';
-import type { ImageProps } from 'toolkit/chakra/image';
-import { Image } from 'toolkit/chakra/image';
+import type { ImageProps } from '@luxfi/ui/image';
+import { Image } from '@luxfi/ui/image';
 import type { LinkProps } from 'toolkit/chakra/link';
 import { Link as LinkToolkit } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import type { Props as CopyToClipboardProps } from 'ui/shared/CopyToClipboard';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

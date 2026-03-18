@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 
 import config from 'configs/app';
-import type { ButtonProps } from 'toolkit/chakra/button';
+import type { ButtonProps } from '@luxfi/ui/button';
 import UserProfileAuth0 from 'ui/snippets/user/profile/auth0/UserProfileDesktop';
 import UserProfileOidc from 'ui/snippets/user/profile/oidc/UserProfileDesktop';
 import UserWalletDesktop from 'ui/snippets/user/wallet/UserWalletDesktop';

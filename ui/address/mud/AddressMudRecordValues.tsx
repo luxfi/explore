@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { AddressMudRecord } from 'types/api/address';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 
 import { getValueString } from './utils';
 

@@ -6,7 +6,7 @@ import type { TokenTransfer } from 'types/api/tokenTransfer';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { hasTokenIds, hasTokenTransferValue, isConfidentialTokenType, isFungibleTokenType, NFT_TOKEN_TYPE_IDS } from 'lib/token/tokenTypes';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';

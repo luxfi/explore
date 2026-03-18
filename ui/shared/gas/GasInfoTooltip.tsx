@@ -7,8 +7,8 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import { Link } from 'toolkit/chakra/link';
-import type { TooltipProps } from 'toolkit/chakra/tooltip';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { TooltipProps } from '@luxfi/ui/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import Time from 'ui/shared/time/Time';
 
 import GasInfoTooltipRow from './GasInfoTooltipRow';

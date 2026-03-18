@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 import type { IconName, Props as IconSvgProps } from 'ui/shared/IconSvg';
 

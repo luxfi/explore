@@ -2,9 +2,9 @@ import React from 'react';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import type { SelectRootProps } from 'toolkit/chakra/select';
-import { SelectContent, SelectItem, SelectRoot, SelectControl, SelectValueText } from 'toolkit/chakra/select';
+import { IconButton } from '@luxfi/ui/icon-button';
+import type { SelectRootProps } from '@luxfi/ui/select';
+import { SelectContent, SelectItem, SelectRoot, SelectControl, SelectValueText } from '@luxfi/ui/select';
 import IconSvg from 'ui/shared/IconSvg';
 
 export interface Props extends SelectRootProps {

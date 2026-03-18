@@ -2,7 +2,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import RewardsButton from 'ui/rewards/RewardsButton';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';

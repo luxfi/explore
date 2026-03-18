@@ -3,7 +3,7 @@ import React from 'react';
 import type { NavGroupItem } from 'types/client/navigation';
 
 import { cn } from 'lib/utils/cn';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import LightningLabel from '../LightningLabel';

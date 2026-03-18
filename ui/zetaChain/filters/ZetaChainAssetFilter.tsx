@@ -8,8 +8,8 @@ import { ZETA_CHAIN_CCTX_COIN_TYPE_FILTER, type ZetaChainCCTXFilterParams } from
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import useDebounce from 'lib/hooks/useDebounce';
-import { PopoverCloseTriggerWrapper } from 'toolkit/chakra/popover';
-import { Tag } from 'toolkit/chakra/tag';
+import { PopoverCloseTriggerWrapper } from '@luxfi/ui/popover';
+import { Tag } from '@luxfi/ui/tag';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';

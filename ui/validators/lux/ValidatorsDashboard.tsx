@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { PChainValidator, ValidatorStats } from 'lib/api/pchain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import { formatStake, formatUptime, truncateNodeId } from './utils';
 

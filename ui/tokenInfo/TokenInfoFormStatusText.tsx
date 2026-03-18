@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TokenInfoApplication } from 'types/api/account';
 
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 interface Props {
   application?: TokenInfoApplication;

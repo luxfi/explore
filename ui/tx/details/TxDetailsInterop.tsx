@@ -4,7 +4,7 @@ import type { InteropTransactionInfo } from 'types/api/transaction';
 
 import config from 'configs/app';
 import { layerLabels } from 'lib/rollups/utils';
-import { CollapsibleDetails } from 'toolkit/chakra/collapsible';
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
 import InteropMessageDestinationTx from 'ui/interopMessages/InteropMessageDestinationTx';
 import InteropMessageSourceTx from 'ui/interopMessages/InteropMessageSourceTx';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Field } from 'toolkit/chakra/field';
-import { Input } from 'toolkit/chakra/input';
+import { Field } from '@luxfi/ui/field';
+import { Input } from '@luxfi/ui/input';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample, SectionSubHeader } from './parts';
 

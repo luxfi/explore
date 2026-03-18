@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { EmptyStateProps } from 'toolkit/chakra/empty-state';
-import { EmptyState } from 'toolkit/chakra/empty-state';
+import type { EmptyStateProps } from '@luxfi/ui/empty-state';
+import { EmptyState } from '@luxfi/ui/empty-state';
 
 import DataFetchAlert from './DataFetchAlert';
 

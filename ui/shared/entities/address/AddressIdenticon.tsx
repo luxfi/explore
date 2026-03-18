@@ -3,7 +3,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import * as cookies from 'lib/cookies';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import IdenticonGithub from 'ui/shared/IdenticonGithub';
 
 interface IconProps {

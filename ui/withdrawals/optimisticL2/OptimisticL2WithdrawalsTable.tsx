@@ -4,7 +4,7 @@ import type { OptimisticL2WithdrawalsItem } from 'types/api/optimisticL2';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import { layerLabels } from 'lib/rollups/utils';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import OptimisticL2WithdrawalsTableItem from './OptimisticL2WithdrawalsTableItem';

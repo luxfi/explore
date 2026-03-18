@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { AccordionRoot } from 'toolkit/chakra/accordion';
+import { AccordionRoot } from '@luxfi/ui/accordion';
 
 import MetadataItemArray from './MetadataItemArray';
 import MetadataItemObject from './MetadataItemObject';

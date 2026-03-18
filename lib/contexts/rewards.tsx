@@ -17,7 +17,7 @@ import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import removeQueryParam from 'lib/router/removeQueryParam';
 import useAccount from 'lib/web3/useAccount';
-import { toaster } from 'toolkit/chakra/toaster';
+import { toaster } from '@luxfi/ui/toaster';
 import { YEAR } from 'toolkit/utils/consts';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 

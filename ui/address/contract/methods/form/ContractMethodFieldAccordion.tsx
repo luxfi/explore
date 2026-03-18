@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from 'toolkit/chakra/accordion';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from '@luxfi/ui/accordion';
 import ArrayButton from 'ui/shared/forms/ArrayButton';
 
 export interface Props {

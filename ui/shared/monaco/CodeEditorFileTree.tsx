@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FileTree } from './types';
 
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from 'toolkit/chakra/accordion';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot } from '@luxfi/ui/accordion';
 import IconSvg from 'ui/shared/IconSvg';
 
 import CodeEditorFileIcon from './CodeEditorFileIcon';

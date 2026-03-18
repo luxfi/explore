@@ -8,10 +8,10 @@ import config from 'configs/app';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useGraphLinks from 'lib/hooks/useGraphLinks';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Heading } from 'toolkit/chakra/heading';
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { Heading } from '@luxfi/ui/heading';
+import { IconButton } from '@luxfi/ui/icon-button';
 import { Link } from 'toolkit/chakra/link';
-import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from 'toolkit/chakra/menu';
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import AdaptiveTabs from 'toolkit/components/AdaptiveTabs/AdaptiveTabs';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import Banner from 'ui/marketplace/Banner';
@@ -28,7 +28,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 import Sort from 'ui/shared/sort/Sort';
 
 import useMarketplace from '../marketplace/useMarketplace';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({ items: SORT_OPTIONS });
 

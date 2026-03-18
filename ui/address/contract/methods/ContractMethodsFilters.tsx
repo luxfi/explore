@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { MethodType } from './types';
 
-import { ButtonGroupRadio, Button } from 'toolkit/chakra/button';
+import { ButtonGroupRadio, Button } from '@luxfi/ui/button';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 
 import type { MethodsFilters } from './useMethodsFilters';

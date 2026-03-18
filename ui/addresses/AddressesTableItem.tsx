@@ -4,9 +4,9 @@ import React from 'react';
 import type { AddressesItem } from 'types/api/addresses';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import SimpleValue from 'ui/shared/value/SimpleValue';
 

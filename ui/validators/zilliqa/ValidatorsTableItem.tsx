@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { ValidatorsZilliqaItem } from 'types/api/validators';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ValidatorEntity from 'ui/shared/entities/validator/ValidatorEntity';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 

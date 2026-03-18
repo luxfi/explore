@@ -3,8 +3,8 @@ import React from 'react';
 import type { TxAuthorization } from 'types/api/transaction';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableRow, TableCell } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableRow, TableCell } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TxAuthorizationStatus from 'ui/shared/statusTag/TxAuthorizationStatus';
 

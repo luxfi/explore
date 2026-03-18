@@ -3,7 +3,7 @@ import React from 'react';
 import type { FheOperation } from 'types/api/fheOperations';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeader, TableRoot, TableRow } from '@luxfi/ui/table';
 import TxFHEOperationsTableItem from 'ui/tx/fheOperations/TxFHEOperationsTableItem';
 
 interface Props {

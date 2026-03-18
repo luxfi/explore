@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { PChainDelegator, PChainValidator } from 'lib/api/pchain';
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import { formatStake, truncateNodeId } from './utils';
 

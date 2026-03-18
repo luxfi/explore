@@ -3,7 +3,7 @@ import React from 'react';
 import { MarketplaceCategory } from 'types/client/marketplace';
 
 import config from 'configs/app';
-import { EmptyState } from 'toolkit/chakra/empty-state';
+import { EmptyState } from '@luxfi/ui/empty-state';
 import { Link } from 'toolkit/chakra/link';
 import { apos, space } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';

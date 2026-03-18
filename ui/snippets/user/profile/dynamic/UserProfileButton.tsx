@@ -4,7 +4,7 @@ import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import { cn } from 'lib/utils/cn';
 import shortenString from 'lib/shortenString';
 import useAccountWithDomain from 'lib/web3/useAccountWithDomain';
-import { Button, type ButtonProps } from 'toolkit/chakra/button';
+import { Button, type ButtonProps } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../../UserIdenticon';

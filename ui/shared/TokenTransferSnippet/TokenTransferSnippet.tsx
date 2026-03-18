@@ -9,7 +9,7 @@ import type {
 } from 'types/api/tokenTransfer';
 
 import { isConfidentialTokenType } from 'lib/token/tokenTypes';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import ConfidentialTokenValue from 'ui/shared/value/ConfidentialTokenValue';
 

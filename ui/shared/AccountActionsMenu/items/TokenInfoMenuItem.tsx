@@ -6,7 +6,7 @@ import type { ItemProps } from '../types';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { PAGE_TYPE_DICT } from 'lib/mixpanel/getPageType';
-import { MenuItem } from 'toolkit/chakra/menu';
+import { MenuItem } from '@luxfi/ui/menu';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AddressVerificationModal from 'ui/addressVerification/AddressVerificationModal';
 import IconSvg from 'ui/shared/IconSvg';

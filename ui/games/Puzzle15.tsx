@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { Link } from 'toolkit/chakra/link';
 
 import Confetti from './Confetti';

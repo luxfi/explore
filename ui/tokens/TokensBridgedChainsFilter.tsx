@@ -1,8 +1,8 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Button } from '@luxfi/ui/button';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 
 const feature = config.features.bridgedTokens;
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { TableRoot, TableRow, TableCell } from 'toolkit/chakra/table';
+import { TableRoot, TableRow, TableCell } from '@luxfi/ui/table';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';

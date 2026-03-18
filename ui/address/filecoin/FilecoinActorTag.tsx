@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FilecoinActorType } from 'types/api/addressParams';
 
-import { Badge } from 'toolkit/chakra/badge';
+import { Badge } from '@luxfi/ui/badge';
 
 const ACTOR_TYPES: Record<FilecoinActorType, string> = {
   account: 'Account',

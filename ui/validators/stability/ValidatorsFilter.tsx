@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ValidatorsStabilityFilters } from 'types/api/validators';
 
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 
 const OPTIONS = [

@@ -3,7 +3,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import type { FormFields } from '../types';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
+import { Checkbox } from '@luxfi/ui/checkbox';
 import { useUpdateEffect } from 'toolkit/hooks/useUpdateEffect';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';

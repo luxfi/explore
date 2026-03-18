@@ -4,7 +4,7 @@ import type { CrossChainTx } from '@luxfi/zetachain-cctx-types';
 import { InboundStatus } from '@luxfi/zetachain-cctx-types';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntityZetaChain from 'ui/shared/entities/address/AddressEntityZetaChain';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityZetaChainCC from 'ui/shared/entities/tx/TxEntityZetaChainCC';

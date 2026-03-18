@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import Utilization from 'ui/shared/Utilization/Utilization';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';

@@ -4,8 +4,8 @@ import type { VerifiedContractsFilter as TVerifiedContractsFilter } from 'types/
 
 import useApiQuery from 'lib/api/useApiQuery';
 import formatLanguageName from 'lib/contracts/formatLanguageName';
-import { createListCollection } from 'toolkit/chakra/select';
-import type { SelectOption } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
+import type { SelectOption } from '@luxfi/ui/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 
 interface Props {

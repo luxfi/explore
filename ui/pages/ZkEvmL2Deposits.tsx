@@ -4,7 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { layerLabels } from 'lib/rollups/utils';
 import { generateListStub } from 'stubs/utils';
 import { ZKEVM_DEPOSITS_ITEM } from 'stubs/zkEvmL2';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import ZkEvmL2DepositsListItem from 'ui/deposits/zkEvmL2/ZkEvmL2DepositsListItem';
 import ZkEvmL2DepositsTable from 'ui/deposits/zkEvmL2/ZkEvmL2DepositsTable';

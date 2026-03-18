@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'toolkit/chakra/tabs';
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '@luxfi/ui/tabs';
 import AdaptiveTabs from 'toolkit/components/AdaptiveTabs/AdaptiveTabs';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample, SectionSubHeader } from './parts';

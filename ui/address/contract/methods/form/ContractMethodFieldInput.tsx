@@ -5,10 +5,10 @@ import { NumericFormat } from 'react-number-format';
 import type { ContractAbiItemInput } from '../types';
 
 import { cn } from 'lib/utils/cn';
-import { Button } from 'toolkit/chakra/button';
-import { Field } from 'toolkit/chakra/field';
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { Button } from '@luxfi/ui/button';
+import { Field } from '@luxfi/ui/field';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import { HOUR, SECOND } from 'toolkit/utils/consts';
 

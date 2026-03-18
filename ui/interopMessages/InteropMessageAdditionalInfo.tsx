@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { InteropMessage } from 'types/api/interop';
 
-import { PopoverBody, PopoverCloseTriggerWrapper, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverCloseTriggerWrapper, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import AdditionalInfoButton from 'ui/shared/AdditionalInfoButton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 

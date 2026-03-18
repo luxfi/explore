@@ -3,8 +3,8 @@ import React from 'react';
 import type { ClustersDirectoryObject } from 'types/api/clusters';
 
 import { isEvmAddress } from 'lib/address/isEvmAddress';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ClustersEntity from 'ui/shared/entities/clusters/ClustersEntity';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';

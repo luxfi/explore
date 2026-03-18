@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { CeloEpochDetails } from 'types/api/epochs';
 
-import { Heading } from 'toolkit/chakra/heading';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { Heading } from '@luxfi/ui/heading';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 
 import EpochElectionRewardsListItem from './EpochElectionRewardsListItem';
 import EpochElectionRewardsTableItem from './EpochElectionRewardsTableItem';

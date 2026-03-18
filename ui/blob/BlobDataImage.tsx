@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 interface Props {
   src: string;

@@ -2,9 +2,9 @@ import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
 
-import { Alert } from 'toolkit/chakra/alert';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { createListCollection, Select } from 'toolkit/chakra/select';
+import { Alert } from '@luxfi/ui/alert';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';

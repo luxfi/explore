@@ -4,7 +4,7 @@ import type { Screen } from '../types';
 import type { UserInfo } from 'types/api/account';
 
 import config from 'configs/app';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 
 interface Props {
   email: string;

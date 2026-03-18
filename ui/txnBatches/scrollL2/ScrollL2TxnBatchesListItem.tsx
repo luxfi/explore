@@ -6,7 +6,7 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import ScrollL2TxnBatchDA from 'ui/shared/batch/ScrollL2TxnBatchDA';
 import BatchEntityL2 from 'ui/shared/entities/block/BatchEntityL2';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';

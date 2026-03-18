@@ -6,8 +6,8 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import AddressFromToIcon from 'ui/shared/address/AddressFromToIcon';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';

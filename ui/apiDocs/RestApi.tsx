@@ -4,7 +4,7 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
-import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, useAccordion } from 'toolkit/chakra/accordion';
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, useAccordion } from '@luxfi/ui/accordion';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 

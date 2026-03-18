@@ -1,8 +1,8 @@
 import config from 'configs/app';
 import { useRewardsContext } from 'lib/contexts/rewards';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Heading } from 'toolkit/chakra/heading';
-import { Image } from 'toolkit/chakra/image';
+import { Heading } from '@luxfi/ui/heading';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
 
 export default function RewardsActivityPassCard() {

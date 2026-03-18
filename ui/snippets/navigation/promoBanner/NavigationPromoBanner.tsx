@@ -3,7 +3,7 @@ import { keccak256, stringToBytes } from 'viem';
 
 import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import NavigationPromoBannerContent from './NavigationPromoBannerContent';

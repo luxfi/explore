@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import type { AddressTag } from 'types/api/account';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
-import { Tag } from 'toolkit/chakra/tag';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tag } from '@luxfi/ui/tag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TableItemActionButtons from 'ui/shared/TableItemActionButtons';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
 
 interface Props {
   onShowListClick: () => void;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as addressMetadataMock from 'mocks/metadata/address';
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import EntityTag from 'ui/shared/EntityTags/EntityTag';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample, SectionSubHeader } from './parts';

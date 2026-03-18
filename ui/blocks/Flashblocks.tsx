@@ -1,7 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 import FlashblocksList from './flashblocks/FlashblocksList';

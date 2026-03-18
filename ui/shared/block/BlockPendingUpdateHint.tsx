@@ -1,7 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {

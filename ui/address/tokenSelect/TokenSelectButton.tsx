@@ -4,7 +4,7 @@ import type { FormattedData } from './types';
 
 import * as mixpanel from 'lib/mixpanel/index';
 import { cn } from 'lib/utils/cn';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { space, thinsp } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 

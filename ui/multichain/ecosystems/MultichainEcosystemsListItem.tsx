@@ -4,7 +4,7 @@ import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';

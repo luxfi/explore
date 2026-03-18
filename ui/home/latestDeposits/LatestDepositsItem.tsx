@@ -2,7 +2,7 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { layerLabels } from 'lib/rollups/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BlockEntityL1 from 'ui/shared/entities/block/BlockEntityL1';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';

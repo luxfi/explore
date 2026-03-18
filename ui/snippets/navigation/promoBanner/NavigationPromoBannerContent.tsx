@@ -1,5 +1,5 @@
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 import useNavLinkStyleProps from '../useNavLinkStyleProps';
 

@@ -4,7 +4,7 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { getRecentSearchKeywords } from 'lib/recentSearchKeywords';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import SearchBarBackdrop from 'ui/snippets/searchBar/SearchBarBackdrop';
 import SearchBarInput from 'ui/snippets/searchBar/SearchBarInput';

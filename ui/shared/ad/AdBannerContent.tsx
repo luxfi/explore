@@ -6,7 +6,7 @@ import type { AdBannerProviders } from 'types/client/adProviders';
 import config from 'configs/app';
 import { cn } from 'lib/utils/cn';
 import useAccount from 'lib/web3/useAccount';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 
 import AdbutlerBanner from './AdbutlerBanner';

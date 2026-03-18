@@ -8,7 +8,7 @@ import { route } from 'nextjs/routes';
 
 import type { ResourceError } from 'lib/api/resources';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   prop: keyof AddressCounters;

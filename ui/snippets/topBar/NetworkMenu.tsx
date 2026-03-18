@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import IconSvg from 'ui/shared/IconSvg';
 import NetworkMenuContent from 'ui/snippets/networkMenu/NetworkMenuContent';
 import useNetworkMenu from 'ui/snippets/networkMenu/useNetworkMenu';

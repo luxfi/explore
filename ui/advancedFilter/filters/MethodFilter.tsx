@@ -5,8 +5,8 @@ import type { AdvancedFilterMethodInfo, AdvancedFilterParams } from 'types/api/a
 
 import useApiQuery from 'lib/api/useApiQuery';
 import useDebounce from 'lib/hooks/useDebounce';
-import { Badge } from 'toolkit/chakra/badge';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Badge } from '@luxfi/ui/badge';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 

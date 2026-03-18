@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { SmartContractConflictingImplementation } from 'types/api/contract';
 
-import { Button } from 'toolkit/chakra/button';
-import { DialogActionTrigger, DialogBody, DialogContent, DialogHeader, DialogRoot, DialogTrigger } from 'toolkit/chakra/dialog';
+import { Button } from '@luxfi/ui/button';
+import { DialogActionTrigger, DialogBody, DialogContent, DialogHeader, DialogRoot, DialogTrigger } from '@luxfi/ui/dialog';
 import { Link } from 'toolkit/chakra/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 

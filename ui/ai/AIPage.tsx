@@ -3,8 +3,8 @@ import React from 'react';
 import type { AIAttestation, AIChainStats } from 'lib/api/achain';
 import { cn } from 'lib/utils/cn';
 import { useModels, useAttestations, useProviders, useInferenceResults } from 'lib/api/achain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 // ---------------------------------------------------------------------------

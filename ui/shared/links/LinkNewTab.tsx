@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { IconButton } from '@luxfi/ui/icon-button';
 import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import IconSvg from '../IconSvg';
 

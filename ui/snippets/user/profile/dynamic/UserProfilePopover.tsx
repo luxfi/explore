@@ -1,8 +1,8 @@
 import { DynamicConnectButton, useAuthenticateConnectedUser } from '@dynamic-labs/sdk-react-core';
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 import UserWalletAutoConnectAlert from '../../UserWalletAutoConnectAlert';
 import UserProfileContentWallet from '../common/UserProfileContentWallet';

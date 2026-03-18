@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 
 const SettingsLocalTime = () => {
   const settingsContext = useSettingsContext();

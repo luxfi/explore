@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 

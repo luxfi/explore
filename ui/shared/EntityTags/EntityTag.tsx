@@ -6,8 +6,8 @@ import { useMultichainContext } from 'lib/contexts/multichain';
 import { cn } from 'lib/utils/cn';
 import * as mixpanel from 'lib/mixpanel/index';
 import { Link, LinkExternalIcon } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 
 import EntityTagIcon from './EntityTagIcon';
 import EntityTagTooltip from './EntityTagTooltip';

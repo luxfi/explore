@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import { thinsp } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';
 

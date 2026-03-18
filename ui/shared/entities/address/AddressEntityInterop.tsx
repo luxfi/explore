@@ -4,8 +4,8 @@ import type { ChainInfo } from 'types/api/interop';
 
 import { route } from 'nextjs-routes';
 
-import { Image } from 'toolkit/chakra/image';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Image } from '@luxfi/ui/image';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import { distributeEntityProps } from '../base/utils';

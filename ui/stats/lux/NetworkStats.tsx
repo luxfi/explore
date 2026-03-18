@@ -5,7 +5,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 // ── Constants ──
 

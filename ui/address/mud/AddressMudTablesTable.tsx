@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { AddressMudTables } from 'types/api/address';
 
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 
 import AddressMudTablesTableItem from './AddressMudTablesTableItem';
 

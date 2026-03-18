@@ -3,8 +3,8 @@ import React from 'react';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Image } from 'toolkit/chakra/image';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 import TokenLogoPlaceholder from './TokenLogoPlaceholder';
 

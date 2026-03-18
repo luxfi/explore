@@ -3,7 +3,7 @@ import React from 'react';
 
 import type { HotContract } from 'types/api/contracts';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import { Reputation } from 'ui/shared/entities/token/TokenEntity';
 import EntityTags from 'ui/shared/EntityTags/EntityTags';

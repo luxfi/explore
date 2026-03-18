@@ -1,8 +1,8 @@
 import { noop } from 'es-toolkit';
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { DialogActionTrigger, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger } from 'toolkit/chakra/dialog';
+import { Button } from '@luxfi/ui/button';
+import { DialogActionTrigger, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger } from '@luxfi/ui/dialog';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 import { TEXT } from './utils';

@@ -6,9 +6,9 @@ import type { StatsIntervalIds } from 'types/client/stats';
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
-import { EmptyState } from 'toolkit/chakra/empty-state';
-import { Heading } from 'toolkit/chakra/heading';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
 import IconSvg from 'ui/shared/IconSvg';
 

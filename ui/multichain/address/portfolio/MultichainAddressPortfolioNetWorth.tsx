@@ -1,4 +1,4 @@
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import { BigNumber } from 'bignumber.js';
 import React from 'react';
 
@@ -6,7 +6,7 @@ import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { cn } from 'lib/utils/cn';
 import * as mixpanel from 'lib/mixpanel';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressMultichainButton from 'ui/address/details/AddressMultichainButton';
 import AdBanner from 'ui/shared/ad/AdBanner';
 import IconSvg from 'ui/shared/IconSvg';

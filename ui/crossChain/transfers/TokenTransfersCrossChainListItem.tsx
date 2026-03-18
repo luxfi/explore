@@ -4,7 +4,7 @@ import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
 
 import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';
 import CrossChainFromToTag from 'ui/shared/crossChain/CrossChainFromToTag';

@@ -1,9 +1,9 @@
 
 import { route } from 'nextjs-routes';
 
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { LinkOverlay, LinkBox } from 'toolkit/chakra/link';
 
 type Props = {

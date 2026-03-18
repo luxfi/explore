@@ -5,7 +5,7 @@ import type { OptimisticL2WithdrawalsItem } from 'types/api/optimisticL2';
 import config from 'configs/app';
 import dayjs from 'lib/date/dayjs';
 import { layerLabels } from 'lib/rollups/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';

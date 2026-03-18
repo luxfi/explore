@@ -3,7 +3,7 @@ import React from 'react';
 import type { NetworkExplorer as TNetworkExplorer } from 'types/networks';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import IconSvg from 'ui/shared/IconSvg';

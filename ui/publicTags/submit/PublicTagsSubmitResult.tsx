@@ -5,9 +5,9 @@ import type { FormSubmitResult } from './types';
 
 import { route } from 'nextjs-routes';
 
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Heading } from 'toolkit/chakra/heading';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Heading } from '@luxfi/ui/heading';
 import { Link } from 'toolkit/chakra/link';
 import { makePrettyLink } from 'toolkit/utils/url';
 

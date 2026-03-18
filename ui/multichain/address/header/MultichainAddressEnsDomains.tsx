@@ -3,9 +3,9 @@ import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';

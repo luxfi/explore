@@ -3,7 +3,7 @@ import React from 'react';
 import config from 'configs/app';
 import { BECH_32_SEPARATOR } from 'lib/address/bech32';
 import { useSettingsContext } from 'lib/contexts/settings';
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 
 const SettingsAddressFormat = () => {
   const settingsContext = useSettingsContext();

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import NovesFromTo from 'ui/shared/Noves/NovesFromTo';

@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { CeloEpochListItem } from 'types/api/epochs';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import EpochEntity from 'ui/shared/entities/epoch/EpochEntity';
 import CeloEpochStatus from 'ui/shared/statusTag/CeloEpochStatus';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';

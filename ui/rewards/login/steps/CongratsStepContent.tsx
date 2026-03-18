@@ -3,8 +3,8 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import { useRewardsContext } from 'lib/contexts/rewards';
-import { Button } from 'toolkit/chakra/button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 import MeritsIcon from '../../MeritsIcon';

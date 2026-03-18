@@ -3,7 +3,7 @@ import React from 'react';
 import type * as bens from '@luxfi/bens-types';
 
 import dayjs from 'lib/date/dayjs';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';

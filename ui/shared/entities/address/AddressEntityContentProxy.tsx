@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';
 
 import type { ContentProps } from './AddressEntity';

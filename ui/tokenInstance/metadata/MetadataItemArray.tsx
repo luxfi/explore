@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AccordionItemContent, AccordionItemTrigger } from 'toolkit/chakra/accordion';
+import { AccordionItemContent, AccordionItemTrigger } from '@luxfi/ui/accordion';
 
 import MetadataAccordionItem from './MetadataAccordionItem';
 import MetadataAccordionItemTitle from './MetadataAccordionItemTitle';

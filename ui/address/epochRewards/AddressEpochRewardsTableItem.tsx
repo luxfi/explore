@@ -5,7 +5,7 @@ import type { AddressEpochRewardsItem } from 'types/api/address';
 import { route } from 'nextjs-routes';
 
 import { Link } from 'toolkit/chakra/link';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EpochRewardTypeTag from 'ui/shared/EpochRewardTypeTag';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';

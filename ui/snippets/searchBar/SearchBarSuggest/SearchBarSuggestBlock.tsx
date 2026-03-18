@@ -5,7 +5,7 @@ import type * as multichain from 'types/client/multichainAggregator';
 import type { SearchResultBlock } from 'types/client/search';
 
 import highlightText from 'lib/highlightText';
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import * as BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 import Time from 'ui/shared/time/Time';

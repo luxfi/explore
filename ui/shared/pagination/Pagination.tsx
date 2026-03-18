@@ -3,9 +3,9 @@ import React from 'react';
 import type { PaginationParams } from './types';
 
 import { cn } from 'lib/utils/cn';
-import { Button } from 'toolkit/chakra/button';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Button } from '@luxfi/ui/button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props extends PaginationParams {

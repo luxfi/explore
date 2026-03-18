@@ -5,8 +5,8 @@ import config from 'configs/app';
 import useApiFetch from 'lib/api/useApiFetch';
 import type { EventTypes, EventPayload } from 'lib/mixpanel/index';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Rating } from 'toolkit/chakra/rating';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Rating } from '@luxfi/ui/rating';
+import { toaster } from '@luxfi/ui/toaster';
 import IconSvg from 'ui/shared/IconSvg';
 
 const ratingDescriptions = [ 'Very bad', 'Bad', 'Average', 'Good', 'Excellent' ];

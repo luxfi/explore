@@ -1,9 +1,9 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 
 const externalTxFeature = config.features.externalTxs;

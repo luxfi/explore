@@ -3,8 +3,8 @@ import React from 'react';
 
 import type { NovesResponseData } from 'types/api/noves';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { NovesFlowViewItem } from 'ui/tx/assetFlows/utils/generateFlowViewData';
 
 import AddressEntity from '../entities/address/AddressEntity';

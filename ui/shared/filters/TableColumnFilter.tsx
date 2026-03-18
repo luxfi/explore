@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
-import { PopoverCloseTriggerWrapper } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { PopoverCloseTriggerWrapper } from '@luxfi/ui/popover';
 
 type Props = {
   title: string;

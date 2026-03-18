@@ -3,7 +3,7 @@ import React from 'react';
 import type { Transaction } from 'types/api/transaction';
 
 import { layerLabels } from 'lib/rollups/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoNativeCoinValue from 'ui/shared/DetailedInfo/DetailedInfoNativeCoinValue';
 import TextSeparator from 'ui/shared/TextSeparator';

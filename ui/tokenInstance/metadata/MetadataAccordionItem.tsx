@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { AccordionItem } from 'toolkit/chakra/accordion';
+import { AccordionItem } from '@luxfi/ui/accordion';
 
 interface Props {
   children: React.ReactNode;

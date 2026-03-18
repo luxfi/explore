@@ -4,7 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { layerLabels } from 'lib/rollups/utils';
 import { L2_OUTPUT_ROOTS_ITEM } from 'stubs/L2';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import OptimisticL2OutputRootsListItem from 'ui/outputRoots/optimisticL2/OptimisticL2OutputRootsListItem';
 import OptimisticL2OutputRootsTable from 'ui/outputRoots/optimisticL2/OptimisticL2OutputRootsTable';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';

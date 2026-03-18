@@ -5,7 +5,7 @@ import React from 'react';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import SimpleValue from 'ui/shared/value/SimpleValue';

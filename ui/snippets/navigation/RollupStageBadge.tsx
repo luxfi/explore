@@ -1,11 +1,11 @@
 import React from 'react';
 
 import config from 'configs/app';
-import type { ImageProps } from 'toolkit/chakra/image';
-import { Image } from 'toolkit/chakra/image';
+import type { ImageProps } from '@luxfi/ui/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props extends ImageProps {
   chainConfig?: typeof config;

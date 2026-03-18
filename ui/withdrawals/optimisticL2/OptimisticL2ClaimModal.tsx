@@ -12,9 +12,9 @@ import getErrorMessage from 'lib/errors/getErrorMessage';
 import getErrorObjPayload from 'lib/errors/getErrorObjPayload';
 import getErrorProp from 'lib/errors/getErrorProp';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import { Button } from 'toolkit/chakra/button';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Button } from '@luxfi/ui/button';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
+import { toaster } from '@luxfi/ui/toaster';
 import { FormFieldAddress } from 'toolkit/components/forms/fields/FormFieldAddress';
 
 const rollupFeature = config.features.rollup;

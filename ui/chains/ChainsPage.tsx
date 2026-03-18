@@ -4,7 +4,7 @@ import config from 'configs/app';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { useBlockchains } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 import ChainRow from './ChainRow';

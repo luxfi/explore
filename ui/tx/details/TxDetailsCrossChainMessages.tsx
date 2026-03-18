@@ -5,7 +5,7 @@ import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 import useApiQuery from 'lib/api/useApiQuery';
 import { INTERCHAIN_MESSAGE } from 'stubs/interchainIndexer';
 import { generateListStub } from 'stubs/utils';
-import { CollapsibleList } from 'toolkit/chakra/collapsible';
+import { CollapsibleList } from '@luxfi/ui/collapsible';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 
 import TxDetailsCrossChainMessage from './TxDetailsCrossChainMessage';

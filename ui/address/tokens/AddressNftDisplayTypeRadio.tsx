@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { ButtonGroupRadioProps } from 'toolkit/chakra/button';
-import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
+import type { ButtonGroupRadioProps } from '@luxfi/ui/button';
+import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 
 import type { TNftDisplayType } from './useAddressNftQuery';

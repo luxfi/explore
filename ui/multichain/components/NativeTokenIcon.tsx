@@ -3,8 +3,8 @@ import React from 'react';
 
 import type { HomeStats } from 'types/api/stats';
 
-import { Image } from 'toolkit/chakra/image';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import TokenLogoPlaceholder from 'ui/shared/TokenLogoPlaceholder';
 
 import useFetchParentChainApi from '../home/useFetchParentChainApi';

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import type { TabsContentProps } from 'toolkit/chakra/tabs';
-import { Heading } from 'toolkit/chakra/heading';
-import { TabsContent } from 'toolkit/chakra/tabs';
+import type { TabsContentProps } from '@luxfi/ui/tabs';
+import { Heading } from '@luxfi/ui/heading';
+import { TabsContent } from '@luxfi/ui/tabs';
 
 export const Container = (props: TabsContentProps) => <TabsContent className="flex flex-col gap-6 w-full" { ...props }/>;
 export const Section = (props: React.HTMLAttributes<HTMLElement> & { title?: string }) => <section { ...props }/>;

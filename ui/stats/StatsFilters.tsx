@@ -3,7 +3,7 @@ import React from 'react';
 import type * as stats from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 
-import { createListCollection, Select } from 'toolkit/chakra/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ChartIntervalSelect from 'ui/shared/chart/ChartIntervalSelect';
 

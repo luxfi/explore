@@ -5,8 +5,8 @@ import type { AddressTokensErc20Item } from 'ui/address/tokens/types';
 
 import multichainConfig from 'configs/multichain';
 import { getTokenTypeName } from 'lib/token/tokenTypes';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import NativeTokenTag from 'ui/shared/celo/NativeTokenTag';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';

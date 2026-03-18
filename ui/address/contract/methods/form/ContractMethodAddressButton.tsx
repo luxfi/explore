@@ -1,8 +1,8 @@
 import React from 'react';
 
 import useAccount from 'lib/web3/useAccount';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props {
   onClick: (address: string) => void;

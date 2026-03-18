@@ -3,7 +3,7 @@ import React from 'react';
 import type { Address } from 'types/api/address';
 import type { SmartContract } from 'types/api/contract';
 
-import { Alert } from 'toolkit/chakra/alert';
+import { Alert } from '@luxfi/ui/alert';
 import { Link } from 'toolkit/chakra/link';
 
 import ContractDetailsVerificationButton from '../ContractDetailsVerificationButton';

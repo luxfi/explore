@@ -5,9 +5,9 @@ import type * as multichain from '@luxfi/multichain-aggregator-types';
 import { route } from 'nextjs/routes';
 
 import multichainConfig from 'configs/multichain';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import IconSvg from 'ui/shared/IconSvg';
 

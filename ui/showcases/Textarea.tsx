@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Field } from 'toolkit/chakra/field';
-import { Textarea } from 'toolkit/chakra/textarea';
+import { Field } from '@luxfi/ui/field';
+import { Textarea } from '@luxfi/ui/textarea';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 import { TEXT } from './utils';

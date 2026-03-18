@@ -10,10 +10,10 @@ import * as mixpanel from 'lib/mixpanel/index';
 import useProvider from 'lib/web3/useProvider';
 import useSwitchOrAddChain from 'lib/web3/useSwitchOrAddChain';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { toaster } from 'toolkit/chakra/toaster';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { toaster } from '@luxfi/ui/toaster';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 function getRequestParams(token: TokenInfo, tokenId?: string): WatchAssetParams | undefined {

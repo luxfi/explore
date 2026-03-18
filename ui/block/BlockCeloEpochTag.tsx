@@ -3,8 +3,8 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import { Link } from 'toolkit/chakra/link';
-import { Tag } from 'toolkit/chakra/tag';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tag } from '@luxfi/ui/tag';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import type { BlockQuery } from './useBlockQuery';
 

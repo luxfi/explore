@@ -7,8 +7,8 @@ import config from 'configs/app';
 import { useBridgeData } from 'lib/api/bchain';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 // ── Constants ──

@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 
 import type { TokenInstance } from 'types/api/token';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import NftFallback from './NftFallback';

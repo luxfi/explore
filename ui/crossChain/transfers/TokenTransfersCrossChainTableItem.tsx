@@ -3,7 +3,7 @@ import React from 'react';
 import type { InterchainTransfer } from '@luxfi/interchain-indexer-types';
 
 import config from 'configs/app';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import AddressFromToIcon from 'ui/shared/address/AddressFromToIcon';
 import CrossChainBridgeLink from 'ui/shared/crossChain/CrossChainBridgeLink';

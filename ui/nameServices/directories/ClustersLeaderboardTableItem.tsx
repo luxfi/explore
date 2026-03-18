@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { ClustersLeaderboardObject } from 'types/api/clusters';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import ClustersEntity from 'ui/shared/entities/clusters/ClustersEntity';
 
 interface Props {

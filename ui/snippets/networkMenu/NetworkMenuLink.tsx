@@ -3,7 +3,7 @@ import React from 'react';
 import type { FeaturedNetwork } from 'types/networks';
 
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props extends FeaturedNetwork {

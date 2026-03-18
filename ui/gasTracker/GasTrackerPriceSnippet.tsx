@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { GasPriceInfo, GasPrices } from 'types/api/stats';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { SECOND } from 'toolkit/utils/consts';
 import { asymp } from 'toolkit/utils/htmlEntities';
 import GasPrice from 'ui/shared/gas/GasPrice';

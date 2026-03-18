@@ -3,8 +3,8 @@ import React from 'react';
 import { route } from 'nextjs-routes';
 
 import { cn } from 'lib/utils/cn';
-import { createListCollection, Select } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { createListCollection, Select } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import LinkNewTab from 'ui/shared/links/LinkNewTab';

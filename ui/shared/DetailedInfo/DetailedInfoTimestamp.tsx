@@ -2,11 +2,11 @@ import React from 'react';
 
 import { useSettingsContext } from 'lib/contexts/settings';
 import dayjs from 'lib/date/dayjs';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { createListCollection } from 'toolkit/chakra/select';
-import { SelectContent, SelectItem, SelectRoot, SelectControl } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { IconButton } from '@luxfi/ui/icon-button';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection } from '@luxfi/ui/select';
+import { SelectContent, SelectItem, SelectRoot, SelectControl } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import IconSvg from 'ui/shared/IconSvg';
 import TextSeparator from 'ui/shared/TextSeparator';

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import hexToUtf8 from 'lib/hexToUtf8';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { createListCollection, Select } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import RawDataSnippet from 'ui/shared/RawDataSnippet';
 
 const OPTIONS = [

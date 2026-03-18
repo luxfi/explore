@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { GetInstancesResponse } from '@luxfi/points-types';
 
-import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
-import { Image } from 'toolkit/chakra/image';
+import { DialogBody, DialogContent, DialogRoot, DialogHeader } from '@luxfi/ui/dialog';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
 import IconSvg from 'ui/shared/IconSvg';
 

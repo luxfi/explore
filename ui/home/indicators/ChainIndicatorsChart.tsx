@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import FallbackChart from 'ui/shared/fallbacks/FallbackChart';

@@ -6,7 +6,7 @@ import type { HotContractsInterval, HotContractsSorting, HotContractsSortingFiel
 import useApiQuery from 'lib/api/useApiQuery';
 import { HOT_CONTRACTS } from 'stubs/contract';
 import { HOMEPAGE_STATS } from 'stubs/stats';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import HotContractsIntervalSelect from 'ui/hotContracts/HotContractsIntervalSelect';
 import HotContractsListItem from 'ui/hotContracts/HotContractsListItem';
 import HotContractsTable from 'ui/hotContracts/HotContractsTable';
@@ -19,7 +19,7 @@ import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import getSortParamsFromValue from 'ui/shared/sort/getSortParamsFromValue';
 import getSortValueFromQuery from 'ui/shared/sort/getSortValueFromQuery';
 import Sort from 'ui/shared/sort/Sort';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,

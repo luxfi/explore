@@ -2,8 +2,8 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
-import { Button, type ButtonProps } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button, type ButtonProps } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../UserIdenticon';

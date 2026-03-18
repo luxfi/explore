@@ -8,8 +8,8 @@ import { cn } from 'lib/utils/cn';
 
 import { useDexData } from 'lib/api/dchain';
 import type { DexOrder, DexTrade, DexPool, DexSymbolStats } from 'lib/api/dchain';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 // ── Constants ──

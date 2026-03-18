@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch } from 'toolkit/chakra/switch';
+import { Switch } from '@luxfi/ui/switch';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 interface Props {

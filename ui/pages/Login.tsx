@@ -7,10 +7,10 @@ import * as cookies from 'lib/cookies';
 import useFeatureValue from 'lib/growthbook/useFeatureValue';
 import useGradualIncrement from 'lib/hooks/useGradualIncrement';
 import { useRollbar } from 'lib/rollbar';
-import { Alert } from 'toolkit/chakra/alert';
-import { Button } from 'toolkit/chakra/button';
-import { Textarea } from 'toolkit/chakra/textarea';
-import { toaster } from 'toolkit/chakra/toaster';
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Textarea } from '@luxfi/ui/textarea';
+import { toaster } from '@luxfi/ui/toaster';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 const Login = () => {

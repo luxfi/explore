@@ -3,8 +3,8 @@ import React from 'react';
 import type { InternalTransaction } from 'types/api/internalTransaction';
 
 import { currencyUnits } from 'lib/units';
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TxStatus from 'ui/shared/statusTag/TxStatus';

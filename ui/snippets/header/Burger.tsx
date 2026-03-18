@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { DrawerBody, DrawerContent, DrawerRoot, DrawerTrigger } from 'toolkit/chakra/drawer';
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { DrawerBody, DrawerContent, DrawerRoot, DrawerTrigger } from '@luxfi/ui/drawer';
+import { IconButton } from '@luxfi/ui/icon-button';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 import NavigationMobile from 'ui/snippets/navigation/mobile/NavigationMobile';

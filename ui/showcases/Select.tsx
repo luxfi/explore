@@ -1,9 +1,9 @@
 import { noop } from 'es-toolkit';
 import React from 'react';
 
-import { Checkbox } from 'toolkit/chakra/checkbox';
-import type { SelectOption } from 'toolkit/chakra/select';
-import { createListCollection, Select, SelectAsync } from 'toolkit/chakra/select';
+import { Checkbox } from '@luxfi/ui/checkbox';
+import type { SelectOption } from '@luxfi/ui/select';
+import { createListCollection, Select, SelectAsync } from '@luxfi/ui/select';
 import PopoverFilterRadio from 'ui/shared/filters/PopoverFilterRadio';
 import IconSvg from 'ui/shared/IconSvg';
 import Sort from 'ui/shared/sort/Sort';

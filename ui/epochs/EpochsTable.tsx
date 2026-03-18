@@ -3,7 +3,7 @@ import React from 'react';
 import type { CeloEpochListItem } from 'types/api/epochs';
 
 import config from 'configs/app';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import EpochsTableItem from './EpochsTableItem';

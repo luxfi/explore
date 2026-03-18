@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CloseButton } from 'toolkit/chakra/close-button';
+import { CloseButton } from '@luxfi/ui/close-button';
 
 import { Section, Container, SectionHeader, SamplesStack, Sample } from './parts';
 

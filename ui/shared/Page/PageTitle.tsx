@@ -3,9 +3,9 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { cn } from 'lib/utils/cn';
-import { Heading } from 'toolkit/chakra/heading';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import TextAd from 'ui/shared/ad/TextAd';
 

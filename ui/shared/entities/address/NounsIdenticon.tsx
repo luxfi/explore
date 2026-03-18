@@ -3,7 +3,7 @@ import { buildSVG } from '@nouns/sdk';
 import CryptoJS from 'crypto-js';
 import React from 'react';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 const { palette } = ImageData;
 

@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { InternalTransaction } from 'types/api/internalTransaction';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Badge } from '@luxfi/ui/badge';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxStatus from 'ui/shared/statusTag/TxStatus';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';

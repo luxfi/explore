@@ -4,7 +4,7 @@ import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
 import { useColorModeValue } from 'toolkit/chakra/color-mode';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 const IconFallback = () => {
   return (

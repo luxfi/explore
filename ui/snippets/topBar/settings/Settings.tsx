@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Separator } from 'toolkit/chakra/separator';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Separator } from '@luxfi/ui/separator';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 

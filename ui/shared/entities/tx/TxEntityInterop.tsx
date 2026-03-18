@@ -4,9 +4,9 @@ import type { ChainInfo } from 'types/api/interop';
 
 import { route } from 'nextjs-routes';
 
-import { Image } from 'toolkit/chakra/image';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { stripTrailingSlash } from 'toolkit/utils/url';
 import IconSvg from 'ui/shared/IconSvg';
 

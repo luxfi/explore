@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   loading?: boolean;

@@ -5,8 +5,8 @@ import React from 'react';
 import { ADVANCED_FILTER_AGES, type AdvancedFilterAge } from 'types/api/advancedFilter';
 
 import dayjs from 'lib/date/dayjs';
-import { Input } from 'toolkit/chakra/input';
-import { PopoverCloseTriggerWrapper } from 'toolkit/chakra/popover';
+import { Input } from '@luxfi/ui/input';
+import { PopoverCloseTriggerWrapper } from '@luxfi/ui/popover';
 import { ndash } from 'toolkit/utils/htmlEntities';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';

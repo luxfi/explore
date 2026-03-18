@@ -4,10 +4,10 @@ import type { ExternalChain } from 'types/externalChains';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import type { SelectOption, SelectProps, ViewMode } from 'toolkit/chakra/select';
-import { createListCollection, Select } from 'toolkit/chakra/select';
+import type { SelectOption, SelectProps, ViewMode } from '@luxfi/ui/select';
+import { createListCollection, Select } from '@luxfi/ui/select';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import IconSvg from 'ui/shared/IconSvg';
 
 import ChainIcon from './ChainIcon';

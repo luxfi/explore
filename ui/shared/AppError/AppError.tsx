@@ -7,7 +7,7 @@ import getErrorCauseStatusCode from 'lib/errors/getErrorCauseStatusCode';
 import getErrorObjStatusCode from 'lib/errors/getErrorObjStatusCode';
 import getErrorProp from 'lib/errors/getErrorProp';
 import getResourceErrorPayload from 'lib/errors/getResourceErrorPayload';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { Link } from 'toolkit/chakra/link';
 
 import AdBanner from '../ad/AdBanner';

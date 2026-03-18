@@ -4,7 +4,7 @@ import type { ClusterChainConfig } from 'types/multichain';
 import config from 'configs/app';
 import getFilterValuesFromQuery from 'lib/getFilterValuesFromQuery';
 import { getTokenTypes } from 'lib/token/tokenTypes';
-import type { SelectOption } from 'toolkit/chakra/select';
+import type { SelectOption } from '@luxfi/ui/select';
 
 export const SORT_OPTIONS: Array<SelectOption<TokensSortingValue>> = [
   { label: 'Default', value: 'default' },

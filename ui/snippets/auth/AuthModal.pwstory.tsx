@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import AuthModal from './AuthModal';

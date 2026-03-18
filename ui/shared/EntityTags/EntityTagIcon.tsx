@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { EntityTag } from './types';
 
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {

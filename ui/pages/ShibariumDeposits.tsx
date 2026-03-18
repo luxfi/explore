@@ -4,7 +4,7 @@ import useApiQuery from 'lib/api/useApiQuery';
 import { layerLabels } from 'lib/rollups/utils';
 import { SHIBARIUM_DEPOSIT_ITEM } from 'stubs/shibarium';
 import { generateListStub } from 'stubs/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { rightLineArrow, nbsp } from 'toolkit/utils/htmlEntities';
 import DepositsListItem from 'ui/deposits/shibarium/DepositsListItem';
 import DepositsTable from 'ui/deposits/shibarium/DepositsTable';

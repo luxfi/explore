@@ -15,7 +15,7 @@ import VerifiedContractsCounters from 'ui/verifiedContracts/VerifiedContractsCou
 import VerifiedContractsFilter from 'ui/verifiedContracts/VerifiedContractsFilter';
 import VerifiedContractsList from 'ui/verifiedContracts/VerifiedContractsList';
 import VerifiedContractsTable from 'ui/verifiedContracts/VerifiedContractsTable';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({
   items: SORT_OPTIONS,

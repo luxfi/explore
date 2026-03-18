@@ -2,10 +2,10 @@ import React from 'react';
 
 import type { StatsInterval, StatsIntervalIds } from 'types/client/stats';
 
-import { createListCollection } from 'toolkit/chakra/select';
-import { Select } from 'toolkit/chakra/select';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import type { TagProps } from 'toolkit/chakra/tag';
+import { createListCollection } from '@luxfi/ui/select';
+import { Select } from '@luxfi/ui/select';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import type { TagProps } from '@luxfi/ui/tag';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';
 import { STATS_INTERVALS } from 'ui/stats/constants';
 

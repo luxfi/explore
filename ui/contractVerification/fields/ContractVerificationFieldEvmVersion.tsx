@@ -5,7 +5,7 @@ import type { SmartContractVerificationConfig } from 'types/client/contract';
 
 import { Link } from 'toolkit/chakra/link';
 import { FormFieldSelect } from 'toolkit/components/forms/fields/FormFieldSelect';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 import ContractVerificationFormRow from '../ContractVerificationFormRow';
 

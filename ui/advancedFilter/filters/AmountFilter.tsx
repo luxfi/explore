@@ -4,8 +4,8 @@ import React from 'react';
 
 import type { AdvancedFilterParams } from 'types/api/advancedFilter';
 
-import { Input } from 'toolkit/chakra/input';
-import { PopoverCloseTriggerWrapper } from 'toolkit/chakra/popover';
+import { Input } from '@luxfi/ui/input';
+import { PopoverCloseTriggerWrapper } from '@luxfi/ui/popover';
 import { ndash } from 'toolkit/utils/htmlEntities';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 import TagGroupSelect from 'ui/shared/tagGroupSelect/TagGroupSelect';

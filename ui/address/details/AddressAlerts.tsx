@@ -3,8 +3,8 @@ import React from 'react';
 import type { AddressMetadataTagFormatted } from 'types/client/addressMetadata';
 
 import { cn } from 'lib/utils/cn';
-import type { AlertProps } from 'toolkit/chakra/alert';
-import { Alert } from 'toolkit/chakra/alert';
+import type { AlertProps } from '@luxfi/ui/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 interface Props {
   tags: Array<AddressMetadataTagFormatted> | undefined;

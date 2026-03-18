@@ -3,7 +3,7 @@ import React from 'react';
 import type { BridgeInfo } from '@luxfi/interchain-indexer-types';
 
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   data: BridgeInfo | undefined;

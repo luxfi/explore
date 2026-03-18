@@ -7,14 +7,14 @@ import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../../UserIdenticon';
 import { getUserHandle } from '../common/utils';
 
-import type { ButtonProps } from 'toolkit/chakra/button';
+import type { ButtonProps } from '@luxfi/ui/button';
 
 interface Props {
   profileQuery: UseQueryResult<UserInfo, unknown>;

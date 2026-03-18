@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { SkeletonProps } from 'toolkit/chakra/skeleton';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import type { SkeletonProps } from '@luxfi/ui/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 
 interface Props {

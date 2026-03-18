@@ -4,8 +4,8 @@ import type { NFTTokenType, TokenType } from 'types/api/token';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import { getTokenTypes } from 'lib/token/tokenTypes';
-import { Button } from 'toolkit/chakra/button';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
+import { Button } from '@luxfi/ui/button';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
 
 type Props<T extends TokenType | NFTTokenType> = {
   onChange: (nextValue: Array<T>) => void;

@@ -11,7 +11,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
 import { getRecentSearchKeywords, saveToRecentKeywords } from 'lib/recentSearchKeywords';
 import { Link } from 'toolkit/chakra/link';
-import { PopoverBody, PopoverContent, PopoverFooter, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverFooter, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import SearchBarBackdrop from './SearchBarBackdrop';

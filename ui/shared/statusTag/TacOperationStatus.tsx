@@ -3,7 +3,7 @@ import React from 'react';
 import * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { getTacOperationStatus } from 'lib/operations/tac';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 import StatusTag from './StatusTag';
 

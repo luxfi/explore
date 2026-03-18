@@ -4,7 +4,7 @@ import type { ScrollL2MessageItem } from 'types/api/scrollL2';
 
 import config from 'configs/app';
 import { layerLabels } from 'lib/rollups/utils';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
 import TxEntityL1 from 'ui/shared/entities/tx/TxEntityL1';

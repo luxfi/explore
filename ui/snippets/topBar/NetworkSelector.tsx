@@ -2,7 +2,7 @@ import React from 'react';
 
 import { NETWORKS, getCurrentNetwork } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 const NetworkSelector = () => {
   const [ open, setOpen ] = React.useState(false);

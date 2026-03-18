@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import * as mixpanel from 'lib/mixpanel/index';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 const IframeBanner = ({ contentUrl, linkUrl }: { contentUrl: string; linkUrl: string }) => {
   const [ isFrameLoading, setIsFrameLoading ] = useState(true);

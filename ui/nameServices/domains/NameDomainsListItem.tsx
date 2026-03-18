@@ -3,7 +3,7 @@ import React from 'react';
 import type * as bens from '@luxfi/bens-types';
 
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import NameDomainExpiryStatus from 'ui/nameDomain/NameDomainExpiryStatus';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EnsEntity from 'ui/shared/entities/ens/EnsEntity';

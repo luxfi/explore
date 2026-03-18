@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 
 import TxAdditionalInfoContent from './TxAdditionalInfoContent';

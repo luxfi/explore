@@ -1,9 +1,9 @@
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import delay from 'lib/delay';
-import { Button } from 'toolkit/chakra/button';
-import { IconButton } from 'toolkit/chakra/icon-button';
+import { Button } from '@luxfi/ui/button';
+import { IconButton } from '@luxfi/ui/icon-button';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 import SettingsAddressFormat from 'ui/snippets/topBar/settings/SettingsAddressFormat';

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
-import { Checkbox } from 'toolkit/chakra/checkbox';
+import { Button, ButtonGroupRadio } from '@luxfi/ui/button';
+import { Checkbox } from '@luxfi/ui/checkbox';
 import { Link } from 'toolkit/chakra/link';
-import { PopoverContent, PopoverRoot, PopoverTrigger, PopoverBody } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { PopoverContent, PopoverRoot, PopoverTrigger, PopoverBody } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { BACKGROUND_DEFAULT } from 'ui/home/HeroBanner';
 import IconSvg from 'ui/shared/IconSvg';
 

@@ -5,7 +5,7 @@ import type { Pool } from 'types/api/pools';
 import { route } from 'nextjs-routes';
 
 import { getPoolTitle } from 'lib/pools/getPoolTitle';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedTextTooltip } from 'toolkit/components/truncation/TruncatedTextTooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Tag, type TagProps } from 'toolkit/chakra/tag';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tag, type TagProps } from '@luxfi/ui/tag';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props extends TagProps {
   chainConfig?: typeof config;

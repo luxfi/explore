@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { MudWorldItem } from 'types/api/mudWorlds';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import NativeCoinValue from 'ui/shared/value/NativeCoinValue';
 

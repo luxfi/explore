@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogRoot, DialogHeader } from '@luxfi/ui/dialog';
 
 type Props = {
   isOpen: boolean;

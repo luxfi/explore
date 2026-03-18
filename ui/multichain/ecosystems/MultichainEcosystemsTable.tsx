@@ -5,7 +5,7 @@ import type { ChainMetricsSortingField, ChainMetricsSortingValue } from 'types/c
 
 import multichainConfig from 'configs/multichain';
 import { MultichainProvider } from 'lib/contexts/multichain';
-import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import getNextSortValue from 'ui/shared/sort/getNextSortValue';
 
 import MultichainEcosystemsTableItem from './MultichainEcosystemsTableItem';

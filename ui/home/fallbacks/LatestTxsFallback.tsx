@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TableBody, TableCell, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableCell, TableRoot, TableRow } from '@luxfi/ui/table';
 import FallbackBox from 'ui/shared/fallbacks/FallbackBox';
 import IconSvg from 'ui/shared/IconSvg';
 

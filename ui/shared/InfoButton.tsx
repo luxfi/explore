@@ -1,9 +1,9 @@
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Button } from 'toolkit/chakra/button';
-import { DialogRoot, DialogContent, DialogTrigger, DialogHeader } from 'toolkit/chakra/dialog';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { DialogRoot, DialogContent, DialogTrigger, DialogHeader } from '@luxfi/ui/dialog';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {

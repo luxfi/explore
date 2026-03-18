@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EmptyState } from 'toolkit/chakra/empty-state';
+import { EmptyState } from '@luxfi/ui/empty-state';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 
 import SearchResultsList from './SearchResultsList';

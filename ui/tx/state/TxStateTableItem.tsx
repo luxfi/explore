@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TxStateChange } from 'types/api/txStateChanges';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
 import { getStateElements } from './utils';

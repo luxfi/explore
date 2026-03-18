@@ -6,8 +6,8 @@ import config from 'configs/app';
 import { useBlockchains, useCurrentValidators, useSubnets } from 'lib/api/pchain';
 import type { PChainBlockchain, PChainValidator } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tag } from 'toolkit/chakra/tag';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import PageTitle from 'ui/shared/Page/PageTitle';
 

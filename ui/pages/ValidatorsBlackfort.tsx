@@ -22,7 +22,7 @@ import { VALIDATORS_BLACKFORT_SORT_OPTIONS } from 'ui/validators/blackfort/utils
 import ValidatorsCounters from 'ui/validators/blackfort/ValidatorsCounters';
 import ValidatorsList from 'ui/validators/blackfort/ValidatorsList';
 import ValidatorsTable from 'ui/validators/blackfort/ValidatorsTable';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({
   items: VALIDATORS_BLACKFORT_SORT_OPTIONS,

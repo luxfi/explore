@@ -7,7 +7,7 @@ import { route } from 'nextjs/routes';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedTextTooltip } from 'toolkit/components/truncation/TruncatedTextTooltip';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import NftMedia from 'ui/shared/nft/NftMedia';

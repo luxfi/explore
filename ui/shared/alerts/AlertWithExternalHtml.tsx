@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { AlertProps } from 'toolkit/chakra/alert';
-import { Alert } from 'toolkit/chakra/alert';
+import type { AlertProps } from '@luxfi/ui/alert';
+import { Alert } from '@luxfi/ui/alert';
 
 type Props = {
   html: string;

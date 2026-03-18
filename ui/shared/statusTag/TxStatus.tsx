@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
 
-import type { BadgeProps } from 'toolkit/chakra/badge';
+import type { BadgeProps } from '@luxfi/ui/badge';
 
 import type { StatusTagType } from './StatusTag';
 import StatusTag from './StatusTag';

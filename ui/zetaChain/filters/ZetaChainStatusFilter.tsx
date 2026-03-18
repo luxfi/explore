@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ZetaChainCCTXFilterParams, StatusReducedFilters } from 'types/client/zetaChain';
 
-import { Radio, RadioGroup } from 'toolkit/chakra/radio';
+import { Radio, RadioGroup } from '@luxfi/ui/radio';
 import TableColumnFilter from 'ui/shared/filters/TableColumnFilter';
 
 const FILTER_PARAM_STATUS = 'status_reduced';

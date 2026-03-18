@@ -6,9 +6,9 @@ import type { TokenInfo } from 'types/api/token';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import useDebounce from 'lib/hooks/useDebounce';
-import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
-import { createListCollection, Select } from 'toolkit/chakra/select';
-import { Tag } from 'toolkit/chakra/tag';
+import { Checkbox, CheckboxGroup } from '@luxfi/ui/checkbox';
+import { createListCollection, Select } from '@luxfi/ui/select';
+import { Tag } from '@luxfi/ui/tag';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';

@@ -3,7 +3,7 @@ import type { ControllerRenderProps } from 'react-hook-form';
 
 import type { Fields, SocialLinkFields } from '../types';
 
-import type { FieldProps } from 'toolkit/chakra/field';
+import type { FieldProps } from '@luxfi/ui/field';
 import { FormFieldUrl } from 'toolkit/components/forms/fields/FormFieldUrl';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';

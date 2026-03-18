@@ -4,7 +4,7 @@ import type { TokenInfo } from 'types/api/token';
 import type { TokensSortingField, TokensSortingValue } from 'types/api/tokens';
 import type { AggregatedTokenInfo } from 'types/client/multichainAggregator';
 
-import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableColumnHeaderSortable, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import { default as getNextSortValueShared } from 'ui/shared/sort/getNextSortValue';
 

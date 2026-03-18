@@ -1,4 +1,4 @@
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import type { NavLink } from './types';
@@ -9,7 +9,7 @@ import { route } from 'nextjs-routes';
 import config from 'configs/app';
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import shortenString from 'lib/shortenString';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { Link } from 'toolkit/chakra/link';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';

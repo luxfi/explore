@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface Props {
   methodId: string;

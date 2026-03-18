@@ -3,7 +3,7 @@ import React from 'react';
 import type { TxAuthorization } from 'types/api/transaction';
 
 import config from 'configs/app';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import TxAuthorizationStatus from 'ui/shared/statusTag/TxAuthorizationStatus';

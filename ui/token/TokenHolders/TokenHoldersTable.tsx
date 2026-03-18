@@ -3,7 +3,7 @@ import React from 'react';
 import type { TokenHolder, TokenInfo } from 'types/api/token';
 
 import { hasTokenIds, isConfidentialTokenType } from 'lib/token/tokenTypes';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TokenHoldersTableItem from 'ui/token/TokenHolders/TokenHoldersTableItem';
 
 interface Props {

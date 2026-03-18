@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ZilliqaNestedQuorumCertificate, ZilliqaQuorumCertificate } from 'types/api/block';
 
-import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemContent } from 'toolkit/chakra/accordion';
+import { AccordionRoot, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@luxfi/ui/accordion';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { apos, ndash } from 'toolkit/utils/htmlEntities';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';

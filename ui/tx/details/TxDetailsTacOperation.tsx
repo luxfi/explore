@@ -3,7 +3,7 @@ import React from 'react';
 import type * as tac from '@luxfi/tac-operation-lifecycle-types';
 
 import { getTacOperationStage } from 'lib/operations/tac';
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import OperationEntity from 'ui/shared/entities/operation/OperationEntity';
 import TacOperationStatus from 'ui/shared/statusTag/TacOperationStatus';

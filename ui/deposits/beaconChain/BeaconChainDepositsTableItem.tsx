@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { DepositsItem } from 'types/api/deposits';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BeaconChainDepositSignature from 'ui/shared/beacon/BeaconChainDepositSignature';
 import BeaconChainDepositStatusTag from 'ui/shared/beacon/BeaconChainDepositStatusTag';
 import BeaconChainValidatorLink from 'ui/shared/beacon/BeaconChainValidatorLink';

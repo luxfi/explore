@@ -3,7 +3,7 @@ import React from 'react';
 import type { InterchainMessage } from '@luxfi/interchain-indexer-types';
 
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
-import { TableBody, TableColumnHeader, TableHeader, TableHeaderSticky, TableRoot, TableRow } from 'toolkit/chakra/table';
+import { TableBody, TableColumnHeader, TableHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
 
 import TransactionsCrossChainTableItem from './TransactionsCrossChainTableItem';

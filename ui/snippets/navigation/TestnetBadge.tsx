@@ -1,7 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 
 interface Props {
   className?: string;

@@ -3,7 +3,7 @@ import React from 'react';
 
 import type { HotContract } from 'types/api/contracts';
 
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import { Reputation } from 'ui/shared/entities/token/TokenEntity';

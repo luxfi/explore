@@ -7,7 +7,7 @@ import { route } from 'nextjs-routes';
 
 import * as mixpanel from 'lib/mixpanel/index';
 import { getRecentSearchKeywords, saveToRecentKeywords } from 'lib/recentSearchKeywords';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import {
   DrawerRoot,
   DrawerTrigger,
@@ -17,7 +17,7 @@ import {
   DrawerCloseTrigger,
   DrawerBody,
   DrawerFooter,
-} from 'toolkit/chakra/drawer';
+} from '@luxfi/ui/drawer';
 import { Link } from 'toolkit/chakra/link';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';

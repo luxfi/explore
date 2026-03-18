@@ -5,7 +5,7 @@ import type { AxesConfigFn } from 'toolkit/components/charts/types';
 import type { UptimeHistoryFull, UptimeHistoryItem } from 'types/api/megaEth';
 
 import { useSettingsContext } from 'lib/contexts/settings';
-import { Heading } from 'toolkit/chakra/heading';
+import { Heading } from '@luxfi/ui/heading';
 import { ChartWidget } from 'toolkit/components/charts/ChartWidget';
 import { DAY, HOUR, SECOND } from 'toolkit/utils/consts';
 import { useChartsConfig } from 'ui/shared/chart/config';

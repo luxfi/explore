@@ -1,11 +1,11 @@
-import type { ButtonProps } from 'toolkit/chakra/button';
+import type { ButtonProps } from '@luxfi/ui/button';
 import React from 'react';
 
 import config from 'configs/app';
 import { useMarketplaceContext } from 'lib/contexts/marketplace';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import UserWalletButton from './UserWalletButton';

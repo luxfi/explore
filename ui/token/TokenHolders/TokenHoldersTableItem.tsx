@@ -4,7 +4,7 @@ import React from 'react';
 import type { TokenHolder, TokenInfo } from 'types/api/token';
 
 import { hasTokenIds, isConfidentialTokenType } from 'lib/token/tokenTypes';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import Utilization from 'ui/shared/Utilization/Utilization';

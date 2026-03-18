@@ -1,8 +1,8 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import { useCallback, useRef, useState } from 'react';
 
-import { Input } from 'toolkit/chakra/input';
-import { InputGroup } from 'toolkit/chakra/input-group';
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import IconSvg from 'ui/shared/IconSvg';
 

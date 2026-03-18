@@ -2,7 +2,7 @@ import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import useRoutedChainSelect from 'lib/multichain/useRoutedChainSelect';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import ChainSelect from 'ui/multichain/components/ChainSelect';

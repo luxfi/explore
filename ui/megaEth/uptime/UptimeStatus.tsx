@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 import StatusTag from 'ui/shared/statusTag/StatusTag';
 

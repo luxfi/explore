@@ -3,8 +3,8 @@ import React from 'react';
 
 import type { FheOperation } from 'types/api/fheOperations';
 
-import { Badge } from 'toolkit/chakra/badge';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Badge } from '@luxfi/ui/badge';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import { getTypeColor } from 'ui/tx/fheOperations/utils';

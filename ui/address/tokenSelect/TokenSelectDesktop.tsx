@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { FormattedData } from './types';
 
-import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from 'toolkit/chakra/popover';
+import { PopoverRoot, PopoverTrigger, PopoverContent, PopoverBody } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 
 import TokenSelectButton from './TokenSelectButton';

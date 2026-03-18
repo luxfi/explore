@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Button } from 'toolkit/chakra/button';
-import { IconButton } from 'toolkit/chakra/icon-button';
-import { Input } from 'toolkit/chakra/input';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from 'toolkit/chakra/popover';
+import { Button } from '@luxfi/ui/button';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Input } from '@luxfi/ui/input';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { times } from 'toolkit/utils/htmlEntities';
 import IconSvg from 'ui/shared/IconSvg';

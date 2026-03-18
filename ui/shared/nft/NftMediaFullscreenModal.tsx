@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TokenInstance } from 'types/api/token';
 
-import { DialogContent, DialogRoot, DialogCloseTrigger } from 'toolkit/chakra/dialog';
+import { DialogContent, DialogRoot, DialogCloseTrigger } from '@luxfi/ui/dialog';
 
 import NftHtml from './NftHtml';
 import NftImage from './NftImage';

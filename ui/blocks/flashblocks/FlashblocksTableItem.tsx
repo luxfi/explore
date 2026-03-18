@@ -5,7 +5,7 @@ import type { FlashblockItem } from 'types/client/flashblocks';
 import { route } from 'nextjs-routes';
 
 import { Link } from 'toolkit/chakra/link';
-import { TableCell, TableRow } from 'toolkit/chakra/table';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import FlashblockEntity from 'ui/shared/entities/flashblock/FlashblockEntity';
 import Time from 'ui/shared/time/Time';
 

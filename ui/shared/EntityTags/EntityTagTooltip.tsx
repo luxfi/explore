@@ -3,11 +3,11 @@ import React from 'react';
 import type { EntityTag } from './types';
 
 import * as mixpanel from 'lib/mixpanel/index';
-import { Image } from 'toolkit/chakra/image';
+import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/chakra/link';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { makePrettyLink } from 'toolkit/utils/url';
-import { Separator } from 'toolkit/chakra/separator';
+import { Separator } from '@luxfi/ui/separator';
 
 interface Props {
   data: EntityTag;

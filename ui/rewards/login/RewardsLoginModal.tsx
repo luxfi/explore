@@ -4,7 +4,7 @@ import type { Screen } from 'ui/snippets/auth/types';
 
 import { useRewardsContext } from 'lib/contexts/rewards';
 import useWallet from 'lib/web3/useWallet';
-import { DialogBody, DialogContent, DialogRoot, DialogHeader } from 'toolkit/chakra/dialog';
+import { DialogBody, DialogContent, DialogRoot, DialogHeader } from '@luxfi/ui/dialog';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AuthModal from 'ui/snippets/auth/AuthModal';
 

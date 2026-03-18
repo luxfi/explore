@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Skeleton } from 'toolkit/chakra/skeleton';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;

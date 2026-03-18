@@ -3,7 +3,7 @@ import React from 'react';
 import type { CeloEpochListItem } from 'types/api/epochs';
 
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import EpochEntity from 'ui/shared/entities/epoch/EpochEntity';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
 import CeloEpochStatus from 'ui/shared/statusTag/CeloEpochStatus';

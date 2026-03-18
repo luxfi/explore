@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import type { DialogRootProps } from 'toolkit/chakra/dialog';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from 'toolkit/chakra/dialog';
+import type { DialogRootProps } from '@luxfi/ui/dialog';
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import FormSubmitAlert from 'ui/shared/FormSubmitAlert';
 
 interface Props<TData> extends Omit<DialogRootProps, 'children'> {

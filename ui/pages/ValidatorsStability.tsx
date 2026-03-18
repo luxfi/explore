@@ -28,7 +28,7 @@ import ValidatorsCounters from 'ui/validators/stability/ValidatorsCounters';
 import ValidatorsFilter from 'ui/validators/stability/ValidatorsFilter';
 import ValidatorsList from 'ui/validators/stability/ValidatorsList';
 import ValidatorsTable from 'ui/validators/stability/ValidatorsTable';
-import { createListCollection } from 'toolkit/chakra/select';
+import { createListCollection } from '@luxfi/ui/select';
 
 const sortCollection = createListCollection({
   items: VALIDATORS_STABILITY_SORT_OPTIONS,

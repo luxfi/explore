@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { ListCollection, SelectOption } from 'toolkit/chakra/select';
-import { SelectContent, SelectItem, SelectRoot, SelectControl } from 'toolkit/chakra/select';
+import type { ListCollection, SelectOption } from '@luxfi/ui/select';
+import { SelectContent, SelectItem, SelectRoot, SelectControl } from '@luxfi/ui/select';
 import FilterButton from 'ui/shared/filters/FilterButton';
 
 interface Props {

@@ -6,7 +6,7 @@ import type { AddressMudRecordsFilter, AddressMudRecordsSorting } from 'types/ap
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { cn } from 'lib/utils/cn';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { Tag } from 'toolkit/chakra/tag';
+import { Tag } from '@luxfi/ui/tag';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
 import DataListDisplay from 'ui/shared/DataListDisplay';

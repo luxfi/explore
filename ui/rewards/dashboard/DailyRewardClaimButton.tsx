@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { useRewardsContext } from 'lib/contexts/rewards';
-import { Button } from 'toolkit/chakra/button';
+import { Button } from '@luxfi/ui/button';
 import { SECOND } from 'toolkit/utils/consts';
 import splitSecondsInPeriods from 'ui/blockCountdown/splitSecondsInPeriods';
 

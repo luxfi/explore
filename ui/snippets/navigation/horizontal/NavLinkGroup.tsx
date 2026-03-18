@@ -3,8 +3,8 @@ import React from 'react';
 import type { NavGroupItem } from 'types/client/navigation';
 
 import { Link } from 'toolkit/chakra/link';
-import { Separator } from 'toolkit/chakra/separator';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Separator } from '@luxfi/ui/separator';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import IconSvg from 'ui/shared/IconSvg';
 

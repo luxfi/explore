@@ -7,8 +7,8 @@ import type { FormSubmitHandler, FormSubmitResult, MethodCallStrategy, SmartCont
 
 import config from 'configs/app';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Button } from 'toolkit/chakra/button';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import { Button } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { SECOND } from 'toolkit/utils/consts';
 import IconSvg from 'ui/shared/IconSvg';

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import usePreventFocusAfterModalClosing from 'lib/hooks/usePreventFocusAfterModalClosing';
-import type { ButtonProps } from 'toolkit/chakra/button';
-import { Button } from 'toolkit/chakra/button';
-import { PopoverTrigger } from 'toolkit/chakra/popover';
-import { Tooltip } from 'toolkit/chakra/tooltip';
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { PopoverTrigger } from '@luxfi/ui/popover';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import useScoreLevelAndColor from './useScoreLevelAndColor';

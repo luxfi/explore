@@ -5,7 +5,7 @@ import { route } from 'nextjs-routes';
 
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
-import { Skeleton } from 'toolkit/chakra/skeleton';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
 import IconSvg, { type IconName } from 'ui/shared/IconSvg';
