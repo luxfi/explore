@@ -66,7 +66,7 @@ export const parentChain: Chain | undefined = (() => {
     },
     blockExplorers: {
       'default': {
-        name: `${ config.chain.name || '' } Explorer`.trim(),
+        name: `${ parentChain.name || '' } Explorer`.trim(),
         url: parentChain.baseUrl,
       },
     },
