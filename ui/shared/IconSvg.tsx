@@ -11,6 +11,8 @@ export { IconName };
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {
   name: IconName;
   isLoading?: boolean;
+  // Accept legacy Chakra style props as pass-through during migration
+  [key: string]: unknown;
 }
 
 const IconSvg = React.forwardRef(
