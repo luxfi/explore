@@ -1,6 +1,7 @@
 @import "tailwindcss" layer(tailwind);
-@import "tailwindcss-animate" layer(tailwind);
 @import "../styles/tokens.css";
+
+@plugin "tailwindcss-animate";
 
 /*
  * Tailwind v4 theme configuration
