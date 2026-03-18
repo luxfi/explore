@@ -3,6 +3,7 @@ import React from 'react';
 import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -26,7 +27,10 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
   const protocolTag = tx.to?.metadata?.tags?.find(tag => tag.tagType === 'protocol');
 
   return (
-    <div className="w-full border-b border-[var(--color-border-divider)] py-4 block lg:hidden">
+    <div className={ cn(
+      'w-full border-b border-[var(--color-border-divider)] py-4 px-1 block lg:hidden',
+      'transition-colors hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+    ) }>
       <div className="flex justify-between">
         <div>
           <TxType types={ tx.transaction_types } isLoading={ isLoading }/>

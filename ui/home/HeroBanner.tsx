@@ -27,21 +27,17 @@ const HeroBanner = () => {
 
   return (
     <div
-      className="w-full rounded-md p-4 lg:p-6 flex items-center"
+      className="w-full rounded-lg px-4 py-3 lg:px-6 lg:py-4 flex items-center"
       style={{ background, border }}
     >
       <div className="grow">
         <div className="flex justify-between items-center gap-x-2">
-          <h1
-            className="text-[18px] lg:text-[30px] leading-[24px] lg:leading-[36px] font-medium lg:font-bold"
-            style={{ color: textColor }}
+          <span
+            className="text-sm lg:text-base font-semibold tracking-wide uppercase"
+            style={{ color: textColor, opacity: 0.7 }}
           >
-            {
-              config.meta.seo.enhancedDataEnabled ?
-                `${ config.chain.name } blockchain explorer` :
-                `${ config.chain.name } explorer`
-            }
-          </h1>
+            { config.chain.name }
+          </span>
           { config.UI.navigation.layout === 'vertical' && config.features.rewards.isEnabled && (
             <div className="hidden lg:flex gap-2">
               <RewardsButton variant="hero"/>

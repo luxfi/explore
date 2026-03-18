@@ -37,8 +37,8 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
   return (
     <div
       className={ cn(
-        'rounded-md border border-[var(--color-border-divider)] p-3 min-w-[260px] flex-1 transition-colors duration-150',
-        isLoading ? 'cursor-default' : 'cursor-pointer hover:bg-gray-50 dark:hover:bg-white/10',
+        'rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-3 min-w-[260px] flex-1 transition-colors duration-150',
+        isLoading ? 'cursor-default' : 'cursor-pointer hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]',
       ) }
       style={ animation ? { animation } : undefined }
       onClick={ handleClick }

@@ -66,13 +66,13 @@ interface MetricProps {
 }
 
 const Metric = ({ label, value, isLoading }: MetricProps) => (
-  <div className="flex flex-col items-center px-3">
+  <div className="flex flex-col items-center px-4 py-1">
     <Skeleton loading={ isLoading }>
       <span className="font-mono text-lg text-[var(--color-text-primary)] font-bold leading-tight">
         { value }
       </span>
     </Skeleton>
-    <span className="text-2xs uppercase tracking-[0.05em] text-[var(--color-text-secondary)] mt-0.5 font-medium">
+    <span className="text-2xs uppercase tracking-[0.08em] text-[var(--color-text-secondary)] mt-1 font-medium">
       { label }
     </span>
   </div>
@@ -95,7 +95,7 @@ const ChainRow = ({
 }: ChainRowProps) => {
   const content = (
     <div className={ cn(
-      'flex items-center justify-between transition-all rounded-md px-3 py-2.5',
+      'flex items-center justify-between transition-all rounded-md px-3 py-2.5 gap-3',
       href ?
         'cursor-pointer hover:bg-[var(--chakra-colors-gray-100)] dark:hover:bg-[var(--chakra-colors-whiteAlpha-100)]' :
         'cursor-default',
@@ -108,7 +108,7 @@ const ChainRow = ({
           { fullName }
         </span>
       </div>
-      <div className="flex items-center gap-2 ml-3 shrink-0">
+      <div className="flex items-center gap-2 shrink-0">
         { height !== undefined && (
           <Skeleton loading={ heightLoading }>
             <span className="font-mono text-xs text-[var(--color-text-secondary)]">
@@ -193,7 +193,7 @@ interface SidebarCardProps {
 }
 
 const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardProps) => (
-  <div className="rounded-lg p-4 border border-[var(--color-border-divider)] bg-gray-50 dark:bg-white/5">
+  <div className="rounded-lg p-4 border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]">
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2">
         <Heading level="3" className="text-sm">{ title }</Heading>
@@ -244,8 +244,8 @@ const NetworkOverview = () => {
         { /* ── Metrics strip ── */ }
         <div className={ cn(
           'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
-          'mt-4 py-3 gap-3 border border-[var(--color-border-divider)]',
-          'bg-gray-50 dark:bg-white/5',
+          'mt-4 py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
+          'bg-[var(--color-stats-bg)]',
         ) }>
           <Metric
             label="Validators"
@@ -286,12 +286,12 @@ const NetworkOverview = () => {
         </div>
 
         { /* ── Latest blocks (full-width horizontal scroll) ── */ }
-        <div className="mt-8">
+        <div className="mt-8 rounded-lg border border-[var(--color-border-divider)] p-4 lg:p-5">
           <LatestBlocks/>
         </div>
 
         { /* ── Latest transactions (full-width below blocks) ── */ }
-        <div className="mt-6">
+        <div className="mt-6 rounded-lg border border-[var(--color-border-divider)] p-4 lg:p-5">
           <Transactions/>
         </div>
 

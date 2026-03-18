@@ -3,6 +3,7 @@ import React from 'react';
 import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -36,9 +37,15 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
 
   return (
     <div
-      className={ `hidden lg:grid gap-3 w-full border-b border-[var(--color-border-divider)] p-4 ${ columnNum === 2 ? 'min-w-[700px]' : 'min-w-[750px]' }` }
+      className={ cn(
+        'hidden lg:grid gap-3 w-full border-b border-[var(--color-border-divider)] p-4',
+        'transition-colors hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+        columnNum === 2 ? 'min-w-[700px]' : 'min-w-[750px]',
+      ) }
       style={{
-        gridTemplateColumns: columnNum === 2 ? '3fr minmax(auto, 270px)' : '3fr minmax(auto, 300px) 170px',
+        gridTemplateColumns: columnNum === 2 ?
+          '3fr minmax(auto, 270px)' :
+          '3fr minmax(auto, 300px) 170px',
       }}
     >
       <div className="overflow-hidden w-full">

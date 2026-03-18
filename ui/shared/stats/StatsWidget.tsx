@@ -57,7 +57,7 @@ const StatsWidget = ({
   return (
     <Container href={ !isLoading ? href : undefined } className={ href ? className : undefined }>
       <div
-        className={ `flex items-center p-4 rounded-base justify-between gap-x-3 w-full h-full ${
+        className={ `flex items-center p-4 rounded-lg justify-between gap-x-3 w-full h-full border border-[var(--color-border-divider)] ${
           isLoading ?
             'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' :
             'bg-[var(--color-stats-bg)]'
