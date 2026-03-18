@@ -213,13 +213,13 @@ const Stats = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 basis-1/2 grow">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
       { items.map((item, index) => (
         <StatsWidget
           key={ item.id }
           { ...item }
           isLoading={ isLoading }
-          className={ items.length % 2 === 1 && index === items.length - 1 ? 'col-span-2' : undefined }/>
+          className={ items.length % 2 === 1 && index === items.length - 1 ? 'sm:col-span-2 lg:col-span-1' : undefined }/>
       ),
       ) }
     </div>

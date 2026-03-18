@@ -29,7 +29,6 @@ import LatestBlocksItem from './LatestBlocksItem';
 
 const LatestBlocks = () => {
   const isMobile = useIsMobile();
-  // const blocksMaxCount = isMobile ? 2 : 3;
   let blocksMaxCount: number;
   if (config.features.rollup.isEnabled || config.UI.views.block.hiddenFields?.total_reward) {
     blocksMaxCount = isMobile ? 4 : 8;
@@ -90,7 +89,7 @@ const LatestBlocks = () => {
 
       return (
         <>
-          <div className="flex gap-2 mb-3 overflow-x-auto items-stretch pb-1">
+          <div className="flex gap-3 overflow-x-auto items-stretch pb-2 -mb-2">
             { dataToShow.map(((block, index) => (
               <LatestBlocksItem
                 key={ block.height + (isPlaceholderData ? String(index) : '') }
@@ -100,44 +99,42 @@ const LatestBlocks = () => {
               />
             ))) }
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-4">
             <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isPlaceholderData }>View all blocks</Link>
           </div>
         </>
       );
     }
-    return <div className="text-sm">No latest blocks found.</div>;
+    return <div className="text-sm text-[var(--color-text-secondary)]">No latest blocks found.</div>;
   })();
 
   const networkUtilization = getNetworkUtilizationParams(statsQueryResult.data?.network_utilization_percentage ?? 0);
 
   return (
     <div className="w-full">
-      <div className="flex items-center">
+      <div className="flex items-center gap-2 mb-4">
         <Heading level="3">Latest blocks</Heading>
         { isRpcData && <FallbackRpcIcon/> }
-      </div>
-      { statsQueryResult.data?.network_utilization_percentage !== undefined && (
-        <Skeleton loading={ statsQueryResult.isPlaceholderData } mt={ 2 } display="inline-block" textStyle="sm">
-          <span>
-            Network utilization:{ nbsp }
-          </span>
-          <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
-            <span className="font-bold" style={{ color: networkUtilization.color }}>
-              { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
+        { statsQueryResult.data?.network_utilization_percentage !== undefined && (
+          <Skeleton loading={ statsQueryResult.isPlaceholderData } className="inline-block text-sm ml-auto">
+            <span className="text-[var(--color-text-secondary)]">
+              Network utilization:{ nbsp }
             </span>
-          </Tooltip>
-        </Skeleton>
-      ) }
+            <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
+              <span className="font-bold" style={{ color: networkUtilization.color }}>
+                { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
+              </span>
+            </Tooltip>
+          </Skeleton>
+        ) }
+      </div>
       { statsQueryResult.data?.celo && (
-        <div className="whitespace-pre-wrap text-sm mt-2">
+        <div className="whitespace-pre-wrap text-sm mb-3 text-[var(--color-text-secondary)]">
           <span>Current epoch: </span>
-          <span className="font-bold">#{ statsQueryResult.data.celo.epoch_number }</span>
+          <span className="font-bold text-[var(--color-text-primary)]">#{ statsQueryResult.data.celo.epoch_number }</span>
         </div>
       ) }
-      <div className="mt-3">
-        { content }
-      </div>
+      { content }
     </div>
   );
 };

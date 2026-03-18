@@ -3,6 +3,7 @@ import React from 'react';
 import type { Route } from 'nextjs-routes';
 import { route } from 'nextjs-routes';
 
+import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
@@ -57,41 +58,34 @@ const StatsWidget = ({
   return (
     <Container href={ !isLoading ? href : undefined } className={ href ? className : undefined }>
       <div
-        className={ `flex items-center p-4 rounded-lg justify-between gap-x-3 w-full h-full border border-[var(--color-border-divider)] ${
-          isLoading ?
-            'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' :
-            'bg-[var(--color-stats-bg)]'
-        } ${ href ? '' : className ?? '' }` }
+        className={ cn(
+          'flex items-center p-4 rounded-lg justify-between gap-x-3 w-full h-full',
+          'border border-[var(--color-border-divider)]',
+          isLoading ? 'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' : 'bg-[var(--color-stats-bg)]',
+          !href && className,
+        ) }
       >
         { icon && (
           <IconSvg
             name={ icon }
-            className={ `hidden lg:block shrink-0 p-2 rounded-base ${ isFallback && !isLoading ? 'opacity-[var(--opacity-control-disabled)]' : '' }` }
+            className={ cn(
+              'hidden lg:block shrink-0 p-2 rounded-base',
+              isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
+            ) }
             style={{ width: '40px', height: '40px' }}
             isLoading={ isLoading }
           />
         ) }
-        <div
-          className="w-full"
-          style={{
-            width: `calc(100% - ${ icon ? '48px' : '0px' } - ${ hint ? '24px' : '0px' })`,
-          }}
-        >
-          <Skeleton
-            loading={ isLoading }
-            color="text.secondary"
-            textStyle="xs"
-            className="w-fit"
-          >
+        <div className="flex flex-col grow min-w-0">
+          <Skeleton loading={ isLoading } className="w-fit text-xs text-[var(--color-text-secondary)]">
             <h2>{ label }</h2>
           </Skeleton>
           <Skeleton
             loading={ isLoading }
-            display="flex"
-            alignItems="baseline"
-            fontWeight={ 500 }
-            textStyle="heading.md"
-            className={ isFallback && !isLoading ? 'opacity-[var(--opacity-control-disabled)]' : '' }
+            className={ cn(
+              'flex items-baseline font-medium text-lg',
+              isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
+            ) }
           >
             { valuePrefix && <span className="whitespace-pre">{ valuePrefix }</span> }
             { typeof value === 'string' ? (
@@ -112,7 +106,7 @@ const StatsWidget = ({
           </Skeleton>
         </div>
         { typeof hint === 'string' ? (
-          <Skeleton loading={ isLoading } alignSelf="center" borderRadius="base" flexShrink={ 0 }>
+          <Skeleton loading={ isLoading } className="self-center shrink-0 rounded-base">
             <Hint label={ hint } className="size-5 text-[var(--color-icon-secondary)]"/>
           </Skeleton>
         ) : hint }

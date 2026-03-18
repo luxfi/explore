@@ -97,7 +97,7 @@ const ChainRow = ({
     <div className={ cn(
       'flex items-center justify-between transition-all rounded-md px-3 py-2.5 gap-3',
       href ?
-        'cursor-pointer hover:bg-[var(--chakra-colors-gray-100)] dark:hover:bg-[var(--chakra-colors-whiteAlpha-100)]' :
+        'cursor-pointer hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]' :
         'cursor-default',
     ) }>
       <div className="flex items-center gap-2 min-w-0">
@@ -139,7 +139,10 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   const slug = chain.name.toLowerCase();
 
   const content = (
-    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 transition-colors rounded-md px-3 py-2">
+    <div className={ cn(
+      'flex items-center justify-between cursor-pointer transition-colors rounded-md px-3 py-2',
+      'hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]',
+    ) }>
       <div className="flex items-center gap-2">
         <span className="text-sm text-[var(--color-text-primary)] font-semibold">
           { chain.name }
@@ -170,7 +173,10 @@ interface KnownL1RowProps {
 
 const KnownL1Row = ({ name, href }: KnownL1RowProps) => (
   <Link href={ href } variant="plain" target="_blank">
-    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 transition-colors rounded-md px-3 py-2">
+    <div className={ cn(
+      'flex items-center justify-between cursor-pointer transition-colors rounded-md px-3 py-2',
+      'hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]',
+    ) }>
       <span className="text-sm text-[var(--color-text-primary)] font-semibold">
         { name }
       </span>
@@ -182,9 +188,9 @@ const KnownL1Row = ({ name, href }: KnownL1RowProps) => (
   </Link>
 );
 
-// ── Sidebar card ──
+// ── Section card ──
 
-interface SidebarCardProps {
+interface SectionCardProps {
   readonly title: string;
   readonly count?: number;
   readonly isLoading?: boolean;
@@ -192,8 +198,8 @@ interface SidebarCardProps {
   readonly children: React.ReactNode;
 }
 
-const SidebarCard = ({ title, count, isLoading, action, children }: SidebarCardProps) => (
-  <div className="rounded-lg p-4 border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]">
+const SectionCard = ({ title, count, isLoading, action, children }: SectionCardProps) => (
+  <div className="rounded-lg p-5 border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]">
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2">
         <Heading level="3" className="text-sm">{ title }</Heading>
@@ -237,14 +243,14 @@ const NetworkOverview = () => {
 
   return (
     <HomeRpcDataContextProvider>
-      <main>
-        { /* ── Hero search ── */ }
+      <div className="flex flex-col gap-6 lg:gap-8">
+        { /* ── Hero ── */ }
         <HeroBanner/>
 
         { /* ── Metrics strip ── */ }
         <div className={ cn(
           'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
-          'mt-4 py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
+          'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
           'bg-[var(--color-stats-bg)]',
         ) }>
           <Metric
@@ -281,24 +287,22 @@ const NetworkOverview = () => {
         </div>
 
         { /* ── Stats widgets ── */ }
-        <div className="mt-5">
-          <Stats/>
-        </div>
+        <Stats/>
 
-        { /* ── Latest blocks (full-width horizontal scroll) ── */ }
-        <div className="mt-8 rounded-lg border border-[var(--color-border-divider)] p-4 lg:p-5">
+        { /* ── Latest blocks ── */ }
+        <div className="rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-5 lg:p-6">
           <LatestBlocks/>
         </div>
 
-        { /* ── Latest transactions (full-width below blocks) ── */ }
-        <div className="mt-6 rounded-lg border border-[var(--color-border-divider)] p-4 lg:p-5">
+        { /* ── Latest transactions ── */ }
+        <div className="rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-5 lg:p-6">
           <Transactions/>
         </div>
 
-        { /* ── Chain Health section (below blocks/txns) ── */ }
-        <div className="grid grid-cols-1 lg:grid-cols-3 mt-8 gap-4">
+        { /* ── Chain Health ── */ }
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           { /* Primary Network chains */ }
-          <SidebarCard
+          <SectionCard
             title="Primary Network"
             count={ PRIMARY_CHAINS.length }
           >
@@ -322,10 +326,10 @@ const NetworkOverview = () => {
                 );
               }) }
             </div>
-          </SidebarCard>
+          </SectionCard>
 
-          { /* L2 chains */ }
-          <SidebarCard
+          { /* L1 chains */ }
+          <SectionCard
             title="Chains"
             count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
             isLoading={ chainsLoading }
@@ -352,12 +356,12 @@ const NetworkOverview = () => {
                 )) }
               </div>
             ) }
-          </SidebarCard>
+          </SectionCard>
 
           { /* Validators summary card */ }
-          <SidebarCard title="Validators">
+          <SectionCard title="Validators">
             { !hasValidatorData && !validatorsLoading ? (
-              <div className="flex flex-col items-center py-3">
+              <div className="flex flex-col items-center py-4">
                 <span className="text-sm text-[var(--color-text-secondary)]">
                   { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
                 </span>
@@ -367,10 +371,10 @@ const NetworkOverview = () => {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-md font-bold">
+                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
                         { hasValidatorData ? stats.validatorCount : '\u2014' }
                       </span>
                     </Skeleton>
@@ -378,7 +382,7 @@ const NetworkOverview = () => {
                   </div>
                   <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-md font-bold">
+                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
                         { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
                       </span>
                     </Skeleton>
@@ -386,7 +390,7 @@ const NetworkOverview = () => {
                   </div>
                   <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-md font-bold">
+                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
                         { hasValidatorData ? stats.delegatorCount : '\u2014' }
                       </span>
                     </Skeleton>
@@ -394,23 +398,23 @@ const NetworkOverview = () => {
                   </div>
                   <div>
                     <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-md font-bold">
+                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
                         { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
                       </span>
                     </Skeleton>
                     <span className="text-2xs text-[var(--color-text-secondary)]">Connected</span>
                   </div>
                 </div>
-                <div className="flex justify-center mt-3">
+                <div className="flex justify-center mt-4">
                   <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
                     View validators
                   </Link>
                 </div>
               </>
             ) }
-          </SidebarCard>
+          </SectionCard>
         </div>
-      </main>
+      </div>
     </HomeRpcDataContextProvider>
   );
 };

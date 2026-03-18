@@ -37,7 +37,8 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
   return (
     <div
       className={ cn(
-        'rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-3 min-w-[260px] flex-1 transition-colors duration-150',
+        'rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]',
+        'p-4 min-w-[260px] flex-1 transition-colors duration-150',
         isLoading ? 'cursor-default' : 'cursor-pointer hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]',
       ) }
       style={ animation ? { animation } : undefined }
@@ -64,12 +65,12 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
         />
       </div>
       <div className="grid gap-2 grid-cols-[auto_minmax(0,1fr)] text-sm">
-        <Skeleton loading={ isLoading }>Txn</Skeleton>
-        <Skeleton loading={ isLoading } color="text.secondary"><span>{ block.transactions_count }</span></Skeleton>
+        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">Txn</Skeleton>
+        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]"><span>{ block.transactions_count }</span></Skeleton>
 
         { !config.features.rollup.isEnabled && !config.UI.views.block.hiddenFields?.total_reward && (
           <>
-            <Skeleton loading={ isLoading }>Reward</Skeleton>
+            <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">Reward</Skeleton>
             <SimpleValue
               value={ totalReward }
               loading={ isLoading }
@@ -81,7 +82,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
 
         { !config.features.rollup.isEnabled && !config.UI.views.block.hiddenFields?.miner && (
           <>
-            <Skeleton loading={ isLoading }>{ capitalize(getNetworkValidatorTitle()) }</Skeleton>
+            <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">{ capitalize(getNetworkValidatorTitle()) }</Skeleton>
             <AddressEntity
               address={ block.miner }
               isLoading={ isLoading }

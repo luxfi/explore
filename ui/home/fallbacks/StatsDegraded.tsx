@@ -158,7 +158,7 @@ const StatsDegraded = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-1 lg:gap-2 basis-1/2 grow">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
       { items.map((item, index) => (
         <StatsWidget
           key={ item.id }
