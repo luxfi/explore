@@ -58,9 +58,9 @@ const StatsWidget = ({
     <Container href={ !isLoading ? href : undefined } className={ href ? className : undefined }>
       <div
         className={ `flex items-center p-3 rounded-base justify-between gap-x-2 w-full h-full ${
-          isLoading
-            ? 'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]'
-            : 'bg-[var(--color-theme-stats-bg-light)] dark:bg-[var(--color-theme-stats-bg-dark)]'
+          isLoading ?
+            'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' :
+            'bg-[var(--color-stats-bg)]'
         } ${ href ? '' : className ?? '' }` }
       >
         { icon && (

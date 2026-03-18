@@ -2,8 +2,8 @@ import React from 'react';
 
 import config from 'configs/app';
 import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
-import { cn } from 'lib/utils/cn';
 import type { PChainBlockchain } from 'lib/api/pchain';
+import { cn } from 'lib/utils/cn';
 import { Heading } from 'toolkit/chakra/heading';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -49,8 +49,6 @@ const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
   Pars: 'https://explore-pars.lux.network',
 };
 
-
-
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
   if (lux >= 1_000_000_000) return `${ (lux / 1_000_000_000).toFixed(1) }B`;
@@ -92,9 +90,16 @@ interface ChainRowProps {
   readonly heightLoading?: boolean;
 }
 
-const ChainRow = ({ name, fullName, vm, href, tier, height, heightLoading }: ChainRowProps) => {
+const ChainRow = ({
+  name, fullName, vm, href, tier, height, heightLoading,
+}: ChainRowProps) => {
   const content = (
-    <div className={cn("flex items-center justify-between transition-all rounded-md px-3 py-2", href ? "cursor-pointer hover:bg-[var(--chakra-colors-gray-100)] dark:hover:bg-[var(--chakra-colors-whiteAlpha-100)]" : "cursor-default")}>
+    <div className={ cn(
+      'flex items-center justify-between transition-all rounded-md px-3 py-2',
+      href ?
+        'cursor-pointer hover:bg-[var(--chakra-colors-gray-100)] dark:hover:bg-[var(--chakra-colors-whiteAlpha-100)]' :
+        'cursor-default',
+    ) }>
       <div className="flex items-center gap-2">
         <span className="text-sm text-[var(--color-text-primary)] font-semibold">
           { name }
@@ -237,15 +242,37 @@ const NetworkOverview = () => {
         <HeroBanner/>
 
         { /* ── Metrics strip ── */ }
-        <div className="flex items-center justify-center flex-wrap overflow-hidden rounded-lg mt-4 py-3 gap-0 border border-[var(--color-border-divider)] bg-gray-50 dark:bg-white/5">
-          <Metric label="Validators" value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' } isLoading={ validatorsLoading }/>
-          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric label="Staked" value={ hasValidatorData ? `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` : '\u2014' } isLoading={ validatorsLoading }/>
-          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric label="Uptime" value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' } isLoading={ validatorsLoading }/>
-          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric label="Chains" value={ String(totalChains) } isLoading={ isLoading }/>
-          <div className="w-[1px] h-[28px] hidden md:block bg-[var(--color-border-divider)]"/>
+        <div className={ cn(
+          'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
+          'mt-4 py-3 gap-3 border border-[var(--color-border-divider)]',
+          'bg-gray-50 dark:bg-white/5',
+        ) }>
+          <Metric
+            label="Validators"
+            value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
+            isLoading={ validatorsLoading }
+          />
+          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+          <Metric
+            label="Staked"
+            value={ hasValidatorData ?
+              `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` :
+              '\u2014' }
+            isLoading={ validatorsLoading }
+          />
+          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+          <Metric
+            label="Uptime"
+            value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' }
+            isLoading={ validatorsLoading }
+          />
+          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+          <Metric
+            label="Chains"
+            value={ String(totalChains) }
+            isLoading={ isLoading }
+          />
+          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
           <Metric
             label="Connected"
             value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }

@@ -8,7 +8,7 @@ const TokenLogoPlaceholder = (props: Record<string, unknown>) => {
   return (
     <IconSvg
       className={ cn(
-        'font-semibold rounded-base',
+        'w-6 h-6 font-semibold rounded-base',
         'bg-[var(--color-gray-200)] dark:bg-[var(--color-gray-600)]',
         'text-[var(--color-gray-400)] dark:text-[var(--color-gray-200)]',
         'transition-colors duration-normal ease-in-out',

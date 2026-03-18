@@ -13,10 +13,19 @@ export interface Props extends React.HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;
 }
 
+const DEFAULT_SIZE = 'w-5 h-5';
+
+const hasSize = (cls?: string): boolean => {
+  if (!cls) return false;
+  return /(?:^|\s)(?:w-|h-|size-)/.test(cls);
+};
+
 const IconSvg = ({ name, isLoading = false, className, ref, ...props }: Props & { ref?: React.Ref<HTMLDivElement> }) => {
+  const resolvedClass = hasSize(className) ? className! : `${ DEFAULT_SIZE } ${ className ?? '' }`.trim();
+
   if (isLoading) {
     return (
-      <Skeleton loading display="inline-block" flexShrink={ 0 } className={ className } ref={ ref }>
+      <Skeleton loading display="inline-block" flexShrink={ 0 } className={ resolvedClass } ref={ ref }>
         <svg className="w-full h-full">
           <use href={ `${ href }#${ name }` }/>
         </svg>
@@ -25,7 +34,7 @@ const IconSvg = ({ name, isLoading = false, className, ref, ...props }: Props & 
   }
 
   return (
-    <div className={ `inline-block shrink-0 ${ className ?? '' }`.trim() } ref={ ref } { ...props }>
+    <div className={ `inline-block shrink-0 ${ resolvedClass }`.trim() } ref={ ref } { ...props }>
       <svg className="w-full h-full">
         <use href={ `${ href }#${ name }` }/>
       </svg>

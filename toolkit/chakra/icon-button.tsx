@@ -56,9 +56,9 @@ const iconButtonVariants = cva(
         ],
       },
       size: {
-        '2xs': 'size-5 rounded-sm [&>svg]:size-5',
-        '2xs_alt': 'size-5 rounded-sm [&>svg]:size-3',
-        md: 'size-8 rounded-[var(--radius-base,8px)] [&>svg]:size-5',
+        '2xs': 'size-5 rounded-sm [&_svg]:size-5',
+        '2xs_alt': 'size-5 rounded-sm [&_svg]:size-3',
+        md: 'size-8 rounded-[var(--radius-base,8px)] [&_svg]:size-5',
       },
     },
     defaultVariants: {
