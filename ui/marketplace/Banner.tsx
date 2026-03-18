@@ -61,10 +61,7 @@ const Banner = ({ apps = [], favoriteApps, isLoading, onInfoClick, onFavoriteCli
       { !isMobile && (
         <AdBanner
           format="mobile"
-          w="fit-content"
-          flexShrink={ 0 }
-          borderRadius="md"
-          overflow="hidden"
+          className="w-fit shrink-0 rounded-md overflow-hidden"
         />
       ) }
     </div>

@@ -228,7 +228,7 @@ const Stats = () => {
           key={ item.id }
           { ...item }
           isLoading={ isLoading }
-          _last={ items.length % 2 === 1 && index === items.length - 1 ? { gridColumn: 'span 2' } : undefined }/>
+          className={ items.length % 2 === 1 && index === items.length - 1 ? 'col-span-2' : undefined }/>
       ),
       ) }
     </div>

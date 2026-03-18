@@ -31,7 +31,7 @@ const AddressesListItem = ({
   const isBalancePending = item.coin_balance === null && Number(item.transactions_count) > 0;
 
   return (
-    <ListItemMobile rowGap={ 3 }>
+    <ListItemMobile className="!gap-y-3">
       <div className="flex" alignItems="center" justifyContent="space-between" w="100%">
         <AddressEntity
           address={ item }

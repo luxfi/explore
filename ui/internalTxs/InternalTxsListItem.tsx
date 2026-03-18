@@ -37,7 +37,7 @@ const InternalTxsListItem = ({
   const toData = to ? to : createdContract;
 
   return (
-    <ListItemMobile rowGap={ 3 }>
+    <ListItemMobile className="!gap-y-3">
       <div columnGap={ 2 }>
         { typeTitle && <Badge colorPalette="cyan" loading={ isLoading }>{ typeTitle }</Badge> }
         { !success && <TxStatus status="error" errorText={ error } isLoading={ isLoading }/> }
@@ -46,7 +46,7 @@ const InternalTxsListItem = ({
         <TxEntity
           hash={ txnHash }
           isLoading={ isLoading }
-          fontWeight={ 700 }
+          className="font-bold"
           truncation="constant_long"
           chain={ chainData }
         />
@@ -65,7 +65,7 @@ const InternalTxsListItem = ({
             isLoading={ isLoading }
             number={ blockNumber }
             noIcon
-            textStyle="sm"
+            className="text-sm"
           />
         </div>
       ) }
@@ -74,7 +74,7 @@ const InternalTxsListItem = ({
         to={ toData }
         current={ currentAddress }
         isLoading={ isLoading }
-        w="100%"
+        className="w-full"
       />
       <div gap={ 3 }>
         <Skeleton loading={ isLoading } className="text-sm font-medium">Value { currencyUnits.ether }</Skeleton>

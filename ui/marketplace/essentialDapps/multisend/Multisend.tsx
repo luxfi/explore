@@ -531,11 +531,7 @@ const Multisend = () => {
       { (feature?.essentialDappsAdEnabled && !isMobile) && (
         <AdBanner
           format="desktop"
-          w="fit-content"
-          borderRadius="md"
-          overflow="hidden"
-          mx="auto"
-          mt={ 10 }
+          className="w-fit rounded-md overflow-hidden mx-auto mt-10"
         />
       ) }
     </>

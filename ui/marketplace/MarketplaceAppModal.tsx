@@ -134,7 +134,7 @@ const MarketplaceAppModal = ({
               { title }
             </Heading>
             <MarketplaceAppIntegrationIcon external={ external } internalWallet={ internalWallet }/>
-            <MarketplaceAppGraphLinks links={ graphLinks } ml={ 2 }/>
+            <MarketplaceAppGraphLinks links={ graphLinks } className="ml-2"/>
             <DialogCloseTrigger className="ml-auto"/>
           </div>
 

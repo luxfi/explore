@@ -31,13 +31,13 @@ const HotContractsTableItem = ({
             address={ data.contract_address }
             isLoading={ isLoading }
           />
-          <Reputation value={ data.contract_address.reputation ?? null } ml={ 0 }/>
+          <Reputation value={ data.contract_address.reputation ?? null } className="ml-0"/>
         </div>
         { protocolTags && protocolTags.length > 0 && (
           <EntityTags
             isLoading={ isLoading }
             tags={ protocolTags }
-            mt="10px"
+            className="mt-[10px]"
             noColors
           />
         ) }

@@ -19,7 +19,7 @@ const AddressesLabelSearchListItem = ({
 }: Props) => {
 
   return (
-    <ListItemMobile rowGap={ 3 }>
+    <ListItemMobile className="!gap-y-3">
       <AddressEntity
         address={ item }
         isLoading={ isLoading }

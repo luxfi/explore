@@ -44,7 +44,7 @@ const HotContractsIntervalSelect = ({ interval, onIntervalChange, isLoading }: P
         tagSize="lg"
         loading={ isInitialLoading }
         disabled={ isLoading }
-        hideBelow="lg"
+        className="hidden lg:flex"
       />
       <Select
         collection={ intervalCollection }

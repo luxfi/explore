@@ -36,7 +36,7 @@ const LatestTxs = () => {
     const txsUrl = route({ pathname: `/txs`, query: zetachainFeature.isEnabled ? { tab: 'evm' } : undefined });
     return (
       <>
-        <SocketNewItemsNotice borderBottomRadius={ 0 } url={ txsUrl } num={ num } showErrorAlert={ showErrorAlert } isLoading={ isPlaceholderData }/>
+        <SocketNewItemsNotice className="rounded-b-none" url={ txsUrl } num={ num } showErrorAlert={ showErrorAlert } isLoading={ isPlaceholderData }/>
         <div mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
           { data.slice(0, txsCount).map(((tx, index) => (
             <LatestTxsItemMobile

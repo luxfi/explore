@@ -49,7 +49,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
       display={{ base: 'none', lg: 'grid' }}
     >
       <div overflow="hidden" w="100%">
-        <TxAdditionalInfo tx={ tx } isLoading={ isLoading } my="3px"/>
+        <TxAdditionalInfo tx={ tx } isLoading={ isLoading } className="my-[3px]"/>
         <div ml={ 3 } w="calc(100% - 40px)">
           <div flexWrap={ tagsCount <= 3 ? 'nowrap' : 'wrap' } my="3px">
             <TxType types={ tx.transaction_types } isLoading={ isLoading }/>
@@ -65,7 +65,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
             <TxEntity
               isLoading={ isLoading }
               hash={ tx.hash }
-              fontWeight="700"
+              className="font-bold"
             />
             <TimeWithTooltip
               timestamp={ tx.timestamp }

@@ -67,7 +67,7 @@ const UserOpsTableItem = ({ item, isLoading, showTx, showSender, chainData }: Pr
         <BlockEntity
           number={ Number(item.block_number) }
           isLoading={ isLoading }
-          textStyle="sm"
+          className="text-sm"
           noIcon
         />
       </TableCell>

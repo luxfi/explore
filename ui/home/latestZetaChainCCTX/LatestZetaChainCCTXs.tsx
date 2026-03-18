@@ -121,7 +121,7 @@ const LatestZetaChainCCTXs = () => {
           type="cross_chain_transaction"
           isLoading={ isPlaceholderData }
           showErrorAlert={ showSocketErrorAlert }
-          borderBottomRadius={ 0 }
+          className="rounded-b-none"
         />
         <div mb={ 3 } display={{ base: 'block', lg: 'none' }}>
           { data.items.slice(0, txsCount).map(((tx, index) => (

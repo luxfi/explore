@@ -81,7 +81,7 @@ const UserOpsListItem = ({ item, isLoading, showTx, showSender, chainData }: Pro
         <BlockEntity
           number={ Number(item.block_number) }
           isLoading={ isLoading }
-          textStyle="sm"
+          className="text-sm"
           noIcon
         />
       </ListItemMobileGrid.Value>

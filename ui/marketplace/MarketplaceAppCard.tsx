@@ -105,14 +105,12 @@ const MarketplaceAppCard = ({
                 external={ external }
                 title={ title }
                 onClick={ onAppClick }
-                textStyle="sm"
-                fontWeight="semibold"
+                className="text-sm font-semibold"
               />
               <MarketplaceAppIntegrationIcon external={ external } internalWallet={ internalWallet }/>
               <MarketplaceAppGraphLinks
                 links={ graphLinks }
-                ml={ 2 }
-                verticalAlign="middle"
+                className="ml-2 align-middle"
               />
             </Skeleton>
 

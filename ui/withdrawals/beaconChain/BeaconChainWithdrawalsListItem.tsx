@@ -50,7 +50,7 @@ const BeaconChainWithdrawalsListItem = ({ item, isLoading, view }: Props) => {
             <BlockEntity
               number={ item.block_number }
               isLoading={ isLoading }
-              textStyle="sm"
+              className="text-sm"
             />
           </ListItemMobileGrid.Value>
         </>

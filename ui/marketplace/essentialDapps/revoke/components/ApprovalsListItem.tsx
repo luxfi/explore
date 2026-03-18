@@ -46,19 +46,11 @@ export default function ApprovalsListItem({
 
   return (
     <ListItemMobileGrid.Container
-      gridTemplateColumns="minmax(0, 1fr) minmax(0, 1fr)"
-      fontWeight="500"
-      _first={{
-        borderTop: 0,
-        paddingTop: 0,
-      }}
-      _last={{
-        borderBottom: 0,
-        paddingBottom: 0,
-      }}
+      className="font-medium first:border-t-0 first:pt-0 last:border-b-0 last:pb-0"
+      style={{ gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)' }}
     >
       <ListItemMobileGrid.Label isLoading={ isLoading }>Token</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value display="flex" flexDir="column" gap={ 2 } color="inherit">
+      <ListItemMobileGrid.Value className="flex flex-col gap-2 text-inherit">
         <TokenEntity
           token={{
             address_hash: approval.address,
@@ -95,7 +87,7 @@ export default function ApprovalsListItem({
         />
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Approved amount</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="inherit">
+      <ListItemMobileGrid.Value className="text-inherit">
         <Skeleton loading={ isLoading }>
           <NumberEntity
             value={ allowance }
@@ -106,7 +98,7 @@ export default function ApprovalsListItem({
         </Skeleton>
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Value at risk</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="inherit">
+      <ListItemMobileGrid.Value className="text-inherit">
         <Skeleton loading={ isLoading }>
           { approval.valueAtRiskUsd ? (
             <NumberEntity
@@ -117,7 +109,7 @@ export default function ApprovalsListItem({
         </Skeleton>
       </ListItemMobileGrid.Value>
       <ListItemMobileGrid.Label isLoading={ isLoading }>Last updated</ListItemMobileGrid.Label>
-      <ListItemMobileGrid.Value color="inherit">
+      <ListItemMobileGrid.Value className="text-inherit">
         <Skeleton loading={ isLoading } display="flex" className="flex-col gap-y-2">
           <Time timestamp={ approval.timestamp }/>
           <span>{ dayjs(approval.timestamp).fromNow() }</span>

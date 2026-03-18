@@ -52,7 +52,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         <TxEntity
           isLoading={ isLoading }
           hash={ tx.hash }
-          fontWeight="700"
+          className="font-bold"
           truncation="constant_long"
         />
         <TimeWithTooltip
@@ -69,7 +69,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         from={ tx.from }
         to={ dataTo }
         isLoading={ isLoading }
-        fontWeight="500"
+        className="font-medium"
       />
       { !(config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee) ? (
         <div rowGap={ 2 } mt={ 3 } alignItems="flex-start">

@@ -47,7 +47,7 @@ const InternalTxsTableItem = ({
           <TxEntity
             hash={ txnHash }
             isLoading={ isLoading }
-            fontWeight={ 700 }
+            className="font-bold"
             noIcon
             truncation="constant_long"
           />
@@ -76,9 +76,7 @@ const InternalTxsTableItem = ({
             isLoading={ isLoading }
             number={ blockNumber }
             noIcon
-            textStyle="sm"
-            fontWeight={ 500 }
-            my="2px"
+            className="text-sm font-medium my-[2px]"
           />
         </TableCell>
       ) }
@@ -88,7 +86,7 @@ const InternalTxsTableItem = ({
           to={ toData }
           current={ currentAddress }
           isLoading={ isLoading }
-          my="2px"
+          className="my-[2px]"
         />
       </TableCell>
       <TableCell isNumeric>

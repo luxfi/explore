@@ -46,7 +46,7 @@ const ERC20TokensListItem = ({
   }, [ chainValues ]);
 
   return (
-    <ListItemMobile rowGap={ 2 }>
+    <ListItemMobile className="!gap-y-2">
       <div className="flex" alignItems="center" width="100%" columnGap={ 2 }>
         <TokenEntity
           token={ token }

@@ -41,7 +41,7 @@ const MarketplaceAppTopBar = ({ appId, data, isLoading }: Props) => {
 
   return (
     <div alignItems="center" mb={{ base: 3, md: 2 }} rowGap={ 3 } columnGap={ 2 }>
-      { !isMobile && <NetworkIcon mr={ 4 }/> }
+      { !isMobile && <NetworkIcon className="mr-4"/> }
       <BackToButton
         href={ goBackUrl }
         hint="Back to dApps list"

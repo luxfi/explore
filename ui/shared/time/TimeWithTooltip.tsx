@@ -19,10 +19,25 @@ type Props = {
   fontWeight?: string;
   fontSize?: string;
   mt?: string;
+  mb?: string;
   display?: string;
+  w?: string;
+  h?: string;
+  my?: string;
+  flexShrink?: number;
+  ml?: string | number;
 };
 
-const TimeWithTooltip = ({ timestamp, fallbackText, isLoading, enableIncrement, className, timeFormat: timeFormatProp, ...rest }: Props) => {
+const TimeWithTooltip = ({ timestamp, fallbackText, isLoading, enableIncrement, className, timeFormat: timeFormatProp, my, ...rest }: Props) => {
+  // Convert my (margin-y) to mt+mb for Skeleton
+  if (my !== undefined) {
+    if (rest.mt === undefined) {
+      rest.mt = my;
+    }
+    if (rest.mb === undefined) {
+      rest.mb = my;
+    }
+  }
 
   const settings = useSettingsContext();
   const timeFormat = timeFormatProp || settings?.timeFormat || 'relative';

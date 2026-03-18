@@ -103,8 +103,7 @@ const Content = ({
               <AddressEntity
                 address={{ hash: searchAddress }}
                 truncation="constant"
-                textStyle={{ base: 'heading.sm', lg: 'heading.md' }}
-                fontWeight="500"
+                className="text-lg lg:text-xl font-medium"
                 icon={{ size: isMobile ? undefined : 30 }}
                 noLink
               />

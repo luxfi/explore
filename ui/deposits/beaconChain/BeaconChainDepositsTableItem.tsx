@@ -35,7 +35,7 @@ const BeaconChainDepositsTableItem = ({ item, view, isLoading }: Props) => {
             number={ item.block_number }
             hash={ item.block_hash }
             isLoading={ isLoading }
-            textStyle="sm"
+            className="text-sm"
             noIcon
           />
         </TableCell>

@@ -164,8 +164,7 @@ const Revoke = () => {
                   truncation="constant"
                   noLink
                   noCopy
-                  textStyle="sm"
-                  fontWeight="600"
+                  className="text-sm font-semibold"
                 />
               </Button>
             )) }
@@ -187,8 +186,7 @@ const Revoke = () => {
                       noTooltip
                       noLink
                       noCopy
-                      textStyle="sm"
-                      fontWeight="600"
+                      className="text-sm font-semibold"
                     />
                   </Button>
                 </Tooltip>

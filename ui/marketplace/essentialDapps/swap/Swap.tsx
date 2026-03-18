@@ -70,10 +70,7 @@ export default function Swap() {
       { (feature?.essentialDappsAdEnabled && !isMobile) && (
         <AdBanner
           format="mobile"
-          w="fit-content"
-          borderRadius="md"
-          overflow="hidden"
-          ml="auto"
+          className="w-fit rounded-md overflow-hidden ml-auto"
         />
       ) }
     </div>

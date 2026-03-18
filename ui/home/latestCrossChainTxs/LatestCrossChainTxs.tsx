@@ -39,13 +39,6 @@ const LatestCrossChainTxs = () => {
             key={ tx.message_id + (isPlaceholderData ? index : '') }
             data={ tx }
             isLoading={ isPlaceholderData }
-            py={ 4 }
-            textStyle="sm"
-            rowGap="14px"
-            _first={{
-              borderTopWidth: '0',
-              paddingTop: '4px',
-            }}
           />
         ))) }
       </div>

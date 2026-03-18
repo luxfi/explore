@@ -20,7 +20,7 @@ interface Props {
 
 const InteropMessagesListItem = ({ item, isLoading }: Props) => {
   return (
-    <ListItemMobile rowGap={ 2 }>
+    <ListItemMobile className="!gap-y-2">
       <div alignItems="center" justifyContent="space-between" w="100%">
         <InteropMessageStatus status={ item.status } isLoading={ isLoading }/>
         <InteropMessageAdditionalInfo payload={ item.payload } isLoading={ isLoading }/>

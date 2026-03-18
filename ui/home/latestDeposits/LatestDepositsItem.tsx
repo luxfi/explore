@@ -23,9 +23,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     <BlockEntityL1
       number={ l1BlockNumber }
       isLoading={ isLoading }
-      fontSize="sm"
-      lineHeight={ 5 }
-      fontWeight={ 700 }
+      className="text-sm leading-5 font-bold"
     />
   );
 
@@ -33,8 +31,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     <TxEntityL1
       isLoading={ isLoading }
       hash={ l1TxHash }
-      fontSize="sm"
-      lineHeight={ 5 }
+      className="text-sm leading-5"
       truncation={ isMobile ? 'constant_long' : 'dynamic' }
     />
   );
@@ -43,8 +40,7 @@ const LatestDepositsItem = ({ l1BlockNumber, l1TxHash, l2TxHash, timestamp, isLo
     <TxEntity
       isLoading={ isLoading }
       hash={ l2TxHash }
-      fontSize="sm"
-      lineHeight={ 5 }
+      className="text-sm leading-5"
       truncation={ isMobile ? 'constant_long' : 'dynamic' }
     />
   ) : null;

@@ -20,7 +20,7 @@ const HotContractsListItem = ({ data, isLoading, exchangeRate }: Props) => {
   const protocolTags = data?.contract_address?.metadata?.tags?.filter(tag => tag.tagType === 'protocol');
 
   return (
-    <ListItemMobile rowGap={ 3 } py={ 4 } textStyle="sm">
+    <ListItemMobile className="!gap-y-3 !py-4 text-sm">
       <div justifyContent="space-between" width="100%">
         <AddressEntity
           address={ data.contract_address }

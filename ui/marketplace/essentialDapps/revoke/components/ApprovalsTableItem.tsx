@@ -59,8 +59,7 @@ export default function ApprovalsTableItem({
             isLoading={ isLoading }
             noCopy
             jointSymbol
-            textStyle="sm"
-            fontWeight="600"
+            className="text-sm font-semibold"
             chain={ selectedChain }
             link={{ noIcon: true, external: true }}
           />

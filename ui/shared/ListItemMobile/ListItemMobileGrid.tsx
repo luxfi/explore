@@ -1,17 +1,20 @@
 import React from 'react';
 
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 
 interface ContainerProps {
   className?: string;
   animation?: string;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-const Container = (({ animation, children, className }: ContainerProps) => {
+const Container = (({ animation, children, className, style }: ContainerProps) => {
   return (
-    <div className="grid items-start gap-x-2 gap-y-2 w-full text-sm border-t border-[var(--color-border-divider)] py-4" style={{ gridTemplateColumns: '86px auto' }}
-      className={ className }
+    <div
+      className={ cn('grid items-start gap-x-2 gap-y-2 w-full text-sm border-t border-[var(--color-border-divider)] py-4', className) }
+      style={{ gridTemplateColumns: '86px auto', ...style }}
     >
       { children }
     </div>
@@ -27,10 +30,8 @@ interface LabelProps {
 const Label = (({ children, className, isLoading }: LabelProps) => {
   return (
     <Skeleton
-      className={ className }
+      className={ cn('font-medium self-start', className) }
       loading={ isLoading }
-      fontWeight={ 500 }
-      alignSelf="start"
       style={{ marginTop: '5px', marginBottom: '5px' }}
     >
       { children }
@@ -45,9 +46,7 @@ interface ValueProps {
 
 const Value = (({ children, className }: ValueProps) => {
   return (
-    <div       className={ className }
-      py="5px" className="text-[var(--color-text-secondary)]" className="overflow-hidden"
-    >
+    <div className={ cn('py-[5px] text-[var(--color-text-secondary)] overflow-hidden', className) }>
       { children }
     </div>
   );

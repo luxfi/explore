@@ -36,7 +36,7 @@ const BeaconChainWithdrawalsTableItem = ({ item, view, isLoading }: Props) => {
           <BlockEntity
             number={ item.block_number }
             isLoading={ isLoading }
-            textStyle="sm"
+            className="text-sm"
             noIcon
           />
         </TableCell>

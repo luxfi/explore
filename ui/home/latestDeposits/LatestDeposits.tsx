@@ -38,13 +38,13 @@ const LatestDepositsItem = ({ item, isLoading }: ItemProps) => {
     <BlockEntityL1
       number={ item.l1BlockNumber }
       isLoading={ isLoading }
-      fontWeight={ 700 }
+      className="font-bold"
     />
   ) : (
     <BlockEntityL1
       number="TBD"
       isLoading={ isLoading }
-      fontWeight={ 700 }
+      className="font-bold"
       noLink
     />
   );
@@ -148,7 +148,7 @@ const LatestDeposits = ({ isLoading, items, showSocketErrorAlert, socketItemsNum
   return (
     <>
       <SocketNewItemsNotice
-        borderBottomRadius={ 0 }
+        className="rounded-b-none"
         url={ depositsUrl }
         num={ socketItemsNum }
         showErrorAlert={ showSocketErrorAlert }
