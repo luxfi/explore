@@ -95,20 +95,20 @@ const ChainRow = ({
 }: ChainRowProps) => {
   const content = (
     <div className={ cn(
-      'flex items-center justify-between transition-all rounded-md px-3 py-2',
+      'flex items-center justify-between transition-all rounded-md px-3 py-2.5',
       href ?
         'cursor-pointer hover:bg-[var(--chakra-colors-gray-100)] dark:hover:bg-[var(--chakra-colors-whiteAlpha-100)]' :
         'cursor-default',
     ) }>
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-[var(--color-text-primary)] font-semibold">
+      <div className="flex items-center gap-2 min-w-0">
+        <span className="text-sm text-[var(--color-text-primary)] font-semibold whitespace-nowrap">
           { name }
         </span>
-        <span className="text-xs text-[var(--color-text-secondary)] hidden lg:inline">
+        <span className="text-xs text-[var(--color-text-secondary)] hidden lg:inline whitespace-nowrap">
           { fullName }
         </span>
       </div>
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2 ml-3 shrink-0">
         { height !== undefined && (
           <Skeleton loading={ heightLoading }>
             <span className="font-mono text-xs text-[var(--color-text-secondary)]">
@@ -302,7 +302,7 @@ const NetworkOverview = () => {
             title="Primary Network"
             count={ PRIMARY_CHAINS.length }
           >
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col gap-0.5">
               { PRIMARY_CHAINS.map((chain) => {
                 const chainHeight = (() => {
                   if (chain.id === 'C') return cChainHeight;
@@ -339,14 +339,14 @@ const NetworkOverview = () => {
               </div>
             ) }
             { !chainsLoading && hasL1Data && (
-              <div className="flex flex-col gap-0">
+              <div className="flex flex-col gap-0.5">
                 { l1Chains.map((chain) => (
                   <L1ChainRow key={ chain.id } chain={ chain }/>
                 )) }
               </div>
             ) }
             { showFallbackL1 && (
-              <div className="flex flex-col gap-0">
+              <div className="flex flex-col gap-0.5">
                 { KNOWN_L1_CHAINS.map((chain) => (
                   <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
                 )) }

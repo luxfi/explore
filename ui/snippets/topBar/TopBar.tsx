@@ -68,7 +68,7 @@ const TopBar = () => {
       ) }
     >
       <div
-        className="flex py-2 px-3 lg:px-6 mx-auto items-center gap-1"
+        className="flex py-2 px-4 lg:px-6 mx-auto items-center gap-2"
         style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
       >
         { /* -- Logo + Brand + Chain/Network selectors (grouped) -- */ }
@@ -99,7 +99,7 @@ const TopBar = () => {
         <div className="h-4 w-px bg-[var(--color-border-divider)] shrink-0 mx-1"/>
 
         { /* -- Navigation -- */ }
-        <nav className="hidden lg:flex items-center gap-1 shrink-0">
+        <nav className="hidden lg:flex items-center gap-1 shrink-0 min-w-0">
           { /* Blockchain dropdown */ }
           <MenuRoot>
             <MenuTrigger asChild>
@@ -173,7 +173,7 @@ const TopBar = () => {
         </nav>
 
         { /* -- Search bar (center, flexible) -- */ }
-        <div className="flex-1 mx-2 hidden lg:block max-w-[480px]">
+        <div className="flex-1 mx-3 hidden lg:block max-w-[480px] min-w-[180px]">
           <SearchBar isHeroBanner={ false }/>
         </div>
 

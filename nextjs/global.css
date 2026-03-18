@@ -234,3 +234,14 @@
   unicode-range: U+2192; /* Only the right arrow */
   font-display: swap;
 }
+
+/*
+ * Global font and body styles.
+ * Geist is loaded via Google Fonts in _document.tsx.
+ * Apply it universally so Chakra components inherit it too.
+ */
+html, body {
+  font-family: 'Geist', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

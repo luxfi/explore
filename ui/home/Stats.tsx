@@ -213,7 +213,7 @@ const Stats = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-2 basis-1/2 grow">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 basis-1/2 grow">
       { items.map((item, index) => (
         <StatsWidget
           key={ item.id }
