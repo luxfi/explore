@@ -10,7 +10,7 @@
       "nextjs-routes": ["./nextjs/nextjs-routes.d.ts"],
     }
   },
-  "include": [ "../../../configs/app/index.ts", "../../../global.d.ts" ],
+  "include": [ "../../../configs/app/index.ts", "../../../global.d.ts", "../../../types/@luxfi/ui.d.ts" ],
   "tsc-alias": {
     "verbose": true,
     "resolveFullPaths": true,
