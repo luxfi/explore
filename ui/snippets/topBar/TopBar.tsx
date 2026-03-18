@@ -61,7 +61,11 @@ const TopBar = () => {
 
   return (
     <div
-      className="sticky top-0 left-0 w-full max-w-[100vw] z-sticky border-b border-[var(--color-border-divider)] backdrop-blur-[16px] bg-[rgba(255,255,255,0.97)] dark:bg-[rgba(16,17,18,0.97)]"
+      className={ cn(
+        'sticky top-0 left-0 w-full max-w-[100vw] z-sticky',
+        'border-b border-[var(--color-border-divider)]',
+        'backdrop-blur-[16px] bg-[rgba(255,255,255,0.97)] dark:bg-[rgba(16,17,18,0.97)]',
+      ) }
     >
       <div
         className="flex py-2 px-3 lg:px-6 mx-auto items-center gap-1"
@@ -95,7 +99,7 @@ const TopBar = () => {
         <div className="h-4 w-px bg-[var(--color-border-divider)] shrink-0 mx-1"/>
 
         { /* -- Navigation -- */ }
-        <nav className="hidden lg:flex items-center gap-0 shrink-0">
+        <nav className="hidden lg:flex items-center gap-1 shrink-0">
           { /* Blockchain dropdown */ }
           <MenuRoot>
             <MenuTrigger asChild>
