@@ -5,6 +5,7 @@ import type { TokenInfo } from 'types/api/token';
 import { route } from 'nextjs/routes';
 
 import config from 'configs/app';
+import { cn } from 'lib/utils/cn';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tooltip } from 'toolkit/chakra/tooltip';
@@ -133,15 +134,16 @@ const Copy = (props: CopyProps) => {
 
 const Container = EntityBase.Container;
 
-interface ReputationProps extends BoxProps {
+interface ReputationProps {
   value: TokenInfo['reputation'];
+  className?: string;
 }
 
-const Reputation = ({ value, ...rest }: ReputationProps) => {
+const Reputation = ({ value, className }: ReputationProps) => {
   if (config.UI.views.token.hideScamTokensEnabled && value === 'scam') {
     return (
       <Tooltip content="This token has been flagged as a potential scam. You enabled the display of flagged tokens in the explorer — proceed with caution.">
-        <IconSvg name="scam" boxSize={ 5 } ml={ 2 } { ...rest }/>
+        <IconSvg name="scam" className={ cn('w-5 h-5 ml-2', className) }/>
       </Tooltip>
     );
   }
@@ -149,18 +151,19 @@ const Reputation = ({ value, ...rest }: ReputationProps) => {
   return null;
 };
 
-interface TestTokenBadgeProps extends BoxProps {
+interface TestTokenBadgeProps {
   readonly addressHash: string;
+  className?: string;
 }
 
-const TestTokenBadge = ({ addressHash, ...rest }: TestTokenBadgeProps) => {
+const TestTokenBadge = ({ addressHash, className }: TestTokenBadgeProps) => {
   if (!config.UI.views.token.testTokenAddresses.has(addressHash.toLowerCase())) {
     return null;
   }
 
   return (
     <Tooltip content="This is a known test/fake token. It has no real value — do not trade or transfer real assets for it.">
-      <IconSvg name="status/warning" boxSize={ 5 } ml={ 2 } color="orange.400" { ...rest }/>
+      <IconSvg name="status/warning" className={ cn('w-5 h-5 ml-2 text-[var(--color-orange-400)]', className) }/>
     </Tooltip>
   );
 };

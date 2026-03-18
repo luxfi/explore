@@ -8,6 +8,8 @@ interface ContainerProps {
   animation?: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 const Container = (({ animation, children, className, style }: ContainerProps) => {
@@ -42,6 +44,8 @@ const Label = (({ children, className, isLoading }: LabelProps) => {
 interface ValueProps {
   className?: string;
   children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 const Value = (({ children, className }: ValueProps) => {

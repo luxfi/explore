@@ -8,7 +8,7 @@ import { distributeEntityProps } from '../base/utils';
 
 type LinkProps = EntityBase.LinkBaseProps & Pick<EntityProps, 'hash'>;
 
-const Link = chakra((props: LinkProps) => {
+const Link = (props: LinkProps) => {
   const defaultHref = route({ pathname: '/blobs/[hash]', query: { hash: props.hash } });
 
   return (
@@ -19,7 +19,7 @@ const Link = chakra((props: LinkProps) => {
       { props.children }
     </EntityBase.Link>
   );
-});
+};
 
 const Icon = (props: EntityBase.IconBaseProps) => {
   return (
@@ -33,14 +33,14 @@ const Icon = (props: EntityBase.IconBaseProps) => {
 
 type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<EntityProps, 'hash' | 'text'>;
 
-const Content = chakra((props: ContentProps) => {
+const Content = (props: ContentProps) => {
   return (
     <EntityBase.Content
       { ...props }
       text={ props.text ?? props.hash }
     />
   );
-});
+};
 
 type CopyProps = Omit<EntityBase.CopyBaseProps, 'text'> & Pick<EntityProps, 'hash'>;
 
@@ -74,7 +74,7 @@ const BlobEntity = (props: EntityProps) => {
   );
 };
 
-export default React.memo(chakra(BlobEntity));
+export default React.memo(BlobEntity);
 
 export {
   Container,

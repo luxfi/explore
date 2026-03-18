@@ -9,7 +9,7 @@ import type { EntityProps } from './AddressEntity';
 import AddressEntity from './AddressEntity';
 import AddressEntityExternal from './AddressEntityExternal';
 
-interface Props extends EntityProps, JsxStyleProps {
+interface Props extends EntityProps {
   chain: ExternalChain | undefined;
   currentAddress?: string;
 }

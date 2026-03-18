@@ -8,7 +8,7 @@ import type { EntityProps as TxEntityProps } from './TxEntity';
 import TxEntity from './TxEntity';
 import TxEntityExternal from './TxEntityExternal';
 
-interface Props extends TxEntityProps, JsxStyleProps {
+interface Props extends TxEntityProps {
   chain: ExternalChain | undefined;
 }
 

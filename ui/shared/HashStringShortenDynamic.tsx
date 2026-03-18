@@ -19,7 +19,7 @@ import { BODY_TYPEFACE, HEADING_TYPEFACE } from 'toolkit/theme/foundations/typog
 const TAIL_LENGTH = 4;
 const HEAD_MIN_LENGTH = 4;
 
-interface Props extends BoxProps {
+interface Props extends React.HTMLAttributes<HTMLSpanElement> {
   hash: string;
   fontWeight?: string | number;
   noTooltip?: boolean;

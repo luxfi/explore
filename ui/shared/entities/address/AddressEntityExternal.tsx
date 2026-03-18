@@ -8,7 +8,7 @@ import { stripTrailingSlash } from 'toolkit/utils/url';
 import type { EntityProps } from './AddressEntity';
 import AddressEntity from './AddressEntity';
 
-interface Props extends EntityProps, JsxStyleProps {
+interface Props extends EntityProps {
   chain: ExternalChain | undefined;
 }
 

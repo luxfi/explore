@@ -19,7 +19,7 @@ interface IconInfo {
   file_size: number;
 }
 
-const Item = ({ name, file_size: fileSize, bgColor }: IconInfo & React.HTMLAttributes<HTMLElement>) => {
+const Item = ({ name, file_size: fileSize, className }: IconInfo & { className?: string }) => {
   const { hasCopied, copy } = useClipboard(name, 1000);
   const [ copied, setCopied ] = React.useState(false);
 
@@ -33,7 +33,7 @@ const Item = ({ name, file_size: fileSize, bgColor }: IconInfo & React.HTMLAttri
 
   return (
     <div className="flex flex-col items-center text-center whitespace-pre-wrap break-words cursor-pointer max-w-[100px]" onClick={ copy }>
-      <IconSvg name={ name.replace('.svg', '') as IconName } boxSize="100px" bgColor={ bgColor } borderRadius="base"/>
+      <IconSvg name={ name.replace('.svg', '') as IconName } className={ `w-[100px] h-[100px] rounded ${ className ?? '' }`.trim() }/>
       <Tooltip content={ copied ? 'Copied' : 'Copy to clipboard' } open={ copied }>
         <div className="mt-2 font-medium">{ name }</div>
       </Tooltip>

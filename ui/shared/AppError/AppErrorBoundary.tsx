@@ -51,4 +51,4 @@ const AppErrorBoundary = ({ className, children, Container }: Props) => {
   );
 };
 
-export default React.memo(chakra(AppErrorBoundary));
+export default React.memo(AppErrorBoundary);

@@ -4,6 +4,8 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   animation?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 const ListItemMobile = ({ children, className, animation }: Props) => {

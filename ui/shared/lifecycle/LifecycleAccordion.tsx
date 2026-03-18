@@ -103,11 +103,11 @@ export const ItemContent = ({ isLast, className, ...rest }: ContentProps) => {
   );
 };
 
-export const ItemBody = (props: React.ComponentPropsWithoutRef<typeof Grid>) => {
+export const ItemBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className="grid items-start rounded-bl rounded-br gap-x-3 gap-y-1 text-sm bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]" style={{ gridTemplateColumns: '112px minmax(0, 1fr)' }}
-      p="6px"
-      pl="18px"
+    <div
+      className={ `grid items-start rounded-bl rounded-br gap-x-3 gap-y-1 text-sm bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)] p-[6px] pl-[18px] ${ className ?? '' }`.trim() }
+      style={{ gridTemplateColumns: '112px minmax(0, 1fr)' }}
       { ...props }
     />
   );

@@ -34,15 +34,14 @@ const TokenValueInterchain = ({ token, tokenEntityProps, chain, ...rest }: Props
       chain={ chain }
       noCopy
       onlySymbol
-      flexShrink={ 0 }
-      w="fit-content"
-      ml={ 2 }
+      className="shrink-0 w-fit ml-2"
       icon={{ marginRight: 1 }}
       { ...tokenEntityProps }
     />
   );
   return (
     <AssetValue
+      amount={ rest.amount }
       asset={ asset }
       decimals={ token.decimals }
       { ...rest }

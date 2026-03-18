@@ -1,7 +1,13 @@
 import React from 'react';
 
-const FallbackBox = (props: BoxProps) => {
-  return <div h={ 3 } className="bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)]" className="rounded-sm" { ...props }/>;
+import { cn } from 'lib/utils/cn';
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+}
+
+const FallbackBox = ({ className, ...props }: Props) => {
+  return <div className={ cn('h-3 bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)] rounded-sm', className) } { ...props }/>;
 };
 
 export default React.memo(FallbackBox);

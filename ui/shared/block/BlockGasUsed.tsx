@@ -47,4 +47,4 @@ const BlockGasUsed = ({ className, gasUsed, gasLimit, gasTarget, isLoading }: Pr
   );
 };
 
-export default React.memo(chakra(BlockGasUsed));
+export default React.memo(BlockGasUsed);

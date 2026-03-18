@@ -10,6 +10,8 @@ export const ITEM_VALUE_LINE_HEIGHT = { base: '30px', lg: '32px' };
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export const Container = ({ children, className }: ContainerProps) => {
@@ -56,6 +58,8 @@ interface ItemValueProps {
   children: React.ReactNode;
   multiRow?: boolean;
   className?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export const ItemValue = ({ children, multiRow = false, className }: ItemValueProps) => {

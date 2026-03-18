@@ -127,15 +127,7 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
     isActive && setActionBarRenderer(() => renderActionBar);
   }, [ isActive, renderActionBar, setActionBarRenderer ]);
 
-  const buttonProps: HTMLChakraProps<'div'> = {
-    boxSize: '20px',
-    p: '1px',
-    cursor: 'pointer',
-    borderRadius: '3px',
-    borderWidth: '1px',
-    borderColor: 'transparent',
-    color: 'text.primary',
-  };
+  const buttonClassName = 'w-[20px] h-[20px] p-[1px] cursor-pointer rounded-[3px] border border-transparent text-[var(--color-text-primary)]';
 
   const searchResultNum = (() => {
     if (!debouncedSearchTerm) {
@@ -146,14 +138,14 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
 
     if (!totalResults) {
       return (
-        <div px="8px" className="text-[13px] leading-[18px]" mb="8px">
+        <div className="text-[13px] leading-[18px] px-[8px] mb-[8px]">
           No results found. Review your settings for configured exclusions.
         </div>
       );
     }
 
     return (
-      <div px="8px" className="text-[13px] leading-[18px]" mb="8px">
+      <div className="text-[13px] leading-[18px] px-[8px] mb-[8px]">
         { totalResults } result{ totalResults > 1 ? 's' : '' } in { searchResults.length } file{ searchResults.length > 1 ? 's' : '' }
       </div>
     );
@@ -161,21 +153,21 @@ const CodeEditorSearch = ({ monaco, data, onFileSelect, isInputStuck, isActive, 
 
   const inputEndElement = (
     <>
-      <div         { ...buttonProps }
-        className="codicon codicon-case-sensitive"
-        onClick={ handleMatchCaseChange } style={{ backgroundColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent'  }}
+      <div
+        className={ `${ buttonClassName } codicon codicon-case-sensitive` }
+        onClick={ handleMatchCaseChange } style={{ backgroundColor: isMatchCase ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }}
         title="Match Case"
         aria-label="Match Case"
       />
-      <div         { ...buttonProps }
-        className="codicon codicon-whole-word" style={{ backgroundColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent'  }}
-        onClick={ handleMatchWholeWordChange }
+      <div
+        className={ `${ buttonClassName } codicon codicon-whole-word` }
+        onClick={ handleMatchWholeWordChange } style={{ backgroundColor: isMatchWholeWord ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }}
         title="Match Whole Word"
         aria-label="Match Whole Word"
       />
-      <div         { ...buttonProps }
-        className="codicon codicon-regex" style={{ backgroundColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent'  }}
-        onClick={ handleMatchRegexChange }
+      <div
+        className={ `${ buttonClassName } codicon codicon-regex` }
+        onClick={ handleMatchRegexChange } style={{ backgroundColor: isMatchRegex ? themeColors['custom.inputOption.activeBackground'] : 'transparent' }}
         title="Use Regular Expression"
         aria-label="Use Regular Expression"
       />

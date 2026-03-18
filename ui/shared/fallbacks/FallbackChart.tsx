@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props extends BoxProps {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   term?: string;
 }
 

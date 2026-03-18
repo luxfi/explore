@@ -40,6 +40,8 @@ export interface EntityBaseProps {
   truncationMaxSymbols?: number;
   variant?: Variant;
   chain?: ExternalChain;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export interface ContainerBaseProps extends Pick<EntityBaseProps, 'className'> {

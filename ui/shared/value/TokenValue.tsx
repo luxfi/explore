@@ -23,15 +23,14 @@ const TokenValue = ({ token, tokenEntityProps, layer, ...rest }: Props) => {
       token={ token }
       noCopy
       onlySymbol
-      flexShrink={ 0 }
-      w="fit-content"
-      ml={ 2 }
+      className="shrink-0 w-fit ml-2"
       icon={{ marginRight: 1 }}
       { ...tokenEntityProps }
     />
   );
   return (
     <AssetValue
+      amount={ rest.amount }
       asset={ asset }
       exchangeRate={ token.exchange_rate }
       decimals={ token.decimals }

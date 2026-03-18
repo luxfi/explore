@@ -51,7 +51,7 @@ function resolveToken(category: string, token: string): string {
 export function useToken(category: string, tokens: string | ReadonlyArray<string>): Array<string> {
   return React.useMemo(() => {
     if (Array.isArray(tokens)) {
-      return tokens.map((t) => resolveToken(category, t));
+      return (tokens as ReadonlyArray<string>).map((t: string) => resolveToken(category, t));
     }
     return [ resolveToken(category, tokens as string) ];
   }, [ category, tokens ]);
