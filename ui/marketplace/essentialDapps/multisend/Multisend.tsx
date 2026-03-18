@@ -490,7 +490,7 @@ const MULTISEND_CSS = {
 };
 
 const Container = ({ children }: { children: React.ReactNode }) => (
-  <div className="w-full max-w-[670px] mx-auto" style={ MULTISEND_CSS }>{ children }</div>
+  <div className="w-full max-w-[670px] mx-auto">{ children }</div>
 );
 
 const widgetConfig = Object.fromEntries((dappConfig?.chains ?? []).map((chainId) => {

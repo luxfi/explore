@@ -158,18 +158,13 @@ const StatsDegraded = () => {
   }
 
   return (
-    <div
-      gridTemplateColumns="1fr 1fr"
-      gridGap={{ base: 1, lg: 2 }}
-      flexBasis="50%"
-      flexGrow={ 1 }
-    >
+    <div className="grid grid-cols-2 gap-1 lg:gap-2 basis-1/2 grow">
       { items.map((item, index) => (
         <StatsWidget
           key={ item.id }
           { ...item }
           isLoading={ isLoading || item.isLoading }
-          _last={ items.length % 2 === 1 && index === items.length - 1 ? { gridColumn: 'span 2' } : undefined }/>
+          className={ items.length % 2 === 1 && index === items.length - 1 ? 'col-span-2' : undefined }/>
       ),
       ) }
     </div>

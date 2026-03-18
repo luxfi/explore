@@ -33,7 +33,7 @@ const InternalTxs = () => {
         { filterInput }
       </div>
       { (!isMobile || pagination.isVisible) && (
-        <ActionBar mt={ -6 }>
+        <ActionBar className="-mt-6">
           <div className="hidden lg:flex">
             { filterInput }
           </div>

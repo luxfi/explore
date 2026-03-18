@@ -20,7 +20,7 @@ const StickyPaginationWithText = ({ pagination, text }: Props) => {
       <div className="mb-6 block lg:hidden">
         { text }
       </div>
-      <ActionBar mt={ -6 } alignItems="center">
+      <ActionBar className="-mt-6 items-center">
         <div className="hidden lg:block">
           { text }
         </div>

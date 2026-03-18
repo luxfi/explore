@@ -38,7 +38,7 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
           clusterName={ clusterName }
           isLoading={ isLoading }
           noLink
-          fontWeight={ 500 }
+          className="font-medium"
         />
       </DetailedInfo.ItemValue>
 
@@ -52,7 +52,7 @@ const ClusterDetails = ({ clusterData, clusterName, isLoading }: Props) => {
         <AddressEntity
           address={{ hash: clusterData?.owner || '' }}
           isLoading={ isLoading }
-          fontWeight={ 500 }
+          className="font-medium"
           noLink={ !ownerIsEvm }
         />
       </DetailedInfo.ItemValue>

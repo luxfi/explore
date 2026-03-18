@@ -23,7 +23,7 @@ const ContractVerificationFieldName = ({ hint }: Props) => {
         <>
           <span>Must match the name specified in the code. For example, in </span>
           <code className="text-[var(--color-text-secondary)]">{ `contract MyContract {..}` }</code>
-          <span>. <span fontWeight={ 600 }>MyContract</span> is the contract name.</span>
+          <span>. <span className="font-semibold">MyContract</span> is the contract name.</span>
         </>
       ) }
     </ContractVerificationFormRow>

@@ -68,7 +68,7 @@ const AddressEpochRewards = ({ shouldRender = true, isQueryEnabled = true }: Pro
   ) : null;
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <AddressCsvExportLink
         address={ hash }
         isLoading={ rewardsQuery.pagination.isLoading }

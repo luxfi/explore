@@ -33,7 +33,7 @@ const Highlights = (props: React.HTMLAttributes<HTMLDivElement>) => {
   });
 
   return (
-    <div gap={ 3 } { ...props }>
+    <div className="flex gap-3" { ...props }>
       { data?.map((banner, index) => (
         <HighlightsItem key={ index } data={ banner } isLoading={ isPlaceholderData } totalNum={ data.length }/>
       )) }

@@ -52,7 +52,7 @@ const MultichainAddressLogs = ({ addressData, isLoading }: Props) => {
   }, [ chainValue ]);
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <ChainSelect
         value={ chainValue }
         onValueChange={ onChainValueChange }

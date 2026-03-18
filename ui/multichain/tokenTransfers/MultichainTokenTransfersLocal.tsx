@@ -28,7 +28,7 @@ const MultichainTokenTransfersLocal = ({ query, typeFilter, onTokenTypesChange }
   const chainData = multichainContext?.chain;
 
   const actionBar = isMobile && (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <PopoverFilter contentProps={{ className: 'w-[200px]' }} appliedFiltersNum={ typeFilter.length }>
         <TokenTypeFilter<TokenType>
           onChange={ onTokenTypesChange }

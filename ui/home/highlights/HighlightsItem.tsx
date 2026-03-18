@@ -63,6 +63,11 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
     data.title_color?.[1] || data.title_color?.[0] || '#F8FCFF',
   );
 
+  const descriptionColor = useColorModeValue(
+    data.description_color?.[0] || '#718096',
+    data.description_color?.[1] || data.description_color?.[0] || '#AEB1B6',
+  );
+
   const containerStyle: React.CSSProperties = {
     width: `calc((100% - ${ (totalNum - 1) * 12 }px) / ${ totalNum })`,
     ...(!isLoading ? { backgroundColor: bgColor } : {}),
@@ -77,13 +82,8 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
       ) }
       style={ containerStyle }
     >
-      <div overflow="hidden" w="100%" gap={ 3 }>
-        <div
-          alignItems="flex-start"
-          gap={ 3 }
-          w={ totalNum === 2 ? '294px' : '193px' }
-          flexShrink={ 0 }
-        >
+      <div className="flex overflow-hidden w-full gap-3">
+        <div className={ `flex flex-col items-start gap-3 shrink-0 ${ totalNum === 2 ? 'w-[294px]' : 'w-[193px]' }` }>
           <Heading
             level="3"
             style={{ color: titleColor }}
@@ -91,11 +91,8 @@ const HighlightsItem = ({ data, isLoading, totalNum }: Props) => {
             { data.title }
           </Heading>
           <span
-            textStyle="sm"
-            color={{
-              _light: data.description_color?.[0] || '#718096',
-              _dark: data.description_color?.[1] || data.description_color?.[0] || '#AEB1B6',
-            }}
+            className="text-sm"
+            style={{ color: descriptionColor }}
           >
             { data.description }
           </span>

@@ -59,7 +59,7 @@ const MultichainUserOps = () => {
   ) : null;
 
   const actionBar = (
-    <ActionBar mt={ -6 }>
+    <ActionBar className="-mt-6">
       <ChainSelect
         value={ query.chainValue }
         onValueChange={ query.onChainValueChange }

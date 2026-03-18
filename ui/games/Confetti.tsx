@@ -82,27 +82,19 @@ const Confetti = () => {
           }
         ` }
       </style>
-      <div
-        position="fixed"
-        top="0"
-        left="0"
-        width="100%"
-        height="100%"
-        pointerEvents="none"
-        zIndex="9999"
-      >
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[9999]">
         { splashes.map((piece) => (
           <div
             key={ piece.id }
-            position="absolute"
-            left={ piece.left }
-            top={ piece.top }
-            width={ piece.size }
-            height={ piece.size }
-            backgroundColor={ piece.color }
-            opacity={ 0 }
-            animation={ `splash ${ piece.animationDuration } ease-out ${ piece.animationDelay } forwards` }
+            className="absolute"
             style={{
+              left: piece.left,
+              top: piece.top,
+              width: piece.size,
+              height: piece.size,
+              backgroundColor: piece.color,
+              opacity: 0,
+              animation: `splash ${ piece.animationDuration } ease-out ${ piece.animationDelay } forwards`,
               transformOrigin: 'center',
               '--final-transform': piece.transform,
               ...piece.shape,

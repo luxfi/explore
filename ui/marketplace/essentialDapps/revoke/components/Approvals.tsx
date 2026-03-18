@@ -24,7 +24,7 @@ export default function Approvals({
 }: Props) {
   const content = (
     <>
-      <div hideFrom="lg" flexDirection="column">
+      <div className="flex flex-col lg:hidden">
         { approvals.map((approval, index) => (
           <ApprovalsListItem
             key={ index }
@@ -36,7 +36,7 @@ export default function Approvals({
           />
         )) }
       </div>
-      <div hideBelow="lg">
+      <div className="hidden lg:block">
         <ApprovalsTable
           selectedChain={ selectedChain }
           approvals={ approvals }

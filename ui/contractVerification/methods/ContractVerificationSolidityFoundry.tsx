@@ -26,10 +26,10 @@ const ContractVerificationSolidityFoundry = () => {
   return (
     <ContractVerificationMethod title="Contract verification via Foundry">
       <ContractVerificationFormRow>
-        <div flexDir="column">
+        <div className="flex flex-col">
           <ContractVerificationFormCodeSnippet code={ codeSnippet }/>
         </div>
-        <div whiteSpace="pre-wrap">
+        <div className="whitespace-pre-wrap">
           <span>Full tutorial about contract verification via Foundry is available </span>
           <Link href="https://docs.blockscout.com/devs/verification/foundry-verification" external>
             here

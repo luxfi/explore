@@ -16,7 +16,7 @@ const ContractVerificationFieldOptimization = () => {
 
   return (
     <ContractVerificationFormRow>
-      <div columnGap={ 5 } h={{ base: 'auto', lg: '32px' }}>
+      <div className="flex gap-x-5 h-auto lg:h-8">
         <FormFieldCheckbox<FormFields, 'is_optimization_enabled'>
           name="is_optimization_enabled"
           label="Optimization enabled"

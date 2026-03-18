@@ -70,13 +70,8 @@ const MarketplaceAppCard = ({
         className,
       ) }
     >
-      <div
-        flexDirection="column"
-        height="100%"
-        alignContent="start"
-        gap={ 2 }
-      >
-        <div gap={ 4 }>
+      <div className="flex flex-col h-full content-start gap-2">
+        <div className="flex gap-4">
           <Skeleton
             loading={ isLoading }
             w="64px"
@@ -93,7 +88,7 @@ const MarketplaceAppCard = ({
             />
           </Skeleton>
 
-          <div flexDirection="column" gap={ 2 } pt={ 1 }>
+          <div className="flex flex-col gap-2 pt-1">
             <Skeleton
               loading={ isLoading }
               display="inline-flex"
@@ -128,18 +123,13 @@ const MarketplaceAppCard = ({
           loading={ isLoading }
           asChild
         >
-          <span lineClamp={ 2 } textStyle="sm">
+          <span className="line-clamp-2 text-sm">
             { shortDescription }
           </span>
         </Skeleton>
 
         { !isLoading && (
-          <div
-            alignItems="center"
-            justifyContent="space-between"
-            marginTop="auto"
-            h="30px"
-          >
+          <div className="flex items-center justify-between mt-auto h-[30px]">
             <Link
               className="text-sm font-medium pr-3 h-full"
               href="#"
@@ -147,7 +137,7 @@ const MarketplaceAppCard = ({
             >
               Info
             </Link>
-            <div alignItems="center" gap={ 3 }>
+            <div className="flex items-center gap-3">
               <Rating
                 appId={ id }
                 rating={ rating }
@@ -156,7 +146,7 @@ const MarketplaceAppCard = ({
                 isLoading={ isLoading }
                 source="Discovery"
               />
-              <div gap={ 2 }>
+              <div className="flex gap-2">
                 <IconButton
                   aria-label="Mark as favorite"
                   title="Mark as favorite"

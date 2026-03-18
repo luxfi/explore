@@ -122,7 +122,7 @@ const ValidatorsStability = () => {
         { /* { filterInput } */ }
       </div>
       { (!isMobile || pagination.isVisible) && (
-        <ActionBar mt={ -6 }>
+        <ActionBar className="-mt-6">
           <div className="flex gap-3 hidden lg:flex">
             { filterMenu }
             { /* { filterInput } */ }

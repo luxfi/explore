@@ -54,7 +54,7 @@ const AddressMudTables = ({ isQueryEnabled = true }: Props) => {
   );
 
   const actionBar = (
-    <ActionBar mt={ -6 } showShadow justifyContent="space-between">
+    <ActionBar className="-mt-6 justify-between" showShadow>
       { searchInput }
       <Pagination className="lg:ml-8" { ...pagination }/>
     </ActionBar>

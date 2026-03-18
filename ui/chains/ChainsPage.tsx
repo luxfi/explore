@@ -60,38 +60,22 @@ interface TableHeaderProps {
 }
 
 const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
-  <div
-    px={ 4 }
-    py={ 2 }
-    gap={ 4 }
-    borderBottom="1px solid"
-    borderColor="border.divider"
-    display={{ base: 'none', lg: 'flex' }}
-  >
-    <div
-      minW="180px"
-      maxW="220px"
-      flexShrink={ 0 }
-      color="text.secondary"
-      fontWeight="600"
-      fontSize="xs"
-      textTransform="uppercase"
-      letterSpacing="wider"
-    >
+  <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
+    <div className="min-w-[180px] max-w-[220px] shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       Chain
     </div>
-    <div flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+    <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       Blockchain ID
     </div>
     { showSubnetId && (
-      <div flex={ 1 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+      <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
         Subnet ID
       </div>
     ) }
-    <div flexShrink={ 0 } w="120px" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+    <div className="shrink-0 w-[120px] text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       VM
     </div>
-    <div flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider" ml="auto">
+    <div className="shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider ml-auto">
       Status
     </div>
   </div>
@@ -147,19 +131,14 @@ const ChainsPage = () => {
       <PageTitle
         title="Chains"
         secondRow={ (
-          <div fontSize="sm" color="text.secondary">
+          <div className="text-sm text-[var(--color-text-secondary)]">
             All blockchains on { config.chain.name || 'the network' }
           </div>
         ) }
       />
 
       { /* Tabs */ }
-      <div
-        borderBottom="1px solid"
-        borderColor="border.divider"
-        mb={ 4 }
-        gap={ 0 }
-      >
+      <div className="flex border-b border-[var(--color-border-divider)] mb-4">
         <TabButton
           label="Primary Network"
           isActive={ activeTab === TAB_IDS.primary }
@@ -174,12 +153,7 @@ const ChainsPage = () => {
 
       { /* Primary Network tab */ }
       { activeTab === TAB_IDS.primary && (
-        <div
-          border="1px solid"
-          borderColor="border.divider"
-          borderRadius="md"
-          overflow="hidden"
-        >
+        <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId={ false }/>
           { PRIMARY_CHAINS.map((chain) => (
             <ChainRow
@@ -197,15 +171,10 @@ const ChainsPage = () => {
 
       { /* L1/L2/L3 tab */ }
       { activeTab === TAB_IDS.subnets && (
-        <div
-          border="1px solid"
-          borderColor="border.divider"
-          borderRadius="md"
-          overflow="hidden"
-        >
+        <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId/>
           { isLoading && (
-            <div px={ 4 } py={ 6 }>
+            <div className="px-4 py-6">
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
@@ -213,7 +182,7 @@ const ChainsPage = () => {
             </div>
           ) }
           { !isLoading && l1Chains.length === 0 && (
-            <div px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+            <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
               No L1/L2/L3 chains found
             </div>
           ) }

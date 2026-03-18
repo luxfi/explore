@@ -37,9 +37,9 @@ const ContractVerificationFieldLibraryItem = ({ index, fieldsLength, onAddFieldC
   return (
     <>
       <ContractVerificationFormRow>
-        <div alignItems="center" justifyContent="space-between" ref={ ref } mt={ index !== 0 ? 6 : 0 }>
-          <span color="text.secondary" fontSize="sm">Contract library { index + 1 }</span>
-          <div columnGap={ 5 }>
+        <div className={ `flex items-center justify-between${ index !== 0 ? ' mt-6' : '' }` } ref={ ref }>
+          <span className="text-[var(--color-text-secondary)] text-sm">Contract library { index + 1 }</span>
+          <div className="flex gap-x-5">
             { fieldsLength > 1 && (
               <RemoveButton
                 onClick={ handleRemoveButtonClick }

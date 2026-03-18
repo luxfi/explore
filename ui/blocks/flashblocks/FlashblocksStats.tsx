@@ -23,10 +23,7 @@ const FlashblocksStats = ({ itemsNum, txsNum, initialTs }: Props) => {
 
   return (
     <div
-      display="grid"
-      gridTemplateColumns={{ base: '1fr', lg: `repeat(3, calc(${ 100 / 3 }% - 9px))` }}
-      gap={{ base: 1, lg: 3 }}
-      mb={ 6 }
+      className="grid grid-cols-1 lg:grid-cols-3 gap-1 lg:gap-3 mb-6"
     >
       <StatsWidget
         label={ `${ upperFirst(flashblocksFeature.name) }s (sec)` }

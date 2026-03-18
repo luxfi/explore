@@ -37,9 +37,9 @@ const CapybaraRunner = () => {
   return (
     <>
       <Heading level="2" className="mt-12 mb-2">Score 1000 to win a special prize!</Heading>
-      <div mb={ 4 }>{ isMobile ? 'Tap below to start' : 'Press space to start' }</div>
+      <div className="mb-4">{ isMobile ? 'Tap below to start' : 'Press space to start' }</div>
       <Script strategy="lazyOnload" src="/static/capybara/index.js"/>
-      <div width={{ base: '100%', lg: '600px' }} height="300px" p="50px 0">
+      <div className="w-full lg:w-[600px] h-[300px] py-[50px]">
         <div id="main-frame-error" className="interstitial-wrapper" style={{ marginTop: '20px' }}>
           <div id="main-content"></div>
           <div id="offline-resources" style={{ display: 'none' }}>
@@ -49,9 +49,9 @@ const CapybaraRunner = () => {
         </div>
       </div>
       { easterEggBadgeFeature.isEnabled && hasReachedHighScore && (
-        <div flexDirection="column" alignItems="center" justifyContent="center" gap={ 4 } mt={ 10 }>
-          <span fontSize="2xl" fontWeight="bold">You unlocked a hidden badge!</span>
-          <span fontSize="lg" textAlign="center">Congratulations! You’re eligible to claim an epic hidden badge!</span>
+        <div className="flex flex-col items-center justify-center gap-4 mt-10">
+          <span className="text-2xl font-bold">You unlocked a hidden badge!</span>
+          <span className="text-lg text-center">Congratulations! You're eligible to claim an epic hidden badge!</span>
           <Link
             href={ easterEggBadgeFeature.badgeClaimLink }
             external noIcon

@@ -20,24 +20,18 @@ const STEPS = [
 
 export default function StartScreen() {
   return (
-    <div flexDir="column" w="full" gap={{ base: 3, md: 6 }}>
+    <div className="flex flex-col w-full gap-3 md:gap-6">
       <Heading level="3">
         How to revoke your approvals
       </Heading>
-      <div flexDir={{ base: 'column', md: 'row' }} gap={{ base: 2, md: 6 }}>
+      <div className="flex flex-col md:flex-row gap-2 md:gap-6">
         { STEPS.map((step, index) => (
           <div
             key={ index }
-            flexDir={{ base: 'column', md: 'row' }}
-            alignItems={{ base: 'flex-start', md: 'center' }}
-            p={ 6 }
-            borderRadius="md"
-            bgColor={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-            flex={ 1 }
-            gap={ 6 }
+            className="flex flex-col md:flex-row items-start md:items-center p-6 rounded-md bg-black/5 dark:bg-white/5 flex-1 gap-6"
           >
-            <IconSvg name={ step.icon } boxSize={ 6 }/>
-            <span textStyle="sm">
+            <IconSvg name={ step.icon } className="w-6 h-6"/>
+            <span className="text-sm">
               { step.text }
             </span>
           </div>

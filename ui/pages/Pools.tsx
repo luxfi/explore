@@ -73,8 +73,7 @@ const Pools = () => {
         { filter }
       </div>
       <ActionBar
-        mt={ -6 }
-        display={{ base: poolsQuery.pagination.isVisible ? 'flex' : 'none', lg: 'flex' }}
+        className={ poolsQuery.pagination.isVisible ? '-mt-6 flex lg:flex' : '-mt-6 hidden lg:flex' }
       >
         <div className="hidden lg:block">
           { filter }

@@ -29,10 +29,10 @@ const BlocksTabSlot = ({ pagination }: Props) => {
   const networkUtilization = getNetworkUtilizationParams(statsQuery.data?.network_utilization_percentage ?? 0);
 
   return (
-    <div alignItems="center" columnGap={ 8 } display={{ base: 'none', lg: 'flex' }}>
+    <div className="hidden lg:flex items-center gap-x-8">
       { statsQuery.data?.network_utilization_percentage !== undefined && (
         <div>
-          <span fontSize="sm">
+          <span className="text-sm">
             Network utilization (last 50 blocks):{ nbsp }
           </span>
           <Tooltip content={ `${ upperFirst(networkUtilization.load) } load` }>
@@ -43,7 +43,7 @@ const BlocksTabSlot = ({ pagination }: Props) => {
         </div>
       ) }
       <Link href={ route({ pathname: '/block/countdown' }) }>
-        <IconSvg name="hourglass" boxSize={ 5 } mr={ 2 }/>
+        <IconSvg name="hourglass" className="w-5 h-5 mr-2"/>
         <span>Block countdown</span>
       </Link>
       { pagination && <Pagination className="my-1" { ...pagination }/> }

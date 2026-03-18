@@ -46,10 +46,10 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
         </TableCell>
       ) }
       <TableCell >
-        <div columnGap={ 2 } alignItems="center" mb={ 2 }>
+        <div className="flex gap-x-2 items-center mb-2">
           { data.celo?.l1_era_finalized_epoch_number && (
             <Tooltip content={ `Finalized epoch #${ data.celo.l1_era_finalized_epoch_number }` }>
-              <IconSvg name="checkered_flag" boxSize={ 5 } p="1px" isLoading={ isLoading } flexShrink={ 0 }/>
+              <IconSvg name="checkered_flag" className="w-5 h-5 p-px shrink-0" isLoading={ isLoading }/>
             </Tooltip>
           ) }
           { data.is_pending_update && <BlockPendingUpdateHint/> }
@@ -60,7 +60,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
                 number={ data.height }
                 hash={ data.type !== 'block' ? data.hash : undefined }
                 noIcon
-                fontWeight={ 600 }
+                className="font-semibold"
               />
             </span>
           </Tooltip>
@@ -70,7 +70,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
           enableIncrement={ enableTimeIncrement }
           isLoading={ isLoading }
           color="text.secondary"
-          fontWeight={ 400 }
+          fontWeight="400"
           display="inline-block"
         />
       </TableCell>
@@ -102,7 +102,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
       </TableCell>
       <TableCell >
         <Skeleton loading={ isLoading } display="inline-block">{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
-        <div mt={ 2 }>
+        <div className="mt-2">
           <BlockGasUsed
             gasUsed={ data.gas_used || undefined }
             gasLimit={ data.gas_limit }
@@ -121,12 +121,12 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
           <NativeCoinValue
             amount={ data.burnt_fees }
             noSymbol
-            startElement={ <IconSvg name="flame" mr={ 2 } boxSize={ 5 } color={{ _light: 'gray.500', _dark: 'inherit' }} isLoading={ isLoading }/> }
+            startElement={ <IconSvg name="flame" className="mr-2 w-5 h-5" isLoading={ isLoading }/> }
             loading={ isLoading }
             display="flex"
           />
           <Tooltip content="Burnt fees / Txn fees * 100%" disabled={ isLoading }>
-            <Utilization mt={ 2 } w="min-content" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
+            <Utilization className="mt-2 w-min" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
           </Tooltip>
         </TableCell>
       ) }

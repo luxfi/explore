@@ -6,17 +6,17 @@ import IconSvg from 'ui/shared/IconSvg';
 const LatestBlocksFallback = () => {
   return (
     <div>
-      <div color="text.secondary" textStyle="sm">Failed to load data. Please try again later.</div>
-      <div rowGap={ 3 } mt={ 3 }>
+      <div className="text-[var(--chakra-colors-text-secondary)] text-sm">Failed to load data. Please try again later.</div>
+      <div className="flex flex-col gap-y-3 mt-3">
         { Array.from({ length: 2 }).map((_, index) => (
-          <div key={ index } width="100%" p={ 3 } borderRadius="md" border="1px solid" borderColor="border.divider">
-            <div alignItems="center" w="100%">
-              <IconSvg name="block" boxSize={ 5 } color={{ _light: 'gray.300', _dark: 'whiteAlpha.300' }}/>
-              <FallbackBox w="100px" bgColor={{ _light: 'blue.50', _dark: 'blue.800' }} ml={ 2 }/>
-              <FallbackBox w="50px" ml="auto"/>
+          <div key={ index } className="w-full p-3 rounded-md border border-[var(--color-border-divider)]">
+            <div className="flex items-center w-full">
+              <IconSvg name="block" className="w-5 h-5 text-gray-300 dark:text-white/30"/>
+              <FallbackBox className="w-[100px] bg-blue-50 dark:bg-blue-800 ml-2"/>
+              <FallbackBox className="w-[50px] ml-auto"/>
             </div>
-            <FallbackBox w="100%" mt={ 2 }/>
-            <FallbackBox w="100%" mt={ 1 }/>
+            <FallbackBox className="w-full mt-2"/>
+            <FallbackBox className="w-full mt-1"/>
           </div>
         )) }
       </div>

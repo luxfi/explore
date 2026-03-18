@@ -18,7 +18,7 @@ const LatestTxsDegradedNewItems = ({ overflow, url, isLoading }: Props) => {
     }
   }, [ isLoading, overflow, setNum ]);
 
-  return <SocketNewItemsNotice borderBottomRadius={ 0 } num={ num } url={ url } showErrorAlert={ false } isLoading={ isLoading }/>;
+  return <SocketNewItemsNotice className="rounded-b-none" num={ num } url={ url } showErrorAlert={ false } isLoading={ isLoading }/>;
 };
 
 export default React.memo(LatestTxsDegradedNewItems);

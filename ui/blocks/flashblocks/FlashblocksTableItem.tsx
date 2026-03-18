@@ -17,7 +17,7 @@ const FlashblocksTableItem = ({ data }: Props) => {
   return (
     <TableRow>
       <TableCell>
-        <div alignItems="center" gap={ 3 }>
+        <div className="flex items-center gap-3">
           { data.block_number ? (
             <FlashblockEntity
               number={ data.block_number }
@@ -25,9 +25,9 @@ const FlashblocksTableItem = ({ data }: Props) => {
               noIcon
             />
           ) : (
-            <span color="text.secondary">N/A</span>
+            <span className="text-[var(--color-text-secondary)]">N/A</span>
           ) }
-          { data.timestamp && <Time color="text.secondary" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/> }
+          { data.timestamp && <Time className="text-[var(--color-text-secondary)]" timestamp={ data.timestamp } format="DD MMM, HH:mm:ss.SSS"/> }
         </div>
       </TableCell>
       <TableCell isNumeric>
@@ -39,7 +39,7 @@ const FlashblocksTableItem = ({ data }: Props) => {
             { data.transactions_count }
           </Link>
         ) : (
-          <span color="text.secondary">{ data.transactions_count }</span>
+          <span className="text-[var(--color-text-secondary)]">{ data.transactions_count }</span>
         ) }
       </TableCell>
       <TableCell isNumeric>

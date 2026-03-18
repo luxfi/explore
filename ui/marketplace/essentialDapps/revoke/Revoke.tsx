@@ -123,28 +123,19 @@ const Revoke = () => {
   }
 
   return (
-    <div flexDir="column" w="full" gap={{ base: 6, lg: 12 }}>
-      <div flexDir="column" w="full" gap={ 3 }>
+    <div className="flex flex-col w-full gap-6 lg:gap-12">
+      <div className="flex flex-col w-full gap-3">
         <SearchInput
           value={ searchInputValue }
           onChange={ setSearchInputValue }
           onSubmit={ handleSearch }
         />
-        <div flexDir={{ base: 'column', md: 'row' }} gap={ 3 } justifyContent="space-between">
+        <div className="flex flex-col md:flex-row gap-3 justify-between">
           <div
-            gap={ 3 }
-            alignItems="center"
-            h="32px"
-            overflowX="auto"
-            css={{
-              '-ms-overflow-style': 'none',
-              scrollbarWidth: 'none',
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
-            }}
+            className="flex gap-3 items-center h-8 overflow-x-auto"
+            style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
           >
-            <span textStyle="sm" fontWeight="500" color="text.secondary">
+            <span className="text-sm font-medium text-[var(--color-text-secondary)]">
               Examples
             </span>
             { [
@@ -169,10 +160,10 @@ const Revoke = () => {
               </Button>
             )) }
           </div>
-          <div gap={ 3 } w={{ base: 'full', md: 'auto' }}>
+          <div className="flex gap-3 w-full md:w-auto">
             { connectedAddress ? (
-              <div gap={ 2 } alignItems="center" flexShrink={ 0 }>
-                <span textStyle="sm" fontWeight="500" color="text.secondary">My wallet</span>
+              <div className="flex gap-2 items-center shrink-0">
+                <span className="text-sm font-medium text-[var(--color-text-secondary)]">My wallet</span>
                 <Tooltip content="Click to see your approvals" disableOnMobile>
                   <Button
                     variant="plain"

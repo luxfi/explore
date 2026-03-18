@@ -33,8 +33,6 @@ const CHAIN_LABELS: Readonly<Record<string, string>> = {
   I: 'I-Chain',
 };
 
-const STAT_CARD_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
-
 // ── Sub-components ──
 
 interface StatCardProps {
@@ -44,18 +42,12 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <div
-    border="1px solid"
-    borderColor="border.divider"
-    borderRadius="lg"
-    p={ 5 }
-    bgColor={ STAT_CARD_BG }
-  >
-    <div fontSize="xs" color="text.secondary" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+  <div className="border border-[var(--color-border-divider)] rounded-lg p-5 bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+    <div className="text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
       { label }
     </div>
     <Skeleton loading={ isLoading }>
-      <div fontSize="2xl" fontWeight="700" color="text.primary">
+      <div className="text-2xl font-bold text-[var(--color-text-primary)]">
         { value }
       </div>
     </Skeleton>
@@ -69,31 +61,21 @@ interface ChainPairCardProps {
 }
 
 const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
-  <div
-    alignItems="center"
-    py={ 3 }
-    px={ 4 }
-    borderBottom="1px solid"
-    borderColor="border.divider"
-    _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-    transition="background 0.15s"
-    gap={ 4 }
-    flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-  >
-    <div minW="160px" flexShrink={ 0 }>
-      <span fontWeight="500" fontSize="sm" color="text.primary">
+  <div className="flex items-center py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 gap-4 flex-wrap lg:flex-nowrap">
+    <div className="min-w-[160px] shrink-0">
+      <span className="font-medium text-sm text-[var(--color-text-primary)]">
         { source }
       </span>
     </div>
-    <span color="text.secondary" fontSize="sm" flexShrink={ 0 }>
+    <span className="text-[var(--color-text-secondary)] text-sm shrink-0">
       { '\u2192' }
     </span>
-    <div minW="160px" flexShrink={ 0 }>
-      <span fontWeight="500" fontSize="sm" color="text.primary">
+    <div className="min-w-[160px] shrink-0">
+      <span className="font-medium text-sm text-[var(--color-text-primary)]">
         { destination }
       </span>
     </div>
-    <div ml={{ base: 0, lg: 'auto' }} alignItems="center">
+    <div className="ml-0 lg:ml-auto flex items-center">
       { status === 'active' ? (
         <Tag size="sm" variant="subtle" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Tag>
       ) : (
@@ -151,19 +133,14 @@ const BridgePage = () => {
       <PageTitle
         title="Bridge"
         secondRow={ (
-          <div fontSize="sm" color="text.secondary">
+          <div className="text-sm text-[var(--color-text-secondary)]">
             Cross-chain transfers between { config.chain.name || 'network' } chains
           </div>
         ) }
       />
 
       { /* Stats */ }
-      <div
-        display="grid"
-        gridTemplateColumns={{ base: '1fr 1fr', lg: 'repeat(4, 1fr)' }}
-        gap={ 3 }
-        mb={ 6 }
-      >
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         <StatCard
           label="Connected Chains"
           value={ String(l1Chains.length + Object.keys(CHAIN_LABELS).length) }
@@ -187,40 +164,28 @@ const BridgePage = () => {
       </div>
 
       { /* Bridge routes table */ }
-      <div
-        border="1px solid"
-        borderColor="border.divider"
-        borderRadius="lg"
-        overflow="hidden"
-      >
-        <div px={ 4 } py={ 3 } fontWeight="600" fontSize="sm" color="text.primary" borderBottom="1px solid" borderColor="border.divider">
+      <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+        <div className="px-4 py-3 font-semibold text-sm text-[var(--color-text-primary)] border-b border-[var(--color-border-divider)]">
           Bridge Routes
         </div>
 
         { /* Table header */ }
-        <div
-          px={ 4 }
-          py={ 2 }
-          gap={ 4 }
-          borderBottom="1px solid"
-          borderColor="border.divider"
-          display={{ base: 'none', lg: 'flex' }}
-        >
-          <div minW="160px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+        <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
+          <div className="min-w-[160px] shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
             Source
           </div>
-          <div w="20px" flexShrink={ 0 }/>
-          <div minW="160px" flexShrink={ 0 } color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+          <div className="w-5 shrink-0"/>
+          <div className="min-w-[160px] shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
             Destination
           </div>
-          <div ml="auto" color="text.secondary" fontWeight="600" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+          <div className="ml-auto text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
             Status
           </div>
         </div>
 
         { /* Loading */ }
         { isLoading && (
-          <div px={ 4 } py={ 6 }>
+          <div className="px-4 py-6">
             <Skeleton loading h="16px" mb={ 3 }/>
             <Skeleton loading h="16px" mb={ 3 }/>
             <Skeleton loading h="16px" mb={ 3 }/>
@@ -240,18 +205,11 @@ const BridgePage = () => {
       </div>
 
       { /* Info card */ }
-      <div
-        mt={ 6 }
-        p={ 5 }
-        border="1px solid"
-        borderColor="border.divider"
-        borderRadius="lg"
-        bgColor={ STAT_CARD_BG }
-      >
-        <span fontWeight="600" fontSize="sm" color="text.primary" mb={ 2 }>
+      <div className="mt-6 p-5 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+        <span className="font-semibold text-sm text-[var(--color-text-primary)] mb-2 block">
           { config.chain.name || 'Network' } Bridge
         </span>
-        <span fontSize="sm" color="text.secondary" lineHeight="1.6">
+        <span className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
           The bridge enables cross-chain asset transfers between the Primary Network
           chains and L1 subnet chains. Atomic swaps between core chains (C, P, X) are
           currently active. Teleporter-based transfers to L1 subnets are

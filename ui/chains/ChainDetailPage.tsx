@@ -5,6 +5,7 @@ import React from 'react';
 import config from 'configs/app';
 import { useBlockchains, useCurrentValidators, useSubnets } from 'lib/api/pchain';
 import type { PChainBlockchain, PChainValidator } from 'lib/api/pchain';
+import { cn } from 'lib/utils/cn';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tag } from 'toolkit/chakra/tag';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
@@ -12,8 +13,6 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const LUX_DECIMALS = 6;
-
-const INFO_ROW_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 
 const PRIMARY_CHAIN_META: Readonly<Record<string, {
   readonly name: string;
@@ -211,31 +210,12 @@ interface InfoRowProps {
 }
 
 const InfoRow = ({ label, value, isMono = false, canCopy = false }: InfoRowProps) => (
-  <div
-    py={ 3 }
-    px={ 4 }
-    borderBottom="1px solid"
-    borderColor="border.divider"
-    _odd={{ bgColor: INFO_ROW_BG }}
-    gap={ 4 }
-    flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-  >
-    <div
-      minW={{ base: '100%', lg: '200px' }}
-      flexShrink={ 0 }
-      color="text.secondary"
-      fontSize="sm"
-      fontWeight={ 500 }
-    >
+  <div className="flex py-3 px-4 border-b border-[var(--color-border-divider)] odd:bg-[var(--color-gray-50)] dark:odd:bg-[var(--color-whiteAlpha-50)] gap-4 flex-wrap lg:flex-nowrap">
+    <div className="min-w-full lg:min-w-[200px] shrink-0 text-[var(--color-text-secondary)] text-sm font-medium">
       { label }
     </div>
-    <div flex={ 1 } align="center" gap={ 1 } minW={ 0 }>
-      <span
-        fontSize="sm"
-        color="text.primary"
-        fontFamily={ isMono ? 'mono' : 'body' }
-        wordBreak="break-all"
-      >
+    <div className="flex-1 flex items-center gap-1 min-w-0">
+      <span className={ cn('text-sm text-[var(--color-text-primary)] break-all', isMono && 'font-mono') }>
         { value }
       </span>
       { canCopy && <CopyToClipboard text={ value }/> }
@@ -253,42 +233,27 @@ const ValidatorRow = ({ validator, index }: ValidatorRowProps) => {
   const uptime = parseFloat(validator.uptime || '0') * 100;
 
   return (
-    <div
-      py={ 3 }
-      px={ 4 }
-      borderBottom="1px solid"
-      borderColor="border.divider"
-      _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-      transition="background 0.15s"
-      gap={ 4 }
-      align="center"
-      flexWrap={{ base: 'wrap', lg: 'nowrap' }}
-    >
-      <div w="40px" flexShrink={ 0 } color="text.secondary" fontSize="sm">
+    <div className="flex py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 gap-4 items-center flex-wrap lg:flex-nowrap">
+      <div className="w-10 shrink-0 text-[var(--color-text-secondary)] text-sm">
         { index + 1 }
       </div>
-      <div flex={ 2 } minW={ 0 }>
-        <span fontSize="sm" fontFamily="mono" color="text.primary" title={ validator.nodeID }>
+      <div className="flex-[2] min-w-0">
+        <span className="text-sm font-mono text-[var(--color-text-primary)]" title={ validator.nodeID }>
           { truncateId(validator.nodeID, 24) }
         </span>
       </div>
-      <div flex={ 1 } textAlign="right">
-        <span fontSize="sm" color="text.primary" fontWeight={ 500 }>
+      <div className="flex-1 text-right">
+        <span className="text-sm text-[var(--color-text-primary)] font-medium">
           { formatStake(stake) } { config.chain.currency.symbol || 'LUX' }
         </span>
       </div>
-      <div w="80px" textAlign="right" flexShrink={ 0 }>
-        <span fontSize="sm" color="text.primary">
+      <div className="w-20 text-right shrink-0">
+        <span className="text-sm text-[var(--color-text-primary)]">
           { uptime.toFixed(1) }%
         </span>
       </div>
-      <div w="40px" flexShrink={ 0 } textAlign="center">
-        <div
-          bgColor={ validator.connected ? 'green.400' : 'gray.400' }
-          borderRadius="full"
-          boxSize="8px"
-          display="inline-block"
-        />
+      <div className="w-10 shrink-0 text-center">
+        <div className={ cn('w-2 h-2 rounded-full inline-block', validator.connected ? 'bg-green-400' : 'bg-gray-400') }/>
       </div>
     </div>
   );
@@ -357,79 +322,68 @@ const ChainDetailPage = () => {
       <PageTitle
         title={ chainName }
         secondRow={ (
-          <div align="center" gap={ 2 }>
-            <span fontSize="sm" color="text.secondary">Chain Details</span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-[var(--color-text-secondary)]">Chain Details</span>
             { resolvedChain.isPrimary && <Tag size="sm" variant="subtle">Primary Network</Tag> }
             { !resolvedChain.isPrimary && resolvedChain.blockchain && <Tag size="sm" variant="subtle">L1</Tag> }
           </div>
         ) }
       />
 
-      <div
-        p={ 4 }
-        mb={ 6 }
-        border="1px solid"
-        borderColor="border.divider"
-        borderRadius="lg"
-        bgColor={ INFO_ROW_BG }
-      >
-        <span fontSize="sm" color="text.secondary" lineHeight="1.6">
+      <div className="p-4 mb-6 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+        <span className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
           { chainDescription }
         </span>
       </div>
 
-      <div
-        templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
-        gap={ 3 }
-        mb={ 6 }
-      >
-        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div className="p-4 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+          <span className="block text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
             Validators
           </span>
           <Skeleton loading={ isLoading }>
-            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span className="text-xl font-bold text-[var(--color-text-primary)]">
               { validators.length }
             </span>
           </Skeleton>
         </div>
-        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        <div className="p-4 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+          <span className="block text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
             Total Stake
           </span>
           <Skeleton loading={ isLoading }>
-            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span className="text-xl font-bold text-[var(--color-text-primary)]">
               { formatStake(totalStake) } { config.chain.currency.symbol || 'LUX' }
             </span>
           </Skeleton>
         </div>
-        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        <div className="p-4 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+          <span className="block text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
             Subnet Chains
           </span>
           <Skeleton loading={ isLoading }>
-            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span className="text-xl font-bold text-[var(--color-text-primary)]">
               { subnetChains.length }
             </span>
           </Skeleton>
         </div>
-        <div p={ 4 } border="1px solid" borderColor="border.divider" borderRadius="lg" bgColor={ INFO_ROW_BG }>
-          <span fontSize="xs" color="text.secondary" fontWeight={ 600 } textTransform="uppercase" letterSpacing="wider" mb={ 1 }>
+        <div className="p-4 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
+          <span className="block text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
             Threshold
           </span>
           <Skeleton loading={ isLoading }>
-            <span fontSize="xl" fontWeight={ 700 } color="text.primary">
+            <span className="text-xl font-bold text-[var(--color-text-primary)]">
               { subnet?.threshold ?? '-' }
             </span>
           </Skeleton>
         </div>
       </div>
 
-      <div mb={ 6 }>
-        <span fontSize="sm" fontWeight={ 600 } color="text.primary" mb={ 3 }>
+      <div className="mb-6">
+        <span className="block text-sm font-semibold text-[var(--color-text-primary)] mb-3">
           Chain Info
         </span>
-        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
           <InfoRow label="Chain Name" value={ chainName }/>
           { blockchainId && <InfoRow label="Blockchain ID" value={ blockchainId } isMono canCopy/> }
           { subnetId && <InfoRow label="Subnet ID" value={ subnetId } isMono canCopy/> }
@@ -443,9 +397,9 @@ const ChainDetailPage = () => {
       </div>
 
       { indexerStats && (
-        <div mb={ 6 }>
-          <div align="center" gap={ 2 } mb={ 3 }>
-            <span fontSize="sm" fontWeight={ 600 } color="text.primary">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-sm font-semibold text-[var(--color-text-primary)]">
               Indexer Stats
             </span>
             { indexerStats.dag_stats && (
@@ -454,7 +408,7 @@ const ChainDetailPage = () => {
               </Tag>
             ) }
           </div>
-          <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
+          <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
             { indexerStats.dag_stats && (
               <>
                 <InfoRow label="Total Vertices" value={ String(indexerStats.dag_stats.total_vertices) }/>
@@ -476,69 +430,45 @@ const ChainDetailPage = () => {
       ) }
 
       { subnetChains.length > 0 && (
-        <div mb={ 6 }>
-          <div align="center" gap={ 2 } mb={ 3 }>
-            <span fontSize="sm" fontWeight={ 600 } color="text.primary">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-sm font-semibold text-[var(--color-text-primary)]">
               Chains in Subnet
             </span>
             <Tag size="sm" variant="subtle">{ subnetChains.length }</Tag>
           </div>
-          <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-            <div
-              px={ 4 }
-              py={ 2 }
-              gap={ 4 }
-              borderBottom="1px solid"
-              borderColor="border.divider"
-              display={{ base: 'none', lg: 'flex' }}
-            >
-              <div flex={ 1 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+          <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+            <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
+              <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
                 Name
               </div>
-              <div flex={ 2 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+              <div className="flex-[2] text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
                 Blockchain ID
               </div>
-              <div w="120px" color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+              <div className="w-[120px] text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
                 VM
               </div>
             </div>
             { subnetChains.map((chain) => (
               <div
                 key={ chain.id }
-                px={ 4 }
-                py={ 3 }
-                gap={ 4 }
-                borderBottom="1px solid"
-                borderColor="border.divider"
-                _last={{ borderBottom: 'none' }}
-                _hover={{ bg: { _light: 'gray.50', _dark: 'whiteAlpha.50' } }}
-                transition="background 0.15s"
-                flexWrap={{ base: 'wrap', lg: 'nowrap' }}
+                className="flex px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] last:border-b-0 hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 flex-wrap lg:flex-nowrap"
               >
-                <div flex={ 1 }>
-                  <span fontSize="sm" fontWeight={ 500 } color="text.primary">
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-[var(--color-text-primary)]">
                     { chain.name }
                   </span>
                 </div>
-                <div flex={ 2 } minW={ 0 }>
-                  <div align="center" gap={ 1 }>
-                    <span fontSize="sm" fontFamily="mono" color="text.secondary" title={ chain.id }>
+                <div className="flex-[2] min-w-0">
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-mono text-[var(--color-text-secondary)]" title={ chain.id }>
                       { truncateId(chain.id, 24) }
                     </span>
                     <CopyToClipboard text={ chain.id } size="2xs"/>
                   </div>
                 </div>
-                <div w="120px">
-                  <div
-                    bgColor={{ _light: 'gray.100', _dark: 'whiteAlpha.100' }}
-                    color="text.secondary"
-                    borderRadius="sm"
-                    px={ 2 }
-                    py={ 0.5 }
-                    fontSize="xs"
-                    fontFamily="mono"
-                    display="inline-block"
-                  >
+                <div className="w-[120px]">
+                  <div className="inline-block bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono">
                     { KNOWN_VM_IDS[chain.vmID] ?? truncateId(chain.vmID, 12) }
                   </div>
                 </div>
@@ -548,62 +478,36 @@ const ChainDetailPage = () => {
         </div>
       ) }
 
-      <div mb={ 6 }>
-        <div align="center" gap={ 2 } mb={ 3 }>
-          <span fontSize="sm" fontWeight={ 600 } color="text.primary">
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-sm font-semibold text-[var(--color-text-primary)]">
             Validators
           </span>
           <Skeleton loading={ validatorsLoading }>
             <Tag size="sm" variant="subtle">{ validators.length }</Tag>
           </Skeleton>
         </div>
-        <div border="1px solid" borderColor="border.divider" borderRadius="lg" overflow="hidden">
-          <div
-            px={ 4 }
-            py={ 2 }
-            gap={ 4 }
-            borderBottom="1px solid"
-            borderColor="border.divider"
-            display={{ base: 'none', lg: 'flex' }}
-            align="center"
-          >
-            <div w="40px" flexShrink={ 0 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
+          <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)] items-center">
+            <div className="w-10 shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
               #
             </div>
-            <div flex={ 2 } color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+            <div className="flex-[2] text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
               Node ID
             </div>
-            <div flex={ 1 } textAlign="right" color="text.secondary" fontWeight={ 600 } fontSize="xs" textTransform="uppercase" letterSpacing="wider">
+            <div className="flex-1 text-right text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
               Stake
             </div>
-            <div
-              w="80px"
-              textAlign="right"
-              flexShrink={ 0 }
-              color="text.secondary"
-              fontWeight={ 600 }
-              fontSize="xs"
-              textTransform="uppercase"
-              letterSpacing="wider"
-            >
+            <div className="w-20 text-right shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
               Uptime
             </div>
-            <div
-              w="40px"
-              flexShrink={ 0 }
-              textAlign="center"
-              color="text.secondary"
-              fontWeight={ 600 }
-              fontSize="xs"
-              textTransform="uppercase"
-              letterSpacing="wider"
-            >
+            <div className="w-10 shrink-0 text-center text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
               { '\u2022' }
             </div>
           </div>
 
           { validatorsLoading && (
-            <div px={ 4 } py={ 6 }>
+            <div className="px-4 py-6">
               <Skeleton loading h="16px" mb={ 3 }/>
               <Skeleton loading h="16px" mb={ 3 }/>
               <Skeleton loading h="16px" mb={ 3 }/>
@@ -612,7 +516,7 @@ const ChainDetailPage = () => {
           ) }
 
           { !validatorsLoading && validators.length === 0 && (
-            <div px={ 4 } py={ 8 } textAlign="center" color="text.secondary" fontSize="sm">
+            <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
               No validators found
             </div>
           ) }

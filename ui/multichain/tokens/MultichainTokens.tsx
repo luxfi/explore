@@ -125,16 +125,13 @@ const MultichainTokens = () => {
         { searchInput }
       </div>
       { tokensQuery.pagination.isVisible && (
-        <ActionBar mt={ 0 } justifyContent="flex-end">
+        <ActionBar className="justify-end">
           <Pagination { ...tokensQuery.pagination }/>
         </ActionBar>
       ) }
     </>
   ) : (
-    <ActionBar
-      mt={ -6 }
-      justifyContent="space-between"
-    >
+    <ActionBar className="-mt-6 justify-between">
       <div className="flex gap-3">
         { filter }
         { chainSelect }

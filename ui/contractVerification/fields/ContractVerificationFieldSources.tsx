@@ -54,8 +54,8 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
 
   const renderUploadButton = React.useCallback(() => {
     return (
-      <div gap={ 3 }>
-        <span fontWeight={ 500 }>{ title }</span>
+      <div className="flex gap-3">
+        <span className="font-medium">{ title }</span>
         <Button size="sm" variant="outline">
           Drop file{ multiple ? 's' : '' } or click here
         </Button>
@@ -67,18 +67,12 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
     const errorList = fileError?.message?.split(';');
 
     return (
-      <div
-        display="grid"
-        gridTemplateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(0, 1fr) minmax(0, 1fr)' }}
-        columnGap={ 3 }
-        rowGap={ 3 }
-        w="100%"
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full">
         { files.map((file, index) => (
           <div key={ file.name + file.lastModified + index }>
             <FileSnippet
               file={ file }
-              maxW="initial"
+              className="max-w-none"
               onRemove={ handleFileRemove }
               index={ index }
               isDisabled={ formState.isSubmitting }
@@ -109,16 +103,11 @@ const ContractVerificationFieldSources = ({ fileTypes, multiple, required, title
       <>
         <FileInput<FormFields, typeof name> accept={ fileTypes.join(',') } multiple={ multiple } field={ field }>
           { ({ onChange }) => (
-            <div
-              flexDir="column"
-              alignItems="flex-start"
-              rowGap={ 2 }
-              w="100%"
-            >
+            <div className="flex flex-col items-start gap-y-2 w-full">
               <DragAndDropArea
                 onDrop={ onChange }
                 fullFilePath={ fullFilePath }
-                p={{ base: 3, lg: 6 }}
+                className="p-3 lg:p-6"
                 isDisabled={ formState.isSubmitting }
                 isInvalid={ Boolean(error) }
               >

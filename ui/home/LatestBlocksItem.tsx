@@ -48,9 +48,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           isLoading={ isLoading }
           number={ block.height }
           tailLength={ 2 }
-          textStyle="md"
-          fontWeight={ 500 }
-          mr="auto"
+          className="text-base font-medium mr-auto"
         />
         { block.celo?.l1_era_finalized_epoch_number && (
           <Tooltip content={ `Finalized epoch #${ block.celo.l1_era_finalized_epoch_number }` }>
@@ -62,11 +60,7 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           enableIncrement={ !isLoading }
           timeFormat="relative"
           isLoading={ isLoading }
-          color="text.secondary"
-          display="inline-block"
-          textStyle="sm"
-          flexShrink={ 0 }
-          ml={ 2 }
+          className="text-[var(--chakra-colors-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
       </div>
       <div className="grid gap-2 grid-cols-[auto_minmax(0,1fr)] text-sm">

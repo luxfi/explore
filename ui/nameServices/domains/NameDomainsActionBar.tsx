@@ -5,6 +5,7 @@ import type { EnsDomainLookupFiltersOptions } from 'types/api/ens';
 import type { PaginationParams } from 'ui/shared/pagination/types';
 
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
+import { cn } from 'lib/utils/cn';
 import { Button } from 'toolkit/chakra/button';
 import { Checkbox, CheckboxGroup } from 'toolkit/chakra/checkbox';
 import { Image } from 'toolkit/chakra/image';
@@ -163,8 +164,7 @@ const NameDomainsActionBar = ({
         { searchInput }
       </div>
       <ActionBar
-        mt={ -6 }
-        display={{ base: pagination.isVisible ? 'flex' : 'none', lg: 'flex' }}
+        className={ cn('-mt-6', pagination.isVisible ? 'flex' : 'hidden', 'lg:flex') }
       >
         <div className="flex hidden lg:block gap-3">
           { filter }

@@ -70,36 +70,14 @@ const Content = ({
   }, []);
 
   return (
-    <div flexDir="column" w="full">
+    <div className="flex flex-col w-full">
       <div
-        flexDir={{ base: 'column', lg: 'row' }}
-        gap={ 2 }
-        mt={ -2 }
-        pt={ 2 }
-        pb={ 6 }
-        position={ !isMobile && approvals?.length ? 'sticky' : 'unset' }
-        top={ 0 }
-        zIndex="1"
-        bg={{ _light: 'white', _dark: 'black' }}
+        className="flex flex-col lg:flex-row gap-2 -mt-2 pt-2 pb-6 bg-white dark:bg-black"
+        style={ !isMobile && approvals?.length ? { position: 'sticky', top: 0, zIndex: 1 } : undefined }
       >
-        <div
-          flexDir="column"
-          alignItems="flex-start"
-          flex={ 1 }
-          bg={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-          gap={ 3 }
-          p={ 6 }
-          borderRadius="base"
-        >
-          <div
-            flexDir={{ base: 'column', md: 'row' }}
-            gap={ 3 }
-            alignItems={{ base: 'flex-start', md: 'center' }}
-            justifyContent={{ base: 'flex-start', md: 'space-between' }}
-            w="full"
-            flexWrap="wrap"
-          >
-            <div gap={ 2 } alignItems="center">
+        <div className="flex flex-col items-start flex-1 bg-black/5 dark:bg-white/5 gap-3 p-6 rounded">
+          <div className="flex flex-col md:flex-row gap-3 items-start md:items-center justify-start md:justify-between w-full flex-wrap">
+            <div className="flex gap-2 items-center">
               <AddressEntity
                 address={{ hash: searchAddress }}
                 truncation="constant"
@@ -114,7 +92,7 @@ const Content = ({
               </Tooltip>
             </div>
           </div>
-          <div gap={ 3 } alignItems="center" flexWrap="wrap">
+          <div className="flex gap-3 items-center flex-wrap">
             <Skeleton
               loading={ coinBalanceQuery.isPlaceholderData }
               display="flex"
@@ -123,19 +101,19 @@ const Content = ({
               { (coinBalanceQuery.isPlaceholderData ||
                 coinBalanceQuery.data) && (
                 <>
-                  <div gap={ 2 } alignItems="center" ml={{ base: 0, lg: '5px' }}>
+                  <div className="flex gap-2 items-center lg:ml-[5px]">
                     <Image
                       src={ coinBalanceQuery.data.coinImage }
                       alt={ coinBalanceQuery.data.symbol }
                       boxSize={ 5 }
                       fallback={ <TokenLogoPlaceholder/> }
                     />
-                    <span textStyle="sm" fontWeight="500">
+                    <span className="text-sm font-medium">
                       { coinBalanceQuery.data.balance }{ ' ' }
                       { coinBalanceQuery.data.symbol }
                     </span>
                   </div>
-                  <span textStyle="sm" fontWeight="500" color="text.secondary">
+                  <span className="text-sm font-medium text-[var(--color-text-secondary)]">
                     ${ coinBalanceQuery.data.balanceUsd }
                   </span>
                 </>
@@ -151,20 +129,9 @@ const Content = ({
             </Link>
           </div>
         </div>
-        <div
-          w={{ base: 'full', lg: '400px' }}
-          bg={{ _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' }}
-          p={ 6 }
-          borderRadius="base"
-        >
-          <div
-            flexDir="column"
-            flex={ 1 }
-            justifyContent="center"
-            alignItems="center"
-            gap={ 2 }
-          >
-            <span textStyle="sm" fontWeight="500" color="text.secondary">
+        <div className="flex w-full lg:w-[400px] bg-black/5 dark:bg-white/5 p-6 rounded">
+          <div className="flex flex-col flex-1 justify-center items-center gap-2">
+            <span className="text-sm font-medium text-[var(--color-text-secondary)]">
               Total approvals
             </span>
             <Skeleton
@@ -179,16 +146,10 @@ const Content = ({
           </div>
           <Separator
             orientation="vertical"
-            mx={{ base: 4, md: 8 }}
+            className="mx-4 md:mx-8"
           />
-          <div
-            flexDir="column"
-            flex={ 1 }
-            justifyContent="center"
-            alignItems="center"
-            gap={ 2 }
-          >
-            <span textStyle="sm" fontWeight="500" color="text.secondary">
+          <div className="flex flex-col flex-1 justify-center items-center gap-2">
+            <span className="text-sm font-medium text-[var(--color-text-secondary)]">
               Total value at risk
             </span>
             <Skeleton

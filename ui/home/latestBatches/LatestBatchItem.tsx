@@ -27,20 +27,14 @@ const LatestBatchItem = ({ number, timestamp, txCount, status, isLoading, animat
           isLoading={ isLoading }
           number={ number }
           tailLength={ 2 }
-          textStyle="md"
-          fontWeight={ 500 }
-          mr="auto"
+          className="text-base font-medium mr-auto"
         />
         <TimeWithTooltip
           timestamp={ timestamp }
           enableIncrement={ !isLoading }
           timeFormat="relative"
           isLoading={ isLoading }
-          color="text.secondary"
-          display="inline-block"
-          textStyle="sm"
-          flexShrink={ 0 }
-          ml={ 2 }
+          className="text-[var(--chakra-colors-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
       </div>
       <div className="flex items-center justify-between w-full flex-wrap text-sm">

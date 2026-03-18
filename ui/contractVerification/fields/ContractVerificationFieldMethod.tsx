@@ -77,7 +77,7 @@ const ContractVerificationFieldMethod = ({ methods }: Props) => {
   const tooltipContent = (
     <div>
       <span>Currently, this explorer supports { methods.length } methods:</span>
-      <ol as="ol" pl={ 5 }>
+      <ol className="pl-5 list-decimal">
         { methods.map(renderPopoverListItem) }
       </ol>
     </div>

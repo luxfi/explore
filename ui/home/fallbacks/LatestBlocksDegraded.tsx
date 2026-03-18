@@ -41,12 +41,12 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
   const items = isLoading ? Array(maxNum).fill(BLOCK) : blocks.slice(0, maxNum);
 
   if (items.length === 0) {
-    return <div textStyle="sm">No latest blocks found.</div>;
+    return <div className="text-sm">No latest blocks found.</div>;
   }
 
   return (
     <>
-      <div gap={ 2 } mb={ 3 } overflowX="auto" alignItems="stretch" pb={ 1 }>
+      <div className="flex gap-2 mb-3 overflow-x-auto items-stretch pb-1">
         { items.map(((block, index) => (
           <LatestBlocksItem
             key={ block.height + (isLoading ? String(index) : '') }
@@ -56,7 +56,7 @@ const LatestBlocksDegraded = ({ maxNum }: Props) => {
           />
         ))) }
       </div>
-      <div justifyContent="center">
+      <div className="flex justify-center">
         <Link className="text-sm" href={ route({ pathname: '/blocks' }) } loading={ isLoading }>View all blocks</Link>
       </div>
     </>

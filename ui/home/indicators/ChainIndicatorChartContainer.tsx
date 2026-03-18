@@ -16,19 +16,19 @@ type Props = {
 const ChainIndicatorChartContainer = ({ data, isError, isPending }: Props) => {
 
   if (isPending) {
-    return <ContentLoader mt="auto" fontSize="xs"/>;
+    return <ContentLoader className="mt-auto text-xs"/>;
   }
 
   if (isError) {
-    return <DataFetchAlert fontSize="xs"/>;
+    return <DataFetchAlert className="text-xs"/>;
   }
 
   if (data[0].items.length === 0) {
-    return <span fontSize="xs">no data</span>;
+    return <span className="text-xs">no data</span>;
   }
 
   return (
-    <div mx="-10px" my="-5px" h="calc(100% + 10px)" w="calc(100% + 20px)">
+    <div className="mx-[-10px] my-[-5px] h-[calc(100%+10px)] w-[calc(100%+20px)]">
       <ChainIndicatorChartContent data={ data }/>
     </div>
   );

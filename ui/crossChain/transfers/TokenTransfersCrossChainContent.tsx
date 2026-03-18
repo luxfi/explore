@@ -29,9 +29,6 @@ const TokenTransfersCrossChainContent = ({ items, isLoading, pagination, current
             data={ item }
             isLoading={ isLoading }
             currentAddress={ currentAddress }
-            py={ 4 }
-            textStyle="sm"
-            rowGap="14px"
           />
         )) }
       </div>

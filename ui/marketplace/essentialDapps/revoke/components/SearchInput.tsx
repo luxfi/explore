@@ -34,7 +34,7 @@ export default function SearchInput({ value, onChange, onSubmit }: Props) {
     inputRef?.current?.focus();
   }, [ onChange ]);
 
-  const startElement = isLoading ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4"/> : <IconSvg boxSize={ 5 } name="search"/>;
+  const startElement = isLoading ? <div className="animate-spin rounded-full border-2 border-current border-t-transparent h-4 w-4"/> : <IconSvg className="w-5 h-5" name="search"/>;
   const endElement = <ClearButton onClick={ handleFilterQueryClear } visible={ value.length > 0 }/>;
 
   return (

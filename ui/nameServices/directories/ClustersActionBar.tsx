@@ -7,6 +7,7 @@ import {
   shouldShowActionBar,
 } from 'lib/clusters/actionBarUtils';
 import useIsInitialLoading from 'lib/hooks/useIsInitialLoading';
+import { cn } from 'lib/utils/cn';
 import { Button, ButtonGroupRadio } from 'toolkit/chakra/button';
 import { FilterInput } from 'toolkit/components/filters/FilterInput';
 import ActionBar from 'ui/shared/ActionBar';
@@ -73,8 +74,11 @@ const ClustersActionBar = ({
         { filters }
       </div>
       <ActionBar
-        mt={ -6 }
-        display={{ base: showActionBarOnMobile ? 'flex' : 'none', lg: showActionBarOnDesktop ? 'flex' : 'none' }}
+        className={ cn(
+          '-mt-6',
+          showActionBarOnMobile ? 'flex' : 'hidden',
+          showActionBarOnDesktop ? 'lg:flex' : 'lg:hidden',
+        ) }
       >
         <div className="hidden lg:block">
           { filters }

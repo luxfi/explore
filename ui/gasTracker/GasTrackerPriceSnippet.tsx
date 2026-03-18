@@ -38,10 +38,10 @@ const GasTrackerPriceSnippet = ({ data, type, isLoading }: Props) => {
     <li className="list-none px-9 py-6 lg:w-1/3 [&:not(:last-child)]:border-b-2 lg:[&:not(:last-child)]:border-b-0 lg:[&:not(:last-child)]:border-r-2 border-gray-200 dark:border-white/30">
 
       <Skeleton loading={ isLoading } textStyle="heading.lg" w="fit-content">{ TITLES[type] }</Skeleton>
-      <div columnGap={ 3 } alignItems="center" mt={ 3 }>
-        <IconSvg name={ ICONS[type] } boxSize={{ base: '30px', xl: 10 }} isLoading={ isLoading } flexShrink={ 0 }/>
+      <div className="flex gap-x-3 items-center mt-3">
+        <IconSvg name={ ICONS[type] } className="w-[30px] h-[30px] xl:w-10 xl:h-10 shrink-0" isLoading={ isLoading }/>
         <Skeleton loading={ isLoading }>
-          <GasPrice data={ data } fontSize={{ base: '36px', xl: '48px' }} lineHeight="48px" fontWeight={ 600 } letterSpacing="-1px" fontFamily="heading"/>
+          <GasPrice data={ data } className="text-[36px] xl:text-[48px] leading-[48px] font-semibold tracking-tight font-heading"/>
         </Skeleton>
       </div>
       <Skeleton loading={ isLoading } color="text.secondary" mt={ 3 } w="fit-content" className="text-sm">

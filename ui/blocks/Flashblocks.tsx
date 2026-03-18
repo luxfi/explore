@@ -40,7 +40,7 @@ const Flashblocks = () => {
   return (
     <div>
       <FlashblocksStats itemsNum={ itemsNum } txsNum={ txsNum } initialTs={ initialTs }/>
-      <div gap={ 2 } mb={ 4 }>
+      <div className="flex gap-2 mb-4">
         <Switch size="md" className="flex-row-reverse" onCheckedChange={ handleFormatChange } checked={ isRealTime }>
           Real-time feed
         </Switch>

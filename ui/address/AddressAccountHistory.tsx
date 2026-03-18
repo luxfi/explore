@@ -55,7 +55,7 @@ const AddressAccountHistory = ({ shouldRender = true, isQueryEnabled = true }: P
   }
 
   const actionBar = (
-    <ActionBar mt={ -6 } pb={{ base: 6, md: 5 }}>
+    <ActionBar className="-mt-6 pb-6 md:pb-5">
       <AccountHistoryFilter
         defaultFilter={ filterValue }
         onFilterChange={ handleFilterChange }

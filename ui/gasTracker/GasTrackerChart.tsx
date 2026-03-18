@@ -48,7 +48,7 @@ const GasTrackerChart = () => {
         interval="oneMonth"
         isPlaceholderData={ isPlaceholderData }
         onLoadingError={ handleLoadingError }
-        h="320px"
+        className="h-[320px]"
       />
     );
   })();
@@ -59,8 +59,8 @@ const GasTrackerChart = () => {
 
   return (
     <div>
-      <div justifyContent="space-between" alignItems="center" mb={ 6 }>
-        <h3 textStyle="h3">Gas price history</h3>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-bold">Gas price history</h3>
         <Link href={ route({ pathname: '/stats', hash: 'gas' }) }>Charts & stats</Link>
       </div>
       { content }

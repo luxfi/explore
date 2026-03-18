@@ -38,7 +38,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
   const items = isLoading ? Array(maxNum).fill(TX) : txs.slice(0, maxNum);
 
   if (items.length === 0) {
-    return <div textStyle="sm">No latest transactions found.</div>;
+    return <div className="text-sm">No latest transactions found.</div>;
   }
 
   const txsUrl = route({ pathname: `/txs`, query: zetachainFeature.isEnabled ? { tab: 'evm' } : undefined });
@@ -47,7 +47,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
   return (
     <>
       <LatestTxsDegradedNewItems overflow={ overflow } url={ txsUrl } isLoading={ isLoading }/>
-      <div mb={ 3 } display={{ base: 'block', lg: 'none' }} textStyle="sm">
+      <div className="mb-3 block lg:hidden text-sm">
         { items.map(((tx, index) => (
           <LatestTxsItemMobile
             key={ tx.hash + (isLoading ? index : '') }
@@ -57,7 +57,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
         ))) }
       </div>
       <AddressHighlightProvider>
-        <div mb={ 3 } display={{ base: 'none', lg: 'block' }} textStyle="sm">
+        <div className="mb-3 hidden lg:block text-sm">
           { items.map(((tx, index) => (
             <LatestTxsItem
               key={ tx.hash + (isLoading ? index : '') }
@@ -67,7 +67,7 @@ const LatestTxsDegraded = ({ maxNum }: Props) => {
           ))) }
         </div>
       </AddressHighlightProvider>
-      <div justifyContent="center">
+      <div className="flex justify-center">
         <Link className="text-sm" loading={ isLoading } href={ txsUrl }>View all transactions</Link>
       </div>
     </>

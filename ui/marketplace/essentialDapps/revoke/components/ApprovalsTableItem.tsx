@@ -46,7 +46,7 @@ export default function ApprovalsTableItem({
   return (
     <TableRow className="font-medium">
       <TableCell verticalAlign="middle">
-        <div flexDir="column" gap={ 2 } mr={ 2 }>
+        <div className="flex flex-col gap-2 mr-2">
           <TokenEntity
             token={{
               address_hash: approval.address,

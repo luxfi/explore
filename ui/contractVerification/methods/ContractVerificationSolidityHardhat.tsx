@@ -50,11 +50,11 @@ const ContractVerificationSolidityHardhat = ({ config: formConfig }: { config: S
   return (
     <ContractVerificationMethod title="Contract verification via Solidity Hardhat plugin">
       <ContractVerificationFormRow>
-        <div flexDir="column" rowGap={ 3 }>
+        <div className="flex flex-col gap-y-3">
           <ContractVerificationFormCodeSnippet code={ firstCodeSnippet }/>
           <ContractVerificationFormCodeSnippet code={ secondCodeSnippet }/>
         </div>
-        <div whiteSpace="pre-wrap">
+        <div className="whitespace-pre-wrap">
           <span>Full tutorial about contract verification via Hardhat is available </span>
           <Link href="https://docs.blockscout.com/devs/verification/hardhat-verification-plugin" external>
             here

@@ -26,7 +26,7 @@ const EpochsTableItem = ({ item, isLoading }: Props) => {
             isLoading={ isLoading }
             color="text.secondary"
             display="inline-block"
-            fontWeight={ 400 }
+            fontWeight="400"
           />
         </div>
       </TableCell>

@@ -83,10 +83,7 @@ const TransactionsZetaChain = () => {
 
     return (
       <ActionBar
-        mt={ -6 }
-        display={{ base: pagination?.isVisible ? 'flex' : 'none', lg: 'flex' }}
-        justifyContent="end"
-        gap={ 6 }
+        className={ `${ pagination?.isVisible ? '-mt-6 flex' : '-mt-6 hidden' } lg:flex justify-end gap-6` }
       >
         { isAdvancedFilterEnabled && <AdvancedFilterLink/> }
         { pagination?.isVisible && <Pagination { ...pagination }/> }

@@ -37,7 +37,7 @@ const AddressInternalTxs = ({ shouldRender = true, isQueryEnabled = true }: Prop
   ) : null ;
 
   const actionBar = (
-    <ActionBar mt={ -6 } justifyContent="left">
+    <ActionBar className="-mt-6 justify-start">
       <AddressTxsFilter
         initialValue={ filterValue }
         onFilterChange={ onFilterChange }
