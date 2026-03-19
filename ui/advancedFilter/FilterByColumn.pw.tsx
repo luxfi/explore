@@ -55,7 +55,7 @@ for (const column of columns) {
 
     const filterButton = page.locator('button');
     await filterButton.click();
-    const popover = page.locator('.chakra-popover__content');
+    const popover = page.locator('[data-radix-popper-content-wrapper]');
     await expect(popover).toBeVisible();
     await expect(popover).toHaveScreenshot();
   });

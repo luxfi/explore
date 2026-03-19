@@ -15,7 +15,6 @@ import { RewardsContextProvider } from 'lib/contexts/rewards';
 import { SettingsContextProvider } from 'lib/contexts/settings';
 import { SocketProvider } from 'lib/socket/context';
 import { currentChain } from 'lib/web3/chains';
-import { Provider as ChakraProvider } from 'toolkit/next/provider';
 
 import { port as socketPort } from './utils/socket';
 
@@ -73,7 +72,6 @@ const TestApp = ({ children, withSocket, appContext = defaultAppContext, marketp
   }));
 
   return (
-    <ChakraProvider>
       <QueryClientProvider client={ queryClient }>
         <SocketProvider url={ withSocket ? `ws://${ config.app.host }:${ socketPort }` : undefined }>
           <AppContextProvider { ...appContext }>
@@ -91,7 +89,6 @@ const TestApp = ({ children, withSocket, appContext = defaultAppContext, marketp
           </AppContextProvider>
         </SocketProvider>
       </QueryClientProvider>
-    </ChakraProvider>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Maps Chakra token names to CSS variable names or raw values.
+// Maps color token names to CSS variable names or raw values.
 // Covers the patterns used in the codebase for D3/SVG chart rendering.
 const COLOR_MAP: Record<string, string> = {
   'black': '#000000',

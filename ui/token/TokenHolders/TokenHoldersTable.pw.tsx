@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { tokenHoldersERC20, tokenHoldersERC1155 } from 'mocks/tokens/tokenHolders';

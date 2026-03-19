@@ -12,7 +12,6 @@ export interface Props extends Omit<IconButtonProps, 'type' | 'loading'> {
   type?: 'link' | 'text' | 'share';
   isLoading?: boolean;
   boxSize?: number;
-  // Chakra v3 doesn't support tooltip inside tooltip - https://github.com/chakra-ui/chakra-ui/issues/9939#issuecomment-2817168121
   // so we disable the copy tooltip manually when the button is inside a tooltip
   noTooltip?: boolean;
   tooltipInteractive?: boolean;

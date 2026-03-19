@@ -19,9 +19,7 @@
     "jsx": "react-jsx",
     "incremental": true,
     "baseUrl": ".",
-    "paths": {
-      "@chakra-ui/react": ["./stubs/chakra-shim"]
-    },
+    "paths": {},
     "types": [
       "node"
     ]

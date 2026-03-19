@@ -35,7 +35,6 @@
   },
   "include": [
     "./",
-    "../chakra",
     "../theme",
     "../components",
     "../utils",

@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 import { tokenInfoERC20a, tokenInfoERC721a, tokenInfoERC1155a } from 'mocks/tokens/tokenInfo';

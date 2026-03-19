@@ -154,8 +154,6 @@
     "xss": "^1.0.14"
   },
   "devDependencies": {
-    "@chakra-ui/react": "3.33.0",
-    "@emotion/react": "11.14.0",
     "@eslint/compat": "1.2.2",
     "@eslint/js": "9.14.0",
     "@next/bundle-analyzer": "16.1.6",

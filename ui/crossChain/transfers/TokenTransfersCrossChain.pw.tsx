@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 
 import * as crossChainConfigMock from 'mocks/crossChain/config';
 import * as crossChainTransfersMock from 'mocks/crossChain/transfers';

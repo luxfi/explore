@@ -218,13 +218,11 @@ const AddressEntity = (props: EntityProps) => {
 
   // inside highlight context all tooltips should be interactive
   // because non-interactive ones will not pass 'onMouseLeave' event to the parent component
-  // see issue - https://github.com/chakra-ui/chakra-ui/issues/9939#issuecomment-2810567024
   const content = <Content { ...partsProps.content } altHash={ altHash } tooltipInteractive={ Boolean(highlightContext) }/>;
 
   return (
     <Container
       // we have to use the global classnames here, see theme/global.ts
-      // otherwise, if we use sx prop, Chakra will generate the same styles for each instance of the component on the page
       className={ `${ props.className } address-entity ${ props.noCopy ? 'address-entity_no-copy' : '' } relative z-0 w-fit max-w-full` }
       data-hash={ highlightContext && !props.isLoading ? props.address.hash : undefined }
       onMouseEnter={ highlightContext?.onMouseEnter }

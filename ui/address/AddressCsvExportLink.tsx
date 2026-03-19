@@ -19,7 +19,6 @@ interface Props {
   className?: string;
   isLoading?: boolean;
   chainData?: ClusterChainConfig;
-  // Chakra-style props forwarded from parent (ml, etc.) - kept for compat
   [key: string]: unknown;
 }
 
