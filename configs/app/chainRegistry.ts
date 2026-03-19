@@ -37,7 +37,9 @@ export interface ChainBranding {
 export interface ChainEntry {
   readonly name: string;
   readonly label: string;
-  readonly vm: string;
+
+  /** Internal classification — 'primary' for main C-Chain, 'subnet' for L2 white-labels. */
+  readonly tier: 'primary' | 'subnet';
   readonly network: 'mainnet' | 'testnet' | 'devnet';
   readonly hostnames: ReadonlyArray<string>;
   readonly explorerUrl: string;
@@ -218,7 +220,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'C-Chain',
     label: 'Contract Chain',
-    vm: 'EVM',
+    tier: 'primary',
     network: 'mainnet',
     hostnames: [ 'explore.lux.network', 'explore.lux.build', 'localhost' ],
     explorerUrl: 'https://explore.lux.network',
@@ -228,7 +230,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Zoo',
     label: 'Zoo Chain',
-    vm: 'L2',
+    tier: 'subnet',
     network: 'mainnet',
     hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
@@ -238,7 +240,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Hanzo',
     label: 'Hanzo AI',
-    vm: 'L2',
+    tier: 'subnet',
     network: 'mainnet',
     hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
@@ -248,7 +250,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'SPC',
     label: 'SPC Chain',
-    vm: 'L2',
+    tier: 'subnet',
     network: 'mainnet',
     hostnames: [ 'explore-spc.lux.network' ],
     explorerUrl: 'https://explore-spc.lux.network',
@@ -258,7 +260,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'Pars',
     label: 'Pars Network',
-    vm: 'L2',
+    tier: 'subnet',
     network: 'mainnet',
     hostnames: [ 'explore-pars.lux.network', 'explore.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',
@@ -269,7 +271,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'C-Chain',
     label: 'Contract Chain',
-    vm: 'EVM',
+    tier: 'primary',
     network: 'testnet',
     hostnames: [ 'explore-test.lux.network', 'explore.lux-test.network' ],
     explorerUrl: 'https://explore-test.lux.network',
@@ -280,7 +282,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'C-Chain',
     label: 'Contract Chain',
-    vm: 'EVM',
+    tier: 'primary',
     network: 'devnet',
     hostnames: [ 'explore-dev.lux.network', 'explore.lux-dev.network' ],
     explorerUrl: 'https://explore-dev.lux.network',
@@ -343,7 +345,7 @@ function buildWhiteLabelChain(hostname: string): ChainEntry {
   return {
     name: getEnvValue('NEXT_PUBLIC_NETWORK_SHORT_NAME') || branding.brandName,
     label: branding.brandName,
-    vm: 'EVM',
+    tier: 'subnet',
     network: (getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true' ? 'testnet' : 'mainnet') as 'mainnet' | 'testnet',
     hostnames: [ hostname ],
     explorerUrl: `${ protocol }://${ appHost }`,
@@ -378,8 +380,17 @@ export function isNetworkSelectorEnabled(): boolean {
   if (envVal !== undefined && envVal !== '') {
     return envVal === 'true';
   }
-  // Disabled by default in white-label mode
-  return !isWhiteLabelMode();
+  // Disabled in white-label mode, and also when only 1 network exists for this chain's brand
+  if (isWhiteLabelMode()) {
+    return false;
+  }
+  // Only show if there are multiple networks (mainnet + testnet) for the current brand
+  const current = getCurrentChain();
+  const networksWithThisBrand = NETWORKS.filter((net) => {
+    const chainsInNet = getChainsForNetwork(net.network);
+    return chainsInNet.some((c) => c.branding.brandName === current.branding.brandName);
+  });
+  return networksWithThisBrand.length > 1;
 }
 
 export function getCurrentChain(): ChainEntry {
@@ -412,4 +423,29 @@ export function getCurrentNetwork(): NetworkEntry {
 
 export function getChainsForNetwork(network: 'mainnet' | 'testnet' | 'devnet'): ReadonlyArray<ChainEntry> {
   return CHAINS.filter((c) => c.network === network);
+}
+
+/** True when running on the main Lux C-Chain explorer (multi-chain view). */
+export function isPrimaryExplorer(): boolean {
+  return getCurrentChain().tier === 'primary';
+}
+
+/** True when running on a subnet/L2 white-label deployment. */
+export function isSubnetExplorer(): boolean {
+  return getCurrentChain().tier === 'subnet';
+}
+
+/**
+ * Returns the set of networks (mainnet/testnet/devnet) that have at least one chain
+ * matching the current chain's brand. For white-label deployments this will be 1.
+ */
+export function getAvailableNetworks(): ReadonlyArray<NetworkEntry> {
+  const current = getCurrentChain();
+  if (isWhiteLabelMode()) {
+    return [ getCurrentNetwork() ];
+  }
+  return NETWORKS.filter((net) => {
+    const chainsInNet = getChainsForNetwork(net.network);
+    return chainsInNet.some((c) => c.branding.brandName === current.branding.brandName);
+  });
 }

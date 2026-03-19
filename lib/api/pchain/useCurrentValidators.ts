@@ -85,12 +85,13 @@ async function fetchCurrentValidators(): Promise<UseCurrentValidatorsResult> {
   return { validators, stats };
 }
 
-export function useCurrentValidators() {
+export function useCurrentValidators({ enabled = true }: { enabled?: boolean } = {}) {
   const query = useQuery({
     queryKey: [ VALIDATORS_QUERY_KEY ],
     queryFn: fetchCurrentValidators,
     staleTime: VALIDATORS_STALE_TIME_MS,
     retry: 2,
+    enabled,
   });
 
   const validators = React.useMemo(

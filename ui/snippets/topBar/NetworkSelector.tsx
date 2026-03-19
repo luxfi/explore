@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NETWORKS, getCurrentNetwork } from 'configs/app/chainRegistry';
+import { getAvailableNetworks, getCurrentNetwork } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
@@ -16,6 +16,12 @@ const NetworkSelector = () => {
   }, []);
 
   const current = getCurrentNetwork();
+  const networks = getAvailableNetworks();
+
+  // Don't render anything if there's only one network (nothing to switch to)
+  if (networks.length <= 1) {
+    return null;
+  }
 
   return (
     <PopoverRoot
@@ -41,7 +47,7 @@ const NetworkSelector = () => {
       </PopoverTrigger>
       <PopoverContent w="200px">
         <PopoverBody className="p-1">
-          { NETWORKS.map((network) => {
+          { networks.map((network) => {
             const isCurrent = network.network === current.network;
             return (
               <a

@@ -31,12 +31,13 @@ async function fetchBlockchains(): Promise<ReadonlyArray<PChainBlockchain>> {
   return json.result?.blockchains ?? [];
 }
 
-export function useBlockchains() {
+export function useBlockchains({ enabled = true }: { enabled?: boolean } = {}) {
   const query = useQuery({
     queryKey: [ BLOCKCHAINS_QUERY_KEY ],
     queryFn: fetchBlockchains,
     staleTime: BLOCKCHAINS_STALE_TIME_MS,
     retry: 2,
+    enabled,
   });
 
   const blockchains = React.useMemo(

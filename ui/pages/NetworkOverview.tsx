@@ -1,6 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
+import { isPrimaryExplorer } from 'configs/app/chainRegistry';
 import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
@@ -85,13 +86,12 @@ interface ChainRowProps {
   readonly fullName: string;
   readonly vm: string;
   readonly href: string | undefined;
-  readonly tier?: string;
   readonly height?: number;
   readonly heightLoading?: boolean;
 }
 
 const ChainRow = ({
-  name, fullName, vm, href, tier, height, heightLoading,
+  name, fullName, vm, href, height, heightLoading,
 }: ChainRowProps) => {
   const content = (
     <div className={ cn(
@@ -116,7 +116,6 @@ const ChainRow = ({
             </span>
           </Skeleton>
         ) }
-        { tier && <Tag size="sm" variant="subtle">{ tier }</Tag> }
         <Tag size="sm" variant="subtle">{ vm }</Tag>
       </div>
     </div>
@@ -136,7 +135,6 @@ interface L1ChainRowProps {
 
 const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   const explorerUrl = L1_EXPLORER_URLS[chain.name];
-  const slug = chain.name.toLowerCase();
 
   const content = (
     <div className={ cn(
@@ -152,7 +150,6 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
         </span>
       </div>
       <div className="flex items-center gap-1.5">
-        <Tag size="sm" variant="subtle">L1</Tag>
         <span className="text-xs text-[var(--color-text-secondary)]">{ '\u2192' }</span>
       </div>
     </div>
@@ -161,6 +158,7 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   if (explorerUrl) {
     return <Link href={ explorerUrl } variant="plain" target="_blank">{ content }</Link>;
   }
+  const slug = chain.name.toLowerCase();
   return <Link href={ `/chains/${ slug }` } variant="plain">{ content }</Link>;
 };
 
@@ -181,7 +179,6 @@ const KnownL1Row = ({ name, href }: KnownL1RowProps) => (
         { name }
       </span>
       <div className="flex items-center gap-1.5">
-        <Tag size="sm" variant="subtle">L1</Tag>
         <span className="text-xs text-[var(--color-text-secondary)]">{ '\u2192' }</span>
       </div>
     </div>
@@ -219,9 +216,11 @@ const SectionCard = ({ title, count, isLoading, action, children }: SectionCardP
   </div>
 );
 
-// ── Main page ──
+// ── Primary explorer content (C-Chain: validators, chains, P-chain data) ──
+// Rendered only on the main Lux C-Chain explorer. The P-chain hooks are called
+// here so they never fire on subnet deployments.
 
-const NetworkOverview = () => {
+const PrimaryContent = () => {
   const { stats, isLoading: validatorsLoading, isError: validatorsError } = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
@@ -231,189 +230,212 @@ const NetworkOverview = () => {
     [ blockchains ],
   );
 
-  // Use known L1 chains as fallback when P-chain API is unreachable
   const hasL1Data = l1Chains.length > 0;
   const showFallbackL1 = !chainsLoading && !hasL1Data;
-
   const totalChains = PRIMARY_CHAINS.length + (hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length);
   const isLoading = validatorsLoading || chainsLoading;
-
-  // Hide validator metrics when API returned an error (show dashes instead of 0)
   const hasValidatorData = !validatorsError && stats.validatorCount > 0;
+
+  return (
+    <>
+      { /* ── Metrics strip ── */ }
+      <div className={ cn(
+        'flex items-center justify-center flex-wrap overflow-hidden rounded-sm',
+        'py-3 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
+        'bg-[var(--color-stats-bg)]',
+      ) }>
+        <Metric
+          label="Validators"
+          value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
+          isLoading={ validatorsLoading }
+        />
+        <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+        <Metric
+          label="Staked"
+          value={ hasValidatorData ?
+            `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` :
+            '\u2014' }
+          isLoading={ validatorsLoading }
+        />
+        <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+        <Metric
+          label="Uptime"
+          value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' }
+          isLoading={ validatorsLoading }
+        />
+        <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+        <Metric
+          label="Chains"
+          value={ String(totalChains) }
+          isLoading={ isLoading }
+        />
+        <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+        <Metric
+          label="Connected"
+          value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
+          isLoading={ validatorsLoading }
+        />
+      </div>
+
+      { /* ── Stats widgets ── */ }
+      <Stats/>
+
+      { /* ── Latest blocks ── */ }
+      <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
+        <LatestBlocks/>
+      </div>
+
+      { /* ── Latest transactions ── */ }
+      <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
+        <Transactions/>
+      </div>
+
+      { /* ── Chain Health ── */ }
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-4">
+        { /* Primary Network chains */ }
+        <SectionCard
+          title="Primary Network"
+          count={ PRIMARY_CHAINS.length }
+        >
+          <div className="flex flex-col gap-0.5">
+            { PRIMARY_CHAINS.map((chain) => {
+              const chainHeight = (() => {
+                if (chain.id === 'C') return cChainHeight;
+                if (chain.id === 'P') return pChainHeight;
+                return undefined;
+              })();
+              return (
+                <ChainRow
+                  key={ chain.id }
+                  name={ chain.name }
+                  fullName={ chain.fullName }
+                  vm={ chain.vm }
+                  href={ chain.href }
+                  height={ chainHeight }
+                  heightLoading={ heightsLoading }
+                />
+              );
+            }) }
+          </div>
+        </SectionCard>
+
+        { /* L1 chains */ }
+        <SectionCard
+          title="Chains"
+          count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
+          isLoading={ chainsLoading }
+          action={{ label: 'View all', href: '/chains' }}
+        >
+          { chainsLoading && (
+            <div className="flex flex-col gap-1">
+              { Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={ i } loading h="40px" borderRadius="md"/>
+              )) }
+            </div>
+          ) }
+          { !chainsLoading && hasL1Data && (
+            <div className="flex flex-col gap-0.5">
+              { l1Chains.map((chain) => (
+                <L1ChainRow key={ chain.id } chain={ chain }/>
+              )) }
+            </div>
+          ) }
+          { showFallbackL1 && (
+            <div className="flex flex-col gap-0.5">
+              { KNOWN_L1_CHAINS.map((chain) => (
+                <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
+              )) }
+            </div>
+          ) }
+        </SectionCard>
+
+        { /* Validators summary card */ }
+        <SectionCard title="Validators">
+          { !hasValidatorData && !validatorsLoading ? (
+            <div className="flex flex-col items-center py-4">
+              <span className="text-sm text-[var(--color-text-secondary)]">
+                { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
+              </span>
+              <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] mt-2">
+                View validators
+              </Link>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Skeleton loading={ validatorsLoading }>
+                    <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                      { hasValidatorData ? stats.validatorCount : '\u2014' }
+                    </span>
+                  </Skeleton>
+                  <span className="text-2xs text-[var(--color-text-secondary)]">Active</span>
+                </div>
+                <div>
+                  <Skeleton loading={ validatorsLoading }>
+                    <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                      { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
+                    </span>
+                  </Skeleton>
+                  <span className="text-2xs text-[var(--color-text-secondary)]">Total Stake ({ config.chain.currency.symbol || 'LUX' })</span>
+                </div>
+                <div>
+                  <Skeleton loading={ validatorsLoading }>
+                    <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                      { hasValidatorData ? stats.delegatorCount : '\u2014' }
+                    </span>
+                  </Skeleton>
+                  <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
+                </div>
+                <div>
+                  <Skeleton loading={ validatorsLoading }>
+                    <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                      { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
+                    </span>
+                  </Skeleton>
+                  <span className="text-2xs text-[var(--color-text-secondary)]">Connected</span>
+                </div>
+              </div>
+              <div className="flex justify-center mt-4">
+                <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
+                  View validators
+                </Link>
+              </div>
+            </>
+          ) }
+        </SectionCard>
+      </div>
+    </>
+  );
+};
+
+// ── Subnet content (Zoo, Pars, Hanzo, SPC — EVM stats, blocks, txs only) ──
+// No P-chain hooks, no validator metrics, no chain grid.
+
+const SubnetContent = () => (
+  <>
+    <Stats/>
+
+    <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
+      <LatestBlocks/>
+    </div>
+
+    <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
+      <Transactions/>
+    </div>
+  </>
+);
+
+// ── Main page ──
+
+const NetworkOverview = () => {
+  const isPrimary = isPrimaryExplorer();
 
   return (
     <HomeRpcDataContextProvider>
       <div className="flex flex-col gap-4 lg:gap-6">
-        { /* ── Hero ── */ }
         <HeroBanner/>
-
-        { /* ── Metrics strip ── */ }
-        <div className={ cn(
-          'flex items-center justify-center flex-wrap overflow-hidden rounded-sm',
-          'py-3 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
-          'bg-[var(--color-stats-bg)]',
-        ) }>
-          <Metric
-            label="Validators"
-            value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
-            isLoading={ validatorsLoading }
-          />
-          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric
-            label="Staked"
-            value={ hasValidatorData ?
-              `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` :
-              '\u2014' }
-            isLoading={ validatorsLoading }
-          />
-          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric
-            label="Uptime"
-            value={ hasValidatorData ? `${ stats.averageUptime.toFixed(1) }%` : '\u2014' }
-            isLoading={ validatorsLoading }
-          />
-          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric
-            label="Chains"
-            value={ String(totalChains) }
-            isLoading={ isLoading }
-          />
-          <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
-          <Metric
-            label="Connected"
-            value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
-            isLoading={ validatorsLoading }
-          />
-        </div>
-
-        { /* ── Stats widgets ── */ }
-        <Stats/>
-
-        { /* ── Latest blocks ── */ }
-        <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
-          <LatestBlocks/>
-        </div>
-
-        { /* ── Latest transactions ── */ }
-        <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
-          <Transactions/>
-        </div>
-
-        { /* ── Chain Health ── */ }
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-4">
-          { /* Primary Network chains */ }
-          <SectionCard
-            title="Primary Network"
-            count={ PRIMARY_CHAINS.length }
-          >
-            <div className="flex flex-col gap-0.5">
-              { PRIMARY_CHAINS.map((chain) => {
-                const chainHeight = (() => {
-                  if (chain.id === 'C') return cChainHeight;
-                  if (chain.id === 'P') return pChainHeight;
-                  return undefined;
-                })();
-                return (
-                  <ChainRow
-                    key={ chain.id }
-                    name={ chain.name }
-                    fullName={ chain.fullName }
-                    vm={ chain.vm }
-                    href={ chain.href }
-                    height={ chainHeight }
-                    heightLoading={ heightsLoading }
-                  />
-                );
-              }) }
-            </div>
-          </SectionCard>
-
-          { /* L1 chains */ }
-          <SectionCard
-            title="Chains"
-            count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
-            isLoading={ chainsLoading }
-            action={{ label: 'View all', href: '/chains' }}
-          >
-            { chainsLoading && (
-              <div className="flex flex-col gap-1">
-                { Array.from({ length: 4 }).map((_, i) => (
-                  <Skeleton key={ i } loading h="40px" borderRadius="md"/>
-                )) }
-              </div>
-            ) }
-            { !chainsLoading && hasL1Data && (
-              <div className="flex flex-col gap-0.5">
-                { l1Chains.map((chain) => (
-                  <L1ChainRow key={ chain.id } chain={ chain }/>
-                )) }
-              </div>
-            ) }
-            { showFallbackL1 && (
-              <div className="flex flex-col gap-0.5">
-                { KNOWN_L1_CHAINS.map((chain) => (
-                  <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
-                )) }
-              </div>
-            ) }
-          </SectionCard>
-
-          { /* Validators summary card */ }
-          <SectionCard title="Validators">
-            { !hasValidatorData && !validatorsLoading ? (
-              <div className="flex flex-col items-center py-4">
-                <span className="text-sm text-[var(--color-text-secondary)]">
-                  { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
-                </span>
-                <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] mt-2">
-                  View validators
-                </Link>
-              </div>
-            ) : (
-              <>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                        { hasValidatorData ? stats.validatorCount : '\u2014' }
-                      </span>
-                    </Skeleton>
-                    <span className="text-2xs text-[var(--color-text-secondary)]">Active</span>
-                  </div>
-                  <div>
-                    <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                        { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
-                      </span>
-                    </Skeleton>
-                    <span className="text-2xs text-[var(--color-text-secondary)]">Total Stake ({ config.chain.currency.symbol || 'LUX' })</span>
-                  </div>
-                  <div>
-                    <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                        { hasValidatorData ? stats.delegatorCount : '\u2014' }
-                      </span>
-                    </Skeleton>
-                    <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
-                  </div>
-                  <div>
-                    <Skeleton loading={ validatorsLoading }>
-                      <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                        { hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
-                      </span>
-                    </Skeleton>
-                    <span className="text-2xs text-[var(--color-text-secondary)]">Connected</span>
-                  </div>
-                </div>
-                <div className="flex justify-center mt-4">
-                  <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
-                    View validators
-                  </Link>
-                </div>
-              </>
-            ) }
-          </SectionCard>
-        </div>
+        { isPrimary ? <PrimaryContent/> : <SubnetContent/> }
       </div>
     </HomeRpcDataContextProvider>
   );

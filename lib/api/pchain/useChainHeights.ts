@@ -52,12 +52,13 @@ export interface UseChainHeightsResult {
   readonly isLoading: boolean;
 }
 
-export function useChainHeights(): UseChainHeightsResult {
+export function useChainHeights({ enabled = true }: { enabled?: boolean } = {}): UseChainHeightsResult {
   const query = useQuery({
     queryKey: [ HEIGHTS_QUERY_KEY ],
     queryFn: fetchChainHeights,
     staleTime: HEIGHTS_STALE_TIME_MS,
-    refetchInterval: HEIGHTS_STALE_TIME_MS,
+    refetchInterval: enabled ? HEIGHTS_STALE_TIME_MS : false,
+    enabled,
   });
 
   return {

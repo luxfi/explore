@@ -18,7 +18,7 @@ const ChainSwitcher = () => {
 
   const current = getCurrentChain();
   const currentNetwork = getCurrentNetwork();
-  const isMainChain = current.name === 'C-Chain';
+  const isMainChain = current.tier === 'primary';
 
   // For white-label subnets (Zoo, Pars, Hanzo, SPC), only show that chain's
   // mainnet/testnet entries — don't show the full Lux ecosystem.
@@ -168,12 +168,7 @@ const ChainSwitcher = () => {
                         </span>
                       </div>
                     </div>
-                    <span className={ cn(
-                      'bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)]',
-                      'rounded-sm px-1.5 py-0.5 text-[10px] font-mono shrink-0',
-                    ) }>
-                      { chain.vm }
-                    </span>
+                    { /* No tier/VM badge — on white-label deployments it's just their chain */ }
                   </a>
                 );
               }) }
