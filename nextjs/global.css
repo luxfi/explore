@@ -245,3 +245,12 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Trading-grade typography */
+body { font-variant-numeric: tabular-nums; }
+
+table, [role="table"], [role="grid"] { line-height: 1.35; }
+td, th { border-radius: 0; }
+
+/* Compact table cells */
+table td, table th { padding-top: 6px; padding-bottom: 6px; }

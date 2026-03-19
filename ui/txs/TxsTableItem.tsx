@@ -110,7 +110,7 @@ const TxsTableItem = ({
                 isLoading={ isLoading }
                 number={ tx.block_number }
                 noIcon
-                className="font-medium"
+                className="font-medium font-mono"
               />
             ) }
             { tx.is_pending_update && <BlockPendingUpdateHint view="tx"/> }

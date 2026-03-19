@@ -194,7 +194,7 @@
 
   /* --- Table --- */
   --color-table-header-bg: rgba(16, 17, 18, 0.06);
-  --color-table-header-fg: rgba(16, 17, 18, 0.64);
+  --color-table-header-fg: rgba(16, 17, 18, 0.50);
 
   /* --- Tabs --- */
   --color-tabs-solid-fg: #171717;
@@ -302,7 +302,7 @@
   --color-icon-secondary: #737373;
 
   /* --- Borders --- */
-  --color-border-divider: rgba(255, 255, 255, 0.06);
+  --color-border-divider: rgba(255, 255, 255, 0.08);
   --color-border-error: #E53E3E;
   --color-border-info: #737373;
 
@@ -443,7 +443,7 @@
 
   /* --- Table --- */
   --color-table-header-bg: rgba(255, 255, 255, 0.08);
-  --color-table-header-fg: rgba(255, 255, 255, 0.64);
+  --color-table-header-fg: rgba(255, 255, 255, 0.50);
 
   /* --- Tabs --- */
   --color-tabs-solid-fg: rgba(255, 255, 255, 0.80);
@@ -461,7 +461,7 @@
   --color-progress-track: rgba(255, 255, 255, 0.06);
 
   /* --- Stats / Topbar --- */
-  --color-stats-bg: rgba(255, 255, 255, 0.04);
+  --color-stats-bg: rgba(255, 255, 255, 0.02);
   --color-topbar-bg: rgba(255, 255, 255, 0.04);
 
   /* --- Graph --- */

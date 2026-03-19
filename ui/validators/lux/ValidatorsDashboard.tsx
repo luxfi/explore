@@ -28,7 +28,7 @@ const StatCard = ({ label, value, isLoading }: StatCardProps) => (
       { label }
     </div>
     <Skeleton loading={ isLoading }>
-      <div className="font-bold">
+      <div className="font-bold font-mono">
         { value }
       </div>
     </Skeleton>
@@ -60,7 +60,7 @@ const StakeBreakdown = ({ stats, isLoading }: StakeBreakdownProps) => {
         Total Stake
       </div>
       <Skeleton loading={ isLoading }>
-        <div className="font-bold">
+        <div className="font-bold font-mono">
           { formatStake(stats.totalStake) } LUX
         </div>
       </Skeleton>
@@ -132,23 +132,23 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
       ) }
 
       { !isLoading && sorted.map((v) => (
-        <div className="flex gap-4 py-2 border-b border-[var(--color-border-divider)]" key={ v.nodeID }>
+        <div className="flex gap-4 py-1.5 border-b border-[var(--color-border-divider)]" key={ v.nodeID }>
           <div
             title={ v.nodeID }
-            className="flex-[3] min-w-0 overflow-hidden text-ellipsis"
+            className="flex-[3] min-w-0 overflow-hidden text-ellipsis font-mono"
           >
             { truncateNodeId(v.nodeID) }
           </div>
-          <div className="flex-[2] text-right">
+          <div className="flex-[2] text-right font-mono">
             { formatStake(v.stakeAmount ?? v.weight) } LUX
           </div>
-          <div className="flex-1 text-right">
+          <div className="flex-1 text-right font-mono">
             { v.delegationFee }%
           </div>
           <div className="flex-1 flex justify-center">
             <div/>
           </div>
-          <div className="flex-1 text-right">
+          <div className="flex-1 text-right font-mono">
             { formatUptime(v.uptime) }
           </div>
         </div>
@@ -172,7 +172,7 @@ const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboa
     <div className="flex flex-col gap-6">
       { /* Stat cards */ }
       <div
-        className="grid gap-4"
+        className="grid gap-3"
         style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
       >
         <StatCard

@@ -38,7 +38,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
   return (
     <div
       className={ cn(
-        'hidden lg:grid gap-3 w-full border-b border-[var(--color-border-divider)] py-3 px-4',
+        'hidden lg:grid gap-3 w-full border-b border-[var(--color-border-divider)] py-2 px-3',
         'transition-colors hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
         columnNum === 2 ? 'min-w-[700px]' : 'min-w-[750px]',
       ) }
@@ -80,10 +80,10 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
         mode="compact"
       />
       { !(config.UI.views.tx.hiddenFields?.value && config.UI.views.tx.hiddenFields?.tx_fee) ? (
-        <div className="flex flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 font-mono">
           { !config.UI.views.tx.hiddenFields?.value && (
             <Skeleton loading={ isLoading }>
-              <span className="whitespace-pre text-[var(--color-text-secondary)] text-sm">Value </span>
+              <span className="whitespace-pre text-[var(--color-text-secondary)] text-sm font-sans">Value </span>
               <NativeCoinValue
                 amount={ tx.value }
                 accuracy={ 5 }
@@ -94,7 +94,7 @@ const LatestTxsItem = ({ tx, isLoading }: Props) => {
           ) }
           { !config.UI.views.tx.hiddenFields?.tx_fee && (
             <Skeleton loading={ isLoading } className="flex whitespace-pre">
-              <span className="text-[var(--color-text-secondary)] text-sm">Fee </span>
+              <span className="text-[var(--color-text-secondary)] text-sm font-sans">Fee </span>
               <TxFee tx={ tx } accuracy={ 5 } color="text.secondary" noUsd/>
             </Skeleton>
           ) }

@@ -60,7 +60,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
                 number={ data.height }
                 hash={ data.type !== 'block' ? data.hash : undefined }
                 noIcon
-                className="font-semibold"
+                className="font-semibold font-mono"
               />
             </span>
           </Tooltip>
@@ -75,7 +75,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
         />
       </TableCell>
       <TableCell >
-        <Skeleton loading={ isLoading } display="inline-block">
+        <Skeleton loading={ isLoading } display="inline-block" className="font-mono">
           { data.size?.toLocaleString() || 'N/A' }
         </Skeleton>
       </TableCell>
@@ -90,7 +90,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
       ) }
       <TableCell isNumeric >
         { data.transactions_count > 0 ? (
-          <Skeleton loading={ isLoading } display="inline-block">
+          <Skeleton loading={ isLoading } display="inline-block" className="font-mono">
             <Link href={ route({
               pathname: '/block/[height_or_hash]',
               query: { height_or_hash: String(data.height), tab: 'txs' },
@@ -101,7 +101,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
         ) : data.transactions_count }
       </TableCell>
       <TableCell >
-        <Skeleton loading={ isLoading } display="inline-block">{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
+        <Skeleton loading={ isLoading } display="inline-block" className="font-mono">{ BigNumber(data.gas_used || 0).toFormat() }</Skeleton>
         <div className="mt-2">
           <BlockGasUsed
             gasUsed={ data.gas_used || undefined }

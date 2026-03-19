@@ -37,8 +37,8 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
   return (
     <div
       className={ cn(
-        'rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]',
-        'p-4 min-w-[260px] flex-1 transition-colors duration-150',
+        'rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]',
+        'p-3 min-w-[260px] flex-1 transition-colors duration-150',
         isLoading ? 'cursor-default' : 'cursor-pointer hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-whiteAlpha-100)]',
       ) }
       style={ animation ? { animation } : undefined }
@@ -64,9 +64,9 @@ const LatestBlocksItem = ({ block, isLoading, animation }: Props) => {
           className="text-[var(--color-text-secondary)] inline-block text-sm shrink-0 ml-2"
         />
       </div>
-      <div className="grid gap-2 grid-cols-[auto_minmax(0,1fr)] text-sm">
+      <div className="grid gap-1.5 grid-cols-[auto_minmax(0,1fr)] text-sm leading-tight">
         <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]">Txn</Skeleton>
-        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)]"><span>{ block.transactions_count }</span></Skeleton>
+        <Skeleton loading={ isLoading } className="text-[var(--color-text-secondary)] font-mono"><span>{ block.transactions_count }</span></Skeleton>
 
         { !config.features.rollup.isEnabled && !config.UI.views.block.hiddenFields?.total_reward && (
           <>

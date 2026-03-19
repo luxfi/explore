@@ -199,7 +199,7 @@ interface SectionCardProps {
 }
 
 const SectionCard = ({ title, count, isLoading, action, children }: SectionCardProps) => (
-  <div className="rounded-lg p-5 border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]">
+  <div className="rounded-sm p-4 border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)]">
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2">
         <Heading level="3" className="text-sm">{ title }</Heading>
@@ -243,14 +243,14 @@ const NetworkOverview = () => {
 
   return (
     <HomeRpcDataContextProvider>
-      <div className="flex flex-col gap-6 lg:gap-8">
+      <div className="flex flex-col gap-4 lg:gap-6">
         { /* ── Hero ── */ }
         <HeroBanner/>
 
         { /* ── Metrics strip ── */ }
         <div className={ cn(
-          'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
-          'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
+          'flex items-center justify-center flex-wrap overflow-hidden rounded-sm',
+          'py-3 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
           'bg-[var(--color-stats-bg)]',
         ) }>
           <Metric
@@ -290,17 +290,17 @@ const NetworkOverview = () => {
         <Stats/>
 
         { /* ── Latest blocks ── */ }
-        <div className="rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-5 lg:p-6">
+        <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
           <LatestBlocks/>
         </div>
 
         { /* ── Latest transactions ── */ }
-        <div className="rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-5 lg:p-6">
+        <div className="rounded-sm border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-4 lg:p-6">
           <Transactions/>
         </div>
 
         { /* ── Chain Health ── */ }
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-4">
           { /* Primary Network chains */ }
           <SectionCard
             title="Primary Network"

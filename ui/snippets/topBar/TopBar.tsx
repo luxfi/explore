@@ -68,7 +68,7 @@ const TopBar = () => {
       ) }
     >
       <div
-        className="flex py-2 px-4 lg:px-6 mx-auto items-center gap-2"
+        className="flex py-1.5 px-4 lg:px-6 mx-auto items-center gap-2"
         style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
       >
         { /* -- Logo + Brand + Chain/Network selectors (grouped) -- */ }

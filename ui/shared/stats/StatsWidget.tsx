@@ -59,7 +59,7 @@ const StatsWidget = ({
     <Container href={ !isLoading ? href : undefined } className={ href ? className : undefined }>
       <div
         className={ cn(
-          'flex items-center p-4 rounded-lg justify-between gap-x-3 w-full h-full',
+          'flex items-center p-3 rounded-sm justify-between gap-x-3 w-full h-full',
           'border border-[var(--color-border-divider)]',
           isLoading ? 'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' : 'bg-[var(--color-stats-bg)]',
           !href && className,
@@ -72,7 +72,7 @@ const StatsWidget = ({
               'hidden lg:block shrink-0 p-2 rounded-base',
               isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
             ) }
-            style={{ width: '40px', height: '40px' }}
+            style={{ width: '32px', height: '32px' }}
             isLoading={ isLoading }
           />
         ) }
@@ -83,7 +83,7 @@ const StatsWidget = ({
           <Skeleton
             loading={ isLoading }
             className={ cn(
-              'flex items-baseline font-medium text-lg',
+              'flex items-baseline font-medium font-mono text-lg',
               isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
             ) }
           >
