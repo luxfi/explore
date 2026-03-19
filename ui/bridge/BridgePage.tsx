@@ -15,23 +15,24 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 
-// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
+// Only live primary network chains. Planned chains are excluded from bridge routes.
 const CHAIN_LABELS: Readonly<Record<string, string>> = {
   C: 'C-Chain',
   P: 'P-Chain',
   X: 'X-Chain',
-  D: 'D-Chain',
-  A: 'A-Chain',
-  B: 'B-Chain',
-  Q: 'Q-Chain',
-  T: 'T-Chain',
-  Z: 'Z-Chain',
-  G: 'G-Chain',
-  K: 'K-Chain',
-  O: 'O-Chain',
-  R: 'R-Chain',
-  I: 'I-Chain',
 };
+
+// Map P-chain internal blockchain names to display names
+const L1_DISPLAY_NAMES: Readonly<Record<string, string>> = {
+  pars: 'Pars', pars2: 'Pars', pars3: 'Pars',
+  spc: 'SPC', spc2: 'SPC', spc3: 'SPC',
+  hanzo: 'Hanzo', hanzo2: 'Hanzo', hanzo3: 'Hanzo',
+  zoo: 'Zoo', zoo2: 'Zoo', zoo3: 'Zoo',
+};
+
+function getL1DisplayName(rawName: string): string {
+  return L1_DISPLAY_NAMES[rawName] ?? rawName;
+}
 
 // ── Sub-components ──
 
@@ -103,27 +104,32 @@ const BridgePage = () => {
   const bridgePairs = React.useMemo(() => {
     const pairs: Array<{ source: string; destination: string; status: 'active' | 'coming_soon' }> = [];
 
-    // C-Chain <-> each L1
-    for (const chain of l1Chains) {
-      pairs.push({
-        source: CHAIN_LABELS.C ?? 'C-Chain',
-        destination: chain.name,
-        status: 'coming_soon',
-      });
-      pairs.push({
-        source: chain.name,
-        destination: CHAIN_LABELS.C ?? 'C-Chain',
-        status: 'coming_soon',
-      });
-    }
-
-    // X-Chain <-> C-Chain (atomic swaps)
-    pairs.unshift(
+    // Core chain atomic swaps (active)
+    pairs.push(
       { source: 'X-Chain', destination: 'C-Chain', status: 'active' },
       { source: 'C-Chain', destination: 'X-Chain', status: 'active' },
       { source: 'P-Chain', destination: 'C-Chain', status: 'active' },
       { source: 'C-Chain', destination: 'P-Chain', status: 'active' },
     );
+
+    // C-Chain <-> each L1 (coming soon)
+    for (const chain of l1Chains) {
+      const displayName = getL1DisplayName(chain.name);
+      // Skip self-referential routes
+      if (displayName === 'C-Chain') {
+        continue;
+      }
+      pairs.push({
+        source: 'C-Chain',
+        destination: displayName,
+        status: 'coming_soon',
+      });
+      pairs.push({
+        source: displayName,
+        destination: 'C-Chain',
+        status: 'coming_soon',
+      });
+    }
 
     return pairs;
   }, [ l1Chains ]);
@@ -212,8 +218,7 @@ const BridgePage = () => {
         <span className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
           The bridge enables cross-chain asset transfers between the Primary Network
           chains and L1 subnet chains. Atomic swaps between core chains (C, P, X) are
-          currently active. Teleporter-based transfers to L1 subnets are
-          coming soon via the B-Chain bridge relay.
+          currently active. Teleporter-based transfers to L1 subnets are coming soon.
         </span>
       </div>
     </>

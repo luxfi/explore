@@ -129,17 +129,29 @@ const Stats = () => {
         href: { pathname: '/blocks' as const },
         isLoading,
       },
-      (statsData?.average_block_time?.value || apiData?.average_block_time) && {
-        id: 'average_block_time' as const,
-        icon: 'clock-light' as const,
-        label: statsData?.average_block_time?.title || 'Average block time',
-        value: `${
-          statsData?.average_block_time?.value ?
-            Number(statsData.average_block_time.value).toFixed(1) :
-            (apiData!.average_block_time / 1000).toFixed(1)
-        }s`,
-        isLoading,
-      },
+      (statsData?.average_block_time?.value || apiData?.average_block_time) && (() => {
+        // API returns average_block_time in milliseconds; convert to seconds.
+        // Guard against unreasonable values (> 1 hour = 3,600,000 ms) which
+        // indicate an indexer bug -- show "N/A" instead of misleading numbers.
+        const MAX_REASONABLE_BLOCK_TIME_MS = 3_600_000;
+        let displayValue: string;
+
+        if (statsData?.average_block_time?.value) {
+          displayValue = `${ Number(statsData.average_block_time.value).toFixed(1) }s`;
+        } else if (apiData!.average_block_time > MAX_REASONABLE_BLOCK_TIME_MS) {
+          displayValue = 'N/A';
+        } else {
+          displayValue = `${ (apiData!.average_block_time / 1000).toFixed(1) }s`;
+        }
+
+        return {
+          id: 'average_block_time' as const,
+          icon: 'clock-light' as const,
+          label: statsData?.average_block_time?.title || 'Average block time',
+          value: displayValue,
+          isLoading,
+        };
+      })(),
       (statsData?.total_transactions?.value || apiData?.total_transactions) && {
         id: 'total_txs' as const,
         icon: 'transactions' as const,

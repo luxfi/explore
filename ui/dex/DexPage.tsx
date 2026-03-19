@@ -1,6 +1,6 @@
 // DEX Chain (D-Chain) orderbook page for the Lux multi-chain explorer.
-// Displays market stats, orderbook, trade history, and liquidity pools
-// sourced from the DexVM indexer.
+// Shows real market data from the DexVM indexer when available,
+// or a "Coming Soon" state when the D-Chain DEX is not yet live.
 
 import React from 'react';
 
@@ -221,16 +221,57 @@ const LoadingSkeleton = () => (
   </div>
 );
 
+// ── Empty state ──
+
+const EmptyState = ({ message }: { readonly message: string }) => (
+  <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
+    { message }
+  </div>
+);
+
+// ── Coming Soon state ──
+
+const ComingSoonState = () => (
+  <div className="flex flex-col items-center justify-center py-16 px-4">
+    <div className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
+      DEX Coming Soon
+    </div>
+    <div className="text-sm text-[var(--color-text-secondary)] text-center max-w-md">
+      The D-Chain decentralized exchange is not yet live.
+      Trading data will appear here once the DexVM is deployed and active on the network.
+    </div>
+  </div>
+);
+
 // ── Main component ──
 
 const DexPage = () => {
   const [ activeTab, setActiveTab ] = React.useState<TabId>(TAB_IDS.markets);
-  const { symbols, orders, trades, pools, overview, isLoading } = useDexData();
+  const { symbols, orders, trades, pools, overview, isLoading, hasData } = useDexData();
 
   const handleMarketsClick = React.useCallback(() => setActiveTab(TAB_IDS.markets), []);
   const handleOrderbookClick = React.useCallback(() => setActiveTab(TAB_IDS.orderbook), []);
   const handleTradesClick = React.useCallback(() => setActiveTab(TAB_IDS.trades), []);
   const handlePoolsClick = React.useCallback(() => setActiveTab(TAB_IDS.pools), []);
+
+  // When there is no real DEX data, show "Coming Soon" instead of fake numbers
+  if (!isLoading && !hasData) {
+    return (
+      <>
+        <PageTitle
+          title="DEX"
+          secondRow={ (
+            <div className="text-sm text-[var(--color-text-secondary)]">
+              D-Chain decentralized exchange orderbook and market data
+            </div>
+          ) }
+        />
+        <div className="border border-[var(--color-border-divider)] rounded-lg">
+          <ComingSoonState/>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -272,6 +313,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Trades</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && symbols.length === 0 && <EmptyState message="No trading pairs available"/> }
           { !isLoading && symbols.map((stat) => (
             <SymbolRow key={ stat.symbol } stat={ stat }/>
           )) }
@@ -292,6 +334,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Status</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && orders.length === 0 && <EmptyState message="No open orders"/> }
           { !isLoading && orders.map((order) => (
             <OrderRow key={ order.id } order={ order }/>
           )) }
@@ -311,6 +354,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Time</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && trades.length === 0 && <EmptyState message="No recent trades"/> }
           { !isLoading && trades.map((trade) => (
             <TradeRow key={ trade.id } trade={ trade }/>
           )) }
@@ -329,6 +373,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Fee</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && pools.length === 0 && <EmptyState message="No liquidity pools"/> }
           { !isLoading && pools.map((pool) => (
             <PoolRow key={ pool.id } pool={ pool }/>
           )) }

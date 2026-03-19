@@ -10,7 +10,8 @@ import { Skeleton } from '@luxfi/ui/skeleton';
 // ── Constants ──
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
-const PRIMARY_CHAIN_COUNT = 14;
+// Only C, P, X are deployed and live on mainnet
+const PRIMARY_CHAIN_COUNT = 3;
 const LUX_DECIMALS = 6;
 
 const STAT_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };

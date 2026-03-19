@@ -18,21 +18,26 @@ import Transactions from 'ui/home/Transactions';
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const LUX_DECIMALS = 6;
 
+// Only C, P, X are deployed and live. Others are planned (VM types exist but not deployed).
 const PRIMARY_CHAINS = [
-  { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/' },
-  { id: 'P', name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', href: '/validators' },
-  { id: 'X', name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', href: '/chain/x-chain' },
-  { id: 'D', name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', href: '/dex' },
-  { id: 'A', name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', href: '/ai' },
-  { id: 'B', name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', href: '/bridge' },
-  { id: 'Q', name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', href: '/chain/q-chain' },
-  { id: 'T', name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', href: '/chain/t-chain' },
-  { id: 'Z', name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', href: '/chain/z-chain' },
-  { id: 'G', name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', href: '/chain/g-chain' },
-  { id: 'K', name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', href: '/chain/k-chain' },
-  { id: 'O', name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', href: '/chain/o-chain' },
-  { id: 'R', name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', href: '/chain/r-chain' },
-  { id: 'I', name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', href: '/chain/i-chain' },
+  { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/', isLive: true },
+  { id: 'P', name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', href: '/validators', isLive: true },
+  { id: 'X', name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', href: '/chain/x-chain', isLive: true },
+] as const;
+
+// Planned chains -- shown separately, not counted in active stats
+const PLANNED_CHAINS = [
+  { id: 'D', name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM' },
+  { id: 'A', name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM' },
+  { id: 'B', name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM' },
+  { id: 'Q', name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM' },
+  { id: 'T', name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM' },
+  { id: 'Z', name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM' },
+  { id: 'G', name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM' },
+  { id: 'K', name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM' },
+  { id: 'O', name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM' },
+  { id: 'R', name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM' },
+  { id: 'I', name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM' },
 ] as const;
 
 // Known L1 chains (fallback when P-chain API is unreachable from browser)
@@ -49,6 +54,19 @@ const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
   SPC: 'https://explore-spc.lux.network',
   Pars: 'https://explore-pars.lux.network',
 };
+
+// Map P-chain internal blockchain names to display names.
+// The P-chain API returns names like "pars3", "spc2", "hanzo2", "zoo2".
+const L1_DISPLAY_NAMES: Readonly<Record<string, string>> = {
+  pars: 'Pars', pars2: 'Pars', pars3: 'Pars',
+  spc: 'SPC', spc2: 'SPC', spc3: 'SPC',
+  hanzo: 'Hanzo', hanzo2: 'Hanzo', hanzo3: 'Hanzo',
+  zoo: 'Zoo', zoo2: 'Zoo', zoo3: 'Zoo',
+};
+
+function getL1DisplayName(rawName: string): string {
+  return L1_DISPLAY_NAMES[rawName] ?? rawName;
+}
 
 function formatStake(nanoLux: bigint): string {
   const lux = Number(nanoLux) / Math.pow(10, LUX_DECIMALS);
@@ -134,7 +152,8 @@ interface L1ChainRowProps {
 }
 
 const L1ChainRow = ({ chain }: L1ChainRowProps) => {
-  const explorerUrl = L1_EXPLORER_URLS[chain.name];
+  const displayName = getL1DisplayName(chain.name);
+  const explorerUrl = L1_EXPLORER_URLS[displayName];
 
   const content = (
     <div className={ cn(
@@ -143,7 +162,7 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
     ) }>
       <div className="flex items-center gap-2">
         <span className="text-sm text-[var(--color-text-primary)] font-semibold">
-          { chain.name }
+          { displayName }
         </span>
         <span className="font-mono text-xs text-[var(--color-text-secondary)] hidden lg:inline">
           { chain.id.slice(0, 8) }...
@@ -158,7 +177,7 @@ const L1ChainRow = ({ chain }: L1ChainRowProps) => {
   if (explorerUrl) {
     return <Link href={ explorerUrl } variant="plain" target="_blank">{ content }</Link>;
   }
-  const slug = chain.name.toLowerCase();
+  const slug = displayName.toLowerCase();
   return <Link href={ `/chains/${ slug }` } variant="plain">{ content }</Link>;
 };
 
@@ -232,6 +251,7 @@ const PrimaryContent = () => {
 
   const hasL1Data = l1Chains.length > 0;
   const showFallbackL1 = !chainsLoading && !hasL1Data;
+  // Only count live primary chains + L1 chains in the total
   const totalChains = PRIMARY_CHAINS.length + (hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length);
   const isLoading = validatorsLoading || chainsLoading;
   const hasValidatorData = !validatorsError && stats.validatorCount > 0;
@@ -240,7 +260,7 @@ const PrimaryContent = () => {
     <>
       { /* ── Metrics strip ── */ }
       <div className={ cn(
-        'flex items-center justify-center flex-wrap overflow-hidden rounded-sm',
+        'flex items-center justify-center flex-wrap overflow-x-auto rounded-sm',
         'py-3 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
         'bg-[var(--color-stats-bg)]',
       ) }>
@@ -310,12 +330,28 @@ const PrimaryContent = () => {
                   name={ chain.name }
                   fullName={ chain.fullName }
                   vm={ chain.vm }
-                  href={ chain.href }
+                  href={ chain.isLive ? chain.href : undefined }
                   height={ chainHeight }
                   heightLoading={ heightsLoading }
                 />
               );
             }) }
+            { PLANNED_CHAINS.length > 0 && (
+              <div className="mt-2 pt-2 border-t border-[var(--color-border-divider)]">
+                <span className="text-2xs uppercase tracking-wider text-[var(--color-text-secondary)] px-3 font-medium">
+                  Planned ({ PLANNED_CHAINS.length })
+                </span>
+                { PLANNED_CHAINS.map((chain) => (
+                  <ChainRow
+                    key={ chain.id }
+                    name={ chain.name }
+                    fullName={ chain.fullName }
+                    vm={ chain.vm }
+                    href={ undefined }
+                  />
+                )) }
+              </div>
+            ) }
           </div>
         </SectionCard>
 

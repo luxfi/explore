@@ -15,24 +15,26 @@ import ChainRow from './ChainRow';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 
-// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
-// Core: C (EVM), P (PlatformVM), X (ExchangeVM)
-// Extended (allvms build): A, B, D, G, I, K, O, Q, R, T, Z
+// Primary network chains.
+// Only C, P, X are deployed and live on mainnet.
+// Extended chains (A, B, D, G, I, K, O, Q, R, T, Z) exist as VM types in
+// the node codebase but are NOT live -- they are listed as "Planned" and
+// excluded from active chain counts.
 const PRIMARY_CHAINS = [
-  { name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', chainId: 96369, slug: 'c-chain' },
-  { name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', chainId: null, slug: 'p-chain' },
-  { name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', chainId: null, slug: 'x-chain' },
-  { name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', chainId: null, slug: 'd-chain' },
-  { name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', chainId: null, slug: 'a-chain' },
-  { name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', chainId: null, slug: 'b-chain' },
-  { name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', chainId: null, slug: 'q-chain' },
-  { name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', chainId: null, slug: 't-chain' },
-  { name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', chainId: null, slug: 'z-chain' },
-  { name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', chainId: null, slug: 'g-chain' },
-  { name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', chainId: null, slug: 'k-chain' },
-  { name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', chainId: null, slug: 'o-chain' },
-  { name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', chainId: null, slug: 'r-chain' },
-  { name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', chainId: null, slug: 'i-chain' },
+  { name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', chainId: 96369, slug: 'c-chain', isLive: true },
+  { name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', chainId: null, slug: 'p-chain', isLive: true },
+  { name: 'X-Chain', fullName: 'Exchange Chain', vm: 'AVM', chainId: null, slug: 'x-chain', isLive: true },
+  { name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', chainId: null, slug: 'd-chain', isLive: false },
+  { name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', chainId: null, slug: 'a-chain', isLive: false },
+  { name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', chainId: null, slug: 'b-chain', isLive: false },
+  { name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', chainId: null, slug: 'q-chain', isLive: false },
+  { name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', chainId: null, slug: 't-chain', isLive: false },
+  { name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', chainId: null, slug: 'z-chain', isLive: false },
+  { name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', chainId: null, slug: 'g-chain', isLive: false },
+  { name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', chainId: null, slug: 'k-chain', isLive: false },
+  { name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', chainId: null, slug: 'o-chain', isLive: false },
+  { name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', chainId: null, slug: 'r-chain', isLive: false },
+  { name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', chainId: null, slug: 'i-chain', isLive: false },
 ] as const;
 
 const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
@@ -41,6 +43,18 @@ const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
   SPC: 36911,
   Pars: 494949,
 };
+
+// Map P-chain internal blockchain names (e.g. "pars3", "spc2") to display names
+const L1_DISPLAY_NAMES: Readonly<Record<string, string>> = {
+  pars: 'Pars', pars2: 'Pars', pars3: 'Pars',
+  spc: 'SPC', spc2: 'SPC', spc3: 'SPC',
+  hanzo: 'Hanzo', hanzo2: 'Hanzo', hanzo3: 'Hanzo',
+  zoo: 'Zoo', zoo2: 'Zoo', zoo3: 'Zoo',
+};
+
+function getL1DisplayName(rawName: string): string {
+  return L1_DISPLAY_NAMES[rawName] ?? rawName;
+}
 
 const TAB_IDS = {
   primary: 'primary',
@@ -159,11 +173,11 @@ const ChainsPage = () => {
             <ChainRow
               key={ chain.name }
               name={ chain.name }
-              fullName={ chain.fullName }
+              fullName={ chain.isLive ? chain.fullName : `${ chain.fullName } (Planned)` }
               vmLabel={ chain.vm }
               chainId={ chain.chainId }
-              isActive
-              href={ `/chains/${ chain.slug }` }
+              isActive={ chain.isLive }
+              href={ chain.isLive ? `/chains/${ chain.slug }` : undefined }
             />
           )) }
         </div>
@@ -186,19 +200,22 @@ const ChainsPage = () => {
               No L1/L2/L3 chains found
             </div>
           ) }
-          { !isLoading && l1Chains.map((chain) => (
-            <ChainRow
-              key={ chain.id }
-              name={ chain.name }
-              blockchainId={ chain.id }
-              subnetId={ chain.subnetID }
-              vmId={ chain.vmID }
-              vmLabel={ resolveVmLabel(chain.vmID) }
-              chainId={ SUBNET_CHAIN_IDS[chain.name] ?? null }
-              isActive
-              href={ `/chains/${ chain.name.toLowerCase() }` }
-            />
-          )) }
+          { !isLoading && l1Chains.map((chain) => {
+            const displayName = getL1DisplayName(chain.name);
+            return (
+              <ChainRow
+                key={ chain.id }
+                name={ displayName }
+                blockchainId={ chain.id }
+                subnetId={ chain.subnetID }
+                vmId={ chain.vmID }
+                vmLabel={ resolveVmLabel(chain.vmID) }
+                chainId={ SUBNET_CHAIN_IDS[displayName] ?? null }
+                isActive
+                href={ `/chains/${ displayName.toLowerCase() }` }
+              />
+            );
+          }) }
         </div>
       ) }
     </>
