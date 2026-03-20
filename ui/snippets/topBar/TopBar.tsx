@@ -1,18 +1,25 @@
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
 import { getCurrentChain, isChainSelectorEnabled, isNetworkSelectorEnabled } from 'configs/app/chainRegistry';
+import { getEnvValue } from 'configs/app/utils';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
-import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from '@luxfi/ui/menu';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
 import ChainSwitcher from './ChainSwitcher';
 import NetworkSelector from './NetworkSelector';
+
+// Nav items hidden per white-label config (same env var as useNavItems)
+const hiddenLinksRaw = getEnvValue('NEXT_PUBLIC_NAVIGATION_HIDDEN_LINKS') || '';
+const hiddenLinks = new Set(
+  hiddenLinksRaw.split(',').map((s: string) => s.trim().toLowerCase()).filter(Boolean),
+);
 
 // -- Nav link --
 
@@ -145,31 +152,41 @@ const TopBar = () => {
             </MenuContent>
           </MenuRoot>
 
-          <NavLinkItem
-            text="Chains"
-            href={ route({ pathname: '/chains' as const }) }
-            isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
-          />
-          <NavLinkItem
-            text="Validators"
-            href={ route({ pathname: '/validators' as const }) }
-            isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
-          />
-          <NavLinkItem
-            text="Stats"
-            href={ route({ pathname: '/stats' as const }) }
-            isActive={ pathname.startsWith('/stats') }
-          />
-          <NavLinkItem
-            text="Bridge"
-            href={ route({ pathname: '/bridge' as const }) }
-            isActive={ pathname === '/bridge' }
-          />
-          <NavLinkItem
-            text="DEX"
-            href={ route({ pathname: '/dex' as const }) }
-            isActive={ pathname === '/dex' }
-          />
+          { !hiddenLinks.has('chains') && (
+            <NavLinkItem
+              text="Chains"
+              href={ route({ pathname: '/chains' as const }) }
+              isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
+            />
+          ) }
+          { !hiddenLinks.has('validators') && (
+            <NavLinkItem
+              text="Validators"
+              href={ route({ pathname: '/validators' as const }) }
+              isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
+            />
+          ) }
+          { !hiddenLinks.has('stats') && (
+            <NavLinkItem
+              text="Stats"
+              href={ route({ pathname: '/stats' as const }) }
+              isActive={ pathname.startsWith('/stats') }
+            />
+          ) }
+          { !hiddenLinks.has('bridge') && (
+            <NavLinkItem
+              text="Bridge"
+              href={ route({ pathname: '/bridge' as const }) }
+              isActive={ pathname === '/bridge' }
+            />
+          ) }
+          { !hiddenLinks.has('dex') && (
+            <NavLinkItem
+              text="DEX"
+              href={ route({ pathname: '/dex' as const }) }
+              isActive={ pathname === '/dex' }
+            />
+          ) }
         </nav>
 
         { /* -- Search bar (center, flexible) -- */ }
