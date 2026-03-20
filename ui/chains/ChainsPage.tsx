@@ -1,13 +1,34 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import config from 'configs/app';
+import { getEnvValue } from 'configs/app/utils';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { useBlockchains } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 import ChainRow from './ChainRow';
+
+// ---------------------------------------------------------------------------
+// L1 Mode: Sovereign L1 deployments (e.g., Liquidity) show only their own
+// chains configured via NEXT_PUBLIC_L1_CHAINS env var. No primary network.
+//
+// Format: JSON array of {name, fullName, vm, chainId?, slug, url?, isActive}
+// Example: [{"name":"Liquid EVM","fullName":"EVM Chain","vm":"EVM","chainId":8675309,"slug":"evm","isActive":true}]
+//
+// When set, the Primary Network tab and P-Chain API calls are completely hidden.
+// ---------------------------------------------------------------------------
+
+const l1ChainsRaw = getEnvValue('NEXT_PUBLIC_L1_CHAINS') || '';
+interface L1Chain { name: string; fullName: string; vm: string; chainId: number | null; slug: string; url?: string; isActive: boolean }
+let L1_MODE_CHAINS: Array<L1Chain> = [];
+try {
+  if (l1ChainsRaw) {
+    L1_MODE_CHAINS = JSON.parse(l1ChainsRaw);
+  }
+} catch { /* invalid JSON — normal mode */ }
+const IS_L1_MODE = L1_MODE_CHAINS.length > 0;
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -109,7 +130,9 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
   <button
     className={ cn(
       'px-4 py-2 text-sm bg-transparent cursor-pointer transition-all duration-150 border-b-2 hover:text-[var(--color-text-primary)]',
-      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+      isActive ?
+        'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' :
+        'font-normal text-[var(--color-text-secondary)] border-transparent',
     ) }
     onClick={ onClick }
   >
@@ -140,6 +163,37 @@ const ChainsPage = () => {
     setActiveTab(TAB_IDS.subnets);
   }, []);
 
+  // ─── L1 Mode: Sovereign chain — show only configured chains ───────
+  if (IS_L1_MODE) {
+    return (
+      <>
+        <PageTitle
+          title="Chains"
+          secondRow={ (
+            <div className="text-sm text-[var(--color-text-secondary)]">
+              Blockchains on { config.chain.name || 'the network' }
+            </div>
+          ) }
+        />
+        <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
+          <TableHeader showSubnetId={ false }/>
+          { L1_MODE_CHAINS.map((chain) => (
+            <ChainRow
+              key={ chain.name }
+              name={ chain.name }
+              fullName={ chain.fullName }
+              vmLabel={ chain.vm }
+              chainId={ chain.chainId }
+              isActive={ chain.isActive }
+              href={ chain.url || `/chains/${ chain.slug }` }
+            />
+          )) }
+        </div>
+      </>
+    );
+  }
+
+  // ─── Normal mode: Primary Network + L1/L2/L3 tabs ─────────────────
   return (
     <>
       <PageTitle
