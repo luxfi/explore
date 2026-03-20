@@ -21,11 +21,27 @@ import ChainRow from './ChainRow';
 // ---------------------------------------------------------------------------
 
 const l1ChainsRaw = getEnvValue('NEXT_PUBLIC_L1_CHAINS') || '';
-interface L1Chain { name: string; fullName: string; vm: string; chainId: number | null; slug: string; url?: string; isActive: boolean }
+interface L1Chain {
+  name: string;
+  fullName: string;
+  vm: string;
+  chainId: number | null;
+  slug: string;
+  url?: string;
+  isActive: boolean;
+}
 let L1_MODE_CHAINS: Array<L1Chain> = [];
 try {
   if (l1ChainsRaw) {
-    L1_MODE_CHAINS = JSON.parse(l1ChainsRaw);
+    // envs.js strips JSON quotes: {name:Foo} instead of {"name":"Foo"}
+    // Re-quote keys/string values before parsing
+    const fixed = l1ChainsRaw
+      .replace(/(?<=[{,]\s*)(\w+)\s*:/g, '"$1":')
+      .replace(/:\s*([^"{[\d,\]\s}][^,}\]]*)/g, ':"$1"')
+      .replace(/"true"/g, 'true')
+      .replace(/"false"/g, 'false')
+      .replace(/"null"/g, 'null');
+    L1_MODE_CHAINS = JSON.parse(fixed);
   }
 } catch { /* invalid JSON — normal mode */ }
 const IS_L1_MODE = L1_MODE_CHAINS.length > 0;
