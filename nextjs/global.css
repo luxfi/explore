@@ -1,3 +1,8 @@
+/* Layer ordering: reset (Chakra) < base < tailwind (highest priority).
+ * Without this, Chakra's @layer reset overrides all Tailwind utilities
+ * because later-declared layers have higher priority in CSS Cascade Layers. */
+@layer reset, base, tailwind;
+
 @import "tailwindcss" layer(tailwind);
 @import "../styles/tokens.css";
 

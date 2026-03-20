@@ -1,8 +1,8 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { type IconName } from 'public/icons/name';
 import React from 'react';
 
 import config from 'configs/app';
-import { Skeleton } from '@luxfi/ui/skeleton';
 
 export const href = config.app.spriteHash ? `/icons/sprite.${ config.app.spriteHash }.svg` : '/icons/sprite.svg';
 
@@ -26,7 +26,7 @@ const IconSvg = ({ name, isLoading = false, className, ref, ...props }: Props & 
   if (isLoading) {
     return (
       <Skeleton loading display="inline-block" flexShrink={ 0 } className={ resolvedClass } ref={ ref }>
-        <svg className="w-full h-full">
+        <svg className="w-full h-full" viewBox="0 0 20 20" fill="currentColor">
           <use href={ `${ href }#${ name }` }/>
         </svg>
       </Skeleton>
@@ -35,7 +35,7 @@ const IconSvg = ({ name, isLoading = false, className, ref, ...props }: Props & 
 
   return (
     <div className={ `inline-block shrink-0 ${ resolvedClass }`.trim() } ref={ ref } { ...props }>
-      <svg className="w-full h-full">
+      <svg className="w-full h-full" viewBox="0 0 20 20" fill="currentColor">
         <use href={ `${ href }#${ name }` }/>
       </svg>
     </div>

@@ -1,0 +1,15 @@
+.git
+.next
+**/.next
+node_modules
+**/node_modules
+build
+**/build
+*.tsbuildinfo
+.turbo
+coverage
+.env.local
+.env.development.local
+.cursor
+qa-screenshots
+playwright

@@ -1,3 +1,6 @@
+import { EmptyState } from '@luxfi/ui/empty-state';
+import { Heading } from '@luxfi/ui/heading';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React, { useCallback, useState } from 'react';
 
 import type * as stats from '@luxfi/stats-types';
@@ -7,9 +10,6 @@ import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import replaceNativeCoinName from 'lib/stats/replaceNativeCoinName';
-import { EmptyState } from '@luxfi/ui/empty-state';
-import { Heading } from '@luxfi/ui/heading';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -91,9 +91,7 @@ const ChartsWidgetsList = ({ isError, isPlaceholderData, charts, interval, initi
                 ) }
               </Skeleton>
 
-              <div
-               
-              >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 { section.charts.map((chart) => (
                   <ChartWidgetContainer
                     key={ chart.id }

@@ -1,11 +1,11 @@
 // Network-level stats: validators, chains, stake, uptime.
 // Displayed above the standard Blockscout chain stats on the stats page.
 
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import config from 'configs/app';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
-import { Skeleton } from '@luxfi/ui/skeleton';
 
 // ── Constants ──
 
@@ -13,8 +13,6 @@ const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 // Only C, P, X are deployed and live on mainnet
 const PRIMARY_CHAIN_COUNT = 3;
 const LUX_DECIMALS = 6;
-
-const STAT_BG = { _light: 'gray.50', _dark: 'whiteAlpha.50' };
 
 // ── Helpers ──
 
@@ -35,10 +33,8 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <div
-   
-   
-  >
+  <div className="flex flex-col gap-1 p-4 rounded-lg bg-[var(--color-background-secondary,theme(colors.gray.50))]">
+
     <span className="text-[var(--color-text-secondary)]">
       { label }
     </span>
@@ -71,9 +67,7 @@ const NetworkStats = () => {
       <span className="text-[var(--color-text-secondary)]">
         Network Overview
       </span>
-      <div
-       
-      >
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-2 mb-6">
         <StatCard
           label="Total Chains"
           value={ String(totalChains) }

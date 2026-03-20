@@ -11,6 +11,12 @@ import { rightLineArrow } from 'toolkit/utils/htmlEntities';
 const marketplaceFeature = config.features.marketplace;
 const beaconChainFeature = config.features.beaconChain;
 
+// NEXT_PUBLIC_NAVIGATION_HIDDEN_LINKS: comma-separated list of nav item texts to hide.
+// Example: "Chains,Validators,Bridge,AI Compute" hides those items from the nav.
+// This enables white-label deployments to show only relevant navigation for their L1.
+const hiddenLinksRaw = getEnvValue('NEXT_PUBLIC_NAVIGATION_HIDDEN_LINKS') || '';
+const hiddenLinks = new Set(hiddenLinksRaw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean));
+
 interface ReturnType {
   mainNavItems: Array<NavItem | NavGroupItem>;
   accountNavItems: Array<NavItem>;
@@ -369,33 +375,58 @@ export default function useNavItems(): ReturnType {
       ...config.UI.navigation.otherLinks,
     ].filter(Boolean);
 
+    // Filter hidden nav items based on NEXT_PUBLIC_NAVIGATION_HIDDEN_LINKS env var
+    const filterHidden = <T extends NavItem | null | false | undefined>(items: Array<T>): Array<T> => {
+      if (hiddenLinks.size === 0) return items;
+      return items.filter(item => {
+        if (!item || typeof item !== 'object' || !('text' in item)) return true;
+        return !hiddenLinks.has((item as NavItem).text.toLowerCase());
+      });
+    };
+
+    // Apply hidden filter to blockchain nav items
+    if (Array.isArray(blockchainNavItems[0]) && Array.isArray(blockchainNavItems[0])) {
+      // Nested arrays (rollup layout)
+      blockchainNavItems = (blockchainNavItems as Array<Array<NavItem>>)
+        .map(group => filterHidden(group).filter(Boolean) as Array<NavItem>)
+        .filter(group => group.length > 0);
+    } else {
+      // Flat array
+      blockchainNavItems = filterHidden(blockchainNavItems as Array<NavItem>).filter(Boolean) as Array<NavItem>;
+    }
+
+    // Also filter otherNavItems and tokensNavItems
+    const filteredTokensNavItems = Array.isArray(tokensNavItems[0]) && Array.isArray(tokensNavItems[0]) ?
+      (tokensNavItems as Array<Array<NavItem>>).map(g => filterHidden(g).filter(Boolean) as Array<NavItem>).filter(g => g.length > 0) :
+      filterHidden(tokensNavItems as Array<NavItem>).filter(Boolean) as Array<NavItem>;
+
     const mainNavItems: ReturnType['mainNavItems'] = [
-      {
+      blockchainNavItems.flat().length > 0 ? {
         text: 'Blockchain',
         icon: 'navigation/blockchain',
         isActive: blockchainNavItems.flat().some(item => isInternalItem(item) && item.isActive),
         subItems: blockchainNavItems,
-      },
-      {
+      } : null,
+      filteredTokensNavItems.flat().length > 0 ? {
         text: 'Tokens',
         icon: 'navigation/tokens',
-        isActive: tokensNavItems.flat().some(item => isInternalItem(item) && item.isActive),
-        subItems: tokensNavItems,
-      },
-      marketplaceFeature.isEnabled ? {
+        isActive: filteredTokensNavItems.flat().some(item => isInternalItem(item) && item.isActive),
+        subItems: filteredTokensNavItems,
+      } : null,
+      marketplaceFeature.isEnabled && !hiddenLinks.has('apps') ? {
         text: marketplaceFeature.titles.menu_item,
         nextRoute: { pathname: '/apps' as const },
         icon: 'navigation/apps',
         isActive: pathname.startsWith('/app') || pathname.startsWith('/essential-dapps'),
       } : null,
-      statsNavItem,
-      apiNavItem,
-      {
+      !hiddenLinks.has('charts & stats') && !hiddenLinks.has('stats') ? statsNavItem : null,
+      !hiddenLinks.has('api') ? apiNavItem : null,
+      otherNavItems.flat().length > 0 && !hiddenLinks.has('other') ? {
         text: 'Other',
         icon: 'navigation/other',
         isActive: otherNavItems.flat().some(item => isInternalItem(item) && item.isActive),
         subItems: otherNavItems,
-      },
+      } : null,
     ].filter(Boolean);
 
     const accountNavItems: ReturnType['accountNavItems'] = [
