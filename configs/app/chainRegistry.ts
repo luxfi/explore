@@ -164,22 +164,26 @@ const LIQUIDITY_BRANDING: ChainBranding = {
   githubUrl: 'https://github.com/liquidityio',
   twitterUrl: 'https://x.com/liquidityio',
   discordUrl: 'https://discord.gg/luxnetwork',
-  logoViewBox: '0 0 100 100',
-  // Stylized "L" with rising bars — financial/exchange motif
+  logoViewBox: '0 0 32 40',
+  // Staircase "L" logo from exchange-frontend/src/assets/icon/liqLogo.svg
   logoContent:
-    '<rect x="15" y="15" width="12" height="70" rx="2" fill="currentColor"/>' +
-    '<rect x="15" y="73" width="55" height="12" rx="2" fill="currentColor"/>' +
-    '<rect x="45" y="45" width="10" height="40" rx="2" fill="currentColor" opacity="0.6"/>' +
-    '<rect x="58" y="30" width="10" height="55" rx="2" fill="currentColor" opacity="0.4"/>' +
-    '<rect x="71" y="15" width="10" height="70" rx="2" fill="currentColor" opacity="0.25"/>',
+    '<rect x="0.83" y="0" width="10.11" height="10" fill="currentColor" opacity="0.45"/>' +
+    '<rect x="0.83" y="10" width="10.11" height="10" fill="currentColor" opacity="0.6"/>' +
+    '<rect x="0.83" y="20" width="10.11" height="10" fill="currentColor" opacity="0.75"/>' +
+    '<rect x="10.94" y="20" width="10.11" height="10" fill="currentColor" opacity="0.6"/>' +
+    '<rect x="0.83" y="30" width="10.11" height="10" fill="currentColor"/>' +
+    '<rect x="10.94" y="30" width="10.11" height="10" fill="currentColor" opacity="0.75"/>' +
+    '<rect x="21.06" y="30" width="10.11" height="10" fill="currentColor" opacity="0.6"/>',
   faviconContent:
-    '<rect width="512" height="512" rx="64" fill="#000"/>' +
-    '<g transform="translate(64,64) scale(3.84)">' +
-    '<rect x="15" y="15" width="12" height="70" rx="2" fill="#fff"/>' +
-    '<rect x="15" y="73" width="55" height="12" rx="2" fill="#fff"/>' +
-    '<rect x="45" y="45" width="10" height="40" rx="2" fill="#fff" opacity="0.6"/>' +
-    '<rect x="58" y="30" width="10" height="55" rx="2" fill="#fff" opacity="0.4"/>' +
-    '<rect x="71" y="15" width="10" height="70" rx="2" fill="#fff" opacity="0.25"/>' +
+    '<rect width="512" height="512" rx="64" fill="#0D5DAF"/>' +
+    '<g transform="translate(128,56) scale(8)">' +
+    '<rect x="0.83" y="0" width="10.11" height="10" fill="#79C6E8"/>' +
+    '<rect x="0.83" y="10" width="10.11" height="10" fill="#399AD3"/>' +
+    '<rect x="0.83" y="20" width="10.11" height="10" fill="#1B78C0"/>' +
+    '<rect x="10.94" y="20" width="10.11" height="10" fill="#399AD3"/>' +
+    '<rect x="0.83" y="30" width="10.11" height="10" fill="#0D5DAF"/>' +
+    '<rect x="10.94" y="30" width="10.11" height="10" fill="#1B78C0"/>' +
+    '<rect x="21.06" y="30" width="10.11" height="10" fill="#399AD3"/>' +
     '</g>',
 };
 
