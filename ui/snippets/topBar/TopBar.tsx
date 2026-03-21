@@ -12,14 +12,19 @@ import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
-import ChainSwitcher from './ChainSwitcher';
-import NetworkSelector from './NetworkSelector';
+import dynamic from 'next/dynamic';
 
-// Nav items hidden per white-label config (same env var as useNavItems)
-const hiddenLinksRaw = getEnvValue('NEXT_PUBLIC_NAVIGATION_HIDDEN_LINKS') || '';
-const hiddenLinks = new Set(
-  hiddenLinksRaw.split(',').map((s: string) => s.trim().toLowerCase()).filter(Boolean),
-);
+import ChainSwitcher from './ChainSwitcher';
+
+// Lazy-load NetworkSelector to ensure it runs client-side only
+// (isWhiteLabelMode depends on window.location which differs between SSR and client)
+const NetworkSelector = dynamic(() => import('./NetworkSelector'), { ssr: false });
+
+// Nav items hidden per white-label config — parsed at runtime
+function getHiddenLinks(): Set<string> {
+  const raw = getEnvValue('NEXT_PUBLIC_NAVIGATION_HIDDEN_LINKS') || '';
+  return new Set(raw.split(',').map((s: string) => s.trim().toLowerCase()).filter(Boolean));
+}
 
 // -- Nav link --
 
@@ -59,6 +64,7 @@ const TopBar = () => {
   const router = useRouter();
   const pathname = router.pathname;
   const chain = getCurrentChain();
+  const hiddenLinks = React.useMemo(() => getHiddenLinks(), []);
 
   const isBlockchainActive = pathname === '/blocks' || pathname.startsWith('/block/') ||
     pathname === '/txs' || pathname.startsWith('/tx/') ||
