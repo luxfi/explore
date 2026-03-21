@@ -155,6 +155,34 @@ const HANZO_BRANDING: ChainBranding = {
     '</g>',
 };
 
+/** Liquidity — LQDTY L1 chain (chain ID 8675309) */
+const LIQUIDITY_BRANDING: ChainBranding = {
+  brandName: 'Liquidity Network',
+  orgName: 'Liquidity Inc.',
+  websiteUrl: 'https://liquidity.io',
+  description: 'Security-hardened digital securities and exchange platform.',
+  githubUrl: 'https://github.com/liquidityio',
+  twitterUrl: 'https://x.com/liquidityio',
+  discordUrl: 'https://discord.gg/luxnetwork',
+  logoViewBox: '0 0 100 100',
+  // Stylized "L" with rising bars — financial/exchange motif
+  logoContent:
+    '<rect x="15" y="15" width="12" height="70" rx="2" fill="currentColor"/>' +
+    '<rect x="15" y="73" width="55" height="12" rx="2" fill="currentColor"/>' +
+    '<rect x="45" y="45" width="10" height="40" rx="2" fill="currentColor" opacity="0.6"/>' +
+    '<rect x="58" y="30" width="10" height="55" rx="2" fill="currentColor" opacity="0.4"/>' +
+    '<rect x="71" y="15" width="10" height="70" rx="2" fill="currentColor" opacity="0.25"/>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#000"/>' +
+    '<g transform="translate(64,64) scale(3.84)">' +
+    '<rect x="15" y="15" width="12" height="70" rx="2" fill="#fff"/>' +
+    '<rect x="15" y="73" width="55" height="12" rx="2" fill="#fff"/>' +
+    '<rect x="45" y="45" width="10" height="40" rx="2" fill="#fff" opacity="0.6"/>' +
+    '<rect x="58" y="30" width="10" height="55" rx="2" fill="#fff" opacity="0.4"/>' +
+    '<rect x="71" y="15" width="10" height="70" rx="2" fill="#fff" opacity="0.25"/>' +
+    '</g>',
+};
+
 /** SPC — unicorn */
 const SPC_BRANDING: ChainBranding = {
   brandName: 'SPC Chain',
@@ -266,6 +294,16 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     explorerUrl: 'https://explore-pars.lux.network',
     apiUrl: 'https://api-explore-pars.lux.network',
     branding: PARS_BRANDING,
+  },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    tier: 'subnet',
+    network: 'mainnet',
+    hostnames: [ 'explore.next.satschel.com', 'explore.liquidity.io' ],
+    explorerUrl: 'https://explore.next.satschel.com',
+    apiUrl: 'https://explorer-api.next.satschel.com',
+    branding: LIQUIDITY_BRANDING,
   },
   // Testnet chains
   {
@@ -442,6 +480,38 @@ export function isSubnetExplorer(): boolean {
 export function getAvailableNetworks(): ReadonlyArray<NetworkEntry> {
   const current = getCurrentChain();
   if (isWhiteLabelMode()) {
+    // NEXT_PUBLIC_NETWORK_ENVIRONMENTS: JSON array of {name, label, url}
+    // Example: [{"name":"Mainnet","label":"Production","url":"https://explore.liquidity.io"},...]
+    const envsRaw = getEnvValue('NEXT_PUBLIC_NETWORK_ENVIRONMENTS') || '';
+    if (envsRaw) {
+      try {
+        let parsed: Array<{ name: string; label?: string; url: string }> = [];
+        try {
+          parsed = JSON.parse(envsRaw);
+        } catch {
+          // envs.js strips quotes — re-quote
+          const fixed = envsRaw
+            .replace(/(?<=[{,]\s*)(\w+)\s*:/g, '"$1":')
+            .replace(/:\s*([^"{[\d,\]\s}][^,}\]]*)/g, ':"$1"')
+            .replace(/"true"/g, 'true')
+            .replace(/"false"/g, 'false');
+          parsed = JSON.parse(fixed);
+        }
+        if (parsed.length > 0) {
+          const appHost = getEnvValue('NEXT_PUBLIC_APP_HOST') || '';
+          const protocol = getEnvValue('NEXT_PUBLIC_APP_PROTOCOL') || 'https';
+          const currentUrl = appHost ? `${ protocol }://${ appHost }` : '';
+          return parsed.map((env) => ({
+            name: env.name,
+            label: env.label || env.name,
+            network: env.name.toLowerCase() as 'mainnet' | 'testnet' | 'devnet',
+            baseHostname: new URL(env.url).hostname,
+            explorerUrl: env.url,
+            isCurrent: env.url === currentUrl,
+          }));
+        }
+      } catch { /* fall through */ }
+    }
     return [ getCurrentNetwork() ];
   }
   return NETWORKS.filter((net) => {

@@ -1,8 +1,8 @@
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import React from 'react';
 
 import { getAvailableNetworks, getCurrentNetwork } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 const NetworkSelector = () => {
   const [ open, setOpen ] = React.useState(false);
@@ -32,13 +32,13 @@ const NetworkSelector = () => {
     >
       <PopoverTrigger>
         <button
-          className={cn(
+          className={ cn(
             'flex items-center gap-1.5 px-2 py-1 rounded-sm cursor-pointer',
             'bg-transparent border-none text-xs font-medium',
             'text-[var(--color-text-secondary)] shrink-0',
             'hover:text-[var(--color-text-primary)] hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
             'transition-all duration-150',
-          )}
+          ) }
           onClick={ handleToggle }
         >
           <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0"/>
@@ -48,16 +48,16 @@ const NetworkSelector = () => {
       <PopoverContent w="200px">
         <PopoverBody className="p-1">
           { networks.map((network) => {
-            const isCurrent = network.network === current.network;
+            const isCurrent = 'isCurrent' in network ? Boolean(network.isCurrent) : network.network === current.network;
             return (
               <a
                 key={ network.network }
                 { ...(!isCurrent ? { href: network.explorerUrl } : {}) }
                 className={ cn(
                   'flex items-center gap-2 px-2.5 py-2 rounded-sm no-underline transition-[background] duration-150',
-                  isCurrent
-                    ? 'cursor-default bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]'
-                    : 'cursor-pointer bg-transparent hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+                  isCurrent ?
+                    'cursor-default bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' :
+                    'cursor-pointer bg-transparent hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
                 ) }
               >
                 <span
