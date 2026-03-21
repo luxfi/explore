@@ -1,23 +1,30 @@
 [
   {
-    "title": "Mainnet",
-    "url": "https://explore.liquidity.io",
+    "title": "Liquid EVM",
+    "url": "https://explore.next.satschel.com",
     "group": "Mainnets",
     "icon": "https://exchange.next.satschel.com/logo.png",
-    "isActive": false
+    "isActive": true
   },
   {
-    "title": "Testnet",
-    "url": "https://explore.alpha.satschel.com",
-    "group": "Testnets",
-    "icon": "https://exchange.next.satschel.com/logo.png",
-    "isActive": false
-  },
-  {
-    "title": "Devnet",
-    "url": "https://explore.next.satschel.com",
-    "group": "Testnets",
+    "title": "Liquid DEX",
+    "url": "https://explore.next.satschel.com/dex",
+    "group": "Mainnets",
     "icon": "https://exchange.next.satschel.com/logo.png",
     "isActive": true
+  },
+  {
+    "title": "Liquid EVM Testnet",
+    "url": "#",
+    "group": "Testnets",
+    "icon": "https://exchange.next.satschel.com/logo.png",
+    "isActive": false
+  },
+  {
+    "title": "Liquid DEX Testnet",
+    "url": "#",
+    "group": "Testnets",
+    "icon": "https://exchange.next.satschel.com/logo.png",
+    "isActive": false
   }
 ]
