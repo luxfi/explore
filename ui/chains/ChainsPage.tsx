@@ -20,7 +20,6 @@ import ChainRow from './ChainRow';
 // When set, the Primary Network tab and P-Chain API calls are completely hidden.
 // ---------------------------------------------------------------------------
 
-const l1ChainsRaw = getEnvValue('NEXT_PUBLIC_L1_CHAINS') || '';
 interface L1Chain {
   name: string;
   fullName: string;
@@ -30,21 +29,28 @@ interface L1Chain {
   url?: string;
   isActive: boolean;
 }
-let L1_MODE_CHAINS: Array<L1Chain> = [];
-try {
-  if (l1ChainsRaw) {
-    // envs.js strips JSON quotes: {name:Foo} instead of {"name":"Foo"}
-    // Re-quote keys/string values before parsing
-    const fixed = l1ChainsRaw
-      .replace(/(?<=[{,]\s*)(\w+)\s*:/g, '"$1":')
-      .replace(/:\s*([^"{[\d,\]\s}][^,}\]]*)/g, ':"$1"')
-      .replace(/"true"/g, 'true')
-      .replace(/"false"/g, 'false')
-      .replace(/"null"/g, 'null');
-    L1_MODE_CHAINS = JSON.parse(fixed);
+
+// Parse L1 chains — called inside the component (runtime, not build time)
+function parseL1Chains(): Array<L1Chain> {
+  const raw = getEnvValue('NEXT_PUBLIC_L1_CHAINS') || '';
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw);
+  } catch {
+    try {
+      // envs.js strips quotes: {name:Foo} → re-quote for JSON.parse
+      const fixed = raw
+        .replace(/(?<=[{,]\s*)(\w+)\s*:/g, '"$1":')
+        .replace(/:\s*([^"{[\d,\]\s}][^,}\]]*)/g, ':"$1"')
+        .replace(/"true"/g, 'true')
+        .replace(/"false"/g, 'false')
+        .replace(/"null"/g, 'null');
+      return JSON.parse(fixed);
+    } catch {
+      return [];
+    }
   }
-} catch { /* invalid JSON — normal mode */ }
-const IS_L1_MODE = L1_MODE_CHAINS.length > 0;
+}
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -180,7 +186,9 @@ const ChainsPage = () => {
   }, []);
 
   // ─── L1 Mode: Sovereign chain — show only configured chains ───────
-  if (IS_L1_MODE) {
+
+  const l1Chains2 = React.useMemo(() => parseL1Chains(), []);
+  if (l1Chains2.length > 0) {
     return (
       <>
         <PageTitle
@@ -193,7 +201,7 @@ const ChainsPage = () => {
         />
         <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId={ false }/>
-          { L1_MODE_CHAINS.map((chain) => (
+          { l1Chains2.map((chain) => (
             <ChainRow
               key={ chain.name }
               name={ chain.name }
