@@ -199,7 +199,7 @@ const ChainsPage = () => {
             </div>
           ) }
         />
-        <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
+        <div className="flex flex-col border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId={ false }/>
           { l1Chains2.map((chain) => (
             <ChainRow
