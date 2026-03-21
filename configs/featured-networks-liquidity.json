@@ -1,15 +1,15 @@
 [
   {
-    "title": "Liquid EVM (Devnet)",
+    "title": "Liquid EVM",
     "url": "https://explore.next.satschel.com",
-    "group": "Testnets",
+    "group": "Mainnets",
     "icon": "https://exchange.next.satschel.com/logo.png",
     "isActive": true
   },
   {
-    "title": "Liquid DEX (Devnet)",
-    "url": "https://dex.next.satschel.com",
-    "group": "Testnets",
+    "title": "Liquid DEX",
+    "url": "https://explore.next.satschel.com/dex",
+    "group": "Mainnets",
     "icon": "https://exchange.next.satschel.com/logo.png",
     "isActive": false
   }
