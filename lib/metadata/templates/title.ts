@@ -82,6 +82,12 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/cc/tx/[hash]': '%network_name% cross-chain transaction %hash% details',
   '/cross-chain-tx/[id]': '%network_name% cross-chain transaction %id% details',
 
+  // regulatory routes
+  '/securities': '%network_name% registered securities',
+  '/securities/[id]': '%network_name% security %id% details',
+  '/trades': '%network_name% cross-BD trades',
+  '/compliance': '%network_name% compliance dashboard',
+
   // multichain routes
   '/chain/[chain_slug]/accounts/label/[slug]': '%network_name% addresses search by label',
   '/chain/[chain_slug]/advanced-filter': '%network_name% advanced filter',

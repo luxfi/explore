@@ -56,6 +56,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/chain/[chain_slug]/visualize/sol2uml", { "chain_slug": string }>
     | DynamicRoute<"/chains/[slug]", { "slug": string }>
     | StaticRoute<"/chains">
+    | StaticRoute<"/compliance">
     | StaticRoute<"/contract-verification">
     | DynamicRoute<"/cross-chain-tx/[id]", { "id": string }>
     | StaticRoute<"/csv-export">
@@ -85,6 +86,8 @@ declare module "nextjs-routes" {
     | StaticRoute<"/pools">
     | StaticRoute<"/public-tags/submit">
     | StaticRoute<"/search-results">
+    | StaticRoute<"/securities">
+    | DynamicRoute<"/securities/[id]", { "id": string }>
     | StaticRoute<"/sprite">
     | DynamicRoute<"/stats/[id]", { "id": string }>
     | StaticRoute<"/stats">
@@ -92,6 +95,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/token/[hash]/instance/[id]", { "hash": string; "id": string }>
     | StaticRoute<"/token-transfers">
     | StaticRoute<"/tokens">
+    | StaticRoute<"/trades">
     | DynamicRoute<"/tx/[hash]", { "hash": string }>
     | StaticRoute<"/txn-withdrawals">
     | StaticRoute<"/txs">
