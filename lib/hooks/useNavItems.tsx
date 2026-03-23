@@ -400,6 +400,29 @@ export default function useNavItems(): ReturnType {
       (tokensNavItems as Array<Array<NavItem>>).map(g => filterHidden(g).filter(Boolean) as Array<NavItem>).filter(g => g.length > 0) :
       filterHidden(tokensNavItems as Array<NavItem>).filter(Boolean) as Array<NavItem>;
 
+    const regulatoryNavItems: Array<NavItem> = [
+      {
+        text: 'Securities',
+        nextRoute: { pathname: '/securities' as const },
+        icon: 'navigation/verified_contracts',
+        isActive: pathname === '/securities' || pathname.startsWith('/securities/'),
+      },
+      {
+        text: 'Trades',
+        nextRoute: { pathname: '/trades' as const },
+        icon: 'navigation/transactions',
+        isActive: pathname === '/trades',
+      },
+      {
+        text: 'Compliance',
+        nextRoute: { pathname: '/compliance' as const },
+        icon: 'navigation/validator',
+        isActive: pathname === '/compliance',
+      },
+    ];
+
+    const filteredRegulatoryNavItems = filterHidden(regulatoryNavItems).filter(Boolean) as Array<NavItem>;
+
     const mainNavItems: ReturnType['mainNavItems'] = [
       blockchainNavItems.flat().length > 0 ? {
         text: 'Blockchain',
@@ -420,6 +443,12 @@ export default function useNavItems(): ReturnType {
         isActive: pathname.startsWith('/app') || pathname.startsWith('/essential-dapps'),
       } : null,
       !hiddenLinks.has('charts & stats') && !hiddenLinks.has('stats') ? statsNavItem : null,
+      filteredRegulatoryNavItems.length > 0 && !hiddenLinks.has('regulatory') ? {
+        text: 'Regulatory',
+        icon: 'navigation/verified_contracts',
+        isActive: filteredRegulatoryNavItems.some(item => isInternalItem(item) && item.isActive),
+        subItems: filteredRegulatoryNavItems,
+      } : null,
       !hiddenLinks.has('api') ? apiNavItem : null,
       otherNavItems.flat().length > 0 && !hiddenLinks.has('other') ? {
         text: 'Other',
