@@ -94,10 +94,9 @@ kind: Ingress
 metadata:
   name: lux-stats-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: nginx
+  ingressClassName: hanzo
   tls:
     - hosts:
         - api-explore.lux.network
