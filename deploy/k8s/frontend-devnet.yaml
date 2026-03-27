@@ -91,7 +91,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: nginx
+  ingressClassName: hanzo
   tls:
     - hosts:
         - explore-devnet.lux.network
