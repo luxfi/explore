@@ -1,23 +1,44 @@
 [
   {
-    "title": "Liquidity Mainnet",
-    "url": "https://explore.main.next.satschel.com",
-    "group": "Mainnets",
-    "icon": "https://storage.googleapis.com/satschel-assets-public/Liquidity/public/exchange-assets/images/LiquidityLogo2.png",
+    "title": "Liquid EVM Mainnet",
+    "url": "https://explore.main.satschel.com",
+    "group": "Liquid EVM",
+    "icon": "https://liquidity.io/icon.svg",
     "isActive": true
   },
   {
-    "title": "Liquidity Testnet",
-    "url": "https://explore.alpha.satschel.com",
-    "group": "Testnets",
-    "icon": "https://storage.googleapis.com/satschel-assets-public/Liquidity/public/exchange-assets/images/LiquidityLogo2.png",
+    "title": "Liquid EVM Testnet",
+    "url": "https://explore.test.satschel.com",
+    "group": "Liquid EVM",
+    "icon": "https://liquidity.io/icon.svg",
     "isActive": true
   },
   {
-    "title": "Liquidity Devnet",
-    "url": "https://explore.next.satschel.com",
-    "group": "Testnets",
-    "icon": "https://storage.googleapis.com/satschel-assets-public/Liquidity/public/exchange-assets/images/LiquidityLogo2.png",
+    "title": "Liquid EVM Devnet",
+    "url": "https://explore.dev.satschel.com",
+    "group": "Liquid EVM",
+    "icon": "https://liquidity.io/icon.svg",
     "isActive": true
+  },
+  {
+    "title": "Liquid DEX Mainnet",
+    "url": "https://dex-explore.main.satschel.com",
+    "group": "Liquid DEX",
+    "icon": "https://liquidity.io/icon.svg",
+    "isActive": false
+  },
+  {
+    "title": "Liquid DEX Testnet",
+    "url": "https://dex-explore.test.satschel.com",
+    "group": "Liquid DEX",
+    "icon": "https://liquidity.io/icon.svg",
+    "isActive": false
+  },
+  {
+    "title": "Liquid DEX Devnet",
+    "url": "https://dex-explore.dev.satschel.com",
+    "group": "Liquid DEX",
+    "icon": "https://liquidity.io/icon.svg",
+    "isActive": false
   }
 ]
