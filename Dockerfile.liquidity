@@ -1,28 +1,19 @@
-# Liquidity Explorer — white-label Blockscout frontend
-# Builds from luxfi/explore source with Liquidity branding
+# White-label L2 explorer — clean defaults, all branding via env vars at deploy time
 FROM ghcr.io/luxfi/explore:latest
 
-# Liquidity Network branding (overrides Blockscout defaults at runtime)
-ENV NEXT_PUBLIC_NETWORK_NAME="Liquidity" \
-    NEXT_PUBLIC_NETWORK_SHORT_NAME="LQDTY" \
-    NEXT_PUBLIC_NETWORK_CURRENCY_NAME="LQDTY" \
-    NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL="LQDTY" \
-    NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS="18" \
-    NEXT_PUBLIC_IS_TESTNET="false" \
+# Sensible L2 defaults (no chain-specific branding baked in)
+ENV NEXT_PUBLIC_IS_TESTNET="false" \
     NEXT_PUBLIC_COLOR_THEME_DEFAULT="dark" \
-    NEXT_PUBLIC_HOMEPAGE_PLATE_BACKGROUND="linear-gradient(135deg, #0f172a 0%, #1e293b 100%)" \
-    NEXT_PUBLIC_HOMEPAGE_PLATE_TEXT_COLOR="rgb(255, 255, 255)" \
     NEXT_PUBLIC_AD_BANNER_PROVIDER="none" \
     NEXT_PUBLIC_AD_TEXT_PROVIDER="none" \
     NEXT_PUBLIC_HAS_USER_OPS="false" \
     NEXT_PUBLIC_HAS_BEACON_CHAIN="false" \
     NEXT_PUBLIC_DEX_POOLS_ENABLED="true" \
-    NEXT_PUBLIC_IS_CUSTOM_BRANDING="true" \
-    NEXT_PUBLIC_NETWORK_LOGO="https://liquidity.io/logo.svg" \
-    NEXT_PUBLIC_NETWORK_LOGO_DARK="https://liquidity.io/logo-dark.svg" \
-    NEXT_PUBLIC_NETWORK_ICON="https://liquidity.io/icon.svg" \
     NEXT_PUBLIC_FOOTER_LINKS="[]"
 
-# Per-environment vars set at deploy time:
-#   NEXT_PUBLIC_APP_HOST, NEXT_PUBLIC_API_HOST, NEXT_PUBLIC_NETWORK_ID,
-#   NEXT_PUBLIC_NETWORK_RPC_URL
+# All branding set at deploy time via K8s env vars:
+#   NEXT_PUBLIC_NETWORK_NAME, NEXT_PUBLIC_NETWORK_SHORT_NAME
+#   NEXT_PUBLIC_NETWORK_CURRENCY_NAME, NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL
+#   NEXT_PUBLIC_NETWORK_LOGO, NEXT_PUBLIC_NETWORK_ICON
+#   NEXT_PUBLIC_APP_HOST, NEXT_PUBLIC_API_HOST, NEXT_PUBLIC_NETWORK_ID
+#   NEXT_PUBLIC_NETWORK_RPC_URL, NEXT_PUBLIC_FEATURED_NETWORKS
