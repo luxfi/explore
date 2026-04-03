@@ -304,9 +304,9 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Liquidity Network',
     tier: 'subnet',
     network: 'mainnet',
-    hostnames: [ 'explore.next.satschel.com', 'explore.liquidity.io' ],
-    explorerUrl: 'https://explore.next.satschel.com',
-    apiUrl: 'https://explorer-api.next.satschel.com',
+    hostnames: [ 'explore.main.satschel.com', 'explore.next.satschel.com', 'explore.liquidity.io' ],
+    explorerUrl: 'https://explore.main.satschel.com',
+    apiUrl: 'https://explorer-api.main.satschel.com',
     branding: LIQUIDITY_BRANDING,
   },
   // Testnet chains
@@ -320,6 +320,16 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     apiUrl: 'https://api-explore-test.lux.network',
     branding: LUX_BRANDING,
   },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    tier: 'subnet',
+    network: 'testnet',
+    hostnames: [ 'explore.test.satschel.com' ],
+    explorerUrl: 'https://explore.test.satschel.com',
+    apiUrl: 'https://explorer-api.test.satschel.com',
+    branding: LIQUIDITY_BRANDING,
+  },
   // Devnet chains
   {
     name: 'C-Chain',
@@ -330,6 +340,16 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     explorerUrl: 'https://explore-dev.lux.network',
     apiUrl: 'https://api-explore-dev.lux.network',
     branding: LUX_BRANDING,
+  },
+  {
+    name: 'Liquidity',
+    label: 'Liquidity Network',
+    tier: 'subnet',
+    network: 'devnet',
+    hostnames: [ 'explore.dev.satschel.com' ],
+    explorerUrl: 'https://explore.dev.satschel.com',
+    apiUrl: 'https://explorer-api.dev.satschel.com',
+    branding: LIQUIDITY_BRANDING,
   },
 ];
 
