@@ -1,0 +1,26 @@
+{
+  "name": "@luxfi/explore-vite",
+  "version": "0.1.0-wip",
+  "private": true,
+  "type": "module",
+  "description": "WIP Vite 8 + React 19 SPA rewrite of @luxfi/explore. Scaffold only — see LLM.md.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 3000",
+    "typecheck": "tsc -b --noEmit"
+  },
+  "dependencies": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "wouter": "^3.7.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^5.1.0",
+    "typescript": "5.9.3",
+    "vite": "^8.0.0",
+    "vite-plugin-svgr": "^4.5.0"
+  }
+}
