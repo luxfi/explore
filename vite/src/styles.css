@@ -1,0 +1,38 @@
+/* Minimal baseline. The production app will import toolkit/theme tokens and
+ * Tailwind layers from ../styles once components migrate. */
+
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: #fff;
+  color: #111;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0b0b0b;
+    color: #f5f5f5;
+  }
+}
+
+code {
+  font-family: "SF Mono", Consolas, Menlo, monospace;
+  font-size: 0.9em;
+  background: rgba(128, 128, 128, 0.12);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+a {
+  color: inherit;
+}

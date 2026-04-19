@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "configs/*": ["../configs/*"],
+      "lib/*": ["../lib/*"],
+      "mocks/*": ["../mocks/*"],
+      "nextjs/*": ["../nextjs/*"],
+      "stubs/*": ["../stubs/*"],
+      "toolkit/*": ["../toolkit/*"],
+      "tools/*": ["../tools/*"],
+      "types/*": ["../types/*"],
+      "ui/*": ["../ui/*"],
+      "icons/*": ["../icons/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}
