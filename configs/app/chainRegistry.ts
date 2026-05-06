@@ -39,6 +39,9 @@ export interface ChainEntry {
   readonly label: string;
   readonly vm: string;
   readonly network: 'mainnet' | 'testnet' | 'devnet' | 'localnet';
+
+  /** EVM chain ID (uint64). Canonical values tracked in MEMORY.md. */
+  readonly chainId: number;
   readonly hostnames: ReadonlyArray<string>;
   readonly explorerUrl: string;
   readonly apiUrl: string;
@@ -214,28 +217,13 @@ const PARS_BRANDING: ChainBranding = {
     '</g>',
 };
 
-/** Liquidity — wordmark "L" from ~/work/liquidity/brand/ */
-const LIQUIDITY_BRANDING: ChainBranding = {
-  brandName: 'Liquidity Network',
-  orgName: 'Liquidity Inc.',
-  websiteUrl: 'https://',
-  description: 'Digital securities exchange — ATS, broker-dealer, transfer agent.',
-  githubUrl: 'https://github.com/',
-  twitterUrl: 'https://x.com/',
-  discordUrl: 'https://discord.gg/',
-  logoViewBox: '0 0 100 100',
-  logoContent: '<path d="M30 20 L30 80 L70 80 L70 65 L45 65 L45 20 Z" fill="currentColor"/>',
-  faviconContent:
-    '<rect width="512" height="512" rx="64" fill="#000"/>' +
-    '<path d="M155 100 L155 410 L360 410 L360 340 L230 340 L230 100 Z" fill="#fff"/>',
-};
-
 export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'C-Chain',
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'mainnet',
+    chainId: 96369,
     // explore.lux.build is a legacy alias — the runtime ingress 301-redirects
     // it to explore.lux.network, so we only register the canonical host here.
     hostnames: [ 'explore.lux.network', 'localhost', '127.0.0.1', '0.0.0.0' ],
@@ -248,6 +236,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Zoo Chain',
     vm: 'L2',
     network: 'mainnet',
+    chainId: 200200,
     hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
@@ -258,6 +247,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Hanzo AI',
     vm: 'L2',
     network: 'mainnet',
+    chainId: 36963,
     hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
@@ -268,6 +258,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'SPC Chain',
     vm: 'L2',
     network: 'mainnet',
+    chainId: 36911,
     hostnames: [ 'explore-spc.lux.network' ],
     explorerUrl: 'https://explore-spc.lux.network',
     apiUrl: 'https://api-explore-spc.lux.network',
@@ -278,20 +269,11 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Pars Network',
     vm: 'L2',
     network: 'mainnet',
+    chainId: 494949,
     hostnames: [ 'explore-pars.lux.network', 'explore.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',
     apiUrl: 'https://api-explore-pars.lux.network',
     branding: PARS_BRANDING,
-  },
-  {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
-    network: 'mainnet',
-    hostnames: [ 'explore.', 'explore.' ],
-    explorerUrl: 'https://explore.',
-    apiUrl: 'https://api-explore.',
-    branding: LIQUIDITY_BRANDING,
   },
   // Testnet chains
   {
@@ -299,20 +281,55 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'testnet',
+    chainId: 96368,
     hostnames: [ 'explore-test.lux.network', 'explore.lux-test.network' ],
     explorerUrl: 'https://explore-test.lux.network',
     apiUrl: 'https://api-explore-test.lux.network',
     branding: LUX_BRANDING,
   },
   {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
+    name: 'Zoo',
+    label: 'Zoo Chain (Testnet)',
+    vm: 'L2',
     network: 'testnet',
-    hostnames: [ 'explore.test.' ],
-    explorerUrl: 'https://explore.test.',
-    apiUrl: 'https://api-explore.test.',
-    branding: LIQUIDITY_BRANDING,
+    chainId: 200201,
+    hostnames: [ 'explore-zoo-test.lux.network' ],
+    explorerUrl: 'https://explore-zoo-test.lux.network',
+    apiUrl: 'https://api-explore-zoo-test.lux.network',
+    branding: ZOO_BRANDING,
+  },
+  {
+    name: 'Hanzo',
+    label: 'Hanzo AI (Testnet)',
+    vm: 'L2',
+    network: 'testnet',
+    chainId: 36964,
+    hostnames: [ 'explore-hanzo-test.lux.network' ],
+    explorerUrl: 'https://explore-hanzo-test.lux.network',
+    apiUrl: 'https://api-explore-hanzo-test.lux.network',
+    branding: HANZO_BRANDING,
+  },
+  {
+    name: 'SPC',
+    label: 'SPC Chain (Testnet)',
+    vm: 'L2',
+    network: 'testnet',
+    chainId: 36910,
+    hostnames: [ 'explore-spc-test.lux.network' ],
+    explorerUrl: 'https://explore-spc-test.lux.network',
+    apiUrl: 'https://api-explore-spc-test.lux.network',
+    branding: SPC_BRANDING,
+  },
+  {
+    name: 'Pars',
+    label: 'Pars Network (Testnet)',
+    vm: 'L2',
+    network: 'testnet',
+    chainId: 7071,
+    hostnames: [ 'explore-pars-test.lux.network' ],
+    explorerUrl: 'https://explore-pars-test.lux.network',
+    apiUrl: 'https://api-explore-pars-test.lux.network',
+    branding: PARS_BRANDING,
   },
   // Devnet chains
   {
@@ -320,44 +337,70 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'devnet',
+    chainId: 96370,
     hostnames: [ 'explore-dev.lux.network', 'explore.lux-dev.network' ],
     explorerUrl: 'https://explore-dev.lux.network',
     apiUrl: 'https://api-explore-dev.lux.network',
     branding: LUX_BRANDING,
   },
   {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
+    name: 'Zoo',
+    label: 'Zoo Chain (Devnet)',
+    vm: 'L2',
     network: 'devnet',
-    hostnames: [ 'explore.dev.' ],
-    explorerUrl: 'https://explore.dev.',
-    apiUrl: 'https://api-explore.dev.',
-    branding: LIQUIDITY_BRANDING,
+    chainId: 200202,
+    hostnames: [ 'explore-zoo-dev.lux.network' ],
+    explorerUrl: 'https://explore-zoo-dev.lux.network',
+    apiUrl: 'https://api-explore-zoo-dev.lux.network',
+    branding: ZOO_BRANDING,
+  },
+  {
+    name: 'Hanzo',
+    label: 'Hanzo AI (Devnet)',
+    vm: 'L2',
+    network: 'devnet',
+    chainId: 36964,
+    hostnames: [ 'explore-hanzo-dev.lux.network' ],
+    explorerUrl: 'https://explore-hanzo-dev.lux.network',
+    apiUrl: 'https://api-explore-hanzo-dev.lux.network',
+    branding: HANZO_BRANDING,
+  },
+  {
+    name: 'SPC',
+    label: 'SPC Chain (Devnet)',
+    vm: 'L2',
+    network: 'devnet',
+    chainId: 36912,
+    hostnames: [ 'explore-spc-dev.lux.network' ],
+    explorerUrl: 'https://explore-spc-dev.lux.network',
+    apiUrl: 'https://api-explore-spc-dev.lux.network',
+    branding: SPC_BRANDING,
+  },
+  {
+    name: 'Pars',
+    label: 'Pars Network (Devnet)',
+    vm: 'L2',
+    network: 'devnet',
+    chainId: 494951,
+    hostnames: [ 'explore-pars-dev.lux.network' ],
+    explorerUrl: 'https://explore-pars-dev.lux.network',
+    apiUrl: 'https://api-explore-pars-dev.lux.network',
+    branding: PARS_BRANDING,
   },
 
-  // Localnet — chainId 1337 (Lux) / 8675312 (Liquidity). Listing localhost /
-  // 127.0.0.1 / 0.0.0.0 here keeps isWhiteLabelMode() false in local dev so
-  // the chain + network selectors remain visible without env gymnastics.
+  // Localnet — chainId 1337. Listing localhost / 127.0.0.1 / 0.0.0.0 here
+  // keeps isWhiteLabelMode() false in local dev so the chain + network
+  // selectors remain visible without env gymnastics.
   {
     name: 'C-Chain',
     label: 'Contract Chain',
     vm: 'EVM',
     network: 'localnet',
+    chainId: 1337,
     hostnames: [ 'explore.localnet', 'explore-local.lux.network' ],
     explorerUrl: 'http://localhost:3000',
     apiUrl: 'http://localhost:4000',
     branding: LUX_BRANDING,
-  },
-  {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
-    network: 'localnet',
-    hostnames: [ 'explore.local.', 'explore.local.' ],
-    explorerUrl: 'http://explore.local.',
-    apiUrl: 'http://api-explore.local.',
-    branding: LIQUIDITY_BRANDING,
   },
 ];
 
@@ -424,6 +467,7 @@ function buildWhiteLabelChain(hostname: string): ChainEntry {
     label: branding.brandName,
     vm: 'EVM',
     network: (getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true' ? 'testnet' : 'mainnet') as 'mainnet' | 'testnet' | 'devnet' | 'localnet',
+    chainId: Number(getEnvValue('NEXT_PUBLIC_NETWORK_ID')) || 0,
     hostnames: [ hostname ],
     explorerUrl: `${ protocol }://${ appHost }`,
     apiUrl: apiHost ? `${ apiProtocol }://${ apiHost }` : '',
@@ -443,13 +487,11 @@ function getHostname(): string {
   // health checks, etc.).
   try {
     // Lazy require so browser bundles don't pick up the ALS module.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+
     const { getRequestHost } = require('lib/requestHost') as { getRequestHost: () => string };
     const reqHost = getRequestHost();
     if (reqHost) return reqHost;
-  } catch {
-    // Falls through to env fallback.
-  }
+  } catch { /* Falls through to env fallback. */ }
   return getEnvValue('NEXT_PUBLIC_APP_HOST') || 'explore.lux.network';
 }
 
