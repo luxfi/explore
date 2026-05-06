@@ -214,22 +214,6 @@ const PARS_BRANDING: ChainBranding = {
     '</g>',
 };
 
-/** Liquidity — wordmark "L" from ~/work/liquidity/brand/ */
-const LIQUIDITY_BRANDING: ChainBranding = {
-  brandName: 'Liquidity Network',
-  orgName: 'Liquidity Inc.',
-  websiteUrl: 'https://',
-  description: 'Digital securities exchange — ATS, broker-dealer, transfer agent.',
-  githubUrl: 'https://github.com/',
-  twitterUrl: 'https://x.com/',
-  discordUrl: 'https://discord.gg/',
-  logoViewBox: '0 0 100 100',
-  logoContent: '<path d="M30 20 L30 80 L70 80 L70 65 L45 65 L45 20 Z" fill="currentColor"/>',
-  faviconContent:
-    '<rect width="512" height="512" rx="64" fill="#000"/>' +
-    '<path d="M155 100 L155 410 L360 410 L360 340 L230 340 L230 100 Z" fill="#fff"/>',
-};
-
 export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'C-Chain',
@@ -283,16 +267,6 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     apiUrl: 'https://api-explore-pars.lux.network',
     branding: PARS_BRANDING,
   },
-  {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
-    network: 'mainnet',
-    hostnames: [ 'explore.', 'explore.' ],
-    explorerUrl: 'https://explore.',
-    apiUrl: 'https://api-explore.',
-    branding: LIQUIDITY_BRANDING,
-  },
   // Testnet chains
   {
     name: 'C-Chain',
@@ -303,16 +277,6 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     explorerUrl: 'https://explore-test.lux.network',
     apiUrl: 'https://api-explore-test.lux.network',
     branding: LUX_BRANDING,
-  },
-  {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
-    network: 'testnet',
-    hostnames: [ 'explore.test.' ],
-    explorerUrl: 'https://explore.test.',
-    apiUrl: 'https://api-explore.test.',
-    branding: LIQUIDITY_BRANDING,
   },
   // Devnet chains
   {
@@ -325,20 +289,10 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     apiUrl: 'https://api-explore-dev.lux.network',
     branding: LUX_BRANDING,
   },
-  {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
-    network: 'devnet',
-    hostnames: [ 'explore.dev.' ],
-    explorerUrl: 'https://explore.dev.',
-    apiUrl: 'https://api-explore.dev.',
-    branding: LIQUIDITY_BRANDING,
-  },
 
-  // Localnet — chainId 1337 (Lux) / 8675312 (Liquidity). Listing localhost /
-  // 127.0.0.1 / 0.0.0.0 here keeps isWhiteLabelMode() false in local dev so
-  // the chain + network selectors remain visible without env gymnastics.
+  // Localnet — chainId 1337. Listing localhost / 127.0.0.1 / 0.0.0.0 here
+  // keeps isWhiteLabelMode() false in local dev so the chain + network
+  // selectors remain visible without env gymnastics.
   {
     name: 'C-Chain',
     label: 'Contract Chain',
@@ -348,16 +302,6 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     explorerUrl: 'http://localhost:3000',
     apiUrl: 'http://localhost:4000',
     branding: LUX_BRANDING,
-  },
-  {
-    name: 'Liquidity',
-    label: 'Liquidity Network',
-    vm: '',
-    network: 'localnet',
-    hostnames: [ 'explore.local.', 'explore.local.' ],
-    explorerUrl: 'http://explore.local.',
-    apiUrl: 'http://api-explore.local.',
-    branding: LIQUIDITY_BRANDING,
   },
 ];
 
@@ -443,13 +387,11 @@ function getHostname(): string {
   // health checks, etc.).
   try {
     // Lazy require so browser bundles don't pick up the ALS module.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
+
     const { getRequestHost } = require('lib/requestHost') as { getRequestHost: () => string };
     const reqHost = getRequestHost();
     if (reqHost) return reqHost;
-  } catch {
-    // Falls through to env fallback.
-  }
+  } catch { /* Falls through to env fallback. */ }
   return getEnvValue('NEXT_PUBLIC_APP_HOST') || 'explore.lux.network';
 }
 
