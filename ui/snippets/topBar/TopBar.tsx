@@ -103,7 +103,7 @@ const TopBar = () => {
                 'text-[10px] tracking-[0.03em] whitespace-nowrap text-[var(--color-text-secondary)] transition-all duration-300',
                 isHome ? 'max-h-[14px] opacity-100 mt-[2px]' : 'max-h-0 opacity-0 mt-0',
               ) }>
-                Lux Explorer
+                { chain.branding.productName }
               </span>
             </div>
           </a>
