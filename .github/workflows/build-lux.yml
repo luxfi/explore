@@ -22,18 +22,19 @@ concurrency:
 env:
   REGISTRY: ghcr.io
 
+# Single-arch (amd64) build — luxfi org's native ARC pool currently only
+# provisions lux-build-linux-amd64. arm64 native runner is pending; the
+# matrix below adds it back as soon as the scale-set is online.
 jobs:
   build:
-    name: Build ${{ matrix.brand }} (${{ matrix.arch }})
-    runs-on: hanzo-build-linux-${{ matrix.arch }}
+    name: Build ${{ matrix.brand }}
+    runs-on: lux-build-linux-amd64
     permissions:
       contents: read
       packages: write
     strategy:
       fail-fast: false
       matrix:
-        brand: [ lux, hanzo, zoo, pars ]
-        arch: [ amd64, arm64 ]
         include:
           - brand: lux
             image: luxfi/explore
@@ -63,22 +64,21 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ matrix.image }}
           flavor: |
-            latest=false
+            latest=auto
           tags: |
-            type=raw,value=latest-${{ matrix.arch }},enable={{is_default_branch}}
-            type=ref,event=branch,suffix=-${{ matrix.arch }}
-            type=semver,pattern={{version}},suffix=-${{ matrix.arch }}
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=sha,prefix=sha-
 
       - name: Build and push image
-        id: build
         uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/${{ matrix.arch }}
+          platforms: linux/amd64
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha,scope=${{ matrix.brand }}-${{ matrix.arch }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.brand }}-${{ matrix.arch }}
+          cache-from: type=gha,scope=${{ matrix.brand }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.brand }}
           provenance: false
           push: ${{ github.event_name != 'pull_request' }}
           build-args: |
@@ -86,55 +86,10 @@ jobs:
             GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
             NEXT_PUBLIC_BRAND=${{ matrix.brand }}
 
-  manifest:
-    name: Multi-arch manifest (${{ matrix.brand }})
-    needs: build
-    if: github.event_name != 'pull_request'
-    runs-on: hanzo-build-linux-amd64
-    permissions:
-      contents: read
-      packages: write
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - brand: lux
-            image: luxfi/explore
-          - brand: hanzo
-            image: luxfi/explore-hanzo
-          - brand: zoo
-            image: luxfi/explore-zoo
-          - brand: pars
-            image: luxfi/explore-pars
-    steps:
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create and push manifest (latest)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          docker buildx imagetools create \
-            -t ${{ env.REGISTRY }}/${{ matrix.image }}:latest \
-            ${{ env.REGISTRY }}/${{ matrix.image }}:latest-amd64 \
-            ${{ env.REGISTRY }}/${{ matrix.image }}:latest-arm64
-
-      - name: Create and push manifest (tag)
-        if: github.ref_type == 'tag'
-        run: |
-          TAG="${GITHUB_REF_NAME#v}"
-          docker buildx imagetools create \
-            -t ${{ env.REGISTRY }}/${{ matrix.image }}:${TAG} \
-            ${{ env.REGISTRY }}/${{ matrix.image }}:${TAG}-amd64 \
-            ${{ env.REGISTRY }}/${{ matrix.image }}:${TAG}-arm64
-
   deploy:
-    needs: manifest
+    needs: build
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: hanzo-deploy-linux-amd64
+    runs-on: lux-build-linux-amd64
     permissions:
       contents: read
     steps:
@@ -151,7 +106,6 @@ jobs:
           HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
           KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
         run: |
-          # Auth: Universal Auth (preferred) or legacy API key
           if [ -n "${KMS_CLIENT_ID}" ] && [ -n "${KMS_CLIENT_SECRET}" ]; then
             HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
               -H "Content-Type: application/json" \
@@ -189,27 +143,21 @@ jobs:
           doctl auth init -t "$DO_TOKEN"
           doctl kubernetes cluster kubeconfig save lux-k8s
 
-          # Ensure namespaces exist
           for ns in lux-mainnet lux-testnet lux-devnet; do
             kubectl create namespace $ns 2>/dev/null || true
           done
 
-          # Deploy shared services (stats) — mainnet only for now
           kubectl apply -f deploy/k8s/stats.yaml -n lux-mainnet || true
           kubectl rollout restart deployment/lux-stats -n lux-mainnet 2>/dev/null || true
 
-          # Deploy testnet & devnet frontends (creates if not exists)
           kubectl apply -f deploy/k8s/frontend-testnet.yaml -n lux-testnet || true
           kubectl apply -f deploy/k8s/frontend-devnet.yaml -n lux-devnet || true
 
-          # Mainnet frontends
           for dep in lux-frontend-mainnet lux-frontend-zoo lux-frontend-hanzo lux-frontend-spc lux-frontend-pars; do
             kubectl rollout restart deployment/$dep -n lux-mainnet || true
           done
 
-          # Testnet & devnet frontends
           kubectl rollout restart deployment/lux-frontend-testnet -n lux-testnet || true
           kubectl rollout restart deployment/lux-frontend-devnet -n lux-devnet || true
 
-          # Wait for mainnet rollout
           kubectl rollout status deployment/lux-frontend-mainnet -n lux-mainnet --timeout=300s
