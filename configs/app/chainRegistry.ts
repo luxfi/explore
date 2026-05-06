@@ -1,10 +1,17 @@
 // Multi-tenant chain registry. Maps hostnames to chain and network configuration.
-// One Docker image serves all chains — the hostname determines the active chain.
+// One Docker image serves all chains — the hostname determines the active chain
+// for the bundled brand defaults; every field is overridable at deploy time
+// via NEXT_PUBLIC_BRAND_* env vars (see applyBrandEnvOverrides).
+
+import { getEnvValue } from 'configs/app/utils';
 
 export interface ChainBranding {
 
   /** Display name in the header (e.g. "Lux Network", "Zoo Chain") */
   readonly brandName: string;
+
+  /** Sub-label rendered next to the logo (defaults to "Explorer") */
+  readonly productName: string;
 
   /** Organization name for copyright (e.g. "Lux Industries Inc.") */
   readonly orgName: string;
@@ -32,6 +39,25 @@ export interface ChainBranding {
 
   /** Full inner SVG content for the favicon (viewBox "0 0 512 512") */
   readonly faviconContent: string;
+}
+
+/** Apply NEXT_PUBLIC_BRAND_* env overrides on top of bundled defaults.
+ *  Operators can override any branding field at deploy time without
+ *  rebuilding the image. Empty env values fall through to the default. */
+export function applyBrandEnvOverrides(b: ChainBranding): ChainBranding {
+  return {
+    brandName: getEnvValue('NEXT_PUBLIC_BRAND_NAME') || b.brandName,
+    productName: getEnvValue('NEXT_PUBLIC_BRAND_PRODUCT_NAME') || b.productName,
+    orgName: getEnvValue('NEXT_PUBLIC_BRAND_ORG_NAME') || b.orgName,
+    websiteUrl: getEnvValue('NEXT_PUBLIC_BRAND_WEBSITE_URL') || b.websiteUrl,
+    description: getEnvValue('NEXT_PUBLIC_BRAND_DESCRIPTION') || b.description,
+    githubUrl: getEnvValue('NEXT_PUBLIC_BRAND_GITHUB_URL') || b.githubUrl,
+    twitterUrl: getEnvValue('NEXT_PUBLIC_BRAND_TWITTER_URL') || b.twitterUrl,
+    discordUrl: getEnvValue('NEXT_PUBLIC_BRAND_DISCORD_URL') || b.discordUrl,
+    logoViewBox: getEnvValue('NEXT_PUBLIC_BRAND_LOGO_VIEWBOX') || b.logoViewBox,
+    logoContent: getEnvValue('NEXT_PUBLIC_BRAND_LOGO_CONTENT') || b.logoContent,
+    faviconContent: getEnvValue('NEXT_PUBLIC_BRAND_FAVICON_CONTENT') || b.faviconContent,
+  };
 }
 
 export interface ChainEntry {
@@ -62,6 +88,7 @@ export interface NetworkEntry {
 /** Lux — downward-pointing triangle (~/work/lux/logo/) */
 const LUX_BRANDING: ChainBranding = {
   brandName: 'Lux Network',
+  productName: 'Explorer',
   orgName: 'Lux Industries Inc.',
   websiteUrl: 'https://lux.network',
   description: 'High-performance blockchain for decentralized applications.',
@@ -76,6 +103,7 @@ const LUX_BRANDING: ChainBranding = {
 /** Zoo — colorful interlocking circles from ~/work/zoo/logo/ */
 const ZOO_BRANDING: ChainBranding = {
   brandName: 'Zoo Chain',
+  productName: 'Explorer',
   orgName: 'Zoo Labs Foundation',
   websiteUrl: 'https://zoo.ngo',
   description: 'Open AI research network — decentralized AI and science.',
@@ -132,6 +160,7 @@ const ZOO_BRANDING: ChainBranding = {
 /** Hanzo — geometric H logo (~/work/hanzo/logo/) */
 const HANZO_BRANDING: ChainBranding = {
   brandName: 'Hanzo AI',
+  productName: 'Explorer',
   orgName: 'Hanzo Industries Inc.',
   websiteUrl: 'https://hanzo.ai',
   description: 'AI blockchain — decentralized compute and inference.',
@@ -159,6 +188,7 @@ const HANZO_BRANDING: ChainBranding = {
 /** SPC — unicorn */
 const SPC_BRANDING: ChainBranding = {
   brandName: 'SPC Chain',
+  productName: 'Explorer',
   orgName: 'Sparkle Pony Club',
   websiteUrl: 'https://sparkleponyclub.com',
   description: 'SPC chain.',
@@ -176,6 +206,7 @@ const SPC_BRANDING: ChainBranding = {
 /** Pars — Persian 8-pointed star from ~/work/pars/logo/docs/assets/pars-logo-mono.svg */
 const PARS_BRANDING: ChainBranding = {
   brandName: 'Pars Network',
+  productName: 'Explorer',
   orgName: 'Parsis Foundation',
   websiteUrl: 'https://pars.network',
   description: 'Pars blockchain — financial infrastructure for the Persian-speaking world.',
@@ -435,15 +466,14 @@ export const NETWORKS: ReadonlyArray<NetworkEntry> = [
   },
 ];
 
-import { getEnvValue } from 'configs/app/utils';
-
 // ── White-label support ──
 // When the hostname doesn't match any known chain, build branding from env vars.
 // This allows a single Docker image to serve any EVM chain.
 
 function buildWhiteLabelBranding(): ChainBranding {
   return {
-    brandName: getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || '▼ Explorer',
+    brandName: getEnvValue('NEXT_PUBLIC_NETWORK_NAME') || 'Explorer',
+    productName: getEnvValue('NEXT_PUBLIC_BRAND_PRODUCT_NAME') || 'Explorer',
     orgName: getEnvValue('NEXT_PUBLIC_NETWORK_ORG_NAME') || '',
     websiteUrl: getEnvValue('NEXT_PUBLIC_NETWORK_WEBSITE_URL') || '',
     description: getEnvValue('NEXT_PUBLIC_NETWORK_DESCRIPTION') || 'Blockchain explorer.',
@@ -521,11 +551,10 @@ export function isNetworkSelectorEnabled(): boolean {
 export function getCurrentChain(): ChainEntry {
   const hostname = getHostname();
   const found = CHAINS.find((c) => c.hostnames.includes(hostname));
-  if (found) {
-    return found;
-  }
-  // White-label mode: build from env vars
-  return buildWhiteLabelChain(hostname);
+  const base = found ?? buildWhiteLabelChain(hostname);
+  // Apply NEXT_PUBLIC_BRAND_* env overrides on every read so deploys can
+  // rebrand without rebuilding the bundle.
+  return { ...base, branding: applyBrandEnvOverrides(base.branding) };
 }
 
 export function getCurrentNetwork(): NetworkEntry {
