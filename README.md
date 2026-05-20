@@ -1,4 +1,18 @@
-<h1 align="center">Lux Explore frontend</h1>
+# DEPRECATED — see `~/work/lux/explorer/`
+
+> The standalone Next.js frontend in this repo is no longer deployed.
+> Its build output is embedded directly into the Lux Explorer Go
+> binary (`ghcr.io/luxfi/explorer:1.2.1`) via `go:embed`. Run that
+> single binary in production.
+>
+> This repo is preserved as the source of the embedded SPA assets.
+> Updates to the UI ship via a rebuild of the explorer image, not by
+> deploying this Next.js app separately.
+>
+> Canonical deploy: `~/work/lux/explorer/` (Go binary, single process,
+> indexer + GraphQL + SPA, port 8090).
+
+<h1 align="center">Lux Explore frontend (legacy)</h1>
 
 <p align="center">
     <span>Frontend application for </span>
