@@ -68,5 +68,6 @@
   "resolutions": {
     "vite-plugin-dts/**/brace-expansion": "2.0.2",
     "vite-plugin-svgr/**/js-yaml": "4.1.1"
-  }
+  },
+  "packageManager": "pnpm@9.15.0"
 }
