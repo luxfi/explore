@@ -1,33 +1,24 @@
 // White-label brand detection.
 //
-// Source code in this repo is brand-neutral. Brand selection happens at
-// deploy time via `NEXT_PUBLIC_BRAND` env var or by hostname inspection.
-// All brand-specific assets (logo, title, favicon, color theme, IAM URL)
-// load from `NEXT_PUBLIC_*` env vars — no hardcoded brand strings here.
+// Source code in this repo is Lux-only. Per-chain identity (Zoo / Hanzo / SPC /
+// Pars subnets on Lux primary network) is rendered with each chain's logo and
+// name as network metadata — see `configs/app/chainRegistry.ts`. The explorer
+// brand itself is always Lux.
 //
-// Supported brands:
-//   - lux       (default)
-//   - hanzo
-//   - zoo
-//   - pars
-//   - other     (any external white-label deploy: branding from env vars)
-//
-// External deployments select their brand by setting NEXT_PUBLIC_BRAND in
-// the runtime environment. They do NOT add their brand here — keeping this
-// repo free of any third-party trademarks.
+// External operators running their own EVM chain can deploy this image as an
+// unbranded ("other") explorer by setting NEXT_PUBLIC_BRAND=other plus the
+// NEXT_PUBLIC_NETWORK_* env vars (see `.env.example.external`). They MUST
+// supply their own brand strings at runtime — none are hardcoded here.
 
 import { getEnvValue } from 'configs/app/utils';
 
-export type WhiteLabelBrand = 'lux' | 'hanzo' | 'zoo' | 'pars' | 'other';
+export type WhiteLabelBrand = 'lux' | 'other';
 
 const BRAND_HOSTNAME_SUFFIXES: ReadonlyArray<{ readonly suffix: string; readonly brand: WhiteLabelBrand }> = [
   { suffix: '.lux.network', brand: 'lux' },
   { suffix: '.lux.build', brand: 'lux' },
-  { suffix: '.hanzo.ai', brand: 'hanzo' },
-  { suffix: '.hanzo.network', brand: 'hanzo' },
-  { suffix: '.zoo.ngo', brand: 'zoo' },
-  { suffix: '.zoo.network', brand: 'zoo' },
-  { suffix: '.pars.network', brand: 'pars' },
+  { suffix: '.lux-test.network', brand: 'lux' },
+  { suffix: '.lux-dev.network', brand: 'lux' },
 ];
 
 export function getWhiteLabelBrand(hostname?: string): WhiteLabelBrand {
@@ -35,13 +26,7 @@ export function getWhiteLabelBrand(hostname?: string): WhiteLabelBrand {
   const envBrand = getEnvValue('NEXT_PUBLIC_BRAND');
   if (envBrand) {
     const normalized = envBrand.toLowerCase();
-    if (
-      normalized === 'lux' ||
-      normalized === 'hanzo' ||
-      normalized === 'zoo' ||
-      normalized === 'pars' ||
-      normalized === 'other'
-    ) {
+    if (normalized === 'lux' || normalized === 'other') {
       return normalized;
     }
     // Any unknown brand string → 'other' (env-driven white-label)
