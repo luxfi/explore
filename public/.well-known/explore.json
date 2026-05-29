@@ -1,0 +1,46 @@
+{
+  "brandId": "lux",
+  "appId": "explore",
+  "title": "Lux Explorer",
+  "domain": "explore.lux.network",
+  "url": "https://explore.lux.network",
+  "github": "https://github.com/luxfi/explore",
+  "chains": [
+    {
+      "id": 96369,
+      "name": "Lux Mainnet"
+    },
+    {
+      "id": 96368,
+      "name": "Lux Testnet"
+    },
+    {
+      "id": 96370,
+      "name": "Lux Devnet"
+    },
+    {
+      "id": 200200,
+      "name": "Zoo Subnet"
+    },
+    {
+      "id": 36963,
+      "name": "Hanzo Subnet"
+    },
+    {
+      "id": 36911,
+      "name": "SPC Subnet"
+    },
+    {
+      "id": 494949,
+      "name": "Pars Subnet"
+    }
+  ],
+  "peers": [],
+  "capabilities": [
+    "blocks",
+    "transactions",
+    "accounts",
+    "tokens"
+  ],
+  "apiVersion": "1"
+}

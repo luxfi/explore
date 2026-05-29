@@ -7,8 +7,9 @@
 //
 // This store captures `req.headers.host` at the start of each SSR render
 // (see `_document.tsx`), so `getHostname()` on the server returns the
-// actual requested host. The same docker image now serves Lux, Zoo,
-// Hanzo, SPC, Pars, and Liquidity interchangeably — one image, N hosts.
+// actual requested host. The same docker image serves all chains on the
+// Lux primary network (C, Zoo, Hanzo, SPC, Pars subnets) at distinct
+// explore-*.lux.network hosts — one image, N hosts.
 //
 // Client side is unaffected: `window.location.hostname` continues to be
 // the source of truth post-hydration.
