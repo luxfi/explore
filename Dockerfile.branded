@@ -1,28 +1,63 @@
+# Per-brand × per-env Blockscout overlay image.
+#
+# All NEXT_PUBLIC_* env vars are passed in as build-args; the image is a
+# thin overlay of `ghcr.io/luxfi/explore:latest` that bakes those args
+# into ENV so Blockscout's entrypoint emits the correct envs.js at boot.
+#
+# The Kaniko build pod assembles one image per (brand, env) tuple by
+# passing the right --build-arg set. Authoritative tuples live in
+# deploy/scripts/branded_build.sh.
+
 FROM ghcr.io/luxfi/explore:latest
 
-# LUX Network Branding
-ENV NEXT_PUBLIC_NETWORK_NAME="LUX Network" \
-    NEXT_PUBLIC_NETWORK_SHORT_NAME="LUX" \
-    NEXT_PUBLIC_NETWORK_ID="96369" \
-    NEXT_PUBLIC_NETWORK_CURRENCY_NAME="LUX" \
-    NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL="LUX" \
-    NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS="18" \
-    NEXT_PUBLIC_API_HOST="api-explore.lux.network" \
-    NEXT_PUBLIC_API_PROTOCOL="https" \
-    NEXT_PUBLIC_API_BASE_PATH="/" \
-    NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL="wss" \
-    NEXT_PUBLIC_APP_HOST="explore.lux.network" \
-    NEXT_PUBLIC_APP_PROTOCOL="https" \
-    NEXT_PUBLIC_IS_TESTNET="false" \
-    NEXT_PUBLIC_HOMEPAGE_CHARTS='["daily_txs", "coin_price", "market_cap"]' \
-    NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED="true" \
-    NEXT_PUBLIC_STATS_API_HOST="https://api-explore.lux.network/api/stats" \
-    NEXT_PUBLIC_VISUALIZE_API_HOST="https://api-explore.lux.network/api/visualize" \
-    NEXT_PUBLIC_CONTRACT_INFO_API_HOST="https://api-explore.lux.network" \
-    NEXT_PUBLIC_ADMIN_SERVICE_API_HOST="https://api-explore.lux.network"
+ARG BRAND
+ARG NETWORK_NAME
+ARG NETWORK_SHORT_NAME
+ARG NETWORK_ID
+ARG NETWORK_CURRENCY_NAME
+ARG NETWORK_CURRENCY_SYMBOL
+ARG NETWORK_RPC_URL
+ARG API_HOST
+ARG APP_HOST
+ARG IS_TESTNET=false
+ARG NETWORK_ORG_NAME
+ARG NETWORK_WEBSITE_URL
+ARG NETWORK_DESCRIPTION
+ARG NETWORK_GITHUB_URL
+ARG NETWORK_TWITTER_URL
+ARG NETWORK_DISCORD_URL
+ARG OIDC_SERVER_URL
+ARG OIDC_CLIENT_ID
 
-# Copy LUX logo
-COPY public/logos/lux-logo-white.png /app/public/assets/lux-logo.png
-
-# Note: Font and color theme changes require building from source
-# This image uses the default Blockscout theme
+ENV NEXT_PUBLIC_BRAND=$BRAND \
+    NEXT_PUBLIC_NETWORK_NAME=$NETWORK_NAME \
+    NEXT_PUBLIC_NETWORK_SHORT_NAME=$NETWORK_SHORT_NAME \
+    NEXT_PUBLIC_NETWORK_ID=$NETWORK_ID \
+    NEXT_PUBLIC_NETWORK_CURRENCY_NAME=$NETWORK_CURRENCY_NAME \
+    NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL=$NETWORK_CURRENCY_SYMBOL \
+    NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS=18 \
+    NEXT_PUBLIC_NETWORK_RPC_URL=$NETWORK_RPC_URL \
+    NEXT_PUBLIC_API_HOST=$API_HOST \
+    NEXT_PUBLIC_API_PROTOCOL=https \
+    NEXT_PUBLIC_API_BASE_PATH=/ \
+    NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL=wss \
+    NEXT_PUBLIC_APP_HOST=$APP_HOST \
+    NEXT_PUBLIC_APP_PROTOCOL=https \
+    NEXT_PUBLIC_IS_TESTNET=$IS_TESTNET \
+    NEXT_PUBLIC_NETWORK_LOGO=/logo.svg \
+    NEXT_PUBLIC_NETWORK_ICON=/icon.svg \
+    NEXT_PUBLIC_HOMEPAGE_CHARTS='["daily_txs","coin_price","market_cap"]' \
+    NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED=true \
+    NEXT_PUBLIC_COLOR_THEME_DEFAULT=dark \
+    NEXT_PUBLIC_NETWORK_ORG_NAME=$NETWORK_ORG_NAME \
+    NEXT_PUBLIC_NETWORK_WEBSITE_URL=$NETWORK_WEBSITE_URL \
+    NEXT_PUBLIC_NETWORK_DESCRIPTION=$NETWORK_DESCRIPTION \
+    NEXT_PUBLIC_NETWORK_GITHUB_URL=$NETWORK_GITHUB_URL \
+    NEXT_PUBLIC_NETWORK_TWITTER_URL=$NETWORK_TWITTER_URL \
+    NEXT_PUBLIC_NETWORK_DISCORD_URL=$NETWORK_DISCORD_URL \
+    NEXT_PUBLIC_ACCOUNT_AUTH_PROVIDER=oidc \
+    NEXT_PUBLIC_OIDC_SERVER_URL=$OIDC_SERVER_URL \
+    NEXT_PUBLIC_OIDC_CLIENT_ID=$OIDC_CLIENT_ID \
+    NEXT_TELEMETRY_DISABLED=1 \
+    ENVS_PRESET=none \
+    SKIP_ENVS_VALIDATION=true
