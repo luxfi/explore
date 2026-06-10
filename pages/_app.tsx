@@ -1,5 +1,5 @@
-import { AppProvider } from '@luxfi/ui/provider';
 import { Toaster } from '@luxfi/ui/toaster';
+import { QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
@@ -163,7 +163,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
             { ...ERROR_SCREEN_STYLES }
             Container={ AppErrorGlobalContainer }
           >
-            <AppProvider queryClient={ queryClient }>
+            <QueryClientProvider client={ queryClient }>
               <Web3Provider>
                 <AppContextProvider pageProps={ pageProps }>
                   <SocketProvider url={ socketUrl }>
@@ -178,7 +178,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
                   <GoogleAnalytics/>
                 </AppContextProvider>
               </Web3Provider>
-            </AppProvider>
+            </QueryClientProvider>
           </AppErrorBoundary>
         </RollbarProvider>
       </ThemeProvider>
