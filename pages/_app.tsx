@@ -1,8 +1,20 @@
+import { createGui } from '@hanzogui/core';
 import { Toaster } from '@luxfi/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
+
+// Initialize @hanzogui once at module scope (client side only).
+// We supply explicit empty themes/tokens to dodge the upstream crash
+// where createGui calls Object.keys(undefined) when configIn.themes is
+// missing (see @hanzogui/web createGui → getThemesDeduped). Components
+// from @luxfi/ui still need getConfig() to return a non-null config or
+// they throw "Err0" at module load.
+if (typeof window !== 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  createGui({ themes: {}, tokens: {}, settings: { autocompleteSpecificTokens: 'except-special' } } as any);
+}
 
 import type { NextPageWithLayout } from 'nextjs/types';
 
