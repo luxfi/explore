@@ -1,20 +1,49 @@
-import { createGui } from '@hanzogui/core';
+import { createGui, GuiProvider } from '@hanzogui/core';
 import { Toaster } from '@luxfi/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-// Initialize @hanzogui once at module scope (client side only).
-// We supply explicit empty themes/tokens to dodge the upstream crash
-// where createGui calls Object.keys(undefined) when configIn.themes is
-// missing (see @hanzogui/web createGui → getThemesDeduped). Components
-// from @luxfi/ui still need getConfig() to return a non-null config or
-// they throw "Err0" at module load.
-if (typeof window !== 'undefined') {
+// Initialize @hanzogui once at module scope. Runs on both server and client.
+//
+// Three things have to line up before any @hanzogui-derived @luxfi/ui
+// component renders, or we get cascading throws:
+//
+//   1. createGui must run before getConfig() is called (used inside
+//      every styled() component's render path). We give it a non-empty
+//      themes object so getThemesDeduped doesn't trip Object.keys
+//      (undefined) — the original hydration crash.
+//   2. tokens.color must hold default color tokens, otherwise
+//      getThemesDeduped's `tokens.color` spread produces an empty
+//      theme value, and downstream getThemedChildren has no theme
+//      colors to inject.
+//   3. The render tree must be wrapped in <GuiProvider config>. Without
+//      it, useThemeState reads ThemeStateContext (default "") and
+//      throws "Missing theme." in production. createGui alone is not
+//      enough — it sets the config, but the theme-state Provider
+//      tree has to exist as well.
+//
+// We materialize the config once, on both server and client (no `typeof
+// window` gate). createGui is idempotent via getConfigMaybe() — if a
+// downstream package somehow calls it again, the existing config is
+// merged forward.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const guiConfig: any = createGui({
+  themes: {
+    light: { background: '#ffffff', color: '#000000' },
+    dark: { background: '#000000', color: '#ffffff' },
+  },
+  tokens: {
+    color: { background: '#ffffff', text: '#000000' },
+    space: { '0': 0, '1': 4, '2': 8, '3': 12, '4': 16, 'true': 16 },
+    size: { '0': 0, '1': 4, '2': 8, '3': 12, '4': 16, 'true': 16 },
+    radius: { '0': 0, '1': 4, '2': 8, 'true': 4 },
+    zIndex: { '0': 0, '1': 100, '2': 200, 'true': 100 },
+  },
+  settings: { autocompleteSpecificTokens: 'except-special' },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createGui({ themes: {}, tokens: {}, settings: { autocompleteSpecificTokens: 'except-special' } } as any);
-}
+} as any);
 
 import type { NextPageWithLayout } from 'nextjs/types';
 
@@ -168,32 +197,34 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
 
   return (
     <OuterErrorBoundary>
-      <PageMetadata pathname={ router.pathname as Route['pathname'] } query={ pageProps.query } apiData={ pageProps.apiData }/>
-      <ThemeProvider>
-        <RollbarProvider config={ rollbarConfig }>
-          <AppErrorBoundary
-            { ...ERROR_SCREEN_STYLES }
-            Container={ AppErrorGlobalContainer }
-          >
-            <QueryClientProvider client={ queryClient }>
-              <Web3Provider>
-                <AppContextProvider pageProps={ pageProps }>
-                  <SocketProvider url={ socketUrl }>
-                    <RewardsProvider>
-                      <MarketplaceContextProvider>
-                        <SettingsContextProvider>
-                          { content }
-                        </SettingsContextProvider>
-                      </MarketplaceContextProvider>
-                    </RewardsProvider>
-                  </SocketProvider>
-                  <GoogleAnalytics/>
-                </AppContextProvider>
-              </Web3Provider>
-            </QueryClientProvider>
-          </AppErrorBoundary>
-        </RollbarProvider>
-      </ThemeProvider>
+      <GuiProvider config={ guiConfig }>
+        <PageMetadata pathname={ router.pathname as Route['pathname'] } query={ pageProps.query } apiData={ pageProps.apiData }/>
+        <ThemeProvider>
+          <RollbarProvider config={ rollbarConfig }>
+            <AppErrorBoundary
+              { ...ERROR_SCREEN_STYLES }
+              Container={ AppErrorGlobalContainer }
+            >
+              <QueryClientProvider client={ queryClient }>
+                <Web3Provider>
+                  <AppContextProvider pageProps={ pageProps }>
+                    <SocketProvider url={ socketUrl }>
+                      <RewardsProvider>
+                        <MarketplaceContextProvider>
+                          <SettingsContextProvider>
+                            { content }
+                          </SettingsContextProvider>
+                        </MarketplaceContextProvider>
+                      </RewardsProvider>
+                    </SocketProvider>
+                    <GoogleAnalytics/>
+                  </AppContextProvider>
+                </Web3Provider>
+              </QueryClientProvider>
+            </AppErrorBoundary>
+          </RollbarProvider>
+        </ThemeProvider>
+      </GuiProvider>
     </OuterErrorBoundary>
   );
 }
