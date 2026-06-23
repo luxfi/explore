@@ -233,7 +233,8 @@
       "brace-expansion": "1.1.12",
       "js-yaml": "4.1.1",
       "@noble/hashes": "1.8.0",
-      "@ipshipyard/node-datachannel": "link:./stubs/node-datachannel"
+      "@ipshipyard/node-datachannel": "link:./stubs/node-datachannel",
+      "@hanzogui/floating": "3.0.6"
     }
   },
   "packageManager": "pnpm@10.11.0"
