@@ -557,6 +557,16 @@ export function getCurrentChain(): ChainEntry {
   return { ...base, branding: applyBrandEnvOverrides(base.branding) };
 }
 
+/**
+ * True only on the Lux PRIMARY-network explorer (the Lux C-Chain host +
+ * the unregistered white-label fallback, both `vm: 'EVM'`). Brand explorers
+ * (Hanzo / Zoo / SPC / Pars are `vm: 'L2'`) return false: they show ONLY
+ * their own chain, never the Lux primary-network chains / cross-L1 lists.
+ */
+export function isPrimaryNetworkExplorer(): boolean {
+  return getCurrentChain().vm === 'EVM';
+}
+
 export function getCurrentNetwork(): NetworkEntry {
   const chain = getCurrentChain();
   if (isWhiteLabelMode()) {
