@@ -63,7 +63,9 @@ const TopBar = () => {
   return (
     <div
       className={ cn(
-        'sticky top-0 left-0 w-full max-w-[100vw] z-sticky',
+        // Desktop-only: HeaderMobile (block lg:hidden) is the sole header below
+        // lg. Without this, both render < lg → a double header (two sign-ins).
+        'hidden lg:block sticky top-0 left-0 w-full max-w-[100vw] z-sticky',
         'border-b border-[var(--color-border-divider)]',
         'backdrop-blur-[16px] bg-[rgba(255,255,255,0.97)] dark:bg-[rgba(16,17,18,0.97)]',
       ) }
