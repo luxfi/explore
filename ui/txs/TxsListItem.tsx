@@ -125,7 +125,7 @@ const TxsListItem = ({
       ) }
       { !config.UI.views.tx.hiddenFields?.tx_fee && (
         <div className="flex">
-          { (tx.stability_fee !== undefined || tx.fee.value !== null) && (
+          { (tx.stability_fee !== undefined || tx.fee?.value != null) && (
             <>
               <Skeleton loading={ isLoading } className="inline-block whitespace-pre">Fee </Skeleton>
               <TxFee tx={ tx } loading={ isLoading }/>
