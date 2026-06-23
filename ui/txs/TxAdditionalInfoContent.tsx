@@ -66,7 +66,7 @@ const TxAdditionalInfoContent = ({ tx }: { tx: Transaction }) => {
           noTooltip
         />
       </div>
-      { !config.UI.views.tx.hiddenFields?.tx_fee && (tx.stability_fee !== undefined || tx.fee.value !== null) && (
+      { !config.UI.views.tx.hiddenFields?.tx_fee && (tx.stability_fee !== undefined || tx.fee?.value != null) && (
         <div { ...sectionProps }>
           <span { ...sectionTitleProps }>Transaction fee</span>
           <TxFee tx={ tx } noTooltip/>
