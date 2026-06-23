@@ -71,7 +71,7 @@ const TxDetailsWrapped = ({ data }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfoNativeCoinValue amount={ data.value }/>
 
-      { data.fee.value !== null && (
+      { data.fee?.value != null && (
         <>
           <DetailedInfo.ItemLabel
             hint="Total transaction fee"
