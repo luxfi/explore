@@ -27,6 +27,22 @@ import SettingsScamTokens from 'ui/snippets/topBar/settings/SettingsScamTokens';
 const REDIRECT_URI_PATH = '/auth/callback';
 const isWalletEnabled = config.features.blockchainInteraction.isEnabled;
 
+// The identity provider's brand is the host of the configured OIDC server
+// (e.g. "hanzo.id" for the Hanzo build, "lux.id" for Lux). Derive the
+// sign-in label from it so the button is brand-correct on every surface
+// instead of hard-coding a single brand.
+function oidcProviderName(): string {
+  const feature = config.features.account;
+  if (!feature.isEnabled || feature.authProvider !== 'oidc' || !feature.oidc) {
+    return 'ID';
+  }
+  try {
+    return new URL(feature.oidc.serverUrl).host;
+  } catch {
+    return 'ID';
+  }
+}
+
 function buildOidcLoginUrl(): string {
   const feature = config.features.account;
   if (!feature.isEnabled || feature.authProvider !== 'oidc' || !feature.oidc) {
@@ -169,7 +185,7 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                 onClick={ handleLoginClick }
                 variant="solid"
               >
-                Sign in with Lux ID
+                Sign in with { oidcProviderName() }
               </Button>
               <Separator className="my-3"/>
             </>
