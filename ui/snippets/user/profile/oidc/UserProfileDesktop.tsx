@@ -1,17 +1,19 @@
 // OIDC user profile desktop component.
-// Login redirects to lux.id; popover shows account, wallet, settings, and logout.
+// Login redirects to the configured OIDC server (NEXT_PUBLIC_OIDC_SERVER_URL,
+// e.g. https://hanzo.id for the Hanzo build); popover shows account, wallet,
+// settings, and logout.
 
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import config from 'configs/app';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import type { ButtonProps } from '@luxfi/ui/button';
-import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/next/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
-import { Separator } from '@luxfi/ui/separator';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
+import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 import useLogout from 'ui/snippets/auth/useLogout';
