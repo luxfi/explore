@@ -166,6 +166,46 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### Multi-brand hostname-driven header logo (explore v1.0.10)
+- ONE image white-labels by request Host: `configs/app/chainRegistry.ts`
+  `getCurrentChain()` resolves the chain (and its brand) from the hostname,
+  and the header renders `chain.branding.logoContent` (an inline-SVG mark
+  using `currentColor`). NO hardcoded logo, no image-URL→triangle fallback.
+- Per-brand marks live in `chainRegistry.ts`: Lux = downward triangle
+  (viewBox `0 0 100 100`), Hanzo = real blocky-H (`@hanzo/logo`, viewBox
+  `0 0 67 67`, 5 paths — `M22.21 67…`), Zoo = interlocking circles
+  (`0 0 1024 1024`), Pars = 8-pointed star, SPC = unicorn.
+- The header logo renders in THREE spots, all reading `branding`:
+  `ui/snippets/topBar/TopBar.tsx` (desktop), and
+  `ui/snippets/networkLogo/{NetworkLogo,NetworkIcon}.tsx` (mobile header
+  `ui/snippets/header/HeaderMobile.tsx` + chain-switcher). The stale
+  pre-v1.0.10 mobile `NetworkIcon` hardcoded a `viewBox="0 0 50 50"`
+  `<polygon>` triangle mislabeled `aria-label="Hanzo icon"` — fixed in
+  4369780 (mobile) + 79dbe63 (desktop, single header per breakpoint).
+- Multi-tenant L1/L2/L3: each `ChainEntry` has a `vm` field
+  (`EVM` = Lux primary L1, `L2` = brand sovereign chains) gating
+  `isPrimaryNetworkExplorer()` so brand explorers show ONLY their own chain.
+  mainnet/testnet/devnet/localnet entries per brand; hostnames cover both
+  canonical (`explore-<brand>.lux.network`) and brand-domain
+  (`explore.<brand>.network`, `explore.hanzo.ai`) hosts.
+
+### Build + deploy (NO GitHub builders)
+- Built on-cluster via kaniko (do-sfo3-hanzo-k8s ns `hanzo`, node pool
+  `runner-pool-32g`, secret `kaniko-ghcr-multi`, toleration
+  `dedicated=ci-runner`): context `git://github.com/luxfi/explore.git#main`,
+  `--dockerfile Dockerfile`, fan-out `--destination` to per-brand GHCR orgs
+  `ghcr.io/{luxfi,zooai,hanzoai}/explore:v1.0.10` (one digest,
+  `sha256:4f980291…`). pars (`ghcr.io/parsdao/explore`) not in the fan-out
+  yet → stays v1.0.4.
+- Runs on do-sfo3-lux-k8s ns `lux-mainnet` as `explore-fe-<brand>`
+  Deployments (selector `{app:explore-fe,brand,network}`), env from
+  `explore-env-<brand>` ConfigMap, pull secret `ghcr-luxfi`, svc 80→3000.
+  NOT operator-managed (plain Deployments) → bump via image patch / apply.
+  Declared state: `luxfi/universe k8s/lux-mainnet/explore-fe.yaml`
+  (+ `k8s/lux-devnet/explore-fe.yaml`).
+- App hydrates client-side (SSR HTML is an 8 KB shell) — verify the logo
+  with a real browser (Playwright), not `curl | grep`.
+
 ### 2024-12-24
 - Merged upstream blockscout/frontend (up to commit 5a49ad8b1)
 - Updated branding from Blockscout to Lux Network
