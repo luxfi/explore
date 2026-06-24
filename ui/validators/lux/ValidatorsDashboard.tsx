@@ -1,9 +1,12 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
+import config from 'configs/app';
 import type { PChainValidator, ValidatorStats } from 'lib/api/pchain';
-import { Skeleton } from '@luxfi/ui/skeleton';
 
 import { formatStake, formatUptime, truncateNodeId } from './utils';
+
+const CURRENCY = config.chain.currency.symbol || 'LUX';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -61,13 +64,13 @@ const StakeBreakdown = ({ stats, isLoading }: StakeBreakdownProps) => {
       </div>
       <Skeleton loading={ isLoading }>
         <div className="font-bold">
-          { formatStake(stats.totalStake) } LUX
+          { formatStake(stats.totalStake) } { CURRENCY }
         </div>
       </Skeleton>
       <Skeleton loading={ isLoading }>
         <div className="flex gap-6 flex-wrap">
-          <div>Validators: { formatStake(validatorStake) } LUX ({ validatorPct }%)</div>
-          <div>Delegated: { formatStake(stats.totalDelegatedStake) } LUX ({ delegationPct }%)</div>
+          <div>Validators: { formatStake(validatorStake) } { CURRENCY } ({ validatorPct }%)</div>
+          <div>Delegated: { formatStake(stats.totalDelegatedStake) } { CURRENCY } ({ delegationPct }%)</div>
         </div>
       </Skeleton>
     </div>
@@ -140,7 +143,7 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
             { truncateNodeId(v.nodeID) }
           </div>
           <div className="flex-[2] text-right">
-            { formatStake(v.stakeAmount ?? v.weight) } LUX
+            { formatStake(v.stakeAmount ?? v.weight) } { CURRENCY }
           </div>
           <div className="flex-1 text-right">
             { v.delegationFee }%
@@ -169,11 +172,11 @@ interface ValidatorsDashboardProps {
 
 const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboardProps) => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 text-[var(--color-text-primary)]">
       { /* Stat cards */ }
       <div
         className="grid gap-4"
-        style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
+        style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}
       >
         <StatCard
           label="Validators"
