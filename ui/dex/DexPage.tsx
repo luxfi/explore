@@ -2,14 +2,13 @@
 // Displays market stats, orderbook, trade history, and liquidity pools
 // sourced from the DexVM indexer.
 
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import React from 'react';
-
-import { cn } from 'lib/utils/cn';
 
 import { useDexData } from 'lib/api/dchain';
 import type { DexOrder, DexTrade, DexPool, DexSymbolStats } from 'lib/api/dchain';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tag } from '@luxfi/ui/tag';
+import { cn } from 'lib/utils/cn';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 // ── Constants ──
@@ -23,7 +22,8 @@ const TAB_IDS = {
 
 type TabId = typeof TAB_IDS[keyof typeof TAB_IDS];
 
-const ROW_BASE = 'flex items-center py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-gray-50 dark:hover:bg-white/5 transition-[background] duration-150 gap-4 flex-wrap lg:flex-nowrap';
+const ROW_BASE = 'flex items-center py-3 px-4 border-b border-[var(--color-border-divider)] ' +
+  'hover:bg-gray-50 dark:hover:bg-white/5 transition-[background] duration-150 gap-4 flex-wrap lg:flex-nowrap';
 const HEADER_BASE = 'hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]';
 const COL_HEADER = 'text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider';
 
@@ -39,7 +39,9 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
   <button
     className={ cn(
       'px-4 py-2 text-sm bg-transparent cursor-pointer transition-all duration-150 border-b-2 hover:text-[var(--color-text-primary)]',
-      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+      isActive ?
+        'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' :
+        'font-normal text-[var(--color-text-secondary)] border-transparent',
     ) }
     onClick={ onClick }
   >
@@ -119,7 +121,13 @@ const OrderRow = ({ order }: OrderRowProps) => {
         <span className="text-sm text-[var(--color-text-primary)]">{ order.symbol }</span>
       </div>
       <div className="min-w-[60px] shrink-0">
-        <Tag size="sm" variant="subtle" className={ isBuy ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }>
+        <Tag
+          size="sm"
+          variant="subtle"
+          className={ isBuy ?
+            'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }
+        >
           { order.side.toUpperCase() }
         </Tag>
       </div>
@@ -221,11 +229,25 @@ const LoadingSkeleton = () => (
   </div>
 );
 
+// ── Empty / error states ──
+// The DEX (D-Chain / DexVM) is not yet serving live market data on every
+// network. We render an honest message rather than fabricated rows.
+
+const EmptyRow = ({ message }: { readonly message: string }) => (
+  <div className="px-4 py-10 text-center text-sm text-[var(--color-text-secondary)]">
+    { message }
+  </div>
+);
+
 // ── Main component ──
 
 const DexPage = () => {
   const [ activeTab, setActiveTab ] = React.useState<TabId>(TAB_IDS.markets);
-  const { symbols, orders, trades, pools, overview, isLoading } = useDexData();
+  const { symbols, orders, trades, pools, overview, isLoading, isError } = useDexData();
+
+  const emptyMessage = isError ?
+    'DEX data is temporarily unavailable.' :
+    'No market data yet — the D-Chain DEX is not reporting activity.';
 
   const handleMarketsClick = React.useCallback(() => setActiveTab(TAB_IDS.markets), []);
   const handleOrderbookClick = React.useCallback(() => setActiveTab(TAB_IDS.orderbook), []);
@@ -272,6 +294,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Trades</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && symbols.length === 0 && <EmptyRow message={ emptyMessage }/> }
           { !isLoading && symbols.map((stat) => (
             <SymbolRow key={ stat.symbol } stat={ stat }/>
           )) }
@@ -292,6 +315,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Status</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && orders.length === 0 && <EmptyRow message={ emptyMessage }/> }
           { !isLoading && orders.map((order) => (
             <OrderRow key={ order.id } order={ order }/>
           )) }
@@ -311,6 +335,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Time</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && trades.length === 0 && <EmptyRow message={ emptyMessage }/> }
           { !isLoading && trades.map((trade) => (
             <TradeRow key={ trade.id } trade={ trade }/>
           )) }
@@ -329,6 +354,7 @@ const DexPage = () => {
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Fee</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
+          { !isLoading && pools.length === 0 && <EmptyRow message={ emptyMessage }/> }
           { !isLoading && pools.map((pool) => (
             <PoolRow key={ pool.id } pool={ pool }/>
           )) }
