@@ -1,7 +1,7 @@
-import type { Channel } from 'phoenix';
 import { useEffect, useRef, useState } from 'react';
 
 import { useSocket } from './context';
+import type { Channel } from './sse';
 
 interface Params {
   topic: string | undefined;

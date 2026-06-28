@@ -166,6 +166,38 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### Realtime transport: Phoenix WebSocket → SSE (v1.0.13)
+- **Bug:** the FE connected realtime via Phoenix Channels
+  (`wss://api-explore.lux.network/socket/v2/websocket`), but the Go backend
+  (`luxfi/explorer`) serves **no** Phoenix endpoint — its realtime is **SSE**
+  at `/v1/base/realtime` (multiplexed, envelope `{event, chain, data}`, initial
+  `event: CONNECT`, `: ping` keep-alive). Result: repeating `ws 404` →
+  "Live updates temporarily delayed". This is a frontend-only transport
+  mismatch; the chain/indexer are untouched.
+- **Fix:** `lib/socket/sse.ts` reimplements the slice of the Phoenix
+  `Socket`/`Channel` API the 27 realtime consumers use, backed by ONE
+  `EventSource`. The seam is unchanged — `SocketProvider` / `useSocketChannel`
+  / `useSocketMessage` and every consumer keep working; only the transport
+  underneath swapped. No more `phoenix` import in app code.
+- **Routing:** envelope `{event, chain, data, topic?}`. With `topic` →
+  delivered straight to that channel/event (scoped `addresses:*`/`tokens:*`,
+  and the component-test harness). Without → the `TRANSLATIONS` table maps the
+  backend hub channel to a Blockscout `(topic, event)`; today the indexer
+  broadcasts only `blocks` → `blocks:new_block` / `new_block`. `join()` resolves
+  `ok` on stream open; EventSource auto-reconnects. URL normaliser collapses any
+  `wss://…/socket*` (or test `ws://host:port`) to `<https>/v1/base/realtime`.
+- **Tests:** `lib/socket/sse.spec.ts` (12 vitest cases, all green) covers URL
+  normalisation, blocks→new_block translation, direct-topic routing, join `ok`,
+  on/off, onError, disconnect. CT harness `playwright/fixtures/socketServer.ts`
+  is now a tiny SSE server (same `createSocket`/`joinChannel`/`sendMessage`
+  signatures) so the 12 consumer specs are unchanged.
+- **Still owner-gated (separate, NOT this fix):** data freshness on
+  explore.lux.network is blocked on the C-Chain rollback + indexer reorg
+  handling — no fresh blocks flow until that lands. When it does, align the
+  EVMBlock→Blockscout `Block` field shapes in the `blocks` translation (or have
+  the backend emit Blockscout-shaped blocks); that is the only remaining piece
+  and it can only be verified end-to-end once data flows again.
+
 ### Investor-grade data: real validators + honest-empty stats/DEX (v1.0.11)
 Removed every fabricated placeholder; data is now real-from-chain or honestly
 empty, never faked. Root causes + fixes:
