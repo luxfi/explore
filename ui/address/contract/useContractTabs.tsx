@@ -1,4 +1,3 @@
-import type { Channel } from 'phoenix';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -6,6 +5,7 @@ import type { ClusterChainConfig } from 'types/multichain';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
+import type { Channel } from 'lib/socket/sse';
 import * as stubs from 'stubs/contract';
 import { ContentLoader } from 'toolkit/components/loaders/ContentLoader';
 import ContractDetails from 'ui/address/contract/ContractDetails';

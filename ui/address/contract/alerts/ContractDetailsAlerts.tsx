@@ -1,4 +1,4 @@
-import type { Channel } from 'phoenix';
+import { Alert } from '@luxfi/ui/alert';
 import React from 'react';
 
 import type { SocketMessage } from 'lib/socket/types';
@@ -7,8 +7,8 @@ import type { SmartContract } from 'types/api/contract';
 
 import { route } from 'nextjs-routes';
 
+import type { Channel } from 'lib/socket/sse';
 import useSocketMessage from 'lib/socket/useSocketMessage';
-import { Alert } from '@luxfi/ui/alert';
 import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 
