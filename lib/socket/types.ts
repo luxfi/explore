@@ -1,5 +1,3 @@
-import type { Channel } from 'phoenix';
-
 import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type * as zetaChainCCTXType from '@luxfi/zetachain-cctx-types';
 import type { AddressCoinBalanceHistoryItem, AddressTokensBalancesSocketMessage } from 'types/api/address';
@@ -11,6 +9,8 @@ import type { TokenInstanceMetadataSocketMessage } from 'types/api/token';
 import type { TokenTransfer } from 'types/api/tokenTransfer';
 import type { Transaction } from 'types/api/transaction';
 import type { NewZkEvmBatchSocketResponse } from 'types/api/zkEvmL2';
+
+import type { Channel } from './sse';
 
 export type SocketMessageParams = SocketMessage.NewBlock |
 SocketMessage.NewBlockMultichain |
