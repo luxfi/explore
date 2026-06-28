@@ -166,6 +166,46 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### Chain-visibility + 10-VM/DEX handling (v1.0.14)
+Two orthogonal correctness fixes shipped in one build cycle.
+
+- **Chain-visibility rule (PR #7):** `isPrimaryNetworkExplorer()` now requires
+  `!isWhiteLabelMode() && vm === 'EVM'`, so unregistered/brand hosts stop
+  rendering the Lux primary panels + cross-L1 list. Registered
+  `explore.zoo.network`/`.ngo` + `explore.pars.network` as own-scoped L2s
+  (brand parity with Hanzo), added **Osage** L1, and fixed Pars chainId →
+  **7070**. Rule: **lux explorer = ALL chains; hanzo/zoo/pars = ONLY their own.**
+  Proven by `configs/app/chainRegistry.spec.ts` (12 cases).
+- **10-VM / DEX handling:** the Lux primary network is a family of VM-specialized
+  chains (C=EVM, X=UTXO, D=DEX, P=platform, + A/B/Q/T/Z/G/K/O/R/I/M), mirrored
+  from `~/work/lux/node/node/vms.go`. New single source of truth
+  `configs/app/primaryChains.ts` (`PRIMARY_VMS`, `getPrimaryVm`, `view`,
+  `hasBespokeView`, `chainsAwaitingBespokeView`) **decomplects** the two lists
+  that used to duplicate this (ChainsPage / ChainDetailPage now consume it).
+  Each VM routes at `/chains/<slug>`; `view` selects the render:
+  - **D-Chain → the DEX order-book UI** (`ui/dex/DexPage`, wired to the indexer
+    `./dex` adapter via `lib/api/dchain`) — `ChainDetailPage` renders `<DexPage/>`
+    for `view: 'dex'`, not a generic block list.
+  - **C-Chain** = the EVM explorer core; **P-Chain** = platform/validators data;
+    **X-Chain** + the custom VMs (A/B/Q/T/Z/G/K/O/R/I/M) render the generic
+    chain-detail fallback (info + indexer DAG stats + validators) — they do NOT
+    crash/blank. `chainsAwaitingBespokeView()` FLAGS the backlog: **X-Chain
+    (UTXO) and the 11 custom VMs still need a bespoke explorer view**; only
+    C/P/D have one today.
+- **VMs are Lux-primary → lux-only:** the primary-VM surfaces (Chains / DEX /
+  Bridge / AI Compute nav + the `/chains`, `/chains/[slug]`, `/dex` pages) are
+  gated on `isPrimaryNetworkExplorer()`. Nav hides them on brand/white-label
+  hosts; `ui/shared/PrimaryNetworkGuard` backstops direct-URL access so the 10
+  VMs can never leak onto Hanzo/Zoo/Pars. Proven by
+  `configs/app/primaryChains.spec.ts` (26 cases).
+- **Build/deploy:** single multi-destination kaniko Job (NO GHA), context
+  `git://github.com/luxfi/explore.git#main`, Dockerfile (base Next.js build),
+  fan-out `--destination=ghcr.io/{luxfi,zooai,hanzoai,parsdao}/explore:v1.0.14`
+  (parsdao ADDED — it had no v1.0.1x image). White-label is 100% runtime via the
+  `explore-env-{brand}` configmaps (APP_HOST), not baked per-brand. Deploy = bump
+  all four `explore-fe-*` images to v1.0.14 in
+  `luxfi/universe k8s/lux-mainnet/explore-fe.yaml`, operator reconcile.
+
 ### Realtime transport: Phoenix WebSocket → SSE (v1.0.13)
 - **Bug:** the FE connected realtime via Phoenix Channels
   (`wss://api-explore.lux.network/socket/v2/websocket`), but the Go backend
