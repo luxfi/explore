@@ -10,6 +10,7 @@ import { useDexData } from 'lib/api/dchain';
 import type { DexOrder, DexTrade, DexPool, DexSymbolStats } from 'lib/api/dchain';
 import { cn } from 'lib/utils/cn';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import PrimaryNetworkGuard from 'ui/shared/PrimaryNetworkGuard';
 
 // ── Constants ──
 
@@ -255,7 +256,7 @@ const DexPage = () => {
   const handlePoolsClick = React.useCallback(() => setActiveTab(TAB_IDS.pools), []);
 
   return (
-    <>
+    <PrimaryNetworkGuard title="DEX">
       <PageTitle
         title="DEX"
         secondRow={ (
@@ -360,7 +361,7 @@ const DexPage = () => {
           )) }
         </div>
       ) }
-    </>
+    </PrimaryNetworkGuard>
   );
 };
 
