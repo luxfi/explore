@@ -4,6 +4,7 @@ import React from 'react';
 import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/navigation';
 
 import config from 'configs/app';
+import { isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 import { getEnvValue } from 'configs/app/utils';
 import { layerLabels } from 'lib/rollups/utils';
 import { rightLineArrow } from 'toolkit/utils/htmlEntities';
@@ -99,30 +100,36 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/validator',
       isActive: pathname === '/validators' || pathname === '/validators/[id]',
     };
-    const chains: NavItem = {
+    // Chains / DEX / Bridge / AI Compute are Lux PRIMARY-network VM surfaces
+    // (the C/X/D/A/B… VM family). They belong to the Lux primary network only,
+    // so they are hidden on brand explorers (Hanzo / Zoo / Pars / SPC / Osage)
+    // and on white-label hosts — enforcing the chain-visibility rule. Pages
+    // self-guard too (PrimaryNetworkGuard) so a direct URL can't leak them.
+    const isPrimaryNetwork = isPrimaryNetworkExplorer();
+    const chains: NavItem | null = isPrimaryNetwork ? {
       text: 'Chains',
       nextRoute: { pathname: '/chains' as const },
       icon: 'navigation/blockchain',
       isActive: pathname === '/chains',
-    };
-    const dex: NavItem = {
+    } : null;
+    const dex: NavItem | null = isPrimaryNetwork ? {
       text: 'DEX',
       nextRoute: { pathname: '/dex' as const },
       icon: 'navigation/dex_tracker',
       isActive: pathname === '/dex',
-    };
-    const aiCompute: NavItem = {
+    } : null;
+    const aiCompute: NavItem | null = isPrimaryNetwork ? {
       text: 'AI Compute',
       nextRoute: { pathname: '/ai' as const },
       icon: 'navigation/blockchain',
       isActive: pathname === '/ai',
-    };
-    const bridge: NavItem = {
+    } : null;
+    const bridge: NavItem | null = isPrimaryNetwork ? {
       text: 'Bridge',
       nextRoute: { pathname: '/bridge' as const },
       icon: 'navigation/cross_chain_txs',
       isActive: pathname === '/bridge',
-    };
+    } : null;
     const rollupDeposits = {
       text: `Deposits (${ layerLabels.parent }${ rightLineArrow }${ layerLabels.current })`,
       nextRoute: { pathname: '/deposits' as const },
