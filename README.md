@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="explore" width="880"></p>
+
 # DEPRECATED — see `~/work/lux/explorer/`
 
 > The standalone Next.js frontend in this repo is no longer deployed.
