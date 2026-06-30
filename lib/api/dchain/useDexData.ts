@@ -8,7 +8,7 @@ import shortenString from 'lib/shortenString';
 
 // One root field per request — the subgraph engine processes a single root
 // field per query, so markets and fills are fetched separately.
-const MARKETS_QUERY = '{ markets { id baseToken quoteToken feeTier volume24h tradeCount lastPrice lastUpdate } }';
+const MARKETS_QUERY = '{ markets { id symbol baseToken quoteToken feeTier volume24h tradeCount lastPrice lastUpdate } }';
 const FILLS_QUERY = '{ fills(first:25) { id market taker amountOut timestamp txHash } }';
 
 const DEX_GRAPHQL_PATH = '/v1/graph/cchain/dex/graphql';
@@ -80,7 +80,12 @@ export function buildMarketViews(
 ): ReadonlyArray<DexMarketView> {
   return markets.map((m) => ({
     ...m,
-    pair: `${ tokenLabel(m.baseToken, symbols) }/${ tokenLabel(m.quoteToken, symbols) }`,
+    // Prefer the subgraph's bound BASE/QUOTE symbol (the indexer derives it from
+    // both currencies' ERC-20 symbols — one pair, one source of truth). Fall back
+    // to live token-metadata resolution, then to short addresses.
+    pair: m.symbol && m.symbol.includes('/') ?
+      m.symbol :
+      `${ tokenLabel(m.baseToken, symbols) }/${ tokenLabel(m.quoteToken, symbols) }`,
   }));
 }
 

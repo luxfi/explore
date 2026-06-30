@@ -5,6 +5,9 @@
 
 export interface DexMarket {
   readonly id: string;
+  // BASE/QUOTE pair the indexer bound from the two currencies' ERC-20 symbols
+  // (empty/poolId-hex when a token has no clean symbol). Authoritative when set.
+  readonly symbol?: string;
   readonly baseToken: string;
   readonly quoteToken: string;
   readonly feeTier: number;
