@@ -1,55 +1,39 @@
-// D-Chain (DEX Chain) API response types for the Lux DexVM indexer.
+// C-Chain native DEX (0x9999 V4 PoolManager) subgraph types.
+// Source: the explorer's embedded luxfi/graph "dex" (CLOB) subgraph, served at
+// `${config.apis.general.endpoint}/v1/graph/cchain/dex/graphql`. Markets are
+// emitted by the on-chain Initialize event and fills by the DEXFill event.
 
-export interface DexOrder {
+export interface DexMarket {
   readonly id: string;
-  readonly symbol: string;
-  readonly side: 'buy' | 'sell';
-  readonly price: string;
-  readonly quantity: string;
-  readonly filled: string;
-  readonly status: 'open' | 'filled' | 'cancelled' | 'partial';
-  readonly maker: string;
-  readonly timestamp: string;
-}
-
-export interface DexTrade {
-  readonly id: string;
-  readonly symbol: string;
-  readonly price: string;
-  readonly quantity: string;
-  readonly buyer: string;
-  readonly seller: string;
-  readonly fee: string;
-  readonly timestamp: string;
-  readonly blockHeight: number;
-}
-
-export interface DexPool {
-  readonly id: string;
-  readonly tokenA: string;
-  readonly tokenB: string;
-  readonly reserveA: string;
-  readonly reserveB: string;
-  readonly tvl: string;
+  // BASE/QUOTE pair the indexer bound from the two currencies' ERC-20 symbols
+  // (empty/poolId-hex when a token has no clean symbol). Authoritative when set.
+  readonly symbol?: string;
+  readonly baseToken: string;
+  readonly quoteToken: string;
+  readonly feeTier: number;
   readonly volume24h: string;
-  readonly fee: string;
-}
-
-export interface DexSymbolStats {
-  readonly symbol: string;
+  readonly tradeCount: number;
   readonly lastPrice: string;
-  readonly change24h: number;
-  readonly volume24h: string;
-  readonly high24h: string;
-  readonly low24h: string;
-  readonly trades24h: number;
+  readonly lastUpdate: number;
 }
 
-// Aggregated DEX statistics
+export interface DexFill {
+  readonly id: string;
+  readonly market: string;
+  readonly taker: string;
+  readonly amountOut: string;
+  readonly timestamp: number;
+  readonly txHash: string;
+}
 
-export interface DexOverviewStats {
-  readonly totalPairs: number;
+// A market with its base/quote token symbols resolved to a human pair label.
+export interface DexMarketView extends DexMarket {
+  readonly pair: string;
+}
+
+// Aggregated headline stats derived from the live market set.
+export interface DexOverview {
+  readonly totalMarkets: number;
   readonly volume24h: string;
-  readonly activeOrders: number;
-  readonly tradesToday: number;
+  readonly totalTrades: number;
 }
