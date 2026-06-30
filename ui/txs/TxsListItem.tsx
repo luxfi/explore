@@ -1,3 +1,4 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import type { NovesDescribeTxsResponse } from 'types/api/noves';
@@ -5,7 +6,6 @@ import type { Transaction } from 'types/api/transaction';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import config from 'configs/app';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import AddressFromTo from 'ui/shared/address/AddressFromTo';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -39,7 +39,6 @@ const TxsListItem = ({
   showBlockInfo,
   currentAddress,
   enableTimeIncrement,
-  animation,
   chainData,
   translationIsLoading,
   translationData,
@@ -73,7 +72,7 @@ const TxsListItem = ({
           hash={ tx.hash }
           truncation="constant_long"
           className="font-bold"
-          icon={ !tx.is_pending_update && tx.transaction_types.includes('blob_transaction') ? { name: 'blob' } : undefined }
+          icon={ !tx.is_pending_update && tx.transaction_types?.includes('blob_transaction') ? { name: 'blob' } : undefined }
           chain={ chainData }
           isPendingUpdate={ tx.is_pending_update }
         />
@@ -81,7 +80,7 @@ const TxsListItem = ({
           timestamp={ tx.timestamp }
           enableIncrement={ enableTimeIncrement }
           isLoading={ isLoading }
-         
+
         />
       </div>
       { tx.method && (
