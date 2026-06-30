@@ -1,10 +1,13 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
+import config from 'configs/app';
 import type { PChainDelegator, PChainValidator } from 'lib/api/pchain';
 import dayjs from 'lib/date/dayjs';
-import { Skeleton } from '@luxfi/ui/skeleton';
 
 import { formatStake, truncateNodeId } from './utils';
+
+const CURRENCY = config.chain.currency.symbol || 'LUX';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -69,7 +72,7 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
 
   return (
     <div
-      className="overflow-hidden"
+      className="overflow-hidden text-[var(--color-text-primary)]"
     >
       { /* Header */ }
       <div className="flex">
@@ -125,7 +128,7 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
             { truncateNodeId(d.validatorNodeID) }
           </div>
           <div className="text-left lg:text-right">
-            { formatStake(d.stakeAmount) } LUX
+            { formatStake(d.stakeAmount) } { CURRENCY }
           </div>
           <div>
             { formatTimestamp(d.startTime) }
@@ -134,7 +137,7 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
             { formatTimestamp(d.endTime) }
           </div>
           <div className="text-left lg:text-right">
-            { formatStake(d.potentialReward) } LUX
+            { formatStake(d.potentialReward) } { CURRENCY }
           </div>
         </div>
       )) }

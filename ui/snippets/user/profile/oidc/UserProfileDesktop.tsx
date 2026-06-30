@@ -1,17 +1,19 @@
 // OIDC user profile desktop component.
-// Login redirects to lux.id; popover shows account, wallet, settings, and logout.
+// Login redirects to the configured OIDC server (NEXT_PUBLIC_OIDC_SERVER_URL,
+// e.g. https://hanzo.id for the Hanzo build); popover shows account, wallet,
+// settings, and logout.
 
+import type { ButtonProps } from '@luxfi/ui/button';
+import { Button } from '@luxfi/ui/button';
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import config from 'configs/app';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
-import type { ButtonProps } from '@luxfi/ui/button';
-import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/next/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
-import { Separator } from '@luxfi/ui/separator';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
+import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 import useLogout from 'ui/snippets/auth/useLogout';
@@ -24,6 +26,22 @@ import SettingsScamTokens from 'ui/snippets/topBar/settings/SettingsScamTokens';
 
 const REDIRECT_URI_PATH = '/auth/callback';
 const isWalletEnabled = config.features.blockchainInteraction.isEnabled;
+
+// The identity provider's brand is the host of the configured OIDC server
+// (e.g. "hanzo.id" for the Hanzo build, "lux.id" for Lux). Derive the
+// sign-in label from it so the button is brand-correct on every surface
+// instead of hard-coding a single brand.
+function oidcProviderName(): string {
+  const feature = config.features.account;
+  if (!feature.isEnabled || feature.authProvider !== 'oidc' || !feature.oidc) {
+    return 'ID';
+  }
+  try {
+    return new URL(feature.oidc.serverUrl).host;
+  } catch {
+    return 'ID';
+  }
+}
 
 function buildOidcLoginUrl(): string {
   const feature = config.features.account;
@@ -167,7 +185,7 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                 onClick={ handleLoginClick }
                 variant="solid"
               >
-                Sign in with Lux ID
+                Sign in with { oidcProviderName() }
               </Button>
               <Separator className="my-3"/>
             </>

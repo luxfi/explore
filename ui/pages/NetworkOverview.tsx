@@ -1,6 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
+import { isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
@@ -242,14 +243,20 @@ const NetworkOverview = () => {
   // Hide validator metrics when API returned an error (show dashes instead of 0)
   const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
+  // Primary-network panels (validator metrics strip + the 15 primary-network
+  // chains + the cross-L1 list) belong ONLY on the Lux primary-network explorer.
+  // Brand explorers (Hanzo / Zoo / SPC / Pars, vm: 'L2') show ONLY their own
+  // chain — Hero + Stats + Latest blocks/txns — never the parent's chains.
+  const isPrimary = isPrimaryNetworkExplorer();
+
   return (
     <HomeRpcDataContextProvider>
       <div className="flex flex-col gap-6 lg:gap-8">
         { /* ── Hero ── */ }
         <HeroBanner/>
 
-        { /* ── Metrics strip ── */ }
-        <div className={ cn(
+        { /* ── Metrics strip (Lux primary network only) ── */ }
+        { isPrimary && <div className={ cn(
           'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
           'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
           'bg-[var(--color-stats-bg)]',
@@ -285,7 +292,7 @@ const NetworkOverview = () => {
             value={ hasValidatorData ? `${ stats.connectedCount }/${ stats.validatorCount }` : '\u2014' }
             isLoading={ validatorsLoading }
           />
-        </div>
+        </div> }
 
         { /* ── Stats widgets ── */ }
         <Stats/>
@@ -300,8 +307,8 @@ const NetworkOverview = () => {
           <Transactions/>
         </div>
 
-        { /* ── Chain Health ── */ }
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        { /* ── Chain Health (Lux primary network only) ── */ }
+        { isPrimary && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           { /* Primary Network chains */ }
           <SectionCard
             title="Primary Network"
@@ -414,7 +421,7 @@ const NetworkOverview = () => {
               </>
             ) }
           </SectionCard>
-        </div>
+        </div> }
       </div>
     </HomeRpcDataContextProvider>
   );

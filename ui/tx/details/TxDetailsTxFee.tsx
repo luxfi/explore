@@ -39,7 +39,7 @@ const TxDetailsTxFee = ({ isLoading, data }: Props) => {
     return (
       <>
         <NativeCoinValue
-          amount={ data.fee.value }
+          amount={ data.fee?.value }
           exchangeRate={ exchangeRate }
           historicalExchangeRate={ historicalExchangeRate }
           hasExchangeRateToggle
