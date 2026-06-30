@@ -1,13 +1,12 @@
-// D-Chain (DEX) API hooks and types.
+// C-Chain native DEX (0x9999) subgraph hooks and types.
 
 export { useDexData } from './useDexData';
 
 export type { UseDexDataResult } from './useDexData';
 
 export type {
-  DexOrder,
-  DexTrade,
-  DexPool,
-  DexSymbolStats,
-  DexOverviewStats,
+  DexMarket,
+  DexFill,
+  DexMarketView,
+  DexOverview,
 } from './types';

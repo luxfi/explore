@@ -1,139 +1,160 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-import type {
-  DexOrder,
-  DexTrade,
-  DexPool,
-  DexSymbolStats,
-  DexOverviewStats,
-} from './types';
+import type { DexMarket, DexFill, DexMarketView, DexOverview } from './types';
 
-import { getDChain } from 'lib/api/luxnet/chains';
+import config from 'configs/app';
+import shortenString from 'lib/shortenString';
 
+// One root field per request — the subgraph engine processes a single root
+// field per query, so markets and fills are fetched separately.
+const MARKETS_QUERY = '{ markets { id symbol baseToken quoteToken feeTier volume24h tradeCount lastPrice lastUpdate } }';
+const FILLS_QUERY = '{ fills(first:25) { id market taker amountOut timestamp txHash } }';
+
+const DEX_GRAPHQL_PATH = '/v1/graph/cchain/dex/graphql';
 const DEX_STALE_TIME_MS = 30_000;
-const DEX_QUERY_KEY = 'dchain:dexData' as const;
 
-export interface UseDexDataResult {
-  readonly symbols: ReadonlyArray<DexSymbolStats>;
-  readonly orders: ReadonlyArray<DexOrder>;
-  readonly trades: ReadonlyArray<DexTrade>;
-  readonly pools: ReadonlyArray<DexPool>;
-  readonly overview: DexOverviewStats;
-  readonly isLoading: boolean;
-  readonly isError: boolean;
-  readonly error: Error | null;
+const EMPTY_MARKETS: ReadonlyArray<DexMarketView> = [];
+const EMPTY_FILLS: ReadonlyArray<DexFill> = [];
+
+// The DEX subgraph lives on the same API host the rest of the SPA already
+// talks to (NEXT_PUBLIC_API_HOST → config.apis.general.endpoint), so the
+// network is selected exactly like every other resource — by deployment.
+function getApiBase(): string | undefined {
+  return config.apis.general?.endpoint;
 }
 
-interface DexDataPayload {
-  readonly symbols: ReadonlyArray<DexSymbolStats>;
-  readonly orders: ReadonlyArray<DexOrder>;
-  readonly trades: ReadonlyArray<DexTrade>;
-  readonly pools: ReadonlyArray<DexPool>;
-  readonly overview: DexOverviewStats;
-}
-
-const EMPTY_SYMBOLS: ReadonlyArray<DexSymbolStats> = [];
-const EMPTY_ORDERS: ReadonlyArray<DexOrder> = [];
-const EMPTY_TRADES: ReadonlyArray<DexTrade> = [];
-const EMPTY_POOLS: ReadonlyArray<DexPool> = [];
-const EMPTY_OVERVIEW: DexOverviewStats = {
-  totalPairs: 0,
-  volume24h: '0',
-  activeOrders: 0,
-  tradesToday: 0,
-};
-
-const EMPTY_PAYLOAD: DexDataPayload = {
-  symbols: EMPTY_SYMBOLS,
-  orders: EMPTY_ORDERS,
-  trades: EMPTY_TRADES,
-  pools: EMPTY_POOLS,
-  overview: EMPTY_OVERVIEW,
-};
-
-// Read DEX state directly from the D-Chain (DexVM) over the luxnet SDK. When the
-// D-Chain is not yet serving market data we return an honest-empty payload — the
-// UI must never present fabricated markets/orders/trades/pools to users.
-async function fetchDexData(): Promise<DexDataPayload> {
-  const dchain = getDChain();
-  const stats = await dchain.getStats();
-
-  if (!stats || (stats.trades24h ?? 0) <= 0) {
-    return EMPTY_PAYLOAD;
+async function fetchGraphql<T>(query: string): Promise<T | null> {
+  const base = getApiBase();
+  if (!base) {
+    return null;
   }
 
-  const [ pools, markets ] = await Promise.all([
-    dchain.getPools(),
-    dchain.getMarkets(),
-  ]);
+  let res: Response;
+  try {
+    res = await fetch(base + DEX_GRAPHQL_PATH, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+    });
+  } catch {
+    return null;
+  }
 
+  // A net without the subgraph mounted answers 404 — that is an empty DEX,
+  // not an error, so we surface it as "no data" and render the empty state.
+  if (!res.ok) {
+    return null;
+  }
+
+  const json = await res.json().catch(() => null) as { data?: T } | null;
+  return json?.data ?? null;
+}
+
+async function fetchTokenSymbol(address: string): Promise<string | null> {
+  const base = getApiBase();
+  if (!base) {
+    return null;
+  }
+
+  try {
+    const res = await fetch(`${ base }/tokens/${ address }`);
+    if (!res.ok) {
+      return null;
+    }
+    const json = await res.json().catch(() => null) as { symbol?: string | null } | null;
+    return json?.symbol || null;
+  } catch {
+    return null;
+  }
+}
+
+function tokenLabel(address: string, symbols: ReadonlyMap<string, string>): string {
+  return symbols.get(address.toLowerCase()) || shortenString(address, 10);
+}
+
+// Pure: attach a human pair label to each market from a resolved symbol map.
+export function buildMarketViews(
+  markets: ReadonlyArray<DexMarket>,
+  symbols: ReadonlyMap<string, string>,
+): ReadonlyArray<DexMarketView> {
+  return markets.map((m) => ({
+    ...m,
+    // Prefer the subgraph's bound BASE/QUOTE symbol (the indexer derives it from
+    // both currencies' ERC-20 symbols — one pair, one source of truth). Fall back
+    // to live token-metadata resolution, then to short addresses.
+    pair: m.symbol && m.symbol.includes('/') ?
+      m.symbol :
+      `${ tokenLabel(m.baseToken, symbols) }/${ tokenLabel(m.quoteToken, symbols) }`,
+  }));
+}
+
+// Pure: headline aggregates over the live market set.
+export function computeOverview(markets: ReadonlyArray<DexMarketView>): DexOverview {
   return {
-    // Markets/orders/trades are surfaced once the DexVM indexer exposes them;
-    // until then the SDK returns nothing and these stay empty rather than faked.
-    symbols: EMPTY_SYMBOLS,
-    orders: EMPTY_ORDERS,
-    trades: EMPTY_TRADES,
-    pools: pools.map((p, i) => ({
-      id: `pool-${ i }`,
-      tokenA: String(p.tokenA),
-      tokenB: String(p.tokenB),
-      reserveA: String(p.reserveA),
-      reserveB: String(p.reserveB),
-      tvl: String(p.totalLiquidity),
-      volume24h: '0',
-      fee: String(p.fee),
-    })),
-    overview: {
-      totalPairs: markets.length,
-      volume24h: stats.volume24h ?? '0',
-      activeOrders: 0,
-      tradesToday: stats.trades24h ?? 0,
-    },
+    totalMarkets: markets.length,
+    volume24h: markets.reduce((sum, m) => sum + safeBigInt(m.volume24h), BigInt(0)).toString(),
+    totalTrades: markets.reduce((sum, m) => sum + (m.tradeCount || 0), 0),
   };
+}
+
+async function fetchMarkets(): Promise<ReadonlyArray<DexMarketView>> {
+  const data = await fetchGraphql<{ markets: ReadonlyArray<DexMarket> | null }>(MARKETS_QUERY);
+  const markets = data?.markets ?? [];
+
+  // Resolve base/quote symbols via the existing token metadata endpoint,
+  // falling back to a shortened address when a token isn't indexed.
+  const addresses = Array.from(new Set(markets.flatMap((m) => [ m.baseToken, m.quoteToken ])));
+  const resolved = await Promise.all(addresses.map(async(addr) => [ addr.toLowerCase(), await fetchTokenSymbol(addr) ] as const));
+  const symbols = new Map(resolved.filter((entry): entry is readonly [string, string] => Boolean(entry[1])));
+
+  return buildMarketViews(markets, symbols);
+}
+
+async function fetchFills(): Promise<ReadonlyArray<DexFill>> {
+  const data = await fetchGraphql<{ fills: ReadonlyArray<DexFill> | null }>(FILLS_QUERY);
+  return data?.fills ?? [];
+}
+
+export interface UseDexDataResult {
+  readonly markets: ReadonlyArray<DexMarketView>;
+  readonly fills: ReadonlyArray<DexFill>;
+  readonly overview: DexOverview;
+  readonly isLoading: boolean;
+  readonly isError: boolean;
 }
 
 export function useDexData(): UseDexDataResult {
-  const query = useQuery({
-    queryKey: [ DEX_QUERY_KEY ],
-    queryFn: fetchDexData,
+  const marketsQuery = useQuery({
+    queryKey: [ 'dchain:markets', getApiBase() ],
+    queryFn: fetchMarkets,
     staleTime: DEX_STALE_TIME_MS,
-    retry: 1,
   });
 
-  const symbols = React.useMemo(
-    () => query.data?.symbols ?? EMPTY_SYMBOLS,
-    [ query.data?.symbols ],
-  );
+  const fillsQuery = useQuery({
+    queryKey: [ 'dchain:fills', getApiBase() ],
+    queryFn: fetchFills,
+    staleTime: DEX_STALE_TIME_MS,
+  });
 
-  const orders = React.useMemo(
-    () => query.data?.orders ?? EMPTY_ORDERS,
-    [ query.data?.orders ],
-  );
+  const markets = marketsQuery.data ?? EMPTY_MARKETS;
+  const fills = fillsQuery.data ?? EMPTY_FILLS;
 
-  const trades = React.useMemo(
-    () => query.data?.trades ?? EMPTY_TRADES,
-    [ query.data?.trades ],
-  );
-
-  const pools = React.useMemo(
-    () => query.data?.pools ?? EMPTY_POOLS,
-    [ query.data?.pools ],
-  );
-
-  const overview = React.useMemo(
-    () => query.data?.overview ?? EMPTY_OVERVIEW,
-    [ query.data?.overview ],
-  );
+  const overview = React.useMemo<DexOverview>(() => computeOverview(markets), [ markets ]);
 
   return {
-    symbols,
-    orders,
-    trades,
-    pools,
+    markets,
+    fills,
     overview,
-    isLoading: query.isLoading,
-    isError: query.isError,
-    error: query.error,
+    isLoading: marketsQuery.isLoading || fillsQuery.isLoading,
+    isError: marketsQuery.isError || fillsQuery.isError,
   };
+}
+
+function safeBigInt(value: string): bigint {
+  try {
+    return BigInt(value);
+  } catch {
+    return BigInt(0);
+  }
 }

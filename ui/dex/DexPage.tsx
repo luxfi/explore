@@ -1,24 +1,23 @@
-// DEX Chain (D-Chain) orderbook page for the Lux multi-chain explorer.
-// Displays market stats, orderbook, trade history, and liquidity pools
-// sourced from the DexVM indexer.
+// C-Chain native DEX (0x9999 V4 PoolManager) page for the Lux explorer.
+// Renders live markets and recent fills from the embedded dex (CLOB) subgraph.
+// All data is real and network-aware — there is no mock/demo path.
 
 import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tag } from '@luxfi/ui/tag';
 import React from 'react';
 
+import { route } from 'nextjs/routes';
+
+import type { DexFill, DexMarketView } from 'lib/api/dchain';
 import { useDexData } from 'lib/api/dchain';
-import type { DexOrder, DexTrade, DexPool, DexSymbolStats } from 'lib/api/dchain';
+import shortenString from 'lib/shortenString';
 import { cn } from 'lib/utils/cn';
 import PageTitle from 'ui/shared/Page/PageTitle';
-import PrimaryNetworkGuard from 'ui/shared/PrimaryNetworkGuard';
 
 // ── Constants ──
 
 const TAB_IDS = {
   markets: 'markets',
-  orderbook: 'orderbook',
   trades: 'trades',
-  pools: 'pools',
 } as const;
 
 type TabId = typeof TAB_IDS[keyof typeof TAB_IDS];
@@ -27,8 +26,38 @@ const ROW_BASE = 'flex items-center py-3 px-4 border-b border-[var(--color-borde
   'hover:bg-gray-50 dark:hover:bg-white/5 transition-[background] duration-150 gap-4 flex-wrap lg:flex-nowrap';
 const HEADER_BASE = 'hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]';
 const COL_HEADER = 'text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider';
+const LINK_CLASS = 'text-sm font-mono text-[var(--color-link-primary)] hover:text-[var(--color-link-primary-hover)] hover:underline';
+
+// ── Helpers ──
+
+function groupDigits(value: string): string {
+  return /^\d+$/.test(value) ? value.replace(/\B(?=(?:\d{3})+(?!\d))/g, ',') : value;
+}
+
+function formatFeeTier(feeTier: number): string {
+  return `${ (feeTier / 10_000).toFixed(2) }%`;
+}
 
 // ── Sub-components ──
+
+interface StatCardProps {
+  readonly label: string;
+  readonly value: string;
+  readonly isLoading: boolean;
+}
+
+const StatCard = ({ label, value, isLoading }: StatCardProps) => (
+  <div className="border border-[var(--color-border-divider)] rounded-lg p-5 bg-gray-50 dark:bg-white/5">
+    <div className="text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
+      { label }
+    </div>
+    <Skeleton loading={ isLoading }>
+      <div className="text-2xl font-bold text-[var(--color-text-primary)]">
+        { value }
+      </div>
+    </Skeleton>
+  </div>
+);
 
 interface TabButtonProps {
   readonly label: string;
@@ -50,176 +79,51 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
   </button>
 );
 
-interface StatCardProps {
-  readonly label: string;
-  readonly value: string;
-  readonly isLoading: boolean;
-}
-
-const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <div className="border border-[var(--color-border-divider)] rounded-lg p-5 bg-gray-50 dark:bg-white/5">
-    <div className="text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
-      { label }
-    </div>
-    <Skeleton loading={ isLoading }>
-      <div className="text-2xl font-bold text-[var(--color-text-primary)]">
-        { value }
-      </div>
-    </Skeleton>
-  </div>
-);
-
-// ── Symbol row ──
-
-interface SymbolRowProps {
-  readonly stat: DexSymbolStats;
-}
-
-const SymbolRow = ({ stat }: SymbolRowProps) => {
-  const isPositive = stat.change24h >= 0;
-
-  return (
-    <div className={ ROW_BASE }>
-      <div className="min-w-[120px] shrink-0">
-        <span className="font-semibold text-sm text-[var(--color-text-primary)]">{ stat.symbol }</span>
-      </div>
-      <div className="min-w-[100px] shrink-0 text-right">
-        <span className="text-sm font-mono text-[var(--color-text-primary)]">{ stat.lastPrice }</span>
-      </div>
-      <div className="min-w-[80px] shrink-0 text-right">
-        <span className={ `text-sm font-medium ${ isPositive ? 'text-green-400' : 'text-red-400' }` }>
-          { isPositive ? '+' : '' }{ stat.change24h.toFixed(2) }%
-        </span>
-      </div>
-      <div className="min-w-[100px] shrink-0 text-right">
-        <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ stat.high24h }</span>
-      </div>
-      <div className="min-w-[100px] shrink-0 text-right">
-        <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ stat.low24h }</span>
-      </div>
-      <div className="min-w-[120px] shrink-0 text-right">
-        <span className="text-sm font-mono text-[var(--color-text-secondary)]">${ stat.volume24h }</span>
-      </div>
-      <div className="shrink-0 text-right ml-0 lg:ml-auto">
-        <span className="text-sm text-[var(--color-text-secondary)]">{ stat.trades24h }</span>
-      </div>
-    </div>
-  );
-};
-
-// ── Order row ──
-
-interface OrderRowProps {
-  readonly order: DexOrder;
-}
-
-const OrderRow = ({ order }: OrderRowProps) => {
-  const isBuy = order.side === 'buy';
-
-  return (
-    <div className={ ROW_BASE }>
-      <div className="min-w-[100px] shrink-0">
-        <span className="text-sm text-[var(--color-text-primary)]">{ order.symbol }</span>
-      </div>
-      <div className="min-w-[60px] shrink-0">
-        <Tag
-          size="sm"
-          variant="subtle"
-          className={ isBuy ?
-            'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' }
-        >
-          { order.side.toUpperCase() }
-        </Tag>
-      </div>
-      <div className="min-w-[100px] shrink-0 text-right">
-        <span className={ `text-sm font-mono ${ isBuy ? 'text-green-400' : 'text-red-400' }` }>{ order.price }</span>
-      </div>
-      <div className="min-w-[100px] shrink-0 text-right">
-        <span className="text-sm font-mono text-[var(--color-text-primary)]">{ order.quantity }</span>
-      </div>
-      <div className="min-w-[120px] shrink-0 text-right">
-        <span className="text-sm font-mono text-[var(--color-text-secondary)]">
-          { (parseFloat(order.price) * parseFloat(order.quantity)).toFixed(2) }
-        </span>
-      </div>
-      <div className="min-w-[100px] shrink-0">
-        <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ order.maker }</span>
-      </div>
-      <div className="min-w-[80px] shrink-0">
-        <span className="text-sm text-[var(--color-text-secondary)]">{ formatTime(order.timestamp) }</span>
-      </div>
-      <div className="shrink-0 ml-0 lg:ml-auto">
-        <Tag size="sm" variant="subtle" className={ getStatusClassName(order.status) }>
-          { order.status }
-        </Tag>
-      </div>
-    </div>
-  );
-};
-
-// ── Trade row ──
-
-interface TradeRowProps {
-  readonly trade: DexTrade;
-}
-
-const TradeRow = ({ trade }: TradeRowProps) => (
+const MarketRow = ({ market }: { readonly market: DexMarketView }) => (
   <div className={ ROW_BASE }>
-    <div className="min-w-[100px] shrink-0">
-      <span className="font-medium text-sm text-[var(--color-text-primary)]">{ trade.symbol }</span>
+    <div className="min-w-[160px] shrink-0">
+      <span className="font-semibold text-sm text-[var(--color-text-primary)]">{ market.pair }</span>
+    </div>
+    <div className="min-w-[80px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ formatFeeTier(market.feeTier) }</span>
     </div>
     <div className="min-w-[100px] shrink-0 text-right">
-      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ trade.price }</span>
+      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ market.lastPrice }</span>
     </div>
-    <div className="min-w-[100px] shrink-0 text-right">
-      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ trade.quantity }</span>
-    </div>
-    <div className="min-w-[100px] shrink-0">
-      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ trade.buyer }</span>
-    </div>
-    <div className="min-w-[100px] shrink-0">
-      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ trade.seller }</span>
-    </div>
-    <div className="min-w-[60px] shrink-0 text-right">
-      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ trade.fee }</span>
+    <div className="min-w-[140px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-secondary)]">{ groupDigits(market.volume24h) }</span>
     </div>
     <div className="shrink-0 text-right ml-0 lg:ml-auto">
-      <span className="text-sm text-[var(--color-text-secondary)]">{ formatTime(trade.timestamp) }</span>
+      <span className="text-sm text-[var(--color-text-secondary)]">{ market.tradeCount }</span>
     </div>
   </div>
 );
 
-// ── Pool row ──
-
-interface PoolRowProps {
-  readonly pool: DexPool;
-}
-
-const PoolRow = ({ pool }: PoolRowProps) => (
+const FillRow = ({ fill, pair }: { readonly fill: DexFill; readonly pair: string }) => (
   <div className={ ROW_BASE }>
-    <div className="min-w-[120px] shrink-0">
-      <span className="font-semibold text-sm text-[var(--color-text-primary)]">{ pool.tokenA }/{ pool.tokenB }</span>
+    <div className="min-w-[160px] shrink-0">
+      <span className="font-medium text-sm text-[var(--color-text-primary)]">{ pair }</span>
     </div>
-    <div className="min-w-[120px] shrink-0 text-right">
-      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ pool.reserveA }</span>
+    <div className="min-w-[140px] shrink-0">
+      <a href={ route({ pathname: '/address/[hash]', query: { hash: fill.taker } }) } className={ LINK_CLASS }>
+        { shortenString(fill.taker, 10) }
+      </a>
     </div>
-    <div className="min-w-[120px] shrink-0 text-right">
-      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ pool.reserveB }</span>
+    <div className="min-w-[140px] shrink-0 text-right">
+      <span className="text-sm font-mono text-[var(--color-text-primary)]">{ groupDigits(fill.amountOut) }</span>
     </div>
-    <div className="min-w-[120px] shrink-0 text-right">
-      <span className="text-sm font-mono font-semibold text-[var(--color-text-primary)]">${ pool.tvl }</span>
+    <div className="min-w-[90px] shrink-0 text-right">
+      <a href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: String(fill.timestamp) } }) } className={ LINK_CLASS }>
+        { fill.timestamp }
+      </a>
     </div>
-    <div className="min-w-[120px] shrink-0 text-right">
-      <span className="text-sm font-mono text-[var(--color-text-secondary)]">${ pool.volume24h }</span>
-    </div>
-    <div className="shrink-0 text-right ml-0 lg:ml-auto">
-      <span className="text-sm text-[var(--color-text-secondary)]">{ pool.fee }</span>
+    <div className="shrink-0 ml-0 lg:ml-auto">
+      <a href={ route({ pathname: '/tx/[hash]', query: { hash: fill.txHash } }) } className={ LINK_CLASS }>
+        { shortenString(fill.txHash, 12) }
+      </a>
     </div>
   </div>
 );
-
-// ── Loading skeleton ──
 
 const LoadingSkeleton = () => (
   <div className="px-4 py-6">
@@ -230,13 +134,9 @@ const LoadingSkeleton = () => (
   </div>
 );
 
-// ── Empty / error states ──
-// The DEX (D-Chain / DexVM) is not yet serving live market data on every
-// network. We render an honest message rather than fabricated rows.
-
-const EmptyRow = ({ message }: { readonly message: string }) => (
+const EmptyState = ({ text }: { readonly text: string }) => (
   <div className="px-4 py-10 text-center text-sm text-[var(--color-text-secondary)]">
-    { message }
+    { text }
   </div>
 );
 
@@ -244,81 +144,54 @@ const EmptyRow = ({ message }: { readonly message: string }) => (
 
 const DexPage = () => {
   const [ activeTab, setActiveTab ] = React.useState<TabId>(TAB_IDS.markets);
-  const { symbols, orders, trades, pools, overview, isLoading, isError } = useDexData();
+  const { markets, fills, overview, isLoading } = useDexData();
 
-  const emptyMessage = isError ?
-    'DEX data is temporarily unavailable.' :
-    'No market data yet — the D-Chain DEX is not reporting activity.';
+  const pairByMarket = React.useMemo(
+    () => new Map(markets.map((m) => [ m.id, m.pair ])),
+    [ markets ],
+  );
 
   const handleMarketsClick = React.useCallback(() => setActiveTab(TAB_IDS.markets), []);
-  const handleOrderbookClick = React.useCallback(() => setActiveTab(TAB_IDS.orderbook), []);
   const handleTradesClick = React.useCallback(() => setActiveTab(TAB_IDS.trades), []);
-  const handlePoolsClick = React.useCallback(() => setActiveTab(TAB_IDS.pools), []);
 
   return (
-    <PrimaryNetworkGuard title="DEX">
+    <>
       <PageTitle
         title="DEX"
         secondRow={ (
           <div className="text-sm text-[var(--color-text-secondary)]">
-            D-Chain decentralized exchange orderbook and market data
+            C-Chain native exchange — live markets and fills from the 0x9999 PoolManager
           </div>
         ) }
       />
 
       { /* Stats cards */ }
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <StatCard label="Total Pairs" value={ String(overview.totalPairs) } isLoading={ isLoading }/>
-        <StatCard label="24h Volume" value={ `$${ overview.volume24h }` } isLoading={ isLoading }/>
-        <StatCard label="Active Orders" value={ String(overview.activeOrders) } isLoading={ isLoading }/>
-        <StatCard label="Trades Today" value={ String(overview.tradesToday) } isLoading={ isLoading }/>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+        <StatCard label="Markets" value={ String(overview.totalMarkets) } isLoading={ isLoading }/>
+        <StatCard label="24h Volume" value={ groupDigits(overview.volume24h) } isLoading={ isLoading }/>
+        <StatCard label="Total Trades" value={ String(overview.totalTrades) } isLoading={ isLoading }/>
       </div>
 
       { /* Tabs */ }
       <div className="flex border-b border-[var(--color-border-divider)] mb-4">
         <TabButton label="Markets" isActive={ activeTab === TAB_IDS.markets } onClick={ handleMarketsClick }/>
-        <TabButton label="Orderbook" isActive={ activeTab === TAB_IDS.orderbook } onClick={ handleOrderbookClick }/>
         <TabButton label="Trades" isActive={ activeTab === TAB_IDS.trades } onClick={ handleTradesClick }/>
-        <TabButton label="Pools" isActive={ activeTab === TAB_IDS.pools } onClick={ handlePoolsClick }/>
       </div>
 
       { /* Markets tab */ }
       { activeTab === TAB_IDS.markets && (
         <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
           <div className={ HEADER_BASE }>
-            <div className={ cn(COL_HEADER, 'min-w-[120px]') }>Symbol</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Price</div>
-            <div className={ cn(COL_HEADER, 'min-w-[80px] text-right') }>24h Change</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>24h High</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>24h Low</div>
-            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>24h Volume</div>
+            <div className={ cn(COL_HEADER, 'min-w-[160px]') }>Pair</div>
+            <div className={ cn(COL_HEADER, 'min-w-[80px] text-right') }>Fee</div>
+            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Last Price</div>
+            <div className={ cn(COL_HEADER, 'min-w-[140px] text-right') }>24h Volume</div>
             <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Trades</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
-          { !isLoading && symbols.length === 0 && <EmptyRow message={ emptyMessage }/> }
-          { !isLoading && symbols.map((stat) => (
-            <SymbolRow key={ stat.symbol } stat={ stat }/>
-          )) }
-        </div>
-      ) }
-
-      { /* Orderbook tab */ }
-      { activeTab === TAB_IDS.orderbook && (
-        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
-          <div className={ HEADER_BASE }>
-            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Symbol</div>
-            <div className={ cn(COL_HEADER, 'min-w-[60px]') }>Side</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Price</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Quantity</div>
-            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>Total</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Maker</div>
-            <div className={ cn(COL_HEADER, 'min-w-[80px]') }>Time</div>
-            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Status</div>
-          </div>
-          { isLoading && <LoadingSkeleton/> }
-          { !isLoading && orders.length === 0 && <EmptyRow message={ emptyMessage }/> }
-          { !isLoading && orders.map((order) => (
-            <OrderRow key={ order.id } order={ order }/>
+          { !isLoading && markets.length === 0 && <EmptyState text="No active markets"/> }
+          { !isLoading && markets.map((market) => (
+            <MarketRow key={ market.id } market={ market }/>
           )) }
         </div>
       ) }
@@ -327,59 +200,21 @@ const DexPage = () => {
       { activeTab === TAB_IDS.trades && (
         <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
           <div className={ HEADER_BASE }>
-            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Symbol</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Price</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px] text-right') }>Quantity</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Buyer</div>
-            <div className={ cn(COL_HEADER, 'min-w-[100px]') }>Seller</div>
-            <div className={ cn(COL_HEADER, 'min-w-[60px] text-right') }>Fee</div>
-            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Time</div>
+            <div className={ cn(COL_HEADER, 'min-w-[160px]') }>Pair</div>
+            <div className={ cn(COL_HEADER, 'min-w-[140px]') }>Taker</div>
+            <div className={ cn(COL_HEADER, 'min-w-[140px] text-right') }>Amount Out</div>
+            <div className={ cn(COL_HEADER, 'min-w-[90px] text-right') }>Block</div>
+            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Txn</div>
           </div>
           { isLoading && <LoadingSkeleton/> }
-          { !isLoading && trades.length === 0 && <EmptyRow message={ emptyMessage }/> }
-          { !isLoading && trades.map((trade) => (
-            <TradeRow key={ trade.id } trade={ trade }/>
+          { !isLoading && fills.length === 0 && <EmptyState text="No recent trades"/> }
+          { !isLoading && fills.map((fill) => (
+            <FillRow key={ fill.id } fill={ fill } pair={ pairByMarket.get(fill.market) ?? shortenString(fill.market, 10) }/>
           )) }
         </div>
       ) }
-
-      { /* Pools tab */ }
-      { activeTab === TAB_IDS.pools && (
-        <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
-          <div className={ HEADER_BASE }>
-            <div className={ cn(COL_HEADER, 'min-w-[120px]') }>Pair</div>
-            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>Reserve A</div>
-            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>Reserve B</div>
-            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>TVL</div>
-            <div className={ cn(COL_HEADER, 'min-w-[120px] text-right') }>24h Volume</div>
-            <div className={ cn(COL_HEADER, 'ml-auto text-right') }>Fee</div>
-          </div>
-          { isLoading && <LoadingSkeleton/> }
-          { !isLoading && pools.length === 0 && <EmptyRow message={ emptyMessage }/> }
-          { !isLoading && pools.map((pool) => (
-            <PoolRow key={ pool.id } pool={ pool }/>
-          )) }
-        </div>
-      ) }
-    </PrimaryNetworkGuard>
+    </>
   );
 };
-
-// ── Helpers ──
-
-function formatTime(timestamp: string): string {
-  const date = new Date(timestamp);
-  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
-}
-
-function getStatusClassName(status: DexOrder['status']): string {
-  switch (status) {
-    case 'open': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-    case 'filled': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-    case 'partial': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-    case 'cancelled': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-  }
-}
 
 export default React.memo(DexPage);
