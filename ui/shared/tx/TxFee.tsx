@@ -25,7 +25,7 @@ const TxFee = ({ tx, accuracy, accuracyUsd, loading, noSymbol: noSymbolProp, noU
   if ('celo' in tx && tx.celo?.gas_token) {
     return (
       <TokenValue
-        amount={ tx.fee.value || '0' }
+        amount={ tx.fee?.value || '0' }
         token={ tx.celo.gas_token }
         accuracy={ accuracy }
         accuracyUsd={ accuracyUsd }
@@ -54,7 +54,7 @@ const TxFee = ({ tx, accuracy, accuracyUsd, loading, noSymbol: noSymbolProp, noU
 
   return (
     <NativeCoinValue
-      amount={ tx.fee.value || '0' }
+      amount={ tx.fee?.value || '0' }
       noSymbol={ noSymbol }
       exchangeRate={ noUsd ? null : exchangeRate }
       historicalExchangeRate={ noUsd ? null : historicalExchangeRate }

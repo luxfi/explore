@@ -5,12 +5,24 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { getEnvValue } from 'configs/app/utils';
 
-const CCHAIN_RPC_PATTERN = /\/ext\/bc\/C\/rpc$/;
 const TIMEOUT_MS = 10_000;
 
+// Derive the node's API origin from the chain RPC URL. The RPC URL points at a
+// specific EVM chain (e.g. `…/ext/bc/C/rpc` or `…/ext/bc/hanzo/rpc`); the P-chain
+// lives at `<origin>/ext/bc/P`, so we must reduce to the scheme+host origin and
+// never naively concatenate onto the full RPC path (which produced a malformed
+// URL → HTML 404 → "Unexpected non-whitespace character after JSON" for every
+// non-C-chain brand).
 function getApiBase(): string {
   const rpcUrl = getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') ?? '';
-  return rpcUrl.replace(CCHAIN_RPC_PATTERN, '');
+  if (!rpcUrl) {
+    return '';
+  }
+  try {
+    return new URL(rpcUrl).origin;
+  } catch {
+    return '';
+  }
 }
 
 const handler = async(req: NextApiRequest, res: NextApiResponse): Promise<void> => {
@@ -33,7 +45,20 @@ const handler = async(req: NextApiRequest, res: NextApiResponse): Promise<void> 
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 
-    const data = await response.json();
+    // The node returns JSON for valid P-chain RPC; a wrong URL or gateway
+    // error yields HTML. Read as text and parse defensively so the client gets a
+    // clear error rather than an opaque "non-whitespace character" parse crash.
+    const raw = await response.text();
+    let data: unknown;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      res.status(502).json({
+        error: 'P-chain request failed',
+        message: `Upstream returned non-JSON (HTTP ${ response.status }) from ${ base }/ext/bc/P`,
+      });
+      return;
+    }
     res.status(200).json(data);
   } catch (error) {
     res.status(502).json({

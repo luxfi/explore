@@ -1,132 +1,25 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import config from 'configs/app';
+import type { PrimaryVm } from 'configs/app/primaryChains';
+import { getPrimaryVm } from 'configs/app/primaryChains';
 import { useBlockchains, useCurrentValidators, useSubnets } from 'lib/api/pchain';
 import type { PChainBlockchain, PChainValidator } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tag } from '@luxfi/ui/tag';
+import DexPage from 'ui/dex/DexPage';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import PrimaryNetworkGuard from 'ui/shared/PrimaryNetworkGuard';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 const LUX_DECIMALS = 6;
 
-const PRIMARY_CHAIN_META: Readonly<Record<string, {
-  readonly name: string;
-  readonly fullName: string;
-  readonly vm: string;
-  readonly vmId: string;
-  readonly description: string;
-}>> = {
-  'c-chain': {
-    name: 'C-Chain',
-    fullName: 'Contract Chain',
-    vm: 'EVM',
-    vmId: 'mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6',
-    description: 'The C-Chain is an EVM-compatible blockchain on the network used for smart contracts and DeFi applications.',
-  },
-  'p-chain': {
-    name: 'P-Chain',
-    fullName: 'Platform Chain',
-    vm: 'PVM',
-    vmId: 'rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWsBY6MALT',
-    description: 'The P-Chain manages validators, staking, and subnet creation across the network.',
-  },
-  'x-chain': {
-    name: 'X-Chain',
-    fullName: 'UTXO Chain',
-    vm: 'XVM',
-    vmId: 'jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq',
-    description: 'The X-Chain is a DAG-based chain for creating and exchanging digital assets on the network.',
-  },
-  'd-chain': {
-    name: 'D-Chain',
-    fullName: 'DEX Chain',
-    vm: 'DexVM',
-    vmId: '',
-    description: 'The D-Chain is a decentralized exchange chain on the network for on-chain order books and token swaps.',
-  },
-  'a-chain': {
-    name: 'A-Chain',
-    fullName: 'AI Chain',
-    vm: 'AIVM',
-    vmId: '',
-    description: 'The A-Chain powers AI workloads on the network, providing decentralized inference and model serving.',
-  },
-  'b-chain': {
-    name: 'B-Chain',
-    fullName: 'Bridge Chain',
-    vm: 'BridgeVM',
-    vmId: '',
-    description: 'The B-Chain is the bridge relay chain on the network, enabling cross-chain asset transfers via Teleporter.',
-  },
-  'q-chain': {
-    name: 'Q-Chain',
-    fullName: 'Quantum Chain',
-    vm: 'QuantumVM',
-    vmId: '',
-    description: 'The Q-Chain provides post-quantum cryptographic primitives and quantum-resistant operations on the network.',
-  },
-  't-chain': {
-    name: 'T-Chain',
-    fullName: 'Threshold Chain',
-    vm: 'ThresholdVM',
-    vmId: '',
-    description: 'The T-Chain enables threshold signature schemes and distributed key generation on the network.',
-  },
-  'z-chain': {
-    name: 'Z-Chain',
-    fullName: 'ZK Chain',
-    vm: 'ZKVM',
-    vmId: '',
-    description: 'The Z-Chain handles zero-knowledge proof generation and verification on the network.',
-  },
-  'g-chain': {
-    name: 'G-Chain',
-    fullName: 'Graph Chain',
-    vm: 'GraphVM',
-    vmId: '',
-    description: 'The G-Chain provides decentralized graph indexing and query services on the network.',
-  },
-  'k-chain': {
-    name: 'K-Chain',
-    fullName: 'Key Chain',
-    vm: 'KeyVM',
-    vmId: '',
-    description: 'The K-Chain provides decentralized key management and custody services on the network.',
-  },
-  'o-chain': {
-    name: 'O-Chain',
-    fullName: 'Oracle Chain',
-    vm: 'OracleVM',
-    vmId: '',
-    description: 'The O-Chain provides decentralized oracle services, bringing off-chain data on-chain for the network.',
-  },
-  'r-chain': {
-    name: 'R-Chain',
-    fullName: 'Relay Chain',
-    vm: 'RelayVM',
-    vmId: '',
-    description: 'The R-Chain handles cross-chain message relay and interoperability routing on the network.',
-  },
-  'i-chain': {
-    name: 'I-Chain',
-    fullName: 'Identity Chain',
-    vm: 'IdentityVM',
-    vmId: '',
-    description: 'The I-Chain manages decentralized identity, DIDs, and verifiable credentials on the network.',
-  },
-  'm-chain': {
-    name: 'M-Chain',
-    fullName: 'MPC Chain',
-    vm: 'MPCVM',
-    vmId: '',
-    description: 'The M-Chain coordinates CGGMP21 threshold ECDSA and FROST threshold EdDSA signing sessions across validators.',
-  },
-};
+// Primary-network VM identity (name / vm / vmId / description / view) comes from
+// the single source of truth in configs/app/primaryChains.ts.
 
 const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
   zoo: 200200,
@@ -226,7 +119,10 @@ interface InfoRowProps {
 }
 
 const InfoRow = ({ label, value, isMono = false, canCopy = false }: InfoRowProps) => (
-  <div className="flex py-3 px-4 border-b border-[var(--color-border-divider)] odd:bg-[var(--color-gray-50)] dark:odd:bg-[var(--color-whiteAlpha-50)] gap-4 flex-wrap lg:flex-nowrap">
+  <div className={ cn(
+    'flex py-3 px-4 border-b border-[var(--color-border-divider)] gap-4 flex-wrap lg:flex-nowrap',
+    'odd:bg-[var(--color-gray-50)] dark:odd:bg-[var(--color-whiteAlpha-50)]',
+  ) }>
     <div className="min-w-full lg:min-w-[200px] shrink-0 text-[var(--color-text-secondary)] text-sm font-medium">
       { label }
     </div>
@@ -249,7 +145,10 @@ const ValidatorRow = ({ validator, index }: ValidatorRowProps) => {
   const uptime = parseFloat(validator.uptime || '0') * 100;
 
   return (
-    <div className="flex py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 gap-4 items-center flex-wrap lg:flex-nowrap">
+    <div className={ cn(
+      'flex py-3 px-4 border-b border-[var(--color-border-divider)] gap-4 items-center flex-wrap lg:flex-nowrap',
+      'transition-colors duration-150 hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+    ) }>
       <div className="w-10 shrink-0 text-[var(--color-text-secondary)] text-sm">
         { index + 1 }
       </div>
@@ -287,10 +186,10 @@ const ChainDetailPage = () => {
   const resolvedChain = React.useMemo<{
     blockchain: PChainBlockchain | undefined;
     isPrimary: boolean;
-    meta: typeof PRIMARY_CHAIN_META[string] | undefined;
+    meta: PrimaryVm | undefined;
   }>(() => {
     // Check primary chains first
-    const primaryMeta = PRIMARY_CHAIN_META[slug];
+    const primaryMeta = getPrimaryVm(slug);
     if (primaryMeta) {
       return { blockchain: undefined, isPrimary: true, meta: primaryMeta };
     }
@@ -333,8 +232,15 @@ const ChainDetailPage = () => {
     [ validators ],
   );
 
+  // D-Chain (DexVM) renders its native order-book model — the DEX UI — instead
+  // of the generic validators/stats detail. DexPage self-guards to the primary
+  // explorer, so /chains/d-chain can never leak onto a brand explorer.
+  if (resolvedChain.meta?.view === 'dex') {
+    return <DexPage/>;
+  }
+
   return (
-    <>
+    <PrimaryNetworkGuard title={ chainName }>
       <PageTitle
         title={ chainName }
         secondRow={ (
@@ -468,7 +374,10 @@ const ChainDetailPage = () => {
             { subnetChains.map((chain) => (
               <div
                 key={ chain.id }
-                className="flex px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] last:border-b-0 hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 flex-wrap lg:flex-nowrap"
+                className={ cn(
+                  'flex px-4 py-3 gap-4 border-b border-[var(--color-border-divider)] last:border-b-0 flex-wrap lg:flex-nowrap',
+                  'transition-colors duration-150 hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+                ) }
               >
                 <div className="flex-1">
                   <span className="text-sm font-medium text-[var(--color-text-primary)]">
@@ -484,7 +393,10 @@ const ChainDetailPage = () => {
                   </div>
                 </div>
                 <div className="w-[120px]">
-                  <div className="inline-block bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono">
+                  <div className={ cn(
+                    'inline-block bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)]',
+                    'text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono',
+                  ) }>
                     { KNOWN_VM_IDS[chain.vmID] ?? truncateId(chain.vmID, 12) }
                   </div>
                 </div>
@@ -542,7 +454,7 @@ const ChainDetailPage = () => {
           )) }
         </div>
       </div>
-    </>
+    </PrimaryNetworkGuard>
   );
 };
 

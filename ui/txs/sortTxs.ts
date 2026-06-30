@@ -10,9 +10,9 @@ export default function sortTxs(sorting: TransactionsSortingValue | undefined) {
       case 'value-asc':
         return compareBns(tx1.value, tx2.value);
       case 'fee-desc':
-        return compareBns(tx2.fee.value || 0, tx1.fee.value || 0);
+        return compareBns(tx2.fee?.value || 0, tx1.fee?.value || 0);
       case 'fee-asc':
-        return compareBns(tx1.fee.value || 0, tx2.fee.value || 0);
+        return compareBns(tx1.fee?.value || 0, tx2.fee?.value || 0);
       case 'block_number-asc': {
         if (tx1.block_number && tx2.block_number) {
           return tx1.block_number - tx2.block_number;

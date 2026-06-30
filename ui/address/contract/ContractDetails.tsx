@@ -1,6 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import type { Channel } from 'phoenix';
 import React from 'react';
 
 import type { Address } from 'types/api/address';
@@ -11,6 +10,7 @@ import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import getQueryParamString from 'lib/router/getQueryParamString';
+import type { Channel } from 'lib/socket/sse';
 import * as stubs from 'stubs/contract';
 import RoutedTabs from 'toolkit/components/RoutedTabs/RoutedTabs';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';

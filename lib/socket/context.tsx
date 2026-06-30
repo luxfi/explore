@@ -1,7 +1,7 @@
-// https://hexdocs.pm/phoenix/js/
-import type { Channel, SocketConnectOption } from 'phoenix';
-import { Socket } from 'phoenix';
 import React, { useEffect, useState } from 'react';
+
+import type { Channel, SocketOptions } from './sse';
+import { Socket } from './sse';
 
 type ChannelRegistry = Record<string, { channel: Channel; subscribers: number }>;
 
@@ -23,7 +23,7 @@ function getSocketContext(name: string) {
 interface SocketProviderProps {
   children: React.ReactNode;
   url?: string;
-  options?: Partial<SocketConnectOption>;
+  options?: SocketOptions;
   name?: string;
 }
 
