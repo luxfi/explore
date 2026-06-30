@@ -248,6 +248,27 @@ const PARS_BRANDING: ChainBranding = {
     '</g>',
 };
 
+/** Osage — sovereign L1 (coin OSG). Concentric-ring mark; refine via
+ *  NEXT_PUBLIC_BRAND_* at deploy time when the real logo lands. */
+const OSAGE_BRANDING: ChainBranding = {
+  brandName: 'Osage',
+  productName: 'Explorer',
+  orgName: 'Osage',
+  websiteUrl: 'https://osage.network',
+  description: 'Osage blockchain explorer.',
+  githubUrl: 'https://github.com/luxfi',
+  twitterUrl: 'https://x.com/luxdefi',
+  discordUrl: 'https://discord.gg/luxnetwork',
+  logoViewBox: '0 0 100 100',
+  logoContent:
+    '<circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="8"/>' +
+    '<circle cx="50" cy="50" r="14" fill="currentColor"/>',
+  faviconContent:
+    '<rect width="512" height="512" rx="64" fill="#dc2626"/>' +
+    '<circle cx="256" cy="256" r="150" fill="none" stroke="#fff" stroke-width="36"/>' +
+    '<circle cx="256" cy="256" r="56" fill="#fff"/>',
+};
+
 export const CHAINS: ReadonlyArray<ChainEntry> = [
   {
     name: 'C-Chain',
@@ -268,7 +289,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     vm: 'L2',
     network: 'mainnet',
     chainId: 200200,
-    hostnames: [ 'explore-zoo.lux.network' ],
+    hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explorer.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
     branding: ZOO_BRANDING,
@@ -279,7 +300,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     vm: 'L2',
     network: 'mainnet',
     chainId: 36963,
-    hostnames: [ 'explore-hanzo.lux.network' ],
+    hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
     branding: HANZO_BRANDING,
@@ -300,11 +321,22 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Pars Network',
     vm: 'L2',
     network: 'mainnet',
-    chainId: 494949,
-    hostnames: [ 'explore-pars.lux.network' ],
+    chainId: 7070,
+    hostnames: [ 'explore-pars.lux.network', 'explore.pars.network', 'explorer.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',
     apiUrl: 'https://api-explore-pars.lux.network',
     branding: PARS_BRANDING,
+  },
+  {
+    name: 'Osage',
+    label: 'Osage Chain',
+    vm: 'L2',
+    network: 'mainnet',
+    chainId: 1872,
+    hostnames: [ 'explore-osage.lux.network', 'explore.osage.network', 'explore.osage.group' ],
+    explorerUrl: 'https://explore-osage.lux.network',
+    apiUrl: 'https://api-explore-osage.lux.network',
+    branding: OSAGE_BRANDING,
   },
   // Testnet chains
   {
@@ -334,8 +366,8 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Hanzo AI (Testnet)',
     vm: 'L2',
     network: 'testnet',
-    chainId: 36964,
-    hostnames: [ 'explore-hanzo-test.lux.network' ],
+    chainId: 36962,
+    hostnames: [ 'explore-hanzo-test.lux.network', 'explore-test.hanzo.network' ],
     explorerUrl: 'https://explore-hanzo-test.lux.network',
     apiUrl: 'https://api-explore-hanzo-test.lux.network',
     branding: HANZO_BRANDING,
@@ -361,6 +393,17 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     explorerUrl: 'https://explore-pars-test.lux.network',
     apiUrl: 'https://api-explore-pars-test.lux.network',
     branding: PARS_BRANDING,
+  },
+  {
+    name: 'Osage',
+    label: 'Osage Chain (Testnet)',
+    vm: 'L2',
+    network: 'testnet',
+    chainId: 1871,
+    hostnames: [ 'explore-osage-test.lux.network' ],
+    explorerUrl: 'https://explore-osage-test.lux.network',
+    apiUrl: 'https://api-explore-osage-test.lux.network',
+    branding: OSAGE_BRANDING,
   },
   // Devnet chains
   {
@@ -391,7 +434,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     vm: 'L2',
     network: 'devnet',
     chainId: 36964,
-    hostnames: [ 'explore-hanzo-dev.lux.network' ],
+    hostnames: [ 'explore-hanzo-dev.lux.network', 'explore-dev.hanzo.network' ],
     explorerUrl: 'https://explore-hanzo-dev.lux.network',
     apiUrl: 'https://api-explore-hanzo-dev.lux.network',
     branding: HANZO_BRANDING,
@@ -412,11 +455,22 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     label: 'Pars Network (Devnet)',
     vm: 'L2',
     network: 'devnet',
-    chainId: 494951,
+    chainId: 7072,
     hostnames: [ 'explore-pars-dev.lux.network' ],
     explorerUrl: 'https://explore-pars-dev.lux.network',
     apiUrl: 'https://api-explore-pars-dev.lux.network',
     branding: PARS_BRANDING,
+  },
+  {
+    name: 'Osage',
+    label: 'Osage Chain (Devnet)',
+    vm: 'L2',
+    network: 'devnet',
+    chainId: 1873,
+    hostnames: [ 'explore-osage-dev.lux.network' ],
+    explorerUrl: 'https://explore-osage-dev.lux.network',
+    apiUrl: 'https://api-explore-osage-dev.lux.network',
+    branding: OSAGE_BRANDING,
   },
 
   // Localnet — chainId 1337. Listing localhost / 127.0.0.1 / 0.0.0.0 here
@@ -555,6 +609,22 @@ export function getCurrentChain(): ChainEntry {
   // Apply NEXT_PUBLIC_BRAND_* env overrides on every read so deploys can
   // rebrand without rebuilding the bundle.
   return { ...base, branding: applyBrandEnvOverrides(base.branding) };
+}
+
+/**
+ * True only on the Lux PRIMARY-network explorer (the Lux C-Chain host +
+ * the unregistered white-label fallback, both `vm: 'EVM'`). Brand explorers
+ * (Hanzo / Zoo / SPC / Pars are `vm: 'L2'`) return false: they show ONLY
+ * their own chain, never the Lux primary-network chains / cross-L1 lists.
+ */
+export function isPrimaryNetworkExplorer(): boolean {
+  // The Lux primary-network explorer is the REGISTERED Lux C-Chain host only.
+  // White-label / unregistered hosts are sovereign brand explorers (Hanzo /
+  // Zoo / Pars / SPC / Osage): they show ONLY their own chain — never the Lux
+  // primary network's chains or the cross-L1 list. Gating purely on vm==='EVM'
+  // wrongly promoted unregistered hosts (buildWhiteLabelChain defaults to
+  // vm:'EVM') to primary, leaking the parent network's chains.
+  return !isWhiteLabelMode() && getCurrentChain().vm === 'EVM';
 }
 
 export function getCurrentNetwork(): NetworkEntry {

@@ -1,10 +1,13 @@
-import React from 'react';
-
-import type { PChainValidator } from 'lib/api/pchain';
 import { Input } from '@luxfi/ui/input';
 import { Skeleton } from '@luxfi/ui/skeleton';
+import React from 'react';
+
+import config from 'configs/app';
+import type { PChainValidator } from 'lib/api/pchain';
 
 import { formatStake, formatUptime, truncateNodeId } from './utils';
+
+const CURRENCY = config.chain.currency.symbol || 'LUX';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -48,7 +51,7 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
   }, [ validators, search ]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 text-[var(--color-text-primary)]">
       { /* Search */ }
       <div>
         <Input
@@ -112,7 +115,7 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
               { truncateNodeId(v.nodeID) }
             </div>
             <div className="flex-[2] text-right">
-              { formatStake(v.stakeAmount ?? v.weight) } LUX
+              { formatStake(v.stakeAmount ?? v.weight) } { CURRENCY }
             </div>
             <div className="flex-1 text-right">
               { v.delegationFee }%
