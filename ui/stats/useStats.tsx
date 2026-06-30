@@ -5,6 +5,7 @@ import type * as stats from '@luxfi/stats-types';
 import type { StatsIntervalIds } from 'types/client/stats';
 import type { ExternalChainExtended } from 'types/externalChains';
 
+import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { STATS_CHARTS } from 'stubs/stats';
@@ -27,6 +28,9 @@ export default function useStats({ chain }: Props = {}) {
   const { data, isPlaceholderData, isError } = useApiQuery('stats:lines', {
     queryOptions: {
       placeholderData: STATS_CHARTS,
+      // No stats microservice configured → don't fire a request that can only
+      // fail; the page renders the live Network Overview + an honest note.
+      enabled: config.features.stats.isEnabled,
     },
     chain,
   });

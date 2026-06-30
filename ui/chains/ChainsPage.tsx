@@ -1,11 +1,13 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import config from 'configs/app';
+import { PRIMARY_VMS } from 'configs/app/primaryChains';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { useBlockchains } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import PrimaryNetworkGuard from 'ui/shared/PrimaryNetworkGuard';
 
 import ChainRow from './ChainRow';
 
@@ -15,26 +17,9 @@ import ChainRow from './ChainRow';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 
-// All 15 primary network chains from ~/work/lux/node/node/vms_allvms.go
-// Core: C (EVM), P (PlatformVM), X (XVM)
-// Extended (allvms build): A, B, D, G, I, K, M, O, Q, R, T, Z
-const PRIMARY_CHAINS = [
-  { name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', chainId: 96369, slug: 'c-chain' },
-  { name: 'P-Chain', fullName: 'Platform Chain', vm: 'PVM', chainId: null, slug: 'p-chain' },
-  { name: 'X-Chain', fullName: 'UTXO Chain', vm: 'XVM', chainId: null, slug: 'x-chain' },
-  { name: 'D-Chain', fullName: 'DEX Chain', vm: 'DexVM', chainId: null, slug: 'd-chain' },
-  { name: 'A-Chain', fullName: 'AI Chain', vm: 'AIVM', chainId: null, slug: 'a-chain' },
-  { name: 'B-Chain', fullName: 'Bridge Chain', vm: 'BridgeVM', chainId: null, slug: 'b-chain' },
-  { name: 'Q-Chain', fullName: 'Quantum Chain', vm: 'QuantumVM', chainId: null, slug: 'q-chain' },
-  { name: 'T-Chain', fullName: 'Threshold Chain', vm: 'ThresholdVM', chainId: null, slug: 't-chain' },
-  { name: 'M-Chain', fullName: 'MPC Chain', vm: 'MPCVM', chainId: null, slug: 'm-chain' },
-  { name: 'Z-Chain', fullName: 'ZK Chain', vm: 'ZKVM', chainId: null, slug: 'z-chain' },
-  { name: 'G-Chain', fullName: 'Graph Chain', vm: 'GraphVM', chainId: null, slug: 'g-chain' },
-  { name: 'K-Chain', fullName: 'Key Chain', vm: 'KeyVM', chainId: null, slug: 'k-chain' },
-  { name: 'O-Chain', fullName: 'Oracle Chain', vm: 'OracleVM', chainId: null, slug: 'o-chain' },
-  { name: 'R-Chain', fullName: 'Relay Chain', vm: 'RelayVM', chainId: null, slug: 'r-chain' },
-  { name: 'I-Chain', fullName: 'Identity Chain', vm: 'IdentityVM', chainId: null, slug: 'i-chain' },
-] as const;
+// Primary-network VM chains come from the single source of truth in
+// configs/app/primaryChains.ts (mirrored from the node registry), so this page
+// and the chain-detail page can never drift apart.
 
 const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
   Zoo: 200200,
@@ -96,7 +81,9 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
   <button
     className={ cn(
       'px-4 py-2 text-sm bg-transparent cursor-pointer transition-all duration-150 border-b-2 hover:text-[var(--color-text-primary)]',
-      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+      isActive ?
+        'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' :
+        'font-normal text-[var(--color-text-secondary)] border-transparent',
     ) }
     onClick={ onClick }
   >
@@ -128,7 +115,7 @@ const ChainsPage = () => {
   }, []);
 
   return (
-    <>
+    <PrimaryNetworkGuard title="Chains">
       <PageTitle
         title="Chains"
         secondRow={ (
@@ -156,7 +143,7 @@ const ChainsPage = () => {
       { activeTab === TAB_IDS.primary && (
         <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showSubnetId={ false }/>
-          { PRIMARY_CHAINS.map((chain) => (
+          { PRIMARY_VMS.map((chain) => (
             <ChainRow
               key={ chain.name }
               name={ chain.name }
@@ -202,7 +189,7 @@ const ChainsPage = () => {
           )) }
         </div>
       ) }
-    </>
+    </PrimaryNetworkGuard>
   );
 };
 

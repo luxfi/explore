@@ -95,11 +95,14 @@ export const STATS_CHARTS = {
   sections: [ STATS_CHARTS_SECTION ],
 };
 
+// Skeleton placeholder only — these fields are masked by the loading skeleton
+// and must never read as real data if they ever surface. Neutral title, zero
+// value (no fabricated "9.074M" counter shown to users).
 export const STATS_COUNTER: stats.Counter = {
   id: 'stub',
-  value: '9074405',
-  title: 'Placeholder Counter',
-  description: 'Placeholder description',
+  value: '0',
+  title: '',
+  description: '',
   units: '',
 };
 

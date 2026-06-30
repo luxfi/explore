@@ -1,11 +1,11 @@
+import { Separator } from '@luxfi/ui/separator';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
 import type { NavGroupItem } from 'types/client/navigation';
 
-import { Link } from 'toolkit/next/link';
-import { Separator } from '@luxfi/ui/separator';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
+import { Link } from 'toolkit/next/link';
 import IconSvg from 'ui/shared/IconSvg';
 
 import LightningLabel from '../LightningLabel';
@@ -55,8 +55,12 @@ const NavLinkGroup = ({ item }: Props) => {
       content={ content }
       onOpenChange={ onOpenChange }
       lazyMount={ false }
+      // The popover Content defaults to `overflow-hidden` + tight `py-2`, which
+      // clips the last nav item (e.g. "Verified Contracts") of a tall menu list.
+      // Override to let the full list render and give it breathing room.
+      contentProps={{ className: 'overflow-visible px-1.5 py-2' }}
       positioning={{
-        placement: 'bottom',
+        placement: 'bottom-start',
         offset: { mainAxis: 8 },
       }}
       interactive

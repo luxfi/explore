@@ -2,41 +2,32 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import config from 'configs/app';
-import { useColorModeValue } from 'toolkit/next/color-mode';
-import { Image } from '@luxfi/ui/image';
-
-const IconFallback = () => {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30" height="30" aria-label={ `${ config.chain.name } icon` }>
-      <polygon points="25,46.65 50,3.35 0,3.35" fill="currentColor"/>
-    </svg>
-  );
-};
+import { getCurrentChain } from 'configs/app/chainRegistry';
 
 type Props = {
   className?: string;
 };
 
+// Renders the resolved chain's brand mark (inline SVG from chainRegistry),
+// matching the desktop TopBar. No image-URL dependency / triangle fallback —
+// the per-host branding (e.g. the Hanzo H) is authoritative.
 const NetworkIcon = ({ className }: Props) => {
-
-  const iconSrc = useColorModeValue(config.UI.navigation.icon.default, config.UI.navigation.icon.dark || config.UI.navigation.icon.default);
+  const chain = getCurrentChain();
 
   return (
     <a
       className={ className }
       href={ route({ pathname: '/' }) }
-      aria-label="Link to main page"
+      aria-label={ `${ chain.branding.brandName } home` }
     >
-      <Image
-        w="30px"
-        h="30px"
-        src={ iconSrc }
-        alt={ `${ config.chain.name } network icon` }
-        fallback={ <IconFallback/> }
-        objectFit="contain"
-        objectPosition="left"
-        className={ !config.UI.navigation.icon.dark ? 'dark:brightness-0 dark:invert' : undefined }
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={ chain.branding.logoViewBox }
+        width="30"
+        height="30"
+        className="shrink-0 text-[var(--color-text-primary)]"
+        aria-label={ `${ chain.branding.brandName } icon` }
+        dangerouslySetInnerHTML={{ __html: chain.branding.logoContent }}
       />
     </a>
   );

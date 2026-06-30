@@ -677,7 +677,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus, noTxActions }: P
 
       <TxDetailsGasPrice gasPrice={ data.gas_price } gasToken={ data.celo?.gas_token } isLoading={ isLoading }/>
 
-      <TxDetailsFeePerGas txFee={ data.fee.value } gasUsed={ data.gas_used } isLoading={ isLoading }/>
+      <TxDetailsFeePerGas txFee={ data.fee?.value } gasUsed={ data.gas_used } isLoading={ isLoading }/>
 
       { !config.UI.views.tx.additionalFields?.set_max_gas_limit && <TxDetailsGasUsage isLoading={ isLoading } data={ data }/> }
 
