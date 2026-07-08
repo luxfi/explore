@@ -185,6 +185,7 @@
   --color-dialog-bg: #FFFFFF;
   --color-dialog-fg: rgba(16, 17, 18, 0.80);
   --color-popover-bg: #FFFFFF;
+  --color-popover-border: rgba(16, 17, 18, 0.10);
   --color-popover-shadow: rgba(16, 17, 18, 0.08);
   --color-drawer-bg: #FFFFFF;
 
@@ -434,6 +435,7 @@
   --color-dialog-bg: #171717;
   --color-dialog-fg: rgba(255, 255, 255, 0.80);
   --color-popover-bg: #171717;
+  --color-popover-border: rgba(255, 255, 255, 0.12);
   --color-popover-shadow: rgba(255, 255, 255, 0.16);
   --color-drawer-bg: #171717;
 
