@@ -19,7 +19,8 @@ interface Params {
 }
 
 export default function useSwitchChain(params?: Params) {
-  const { data: { wallet, provider } = {} } = useProvider();
+  const { data: providerData } = useProvider();
+  const { wallet, provider } = providerData ?? {};
   const multichainContext = useMultichainContext();
 
   const chainConfig = params?.chainConfig || multichainContext?.chain.app_config || config;
