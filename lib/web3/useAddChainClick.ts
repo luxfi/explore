@@ -1,7 +1,7 @@
+import { toaster } from '@luxfi/ui/toaster';
 import React from 'react';
 
 import * as mixpanel from 'lib/mixpanel/index';
-import { toaster } from '@luxfi/ui/toaster';
 
 import useAddChain from './useAddChain';
 import useProvider from './useProvider';
@@ -13,7 +13,8 @@ interface Props {
 }
 
 export default function useAddChainClick({ source, onSuccess }: Props) {
-  const { data: { wallet, provider } = {} } = useProvider();
+  const { data: providerData } = useProvider();
+  const { wallet, provider } = providerData ?? {};
   const addChain = useAddChain();
   const switchChain = useSwitchChain();
 

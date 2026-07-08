@@ -1,0 +1,13 @@
+# Per-brand × per-env explore frontend, decomposed.
+#
+# Image is brand-only (ghcr.io/{org}/explore:vX.Y.Z); env (NETWORK_ID,
+# IS_TESTNET, *_HOST, RPC_URL) lives in ConfigMaps mounted via
+# Deployment.envFrom. Same image runs mainnet+testnet — only the
+# ConfigMap differs.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - configmap-mainnet.yaml
+  - configmap-testnet.yaml
+  - deployments-mainnet.yaml
+  - deployments-testnet.yaml

@@ -4,6 +4,22 @@
 @plugin "tailwindcss-animate";
 
 /*
+ * Scan the @luxfi/ui component library for Tailwind classes.
+ *
+ * @luxfi/ui ships pre-built components whose className strings use arbitrary
+ * Tailwind utilities that resolve design tokens — e.g. the popover / menu /
+ * drawer surfaces are styled with bg-[var(--color-popover-bg)],
+ * bg-[var(--color-drawer-bg)], shadow-[var(--shadow-popover)] and
+ * border-[var(--color-popover-border)]. Tailwind v4 does not scan node_modules
+ * by default, so without this @source those utilities are purged and every
+ * floating panel (Sign-in popover, Blockchain menu, chain/network selectors,
+ * mobile nav drawer) renders with a transparent background — the page bleeds
+ * through and the content is unreadable. Sourcing the package makes Tailwind
+ * emit the utilities so the panels get their solid token-driven backgrounds.
+ */
+@source "../node_modules/@luxfi/ui";
+
+/*
  * Tailwind v4 theme configuration
  *
  * Breakpoints match Chakra: sm=415px, lg=1000px, xl=1440px, 2xl=1920px

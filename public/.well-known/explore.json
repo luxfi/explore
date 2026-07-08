@@ -20,19 +20,23 @@
     },
     {
       "id": 200200,
-      "name": "Zoo Subnet"
+      "name": "Zoo Network"
     },
     {
       "id": 36963,
-      "name": "Hanzo Subnet"
+      "name": "Hanzo Network"
     },
     {
       "id": 36911,
-      "name": "SPC Subnet"
+      "name": "SPC Network"
     },
     {
       "id": 494949,
-      "name": "Pars Subnet"
+      "name": "Pars Network"
+    },
+    {
+      "id": 1872,
+      "name": "Osage Network"
     }
   ],
   "peers": [],

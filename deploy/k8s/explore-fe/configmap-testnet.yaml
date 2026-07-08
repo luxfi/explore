@@ -1,0 +1,71 @@
+---
+# See configmap-mainnet.yaml for the architecture rationale. This file holds
+# the testnet runtime overrides for the 4 brand Deployments living in
+# namespace `lux-testnet`. Same image as mainnet, different env.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: explore-env-lux
+  namespace: lux-testnet
+  labels: {app: explore-fe, brand: lux, network: testnet}
+data:
+  NEXT_PUBLIC_NETWORK_ID: "96368"
+  NEXT_PUBLIC_IS_TESTNET: "true"
+  NEXT_PUBLIC_API_HOST: api-explorer.lux-test.network
+  NEXT_PUBLIC_APP_HOST: explorer.lux-test.network
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.lux-test.network/ext/bc/C/rpc
+  NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.lux-test.network
+  NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.lux-test.network
+  NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.lux-test.network
+  NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explorer.lux-test.network
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: explore-env-zoo
+  namespace: lux-testnet
+  labels: {app: explore-fe, brand: zoo, network: testnet}
+data:
+  NEXT_PUBLIC_NETWORK_ID: "200201"
+  NEXT_PUBLIC_IS_TESTNET: "true"
+  NEXT_PUBLIC_API_HOST: api-explorer.zoo-test.network
+  NEXT_PUBLIC_APP_HOST: explorer.zoo-test.network
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.zoo-test.network/ext/bc/zoo/rpc
+  NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.zoo-test.network
+  NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.zoo-test.network
+  NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.zoo-test.network
+  NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explorer.zoo-test.network
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: explore-env-hanzo
+  namespace: lux-testnet
+  labels: {app: explore-fe, brand: hanzo, network: testnet}
+data:
+  NEXT_PUBLIC_NETWORK_ID: "36962"
+  NEXT_PUBLIC_IS_TESTNET: "true"
+  NEXT_PUBLIC_API_HOST: api-explorer.hanzo-test.network
+  NEXT_PUBLIC_APP_HOST: explorer.hanzo-test.network
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.hanzo-test.network/ext/bc/hanzo/rpc
+  NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.hanzo-test.network
+  NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.hanzo-test.network
+  NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.hanzo-test.network
+  NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explorer.hanzo-test.network
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: explore-env-pars
+  namespace: lux-testnet
+  labels: {app: explore-fe, brand: pars, network: testnet}
+data:
+  NEXT_PUBLIC_NETWORK_ID: "7071"
+  NEXT_PUBLIC_IS_TESTNET: "true"
+  NEXT_PUBLIC_API_HOST: api-explorer.pars-test.network
+  NEXT_PUBLIC_APP_HOST: explorer.pars-test.network
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.pars-test.network/ext/bc/pars/rpc
+  NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.pars-test.network
+  NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.pars-test.network
+  NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.pars-test.network
+  NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explorer.pars-test.network

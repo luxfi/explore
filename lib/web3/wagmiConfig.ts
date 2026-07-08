@@ -7,9 +7,21 @@ import { createConfig } from 'wagmi';
 import appConfig from 'configs/app';
 import essentialDappsChainsConfig from 'configs/essential-dapps-chains';
 import multichainConfig from 'configs/multichain';
-import { chains, parentChain } from 'lib/web3/chains';
+import { brandFamilyChains, chains, parentChain } from 'lib/web3/chains';
 
 const feature = appConfig.features.blockchainInteraction;
+
+// Transports for the brand's sibling networks (Lux testnet/devnet, …) added by
+// lib/web3/chains. wagmi requires a transport per chain; each sibling uses the
+// Blockscout eth-rpc endpoint carried on its viem chain definition.
+const getBrandFamilyTransports = (): Record<string, Transport> =>
+  brandFamilyChains.reduce((acc, chain) => {
+    const url = chain.rpcUrls.default.http[0];
+    if (url) {
+      acc[chain.id] = http(url, { batch: { wait: 100, batchSize: 5 } });
+    }
+    return acc;
+  }, {} as Record<string, Transport>);
 
 const getChainTransportFromConfig = (config: Partial<typeof appConfig> | undefined, readOnly?: boolean): Record<string, Transport> => {
   if (!config?.chain?.id) {
@@ -53,6 +65,7 @@ const wagmi = (() => {
       transports: {
         ...getChainTransportFromConfig(appConfig, true),
         ...(parentChain ? { [parentChain.id]: http(parentChain.rpcUrls.default.http[0]) } : {}),
+        ...getBrandFamilyTransports(),
         ...reduceExternalChainsToTransportConfig(true),
       },
       ssr: true,
@@ -69,6 +82,7 @@ const wagmi = (() => {
     transports: {
       ...getChainTransportFromConfig(appConfig, false),
       ...(parentChain ? { [parentChain.id]: http() } : {}),
+      ...getBrandFamilyTransports(),
       ...reduceExternalChainsToTransportConfig(false),
     },
     projectId: feature.reown.projectId,
