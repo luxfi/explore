@@ -29,7 +29,7 @@ permissions:
 jobs:
     run:
         name: Run
-        runs-on: ubuntu-latest
+        runs-on: lux-build-amd64
         steps:
         -   name: Find unique labels
             id: find_unique_labels
