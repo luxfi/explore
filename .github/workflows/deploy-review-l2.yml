@@ -49,7 +49,7 @@ permissions:
 jobs:
   make_slug:
     name: Make GitHub reference slug
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     outputs:
       REF_SLUG: ${{ steps.output.outputs.REF_SLUG }}
     steps:

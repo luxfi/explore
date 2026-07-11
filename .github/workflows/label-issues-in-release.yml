@@ -56,7 +56,7 @@ permissions:
 jobs:
     run:
         name: Run
-        runs-on: ubuntu-latest
+        runs-on: lux-build-amd64
         outputs:
             issues: ${{ steps.linked_issues.outputs.result }}
         steps:
