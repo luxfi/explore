@@ -47,7 +47,7 @@ permissions:
 jobs:
     run:
         name: Run
-        runs-on: ubuntu-latest
+        runs-on: lux-build-amd64
         steps:
             -   name: Getting project info
                 id: project_info

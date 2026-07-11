@@ -8,7 +8,7 @@ on:
 jobs:
     remove_prerelease_label:
         name: Remove pre-release label from issues
-        runs-on: ubuntu-latest
+        runs-on: lux-build-amd64
         steps:
             -   name: Remove label
                 id: tags
