@@ -107,9 +107,11 @@ jobs:
           DO_FALLBACK_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         run: |
           if [ -n "${KMS_CLIENT_ID}" ] && [ -n "${KMS_CLIENT_SECRET}" ]; then
+            # Must not abort the step under `bash -eo pipefail` when KMS login
+            # fails — swallow curl/jq errors so the DO_FALLBACK_TOKEN path runs.
             HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
               -H "Content-Type: application/json" \
-              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" | jq -r '.accessToken')
+              -d "{\"clientId\":\"${KMS_CLIENT_ID}\",\"clientSecret\":\"${KMS_CLIENT_SECRET}\"}" 2>/dev/null | jq -r '.accessToken' 2>/dev/null || echo "")
           fi
           response=$(curl -sf "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=e1359bf4-31b4-4dfa-bb90-323e2c298ad8&secretPath=/deploy&environment=prod" \
             -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null || echo "")
