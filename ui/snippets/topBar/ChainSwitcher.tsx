@@ -1,9 +1,9 @@
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import React from 'react';
 
 import { getCurrentChain, getCurrentNetwork, getChainsForNetwork, NETWORKS } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 // DropdownNavigator carries per-item state for the anchor's onClick so the
 // handler reference stays stable across renders (satisfies react/jsx-no-bind)
@@ -28,10 +28,6 @@ const ChainSwitcher = () => {
 
   const handleOpenChange = React.useCallback(({ open: isOpen }: { open: boolean }) => {
     setOpen(isOpen);
-  }, []);
-
-  const handleToggle = React.useCallback(() => {
-    setOpen((prev) => !prev);
   }, []);
 
   const closePopover = React.useCallback(() => {
@@ -80,7 +76,6 @@ const ChainSwitcher = () => {
             'dark:hover:bg-[var(--color-whiteAlpha-50)]',
             'transition-all duration-150',
           ) }
-          onClick={ handleToggle }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
