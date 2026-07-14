@@ -1,3 +1,7 @@
+import { Heading } from '@luxfi/ui/heading';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -8,11 +12,7 @@ import { cn } from 'lib/utils/cn';
 import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { Heading } from '@luxfi/ui/heading';
-import { IconButton } from '@luxfi/ui/icon-button';
 import { LinkBox, LinkOverlay } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import IconSvg from 'ui/shared/IconSvg';
@@ -26,7 +26,7 @@ interface Props {
 
 const ChainWidget = ({ data, isLoading, metrics }: Props) => {
   const isMobile = useIsMobile();
-  const { data: { wallet } = {} } = useProvider();
+  const { wallet } = useProvider().data ?? {};
   const walletIcon = wallet ? WALLETS_INFO[wallet].icon : undefined;
   const handleAddToWalletClick = useAddChainClick({ source: 'Chain widget' });
 
@@ -61,7 +61,10 @@ const ChainWidget = ({ data, isLoading, metrics }: Props) => {
   if (isMobile) {
     return (
       <LinkBox
-        className="bg-[rgba(246,246,248,0.5)] dark:bg-white/5 rounded-xl border border-solid border-black/20 dark:border-white/20 p-4 basis-full text-sm overflow-hidden"
+        className={
+          'bg-[rgba(246,246,248,0.5)] dark:bg-white/5 rounded-xl border border-solid ' +
+          'border-black/20 dark:border-white/20 p-4 basis-full text-sm overflow-hidden'
+        }
       >
         <div className="flex justify-between mb-2">
           <div className="flex min-w-0">

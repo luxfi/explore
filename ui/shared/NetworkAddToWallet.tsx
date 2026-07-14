@@ -1,10 +1,10 @@
+import { Button } from '@luxfi/ui/button';
 import React from 'react';
 
 import config from 'configs/app';
 import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { Button } from '@luxfi/ui/button';
 import IconSvg from 'ui/shared/IconSvg';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const NetworkAddToWallet = ({ source, onAddSuccess }: Props) => {
-  const { data: { wallet } = {} } = useProvider();
+  const { wallet } = useProvider().data ?? {};
 
   const handleClick = useAddChainClick({ source, onSuccess: onAddSuccess });
 
