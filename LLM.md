@@ -166,9 +166,31 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
-### Native all-chains wallet, lux.id login, menu/panel fix, real deploy path (v1.1.5)
+### Native all-chains wallet, lux.id login, menu/panel fix, real deploy path (v1.1.6)
 Four owner-reported UI fixes + the deploy/runtime wiring to actually ship them.
-(v1.1.4 shipped a crash — see the useProvider bullet — v1.1.5 fixes it.)
+(v1.1.4 shipped a crash; v1.1.5 fixed it; v1.1.6 fixes the chain switcher.)
+Verified live on explore.lux.network (Playwright): homepage + /blocks render with
+live blocks; header menus/panels open with solid backgrounds; Sign in → lux.id
+login page; chain switcher lists Lux/Zoo/Hanzo/SPC/Pars/Osage.
+
+- **Chain switcher didn't open (v1.1.6).** ChainSwitcher put onClick={handleToggle}
+  on the PopoverTrigger button, double-toggling against PopoverTrigger's own
+  handler (net: stays closed) — no chains were selectable. Removed the redundant
+  onClick + unused handleToggle (match UserProfileDesktop's pattern).
+
+**Flagged, NOT fixed here (need owner input / secrets):**
+- **Wallet connect is disabled**: blockchainInteraction only enables when
+  NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID is set (a real reown/WalletConnect
+  projectId, a vault secret per deploy/values/*.gotmpl). It's absent in the Lux
+  configmap → no wallet-connect UI. brandFamilyChains (the code side of fix c)
+  is in place; enable by adding the projectId secret. Don't use a placeholder.
+- **Homepage intermittently error-boundaries** ("length" of undefined, after an
+  async update) — pre-existing (old build too); recovers on reload; header + all
+  other pages unaffected. No source maps, couldn't pin the exact widget.
+- **CI deploy job**: build succeeds on ARC; the deploy job's KMS/DO-token step
+  still needs the DO token (fixed set -e / jq aborts + DIGITALOCEAN_ACCESS_TOKEN
+  fallback). Deploy is done via `kubectl set image explore-fe-lux …:sha-<short>`
+  (the documented method) meanwhile.
 
 - **App-crash fix (v1.1.4 regression).** v1.1.4 changed `useProvider` to return
   `null` (react-query v5 forbids `undefined`) but only switched the `lib/web3`
