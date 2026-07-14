@@ -52,6 +52,10 @@ data:
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.zoo.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.zoo.network
   NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explore.zoo.network
+  # Brand identity (NETWORK_NAME, currency, colors) is baked into the brand
+  # image; the runtime envs-validator would otherwise crashloop the pod on the
+  # absent NETWORK_NAME placeholder. Same rationale as explore-env-lux above.
+  SKIP_ENVS_VALIDATION: "true"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -69,6 +73,9 @@ data:
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.hanzo.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.hanzo.network
   NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explore.hanzo.network
+  # See explore-env-zoo: brand identity is baked in the image; skip the
+  # runtime envs-validator so the absent NETWORK_NAME placeholder doesn't crashloop.
+  SKIP_ENVS_VALIDATION: "true"
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -86,3 +93,6 @@ data:
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.pars.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.pars.network
   NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explore.pars.network
+  # See explore-env-zoo: brand identity is baked in the image; skip the
+  # runtime envs-validator so the absent NETWORK_NAME placeholder doesn't crashloop.
+  SKIP_ENVS_VALIDATION: "true"
