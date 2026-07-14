@@ -39,10 +39,11 @@ function parseChainEntries(src) {
   return entries;
 }
 
-/** Subnet display name. C-Chain (Contract Chain) is handled separately by
- *  the caller; for other chains use the short `name` field plus " Subnet". */
-function normalizeSubnetName(rawName) {
-  return `${ rawName.trim() } Subnet`;
+/** Display name for a federated chain. C-Chain (Contract Chain) is handled
+ *  separately by the caller; other chains use the short `name` field plus
+ *  " Network". Sovereign L1s are Networks — never "Subnets" (Lux nomenclature). */
+function networkDisplayName(rawName) {
+  return `${ rawName.trim() } Network`;
 }
 
 /** Build the federation manifest. Mainnet chains only — testnet/devnet are operator-visible
@@ -53,7 +54,7 @@ function buildManifest(entries) {
     .filter((e) => e.network === 'mainnet')
     .map((e) => ({
       id: e.chainId,
-      name: e.label === 'Contract Chain' ? 'Lux Mainnet' : normalizeSubnetName(e.name),
+      name: e.label === 'Contract Chain' ? 'Lux Mainnet' : networkDisplayName(e.name),
     }));
 
   // Always include explicit Lux Testnet/Devnet so peers can discover them.
