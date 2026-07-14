@@ -1,3 +1,7 @@
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { toaster } from '@luxfi/ui/toaster';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 import type { WatchAssetParams } from 'viem';
 
@@ -10,10 +14,6 @@ import * as mixpanel from 'lib/mixpanel/index';
 import useProvider from 'lib/web3/useProvider';
 import useSwitchOrAddChain from 'lib/web3/useSwitchOrAddChain';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { IconButton } from '@luxfi/ui/icon-button';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { toaster } from '@luxfi/ui/toaster';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 function getRequestParams(token: TokenInfo, tokenId?: string): WatchAssetParams | undefined {
@@ -58,7 +58,7 @@ interface Props {
 }
 
 const AddressAddToWallet = ({ className, token, tokenId, isLoading, variant = 'icon', iconSize = 6, chainConfig }: Props) => {
-  const { data: { wallet, provider } = {} } = useProvider();
+  const { wallet, provider } = useProvider().data ?? {};
   const switchOrAddChain = useSwitchOrAddChain({ chainConfig });
   const isMobile = useIsMobile();
   const { trackUsage } = useRewardsActivity();
