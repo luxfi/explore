@@ -61,6 +61,14 @@ jobs:
             type=semver,pattern={{version}}
             type=sha,prefix=sha-
 
+      - name: Resolve app version
+        id: appversion
+        # Footer shows NEXT_PUBLIC_GIT_TAG. On a branch push there is no git tag,
+        # so bake the package.json version (single source) as v<version>.
+        run: |
+          v=$(grep -m1 '"version"' package.json | sed -E 's/.*"version": *"([^"]+)".*/\1/')
+          echo "tag=v${v}" >> "$GITHUB_OUTPUT"
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
@@ -74,7 +82,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           build-args: |
             GIT_COMMIT_SHA=${{ github.sha }}
-            GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || '' }}
+            GIT_TAG=${{ github.ref_type == 'tag' && github.ref_name || steps.appversion.outputs.tag }}
             NEXT_PUBLIC_BRAND=lux
 
   deploy:
@@ -96,6 +104,7 @@ jobs:
           KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
           HANZO_API_KEY: ${{ secrets.HANZO_API_KEY }}
           KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://kms.hanzo.ai' }}
+          DO_FALLBACK_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         run: |
           if [ -n "${KMS_CLIENT_ID}" ] && [ -n "${KMS_CLIENT_SECRET}" ]; then
             HANZO_API_KEY=$(curl -sf "${KMS_ENDPOINT}/api/v1/auth/universal-auth/login" \
@@ -106,6 +115,11 @@ jobs:
             -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null || echo "")
           if [ -n "$response" ]; then
             token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="DO_API_TOKEN") | .secretValue // empty')
+          fi
+          # KMS is the source of truth for the DO token; fall back to the repo's
+          # DigitalOcean token secret when KMS has no /deploy DO_API_TOKEN entry.
+          if [ -z "${token:-}" ]; then
+            token="${DO_FALLBACK_TOKEN}"
           fi
           if [ -z "${token:-}" ]; then
             echo "::warning::Deploy credentials not found. Image was pushed but deployment skipped."
@@ -141,11 +155,17 @@ jobs:
           kubectl apply -f deploy/k8s/stats.yaml -n lux-mainnet || true
           kubectl rollout restart deployment/lux-stats -n lux-mainnet 2>/dev/null || true
 
-          kubectl apply -f deploy/k8s/frontend-testnet.yaml -n lux-testnet || true
-          kubectl apply -f deploy/k8s/frontend-devnet.yaml -n lux-devnet || true
+          # The Lux-branded FE image built by this run. metadata-action tags it
+          # sha-<7-char-short> (see the build job). IfNotPresent + a fresh
+          # immutable sha tag guarantees each rollout pulls the new bits.
+          IMAGE="${REGISTRY}/luxfi/explore:sha-$(echo "${GITHUB_SHA}" | cut -c1-7)"
+          echo "Rolling explore-fe-lux -> ${IMAGE}"
 
-          kubectl rollout restart deployment/lux-frontend-mainnet -n lux-mainnet || true
-          kubectl rollout restart deployment/lux-frontend-testnet -n lux-testnet || true
-          kubectl rollout restart deployment/lux-frontend-devnet -n lux-devnet || true
+          # explore-fe-lux is the Deployment that serves explore.lux.network (see
+          # deploy/k8s/explore-fe/deployments-mainnet.yaml + the mainnet
+          # ingressroute). Roll it across every network; testnet/devnet best-effort.
+          kubectl -n lux-testnet set image deployment/explore-fe-lux explore="${IMAGE}" 2>/dev/null || true
+          kubectl -n lux-devnet  set image deployment/explore-fe-lux explore="${IMAGE}" 2>/dev/null || true
+          kubectl -n lux-mainnet set image deployment/explore-fe-lux explore="${IMAGE}"
 
-          kubectl rollout status deployment/lux-frontend-mainnet -n lux-mainnet --timeout=300s
+          kubectl -n lux-mainnet rollout status deployment/explore-fe-lux --timeout=300s
