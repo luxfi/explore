@@ -6,15 +6,12 @@ import { getEnvValue } from 'configs/app/utils';
 
 const HEIGHTS_STALE_TIME_MS = 15_000;
 const HEIGHTS_QUERY_KEY = 'pchain:chainHeights' as const;
-const CCHAIN_RPC_PATTERN = /\/ext\/bc\/C\/rpc$/;
-
-function getApiBase(): string {
-  const rpcUrl = getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') ?? '';
-  return rpcUrl.replace(CCHAIN_RPC_PATTERN, '');
-}
 
 async function fetchChainHeights(): Promise<{ pChain: number; cChain: number }> {
-  const base = getApiBase();
+  // NEXT_PUBLIC_NETWORK_RPC_URL IS the C-chain EVM RPC endpoint (canonical
+  // `/v1/bc/C/rpc` on the gateway). Dial it directly — no path rewriting — so
+  // the C-chain height works regardless of the gateway path scheme.
+  const cChainRpcUrl = getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') ?? '';
 
   const [ pRes, cRes ] = await Promise.allSettled([
     // P-chain: use server-side proxy to bypass CORS
@@ -23,7 +20,7 @@ async function fetchChainHeights(): Promise<{ pChain: number; cChain: number }> 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', method: 'platform.getHeight', params: {}, id: 1 }),
     }),
-    fetch(`${ base }/ext/bc/C/rpc`, {
+    fetch(cChainRpcUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 2 }),

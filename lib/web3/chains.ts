@@ -98,7 +98,7 @@ export const essentialDappsChains: Array<Chain> | undefined = (() => {
 // Sibling networks of the current brand, sourced from the multi-tenant chain
 // registry so the wallet-connect flow presents / can add EVERY registered
 // network for this brand — e.g. Lux mainnet (96369), testnet (96368) and
-// devnet (96370) — instead of only the single env-configured chain. This is
+// devnet (96367) — instead of only the single env-configured chain. This is
 // the "native all-chains" connect: the list is derived from the registry
 // (the same source of truth as the header chain switcher), never hardcoded to
 // one chain. Each sibling's read RPC is its brand explorer's Blockscout

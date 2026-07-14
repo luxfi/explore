@@ -229,12 +229,34 @@ login page; chain switcher lists Lux/Zoo/Hanzo/SPC/Pars/Osage.
   `public/.well-known/explore.json` at build; now emits `<Brand> Network`, never
   "Subnet".
 
-**chainId discrepancies flagged (NOT changed — owner to reconcile):**
-- Registry Pars mainnet = **7070**, but `api.pars.network` reports `eth_chainId`
-  **494949** and `chainRegistry.spec.ts` deliberately asserts 7070 ("494949 is
-  stale"). Repo is internally consistent on 7070; the live chain disagrees.
-- Registry Lux devnet = **96370**, but `api.lux-dev.network` reports **96367**
-  (no test defends 96370; mainnet 96369 / testnet 96368 / devnet 96367).
+**chainId reconciliation + RPC → /v1 (v1.1.7):** registry now matches the LIVE
+chains AND the canonical genesis source of truth
+(`~/work/lux/genesis/configs/lp182_chain_id_map.go`, the LP-018 (family,env)→
+EVMChainID map). One value, one way.
+- **Pars mainnet 494949** (was the stale 7070) — `api.pars.network` reports
+  `eth_chainId=0x78d65` / `net_version=494949`. Pars **testnet 494950**, **devnet
+  494951** (were 7071/7072) — matches the LP-018 map's 4949xx theme. Note the LP-018
+  map itself was ALSO stale on Pars mainnet (7070) and was corrected to 494949 in
+  the genesis repo; testnet/devnet 494950/494951 were already canonical there.
+- **Lux devnet 96367** (was the stale 96370) — `api.lux-dev.network` reports
+  96367. Canonical Lux: mainnet 96369 / testnet 96368 / devnet 96367.
+- `chainRegistry.spec.ts` now asserts Pars **494949** (was the stale-7070 assert).
+- Fixed in: `configs/app/chainRegistry.ts`, `chainRegistry.spec.ts`,
+  `public/.well-known/explore.json`, `lib/web3/chains.ts` (comment),
+  `deploy/k8s/explore-fe/configmap-{mainnet,testnet}.yaml`,
+  `deploy/scripts/branded_build.sh`, `tools/send_test_txs.py`.
+- **Chain RPC migrated `/ext/bc/<alias>/rpc` → `/v1/bc/C/rpc`** (gateway canonical;
+  every sovereign L1 exposes its own C-Chain at `/v1/bc/C/rpc`, so zoo/hanzo/pars
+  drop their old brand-aliased `/ext/bc/{zoo,hanzo,pars}/rpc` paths — which were
+  already 404ing). Verified returning blocks BEFORE switching: Lux/Zoo/Hanzo/Pars
+  **mainnet** + Lux **testnet**. Deliberately still on `/ext` (their `/v1` gateway
+  route is not up yet — do NOT switch until a block returns): Lux **devnet**,
+  Zoo/Hanzo/Pars **testnet**, and the local-node compose + `send_test_txs.py`
+  URLs (raw luxd serves `/ext` natively, no gateway). P-chain proxy
+  (`pages/api/pchain.ts`) now dials `/v1/bc/P` (verified). `useChainHeights.ts`
+  and `luxnet/instance.ts` no longer strip `/ext/bc/C/rpc`: they use the env RPC
+  URL (or its origin) directly, so the C-chain height widget + luxnet SDK work
+  under either path scheme.
 
 ### Chain-visibility + 10-VM/DEX handling (v1.0.14)
 Two orthogonal correctness fixes shipped in one build cycle.
@@ -243,8 +265,9 @@ Two orthogonal correctness fixes shipped in one build cycle.
   `!isWhiteLabelMode() && vm === 'EVM'`, so unregistered/brand hosts stop
   rendering the Lux primary panels + cross-L1 list. Registered
   `explore.zoo.network`/`.ngo` + `explore.pars.network` as own-scoped L2s
-  (brand parity with Hanzo), added **Osage** L1, and fixed Pars chainId →
-  **7070**. Rule: **lux explorer = ALL chains; hanzo/zoo/pars = ONLY their own.**
+  (brand parity with Hanzo), added **Osage** L1, and set Pars chainId (interim
+  **7070**, since reconciled → **494949** in v1.1.7 above). Rule: **lux explorer =
+  ALL chains; hanzo/zoo/pars = ONLY their own.**
   Proven by `configs/app/chainRegistry.spec.ts` (12 cases).
 - **10-VM / DEX handling:** the Lux primary network is a family of VM-specialized
   chains (C=EVM, X=UTXO, D=DEX, P=platform, + A/B/Q/T/Z/G/K/O/R/I/M), mirrored
