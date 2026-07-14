@@ -116,7 +116,7 @@ jobs:
           response=$(curl -sf "${KMS_ENDPOINT}/api/v3/secrets/raw?workspaceId=e1359bf4-31b4-4dfa-bb90-323e2c298ad8&secretPath=/deploy&environment=prod" \
             -H "Authorization: Bearer ${HANZO_API_KEY}" 2>/dev/null || echo "")
           if [ -n "$response" ]; then
-            token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="DO_API_TOKEN") | .secretValue // empty')
+            token=$(echo "$response" | jq -r '.secrets[] | select(.secretKey=="DO_API_TOKEN") | .secretValue // empty' 2>/dev/null || echo "")
           fi
           # KMS is the source of truth for the DO token; fall back to the repo's
           # DigitalOcean token secret when KMS has no /deploy DO_API_TOKEN entry.
