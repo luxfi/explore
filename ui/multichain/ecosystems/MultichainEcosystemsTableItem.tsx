@@ -1,3 +1,7 @@
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
@@ -6,12 +10,8 @@ import type { ClusterChainConfig } from 'types/multichain';
 import useAddChainClick from 'lib/web3/useAddChainClick';
 import useProvider from 'lib/web3/useProvider';
 import { WALLETS_INFO } from 'lib/web3/wallets';
-import { IconButton } from '@luxfi/ui/icon-button';
-import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { TableCell, TableRow } from '@luxfi/ui/table';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
+import { Link } from 'toolkit/next/link';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import IconSvg from 'ui/shared/IconSvg';
@@ -34,7 +34,7 @@ const DeltaIndicator = ({ delta }: { delta: number }) => {
 
 const MultichainEcosystemsTableItem = ({ data, isLoading, chainInfo }: Props) => {
 
-  const { data: { wallet } = {} } = useProvider();
+  const { wallet } = useProvider().data ?? {};
   const walletIcon = wallet ? WALLETS_INFO[wallet].icon : undefined;
 
   const handleAddToWalletClick = useAddChainClick({ source: 'Chain widget' });
