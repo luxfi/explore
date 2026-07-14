@@ -25,7 +25,7 @@ permissions:
 jobs:
   code_quality:
     name: Code quality
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip checks') && !(github.event.action == 'unlabeled' && github.event.label.name != 'skip checks') }}
     steps:
       - name: Checkout repo
@@ -71,7 +71,7 @@ jobs:
   toolkit_build_check:
     name: Toolkit build check
     needs: [ code_quality ]
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -136,7 +136,7 @@ jobs:
 
   envs_validation:
     name: ENV variables validation
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     needs: [ code_quality ]
     steps:
       - name: Checkout repo
@@ -181,7 +181,7 @@ jobs:
   vitest_tests:
     name: Unit tests
     needs: [ code_quality, envs_validation ]
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -218,7 +218,7 @@ jobs:
 
   pw_affected_tests:
     name: Resolve affected Playwright tests
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     needs: [ code_quality, envs_validation ]
     if: github.event_name == 'pull_request'
     steps:
@@ -273,7 +273,7 @@ jobs:
       needs.code_quality.result == 'success' &&
       needs.envs_validation.result == 'success' &&
       (needs.pw_affected_tests.result == 'success' || needs.pw_affected_tests.result == 'skipped')
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     container:
       image: mcr.microsoft.com/playwright:v1.57.0-noble
 
@@ -342,7 +342,7 @@ jobs:
     name: Generate Playwright report
     # Merge reports after pw_tests job, even if some shards have failed
     if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
+    runs-on: lux-build-amd64
     needs: [ pw_tests ]
     steps:
       - name: Download blob reports from GitHub Actions Artifacts
