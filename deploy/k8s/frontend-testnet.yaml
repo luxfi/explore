@@ -50,7 +50,7 @@ spec:
             - name: NEXT_PUBLIC_IS_TESTNET
               value: "true"
             - name: NEXT_PUBLIC_NETWORK_RPC_URL
-              value: "https://api.lux-test.network/ext/bc/C/rpc"
+              value: "https://api.lux-test.network/v1/bc/C/rpc"
             - name: NEXT_PUBLIC_COLOR_THEME_DEFAULT
               value: "dark"
             - name: NEXT_PUBLIC_HOMEPAGE_CHARTS

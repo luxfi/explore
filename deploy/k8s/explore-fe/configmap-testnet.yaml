@@ -13,7 +13,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "true"
   NEXT_PUBLIC_API_HOST: api-explorer.lux-test.network
   NEXT_PUBLIC_APP_HOST: explorer.lux-test.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.lux-test.network/ext/bc/C/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.lux-test.network/v1/bc/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.lux-test.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.lux-test.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.lux-test.network
@@ -60,7 +60,7 @@ metadata:
   namespace: lux-testnet
   labels: {app: explore-fe, brand: pars, network: testnet}
 data:
-  NEXT_PUBLIC_NETWORK_ID: "7071"
+  NEXT_PUBLIC_NETWORK_ID: "494950"
   NEXT_PUBLIC_IS_TESTNET: "true"
   NEXT_PUBLIC_API_HOST: api-explorer.pars-test.network
   NEXT_PUBLIC_APP_HOST: explorer.pars-test.network

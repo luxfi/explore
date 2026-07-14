@@ -66,9 +66,9 @@ describe('chain-visibility rule', () => {
       expect(switcherChainNames()).toEqual([ name ]);
     });
 
-    it('pars uses its deployed chainId 7070 (not the stale 494949)', () => {
+    it('pars uses its live deployed chainId 494949 (api.pars.network eth_chainId=0x78d65 / net_version=494949)', () => {
       atHost('explore.pars.network');
-      expect(getCurrentChain().chainId).toBe(7070);
+      expect(getCurrentChain().chainId).toBe(494949);
     });
   });
 
