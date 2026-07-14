@@ -51,7 +51,7 @@ CHAINS = {
         "local_port": 19650,
         "namespace": "lux-devnet",
         "chains": [
-            ("C-chain", "C", 96370),
+            ("C-chain", "C", 96367),
             ("Zoo", "2dNppzzx7WC1cagAzVRjVP4Qf5n9BRLgVsd2L6BwDbocAVVqBz", 200202),
             ("Hanzo", "8saqkhsUrijPci3RXQnNaaLLkYXBErauhwUsZZwdj8erxeaZv", 36964),
             ("SPC", "AbticcB4ymCPL914ZBMozSSjFwVGw8xFKM35aiJDTAs6aed4M", 36912),
