@@ -161,10 +161,58 @@ All symlinks reference this single source of truth.
 1. **ALWAYS** update LLM.md with significant discoveries
 2. **PRESERVE** Lux branding when merging upstream changes
 3. **DO NOT** modify Blockscout-specific CI workflows
-4. **USE** `yarn` for package management (not npm/pnpm)
+4. **USE** `pnpm` for package management (repo is `packageManager: pnpm@10.11.0`; npm/yarn break the `@hanzogui` overrides)
 5. **TEST** UI changes with Playwright before committing
 
 ## Recent Changes
+
+### Native all-chains wallet, lux.id login, menu/panel fix, real deploy path (v1.1.5)
+Four owner-reported UI fixes + the deploy/runtime wiring to actually ship them.
+(v1.1.4 shipped a crash — see the useProvider bullet — v1.1.5 fixes it.)
+
+- **App-crash fix (v1.1.4 regression).** v1.1.4 changed `useProvider` to return
+  `null` (react-query v5 forbids `undefined`) but only switched the `lib/web3`
+  hooks; four UI consumers still did `const { data: { wallet } = {} } =
+  useProvider()`. `= {}` defaults only `undefined`, not `null`, so `null` data
+  crashed them → whole-page error boundary once account/OIDC put a wallet-using
+  popover in the header. Fixed to `useProvider().data ?? {}` in ChainWidget,
+  MultichainEcosystemsTableItem, NetworkAddToWallet, AddressAddToWallet.
+
+- **Menu / floating panels (the big visible break).** The prior build threw
+  ~7k `setReference` crashes — every popover/menu/drawer (chain switcher,
+  sign-in, mobile nav) rendered transparent (page bled through). Two causes: duplicate
+  `@hanzogui/*` React contexts (pinned to one 3.0.2 instance) and Tailwind v4
+  not scanning `@luxfi/ui` so the panel-surface utilities were purged. Fix:
+  `@hanzogui` pins + `@source "../node_modules/@luxfi/ui"` in `nextjs/global.css`
+  + a `--color-popover-border` token.
+- **Wallet / all-chains.** `lib/web3/chains.ts` derives `brandFamilyChains`
+  from `configs/app/chainRegistry` (+ matching wagmi transports); header
+  `ChainSwitcher` lists every registry chain on the primary C-Chain explorer.
+  `useProvider` returns `null` not `undefined` (react-query v5 crashed the
+  wallet hooks — that also broke the menu).
+- **lux.id login is RUNTIME config, not code.** The account feature is gated on
+  env that was never in the deployed ConfigMap, so no sign-in button appeared.
+  Enabled on `explore-env-lux` (lux-mainnet) + `deploy/k8s/explore-fe/configmap-mainnet.yaml`:
+  `IS_ACCOUNT_SUPPORTED=true`, `ACCOUNT_AUTH_PROVIDER=oidc`,
+  `OIDC_SERVER_URL=https://lux.id`, `OIDC_CLIENT_ID=lux-explore-client-id`
+  (issuer live; authorize `https://lux.id/v1/iam/oauth/authorize`).
+- **Deploy path (was broken).** explore.lux.network is served by Deployment
+  `explore-fe-lux` (ns `lux-mainnet`, `ghcr.io/luxfi/explore:sha-<short>`,
+  IfNotPresent). `build-lux.yml` builds on the `lux-build` ARC pool; the deploy
+  job now `kubectl set image explore-fe-lux` to the freshly built sha + waits on
+  rollout — it previously restarted a non-existent `lux-frontend-mainnet` and
+  its KMS `DO_API_TOKEN` fetch returned empty (deploys silently skipped). Added
+  a `DIGITALOCEAN_ACCESS_TOKEN` fallback; footer version now from package.json.
+- **Manifest.** `scripts/generate-well-known.js` regenerates
+  `public/.well-known/explore.json` at build; now emits `<Brand> Network`, never
+  "Subnet".
+
+**chainId discrepancies flagged (NOT changed — owner to reconcile):**
+- Registry Pars mainnet = **7070**, but `api.pars.network` reports `eth_chainId`
+  **494949** and `chainRegistry.spec.ts` deliberately asserts 7070 ("494949 is
+  stale"). Repo is internally consistent on 7070; the live chain disagrees.
+- Registry Lux devnet = **96370**, but `api.lux-dev.network` reports **96367**
+  (no test defends 96370; mainnet 96369 / testnet 96368 / devnet 96367).
 
 ### Chain-visibility + 10-VM/DEX handling (v1.0.14)
 Two orthogonal correctness fixes shipped in one build cycle.
