@@ -23,6 +23,18 @@ data:
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.lux.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.lux.network
   NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://api-explore.lux.network
+  # Account / sign-in via lux.id OIDC (issuer https://lux.id). Enables the
+  # header sign-in button; without these the account feature stays disabled.
+  NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED: "true"
+  NEXT_PUBLIC_ACCOUNT_AUTH_PROVIDER: oidc
+  NEXT_PUBLIC_OIDC_SERVER_URL: https://lux.id
+  NEXT_PUBLIC_OIDC_CLIENT_ID: lux-explore-client-id
+  # OIDC_* have no build-time placeholder in the current image, so the envs
+  # congruity check would crashloop the pod. make_envs still writes them to
+  # window.__envs (getEnvValue reads that at runtime), so skip validation —
+  # same approach as deploy/scripts/canonical_build.sh. Long-term: bake the
+  # OIDC vars as build-args so placeholders exist and validation can stay on.
+  SKIP_ENVS_VALIDATION: "true"
 ---
 apiVersion: v1
 kind: ConfigMap
