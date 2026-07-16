@@ -1,0 +1,41 @@
+---
+# Lux Mainnet — explorer BACKEND API ingress (api-explore.lux.network).
+#
+# WHY THIS EXISTS (do not delete): the explorer Go backend serves the API by
+# Host header via the ingress default backend, so api-explore.lux.network
+# *answered* even with no ingress rule — but with NO TLS block for that SNI the
+# controller served the self-signed "INGRESS DEFAULT CERT". Browsers then reject
+# every api-explore.lux.network request (ERR_CERT_AUTHORITY_INVALID) and the
+# whole explorer FE is stuck in skeleton loaders ("0/5 CONNECTED", no blocks).
+#
+# This dedicated Ingress gives the host a real letsencrypt-prod cert (served for
+# that SNI) and routes to the explorer API service. Mirrors the working
+# api-explore.osage.network wiring. Verified: explore.lux.network then loads
+# live blocks/transactions/stats (curl ssl_verify_result=0).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-explore-lux-network
+  namespace: lux-mainnet
+  labels: {app: explore-fe, brand: lux, network: mainnet}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: ingress
+  rules:
+    - host: api-explore.lux.network
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: explorer-unified
+                port:
+                  number: 8090
+  tls:
+    - hosts:
+        - api-explore.lux.network
+      secretName: api-explore-lux-network-tls

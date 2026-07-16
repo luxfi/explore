@@ -11,3 +11,4 @@ resources:
   - configmap-testnet.yaml
   - deployments-mainnet.yaml
   - deployments-testnet.yaml
+  - ingress-api-mainnet.yaml

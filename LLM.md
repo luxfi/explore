@@ -166,6 +166,27 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### api-explore.lux.network TLS cert fix — explorer data now loads (infra)
+The explorer FE was stuck in skeleton loaders ("0/5 CONNECTED", no blocks/txns)
+because **every** `api-explore.lux.network` request failed in the browser with
+`ERR_CERT_AUTHORITY_INVALID`. Root cause: the explorer Go backend answers by
+Host header via the ingress default backend, so the API responded (200) even
+with **no ingress rule** for that host — but with no TLS block for that SNI the
+controller served the self-signed `CN=INGRESS DEFAULT CERT`, which browsers
+reject. (`curl -k` worked; a real browser did not.) A stale
+`api-explore-lux-network-tls` secret existed but nothing referenced/renewed it.
+Fix: a dedicated Ingress for `api-explore.lux.network` → `explorer-unified:8090`
+with a `letsencrypt-prod` TLS block (mirrors the working
+`api-explore.osage.network`). cert-manager issued a real LE cert (CN=YR2) in
+~60s; `curl ssl_verify_result=0`. Verified live (Playwright): explore.lux.network
+now renders 1.09M blocks, 16.9k txns, live blocks + real tx hashes.
+Declared in `deploy/k8s/explore-fe/ingress-api-mainnet.yaml` (in the kustomize
+resources) so it survives redeploys. **If explorer data ever goes blank, check
+this ingress + its cert first** (`kubectl -n lux-mainnet get certificate
+api-explore-lux-network-tls`). Sibling brands (hanzo/pars/spc) have api-explore
+TLS secrets too — if their explorers go blank, they likely need the same
+dedicated api-explore ingress.
+
 ### Native all-chains wallet, lux.id login, menu/panel fix, real deploy path (v1.1.6)
 Four owner-reported UI fixes + the deploy/runtime wiring to actually ship them.
 (v1.1.4 shipped a crash; v1.1.5 fixed it; v1.1.6 fixes the chain switcher.)
