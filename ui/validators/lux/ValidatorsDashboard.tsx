@@ -4,7 +4,7 @@ import React from 'react';
 import config from 'configs/app';
 import type { PChainValidator, ValidatorStats } from 'lib/api/pchain';
 
-import { formatStake, formatUptime, truncateNodeId } from './utils';
+import { formatStake, truncateNodeId } from './utils';
 
 const CURRENCY = config.chain.currency.symbol || 'LUX';
 
@@ -117,12 +117,6 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
         <div className="font-semibold flex-1 text-right">
           Delegation Fee
         </div>
-        <div className="font-semibold flex-1 text-center">
-          Connected
-        </div>
-        <div className="font-semibold flex-1 text-right">
-          Uptime
-        </div>
       </div>
 
       { /* Rows */ }
@@ -148,12 +142,6 @@ const ActiveValidatorsTable = ({ validators, isLoading }: ActiveValidatorsTableP
           <div className="flex-1 text-right">
             { v.delegationFee }%
           </div>
-          <div className="flex-1 flex justify-center">
-            <div/>
-          </div>
-          <div className="flex-1 text-right">
-            { formatUptime(v.uptime) }
-          </div>
         </div>
       )) }
     </div>
@@ -174,9 +162,15 @@ const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboa
   return (
     <div className="flex flex-col gap-6 text-[var(--color-text-primary)]">
       { /* Stat cards */ }
+      { /*
+        Connected / Avg Uptime intentionally omitted: platform.getCurrentValidators
+        reports connected=null and uptime=0 for every validator on the public RPC
+        (the API node does not track peer uptime), so any value here would be
+        fabricated. Only chain-sourced, verifiable metrics are shown.
+      */ }
       <div
         className="grid gap-4"
-        style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}
+        style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}
       >
         <StatCard
           label="Validators"
@@ -184,18 +178,8 @@ const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboa
           isLoading={ isLoading }
         />
         <StatCard
-          label="Connected"
-          value={ `${ stats.connectedCount }/${ stats.validatorCount }` }
-          isLoading={ isLoading }
-        />
-        <StatCard
           label="Delegators"
           value={ stats.delegatorCount.toLocaleString() }
-          isLoading={ isLoading }
-        />
-        <StatCard
-          label="Avg Uptime"
-          value={ `${ stats.averageUptime.toFixed(1) }%` }
           isLoading={ isLoading }
         />
       </div>
