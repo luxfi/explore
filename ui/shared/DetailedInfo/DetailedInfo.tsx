@@ -1,7 +1,7 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import * as ContainerWithScrollY from 'ui/shared/ContainerWithScrollY';
 
@@ -16,7 +16,11 @@ interface ContainerProps {
 
 export const Container = ({ children, className }: ContainerProps) => {
   return (
-    <div className={ cn('grid gap-x-8 gap-y-0 lg:gap-y-3 grid-cols-1 lg:grid-cols-[max-content_minmax(728px,auto)] text-sm lg:text-base', className) }>
+    <div className={ cn(
+      'grid gap-x-8 gap-y-0 lg:gap-y-3 grid-cols-1 lg:grid-cols-[max-content_minmax(728px,auto)]',
+      'text-sm lg:text-base text-[var(--color-text-primary)]',
+      className,
+    ) }>
       { children }
     </div>
   );
@@ -41,7 +45,7 @@ export const ItemLabel = ({ hint, children, isLoading, id, hasScroll, className 
   return (
     <div
       id={ id }
-      className={ cn('min-h-[30px] lg:min-h-[32px] [&:not(:first-child)]:mt-3 lg:[&:not(:first-child)]:mt-0', className) }
+      className={ cn('min-h-[30px] lg:min-h-[32px] text-[var(--color-text-secondary)] [&:not(:first-child)]:mt-3 lg:[&:not(:first-child)]:mt-0', className) }
     >
       <div className="flex gap-x-1 lg:gap-x-2 items-start w-full">
         { hint && <Hint label={ hint } isLoading={ isLoading } className="my-[5px] lg:my-[6px]"/> }
