@@ -1,13 +1,13 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import type { Route } from 'nextjs-routes';
 import { route } from 'nextjs-routes';
 
 import { cn } from 'lib/utils/cn';
-import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
+import { Link } from 'toolkit/next/link';
 import IconSvg, { type IconName } from 'ui/shared/IconSvg';
 
 export type Props = {
@@ -83,7 +83,7 @@ const StatsWidget = ({
           <Skeleton
             loading={ isLoading }
             className={ cn(
-              'flex items-baseline font-medium text-lg',
+              'flex items-baseline font-medium text-lg text-[var(--color-text-primary)]',
               isFallback && !isLoading && 'opacity-[var(--opacity-control-disabled)]',
             ) }
           >
