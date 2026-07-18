@@ -167,7 +167,17 @@ All symlinks reference this single source of truth.
 ## Recent Changes
 
 ### Org explorers un-stubbed + mobile detail pages fixed (v1.1.10)
-Two mobile-QA defects across the block explorers.
+Two mobile-QA defects across the block explorers. **DEPLOYED + VERIFIED**: image
+built on-cluster via buildkit (a Job on do-sfo3-hanzo-k8s
+runner-pool-32g — NO GHA; GitHub Actions is disabled for the account) from
+commit 7e35a0a, fanned out with `crane` to ghcr.io/{luxfi,zooai,hanzoai,
+parsdao}/explore:v1.1.10 (same digest 6f7c19d0), rolled to all four
+explore-fe-* on lux-k8s/lux-mainnet. Verified 390px: docSW==390 (no clip),
+labels legible, tab strip scrolls (sw 945, no overlap); desktop 1280px
+unchanged; org branding intact (explore.zoo.network = Zoo, networkId 200200,
+frontend 1.1.10). CI note: build-lux.yml only builds/deploys luxfi and its
+deploy job is currently broken (expired DigitalOcean token → doctl 401);
+org rollout is the buildkit+crane path above.
 
 - **Defect 1 (org explorers showed goerli stub data, not their real chains).**
   Root cause was purely TLS: `api-explore.{zoo,hanzo,pars}.network` served the
