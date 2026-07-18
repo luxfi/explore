@@ -14,6 +14,16 @@ metadata:
   namespace: lux-mainnet
   labels: {app: explore-fe, brand: lux, network: mainnet}
 data:
+  # Brand identity. Intended to be baked into the image, but the current
+  # ghcr.io/luxfi/explore image does not set NETWORK_NAME/currency as runtime
+  # env, so make_envs_script.sh never writes them to window.__envs and the
+  # client renders "undefined stats" / undefined currency. Source them here
+  # (make_envs reads pod env at startup) until the image bakes them.
+  NEXT_PUBLIC_NETWORK_NAME: Lux Network
+  NEXT_PUBLIC_NETWORK_SHORT_NAME: LUX
+  NEXT_PUBLIC_NETWORK_CURRENCY_NAME: Lux
+  NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL: LUX
+  NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS: "18"
   NEXT_PUBLIC_NETWORK_ID: "96369"
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.lux.network
@@ -43,6 +53,13 @@ metadata:
   namespace: lux-mainnet
   labels: {app: explore-fe, brand: zoo, network: mainnet}
 data:
+  # Brand identity (see explore-env-lux note): source here so make_envs writes
+  # them to window.__envs, otherwise the client shows "undefined stats".
+  NEXT_PUBLIC_NETWORK_NAME: Zoo Network
+  NEXT_PUBLIC_NETWORK_SHORT_NAME: ZOO
+  NEXT_PUBLIC_NETWORK_CURRENCY_NAME: Zoo
+  NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL: ZOO
+  NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS: "18"
   NEXT_PUBLIC_NETWORK_ID: "200200"
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.zoo.network
@@ -64,6 +81,13 @@ metadata:
   namespace: lux-mainnet
   labels: {app: explore-fe, brand: hanzo, network: mainnet}
 data:
+  # Brand identity (see explore-env-lux note): source here so make_envs writes
+  # them to window.__envs, otherwise the client shows "undefined stats".
+  NEXT_PUBLIC_NETWORK_NAME: Hanzo
+  NEXT_PUBLIC_NETWORK_SHORT_NAME: HANZO
+  NEXT_PUBLIC_NETWORK_CURRENCY_NAME: Hanzo AI
+  NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL: AI
+  NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS: "18"
   NEXT_PUBLIC_NETWORK_ID: "36963"
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.hanzo.network
@@ -84,6 +108,13 @@ metadata:
   namespace: lux-mainnet
   labels: {app: explore-fe, brand: pars, network: mainnet}
 data:
+  # Brand identity (see explore-env-lux note): source here so make_envs writes
+  # them to window.__envs, otherwise the client shows "undefined stats".
+  NEXT_PUBLIC_NETWORK_NAME: Pars
+  NEXT_PUBLIC_NETWORK_SHORT_NAME: PARS
+  NEXT_PUBLIC_NETWORK_CURRENCY_NAME: Pars
+  NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL: PARS
+  NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS: "18"
   NEXT_PUBLIC_NETWORK_ID: "494949"
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.pars.network

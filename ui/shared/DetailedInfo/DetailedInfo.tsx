@@ -70,7 +70,14 @@ export const ItemValue = ({ children, multiRow = false, className }: ItemValuePr
   return (
     <div
       className={ cn(
-        'flex items-center pl-6 lg:pl-0 min-h-[30px] lg:min-h-[32px] whitespace-nowrap',
+        // Mobile: keep a long value (address/hash entity) from pushing the page
+        // wider than the viewport. min-w-0 lets the flex child shrink so the
+        // entity's dynamic shortener truncates to fit the cell; break-words wraps
+        // plain long strings; overflow-x-hidden is the hard guarantee that the
+        // cell can never overflow past its column edge. Desktop is unchanged
+        // (single-line nowrap, visible overflow).
+        'flex items-center pl-6 lg:pl-0 min-h-[30px] lg:min-h-[32px]',
+        'min-w-0 overflow-x-hidden whitespace-normal break-words lg:overflow-x-visible lg:whitespace-nowrap',
         multiRow && 'flex-wrap leading-[30px] lg:leading-[32px]',
         className,
       ) }
