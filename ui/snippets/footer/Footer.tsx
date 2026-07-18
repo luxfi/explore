@@ -1,3 +1,4 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
@@ -9,7 +10,6 @@ import type { ResourceError } from 'lib/api/resources';
 import useApiQuery from 'lib/api/useApiQuery';
 import useFetch from 'lib/hooks/useFetch';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { copy } from 'toolkit/utils/htmlEntities';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
@@ -149,29 +149,28 @@ const Footer = () => {
   };
 
   const horizontalPadding = config.UI.navigation.layout === 'horizontal' ? 'lg:px-6' : 'lg:px-12';
+  // mobile: single column so the network description + link groups wrap inside
+  // the viewport instead of forcing a 470px column past the 390px edge.
+  const footerGridCols = 'grid grid-cols-1 lg:grid-cols-[minmax(auto,470px)_1fr]';
 
   if (config.UI.footer.links) {
     return (
       <footer className="border-t border-[var(--color-border-divider)]">
         <div
-          className={ `grid px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto gap-x-8 lg:gap-x-[100px]` }
-          style={{
-            maxWidth: `${ CONTENT_MAX_WIDTH }px`,
-            gridTemplateColumns: 'minmax(auto, 470px) 1fr',
-          }}
+          className={ `${ footerGridCols } px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto gap-x-8 lg:gap-x-[100px]` }
+          style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
         >
-          <div>
+          <div className="min-w-0">
             { renderNetworkInfo() }
             { renderProjectInfo() }
             { renderRecaptcha() }
           </div>
 
           <div
-            className="grid gap-2 lg:gap-8 xl:gap-12 mt-8 lg:mt-0"
-            style={{
-              gridTemplateColumns: `repeat(${ colNum }, 160px)`,
-              justifyContent: 'flex-end',
-            }}
+            // mobile: 2 flexible columns that fit the viewport; desktop: the
+            // measured number of fixed 160px columns, right-aligned.
+            className="grid grid-cols-2 lg:grid-cols-[repeat(var(--footer-cols),160px)] justify-start lg:justify-end gap-2 lg:gap-8 xl:gap-12 mt-8 lg:mt-0"
+            style={{ '--footer-cols': colNum } as React.CSSProperties}
           >
             {
               ([
@@ -197,25 +196,15 @@ const Footer = () => {
   return (
     <footer className="border-t border-[var(--color-border-divider)]">
       <div
-        className={ `grid px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto` }
-        style={{
-          maxWidth: `${ CONTENT_MAX_WIDTH }px`,
-          gridTemplateColumns: 'minmax(auto, 470px) 1fr',
-          columnGap: '100px',
-        }}
+        className={ `${ footerGridCols } lg:gap-x-[100px] px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto` }
+        style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
       >
         { renderNetworkInfo() }
         { renderProjectInfo() }
         { renderRecaptcha() }
 
         <div
-          className="grid gap-1 mt-8 lg:mt-0"
-          style={{
-            gridTemplateColumns: 'repeat(auto-fill, 160px)',
-            gridAutoFlow: 'column',
-            alignContent: 'start',
-            justifyContent: 'flex-end',
-          }}
+          className="grid grid-cols-2 lg:grid-flow-col lg:auto-cols-[160px] content-start justify-start lg:justify-end gap-1 mt-8 lg:mt-0"
         >
           { FOOTER_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
         </div>

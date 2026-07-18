@@ -1,12 +1,13 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import type { TabsProps } from '@luxfi/ui/tabs';
+import { TabsCounter, TabsList, TabsTrigger } from '@luxfi/ui/tabs';
 import React from 'react';
 
 import type { TabItemRegular } from './types';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import { cn } from 'lib/utils/cn';
 
-import { Skeleton } from '@luxfi/ui/skeleton';
-import type { TabsProps } from '@luxfi/ui/tabs';
-import { TabsCounter, TabsList, TabsTrigger } from '@luxfi/ui/tabs';
 import { useIsSticky } from '../../hooks/useIsSticky';
 import AdaptiveTabsMenu from './AdaptiveTabsMenu';
 import useAdaptiveTabs from './useAdaptiveTabs';
@@ -94,26 +95,18 @@ const AdaptiveTabsList = (props: Props) => {
   return (
     <TabsList
       ref={ listRef }
-      flexWrap="nowrap"
-      alignItems="center"
-      whiteSpace="nowrap"
-      bgColor="bg.primary"
-      marginBottom={ 6 }
-      mx={{ base: '-12px', lg: 'unset' }}
-      px={{ base: '12px', lg: 'unset' }}
-      w={{ base: 'calc(100% + 24px)', lg: '100%' }}
-      overflowX={{ base: 'auto', lg: 'initial' }}
-      overscrollBehaviorX="contain"
-      css={{
-        scrollSnapType: 'x mandatory',
-        scrollPaddingInline: '12px', // mobile page padding
-        // hide scrollbar
-        '&::-webkit-scrollbar': { /* Chromiums */
-          display: 'none',
-        },
-        '-ms-overflow-style': 'none', /* IE and Edge */
-        scrollbarWidth: 'none', /* Firefox */
-      }}
+      // @luxfi/ui TabsList discards Chakra style props (overflowX/w/mx/px/css…),
+      // so the mobile tab-bar behavior must be expressed as Tailwind classes —
+      // the only styling hook it forwards. Without this the bar can't scroll on
+      // mobile and the (non-shrinking) triggers collide past the 390px edge.
+      className={ cn(
+        'flex-nowrap items-center whitespace-nowrap bg-[var(--color-bg-primary)] mb-6',
+        // mobile: bleed to the page edges, horizontal scroll-snap, hidden scrollbar
+        '-mx-3 px-3 w-[calc(100%+24px)] overflow-x-auto overscroll-x-contain',
+        'snap-x snap-mandatory scroll-px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+        // desktop: no bleed, no scroll — the adaptive "…" menu handles overflow
+        'lg:mx-0 lg:px-0 lg:w-full lg:overflow-x-visible lg:snap-none',
+      ) }
       {
         ...(props.stickyEnabled ? {
           position: 'sticky',
@@ -162,8 +155,7 @@ const AdaptiveTabsList = (props: Props) => {
             key={ value }
             value={ value }
             ref={ ref }
-            scrollSnapAlign="start"
-            flexShrink={ 0 }
+            className="shrink-0 snap-start"
             { ...getItemStyles(index, tabsCut, isLoading) }
           >
             { typeof tab.title === 'function' ? tab.title() : tab.title }
@@ -177,12 +169,12 @@ const AdaptiveTabsList = (props: Props) => {
           <TabsTrigger
             key={ value }
             value={ value }
-            flexShrink={ 0 }
-            bgColor={
+            className={ cn(
+              'shrink-0 snap-start',
               activeTabIndex === index && (variant === 'solid' || variant === undefined) ?
-                { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } :
-                undefined
-            }
+                'bg-black/5 dark:bg-white/5' :
+                undefined,
+            ) }
           >
             <Skeleton loading>
               { typeof tab.title === 'function' ? tab.title() : tab.title }

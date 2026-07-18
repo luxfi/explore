@@ -166,6 +166,61 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### Org explorers un-stubbed + mobile detail pages fixed (v1.1.10)
+Two mobile-QA defects across the block explorers.
+
+- **Defect 1 (org explorers showed goerli stub data, not their real chains).**
+  Root cause was purely TLS: `api-explore.{zoo,hanzo,pars}.network` served the
+  self-signed `CN=INGRESS DEFAULT CERT` (no cert-manager Ingress for those SNIs,
+  only lux had one). Real browsers reject it → every FE data fetch fails →
+  react-query falls back to the `stubs/` placeholders (block #8988736, "Stub
+  Token (goerli)") behind stuck skeletons. The FE wiring was already correct
+  (configmaps point at `api-explore.<org>.network` + right chainId) and the
+  backend already serves real per-chain data — the unified `explorer` pod has
+  all 6 chains (`{"chains":6}`) and the org IngressRoutes route by Host /
+  `blockscout-prefix-<brand>` → `/v1/indexer/<slug>` (proven: cchain 1.09M
+  blocks, zoo 13,381, hanzo 11, pars 63). Fix = add a dedicated cert-manager
+  `letsencrypt-prod` Ingress per org api host → `explorer-unified:8090`,
+  mirroring `api-explore-lux-network` (declared in `ingress-api-mainnet.yaml`,
+  in the kustomize resources). Certs issued in ~60s; all three now
+  `ssl_verify=0`. **If an org explorer ever goes blank/stubs again, check
+  `kubectl -n lux-mainnet get certificate api-explore-<org>-network-tls` first.**
+  The `@luxfi/ui` browser (Playwright) ignores TLS errors, so it renders real
+  data even when the cert is bad — verify Defect-1-class bugs with a REAL
+  cert-enforcing client (openssl/curl without -k), not the MCP browser.
+
+- **Defect 2 (mobile 390px detail pages: dropped labels, horizontal clip, tab
+  overlap).** Three shared-UI fixes (fix all 4 explorers at once):
+  - *Labels invisible* was the v1.1.9 white-on-white color fix (already landed);
+    deploying v1.1.10 to the org images (they ran v1.0.14) is what makes it show.
+  - *Horizontal clip* — the real page-overflow driver at 390px was the FOOTER,
+    not the field rows. `ui/snippets/footer/Footer.tsx` used inline
+    `gridTemplateColumns: 'minmax(auto,470px) 1fr'` + `repeat(colNum,160px)` with
+    no mobile breakpoint → a 470px column past the 390 viewport. Made it
+    `grid-cols-1 lg:grid-cols-[minmax(auto,470px)_1fr]` (single column on mobile;
+    links `grid-cols-2` via a `--footer-cols` CSS var for the desktop count).
+    docSW 486→390 verified on a fresh `next dev` render.
+  - *Detail values* — `DetailedInfo.ItemValue` forced `whitespace-nowrap` with no
+    `min-w-0`, so a long address/hash couldn't shrink and its dynamic shortener
+    (`HashStringShortenDynamic`, which sizes off its parent width) never bounded.
+    Added `min-w-0 whitespace-normal break-words overflow-x-hidden lg:whitespace-nowrap
+    lg:overflow-x-visible` — desktop unchanged.
+  - *Tab bar overlap/collide* — **`@luxfi/ui` `TabsList`/`TabsTrigger` silently
+    DISCARD all Chakra style props** (`overflowX`, `w`, `mx`, `css` scroll-snap,
+    `flexShrink`, sticky…): they destructure them to `_overflowX` etc. and only
+    forward `className`/`style`. So the mobile scroll + `flexShrink={0}` the
+    consumer passed never applied → triggers shrank and collided, no scroll.
+    Fixed at the consumer (`AdaptiveTabsList.tsx`): express the mobile scroll as
+    Tailwind `className` on TabsList (`overflow-x-auto snap-x -mx-3 px-3
+    w-[calc(100%+24px)] lg:…`) and `className="shrink-0 snap-start"` on triggers.
+    Verified: tab strip becomes a scroll container (sw 373→921) with no overlap.
+    NOTE for future work: any Chakra-style prop on `@luxfi/ui` Tabs is a no-op —
+    use `className`. `DetailedInfo.Container`'s `templateColumns` prop is likewise
+    dropped (hardcoded grid); mobile is already single-column so it's benign.
+  - Dev caveat: `next dev` crashes tab pages in `AdaptiveTabsMenu` (pre-existing
+    dev-only `icons/dots.svg`/popover import resolving to object); prod build is
+    fine. Verify tab/detail rendering on the deployed prod URL, footer on dev.
+
 ### api-explore.lux.network TLS cert fix — explorer data now loads (infra)
 The explorer FE was stuck in skeleton loaders ("0/5 CONNECTED", no blocks/txns)
 because **every** `api-explore.lux.network` request failed in the browser with
