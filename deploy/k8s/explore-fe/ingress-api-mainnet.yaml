@@ -39,3 +39,105 @@ spec:
     - hosts:
         - api-explore.lux.network
       secretName: api-explore-lux-network-tls
+---
+# Zoo Mainnet — explorer BACKEND API ingress (api-explore.zoo.network).
+#
+# Same root cause as lux above: without a dedicated Ingress declaring a TLS
+# block for this SNI, the controller serves the self-signed "INGRESS DEFAULT
+# CERT", browsers reject every api-explore.zoo.network request
+# (ERR_CERT_AUTHORITY_INVALID), the FE data fetches fail, and react-query
+# falls back to the goerli stub placeholders behind stuck skeleton loaders.
+# The chain routing already works (the IngressRoute lux-explorer-zoo rewrites
+# to /v1/indexer/zoo via the blockscout-prefix-zoo middleware and returns real
+# Zoo 200200 data) — this Ingress only supplies the browser-valid LE cert.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-explore-zoo-network
+  namespace: lux-mainnet
+  labels: {app: explore-fe, brand: zoo, network: mainnet}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: ingress
+  rules:
+    - host: api-explore.zoo.network
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: explorer-unified
+                port:
+                  number: 8090
+  tls:
+    - hosts:
+        - api-explore.zoo.network
+      secretName: api-explore-zoo-network-tls
+---
+# Hanzo Mainnet — explorer BACKEND API ingress (api-explore.hanzo.network).
+# See the zoo block above; routes real Hanzo 36963 data via the
+# lux-explorer-hanzo IngressRoute + blockscout-prefix-hanzo. This Ingress only
+# supplies the browser-valid LE cert for the api-explore.hanzo.network SNI.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-explore-hanzo-network
+  namespace: lux-mainnet
+  labels: {app: explore-fe, brand: hanzo, network: mainnet}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: ingress
+  rules:
+    - host: api-explore.hanzo.network
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: explorer-unified
+                port:
+                  number: 8090
+  tls:
+    - hosts:
+        - api-explore.hanzo.network
+      secretName: api-explore-hanzo-network-tls
+---
+# Pars Mainnet — explorer BACKEND API ingress (api-explore.pars.network).
+# See the zoo block above; routes real Pars 494949 data via the
+# lux-explorer-pars IngressRoute + blockscout-prefix-pars. This Ingress only
+# supplies the browser-valid LE cert for the api-explore.pars.network SNI.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-explore-pars-network
+  namespace: lux-mainnet
+  labels: {app: explore-fe, brand: pars, network: mainnet}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: ingress
+  rules:
+    - host: api-explore.pars.network
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: explorer-unified
+                port:
+                  number: 8090
+  tls:
+    - hosts:
+        - api-explore.pars.network
+      secretName: api-explore-pars-network-tls
