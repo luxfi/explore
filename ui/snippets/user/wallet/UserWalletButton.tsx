@@ -1,9 +1,9 @@
+import { Button, type ButtonProps } from '@luxfi/ui/button';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
 import shortenString from 'lib/shortenString';
-import { Button, type ButtonProps } from '@luxfi/ui/button';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import UserIdenticon from '../UserIdenticon';
@@ -25,16 +25,16 @@ const UserWalletButton = ({ size, variant, isPending, isAutoConnectDisabled, add
     if (address) {
       const text = domain || shortenString(address);
       return (
-        <div>
+        <div className="flex items-center gap-2 min-w-0">
           <UserIdenticon address={ address } isAutoConnectDisabled={ isAutoConnectDisabled }/>
-          <div>{ text }</div>
+          <div className="truncate">{ text }</div>
         </div>
       );
     }
 
     return (
-      <div>
-        <IconSvg name="profile"/>
+      <div className="flex items-center gap-2">
+        <IconSvg name="profile" className="w-5 h-5 shrink-0"/>
         <div>Menu</div>
       </div>
     );

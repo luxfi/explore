@@ -1,8 +1,9 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import type BigNumber from 'bignumber.js';
 import React from 'react';
 
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tooltip } from '@luxfi/ui/tooltip';
+import { resolveColorToken } from 'lib/utils/colorToken';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 import { DEFAULT_ACCURACY, formatBnValue } from './utils';
@@ -58,7 +59,14 @@ const SimpleValue = ({
   }, [ postfix, prefix, value, tooltipContentBefore ]);
 
   return (
-    <Skeleton loading={ loading } display="inline-flex" alignItems="center" color={ color } className="whitespace-pre max-w-full overflow-hidden" { ...rest }>
+    <Skeleton
+      loading={ loading }
+      display="inline-flex"
+      alignItems="center"
+      color={ resolveColorToken(color) }
+      className="whitespace-pre max-w-full overflow-hidden"
+      { ...rest }
+    >
       { startElement }
       <Tooltip
         content={ tooltipContentProp ?? tooltipContent }
