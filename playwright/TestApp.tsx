@@ -1,4 +1,3 @@
-import { GrowthBookProvider } from '@growthbook/growthbook-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { http } from 'viem';
@@ -72,23 +71,21 @@ const TestApp = ({ children, withSocket, appContext = defaultAppContext, marketp
   }));
 
   return (
-      <QueryClientProvider client={ queryClient }>
-        <SocketProvider url={ withSocket ? `ws://${ config.app.host }:${ socketPort }` : undefined }>
-          <AppContextProvider { ...appContext }>
-            <MarketplaceContext.Provider value={ marketplaceContext }>
-              <SettingsContextProvider>
-                <GrowthBookProvider>
-                  <WagmiProvider config={ wagmiConfig! }>
-                    <RewardsContextProvider>
-                      { children }
-                    </RewardsContextProvider>
-                  </WagmiProvider>
-                </GrowthBookProvider>
-              </SettingsContextProvider>
-            </MarketplaceContext.Provider>
-          </AppContextProvider>
-        </SocketProvider>
-      </QueryClientProvider>
+    <QueryClientProvider client={ queryClient }>
+      <SocketProvider url={ withSocket ? `ws://${ config.app.host }:${ socketPort }` : undefined }>
+        <AppContextProvider { ...appContext }>
+          <MarketplaceContext.Provider value={ marketplaceContext }>
+            <SettingsContextProvider>
+              <WagmiProvider config={ wagmiConfig! }>
+                <RewardsContextProvider>
+                  { children }
+                </RewardsContextProvider>
+              </WagmiProvider>
+            </SettingsContextProvider>
+          </MarketplaceContext.Provider>
+        </AppContextProvider>
+      </SocketProvider>
+    </QueryClientProvider>
   );
 };
 
