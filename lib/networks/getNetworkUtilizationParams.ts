@@ -11,15 +11,14 @@ export default function getNetworkUtilizationParams(value: number) {
     return 'low';
   })();
 
-  // Theme CSS vars (defined in styles/tokens.css for both light + dark). The
-  // previous Chakra dot-tokens (red.600 etc.) had no matching --color-*-600 var,
-  // so they rendered as invalid CSS and the % inherited white-on-white. The
-  // "bright" badge foregrounds are the darkest semantic status shades and clear
-  // 4.5:1 on the light card background.
+  // Semantic status vars (styles/tokens.css, both light + dark). The previous
+  // Chakra dot-tokens (red.600 etc.) had no matching --color-*-600 var, so they
+  // rendered as invalid CSS and the % inherited white-on-white. These shades
+  // clear 4.5:1 on the #FAFAFA card background.
   const colors = {
-    high: 'var(--color-badge-bright-red-fg)',
-    medium: 'var(--color-badge-bright-orange-fg)',
-    low: 'var(--color-badge-bright-green-fg)',
+    high: 'var(--color-status-bad)',
+    medium: 'var(--color-status-warn)',
+    low: 'var(--color-status-good)',
   };
   const color = colors[load];
 
