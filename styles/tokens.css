@@ -45,6 +45,11 @@
   --color-text-error: #E53E3E;
   --color-text-success: #38A169;
 
+  /* --- Status foreground (AA >=4.5:1 on the #FAFAFA card bg) --- */
+  --color-status-good: #1A7A47;
+  --color-status-warn: #B45309;
+  --color-status-bad: #B91C1C;
+
   /* --- Headings --- */
   --color-heading: rgba(16, 17, 18, 0.80);
 
@@ -294,6 +299,11 @@
   --color-text-secondary: #A3A3A3;
   --color-text-error: #E53E3E;
   --color-text-success: #9AE6B4;
+
+  /* --- Status foreground (light shades for the dark bg) --- */
+  --color-status-good: #6EE7A8;
+  --color-status-warn: #FBBF7A;
+  --color-status-bad: #FCA5A5;
 
   /* --- Headings --- */
   --color-heading: rgba(255, 255, 255, 0.80);
