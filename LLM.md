@@ -166,6 +166,43 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### Shell overflow + white-on-white values + broken Menu button (v1.1.12)
+Three write-once-deploy-4 root causes from the 4-breakpoint UI audit. Built
+on-cluster (buildkit Job in `hanzo-build` ns on do-sfo3-hanzo-k8s
+runner-pool-32g, git-context clone of `luxfi/explore#main`), fanned out with
+`crane` to ghcr.io/{luxfi,zooai,hanzoai,parsdao}/explore:v1.1.12 (same digest
+`sha256:223b3ca2…`), rolled to all four explore-fe-* on lux-k8s/lux-mainnet.
+**Verified LIVE (Playwright/Chromium) 4 brands × {390,768,1280,1920}, 16/16
+pass**: `document.scrollWidth == innerWidth` everywhere, all four home values
+≥4.5:1, Menu button 32px (lg+)/40px (mobile) with no clip, zero hamburgers at
+lg+ (1 at <lg = the correct mobile nav trigger).
+
+- **Horizontal overflow (454px @1280, 38px @1920).** `Container.tsx` forced
+  `min-w-[100vw] lg:min-w-[fit-content]`, which promoted the whole page to its
+  ~1734px max-content width (the `MainColumn` grow shell measured 1734 at 1280)
+  so stat/block cards clipped past the viewport. Fix: fluid column —
+  `Container` → `w-full min-w-0`, and `MainColumn` gains `min-w-0` so the flex
+  chain shrinks and the block-row `overflow-x-auto` scrolls internally instead
+  of pushing the page. docSW 1734→1280 / 1958→1920 verified.
+- **White-on-white values** (block Reward / tx Value / tx Fee /
+  network-utilization%, all computed `rgb(255,255,255)` @1.04:1). Root cause:
+  legacy Chakra dot-tokens (`color="text.secondary"`, `green.600`…) were passed
+  straight into an inline CSS `color`, which browsers drop as invalid → the text
+  inherited white. Fix: one `lib/utils/colorToken.ts` `resolveColorToken()`
+  (dot-token → `var(--color-*)`) applied in `SimpleValue` (the value chokepoint
+  for Reward/Value/Fee → `#737373` = 4.54:1 on the `#FAFAFA` card bg), plus new
+  semantic status vars `--color-status-good/warn/bad` (#1A7A47/#B45309/#B91C1C
+  light = 5.1/4.8/6.1:1; light shades for dark) that
+  `getNetworkUtilizationParams` now returns (utilization = 5.13:1).
+  NOTE: `@luxfi/ui` `Skeleton` sets `style.color = props.color` verbatim — pass
+  it a CSS value/var, never a Chakra dot-token. ~160 `color="x.y"` call sites
+  remain repo-wide; funnel value colors through `SimpleValue`.
+- **Broken "Menu" button** (`UserWalletButton.tsx`): icon+label were stacked in
+  a bare `<div>` (20px icon over ~20px text) inside a 32px `overflow:hidden`
+  button → the "51px in 32px" clip that read as a stray hamburger at lg+. Fix:
+  `flex items-center gap-2` + sized icon (`w-5 h-5 shrink-0`). Lux shows "Sign
+  in" instead (OIDC auth) — that path was never broken.
+
 ### Org explorers un-stubbed + mobile detail pages fixed (v1.1.10)
 Two mobile-QA defects across the block explorers. **DEPLOYED + VERIFIED**: image
 built on-cluster via buildkit (a Job on do-sfo3-hanzo-k8s
