@@ -31,7 +31,7 @@ export default function useGetCsrfToken() {
         return { token: csrfFromHeader };
       }
 
-      return nodeApiFetch('/node-api/csrf');
+      return nodeApiFetch('/v1/csrf');
     },
     enabled: Boolean(cookies.get(cookies.NAMES.API_TOKEN)),
   });

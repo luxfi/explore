@@ -92,15 +92,15 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   // service routes, added only to make typescript happy
   '/login': 'Login',
   '/sprite': 'Sprite',
-  '/api/metrics': 'Node API: Prometheus metrics',
-  '/api/monitoring/invalid-api-schema': 'Node API: Prometheus metrics',
-  '/api/log': 'Node API: Request log',
-  '/api/tokens/[hash]/instances/[id]/media-type': 'Node API: Token instance media type',
-  '/api/proxy': 'Node API: Proxy',
-  '/api/csrf': 'Node API: CSRF token',
-  '/api/healthz': 'Node API: Health check',
-  '/api/config': 'Node API: App config',
-  '/api/pchain': 'Node API: P-chain proxy',
+  '/v1/metrics': 'Node API: Prometheus metrics',
+  '/v1/monitoring/invalid-api-schema': 'Node API: Prometheus metrics',
+  '/v1/log': 'Node API: Request log',
+  '/v1/tokens/[hash]/instances/[id]/media-type': 'Node API: Token instance media type',
+  '/v1/proxy': 'Node API: Proxy',
+  '/v1/csrf': 'Node API: CSRF token',
+  '/v1/healthz': 'Node API: Health check',
+  '/v1/config': 'Node API: App config',
+  '/v1/pchain': 'Node API: P-chain proxy',
 };
 
 export default function getPageType(pathname: Route['pathname']) {
