@@ -36,6 +36,11 @@
 grafana
 .zed
 
+# merge / rewrite residue (upstream .gitignore had *.orig; keep it out of the tree)
+*.orig
+*.rej
+*.bak
+
 # debug
 npm-debug.log*
 yarn-debug.log*

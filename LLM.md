@@ -574,6 +574,12 @@ white color that doesn't flip with the theme. Fixes:
 - Updated branding from Blockscout to Lux Network
 - Added logo assets
 
+### Cleanup
+- **Removed** 8 stale `*.orig`/`*.bak` backups (~1.9 MB) left by the Blockscout→Lux
+  rebrand commits; two still carried raw `<<<<<<< HEAD` conflict markers. Nothing
+  referenced them. `*.orig`/`*.rej`/`*.bak` are now in `.gitignore` (upstream's had
+  `*.orig`; the fork dropped it, which is how they got committed).
+
 ---
 
 **Note**: This file is tracked in git. Update it when making significant architectural changes or discoveries about the codebase.
