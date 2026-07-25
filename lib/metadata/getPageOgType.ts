@@ -94,15 +94,15 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   // service routes, added only to make typescript happy
   '/login': 'Regular page',
   '/sprite': 'Regular page',
-  '/api/metrics': 'Regular page',
-  '/api/monitoring/invalid-api-schema': 'Regular page',
-  '/api/log': 'Regular page',
-  '/api/tokens/[hash]/instances/[id]/media-type': 'Regular page',
-  '/api/proxy': 'Regular page',
-  '/api/csrf': 'Regular page',
-  '/api/healthz': 'Regular page',
-  '/api/config': 'Regular page',
-  '/api/pchain': 'Regular page',
+  '/v1/metrics': 'Regular page',
+  '/v1/monitoring/invalid-api-schema': 'Regular page',
+  '/v1/log': 'Regular page',
+  '/v1/tokens/[hash]/instances/[id]/media-type': 'Regular page',
+  '/v1/proxy': 'Regular page',
+  '/v1/csrf': 'Regular page',
+  '/v1/healthz': 'Regular page',
+  '/v1/config': 'Regular page',
+  '/v1/pchain': 'Regular page',
 };
 
 export default function getPageOgType(pathname: Route['pathname']) {
