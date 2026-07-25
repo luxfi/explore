@@ -16,7 +16,7 @@ async function fetchChainConfig(url: string): Promise<ChainConfig> {
   }, 30_000);
 
   try {
-    const response = await fetch(`${ url }/node-api/config`, { signal: controller.signal });
+    const response = await fetch(`${ url }/v1/config`, { signal: controller.signal });
     if (!response.ok) {
       throw new Error(`Failed to fetch config from ${ url }: ${ response.statusText }`);
     }

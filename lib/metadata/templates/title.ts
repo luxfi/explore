@@ -99,15 +99,15 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   // service routes, added only to make typescript happy
   '/login': '%network_name% login',
   '/sprite': '%network_name% SVG sprite',
-  '/api/metrics': '%network_name% node API prometheus metrics',
-  '/api/monitoring/invalid-api-schema': '%network_name% node API prometheus metrics',
-  '/api/log': '%network_name% node API request log',
-  '/api/tokens/[hash]/instances/[id]/media-type': '%network_name% node API token instance media type',
-  '/api/proxy': '%network_name% node API proxy',
-  '/api/csrf': '%network_name% node API CSRF token',
-  '/api/healthz': '%network_name% node API health check',
-  '/api/config': '%network_name% node API app config',
-  '/api/pchain': '%network_name% node API P-chain proxy',
+  '/v1/metrics': '%network_name% node API prometheus metrics',
+  '/v1/monitoring/invalid-api-schema': '%network_name% node API prometheus metrics',
+  '/v1/log': '%network_name% node API request log',
+  '/v1/tokens/[hash]/instances/[id]/media-type': '%network_name% node API token instance media type',
+  '/v1/proxy': '%network_name% node API proxy',
+  '/v1/csrf': '%network_name% node API CSRF token',
+  '/v1/healthz': '%network_name% node API health check',
+  '/v1/config': '%network_name% node API app config',
+  '/v1/pchain': '%network_name% node API P-chain proxy',
 };
 
 const TEMPLATE_MAP_ENHANCED: Partial<Record<Route['pathname'], string>> = {

@@ -19,15 +19,15 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/address/[hash]", { "hash": string }>
     | StaticRoute<"/advanced-filter">
     | StaticRoute<"/ai">
-    | StaticRoute<"/api/config">
-    | StaticRoute<"/api/csrf">
-    | StaticRoute<"/api/healthz">
-    | StaticRoute<"/api/log">
-    | StaticRoute<"/api/metrics">
-    | StaticRoute<"/api/monitoring/invalid-api-schema">
-    | StaticRoute<"/api/pchain">
-    | StaticRoute<"/api/proxy">
-    | DynamicRoute<"/api/tokens/[hash]/instances/[id]/media-type", { "hash": string; "id": string }>
+    | StaticRoute<"/v1/config">
+    | StaticRoute<"/v1/csrf">
+    | StaticRoute<"/v1/healthz">
+    | StaticRoute<"/v1/log">
+    | StaticRoute<"/v1/metrics">
+    | StaticRoute<"/v1/monitoring/invalid-api-schema">
+    | StaticRoute<"/v1/pchain">
+    | StaticRoute<"/v1/proxy">
+    | DynamicRoute<"/v1/tokens/[hash]/instances/[id]/media-type", { "hash": string; "id": string }>
     | StaticRoute<"/api-docs">
     | DynamicRoute<"/apps/[id]", { "id": string }>
     | StaticRoute<"/apps">

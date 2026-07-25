@@ -22,7 +22,7 @@ export function env(key: string, fallback = ''): string {
 
 // Derive the backend REST base URL. In the Next.js app this was set via
 // NEXT_PUBLIC_API_HOST + NEXT_PUBLIC_API_BASE_PATH and proxied through
-// /node-api/* by next.config.js rewrites. For the SPA we hit it directly with
+// /v1/* by next.config.js rewrites. For the SPA we hit it directly with
 // CORS, so the gateway must enable it.
 export function apiBaseUrl(): string {
   const explicit = env('VITE_API_BASE_URL');

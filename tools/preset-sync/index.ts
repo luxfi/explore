@@ -122,7 +122,7 @@ async function updatePresetFile(presetId: keyof typeof PRESETS) {
   const secretEnvs = getSecretEnvsList();
 
   const instanceUrl = PRESETS[presetId];
-  const response = await fetch(`${ instanceUrl }/node-api/config`);
+  const response = await fetch(`${ instanceUrl }/v1/config`);
   const instanceConfig = await response.json() as Record<'envs', Record<string, string>>;
 
   const ignoredEnvs = [
