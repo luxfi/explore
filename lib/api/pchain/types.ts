@@ -30,14 +30,18 @@ export interface PChainValidator {
   readonly delegators: ReadonlyArray<PChainDelegator> | null;
 }
 
+// Wire field is `netID` — the node's platform.getBlockchains emits netID
+// (Lux nomenclature: a sovereign L1 is a Network). See
+// ~/work/lux/node/vms/platformvm/service.go GetBlockchainsResponse.
 export interface PChainBlockchain {
   readonly id: string;
   readonly name: string;
-  readonly subnetID: string;
+  readonly netID: string;
   readonly vmID: string;
 }
 
-export interface PChainSubnet {
+// Wire shape of platform.getNets → APINet.
+export interface PChainNet {
   readonly id: string;
   readonly controlKeys: ReadonlyArray<string>;
   readonly threshold: string;
@@ -53,8 +57,8 @@ export interface GetBlockchainsResponse {
   readonly blockchains: ReadonlyArray<PChainBlockchain>;
 }
 
-export interface GetSubnetsResponse {
-  readonly subnets: ReadonlyArray<PChainSubnet>;
+export interface GetNetsResponse {
+  readonly nets: ReadonlyArray<PChainNet>;
 }
 
 // Aggregated validator statistics

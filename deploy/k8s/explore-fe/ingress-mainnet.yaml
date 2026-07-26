@@ -1,0 +1,35 @@
+---
+# Public ingress for the Lux mainnet explorer frontend.
+#
+# explore.lux.network is served by the dedicated Next.js deployment
+# `explore-fe-lux` (ghcr.io/luxfi/explore), NOT the Go `explorer` binary. The
+# Go binary only backs the API host api-explore.lux.network (separate ingress,
+# ingress-api-mainnet.yaml). explore-fe-lux is self-contained: it renders every
+# app page, serves /assets/envs.js from its own make_envs at startup, and
+# proxies P-chain reads via its /api/pchain Next.js route — so the whole host
+# routes to it. This replaces the earlier drift where the plain Ingress pointed
+# explore.lux.network at explorer:80 (the Go binary's embedded, stale build).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: explore-lux-network
+  namespace: lux-mainnet
+  labels: {app: explore-fe, brand: lux, network: mainnet}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: ingress
+  tls:
+    - hosts: [explore.lux.network]
+      secretName: explore-lux-network-tls
+  rules:
+    - host: explore.lux.network
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: explore-fe-lux
+                port:
+                  number: 80

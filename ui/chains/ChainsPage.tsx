@@ -21,7 +21,7 @@ const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 // configs/app/primaryChains.ts (mirrored from the node registry), so this page
 // and the chain-detail page can never drift apart.
 
-const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
+const L1_EVM_CHAIN_IDS: Readonly<Record<string, number>> = {
   Zoo: 200200,
   Hanzo: 36963,
   SPC: 36911,
@@ -30,7 +30,7 @@ const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
 
 const TAB_IDS = {
   primary: 'primary',
-  subnets: 'subnets',
+  l1: 'l1',
 } as const;
 
 type TabId = typeof TAB_IDS[keyof typeof TAB_IDS];
@@ -42,10 +42,10 @@ const EMPTY_L1_CHAINS: ReadonlyArray<PChainBlockchain> = [];
 // ---------------------------------------------------------------------------
 
 interface TableHeaderProps {
-  readonly showSubnetId: boolean;
+  readonly showNetId: boolean;
 }
 
-const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
+const TableHeader = ({ showNetId }: TableHeaderProps) => (
   <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
     <div className="min-w-[180px] max-w-[220px] shrink-0 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       Chain
@@ -53,9 +53,9 @@ const TableHeader = ({ showSubnetId }: TableHeaderProps) => (
     <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
       Blockchain ID
     </div>
-    { showSubnetId && (
+    { showNetId && (
       <div className="flex-1 text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
-        Subnet ID
+        Network ID
       </div>
     ) }
     <div className="shrink-0 w-[120px] text-[var(--color-text-secondary)] font-semibold text-xs uppercase tracking-wider">
@@ -103,15 +103,15 @@ const ChainsPage = () => {
     if (!blockchains.length) {
       return EMPTY_L1_CHAINS;
     }
-    return blockchains.filter((chain) => chain.subnetID !== PRIMARY_NETWORK_ID);
+    return blockchains.filter((chain) => chain.netID !== PRIMARY_NETWORK_ID);
   }, [ blockchains ]);
 
   const handlePrimaryClick = React.useCallback(() => {
     setActiveTab(TAB_IDS.primary);
   }, []);
 
-  const handleSubnetsClick = React.useCallback(() => {
-    setActiveTab(TAB_IDS.subnets);
+  const handleL1Click = React.useCallback(() => {
+    setActiveTab(TAB_IDS.l1);
   }, []);
 
   return (
@@ -134,15 +134,15 @@ const ChainsPage = () => {
         />
         <TabButton
           label={ `L1 / L2 / L3${ l1Chains.length > 0 ? ` (${ l1Chains.length })` : '' }` }
-          isActive={ activeTab === TAB_IDS.subnets }
-          onClick={ handleSubnetsClick }
+          isActive={ activeTab === TAB_IDS.l1 }
+          onClick={ handleL1Click }
         />
       </div>
 
       { /* Primary Network tab */ }
       { activeTab === TAB_IDS.primary && (
         <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
-          <TableHeader showSubnetId={ false }/>
+          <TableHeader showNetId={ false }/>
           { PRIMARY_VMS.map((chain) => (
             <ChainRow
               key={ chain.name }
@@ -158,9 +158,9 @@ const ChainsPage = () => {
       ) }
 
       { /* L1/L2/L3 tab */ }
-      { activeTab === TAB_IDS.subnets && (
+      { activeTab === TAB_IDS.l1 && (
         <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
-          <TableHeader showSubnetId/>
+          <TableHeader showNetId/>
           { isLoading && (
             <div className="px-4 py-6">
               <Skeleton loading={ true } h="20px" mb={ 3 }/>
@@ -179,10 +179,10 @@ const ChainsPage = () => {
               key={ chain.id }
               name={ chain.name }
               blockchainId={ chain.id }
-              subnetId={ chain.subnetID }
+              netId={ chain.netID }
               vmId={ chain.vmID }
               vmLabel={ resolveVmLabel(chain.vmID) }
-              chainId={ SUBNET_CHAIN_IDS[chain.name] ?? null }
+              chainId={ L1_EVM_CHAIN_IDS[chain.name] ?? null }
               isActive
               href={ `/chains/${ chain.name.toLowerCase() }` }
             />

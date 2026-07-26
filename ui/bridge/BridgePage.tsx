@@ -1,14 +1,14 @@
 // Cross-chain bridge/teleporter page for the Lux multi-chain explorer.
-// Shows cross-chain transfers between Primary Network chains and L1 subnets.
+// Shows cross-chain transfers between Primary Network chains and sovereign L1s.
 
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import React from 'react';
 
 import config from 'configs/app';
 import { useBridgeData } from 'lib/api/bchain';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tag } from '@luxfi/ui/tag';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 // ── Constants ──
@@ -61,7 +61,10 @@ interface ChainPairCardProps {
 }
 
 const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
-  <div className="flex items-center py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-[var(--color-gray-50)] dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 gap-4 flex-wrap lg:flex-nowrap">
+  <div className={ `
+    flex items-center py-3 px-4 border-b border-[var(--color-border-divider)] hover:bg-[var(--color-gray-50)]
+    dark:hover:bg-[var(--color-whiteAlpha-50)] transition-colors duration-150 gap-4 flex-wrap lg:flex-nowrap
+  ` }>
     <div className="min-w-[160px] shrink-0">
       <span className="font-medium text-sm text-[var(--color-text-primary)]">
         { source }
@@ -93,13 +96,13 @@ const BridgePage = () => {
   const { stats: bridgeStats, isLoading: bridgeLoading } = useBridgeData();
 
   const l1Chains = React.useMemo<ReadonlyArray<PChainBlockchain>>(
-    () => blockchains.filter((c) => c.subnetID !== PRIMARY_NETWORK_ID),
+    () => blockchains.filter((c) => c.netID !== PRIMARY_NETWORK_ID),
     [ blockchains ],
   );
 
   const isLoading = chainsLoading || validatorsLoading || bridgeLoading;
 
-  // Build bridge pairs: Primary chain <-> L1 subnets
+  // Build bridge pairs: Primary chain <-> sovereign L1s
   const bridgePairs = React.useMemo(() => {
     const pairs: Array<{ source: string; destination: string; status: 'active' | 'coming_soon' }> = [];
 
@@ -211,8 +214,8 @@ const BridgePage = () => {
         </span>
         <span className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
           The bridge enables cross-chain asset transfers between the Primary Network
-          chains and L1 subnet chains. Atomic swaps between core chains (C, P, X) are
-          currently active. Teleporter-based transfers to L1 subnets are
+          chains and sovereign L1 chains. Atomic swaps between core chains (C, P, X) are
+          currently active. Transfers to sovereign L1s are
           coming soon via the B-Chain bridge relay.
         </span>
       </div>

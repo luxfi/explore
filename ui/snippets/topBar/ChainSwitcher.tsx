@@ -38,7 +38,7 @@ const ChainSwitcher = () => {
   const currentNetwork = getCurrentNetwork();
   const isMainChain = current.name === 'C-Chain';
 
-  // For white-label subnets (Zoo, Pars, Hanzo, SPC), only show that chain's
+  // For white-label L1s (Zoo, Pars, Hanzo, SPC), only show that chain's
   // mainnet/testnet entries — don't show the full Lux ecosystem.
   // For the main C-Chain explorer, show all chains.
   const chains = React.useMemo(() => {
@@ -46,11 +46,11 @@ const ChainSwitcher = () => {
     if (isMainChain) {
       return allChains;
     }
-    // Filter to only chains with the same branding (same subnet)
+    // Filter to only chains with the same branding (same network)
     return allChains.filter((c) => c.branding.brandName === current.branding.brandName);
   }, [ currentNetwork.network, isMainChain, current.branding.brandName ]);
 
-  // For subnets, show network switcher (mainnet/testnet) instead of chain switcher
+  // For L1s, show network switcher (mainnet/testnet) instead of chain switcher
   const availableNetworks = React.useMemo(() => {
     if (isMainChain) return [];
     return NETWORKS.filter((net) => {
@@ -100,7 +100,7 @@ const ChainSwitcher = () => {
       </PopoverTrigger>
       <PopoverContent w="240px">
         <PopoverBody className="p-1">
-          { /* Network switcher for subnets (e.g. Zoo Mainnet / Zoo Testnet) */ }
+          { /* Network switcher for L1s (e.g. Zoo Mainnet / Zoo Testnet) */ }
           { availableNetworks.length > 1 && (
             <>
               <div className="px-2 py-1.5">

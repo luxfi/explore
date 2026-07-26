@@ -67,7 +67,7 @@ export const PRIMARY_VMS: ReadonlyArray<PrimaryVm> = [
     vm: 'PVM',
     vmId: 'rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWsBY6MALT',
     chainId: null,
-    description: 'The P-Chain manages validators, staking, and subnet creation across the network.',
+    description: 'The P-Chain manages validators, staking, and L1 creation across the network.',
     view: 'platform',
   },
   {

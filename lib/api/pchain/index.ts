@@ -3,7 +3,7 @@
 export { getPChain, getInfo, getHealth } from './client';
 export { useCurrentValidators } from './useCurrentValidators';
 export { useBlockchains } from './useBlockchains';
-export { useSubnets } from './useSubnets';
+export { useNets } from './useNets';
 export { useChainHeights } from './useChainHeights';
 
 export type {
@@ -11,10 +11,10 @@ export type {
   PChainDelegator,
   PChainRewardOwner,
   PChainBlockchain,
-  PChainSubnet,
+  PChainNet,
   GetCurrentValidatorsResponse,
   GetBlockchainsResponse,
-  GetSubnetsResponse,
+  GetNetsResponse,
   ValidatorStats,
 } from './types';
 
