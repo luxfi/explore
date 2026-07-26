@@ -7,7 +7,7 @@ import React from 'react';
 import config from 'configs/app';
 import type { PrimaryVm } from 'configs/app/primaryChains';
 import { getPrimaryVm } from 'configs/app/primaryChains';
-import { useBlockchains, useCurrentValidators, useSubnets } from 'lib/api/pchain';
+import { useBlockchains, useCurrentValidators, useNets } from 'lib/api/pchain';
 import type { PChainBlockchain, PChainValidator } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
 import DexPage from 'ui/dex/DexPage';
@@ -21,14 +21,14 @@ const LUX_DECIMALS = 6;
 // Primary-network VM identity (name / vm / vmId / description / view) comes from
 // the single source of truth in configs/app/primaryChains.ts.
 
-const SUBNET_CHAIN_IDS: Readonly<Record<string, number>> = {
+const L1_EVM_CHAIN_IDS: Readonly<Record<string, number>> = {
   zoo: 200200,
   hanzo: 36963,
   spc: 36911,
   pars: 494949,
 };
 
-const SUBNET_DESCRIPTIONS: Readonly<Record<string, string>> = {
+const L1_DESCRIPTIONS: Readonly<Record<string, string>> = {
   zoo: 'Zoo is an L1 blockchain on the network for the Zoo Labs Foundation open AI research network.',
   hanzo: 'Hanzo is an L1 blockchain on the network for Hanzo AI infrastructure and agent frameworks.',
   spc: 'SPC is an L1 blockchain on the network.',
@@ -180,7 +180,7 @@ const ChainDetailPage = () => {
 
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { validators, isLoading: validatorsLoading } = useCurrentValidators();
-  const { subnets } = useSubnets();
+  const { nets } = useNets();
   const { stats: indexerStats } = useChainIndexerStats(slug);
 
   const resolvedChain = React.useMemo<{
@@ -206,25 +206,25 @@ const ChainDetailPage = () => {
     resolvedChain.blockchain?.name ??
     slug;
   const chainDescription = resolvedChain.meta?.description ??
-    SUBNET_DESCRIPTIONS[slug] ??
+    L1_DESCRIPTIONS[slug] ??
     `${ chainName } is a blockchain on the network.`;
 
   const blockchainId = resolvedChain.blockchain?.id ?? '';
-  const subnetId = resolvedChain.blockchain?.subnetID ?? (resolvedChain.isPrimary ? PRIMARY_NETWORK_ID : '');
+  const netId = resolvedChain.blockchain?.netID ?? (resolvedChain.isPrimary ? PRIMARY_NETWORK_ID : '');
   const vmId = resolvedChain.blockchain?.vmID ?? resolvedChain.meta?.vmId ?? '';
   const vmName = KNOWN_VM_IDS[vmId] ?? (vmId ? truncateId(vmId) : 'Unknown');
-  const chainId = SUBNET_CHAIN_IDS[slug];
+  const chainId = L1_EVM_CHAIN_IDS[slug];
   const explorerUrl = EXPLORER_URLS[slug];
   const isLoading = chainsLoading || validatorsLoading;
 
-  const subnet = React.useMemo(
-    () => subnets.find((s) => s.id === subnetId),
-    [ subnets, subnetId ],
+  const net = React.useMemo(
+    () => nets.find((n) => n.id === netId),
+    [ nets, netId ],
   );
 
-  const subnetChains = React.useMemo(
-    () => subnetId ? blockchains.filter((c) => c.subnetID === subnetId) : [],
-    [ blockchains, subnetId ],
+  const netChains = React.useMemo(
+    () => netId ? blockchains.filter((c) => c.netID === netId) : [],
+    [ blockchains, netId ],
   );
 
   const totalStake = React.useMemo(
@@ -281,11 +281,11 @@ const ChainDetailPage = () => {
         </div>
         <div className="p-4 border border-[var(--color-border-divider)] rounded-lg bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
           <span className="block text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
-            Subnet Chains
+            Chains on Network
           </span>
           <Skeleton loading={ isLoading }>
             <span className="text-xl font-bold text-[var(--color-text-primary)]">
-              { subnetChains.length }
+              { netChains.length }
             </span>
           </Skeleton>
         </div>
@@ -295,7 +295,7 @@ const ChainDetailPage = () => {
           </span>
           <Skeleton loading={ isLoading }>
             <span className="text-xl font-bold text-[var(--color-text-primary)]">
-              { subnet?.threshold ?? '-' }
+              { net?.threshold ?? '-' }
             </span>
           </Skeleton>
         </div>
@@ -308,13 +308,13 @@ const ChainDetailPage = () => {
         <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
           <InfoRow label="Chain Name" value={ chainName }/>
           { blockchainId && <InfoRow label="Blockchain ID" value={ blockchainId } isMono canCopy/> }
-          { subnetId && <InfoRow label="Subnet ID" value={ subnetId } isMono canCopy/> }
+          { netId && <InfoRow label="Network ID" value={ netId } isMono canCopy/> }
           <InfoRow label="VM Name" value={ vmName }/>
           { vmId && <InfoRow label="VM ID" value={ vmId } isMono canCopy/> }
           { chainId != null && <InfoRow label="EVM Chain ID" value={ String(chainId) }/> }
           { explorerUrl && <InfoRow label="Explorer" value={ explorerUrl }/> }
           { resolvedChain.isPrimary && <InfoRow label="Network" value="Primary Network"/> }
-          { !resolvedChain.isPrimary && <InfoRow label="Network" value="L1 Subnet"/> }
+          { !resolvedChain.isPrimary && <InfoRow label="Network" value="Sovereign L1"/> }
         </div>
       </div>
 
@@ -351,13 +351,13 @@ const ChainDetailPage = () => {
         </div>
       ) }
 
-      { subnetChains.length > 0 && (
+      { netChains.length > 0 && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-              Chains in Subnet
+              Chains on This Network
             </span>
-            <Tag size="sm" variant="subtle">{ subnetChains.length }</Tag>
+            <Tag size="sm" variant="subtle">{ netChains.length }</Tag>
           </div>
           <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
             <div className="hidden lg:flex px-4 py-2 gap-4 border-b border-[var(--color-border-divider)]">
@@ -371,7 +371,7 @@ const ChainDetailPage = () => {
                 VM
               </div>
             </div>
-            { subnetChains.map((chain) => (
+            { netChains.map((chain) => (
               <div
                 key={ chain.id }
                 className={ cn(

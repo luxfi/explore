@@ -1,7 +1,7 @@
 // White-label brand detection.
 //
 // Source code in this repo is Lux-only. Per-chain identity (Zoo / Hanzo / SPC /
-// Pars subnets on Lux primary network) is rendered with each chain's logo and
+// Pars L1s on Lux primary network) is rendered with each chain's logo and
 // name as network metadata — see `configs/app/chainRegistry.ts`. The explorer
 // brand itself is always Lux.
 //

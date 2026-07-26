@@ -55,7 +55,7 @@ const NetworkStats = () => {
   const isLoading = validatorsLoading || chainsLoading;
 
   const l1Count = React.useMemo(
-    () => blockchains.filter((c) => c.subnetID !== PRIMARY_NETWORK_ID).length,
+    () => blockchains.filter((c) => c.netID !== PRIMARY_NETWORK_ID).length,
     [ blockchains ],
   );
 
