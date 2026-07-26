@@ -1,14 +1,14 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
 
 interface ChainRowProps {
   readonly name: string;
   readonly fullName?: string;
   readonly blockchainId?: string;
-  readonly subnetId?: string;
+  readonly netId?: string;
   readonly vmId?: string;
   readonly vmLabel?: string;
   readonly chainId?: number | null;
@@ -31,7 +31,7 @@ const ChainRow = ({
   name,
   fullName,
   blockchainId,
-  subnetId,
+  netId,
   vmLabel,
   chainId,
   isActive = true,
@@ -68,23 +68,29 @@ const ChainRow = ({
           { blockchainId ? truncateId(blockchainId) : '\u2014' }
         </div>
 
-        { /* Subnet ID column */ }
+        { /* Network ID column */ }
         <div
           className="flex-1 min-w-0 font-mono text-sm text-[var(--color-text-secondary)] overflow-hidden text-ellipsis whitespace-nowrap hidden lg:block"
-          title={ subnetId }
+          title={ netId }
         >
-          { subnetId ? truncateId(subnetId) : '\u2014' }
+          { netId ? truncateId(netId) : '\u2014' }
         </div>
 
         { /* VM badge */ }
         <div className="flex items-center gap-2 shrink-0">
           { vmLabel && (
-            <div className="bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono whitespace-nowrap">
+            <div className={ `
+              bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)]
+              rounded-sm px-2 py-0.5 text-xs font-mono whitespace-nowrap
+            ` }>
               { vmLabel }
             </div>
           ) }
           { chainId != null && (
-            <div className="bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)] rounded-sm px-2 py-0.5 text-xs font-mono whitespace-nowrap">
+            <div className={ `
+              bg-[var(--color-gray-100)] dark:bg-[var(--color-whiteAlpha-100)] text-[var(--color-text-secondary)]
+              rounded-sm px-2 py-0.5 text-xs font-mono whitespace-nowrap
+            ` }>
               { chainId }
             </div>
           ) }

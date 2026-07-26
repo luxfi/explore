@@ -41,7 +41,8 @@ function parseChainEntries(src) {
 
 /** Display name for a federated chain. C-Chain (Contract Chain) is handled
  *  separately by the caller; other chains use the short `name` field plus
- *  " Network". Sovereign L1s are Networks — never "Subnets" (Lux nomenclature). */
+ *  " Network". Sovereign L1s are Networks (Lux nomenclature; never the
+ *  legacy upstream term for them). */
 function networkDisplayName(rawName) {
   return `${ rawName.trim() } Network`;
 }
