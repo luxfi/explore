@@ -1,6 +1,11 @@
 // Formatting helpers for Lux P-chain validator data.
 
-const LUX_DECIMALS = 6;
+// nLUX is NANO-LUX: 10^9 nLUX = 1 LUX. This was 6, which multiplied every
+// staking figure on the page by 1000 — the validators page reported
+// 2,500,000,000,000 LUX staked against a ~2T total supply, i.e. an
+// arithmetically impossible number, reached from lux.cloud's own
+// "View on explorer" link. The parameter below is named nanoLux; trust it.
+const LUX_DECIMALS = 9;
 const TRUNCATE_PREFIX_LEN = 12;
 const TRUNCATE_SUFFIX_LEN = 6;
 const UPTIME_FRACTION_DIGITS = 2;
