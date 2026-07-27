@@ -16,16 +16,31 @@
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "declarationDir": "./dist",
-    "baseUrl": "..",
     "paths": {
-      "configs/*": ["../configs/*"],
-      "lib/*": ["../lib/*"],
-      "types/*": ["../types/*"],
-      "icons/*": ["../icons/*"],
-      "ui/*": ["../ui/*"],
-      "public/*": ["../public/*"],
-      "toolkit/*": ["./*"],
-      "nextjs-routes": ["../nextjs/nextjs-routes.d.ts"],
+      "configs/*": [
+        "../../configs/*"
+      ],
+      "lib/*": [
+        "../../lib/*"
+      ],
+      "types/*": [
+        "../../types/*"
+      ],
+      "icons/*": [
+        "../../icons/*"
+      ],
+      "ui/*": [
+        "../../ui/*"
+      ],
+      "public/*": [
+        "../../public/*"
+      ],
+      "toolkit/*": [
+        "../*"
+      ],
+      "nextjs-routes": [
+        "../../nextjs/nextjs-routes.d.ts"
+      ],
     },
     "types": ["vite/client", "node"],
     "allowJs": true,
