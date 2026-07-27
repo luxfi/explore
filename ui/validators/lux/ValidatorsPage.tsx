@@ -35,7 +35,9 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
   <button
     className={ cn(
       'px-4 py-2 text-sm border-b-2 bg-transparent cursor-pointer transition-all hover:text-[var(--color-text-primary)]',
-      isActive ? 'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' : 'font-normal text-[var(--color-text-secondary)] border-transparent',
+      isActive ?
+        'font-semibold text-[var(--color-text-primary)] border-[var(--color-text-primary)]' :
+        'font-normal text-[var(--color-text-secondary)] border-transparent',
     ) }
     onClick={ onClick }
   >
@@ -49,7 +51,7 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => (
 
 const ValidatorsPage = () => {
   const [ activeTab, setActiveTab ] = React.useState<TabId>(TABS.dashboard);
-  const { validators, stats, isLoading } = useCurrentValidators();
+  const { validators, stats, isLoading, isKnown } = useCurrentValidators();
 
   const handleDashboardClick = React.useCallback(() => {
     setActiveTab(TABS.dashboard);
@@ -83,12 +85,12 @@ const ValidatorsPage = () => {
           onClick={ handleDashboardClick }
         />
         <TabButton
-          label={ `Validators (${ stats.validatorCount })` }
+          label={ isKnown ? `Validators (${ stats.validatorCount })` : 'Validators' }
           isActive={ activeTab === TABS.validators }
           onClick={ handleValidatorsClick }
         />
         <TabButton
-          label={ `Delegators (${ stats.delegatorCount })` }
+          label={ isKnown ? `Delegators (${ stats.delegatorCount })` : 'Delegators' }
           isActive={ activeTab === TABS.delegators }
           onClick={ handleDelegatorsClick }
         />
@@ -100,6 +102,7 @@ const ValidatorsPage = () => {
           validators={ validators }
           stats={ stats }
           isLoading={ isLoading }
+          isKnown={ isKnown }
         />
       ) }
 

@@ -51,7 +51,7 @@ const StatCard = ({ label, value, isLoading }: StatCardProps) => (
 // ── Main component ──
 
 const NetworkStats = () => {
-  const { stats, isLoading: validatorsLoading, isError: validatorsError } = useCurrentValidators();
+  const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData } = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
 
   const isLoading = validatorsLoading || chainsLoading;
@@ -62,7 +62,6 @@ const NetworkStats = () => {
   );
 
   const totalChains = PRIMARY_CHAIN_COUNT + l1Count;
-  const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
   return (
     <div>
