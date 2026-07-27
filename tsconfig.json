@@ -18,7 +18,12 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "paths": {},
+    // TS7 removed `baseUrl`, and this project's absolute imports ("configs/app",
+    // "lib/api/pchain", "ui/...") were resolved by `baseUrl: "."` alone — `paths`
+    // was empty, so dropping baseUrl left nothing to resolve them and tsc could
+    // not typecheck a single file. `"*": ["./*"]` is the same rule expressed the
+    // way TS7 accepts: targets resolve relative to this tsconfig's directory.
+    "paths": { "*": [ "./*" ] },
     "types": [
       "node"
     ]

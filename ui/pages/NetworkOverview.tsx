@@ -226,7 +226,7 @@ const SectionCard = ({ title, count, isLoading, action, children }: SectionCardP
 // ── Main page ──
 
 const NetworkOverview = () => {
-  const { stats, isLoading: validatorsLoading, isError: validatorsError } = useCurrentValidators();
+  const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData, isError: validatorsError } = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
 
@@ -241,9 +241,6 @@ const NetworkOverview = () => {
 
   const totalChains = PRIMARY_CHAINS.length + (hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length);
   const isLoading = validatorsLoading || chainsLoading;
-
-  // Hide validator metrics when API returned an error (show dashes instead of 0)
-  const hasValidatorData = !validatorsError && stats.validatorCount > 0;
 
   // Primary-network panels (validator metrics strip + the 15 primary-network
   // chains + the cross-L1 list) belong ONLY on the Lux primary-network explorer.

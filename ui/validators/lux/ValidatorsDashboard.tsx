@@ -8,6 +8,11 @@ import { formatStake, truncateNodeId } from './utils';
 
 const CURRENCY = config.chain.currency.symbol || 'LUX';
 
+// What an unanswered read looks like. Never a zero: this page printed
+// "0 validators / 0 LUX staked" about a network running five with
+// 2,500,000,000 LUX bonded, because a failed read leaves the stats zeroed.
+const UNKNOWN = '\u2014';
+
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
@@ -45,9 +50,10 @@ const StatCard = ({ label, value, isLoading }: StatCardProps) => (
 interface StakeBreakdownProps {
   readonly stats: ValidatorStats;
   readonly isLoading: boolean;
+  readonly isKnown: boolean;
 }
 
-const StakeBreakdown = ({ stats, isLoading }: StakeBreakdownProps) => {
+const StakeBreakdown = ({ stats, isLoading, isKnown }: StakeBreakdownProps) => {
   const validatorStake = stats.totalStake - stats.totalDelegatedStake;
   const totalNumber = Number(stats.totalStake);
   const validatorPct = totalNumber > 0 ?
@@ -64,13 +70,21 @@ const StakeBreakdown = ({ stats, isLoading }: StakeBreakdownProps) => {
       </div>
       <Skeleton loading={ isLoading }>
         <div className="font-bold">
-          { formatStake(stats.totalStake) } { CURRENCY }
+          { isKnown ? `${ formatStake(stats.totalStake) } ${ CURRENCY }` : UNKNOWN }
         </div>
       </Skeleton>
       <Skeleton loading={ isLoading }>
         <div className="flex gap-6 flex-wrap">
-          <div>Validators: { formatStake(validatorStake) } { CURRENCY } ({ validatorPct }%)</div>
-          <div>Delegated: { formatStake(stats.totalDelegatedStake) } { CURRENCY } ({ delegationPct }%)</div>
+          { isKnown ? (
+            <>
+              <div>Validators: { formatStake(validatorStake) } { CURRENCY } ({ validatorPct }%)</div>
+              <div>Delegated: { formatStake(stats.totalDelegatedStake) } { CURRENCY } ({ delegationPct }%)</div>
+            </>
+          ) : (
+            <div className="text-[var(--color-text-secondary)]">
+              platform.getCurrentValidators did not answer — no stake figure to show.
+            </div>
+          ) }
         </div>
       </Skeleton>
     </div>
@@ -156,9 +170,12 @@ interface ValidatorsDashboardProps {
   readonly validators: ReadonlyArray<PChainValidator>;
   readonly stats: ValidatorStats;
   readonly isLoading: boolean;
+
+  /** False when the P-chain read failed. A zeroed stat is not a measurement. */
+  readonly isKnown: boolean;
 }
 
-const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboardProps) => {
+const ValidatorsDashboard = ({ validators, stats, isLoading, isKnown }: ValidatorsDashboardProps) => {
   return (
     <div className="flex flex-col gap-6 text-[var(--color-text-primary)]">
       { /* Stat cards */ }
@@ -174,18 +191,18 @@ const ValidatorsDashboard = ({ validators, stats, isLoading }: ValidatorsDashboa
       >
         <StatCard
           label="Validators"
-          value={ stats.validatorCount.toLocaleString() }
+          value={ isKnown ? stats.validatorCount.toLocaleString() : UNKNOWN }
           isLoading={ isLoading }
         />
         <StatCard
           label="Delegators"
-          value={ stats.delegatorCount.toLocaleString() }
+          value={ isKnown ? stats.delegatorCount.toLocaleString() : UNKNOWN }
           isLoading={ isLoading }
         />
       </div>
 
       { /* Stake breakdown */ }
-      <StakeBreakdown stats={ stats } isLoading={ isLoading }/>
+      <StakeBreakdown stats={ stats } isLoading={ isLoading } isKnown={ isKnown }/>
 
       { /* Active validators table */ }
       <ActiveValidatorsTable validators={ validators } isLoading={ isLoading }/>
