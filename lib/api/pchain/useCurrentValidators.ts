@@ -113,6 +113,13 @@ export function useCurrentValidators() {
   return {
     validators,
     stats,
+    // Did the read actually answer? A failed read leaves `stats` zeroed, and a
+    // zeroed stat is indistinguishable from a chain with no validators — which
+    // is how this explorer came to print "0 validators / 0 LUX staked" about a
+    // network running five with 2,500,000,000 LUX bonded. Every surface asks
+    // this before rendering a validator figure, and renders an em dash when it
+    // is false. Deciding it HERE means the four surfaces cannot drift apart.
+    isKnown: !query.isError && stats.validatorCount > 0,
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error,
