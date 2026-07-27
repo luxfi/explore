@@ -14,6 +14,7 @@ import HeroBanner from 'ui/home/HeroBanner';
 import LatestBlocks from 'ui/home/LatestBlocks';
 import Stats from 'ui/home/Stats';
 import Transactions from 'ui/home/Transactions';
+import FeeSplitPanel from 'ui/stats/lux/FeeSplitPanel';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 // nLUX is NANO-LUX: 10^9 nLUX = 1 LUX. This read 6, inflating every LUX figure
@@ -296,6 +297,16 @@ const NetworkOverview = () => {
 
         { /* ── Stats widgets ── */ }
         <Stats/>
+
+        { /*
+          ── Fee burn & staking rewards ──
+          Every chain, not just the primary network: the panel reads the chain
+          it is pointed at (vault balance + feeSplitTimestamp) and says so. It
+          lives here rather than on /stats because /stats 404s outright when the
+          stats microservice is not configured (getServerSideProps guards.stats),
+          and burn is a chain fact that owes nothing to an indexer.
+        */ }
+        <FeeSplitPanel/>
 
         { /* ── Latest blocks ── */ }
         <div className="rounded-lg border border-[var(--color-border-divider)] bg-[var(--color-stats-bg)] p-5 lg:p-6">

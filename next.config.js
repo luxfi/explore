@@ -23,6 +23,17 @@ const moduleExports = {
     '@hanzogui/web',
   ],
   reactStrictMode: true,
+  // `next dev` runs Turbopack, which does not read the webpack() block below, so
+  // every `import Icon from 'icons/*.svg'` resolved to a static-image OBJECT and
+  // React threw "Element type is invalid … but got: object". That crashed the
+  // whole page for any component importing an SVG directly — Hint, ChartWidget,
+  // toolkit/next/link, FilterInput, BackToButton — i.e. most of the app, in dev
+  // only. Same loader, declared once per bundler, so dev renders what prod ships.
+  turbopack: {
+    rules: {
+      '*.svg': { loaders: [ '@svgr/webpack' ], as: '*.js' },
+    },
+  },
   webpack(config) {
     config.module.rules.push(
       {
