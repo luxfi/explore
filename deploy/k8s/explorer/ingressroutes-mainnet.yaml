@@ -10,25 +10,35 @@ spec:
   entryPoints: [websecure]
   tls: {certResolver: letsencrypt}
   routes:
-    # API + brand-asset paths → Go binary (port 8090)
+    # Brand assets + health → Go binary (port 8090). Data paths do NOT belong
+    # here: `explore.*` is the frontend, `api-explore.*` is the API — one
+    # concern per host. A `PathPrefix(/v1/)` term here used to swallow the
+    # frontend's OWN server routes (/v1/pchain, /v1/config, /v1/csrf), which
+    # 404d and rendered the validators page as 0 validators / 0 LUX staked.
     - kind: Rule
       priority: 10000
-      match: (Host(`explore.lux.network`) || Host(`explorer.lux.network`)) && (PathPrefix(`/v1/`) || Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`) || Path(`/icon-zoo.svg`) || Path(`/icon-lux.svg`) || Path(`/logo-zoo.svg`) || Path(`/logo-lux.svg`))
+      match: (Host(`explore.lux.network`) || Host(`explorer.lux.network`)) && (Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`) || Path(`/icon-zoo.svg`) || Path(`/icon-lux.svg`) || Path(`/logo-zoo.svg`) || Path(`/logo-lux.svg`))
       middlewares: [{name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
     # Catch-all → per-brand Next.js FE (port 80 → 3000)
     - kind: Rule
       match: Host(`explore.lux.network`) || Host(`explorer.lux.network`)
       services: [{name: explore-fe-lux, port: 80}]
-    # api-explore.lux.network — sub-paths
+    # api-explore.lux.network — every /v1/* path the Go binary serves verbatim
+    # (indexer, explorer, graph, base/realtime, AND the stats surface
+    # /v1/counters,/v1/lines,/v1/pages/*). Enumerating four of them left the
+    # stats microservice paths falling into the catch-all below, which
+    # prefixed them into /v1/indexer/cchain/v1/counters → 404.
     - kind: Rule
-      match: (Host(`api-explore.lux.network`) || Host(`api-explorer.lux.network`)) && (PathPrefix(`/v1/graph`) || PathPrefix(`/v1/explorer`) || PathPrefix(`/v1/base/realtime`) || PathPrefix(`/v1/indexer`) || Path(`/health`))
+      match: (Host(`api-explore.lux.network`) || Host(`api-explorer.lux.network`)) && (PathPrefix(`/v1/`) || Path(`/health`))
       middlewares: [{name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
-    # api-explore.lux.network — catch-all, rewrite to Blockscout
+    # api-explore.lux.network — catch-all: Blockscout-shaped paths get the
+    # /v1/indexer/{slug} prefix. NO mainpage-rewrite: the Go binary serves
+    # /main-page/* verbatim, so rewriting it to /homepage/* 404s.
     - kind: Rule
       match: Host(`api-explore.lux.network`) || Host(`api-explorer.lux.network`)
-      middlewares: [{name: mainpage-rewrite}, {name: blockscout-prefix-cchain}, {name: cors-allow-all}]
+      middlewares: [{name: blockscout-prefix-cchain}, {name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
 ---
 # Lux C-Chain (umbrella → re-uses explore-fe-lux because it IS the Lux primary)
@@ -44,15 +54,19 @@ spec:
   routes:
     - kind: Rule
       priority: 10000
-      match: (Host(`explore-cchain.lux.network`) || Host(`explore-c.lux.network`)) && (PathPrefix(`/v1/`) || Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`))
+      match: (Host(`explore-cchain.lux.network`) || Host(`explore-c.lux.network`)) && (Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`))
       middlewares: [{name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
     - kind: Rule
       match: Host(`explore-cchain.lux.network`) || Host(`explore-c.lux.network`)
       services: [{name: explore-fe-lux, port: 80}]
     - kind: Rule
+      match: (Host(`api-explore-cchain.lux.network`) || Host(`api-explore-c.lux.network`)) && (PathPrefix(`/v1/`) || Path(`/health`))
+      middlewares: [{name: cors-allow-all}]
+      services: [{name: explorer, port: 8090}]
+    - kind: Rule
       match: Host(`api-explore-cchain.lux.network`) || Host(`api-explore-c.lux.network`)
-      middlewares: [{name: mainpage-rewrite}, {name: blockscout-prefix-cchain}, {name: cors-allow-all}]
+      middlewares: [{name: blockscout-prefix-cchain}, {name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
 ---
 # Hanzo Mainnet
@@ -68,15 +82,19 @@ spec:
   routes:
     - kind: Rule
       priority: 10000
-      match: (Host(`explore-hanzo.lux.network`) || Host(`explore.hanzo.network`) || Host(`explore.hanzo.ai`)) && (PathPrefix(`/v1/`) || Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`))
+      match: (Host(`explore-hanzo.lux.network`) || Host(`explore.hanzo.network`) || Host(`explore.hanzo.ai`)) && (Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`))
       middlewares: [{name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
     - kind: Rule
       match: Host(`explore-hanzo.lux.network`) || Host(`explore.hanzo.network`) || Host(`explore.hanzo.ai`)
       services: [{name: explore-fe-hanzo, port: 80}]
     - kind: Rule
+      match: (Host(`api-explore-hanzo.lux.network`) || Host(`api-explore.hanzo.network`) || Host(`api-explore.hanzo.ai`)) && (PathPrefix(`/v1/`) || Path(`/health`))
+      middlewares: [{name: cors-allow-all}]
+      services: [{name: explorer, port: 8090}]
+    - kind: Rule
       match: Host(`api-explore-hanzo.lux.network`) || Host(`api-explore.hanzo.network`) || Host(`api-explore.hanzo.ai`)
-      middlewares: [{name: mainpage-rewrite}, {name: blockscout-prefix-hanzo}, {name: cors-allow-all}]
+      middlewares: [{name: blockscout-prefix-hanzo}, {name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
 ---
 # Zoo Mainnet
@@ -92,15 +110,19 @@ spec:
   routes:
     - kind: Rule
       priority: 10000
-      match: (Host(`explore-zoo.lux.network`) || Host(`explore.zoo.network`) || Host(`explore.zoo.ngo`) || Host(`explorer.zoo.network`) || Host(`explorer-zoo.lux.network`)) && (PathPrefix(`/v1/`) || Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`) || Path(`/icon-zoo.svg`) || Path(`/logo-zoo.svg`))
+      match: (Host(`explore-zoo.lux.network`) || Host(`explore.zoo.network`) || Host(`explore.zoo.ngo`) || Host(`explorer.zoo.network`) || Host(`explorer-zoo.lux.network`)) && (Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`) || Path(`/icon-zoo.svg`) || Path(`/logo-zoo.svg`))
       middlewares: [{name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
     - kind: Rule
       match: Host(`explore-zoo.lux.network`) || Host(`explore.zoo.network`) || Host(`explore.zoo.ngo`) || Host(`explorer.zoo.network`) || Host(`explorer-zoo.lux.network`)
       services: [{name: explore-fe-zoo, port: 80}]
     - kind: Rule
+      match: (Host(`api-explore-zoo.lux.network`) || Host(`api-explore.zoo.network`) || Host(`api-explore.zoo.ngo`) || Host(`api-explorer.zoo.network`) || Host(`api-explorer-zoo.lux.network`)) && (PathPrefix(`/v1/`) || Path(`/health`))
+      middlewares: [{name: cors-allow-all}]
+      services: [{name: explorer, port: 8090}]
+    - kind: Rule
       match: Host(`api-explore-zoo.lux.network`) || Host(`api-explore.zoo.network`) || Host(`api-explore.zoo.ngo`) || Host(`api-explorer.zoo.network`) || Host(`api-explorer-zoo.lux.network`)
-      middlewares: [{name: mainpage-rewrite}, {name: blockscout-prefix-zoo}, {name: cors-allow-all}]
+      middlewares: [{name: blockscout-prefix-zoo}, {name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
 ---
 # Pars Mainnet
@@ -116,13 +138,17 @@ spec:
   routes:
     - kind: Rule
       priority: 10000
-      match: (Host(`explore-pars.lux.network`) || Host(`explore.pars.network`)) && (PathPrefix(`/v1/`) || Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`))
+      match: (Host(`explore-pars.lux.network`) || Host(`explore.pars.network`)) && (Path(`/health`) || Path(`/envs.js`) || Path(`/icon.svg`) || Path(`/logo.svg`))
       middlewares: [{name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
     - kind: Rule
       match: Host(`explore-pars.lux.network`) || Host(`explore.pars.network`)
       services: [{name: explore-fe-pars, port: 80}]
     - kind: Rule
+      match: (Host(`api-explore-pars.lux.network`) || Host(`api-explore.pars.network`)) && (PathPrefix(`/v1/`) || Path(`/health`))
+      middlewares: [{name: cors-allow-all}]
+      services: [{name: explorer, port: 8090}]
+    - kind: Rule
       match: Host(`api-explore-pars.lux.network`) || Host(`api-explore.pars.network`)
-      middlewares: [{name: mainpage-rewrite}, {name: blockscout-prefix-pars}, {name: cors-allow-all}]
+      middlewares: [{name: blockscout-prefix-pars}, {name: cors-allow-all}]
       services: [{name: explorer, port: 8090}]
