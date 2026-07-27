@@ -16,7 +16,9 @@ import Stats from 'ui/home/Stats';
 import Transactions from 'ui/home/Transactions';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
-const LUX_DECIMALS = 6;
+// nLUX is NANO-LUX: 10^9 nLUX = 1 LUX. This read 6, inflating every LUX figure
+// by 1000 — the validators page showed 2.5T LUX staked against a ~2T supply.
+const LUX_DECIMALS = 9;
 
 const PRIMARY_CHAINS = [
   { id: 'C', name: 'C-Chain', fullName: 'Contract Chain', vm: 'EVM', href: '/' },
