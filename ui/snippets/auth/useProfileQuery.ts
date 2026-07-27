@@ -24,7 +24,7 @@ function useOidcProfileQuery() {
   return useQuery<UserInfo>({
     queryKey: [ 'oidc_profile', serverUrl ],
     queryFn: async() => {
-      const response = await fetch(`${ serverUrl }/api/userinfo`, {
+      const response = await fetch(`${ serverUrl }/v1/iam/userinfo`, {
         headers: { Authorization: `Bearer ${ token }` },
       });
       if (!response.ok) {
