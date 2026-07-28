@@ -110,6 +110,88 @@ export function burnedWei(reading: FeeSplitReading | undefined): string | undefi
   return reading.status === 'active' ? reading.vaultWei : '0';
 }
 
+// ── Where a fee actually goes ──
+
+// Every "Burnt fees" label in this explorer is a claim about deflation, and on
+// this chain it is currently false. `creditTxFee` only destroys wei while the
+// split is active; before activation it credits the WHOLE fee to the block
+// coinbase, which is an account, so supply does not move. Measured on mainnet
+// 96369 at block 1098244: eth_getChainConfig returns a config object (chainId
+// 96369 present, so the call works) with NO feeSplitTimestamp, the vault
+// 0x0100…0002 holds 0 LUX, and the coinbase 0x0100…0000 holds 3867.79 LUX and
+// climbing. Not one wei has been burned, yet /block/1098234 rendered
+// "Burnt fees 0.000525 LUX".
+//
+// So the label is derived, in this one place, from the same reading the fee
+// panel uses. Callers ask once and render what they are told.
+export type FeeDestination =
+
+  /** creditTxFee destroys ceil(fee/2): "burnt" is accurate. */
+  | 'burned' |
+
+  /** The whole fee is credited to the block coinbase: nothing is burned. */
+  'coinbase' |
+
+  /** The node did not answer. Make no claim either way. */
+  'unknown';
+
+export function deriveFeeDestination(status: FeeSplitStatus): FeeDestination {
+  if (status === 'unknown') {
+    return 'unknown';
+  }
+  return status === 'active' ? 'burned' : 'coinbase';
+}
+
+export interface FeeDestinationCopy {
+  readonly label: string;
+  readonly hint: string;
+
+  /** False when a "share of fees burnt" ratio would assert something untrue. */
+  readonly showBurnRatio: boolean;
+}
+
+const COIN = () => config.chain.currency.symbol || 'the native token';
+
+export function feeDestinationCopy(destination: FeeDestination): FeeDestinationCopy {
+  switch (destination) {
+    case 'burned':
+      return {
+        label: 'Burnt fees',
+        hint: `Amount of ${ COIN() } destroyed by the transactions in this block. ` +
+          'The fee split is active, so half of every fee is credited to no account and ' +
+          'the supply falls by that much. Equals Block Base Fee per Gas * Gas Used.',
+        showBurnRatio: true,
+      };
+    case 'coinbase':
+      return {
+        label: 'Fees to coinbase',
+        hint: `Base Fee per Gas * Gas Used, in ${ COIN() }. NOT burned: the fee split is ` +
+          `not active on this chain, so the whole fee is credited to the block coinbase ` +
+          `${ FEE_COINBASE }, an account with no code and no key. Total supply is unchanged.`,
+        showBurnRatio: false,
+      };
+    case 'unknown':
+      return {
+        label: 'Fees (destination unknown)',
+        hint: `Base Fee per Gas * Gas Used, in ${ COIN() }. This node did not answer ` +
+          'eth_getChainConfig, so whether the fee was burned or credited to the block ' +
+          'coinbase could not be established. No claim is made here.',
+        showBurnRatio: false,
+      };
+  }
+}
+
+/**
+ * The fee destination for the current chain, read live.
+ *
+ * Shares `useFeeSplit`'s query key, so a page that renders many rows issues one
+ * batch for all of them and the fee panel reuses the same cached reading.
+ */
+export function useFeeDestination(): FeeDestination {
+  const { reading } = useFeeSplit();
+  return reading ? deriveFeeDestination(reading.status) : 'unknown';
+}
+
 // ── Series ──
 
 // One observation per head block, kept for the browsing session.

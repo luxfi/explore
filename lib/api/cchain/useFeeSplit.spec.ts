@@ -16,7 +16,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { FeeSplitReading, RpcEnvelope } from './useFeeSplit';
-import { burnedWei, deriveStatus, parseFeeSplitBatch, recordSample, toCoinSeries } from './useFeeSplit';
+import { burnedWei, deriveFeeDestination, deriveStatus, feeDestinationCopy, parseFeeSplitBatch, recordSample, toCoinSeries } from './useFeeSplit';
 
 // Verbatim, trimmed only of chain-config fields the panel never reads.
 // id 1 = fee reward vault balance, id 2 = coinbase balance,
@@ -181,5 +181,35 @@ describe('recordSample', () => {
 
     expect(series).toHaveLength(240);
     expect(series[series.length - 1].blockNumber).toBe(299);
+  });
+});
+
+describe('deriveFeeDestination — "Burnt fees" is a claim, not a label', () => {
+  it('only calls it burned while the split is active', () => {
+    expect(deriveFeeDestination('active')).toBe('burned');
+  });
+
+  // Mainnet 96369 today: eth_getChainConfig answers (chainId present) with no
+  // feeSplitTimestamp, the vault holds 0 LUX and the coinbase 0x0100..0000
+  // holds 3867.79 LUX. Every wei of every fee went to an account.
+  it('says coinbase before activation, scheduled or not', () => {
+    expect(deriveFeeDestination('inactive')).toBe('coinbase');
+    expect(deriveFeeDestination('scheduled')).toBe('coinbase');
+  });
+
+  it('makes no claim when the config could not be read', () => {
+    expect(deriveFeeDestination('unknown')).toBe('unknown');
+  });
+
+  it('never shows a burn ratio for a fee that was not burned', () => {
+    expect(feeDestinationCopy('burned').showBurnRatio).toBe(true);
+    expect(feeDestinationCopy('coinbase').showBurnRatio).toBe(false);
+    expect(feeDestinationCopy('unknown').showBurnRatio).toBe(false);
+  });
+
+  it('never labels an un-burned fee "Burnt fees"', () => {
+    expect(feeDestinationCopy('coinbase').label).not.toContain('Burnt');
+    expect(feeDestinationCopy('unknown').label).not.toContain('Burnt');
+    expect(feeDestinationCopy('burned').label).toBe('Burnt fees');
   });
 });
