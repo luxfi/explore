@@ -163,7 +163,7 @@ const TestTokenBadge = ({ addressHash, className }: TestTokenBadgeProps) => {
 
   return (
     <Tooltip content="This is a known test/fake token. It has no real value — do not trade or transfer real assets for it.">
-      <IconSvg name="status/warning" className={ cn('w-5 h-5 ml-2 text-[var(--color-orange-400)]', className) }/>
+      <IconSvg name="status/warning" className={ cn('w-5 h-5 ml-2 text-[var(--color-status-warn)]', className) }/>
     </Tooltip>
   );
 };

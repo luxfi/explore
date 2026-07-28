@@ -8,13 +8,18 @@ type DistributionItem = {
   color: string;
 };
 
+// Severity is ORDERED data, so it reads as one sequential ramp: darkest is
+// worst. Only `critical` keeps a hue, because red is the one state colour Lux
+// spends on danger. The warm middle of this scale is gone — it used to be
+// high #EC672C, medium #FBE74D, low #68C88E, informational #A3AEBE, gas
+// #A47585, six unrelated hues pretending to be a scale.
 const DISTRIBUTION_ITEMS: Array<DistributionItem> = [
-  { id: 'critical', name: 'Critical', color: '#891F11' },
-  { id: 'high', name: 'High', color: '#EC672C' },
-  { id: 'medium', name: 'Medium', color: '#FBE74D' },
-  { id: 'low', name: 'Low', color: '#68C88E' },
-  { id: 'informational', name: 'Informational', color: '#A3AEBE' },
-  { id: 'gas', name: 'Gas', color: '#A47585' },
+  { id: 'critical', name: 'Critical', color: 'var(--color-status-bad)' },
+  { id: 'high', name: 'High', color: 'var(--color-gray-800)' },
+  { id: 'medium', name: 'Medium', color: 'var(--color-gray-600)' },
+  { id: 'low', name: 'Low', color: 'var(--color-gray-500)' },
+  { id: 'informational', name: 'Informational', color: 'var(--color-gray-400)' },
+  { id: 'gas', name: 'Gas', color: 'var(--color-gray-300)' },
 ];
 
 interface Props {
