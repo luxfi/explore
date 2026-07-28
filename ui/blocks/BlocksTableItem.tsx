@@ -10,7 +10,7 @@ import type { ClusterChainConfig } from 'types/multichain';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
-import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
+import { blockTimeSeconds, feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import { Link } from 'toolkit/next/link';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
@@ -35,9 +35,9 @@ interface Props {
 const isRollup = config.features.rollup.isEnabled;
 
 const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chainData }: Props) => {
-  // The label for this column is a live read, not an assumption: base fees are
+  // A live read gated on THIS block's timestamp, not an assumption: base fees are
   // only destroyed while the fee split is active. See lib/api/cchain/useFeeSplit.
-  const feeCopy = feeDestinationCopy(useFeeDestination());
+  const feeCopy = feeDestinationCopy(useFeeDestination(blockTimeSeconds(data.timestamp)));
   const totalReward = getBlockTotalReward(data);
   const burntFees = BigNumber(data.burnt_fees || 0);
   const txFees = BigNumber(data.transaction_fees || 0);
