@@ -54,7 +54,7 @@ const SearchResultItemToken = ({ data, chain, isMobile }: Props) => {
             <HashStringShortenDynamic hash={ data.address_hash }/>
           ) }
         </div>
-        { isVerified && <IconSvg name="status/success" className="w-3.5 h-3.5 text-green-500 ml-1 shrink-0"/> }
+        { isVerified && <IconSvg name="status/success" className="w-3.5 h-3.5 text-good ml-1 shrink-0"/> }
         <span
           className="overflow-hidden whitespace-nowrap text-ellipsis font-normal lg:font-semibold ml-auto max-w-[60%] lg:max-w-none"
         >

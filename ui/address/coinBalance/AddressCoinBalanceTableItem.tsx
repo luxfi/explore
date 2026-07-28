@@ -1,11 +1,11 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
 import type { AddressCoinBalanceHistoryItem } from 'types/api/address';
 import type { ClusterChainConfig } from 'types/multichain';
 
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { TableCell, TableRow } from '@luxfi/ui/table';
 import { ZERO } from 'toolkit/utils/consts';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
 import TxEntity from 'ui/shared/entities/tx/TxEntity';
@@ -76,7 +76,7 @@ const AddressCoinBalanceTableItem = (props: Props) => {
                 loading={ props.isLoading }
               />
             </span>
-            <span className={ isPositiveDelta ? 'text-green-500' : 'text-red-500' }>
+            <span className={ isPositiveDelta ? 'text-good' : 'text-bad' }>
               { isPositiveDelta ? '\u25B2' : '\u25BC' }
             </span>
           </div>

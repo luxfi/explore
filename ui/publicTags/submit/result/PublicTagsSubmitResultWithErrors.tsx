@@ -1,3 +1,4 @@
+import { Button } from '@luxfi/ui/button';
 import { pickBy } from 'es-toolkit';
 import React from 'react';
 
@@ -6,7 +7,6 @@ import type { FormSubmitResultGrouped } from '../types';
 import { route } from 'nextjs-routes';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Button } from '@luxfi/ui/button';
 import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EntityTag from 'ui/shared/EntityTags/EntityTag';
@@ -34,9 +34,9 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
             <div className="grow">
               <div
                 className={ `grid grid-cols-1 lg:grid-cols-2 gap-y-3 rounded-base ${
-                  item.error
-                    ? 'bg-red-50 dark:bg-red-800'
-                    : 'bg-green-50 dark:bg-green-800'
+                  item.error ?
+                    'bg-bad dark:bg-bad' :
+                    'bg-good dark:bg-good'
                 }` }
               >
                 <div className="px-4 lg:px-6 pt-2 lg:pt-4 pb-0 lg:pb-4 overflow-hidden">
@@ -65,7 +65,7 @@ const PublicTagsSubmitResultWithErrors = ({ data }: Props) => {
                   </div>
                 </div>
               </div>
-              { item.error && <div className="text-red-500 mt-1 text-sm">{ item.error }</div> }
+              { item.error && <div className="text-bad mt-1 text-sm">{ item.error }</div> }
             </div>
             { item.error && (
               <Link

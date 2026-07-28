@@ -1,8 +1,9 @@
+import { Image } from '@luxfi/ui/image';
+import { Progress } from '@luxfi/ui/progress';
+
 import type { GetAvailableBadgesResponse } from '@luxfi/points-types';
 
-import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/next/link';
-import { Progress } from '@luxfi/ui/progress';
 
 const BADGE_BG_COLORS = [ '#DFE8F5', '#D2E5FE', '#EFE1FF' ];
 
@@ -47,7 +48,7 @@ export default function BadgeCard({ badge, currentStreak, index }: Props) {
           { (() => {
             if (badge.is_minted) {
               return (
-                <span className="text-xs text-green-500">
+                <span className="text-xs text-good">
                   Minted
                 </span>
               );

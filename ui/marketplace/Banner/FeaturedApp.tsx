@@ -1,3 +1,7 @@
+import { Heading } from '@luxfi/ui/heading';
+import { IconButton } from '@luxfi/ui/icon-button';
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import type { MouseEvent } from 'react';
 import React, { useCallback } from 'react';
 
@@ -6,11 +10,7 @@ import type { MarketplaceApp } from 'types/client/marketplace';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
 import { useColorModeValue } from 'toolkit/next/color-mode';
-import { Heading } from '@luxfi/ui/heading';
-import { IconButton } from '@luxfi/ui/icon-button';
-import { Image } from '@luxfi/ui/image';
 import { Link, LinkBox } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
 
 import FavoriteIcon from '../FavoriteIcon';
 import MarketplaceAppCardLink from '../MarketplaceAppCardLink';
@@ -61,7 +61,7 @@ const FeaturedApp = ({
 
   return (
     <LinkBox>
-      <div className="flex gap-4 rounded-md h-[100px] p-3 bg-purple-50 dark:bg-white/10">
+      <div className="flex gap-4 rounded-md h-[100px] p-3 bg-muted dark:bg-white/10">
         <Skeleton
           loading={ isLoading }
           w="76px"

@@ -1,3 +1,5 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -5,10 +7,8 @@ import type { TokenInfo } from 'types/api/token';
 import { route } from 'nextjs/routes';
 
 import config from 'configs/app';
-import { cn } from 'lib/utils/cn';
 import { useMultichainContext } from 'lib/contexts/multichain';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tooltip } from '@luxfi/ui/tooltip';
+import { cn } from 'lib/utils/cn';
 import { TruncatedTextTooltip } from 'toolkit/components/truncation/TruncatedTextTooltip';
 import * as EntityBase from 'ui/shared/entities/base/components';
 import getChainTooltipText from 'ui/shared/externalChains/getChainTooltipText';
@@ -163,7 +163,7 @@ const TestTokenBadge = ({ addressHash, className }: TestTokenBadgeProps) => {
 
   return (
     <Tooltip content="This is a known test/fake token. It has no real value — do not trade or transfer real assets for it.">
-      <IconSvg name="status/warning" className={ cn('w-5 h-5 ml-2 text-[var(--color-status-warn)]', className) }/>
+      <IconSvg name="status/warning" className={ cn('w-5 h-5 ml-2 text-warn', className) }/>
     </Tooltip>
   );
 };

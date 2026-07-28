@@ -12,13 +12,13 @@ const VerifiedAddressesStatus = ({ status }: Props) => {
       return <span className="font-medium">In progress</span>;
     }
     case 'APPROVED': {
-      return <span className="font-medium text-green-500">Approved</span>;
+      return <span className="font-medium text-good">Approved</span>;
     }
     case 'UPDATE_REQUIRED': {
-      return <span className="font-medium text-orange-500">Waiting for update</span>;
+      return <span className="font-medium text-warn">Waiting for update</span>;
     }
     case 'REJECTED': {
-      return <span className="font-medium text-red-500">Rejected</span>;
+      return <span className="font-medium text-bad">Rejected</span>;
     }
 
     default:
