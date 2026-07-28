@@ -1,10 +1,10 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import type { TChainIndicator } from './types';
 import type { ChainIndicatorId } from 'types/homepage';
 
 import { cn } from 'lib/utils/cn';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { mdash } from 'toolkit/utils/htmlEntities';
 interface Props {
   indicator: TChainIndicator;
@@ -40,7 +40,7 @@ const ChainIndicatorItem = ({ indicator, isSelected, onClick, isLoading }: Props
     return (
       <Skeleton loading={ isLoading } ml={ 1 } display="flex" alignItems="center" color={ diffColor }>
         <span>{ indicator.valueDiff >= 0 ? '+' : '-' }</span>
-        <span className={ cn('font-semibold', indicator.valueDiff >= 0 ? 'text-green-500' : 'text-red-500') }>{ Math.abs(indicator.valueDiff) }%</span>
+        <span className={ cn('font-semibold', indicator.valueDiff >= 0 ? 'text-good' : 'text-bad') }>{ Math.abs(indicator.valueDiff) }%</span>
       </Skeleton>
     );
   })();

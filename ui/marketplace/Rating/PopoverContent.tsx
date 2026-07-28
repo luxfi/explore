@@ -1,3 +1,5 @@
+import { Rating } from '@luxfi/ui/rating';
+import { toaster } from '@luxfi/ui/toaster';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -5,8 +7,6 @@ import config from 'configs/app';
 import useApiFetch from 'lib/api/useApiFetch';
 import type { EventTypes, EventPayload } from 'lib/mixpanel/index';
 import * as mixpanel from 'lib/mixpanel/index';
-import { Rating } from '@luxfi/ui/rating';
-import { toaster } from '@luxfi/ui/toaster';
 import IconSvg from 'ui/shared/IconSvg';
 
 const ratingDescriptions = [ 'Very bad', 'Bad', 'Average', 'Good', 'Excellent' ];
@@ -20,7 +20,10 @@ const PopoverContent = ({ appId, userRating, source }: Props) => {
   const handleValueChange = React.useCallback(async({ value }: { value: number }) => {
     setIsSending(true);
     try {
-      await apiFetch('admin:marketplace_rate_dapp', { pathParams: { chainId: config.chain.id, dappId: appId }, fetchParams: { method: 'POST', body: { rating: value } } });
+      await apiFetch('admin:marketplace_rate_dapp', {
+        pathParams: { chainId: config.chain.id, dappId: appId },
+        fetchParams: { method: 'POST', body: { rating: value } },
+      });
       setRatingValue(value);
       queryClient.invalidateQueries({ queryKey: [ 'marketplace-dapps' ] });
       toaster.success({ title: 'Awesome! Thank you 💜', description: 'Your rating improves the service' });
@@ -43,7 +46,7 @@ const PopoverContent = ({ appId, userRating, source }: Props) => {
   return (
     <>
       <div className="flex items-center h-[30px]">
-        { ratingValue && <IconSvg name="navigation/verified_contracts" className="w-[30px] h-[30px] text-green-400 mr-1 -ml-[5px]"/> }
+        { ratingValue && <IconSvg name="navigation/verified_contracts" className="w-[30px] h-[30px] text-good mr-1 -ml-[5px]"/> }
         <span className="font-medium text-xs text-[var(--color-text-secondary)]">
           { ratingValue ? 'App is already rated by you' : 'How was your experience?' }
         </span>

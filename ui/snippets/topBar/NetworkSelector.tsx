@@ -1,8 +1,8 @@
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import React from 'react';
 
 import { NETWORKS, getCurrentNetwork } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
-import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 
 const NetworkSelector = () => {
   const [ open, setOpen ] = React.useState(false);
@@ -26,16 +26,16 @@ const NetworkSelector = () => {
     >
       <PopoverTrigger>
         <button
-          className={cn(
+          className={ cn(
             'flex items-center gap-1.5 px-2 py-1 rounded-sm cursor-pointer',
             'bg-transparent border-none text-xs font-medium',
             'text-[var(--color-text-secondary)] shrink-0',
             'hover:text-[var(--color-text-primary)] hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
             'transition-all duration-150',
-          )}
+          ) }
           onClick={ handleToggle }
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 shrink-0"/>
+          <span className="w-1.5 h-1.5 rounded-full bg-good shrink-0"/>
           { current.name }
         </button>
       </PopoverTrigger>
@@ -49,15 +49,15 @@ const NetworkSelector = () => {
                 { ...(!isCurrent ? { href: network.explorerUrl } : {}) }
                 className={ cn(
                   'flex items-center gap-2 px-2.5 py-2 rounded-sm no-underline transition-[background] duration-150',
-                  isCurrent
-                    ? 'cursor-default bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]'
-                    : 'cursor-pointer bg-transparent hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
+                  isCurrent ?
+                    'cursor-default bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]' :
+                    'cursor-pointer bg-transparent hover:bg-[var(--color-blackAlpha-50)] dark:hover:bg-[var(--color-whiteAlpha-50)]',
                 ) }
               >
                 <span
                   className={ cn(
                     'w-1.5 h-1.5 rounded-full shrink-0',
-                    isCurrent ? 'bg-green-400' : 'bg-[var(--color-text-secondary)] opacity-40',
+                    isCurrent ? 'bg-good' : 'bg-[var(--color-text-secondary)] opacity-40',
                   ) }
                 />
                 <div className="flex flex-col">

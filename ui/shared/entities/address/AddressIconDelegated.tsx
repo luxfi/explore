@@ -7,7 +7,7 @@ interface Props {
 const AddressIconDelegated = ({ isVerified }: Props) => {
   return (
     <div
-      className={ `absolute w-[14px] h-[14px] -top-[2px] -right-[2px] ${ isVerified ? 'text-green-500' : 'text-[var(--color-icon-primary)]' }` }
+      className={ `absolute w-[14px] h-[14px] -top-[2px] -right-[2px] ${ isVerified ? 'text-good' : 'text-[var(--color-icon-primary)]' }` }
     >
       <svg
         viewBox="0 0 14 14"

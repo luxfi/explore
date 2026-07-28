@@ -40,7 +40,7 @@ const STATUS_LABEL: Record<FeeSplitStatus, string> = {
 
 const STATUS_DOT: Record<FeeSplitStatus, string> = {
   active: 'bg-[var(--color-green-500)]',
-  scheduled: 'bg-[var(--color-status-warn)]',
+  scheduled: 'bg-warn',
   inactive: 'bg-[var(--color-gray-400)]',
   unknown: 'bg-[var(--color-gray-400)]',
 };

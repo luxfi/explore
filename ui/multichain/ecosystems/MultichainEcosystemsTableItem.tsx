@@ -25,7 +25,7 @@ interface Props {
 const DeltaIndicator = ({ delta }: { delta: number }) => {
   const isPositive = delta > 0;
   return (
-    <span className={ `inline-flex items-center gap-0.5 ${ isPositive ? 'text-green-500' : 'text-red-500' }` }>
+    <span className={ `inline-flex items-center gap-0.5 ${ isPositive ? 'text-good' : 'text-bad' }` }>
       <span>{ delta.toFixed(2) }%</span>
       <span>{ isPositive ? '\u25B2' : '\u25BC' }</span>
     </span>

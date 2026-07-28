@@ -261,7 +261,7 @@ test('customization', async({ render }) => {
     <AddressEntity
       address={ addressMock.withoutName }
       truncation="constant"
-      className="p-3 border border-blue-700"
+      className="p-3 border border-border"
     />,
   );
 
@@ -271,11 +271,11 @@ test('customization', async({ render }) => {
 test('hover', async({ page, render }) => {
   const component = await render(
     <AddressHighlightProvider>
-      <Box p={ 3 }>
+      <div style={{ padding: 12 }}>
         <AddressEntity
           address={ addressMock.withoutName }
         />
-      </Box>
+      </div>
     </AddressHighlightProvider>,
   );
 

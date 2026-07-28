@@ -10,6 +10,7 @@ import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import config from 'configs/app';
+import { buildLoginUrl } from 'lib/oidc';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
@@ -43,27 +44,6 @@ function oidcProviderName(): string {
   }
 }
 
-function buildOidcLoginUrl(): string {
-  const feature = config.features.account;
-  if (!feature.isEnabled || feature.authProvider !== 'oidc' || !feature.oidc) {
-    return '';
-  }
-  const { serverUrl, clientId } = feature.oidc;
-  const redirectUri = `${ window.location.origin }${ REDIRECT_URI_PATH }`;
-  const state = crypto.randomUUID();
-  sessionStorage.setItem('oidc_state', state);
-
-  const params = new URLSearchParams({
-    response_type: 'code',
-    client_id: clientId,
-    redirect_uri: redirectUri,
-    scope: 'openid profile email',
-    state,
-  });
-
-  return `${ serverUrl }/oauth/authorize?${ params.toString() }`;
-}
-
 interface Props {
   buttonSize?: ButtonProps['size'];
   buttonVariant?: ButtonProps['variant'];
@@ -77,7 +57,7 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
   const web3Wallet = useWeb3Wallet({ source: 'Header' });
   const web3AccountWithDomain = useWeb3AccountWithDomain(isWalletEnabled && web3Wallet.isConnected);
   const handleLoginClick = React.useCallback(() => {
-    const url = buildOidcLoginUrl();
+    const url = buildLoginUrl(REDIRECT_URI_PATH);
     if (url) {
       window.location.href = url;
     }

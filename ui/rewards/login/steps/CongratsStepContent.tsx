@@ -1,10 +1,10 @@
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import { route } from 'nextjs-routes';
 
 import { useRewardsContext } from 'lib/contexts/rewards';
-import { Button } from '@luxfi/ui/button';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import IconSvg from 'ui/shared/IconSvg';
 
 import MeritsIcon from '../../MeritsIcon';
@@ -25,7 +25,9 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
   const referralReward = registrationWithReferralReward - registrationReward;
 
   const refLink = referralsQuery.data?.link || 'N/A';
-  const shareText = `I joined the @luxnetwork Rewards Program and got my first ${ registrationReward || 'N/A' } #Merits! Use this link for a sign-up bonus and start earning rewards with @luxnetwork block explorer.\n\n${ refLink }`; // eslint-disable-line max-len
+  const shareText =
+    `I joined the @luxnetwork Rewards Program and got my first ${ registrationReward || 'N/A' } #Merits! Use this` +
+    ` link for a sign-up bonus and start earning rewards with @luxnetwork block explorer.\n\n${ refLink }`;
 
   return (
     <>
@@ -38,7 +40,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
       >
         <MeritsIcon className={ `w-12 h-12 mr-2 ${ isReferral ? 'w-8 md:w-12 h-8 md:h-12 mr-1 md:mr-2' : '' }` }/>
         <Skeleton loading={ rewardsConfigQuery.isLoading }>
-          <span className="text-[30px] font-bold text-blue-700 dark:text-blue-100" style={{ fontSize: isReferral ? undefined : '30px' }}>
+          <span className="text-[30px] font-bold text-foreground dark:text-foreground" style={{ fontSize: isReferral ? undefined : '30px' }}>
             +{ (isReferral ? registrationWithReferralReward : registrationReward) || 'N/A' }
           </span>
         </Skeleton>
@@ -59,11 +61,11 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
                 <div key={ title } className="flex items-center gap-1 md:gap-2">
                   <MeritsIcon className="w-5 md:w-6 h-5 md:h-6"/>
                   <Skeleton loading={ rewardsConfigQuery.isLoading }>
-                    <span className="text-sm font-bold text-blue-700 dark:text-blue-100">
+                    <span className="text-sm font-bold text-foreground dark:text-foreground">
                       +{ value }
                     </span>
                   </Skeleton>
-                  <span className="text-sm text-blue-700 dark:text-blue-100">
+                  <span className="text-sm text-foreground dark:text-foreground">
                     { title }
                   </span>
                 </div>
@@ -74,7 +76,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
       </div>
       <div className="flex flex-col items-start px-3 mb-8">
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-blue-500 dark:text-blue-100 bg-blue-50 dark:bg-blue-800">
+          <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-foreground dark:text-foreground bg-muted dark:bg-muted">
             <IconSvg name="profile" className="w-5 h-5"/>
           </div>
           <span className="text-lg font-medium">
@@ -107,7 +109,7 @@ const CongratsStepContent = ({ isReferral, customReferralReward }: Props) => {
       </div>
       <div className="flex flex-col items-start px-3">
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-blue-500 dark:text-blue-100 bg-blue-50 dark:bg-blue-800">
+          <div className="flex items-center justify-center w-8 h-8 rounded-[8px] text-foreground dark:text-foreground bg-muted dark:bg-muted">
             { /* FIXME use non-navigation icon */ }
             <IconSvg name="navigation/stats" className="w-6 h-6"/>
           </div>

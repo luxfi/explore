@@ -6,8 +6,8 @@ import { route } from 'nextjs/routes';
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
 import { isConfidentialTokenType, isFungibleTokenType } from 'lib/token/tokenTypes';
-import { Link } from 'toolkit/next/link';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
+import { Link } from 'toolkit/next/link';
 import NativeTokenTag from 'ui/shared/celo/NativeTokenTag';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import calculateUsdValue from 'ui/shared/value/calculateUsdValue';
@@ -102,7 +102,7 @@ const TokenSelectItem = ({ data }: Props) => {
 
   return (
     <Link
-      className="px-1 py-2.5 flex flex-col gap-y-2 border-b border-[var(--color-border-divider)] hover:bg-blue-50 dark:hover:bg-gray-800 text-inherit text-sm"
+      className="px-1 py-2.5 flex flex-col gap-y-2 border-b border-[var(--color-border-divider)] hover:bg-muted dark:hover:bg-gray-800 text-inherit text-sm"
       href={ url }
     >
       <div className="flex items-center w-full">

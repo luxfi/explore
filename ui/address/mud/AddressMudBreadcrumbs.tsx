@@ -78,7 +78,7 @@ const AddressMudBreadcrumbs = (props: TableViewProps | RecordViewProps) => {
       ) }
       style={ !isMobile ? { gridTemplateColumns: '20px auto auto auto' } : undefined }
     >
-      <IconSvg name="MUD" className={ cn('w-5 h-5', addressQuery.data?.is_verified ? 'text-green-500' : 'text-[var(--color-icon-primary)]') }/>
+      <IconSvg name="MUD" className={ cn('w-5 h-5', addressQuery.data?.is_verified ? 'text-good' : 'text-[var(--color-icon-primary)]') }/>
       <BreadcrumbItem
         text="MUD World"
         href={ route({ pathname: '/address/[hash]', query: queryParams }) }

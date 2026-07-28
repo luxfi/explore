@@ -1,3 +1,6 @@
+import { Image } from '@luxfi/ui/image';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tag } from '@luxfi/ui/tag';
 import React from 'react';
 import xss from 'xss';
 
@@ -12,10 +15,7 @@ import highlightText from 'lib/highlightText';
 import * as mixpanel from 'lib/mixpanel/index';
 import { saveToRecentKeywords } from 'lib/recentSearchKeywords';
 import { useColorMode } from 'toolkit/next/color-mode';
-import { Image } from '@luxfi/ui/image';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tag } from '@luxfi/ui/tag';
 import { SECOND } from 'toolkit/utils/consts';
 import { ADDRESS_REGEXP } from 'toolkit/utils/regexp';
 import ContractCertifiedLabel from 'ui/shared/ContractCertifiedLabel';
@@ -76,10 +76,10 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 dangerouslySetInnerHTML={{ __html: highlightText(name, searchTerm) }}
                 whiteSpace="nowrap"
                 overflow="hidden"
-                textOverflow="ellipsis" />
+                textOverflow="ellipsis"/>
             </Link>
             { data.certified && <ContractCertifiedLabel iconSize={ 4 } className="ml-1"/> }
-            { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" className="w-4 h-4 ml-1 text-green-500"/> }
+            { data.is_verified_via_admin_panel && !data.certified && <IconSvg name="certified" className="w-4 h-4 ml-1 text-good"/> }
             { data.reputation && <TokenEntity.Reputation value={ data.reputation }/> }
           </div>
         );
@@ -325,7 +325,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               <span className="whitespace-nowrap overflow-hidden">
                 <HashStringShortenDynamic hash={ hash } noTooltip/>
               </span>
-              { data.is_smart_contract_verified && <IconSvg name="status/success" className="w-[14px] h-[14px] text-green-500 ml-1 shrink-0"/> }
+              { data.is_smart_contract_verified && <IconSvg name="status/success" className="w-[14px] h-[14px] text-good ml-1 shrink-0"/> }
             </Skeleton>
             <Skeleton loading={ isLoading } overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontWeight={ 700 }>
               { data.token_type === 'ERC-20' && data.exchange_rate && `$${ Number(data.exchange_rate).toLocaleString() }` }
@@ -382,7 +382,7 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
             <div className="overflow-hidden">
               <HashStringShortenDynamic hash={ hash }/>
             </div>
-            { data.is_smart_contract_verified && <IconSvg name="status/success" className="w-[14px] h-[14px] text-green-500 ml-1 shrink-0"/> }
+            { data.is_smart_contract_verified && <IconSvg name="status/success" className="w-[14px] h-[14px] text-good ml-1 shrink-0"/> }
           </div>
         );
       }
@@ -407,8 +407,11 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
                 <span className="overflow-hidden whitespace-nowrap text-ellipsis">
                   <span dangerouslySetInnerHTML={{ __html: shouldHighlightHash ? xss(addressName) : highlightText(addressName, searchTerm) }}/>
                   { data.ens_info && (
-                    data.ens_info.names_count > 1 ?
-                      <span className="text-[var(--color-text-secondary)]"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span> :
+                    data.ens_info.names_count > 1 ? (
+                      <span
+                        className="text-[var(--color-text-secondary)]"
+                      > ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span>
+                    ) :
                       <span className="text-[var(--color-text-secondary)]">{ expiresText }</span>
                   ) }
                 </span>
@@ -434,8 +437,11 @@ const SearchResultListItem = ({ data, searchTerm, isLoading, addressFormat }: Pr
               </div>
             ) }
             {
-              data.ens_info.names_count > 1 ?
-                <span className="text-[var(--color-text-secondary)]"> ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span> :
+              data.ens_info.names_count > 1 ? (
+                <span
+                  className="text-[var(--color-text-secondary)]"
+                > ({ data.ens_info.names_count > 39 ? '40+' : `+${ data.ens_info.names_count - 1 }` })</span>
+              ) :
                 <span className="text-[var(--color-text-secondary)]">{ expiresText }</span>
             }
           </div>

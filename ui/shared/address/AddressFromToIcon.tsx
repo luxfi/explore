@@ -1,7 +1,7 @@
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
 import { cn } from 'lib/utils/cn';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 import type { TxCourseType } from './utils';
@@ -13,8 +13,8 @@ interface Props {
 }
 
 const TYPE_CLASSES: Record<TxCourseType, string> = {
-  'in': 'text-green-500 dark:text-green-200 bg-green-50 dark:bg-green-800',
-  out: 'text-yellow-600 dark:text-yellow-500 bg-orange-50 dark:bg-yellow-900',
+  'in': 'text-good dark:text-good bg-good/10 dark:bg-good/10',
+  out: 'text-warn dark:text-warn bg-warn/10 dark:bg-warn/10',
   self: 'text-[var(--color-blackAlpha-400)] dark:text-[var(--color-whiteAlpha-400)] bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-50)]',
   unspecified: 'text-[var(--color-icon-primary)] bg-transparent',
 };

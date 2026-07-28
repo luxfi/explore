@@ -53,7 +53,7 @@ test('customization', async({ render }) => {
     <NftEntity
       hash={ hash }
       id="1042"
-      className="p-3 border border-blue-700"
+      className="p-3 border border-border"
     />,
   );
 

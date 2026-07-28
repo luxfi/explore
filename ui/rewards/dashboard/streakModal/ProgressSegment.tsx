@@ -1,6 +1,6 @@
+import { Progress } from '@luxfi/ui/progress';
 import { clamp } from 'es-toolkit';
 
-import { Progress } from '@luxfi/ui/progress';
 import IconSvg from 'ui/shared/IconSvg';
 
 type Props = {
@@ -33,7 +33,7 @@ export default function ProgressSegment({ value, target, prevTarget, isFirst }: 
         <div className="flex h-[32px] lg:h-[40px] items-center">
           <div
             className={ `flex w-[40px] h-[32px] rounded-lg items-center justify-center z-[1] ${
-              isDone ? 'bg-green-400' : 'bg-[var(--color-progress-track)]'
+              isDone ? 'bg-good' : 'bg-[var(--color-progress-track)]'
             }` }
           >
             { isDone ? (

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import * as chainDataMock from 'mocks/multichain/chains';
@@ -136,10 +135,10 @@ test('loading', async({ render }) => {
 
 test('customization', async({ render }) => {
   const component = await render(
-    <div className="border border-orange-500">
+    <div className="border border-warn/30">
       <TokenEntity
         token={ tokenMock.tokenInfo }
-        className="p-2 max-w-[200px] border border-blue-700"
+        className="p-2 max-w-[200px] border border-border"
       />
     </div>,
   );

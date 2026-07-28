@@ -14,12 +14,12 @@ const NameDomainExpiryStatus = ({ date }: Props) => {
   const hasExpired = dayjs(date).isBefore(dayjs());
 
   if (hasExpired) {
-    return <span className="text-red-600">Expired</span>;
+    return <span className="text-bad">Expired</span>;
   }
 
   const diff = dayjs(date).diff(dayjs(), 'day');
   if (diff < 30) {
-    return <span className="text-red-600">{ diff } days left</span>;
+    return <span className="text-bad">{ diff } days left</span>;
   }
 
   return <span className="text-[var(--color-text-secondary)]">Expires { dayjs(date).fromNow() }</span>;
