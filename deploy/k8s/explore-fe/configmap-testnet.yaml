@@ -30,7 +30,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "true"
   NEXT_PUBLIC_API_HOST: api-explorer.zoo-test.network
   NEXT_PUBLIC_APP_HOST: explorer.zoo-test.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.zoo-test.network/ext/bc/zoo/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.zoo-test.network/v1/bc/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.zoo-test.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.zoo-test.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.zoo-test.network
@@ -50,7 +50,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "true"
   NEXT_PUBLIC_API_HOST: api-explorer.hanzo-test.network
   NEXT_PUBLIC_APP_HOST: explorer.hanzo-test.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.hanzo-test.network/ext/bc/hanzo/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.hanzo-test.network/v1/bc/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.hanzo-test.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.hanzo-test.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.hanzo-test.network
@@ -69,7 +69,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "true"
   NEXT_PUBLIC_API_HOST: api-explorer.pars-test.network
   NEXT_PUBLIC_APP_HOST: explorer.pars-test.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.pars-test.network/ext/bc/pars/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.pars-test.network/v1/bc/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explorer.pars-test.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explorer.pars-test.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explorer.pars-test.network
