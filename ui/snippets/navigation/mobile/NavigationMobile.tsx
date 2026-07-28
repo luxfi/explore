@@ -90,8 +90,14 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
         key="sub"
         className="w-full mt-6 absolute top-0"
         style={{
-          left: isOpen ? 0 : 'calc(100% + 24px)',
-          transition: `left ${ ANIMATION_DURATION }ms ease-in-out`,
+          // Mirrors the main panel above: same distance, same duration, but on
+          // the compositor. This used to animate `left`, which relayouts the
+          // whole nav subtree every frame — the one place a phone would drop
+          // frames on a menu tap. `left: 0` is this element's static position
+          // (absolute + w-full, no padding on the containing block), so
+          // translateX(100% + 24px) is pixel-identical to the old offset.
+          transform: isOpen ? 'translateX(0)' : 'translateX(calc(100% + 24px))',
+          transition: `transform ${ ANIMATION_DURATION }ms ease-in-out`,
         }}
       >
         <div className="flex items-center px-2 py-2.5 w-full h-[50px] cursor-pointer mb-1" onClick={ onGroupItemClose }>
@@ -103,7 +109,8 @@ const NavigationMobile = ({ onNavLinkClick, isMarketplaceAppPage }: Props) => {
             (item, index) => Array.isArray(item) ? (
               <ul
                 key={ index }
-                className="w-full [&:not(:last-child)]:mb-2 [&:not(:last-child)]:pb-2 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-[var(--color-border-divider)]"
+                className={ 'w-full [&:not(:last-child)]:mb-2 [&:not(:last-child)]:pb-2 ' +
+                  '[&:not(:last-child)]:border-b [&:not(:last-child)]:border-[var(--color-border-divider)]' }
               >
                 { item.map(subItem => <NavLink key={ subItem.text } item={ subItem } onClick={ onNavLinkClick } isCollapsed={ isCollapsed }/>) }
               </ul>
