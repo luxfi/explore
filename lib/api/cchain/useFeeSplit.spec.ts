@@ -16,7 +16,17 @@
 import { describe, expect, it } from 'vitest';
 
 import type { FeeSplitReading, RpcEnvelope } from './useFeeSplit';
-import { burnedWei, deriveFeeDestination, deriveStatus, feeDestinationCopy, parseFeeSplitBatch, recordSample, toCoinSeries } from './useFeeSplit';
+import {
+  blockTimeSeconds,
+  burnedWei,
+  deriveFeeDestination,
+  deriveStatus,
+  feeDestinationAt,
+  feeDestinationCopy,
+  parseFeeSplitBatch,
+  recordSample,
+  toCoinSeries,
+} from './useFeeSplit';
 
 // Verbatim, trimmed only of chain-config fields the panel never reads.
 // id 1 = fee reward vault balance, id 2 = coinbase balance,
@@ -211,5 +221,84 @@ describe('deriveFeeDestination — "Burnt fees" is a claim, not a label', () => 
     expect(feeDestinationCopy('coinbase').label).not.toContain('Burnt');
     expect(feeDestinationCopy('unknown').label).not.toContain('Burnt');
     expect(feeDestinationCopy('burned').label).toBe('Burnt fees');
+  });
+});
+
+// A block's label must follow the policy in force AT THAT BLOCK. Deriving it
+// from the head reading is only accidentally right while the split has never
+// been active; the day feeSplitTimestamp passes, every pre-activation block
+// would be relabelled "Burnt fees" — the same false deflation claim, moved into
+// history. These cases pin the per-block gate that prevents that.
+describe('per-block fee destination — history must not be relabelled', () => {
+  const ACTIVATES_AT = 1_800_000_000;
+  const config = { feeSplitTimestamp: ACTIVATES_AT };
+
+  it('does not call a pre-activation block burned once the split is live', () => {
+    // Head is past activation, the rendered block is not.
+    expect(deriveFeeDestination(deriveStatus(config, ACTIVATES_AT + 5_000))).toBe('burned');
+    expect(deriveFeeDestination(deriveStatus(config, ACTIVATES_AT - 1))).toBe('coinbase');
+  });
+
+  it('suppresses the burn ratio on a pre-activation block', () => {
+    const copy = feeDestinationCopy(deriveFeeDestination(deriveStatus(config, ACTIVATES_AT - 1)));
+    expect(copy.showBurnRatio).toBe(false);
+    expect(copy.label).not.toContain('Burnt');
+  });
+
+  it('calls the activation block itself burned — the gate is >=, as in IsFeeSplit', () => {
+    expect(deriveFeeDestination(deriveStatus(config, ACTIVATES_AT))).toBe('burned');
+  });
+
+  it('reads an API timestamp as whole seconds', () => {
+    // Block 1098234, the page that rendered "Burnt fees" over coinbase 0x0100..0000.
+    expect(blockTimeSeconds('2026-07-28T07:28:35.000000Z')).toBe(1785223715);
+  });
+
+  it('has no block time when the API omits it, so the caller falls back to head', () => {
+    expect(blockTimeSeconds(null)).toBeUndefined();
+    expect(blockTimeSeconds(undefined)).toBeUndefined();
+    expect(blockTimeSeconds('')).toBeUndefined();
+    expect(blockTimeSeconds('not a date')).toBeUndefined();
+  });
+});
+
+// The wiring, not just the arithmetic: feeDestinationAt is what the block pages
+// call. Reusing reading.status here instead of re-deriving against the block's
+// own time is exactly the regression these cases exist to catch.
+describe('feeDestinationAt — the reading is the head, the question is the block', () => {
+  const ACTIVATES_AT = 1_800_000_000;
+
+  // A head reading taken well AFTER activation: status is 'active'.
+  const headAfterActivation: FeeSplitReading = {
+    status: 'active',
+    vaultWei: '0x0',
+    coinbaseWei: '0x0',
+    blockNumber: 2_000_000,
+    blockTime: ACTIVATES_AT + 100_000,
+    activatesAt: ACTIVATES_AT,
+    allowFeeRecipients: false,
+  };
+
+  it('does NOT report a pre-activation block as burned', () => {
+    expect(feeDestinationAt(headAfterActivation, ACTIVATES_AT - 1)).toBe('coinbase');
+  });
+
+  it('still reports a post-activation block as burned', () => {
+    expect(feeDestinationAt(headAfterActivation, ACTIVATES_AT + 1)).toBe('burned');
+  });
+
+  it('falls back to the head reading when the block time is unknown', () => {
+    expect(feeDestinationAt(headAfterActivation, undefined)).toBe('burned');
+  });
+
+  it('makes no claim at all with no reading', () => {
+    expect(feeDestinationAt(undefined, ACTIVATES_AT + 1)).toBe('unknown');
+  });
+
+  it('reports coinbase for every block on a chain that never set the timestamp', () => {
+    // Mainnet 96369 today. Head and history alike: nothing has been burned.
+    const neverActivated: FeeSplitReading = { ...headAfterActivation, status: 'inactive', activatesAt: null };
+    expect(feeDestinationAt(neverActivated, 1)).toBe('coinbase');
+    expect(feeDestinationAt(neverActivated, ACTIVATES_AT + 100_000)).toBe('coinbase');
   });
 });
