@@ -33,7 +33,10 @@ export default function RewardsActivityPassCard() {
       </div>
       <div
         className="flex flex-col md:flex-row justify-between items-center h-[160px] md:h-[120px] pr-0 md:pr-8 pl-0 md:pl-[86px] pt-4 md:pt-0 pb-3 md:pb-0 rounded-base overflow-hidden relative"
-        style={{ flex: 'none', backgroundColor: 'var(--color-light, #FFEFCE)' }}
+        // `--color-light` is defined nowhere in this repo, so the fallback was
+        // unconditional: the Merits card painted a literal tan #FFEFCE panel with
+        // an amber #FFD57C button and #2B1A3F ink. Named tokens now, no fallback.
+        style={{ flex: 'none', backgroundColor: 'var(--color-bg-info)' }}
       >
         <Image
           src={ backgroundImage }
@@ -55,9 +58,9 @@ export default function RewardsActivityPassCard() {
           external
           href={ activityPassUrl }
           variant="underlaid"
-          iconColor="rgba(43, 26, 63, 0.3)"
+          iconColor="var(--color-button-solid-text)"
           className="font-medium shrink-0 z-[1]"
-          style={{ backgroundColor: 'var(--color-bg-light, #FFD57C)', color: '#2B1A3F' }}
+          style={{ backgroundColor: 'var(--color-button-solid-bg)', color: 'var(--color-button-solid-text)' }}
         >
           Grab Activity pass
         </Link>

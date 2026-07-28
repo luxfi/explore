@@ -159,29 +159,35 @@ const colors = {
     '800': { value: '#822727' },
     '900': { value: '#63171B' },
   },
+  // The warm ramps are kept as KEYS so a NEXT_PUBLIC_COLOR_THEME_OVERRIDES that
+  // still spells `{colors.orange.500}` resolves instead of crashing — but every
+  // rung is the neutral ladder now. Lux is monochrome; there is no orange.
+  // What these held: orange 50..900 #FFFAF0 #FEEBCB #FBD38D #F6AD55 #ED8936
+  // #DD6B20 #C05621 #9C4221 #7B341E #652B19; yellow 50..900 #FFFFF0 #FEFCBF
+  // #FAF089 #F6E05E #ECC94B #D69E2E #B7791F #975A16 #744210 #5F370E.
   orange: {
-    '50': { value: '#FFFAF0' },
-    '100': { value: '#FEEBCB' },
-    '200': { value: '#FBD38D' },
-    '300': { value: '#F6AD55' },
-    '400': { value: '#ED8936' },
-    '500': { value: '#DD6B20' },
-    '600': { value: '#C05621' },
-    '700': { value: '#9C4221' },
-    '800': { value: '#7B341E' },
-    '900': { value: '#652B19' },
+    '50': { value: '#FAFAFA' },
+    '100': { value: '#F5F5F5' },
+    '200': { value: '#E5E5E5' },
+    '300': { value: '#D4D4D4' },
+    '400': { value: '#A3A3A3' },
+    '500': { value: '#737373' },
+    '600': { value: '#525252' },
+    '700': { value: '#404040' },
+    '800': { value: '#262626' },
+    '900': { value: '#171717' },
   },
   yellow: {
-    '50': { value: '#FFFFF0' },
-    '100': { value: '#FEFCBF' },
-    '200': { value: '#FAF089' },
-    '300': { value: '#F6E05E' },
-    '400': { value: '#ECC94B' },
-    '500': { value: '#D69E2E' },
-    '600': { value: '#B7791F' },
-    '700': { value: '#975A16' },
-    '800': { value: '#744210' },
-    '900': { value: '#5F370E' },
+    '50': { value: '#FAFAFA' },
+    '100': { value: '#F5F5F5' },
+    '200': { value: '#E5E5E5' },
+    '300': { value: '#D4D4D4' },
+    '400': { value: '#A3A3A3' },
+    '500': { value: '#737373' },
+    '600': { value: '#525252' },
+    '700': { value: '#404040' },
+    '800': { value: '#262626' },
+    '900': { value: '#171717' },
   },
   // True neutral grays (no blue tint)
   gray: {
