@@ -1,3 +1,6 @@
+import { CollapsibleDetails } from '@luxfi/ui/collapsible';
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -8,16 +11,14 @@ import { ZKSYNC_L2_TX_BATCH_STATUSES } from 'types/api/zkSyncL2';
 import { route, routeParams } from 'nextjs/routes';
 
 import config from 'configs/app';
+import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import getBlockReward from 'lib/block/getBlockReward';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import * as arbitrum from 'lib/rollups/arbitrum';
 import { formatZkSyncL2TxnBatchStatus, layerLabels } from 'lib/rollups/utils';
 import getQueryParamString from 'lib/router/getQueryParamString';
-import { CollapsibleDetails } from '@luxfi/ui/collapsible';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import { ZERO } from 'toolkit/utils/consts';
 import { space } from 'toolkit/utils/htmlEntities';
 import OptimisticL2TxnBatchDA from 'ui/shared/batch/OptimisticL2TxnBatchDA';
@@ -58,6 +59,9 @@ const BlockDetails = ({ query }: Props) => {
   const router = useRouter();
   const heightOrHash = getQueryParamString(router.query.height_or_hash);
   const multichainContext = useMultichainContext();
+  // Whether the base fee is actually destroyed on this chain right now, read
+  // live. Decides the label below; it must never be assumed.
+  const feeCopy = feeDestinationCopy(useFeeDestination());
 
   const { data, isPlaceholderData } = query;
 
@@ -105,7 +109,7 @@ const BlockDetails = ({ query }: Props) => {
         { !burntFees.isEqualTo(ZERO) && (
           <>
             { space }-{ space }
-            <Tooltip content="Burnt fees">
+            <Tooltip content={ feeCopy.label }>
               <span>{ burntFees.dividedBy(WEI).toFixed() }</span>
             </Tooltip>
           </>
@@ -498,13 +502,10 @@ const BlockDetails = ({ query }: Props) => {
       { !config.UI.views.block.hiddenFields?.burnt_fees && !burntFees.isEqualTo(ZERO) && (
         <>
           <DetailedInfo.ItemLabel
-            hint={
-              `Amount of ${ config.chain.currency.symbol || 'native token' } burned from transactions included in the block. 
-              Equals Block Base Fee per Gas * Gas Used`
-            }
+            hint={ feeCopy.hint }
             isLoading={ isPlaceholderData }
           >
-            Burnt fees
+            { feeCopy.label }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue multiRow>
             <NativeCoinValue
@@ -514,7 +515,7 @@ const BlockDetails = ({ query }: Props) => {
               startElement={ <IconSvg name="flame" className="w-5 h-5 text-[var(--color-icon-primary)] mr-1 lg:mr-2" isLoading={ isPlaceholderData }/> }
               mr={ 4 }
             />
-            { !txFees.isEqualTo(ZERO) && (
+            { feeCopy.showBurnRatio && !txFees.isEqualTo(ZERO) && (
               <Tooltip content="Burnt fees / Txn fees * 100%">
                 <Utilization
                   value={ burntFees.dividedBy(txFees).toNumber() }

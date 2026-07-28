@@ -4,7 +4,7 @@ import React from 'react';
 import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
-import { currencyUnits } from 'lib/units';
+import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import { ZERO } from 'toolkit/utils/consts';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoNativeCoinValue from 'ui/shared/DetailedInfo/DetailedInfoNativeCoinValue';
@@ -18,6 +18,9 @@ interface Props {
 }
 
 const TxDetailsBurntFees = ({ data, isLoading }: Props) => {
+  // Whether this fee was destroyed or credited to the block coinbase is a live
+  // read, never an assumption. See lib/api/cchain/useFeeSplit.
+  const feeCopy = feeDestinationCopy(useFeeDestination());
 
   if (config.UI.views.tx.hiddenFields?.burnt_fees || (rollupFeature.isEnabled && rollupFeature.type === 'optimistic')) {
     return null;
@@ -32,13 +35,12 @@ const TxDetailsBurntFees = ({ data, isLoading }: Props) => {
   return (
     <>
       <DetailedInfo.ItemLabel
-        hint={ `
-            Amount of ${ currencyUnits.ether } burned for this transaction. Equals Block Base Fee per Gas * Gas Used
-            ${ data.blob_gas_price && data.blob_gas_used ? ' + Blob Gas Price * Blob Gas Used' : '' }
-          ` }
+        hint={ `${ feeCopy.hint }${
+          data.blob_gas_price && data.blob_gas_used ? ' Includes Blob Gas Price * Blob Gas Used.' : ''
+        }` }
         isLoading={ isLoading }
       >
-        Burnt fees
+        { feeCopy.label }
       </DetailedInfo.ItemLabel>
       <DetailedInfoNativeCoinValue
         amount={ value.toString() }

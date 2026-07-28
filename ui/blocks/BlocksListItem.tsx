@@ -1,3 +1,5 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
@@ -8,12 +10,11 @@ import type { ClusterChainConfig } from 'types/multichain';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
+import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
@@ -35,6 +36,9 @@ interface Props {
 const isRollup = config.features.rollup.isEnabled;
 
 const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation, chainData }: Props) => {
+  // The label for this column is a live read, not an assumption: base fees are
+  // only destroyed while the fee split is active. See lib/api/cchain/useFeeSplit.
+  const feeCopy = feeDestinationCopy(useFeeDestination());
   const totalReward = getBlockTotalReward(data);
   const burntFees = BigNumber(data.burnt_fees || 0);
   const txFees = BigNumber(data.transaction_fees || 0);
@@ -118,7 +122,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation, chain
       ) }
       { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees && (
         <div>
-          <span className="font-medium">Burnt fees</span>
+          <span className="font-medium">{ feeCopy.label }</span>
           <div className="flex gap-x-4 mt-2">
             <NativeCoinValue
               amount={ data.burnt_fees }
@@ -128,7 +132,7 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation, chain
               display="flex"
               color="text.secondary"
             />
-            <Utilization value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
+            { feeCopy.showBurnRatio && <Utilization value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/> }
           </div>
         </div>
       ) }

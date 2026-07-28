@@ -1,3 +1,4 @@
+import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
 
@@ -5,11 +6,11 @@ import type { Block } from 'types/api/block';
 import type { ClusterChainConfig } from 'types/multichain';
 
 import config from 'configs/app';
+import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import { AddressHighlightProvider } from 'lib/contexts/addressHighlight';
 import useInitialList from 'lib/hooks/useInitialList';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import { currencyUnits } from 'lib/units';
-import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from '@luxfi/ui/table';
 import BlocksTableItem from 'ui/blocks/BlocksTableItem';
 import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import TimeFormatToggle from 'ui/shared/time/TimeFormatToggle';
@@ -33,6 +34,8 @@ const FEES_COL_WEIGHT = 22;
 const isRollup = config.features.rollup.isEnabled;
 
 const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum, showSocketErrorAlert, chainData }: Props) => {
+  // Column heading is a live read — see lib/api/cchain/useFeeSplit.
+  const feeCopy = feeDestinationCopy(useFeeDestination());
   const initialList = useInitialList({
     data: data ?? [],
     idFn: (item) => item.height,
@@ -66,7 +69,7 @@ const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum
             { !isRollup && !config.UI.views.block.hiddenFields?.total_reward &&
               <TableColumnHeader width={ `${ REWARD_COL_WEIGHT / widthBase * 100 }%` }>Reward { currencyUnits.ether }</TableColumnHeader> }
             { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees &&
-              <TableColumnHeader width={ `${ FEES_COL_WEIGHT / widthBase * 100 }%` }>Burnt fees { currencyUnits.ether }</TableColumnHeader> }
+              <TableColumnHeader width={ `${ FEES_COL_WEIGHT / widthBase * 100 }%` }>{ feeCopy.label } { currencyUnits.ether }</TableColumnHeader> }
             { !isRollup && !config.UI.views.block.hiddenFields?.base_fee &&
               <TableColumnHeader width="150px" isNumeric>Base fee</TableColumnHeader> }
           </TableRow>

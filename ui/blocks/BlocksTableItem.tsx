@@ -1,3 +1,6 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
+import { TableCell, TableRow } from '@luxfi/ui/table';
+import { Tooltip } from '@luxfi/ui/tooltip';
 import BigNumber from 'bignumber.js';
 import React from 'react';
 
@@ -7,11 +10,9 @@ import type { ClusterChainConfig } from 'types/multichain';
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
+import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import getBlockTotalReward from 'lib/block/getBlockTotalReward';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
-import { TableCell, TableRow } from '@luxfi/ui/table';
-import { Tooltip } from '@luxfi/ui/tooltip';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import BlockPendingUpdateHint from 'ui/shared/block/BlockPendingUpdateHint';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -34,6 +35,9 @@ interface Props {
 const isRollup = config.features.rollup.isEnabled;
 
 const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chainData }: Props) => {
+  // The label for this column is a live read, not an assumption: base fees are
+  // only destroyed while the fee split is active. See lib/api/cchain/useFeeSplit.
+  const feeCopy = feeDestinationCopy(useFeeDestination());
   const totalReward = getBlockTotalReward(data);
   const burntFees = BigNumber(data.burnt_fees || 0);
   const txFees = BigNumber(data.transaction_fees || 0);
@@ -125,9 +129,11 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation, chai
             loading={ isLoading }
             display="flex"
           />
-          <Tooltip content="Burnt fees / Txn fees * 100%" disabled={ isLoading }>
-            <Utilization className="mt-2 w-min" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
-          </Tooltip>
+          { feeCopy.showBurnRatio && (
+            <Tooltip content="Burnt fees / Txn fees * 100%" disabled={ isLoading }>
+              <Utilization className="mt-2 w-min" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
+            </Tooltip>
+          ) }
         </TableCell>
       ) }
       { !isRollup && !config.UI.views.block.hiddenFields?.base_fee && data.base_fee_per_gas && (
