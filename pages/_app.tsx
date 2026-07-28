@@ -1,3 +1,4 @@
+import { animations } from '@hanzogui/config/v5-css';
 import { createGui, GuiProvider } from '@hanzogui/core';
 import { Toaster } from '@luxfi/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -23,6 +24,18 @@ import React from 'react';
 //      throws "Missing theme." in production. createGui alone is not
 //      enough — it sets the config, but the theme-state Provider
 //      tree has to exist as well.
+//   4. `animations` must be set. @hanzogui ships v5 WITHOUT a driver, and
+//      `@luxfi/ui`'s own config (src/lux.config.ts) has carried this key
+//      since the day it was written — this config predates it and did not.
+//      gui's Sheet reads `useAnimatedNumber` straight off the driver and
+//      calls `.setValue()` on the result, so with no driver the home
+//      page threw
+//        TypeError: Cannot read properties of undefined (reading 'setValue')
+//      out of SheetImplementationCustom. Every @luxfi/ui Drawer here — the
+//      burger menu, mobile search, the wallet and profile sheets — mounts
+//      ONLY below the mobile breakpoint, so desktop and tablet were clean
+//      and every phone visitor got "Oops! Something went wrong" instead of
+//      the explorer. Measured: crash at 390px, clean at 834px and 1440px.
 //
 // We materialize the config once, on both server and client (no `typeof
 // window` gate). createGui is idempotent via getConfigMaybe() — if a
@@ -30,6 +43,7 @@ import React from 'react';
 // merged forward.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const guiConfig: any = createGui({
+  animations,
   themes: {
     light: { background: '#ffffff', color: '#000000' },
     dark: { background: '#000000', color: '#ffffff' },
