@@ -4,7 +4,7 @@ import React from 'react';
 import type { Transaction } from 'types/api/transaction';
 
 import config from 'configs/app';
-import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
+import { blockTimeSeconds, feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import { ZERO } from 'toolkit/utils/consts';
 import * as DetailedInfo from 'ui/shared/DetailedInfo/DetailedInfo';
 import DetailedInfoNativeCoinValue from 'ui/shared/DetailedInfo/DetailedInfoNativeCoinValue';
@@ -20,7 +20,7 @@ interface Props {
 const TxDetailsBurntFees = ({ data, isLoading }: Props) => {
   // Whether this fee was destroyed or credited to the block coinbase is a live
   // read, never an assumption. See lib/api/cchain/useFeeSplit.
-  const feeCopy = feeDestinationCopy(useFeeDestination());
+  const feeCopy = feeDestinationCopy(useFeeDestination(blockTimeSeconds(data.timestamp)));
 
   if (config.UI.views.tx.hiddenFields?.burnt_fees || (rollupFeature.isEnabled && rollupFeature.type === 'optimistic')) {
     return null;

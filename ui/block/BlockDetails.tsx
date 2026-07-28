@@ -11,7 +11,7 @@ import { ZKSYNC_L2_TX_BATCH_STATUSES } from 'types/api/zkSyncL2';
 import { route, routeParams } from 'nextjs/routes';
 
 import config from 'configs/app';
-import { feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
+import { blockTimeSeconds, feeDestinationCopy, useFeeDestination } from 'lib/api/cchain/useFeeSplit';
 import getBlockReward from 'lib/block/getBlockReward';
 import { useMultichainContext } from 'lib/contexts/multichain';
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
@@ -59,11 +59,12 @@ const BlockDetails = ({ query }: Props) => {
   const router = useRouter();
   const heightOrHash = getQueryParamString(router.query.height_or_hash);
   const multichainContext = useMultichainContext();
-  // Whether the base fee is actually destroyed on this chain right now, read
-  // live. Decides the label below; it must never be assumed.
-  const feeCopy = feeDestinationCopy(useFeeDestination());
 
   const { data, isPlaceholderData } = query;
+
+  // Whether THIS block's base fee was destroyed, read live and gated on this
+  // block's own timestamp — not on the policy in force at the head. Never assumed.
+  const feeCopy = feeDestinationCopy(useFeeDestination(blockTimeSeconds(data?.timestamp)));
 
   const handlePrevNextClick = React.useCallback((direction: 'prev' | 'next') => {
     if (!data) {

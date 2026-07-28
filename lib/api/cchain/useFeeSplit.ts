@@ -182,14 +182,58 @@ export function feeDestinationCopy(destination: FeeDestination): FeeDestinationC
 }
 
 /**
- * The fee destination for the current chain, read live.
+ * Seconds since the epoch for an API timestamp, or `undefined` when it is
+ * absent or cannot be parsed. The gate reads seconds; the API sends ISO.
+ */
+export function blockTimeSeconds(timestamp: string | null | undefined): number | undefined {
+  if (!timestamp) {
+    return undefined;
+  }
+  const ms = Date.parse(timestamp);
+  return Number.isNaN(ms) ? undefined : Math.floor(ms / 1000);
+}
+
+/**
+ * The fee destination for ONE block, read live.
+ *
+ * `blockTime` is that block's timestamp in seconds. Pass it wherever the surface
+ * names a single block, because a fee is burned or not burned by the policy in
+ * force AT THAT BLOCK. Deriving from the head instead is only accidentally right
+ * while the split has never been active: the moment `feeSplitTimestamp` is set
+ * and passes, every one of the ~1.1M pre-activation blocks would be relabelled
+ * "Burnt fees" with a burn ratio — the same false deflation claim this module
+ * exists to remove, moved into history.
+ *
+ * Omit it only where the surface is not about one block (a column header), and
+ * while a block is still loading — then the head reading is the best available.
  *
  * Shares `useFeeSplit`'s query key, so a page that renders many rows issues one
  * batch for all of them and the fee panel reuses the same cached reading.
  */
-export function useFeeDestination(): FeeDestination {
-  const { reading } = useFeeSplit();
-  return reading ? deriveFeeDestination(reading.status) : 'unknown';
+export function useFeeDestination(blockTime?: number): FeeDestination {
+  return feeDestinationAt(useFeeSplit().reading, blockTime);
+}
+
+/**
+ * The whole decision, as a pure function of a reading and a block time, so it
+ * can be tested without a React tree. `useFeeDestination` is a one-line wrapper.
+ *
+ * Note it re-derives the status against `blockTime` rather than reusing
+ * `reading.status`: that field is anchored to the head block, which answers a
+ * different question ("is the split active NOW") than the one a block page asks
+ * ("was THIS block's fee burned").
+ */
+export function feeDestinationAt(reading: FeeSplitReading | undefined, blockTime?: number): FeeDestination {
+  if (!reading) {
+    return 'unknown';
+  }
+  return deriveFeeDestination(deriveStatus(
+    {
+      feeSplitTimestamp: reading.activatesAt ?? undefined,
+      allowFeeRecipients: reading.allowFeeRecipients,
+    },
+    blockTime ?? reading.blockTime,
+  ));
 }
 
 // ── Series ──

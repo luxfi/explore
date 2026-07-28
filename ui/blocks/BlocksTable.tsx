@@ -35,6 +35,9 @@ const isRollup = config.features.rollup.isEnabled;
 
 const BlocksTable = ({ data, isLoading, top, page, showSocketInfo, socketInfoNum, showSocketErrorAlert, chainData }: Props) => {
   // Column heading is a live read — see lib/api/cchain/useFeeSplit.
+  // No block time: this is a column header spanning many blocks, so it can only
+  // report the policy in force at the head. The per-row label and burn ratio are
+  // each gated on their own block's timestamp — see BlocksTableItem.
   const feeCopy = feeDestinationCopy(useFeeDestination());
   const initialList = useInitialList({
     data: data ?? [],
