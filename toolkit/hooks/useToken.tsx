@@ -7,7 +7,7 @@ const COLOR_MAP: Record<string, string> = {
   'white': '#ffffff',
   'gray.400': 'var(--color-gray-400, #a0aec0)',
   'gray.600': 'var(--color-gray-600, #4a5568)',
-  'yellow.300': 'var(--color-yellow-300, #f6e05e)',
+  'yellow.300': 'var(--color-status-warn, #737373)',
   'red.500': 'var(--color-red-500, #e53e3e)',
   'green.500': 'var(--color-green-500, #38a169)',
   'blackAlpha.300': 'rgba(0, 0, 0, 0.16)',
