@@ -21,9 +21,30 @@
     // TS7 removed `baseUrl`, and this project's absolute imports ("configs/app",
     // "lib/api/pchain", "ui/...") were resolved by `baseUrl: "."` alone — `paths`
     // was empty, so dropping baseUrl left nothing to resolve them and tsc could
-    // not typecheck a single file. `"*": ["./*"]` is the same rule expressed the
-    // way TS7 accepts: targets resolve relative to this tsconfig's directory.
-    "paths": { "*": [ "./*" ] },
+    // not typecheck a single file.
+    //
+    // The roots are NAMED, one per source directory, not collapsed into a
+    // `"*": ["./*"]` catch-all. `baseUrl` was a FALLBACK — tried after node
+    // resolution — whereas `paths` takes PRECEDENCE, and every bundler that
+    // reads tsconfig (Turbopack, webpack's tsconfig-paths, Vite) applies it
+    // first. A catch-all therefore captures package specifiers too: Turbopack
+    // rewrote `@luxfi/ui/tooltip` to `./@luxfi/ui/tooltip` inside the project
+    // and the whole app 500'd with "Module not found", because a `paths` miss
+    // is an error, not a fall-through.
+    "paths": {
+      "configs/*": [ "./configs/*" ],
+      "deploy/*": [ "./deploy/*" ],
+      "icons/*": [ "./icons/*" ],
+      "lib/*": [ "./lib/*" ],
+      "mocks/*": [ "./mocks/*" ],
+      "nextjs/*": [ "./nextjs/*" ],
+      "playwright/*": [ "./playwright/*" ],
+      "public/*": [ "./public/*" ],
+      "stubs/*": [ "./stubs/*" ],
+      "toolkit/*": [ "./toolkit/*" ],
+      "types/*": [ "./types/*" ],
+      "ui/*": [ "./ui/*" ]
+    },
     "types": [
       "node"
     ]
