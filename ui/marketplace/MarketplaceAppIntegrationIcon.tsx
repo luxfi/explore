@@ -1,6 +1,6 @@
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
-import { Tooltip } from '@luxfi/ui/tooltip';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
 
@@ -23,7 +23,7 @@ const MarketplaceAppIntegrationIcon = ({ external, internalWallet }: Props) => {
       size = 'w-4 h-4';
     } else if (internalWallet) {
       icon = 'integration/full';
-      color = 'text-green-500';
+      color = 'text-good';
       text = 'This app opens in the explorer and your wallet connects automatically';
     }
 

@@ -1,3 +1,7 @@
+import { Alert } from '@luxfi/ui/alert';
+import { Button } from '@luxfi/ui/button';
+import { Textarea } from '@luxfi/ui/textarea';
+import { toaster } from '@luxfi/ui/toaster';
 import mixpanel from 'mixpanel-browser';
 import type { ChangeEvent } from 'react';
 import React from 'react';
@@ -6,10 +10,6 @@ import config from 'configs/app';
 import * as cookies from 'lib/cookies';
 import useGradualIncrement from 'lib/hooks/useGradualIncrement';
 import { useRollbar } from 'lib/rollbar';
-import { Alert } from '@luxfi/ui/alert';
-import { Button } from '@luxfi/ui/button';
-import { Textarea } from '@luxfi/ui/textarea';
-import { toaster } from '@luxfi/ui/toaster';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
 const Login = () => {
@@ -77,8 +77,8 @@ const Login = () => {
         </>
       ) }
       <div className="flex gap-x-2">
-        <Button className="bg-red-600 text-white hover:bg-red-500" onClick={ checkRollbar }>Check Rollbar</Button>
-        <Button className="bg-teal-600 text-white hover:bg-teal-500" onClick={ checkMixpanel }>Check Mixpanel</Button>
+        <Button className="bg-bad text-white hover:bg-bad" onClick={ checkRollbar }>Check Rollbar</Button>
+        <Button className="bg-muted text-white hover:bg-muted" onClick={ checkMixpanel }>Check Mixpanel</Button>
       </div>
       <div className="flex items-center gap-x-2">
         <div className="text-center w-[50px]">{ num }</div>

@@ -80,7 +80,7 @@ const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
     </div>
     <div className="ml-0 lg:ml-auto flex items-center">
       { status === 'active' ? (
-        <Tag size="sm" variant="subtle" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</Tag>
+        <Tag size="sm" variant="subtle" className="bg-good/10 text-good dark:bg-good/10 dark:text-good">Active</Tag>
       ) : (
         <Tag size="sm" variant="subtle">Coming Soon</Tag>
       ) }

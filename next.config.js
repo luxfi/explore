@@ -10,17 +10,19 @@ const headers = require('./nextjs/headers');
 const redirects = require('./nextjs/redirects');
 const rewrites = require('./nextjs/rewrites');
 
+// The gui engine's bundler wiring, from the umbrella that owns it.
+// Hand-listing a SUBSET of the engine here is what produced seven physical
+// copies of `@hanzogui/popper` in this app's store (3.0.0, 3.0.1, 3.0.2 x3,
+// 7.3.0 x2). A context published at module scope is per-copy, so `PopperAnchor`
+// read the empty default and called `refs.setReference` on `undefined` once per
+// tooltip trigger — 932 uncaught errors on the home page alone.
+const { withLuxUi } = require('@luxfi/ui/next');
+
 /** @type {import('next').NextConfig} */
 const moduleExports = {
+  dir: __dirname,
   transpilePackages: [
     'react-syntax-highlighter',
-    '@luxfi/ui',
-    '@hanzogui/core',
-    '@hanzogui/tooltip',
-    '@hanzogui/popover',
-    '@hanzogui/text',
-    '@hanzogui/dialog',
-    '@hanzogui/web',
   ],
   reactStrictMode: true,
   // `next dev` runs Turbopack, which does not read the webpack() block below, so
@@ -32,6 +34,13 @@ const moduleExports = {
   turbopack: {
     rules: {
       '*.svg': { loaders: [ '@svgr/webpack' ], as: '*.js' },
+    },
+    resolveAlias: {
+      fs: { browser: './stubs/empty.js' },
+      net: { browser: './stubs/empty.js' },
+      tls: { browser: './stubs/empty.js' },
+      async_hooks: { browser: './stubs/empty.js' },
+      '@react-native-async-storage/async-storage': { browser: './stubs/empty.js' },
     },
   },
   webpack(config) {
@@ -82,4 +91,4 @@ const moduleExports = {
   },
 };
 
-module.exports = withBundleAnalyzer(withRoutes(moduleExports));
+module.exports = withBundleAnalyzer(withRoutes(withLuxUi(moduleExports)));

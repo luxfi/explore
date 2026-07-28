@@ -98,7 +98,7 @@ const ChainRow = ({
 
         { /* Status indicator + arrow */ }
         <div className="flex items-center gap-2 shrink-0 ml-0 lg:ml-auto">
-          <div className={ cn('w-2 h-2 rounded-full', isActive ? 'bg-green-400' : 'bg-gray-400') }/>
+          <div className={ cn('w-2 h-2 rounded-full', isActive ? 'bg-good' : 'bg-gray-400') }/>
           { href && (
             <div className="text-[var(--color-text-secondary)] text-sm">{ '\u2192' }</div>
           ) }

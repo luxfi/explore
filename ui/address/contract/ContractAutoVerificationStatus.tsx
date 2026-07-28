@@ -1,6 +1,6 @@
+import { Tooltip } from '@luxfi/ui/tooltip';
 import React from 'react';
 
-import { Tooltip } from '@luxfi/ui/tooltip';
 import IconSvg from 'ui/shared/IconSvg';
 
 const STATUS_MAP = {
@@ -10,11 +10,11 @@ const STATUS_MAP = {
   },
   success: {
     text: 'Contract successfully verified',
-    leftElement: <IconSvg name="verified" className="w-5 h-5 text-green-500"/>,
+    leftElement: <IconSvg name="verified" className="w-5 h-5 text-good"/>,
   },
   failed: {
     text: 'Contract not verified automatically. Please verify manually.',
-    leftElement: <IconSvg name="status/warning" className="w-5 h-5 text-orange-400"/>,
+    leftElement: <IconSvg name="status/warning" className="w-5 h-5 text-warn"/>,
   },
 };
 

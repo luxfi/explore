@@ -1,3 +1,4 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import config from 'configs/app';
@@ -6,7 +7,6 @@ import dayjs from 'lib/date/dayjs';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { HOMEPAGE_STATS } from 'stubs/stats';
 import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
 import GasPrice from 'ui/shared/gas/GasPrice';
 import TextSeparator from 'ui/shared/TextSeparator';
@@ -64,7 +64,7 @@ const TopBarStats = () => {
             </Skeleton>
             { data.coin_price_change_percentage && !(isMobile && Boolean(config.UI.featuredNetworks.items)) && (
               <Skeleton loading={ isPlaceholderData }>
-                <span className={ Number(data.coin_price_change_percentage) >= 0 ? 'text-green-500' : 'text-red-500' }>
+                <span className={ Number(data.coin_price_change_percentage) >= 0 ? 'text-good' : 'text-bad' }>
                   { Number(data.coin_price_change_percentage).toFixed(2) }%
                 </span>
               </Skeleton>

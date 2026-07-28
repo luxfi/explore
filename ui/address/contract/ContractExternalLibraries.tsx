@@ -1,14 +1,14 @@
-import React from 'react';
-
-import type { SmartContractExternalLibrary } from 'types/api/contract';
-
-import useIsMobile from 'lib/hooks/useIsMobile';
 import { Alert } from '@luxfi/ui/alert';
 import { Button } from '@luxfi/ui/button';
 import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import { Heading } from '@luxfi/ui/heading';
 import { PopoverRoot, PopoverBody, PopoverContent, PopoverTrigger } from '@luxfi/ui/popover';
 import { Skeleton } from '@luxfi/ui/skeleton';
+import React from 'react';
+
+import type { SmartContractExternalLibrary } from 'types/api/contract';
+
+import useIsMobile from 'lib/hooks/useIsMobile';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import { apos } from 'toolkit/utils/htmlEntities';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
@@ -59,8 +59,12 @@ const ContractExternalLibraries = ({ className, data, isLoading }: Props) => {
       aria-label="View external libraries"
     >
       <span>{ data.length } { data.length > 1 ? 'Libraries' : 'Library' } </span>
-      <IconSvg name="status/warning" className="w-5 h-5 text-orange-400 ml-[2px]"/>
-      <IconSvg name="arrows/east-mini" className="w-5 h-5 ml-2 transition-transform duration-150" style={{ transform: open ? 'rotate(90deg)' : 'rotate(-90deg)' }}/>
+      <IconSvg name="status/warning" className="w-5 h-5 text-warn ml-[2px]"/>
+      <IconSvg
+        name="arrows/east-mini"
+        className="w-5 h-5 ml-2 transition-transform duration-150"
+        style={{ transform: open ? 'rotate(90deg)' : 'rotate(-90deg)' }}
+      />
     </Button>
   );
 

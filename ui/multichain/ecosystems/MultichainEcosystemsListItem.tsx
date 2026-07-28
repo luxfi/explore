@@ -1,11 +1,11 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
 import type * as multichain from '@luxfi/multichain-aggregator-types';
 import type { ClusterChainConfig } from 'types/multichain';
 
-import { Link } from 'toolkit/next/link';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { TruncatedText } from 'toolkit/components/truncation/TruncatedText';
+import { Link } from 'toolkit/next/link';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import ChainIcon from 'ui/shared/externalChains/ChainIcon';
 import ListItemMobile from 'ui/shared/ListItemMobile/ListItemMobile';
@@ -19,7 +19,7 @@ interface Props {
 const DeltaIndicator = ({ delta }: { delta: number }) => {
   const isPositive = delta > 0;
   return (
-    <span className={ `inline-flex items-center gap-0.5 ${ isPositive ? 'text-green-500' : 'text-red-500' }` }>
+    <span className={ `inline-flex items-center gap-0.5 ${ isPositive ? 'text-good' : 'text-bad' }` }>
       <span>{ delta.toFixed(2) }%</span>
       <span>{ isPositive ? '\u25B2' : '\u25BC' }</span>
     </span>

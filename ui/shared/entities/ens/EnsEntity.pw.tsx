@@ -53,7 +53,7 @@ test('customization', async({ render }) => {
   const component = await render(
     <EnsEntity
       domain={ name }
-      className="p-3 border border-blue-700"
+      className="p-3 border border-border"
     />,
   );
 

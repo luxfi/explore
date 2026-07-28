@@ -15,9 +15,9 @@ const BlockDetailsQuasarCert = ({ data }: Props) => {
     <>
       Quasar triple consensus finality certificate.<br/><br/>
       Three independent cryptographic verification paths:<br/><br/>
-      BLS (green) { ndash } BLS12-381 classical fast-path (ECDL hardness).<br/><br/>
-      Corona (blue) { ndash } Ring-LWE 2-round threshold (Module-LWE hardness, post-quantum).<br/><br/>
-      ML-DSA (purple) { ndash } ML-DSA-65 FIPS 204 identity proof (Module-LWE + Module-SIS hardness, post-quantum).<br/><br/>
+      BLS { ndash } BLS12-381 classical fast-path (elliptic-curve discrete-log hardness).<br/><br/>
+      Corona { ndash } Ring-LWE 2-round threshold (Module-LWE hardness, post-quantum).<br/><br/>
+      ML-DSA { ndash } ML-DSA-65 FIPS 204 identity proof (Module-LWE + Module-SIS hardness, post-quantum).<br/><br/>
       Validators { ndash } number of validators who signed. An adversary must break all three assumptions simultaneously.
     </>
   );
@@ -31,9 +31,9 @@ const BlockDetailsQuasarCert = ({ data }: Props) => {
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue className="flex-wrap">
         <div className="flex gap-1 mb-2">
-          <span className="inline-flex items-center rounded-full bg-green-500/10 text-green-400 px-2 py-0.5 text-xs font-medium">BLS</span>
-          <span className="inline-flex items-center rounded-full bg-blue-500/10 text-blue-400 px-2 py-0.5 text-xs font-medium">Corona</span>
-          <span className="inline-flex items-center rounded-full bg-purple-500/10 text-purple-400 px-2 py-0.5 text-xs font-medium">ML-DSA</span>
+          <span className="inline-flex items-center rounded-full bg-good/10 text-good px-2 py-0.5 text-xs font-medium">BLS</span>
+          <span className="inline-flex items-center rounded-full bg-muted text-foreground px-2 py-0.5 text-xs font-medium">Corona</span>
+          <span className="inline-flex items-center rounded-full bg-muted text-foreground px-2 py-0.5 text-xs font-medium">ML-DSA</span>
         </div>
         <div className="grid grid-cols-[min-content_1fr] gap-x-5 w-full mt-1 text-sm">
           <span className="font-semibold whitespace-nowrap">BLS aggregate</span>

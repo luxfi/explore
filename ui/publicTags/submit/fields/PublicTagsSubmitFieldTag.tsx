@@ -46,9 +46,9 @@ const PublicTagsSubmitFieldTag = ({ index, isDisabled, errors, onAddClick, onRem
     <>
       <div
         className={ `col-span-1 lg:col-span-2 p-[10px] rounded-base ${
-          errors
-            ? 'bg-red-50 dark:bg-red-900'
-            : 'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)]'
+          errors ?
+            'bg-bad dark:bg-bad' :
+            'bg-[var(--color-blackAlpha-50)] dark:bg-[var(--color-whiteAlpha-100)]'
         }` }
       >
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-4">

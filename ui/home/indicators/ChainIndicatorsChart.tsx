@@ -1,6 +1,6 @@
+import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { Hint } from 'toolkit/components/Hint/Hint';
 import { mdash } from 'toolkit/utils/htmlEntities';
 import FallbackChart from 'ui/shared/fallbacks/FallbackChart';
@@ -47,7 +47,7 @@ const ChainIndicatorsChart = ({ isLoading: isLoadingProp, value, valueDiff, char
     return (
       <Skeleton loading={ isLoading } display="flex" alignItems="center" color={ diffColor } ml={ 2 }>
         <IconSvg name="arrows/up-head" className={ `w-5 h-5 mr-1 ${ valueDiff < 0 ? 'rotate-180' : '' }` }/>
-        <span className={ `font-semibold ${ valueDiff >= 0 ? 'text-green-500' : 'text-red-500' }` }>{ valueDiff }%</span>
+        <span className={ `font-semibold ${ valueDiff >= 0 ? 'text-good' : 'text-bad' }` }>{ valueDiff }%</span>
       </Skeleton>
     );
   })();
