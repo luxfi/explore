@@ -4,19 +4,19 @@ import React from 'react';
 
 import PageNextJs from 'nextjs/PageNextJs';
 
-import config from 'configs/app';
 import * as cookies from 'lib/cookies';
+import { consumeState, exchangeCode, getOidc } from 'lib/oidc';
 import { Link } from 'toolkit/next/link';
 
 const COOKIE_MAX_AGE_DAYS = 7;
+const REDIRECT_URI_PATH = '/auth/callback';
 
 const OidcCallback: NextPage = () => {
   const router = useRouter();
   const [ error, setError ] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const feature = config.features.account;
-    if (!feature.isEnabled || feature.authProvider !== 'oidc' || !feature.oidc) {
+    if (!getOidc()) {
       setError('OIDC authentication is not configured');
       return;
     }
@@ -33,45 +33,14 @@ const OidcCallback: NextPage = () => {
       return;
     }
 
-    // Verify CSRF state
-    const savedState = sessionStorage.getItem('oidc_state');
-    if (!savedState || state !== savedState) {
+    if (!consumeState(typeof state === 'string' ? state : undefined)) {
       setError('Invalid state parameter - possible CSRF attack');
       return;
     }
-    sessionStorage.removeItem('oidc_state');
 
-    const exchangeCode = async() => {
+    const run = async() => {
       try {
-        const oidc = feature.oidc;
-        if (!oidc) {
-          return;
-        }
-        const { serverUrl, clientId } = oidc;
-        const redirectUri = `${ window.location.origin }/auth/callback`;
-
-        const tokenResponse = await fetch(`${ serverUrl }/oauth/token`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
-            grant_type: 'authorization_code',
-            code,
-            redirect_uri: redirectUri,
-            client_id: clientId,
-          }),
-        });
-
-        if (!tokenResponse.ok) {
-          const errorBody = await tokenResponse.text();
-          throw new Error(`Token exchange failed: ${ errorBody }`);
-        }
-
-        const tokenData = await tokenResponse.json() as {
-          access_token: string;
-          id_token?: string;
-          refresh_token?: string;
-          expires_in?: number;
-        };
+        const tokenData = await exchangeCode(code, REDIRECT_URI_PATH);
 
         // Store the access token in the API_TOKEN cookie
         const expiresInDays = tokenData.expires_in ?
@@ -86,7 +55,7 @@ const OidcCallback: NextPage = () => {
       }
     };
 
-    exchangeCode();
+    run();
   }, [ router ]);
 
   if (error) {

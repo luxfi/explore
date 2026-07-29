@@ -85,7 +85,7 @@ Key environment variables (see `docs/ENVS.md` for full list):
 ```bash
 NEXT_PUBLIC_NETWORK_NAME=Lux Network
 NEXT_PUBLIC_NETWORK_ID=96369
-NEXT_PUBLIC_NETWORK_RPC_URL=https://api.lux.network/ext/bc/C/rpc
+NEXT_PUBLIC_NETWORK_RPC_URL=https://api.lux.network/v1/bc/C/rpc
 NEXT_PUBLIC_API_HOST=https://explore.lux.network
 NEXT_PUBLIC_APP_HOST=https://explore.lux.network
 ```
