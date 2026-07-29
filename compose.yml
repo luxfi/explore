@@ -34,9 +34,9 @@ services:
     environment:
       DATABASE_URL: postgresql://blockscout:blockscout@postgres:5432/blockscout
       REDIS_URL: redis://redis:6379
-      ETHEREUM_JSONRPC_HTTP_URL: http://127.0.0.1:9650/ext/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/rpc
-      ETHEREUM_JSONRPC_TRACE_URL: http://127.0.0.1:9650/ext/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/rpc
-      ETHEREUM_JSONRPC_WS_URL: ws://127.0.0.1:9650/ext/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/ws
+      ETHEREUM_JSONRPC_HTTP_URL: http://127.0.0.1:9650/v1/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/rpc
+      ETHEREUM_JSONRPC_TRACE_URL: http://127.0.0.1:9650/v1/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/rpc
+      ETHEREUM_JSONRPC_WS_URL: ws://127.0.0.1:9650/v1/bc/dnmzhuf6poM6PUNQCe7MWWfBdTJEnddhHRNXz2x7H6qSmyBEJ/ws
       CHAIN_ID: 96369
       COIN: LUX
       NETWORK: LUX Network

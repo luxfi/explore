@@ -116,7 +116,7 @@ def check_port_in_use(port):
 
 def get_rpc_url(local_port, blockchain_id):
     """Build the RPC URL for a chain."""
-    return f"http://localhost:{local_port}/ext/bc/{blockchain_id}/rpc"
+    return f"http://localhost:{local_port}/v1/bc/{blockchain_id}/rpc"
 
 
 def send_transactions(network_name, net_config, account, tx_count):
