@@ -1,0 +1,61 @@
+name: Tests
+
+# The repo's unit suite, on the native runners (git.hanzo.ai → git-runner).
+#
+# This replaces the runnable half of .github/workflows/checks.yml. Every job
+# here names a label the fleet actually carries, and every job here is green on
+# main — a job no runner can claim, or one that is perpetually red, is worse
+# than no job at all, because it trains everyone to ignore the colour.
+#
+# Deliberately NOT gated here:
+#
+#   lint:tsc  — `tsc -p tsconfig.json` is red on main independently of any change
+#               in this workflow: ~dozens of TS2304 "Cannot find name 'Box'" in
+#               ui/**/*.pw.tsx (Playwright fixtures the app tsconfig pulls in but
+#               does not give React/Chakra globals to) plus the unrelated vite/
+#               scratch app (missing `wouter`, ImportMeta.env). Gating on it
+#               would make this workflow red on arrival and prove nothing. It is
+#               a real defect and it needs its own fix, not a permanently-failing
+#               job standing in for one.
+#
+#   test:pw   — Playwright needs a browser image and a built app; it belongs in
+#               its own workflow with its own timeout, not bolted onto the unit
+#               gate.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer commit makes the older run irrelevant.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  vitest:
+    runs-on: [lux-build-linux-amd64]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+
+      - name: Install pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack prepare pnpm@10.11.0 --activate
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Unit tests
+        run: pnpm vitest run
