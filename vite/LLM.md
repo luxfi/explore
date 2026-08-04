@@ -57,7 +57,7 @@ the production Next.js app:
      `/assets/envs.js` pattern (the `hanzoai/spa` image can template this at
      container boot).
    - `/api/pchain` — CORS-avoiding proxy for JSON-RPC. Either (a) enable CORS
-     on the gateway for `/ext/bc/P/*`, or (b) deploy a separate tiny Go proxy
+     on the gateway for `/v1/bc/P/*`, or (b) deploy a separate tiny Go proxy
      alongside the SPA. Option (a) is cleaner.
    - `/api/csrf`, `/api/proxy` — Blockscout account API auth. Must move to the
      same pattern: gateway-side, or the account API itself exposes them.

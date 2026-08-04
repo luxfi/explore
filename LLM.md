@@ -85,7 +85,7 @@ Key environment variables (see `docs/ENVS.md` for full list):
 ```bash
 NEXT_PUBLIC_NETWORK_NAME=Lux Network
 NEXT_PUBLIC_NETWORK_ID=96369
-NEXT_PUBLIC_NETWORK_RPC_URL=https://api.lux.network/ext/bc/C/rpc
+NEXT_PUBLIC_NETWORK_RPC_URL=https://api.lux.network/v1/bc/C/rpc
 NEXT_PUBLIC_API_HOST=https://explore.lux.network
 NEXT_PUBLIC_APP_HOST=https://explore.lux.network
 ```
@@ -368,16 +368,16 @@ EVMChainID map). One value, one way.
   `public/.well-known/explore.json`, `lib/web3/chains.ts` (comment),
   `deploy/k8s/explore-fe/configmap-{mainnet,testnet}.yaml`,
   `deploy/scripts/branded_build.sh`, `tools/send_test_txs.py`.
-- **Chain RPC migrated `/ext/bc/<alias>/rpc` → `/v1/bc/C/rpc`** (gateway canonical;
+- **Chain RPC migrated `/v1/bc/<alias>/rpc` → `/v1/bc/C/rpc`** (gateway canonical;
   every sovereign L1 exposes its own C-Chain at `/v1/bc/C/rpc`, so zoo/hanzo/pars
-  drop their old brand-aliased `/ext/bc/{zoo,hanzo,pars}/rpc` paths — which were
+  drop their old brand-aliased `/v1/bc/{zoo,hanzo,pars}/rpc` paths — which were
   already 404ing). Verified returning blocks BEFORE switching: Lux/Zoo/Hanzo/Pars
   **mainnet** + Lux **testnet**. Deliberately still on `/ext` (their `/v1` gateway
   route is not up yet — do NOT switch until a block returns): Lux **devnet**,
   Zoo/Hanzo/Pars **testnet**, and the local-node compose + `send_test_txs.py`
   URLs (raw luxd serves `/ext` natively, no gateway). P-chain proxy
   (`pages/api/pchain.ts`) now dials `/v1/bc/P` (verified). `useChainHeights.ts`
-  and `luxnet/instance.ts` no longer strip `/ext/bc/C/rpc`: they use the env RPC
+  and `luxnet/instance.ts` no longer strip `/v1/bc/C/rpc`: they use the env RPC
   URL (or its origin) directly, so the C-chain height widget + luxnet SDK work
   under either path scheme.
 
@@ -460,9 +460,9 @@ empty, never faked. Root causes + fixes:
 - **Validators/Stake = 0 was a proxy bug, not missing data.** P-chain
   `platform.getCurrentValidators` returns real validators (5, total weight
   2.5e18 on hanzo). `pages/api/pchain.ts` derived its base URL by stripping
-  ONLY `/ext/bc/C/rpc` via regex; brand RPCs are `…/ext/bc/<chain>/rpc`
-  (hanzo: `/ext/bc/hanzo/rpc`), so the regex no-op'd and the proxy POSTed to
-  `…/ext/bc/hanzo/rpc/ext/bc/P` → HTML 404 → "Unexpected non-whitespace
+  ONLY `/v1/bc/C/rpc` via regex; brand RPCs are `…/v1/bc/<chain>/rpc`
+  (hanzo: `/v1/bc/hanzo/rpc`), so the regex no-op'd and the proxy POSTed to
+  `…/v1/bc/hanzo/rpc/v1/bc/P` → HTML 404 → "Unexpected non-whitespace
   character after JSON at position 4" → 502. Fix: `new URL(rpcUrl).origin`
   (works for every brand) + defensive text→JSON parse with a clear error.
   `ui/stats/lux/NetworkStats.tsx` (Network Overview: Total Chains / Validators
