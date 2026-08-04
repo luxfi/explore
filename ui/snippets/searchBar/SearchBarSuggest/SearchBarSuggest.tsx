@@ -48,7 +48,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
 
   const handleScroll = React.useCallback(() => {
     const container = scrollContainerRef.current;
-    if (!container || (!query.data?.length && !zetaChainCCTXQuery.data?.items.length)) {
+    if (!container || (!query.data?.length && !zetaChainCCTXQuery.data?.items?.length)) {
       return;
     }
     const topLimit = container.getBoundingClientRect().y + TABS_HEIGHT;
@@ -86,7 +86,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
   }, [ handleScroll ]);
 
   const itemsGroups = React.useMemo(() => {
-    if (!query.data && !zetaChainCCTXQuery.data?.items.length && !marketplaceApps.displayedApps) {
+    if (!query.data && !zetaChainCCTXQuery.data?.items?.length && !marketplaceApps.displayedApps) {
       return {};
     }
 
@@ -107,7 +107,7 @@ const SearchBarSuggest = ({ query, zetaChainCCTXQuery, externalSearchItem, searc
       map.app = marketplaceApps.displayedApps;
     }
 
-    if (zetaChainCCTXQuery.data?.items.length) {
+    if (zetaChainCCTXQuery.data?.items?.length) {
       map.zetaChainCCTX = zetaChainCCTXQuery.data.items;
     }
 

@@ -16,7 +16,7 @@ import type { NovesAccountHistoryResponse, NovesDescribeTxsResponse, NovesRespon
 import type {
   OptimisticL2DepositsItem,
 } from 'types/api/optimisticL2';
-import type { SearchRedirectResult, SearchResult, SearchResultFilters, SearchResultItem } from 'types/api/search';
+import type { QuickSearchResponse, SearchRedirectResult, SearchResult, SearchResultFilters } from 'types/api/search';
 import type { HomeStats } from 'types/api/stats';
 import type {
   Transaction,
@@ -295,7 +295,7 @@ R extends 'general:homepage_indexing_status' ? IndexingStatus :
 R extends 'general:homepage_zkevm_latest_batch' ? number :
 R extends 'general:homepage_zksync_latest_batch' ? number :
 R extends 'general:homepage_arbitrum_latest_batch' ? number :
-R extends 'general:quick_search' ? Array<SearchResultItem> :
+R extends 'general:quick_search' ? QuickSearchResponse :
 R extends 'general:search' ? SearchResult :
 R extends 'general:search_check_redirect' ? SearchRedirectResult :
 R extends 'general:config_backend' ? BackendConfig :

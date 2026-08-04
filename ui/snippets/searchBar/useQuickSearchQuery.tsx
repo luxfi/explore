@@ -1,8 +1,11 @@
 import React from 'react';
 
+import type { QuickSearchResultItem } from 'types/client/search';
+
 import config from 'configs/app';
 import multichainConfig from 'configs/multichain';
 import { isBech32Address, fromBech32Address } from 'lib/address/bech32';
+import unwrapItems from 'lib/api/unwrapItems';
 import useApiQuery from 'lib/api/useApiQuery';
 import useDebounce from 'lib/hooks/useDebounce';
 import { getExternalSearchItem } from 'lib/search/externalSearch';
@@ -18,10 +21,13 @@ export default function useQuickSearchQuery() {
     return Boolean(multichainConfig());
   }, []);
 
-  const mainQuery = useApiQuery('general:quick_search', {
+  const mainQuery = useApiQuery<'general:quick_search', unknown, Array<QuickSearchResultItem>>('general:quick_search', {
     queryParams: { q: isBech32Address(debouncedSearchTerm) ? fromBech32Address(debouncedSearchTerm) : debouncedSearchTerm },
     queryOptions: {
       enabled: debouncedSearchTerm.trim().length > 0 && !isMultichain,
+      // the backend answers either with a bare list or with the paginated
+      // envelope; consumers below iterate, so settle on the array right here
+      select: (data) => unwrapItems<QuickSearchResultItem>(data),
     },
   });
 
