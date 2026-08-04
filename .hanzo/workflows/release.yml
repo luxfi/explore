@@ -1,0 +1,184 @@
+name: Release
+
+# Builds ghcr.io/luxfi/explore on the native runners (git.hanzo.ai → git-runner).
+#
+# This replaces .github/workflows/build-lux.yml, which could never publish from
+# this forge for two independent reasons:
+#
+#  1. It authenticated to ghcr.io with `secrets.GITHUB_TOKEN`. On Hanzo Git that
+#     token is a Hanzo Git token; ghcr.io has never heard of it. Every run died
+#     at the login step with `Get "https://ghcr.io/v2/": denied: denied` — the
+#     build ran, took a minute, and failed. The credential that works here is the
+#     GHCR_USER / GHCR_TOKEN org secret pair, sourced from KMS, exactly as
+#     luxfi/node uses.
+#
+#  2. Its second job deployed by driving kubectl straight at the cluster. Those
+#     objects are reconciled by hanzo-cd (the live Deployment carries
+#     apps.hanzo.ai/installation-id: hanzo-cd), so an imperative apply is drift
+#     by construction — it wins until the next sync and then silently loses.
+#     Deployment is a tag bump in luxfi/universe
+#     (deploy/lux-mainnet/explore-fe-lux.yaml) plus a CD sync. CI's job ends at a
+#     published, resolvable image.
+#
+# A tag push vX.Y.Z is a release: the image carries the semver tags plus the sha
+# tag; a main push carries only the sha tag.
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: [lux-build-linux-amd64]
+    # Next.js production build of the full explorer. Measured runs sit well
+    # under this; the ceiling is here so a hung build releases the runner.
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+
+      - name: Install pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack prepare pnpm@10.11.0 --activate
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The gate. The search crash this repo exists to fix is a unit-testable
+      # contract — /search/quick answers with a paginated envelope, the frontend
+      # used to iterate it as a bare list — and the suite covers it directly
+      # (lib/api/unwrapItems.spec.ts, ui/snippets/searchBar/useQuickSearchQuery.spec.tsx).
+      # An image that cannot pass this must not become a tag.
+      - name: Unit tests
+        run: pnpm vitest run
+
+      - name: Compute tags
+        id: meta
+        run: |
+          set -euo pipefail
+          SHA_TAG="ghcr.io/luxfi/explore:sha-${GITHUB_SHA:0:7}"
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+            {
+              echo "tags<<EOF"
+              echo "ghcr.io/luxfi/explore:v${VERSION}"
+              echo "$SHA_TAG"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+            echo "probe=ghcr.io/luxfi/explore:v${VERSION}" >> "$GITHUB_OUTPUT"
+            echo "git_tag=v${VERSION}" >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "tags<<EOF"
+              echo "$SHA_TAG"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+            echo "probe=$SHA_TAG" >> "$GITHUB_OUTPUT"
+            # No tag on a branch push, so the footer's version string comes from
+            # package.json — the single source for "which release is this".
+            echo "git_tag=v$(node -p 'require("./package.json").version')" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker-container
+          driver-opts: network=host
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USER }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build (load for smoke, not yet pushed)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/amd64
+          load: true
+          push: false
+          provenance: false
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            GIT_COMMIT_SHA=${{ github.sha }}
+            GIT_TAG=${{ steps.meta.outputs.git_tag }}
+            NEXT_PUBLIC_BRAND=lux
+          # Which code is actually in this artifact, answerable from the registry
+          # alone via `docker buildx imagetools inspect` — without pulling it.
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.ref.name=${{ github.ref_name }}
+            org.opencontainers.image.source=https://git.hanzo.ai/luxfi/explore
+
+      - name: Smoke — the image is a runnable build, and its stamp is not a lie
+        # v1.1.14 and v1.1.15 exist as package.json bumps with no image behind
+        # them, because CI has been unable to publish since July. The inverse
+        # failure — an image whose footer reports a version other than its own
+        # tag — is the one that misleads in production, since the footer is how
+        # anyone reads which build they are looking at. Both are checkable here
+        # from the image config, without booting: the entrypoint downloads
+        # external assets and validates runtime envs, so a bare `docker run`
+        # proves nothing about the build and fails for reasons of its own.
+        run: |
+          set -euo pipefail
+          img="${{ steps.meta.outputs.probe }}"
+
+          # The standalone server the CMD names must exist.
+          docker run --rm --entrypoint sh "$img" -c 'test -f server.js' \
+            || { echo "::error::server.js missing — not a usable standalone build"; exit 1; }
+
+          # Client chunks must have been emitted; an empty .next/static means the
+          # browser bundle never built and every page would render blank.
+          chunks=$(docker run --rm --entrypoint sh "$img" -c 'ls -1 .next/static/chunks 2>/dev/null | wc -l')
+          echo "client chunks: ${chunks}"
+          if [ "${chunks}" -lt 1 ]; then
+            echo "::error::no client chunks in .next/static — the browser bundle is missing"
+            exit 1
+          fi
+
+          # The version baked at build time must be the version being published.
+          baked=$(docker run --rm --entrypoint sh "$img" -c 'printenv NEXT_PUBLIC_GIT_TAG' || true)
+          want='${{ steps.meta.outputs.git_tag }}'
+          echo "baked NEXT_PUBLIC_GIT_TAG=${baked:-<unset>} want=${want}"
+          if [ "${baked}" != "${want}" ]; then
+            echo "::error::image stamps ${baked:-<unset>} but is published as ${want} — the footer would misreport the build"
+            exit 1
+          fi
+
+      - name: Push
+        run: |
+          set -euo pipefail
+          while IFS= read -r t; do
+            [ -n "$t" ] && docker push "$t"
+          done <<< "${{ steps.meta.outputs.tags }}"
+
+      - name: Verify the pushed manifest resolves
+        # A tag that names nothing pullable is how a Deployment ends up pinned to
+        # a phantom: the pin applies, the pod never starts, and the tag looks like
+        # a release. Prove it before the job is green.
+        run: |
+          set -euo pipefail
+          img="${{ steps.meta.outputs.probe }}"
+          for i in 1 2 3 4 5 6; do
+            if docker manifest inspect "$img" >/dev/null 2>&1; then
+              echo "$img is resolvable"; exit 0
+            fi
+            echo "manifest not visible yet (attempt ${i}/6) — retrying"; sleep 5
+          done
+          echo "::error::$img not pullable after push"; exit 1
