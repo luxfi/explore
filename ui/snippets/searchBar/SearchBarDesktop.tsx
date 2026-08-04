@@ -1,3 +1,4 @@
+import { PopoverBody, PopoverContent, PopoverFooter, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useClickAway } from '@uidotdev/usehooks';
 import { debounce } from 'es-toolkit';
 import { useRouter } from 'next/router';
@@ -10,9 +11,8 @@ import { route } from 'nextjs-routes';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import * as mixpanel from 'lib/mixpanel/index';
 import { getRecentSearchKeywords, saveToRecentKeywords } from 'lib/recentSearchKeywords';
-import { Link } from 'toolkit/next/link';
-import { PopoverBody, PopoverContent, PopoverFooter, PopoverRoot, PopoverTrigger } from '@luxfi/ui/popover';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
+import { Link } from 'toolkit/next/link';
 
 import SearchBarBackdrop from './SearchBarBackdrop';
 import SearchBarInput from './SearchBarInput';
@@ -137,7 +137,7 @@ const SearchBarDesktop = ({ isHeroBanner }: Props) => {
 
   const showAllResultsLink = searchTerm.trim().length > 0 && (
     (query.data && query.data.length >= 50) ||
-    (zetaChainCCTXQuery.data && zetaChainCCTXQuery.data?.items.length > 10)
+    (zetaChainCCTXQuery.data && zetaChainCCTXQuery.data?.items?.length > 10)
   );
 
   return (
