@@ -165,6 +165,12 @@ export interface SearchResult {
   } | null;
 }
 
+// `/search/quick` is served in two shapes: upstream returns a bare list, our
+// backend returns the same paginated envelope as `/search`. Both are on the
+// wire, so the wire type admits both and `lib/api/unwrapItems` is the single
+// place that collapses them into the array the app works with.
+export type QuickSearchResponse = Array<SearchResultItem> | SearchResult;
+
 export interface SearchResultFilters {
   q: string;
 }
