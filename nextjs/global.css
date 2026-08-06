@@ -278,3 +278,31 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+/* ── light mode: Tamagui text was painting white on white ──────────────────
+   The gui provider pins `t_dark` on <body> CLIENT-SIDE in BOTH schemes (the
+   server sends a bare <body>), and its theme block reads:
+
+     .t_dark  { --color: var(--c-color-background) }   /* #ffffff */
+     .t_light { --color: var(--c-color-text)       }   /* #000000 */
+     :root    { --c-color-background:#ffffff; --c-color-text:#000000 }  /* invariant */
+
+   so every Tamagui text component (is_H1 / is_H3 / is_Text) resolved --color to
+   #ffffff unconditionally — right by accident on dark, invisible on light.
+   Measured at 1.00:1 across all four widths on /address/*, /validators and the
+   landing page: "Address details", the ADDRESS ITSELF, "Validators", and six
+   section headings. A user clicking a Safe link from lux.cloud landed on a page
+   that never showed which address they were looking at.
+
+   The page BACKGROUND is not affected — that follows the Tailwind --lux-* layer,
+   which already tracks html.light/html.dark correctly. Only the text colour is
+   wrong, so only --color is corrected here. Both selectors are covered because
+   the class is applied by script: html.light is the explicit signal, and the
+   media query catches the pre-hydration frame.
+
+   Remove this the day the provider stops hard-pinning t_dark. */
+html.light body.t_dark { --color: var(--c-color-text); }
+@media (prefers-color-scheme: light) {
+  html:not(.dark) body.t_dark { --color: var(--c-color-text); }
+}
