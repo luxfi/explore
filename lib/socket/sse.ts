@@ -63,9 +63,27 @@ interface Translation {
 // evm/indexer.go `BroadcastBlock`). Extend here as the backend grows new
 // GLOBAL broadcast types; SCOPED events (addresses:*, tokens:*, …) arrive
 // with an explicit `topic` and need no entry.
+// The indexer broadcasts a raw EVM block — `number`, and `miner` as a bare
+// address string. The blocks the UI already holds came from the REST API and
+// are shaped the other way: `height`, and `miner` as an address object. Both
+// end up in one list, so the raw block is mapped here, the one place a
+// broadcast becomes app data, and nothing downstream has to know two shapes.
+function toApiBlock(data: Payload): Payload {
+  const block = data as Record<string, unknown>;
+
+  return {
+    ...block,
+    height: block.number,
+    miner: { hash: block.miner },
+    transactions_count: block.txCount,
+    rewards: [],
+    type: 'block',
+  };
+}
+
 const TRANSLATIONS: Record<string, Array<Translation>> = {
   blocks: [
-    { topic: 'blocks:new_block', event: 'new_block', transform: (block) => ({ block }) },
+    { topic: 'blocks:new_block', event: 'new_block', transform: (block) => ({ block: toApiBlock(block) }) },
   ],
 };
 
