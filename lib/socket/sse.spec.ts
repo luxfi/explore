@@ -101,10 +101,21 @@ describe('SSE Socket — envelope routing', () => {
     channel.on('new_block', handler);
 
     lastEs().emitOpen();
-    lastEs().emitMessage({ event: 'blocks', chain: 'cchain', data: { number: 42, hash: '0xabc' } });
+    lastEs().emitMessage({ event: 'blocks', chain: 'cchain', data: { number: 42, hash: '0xabc', miner: '0x01', txCount: 3 } });
 
+    // the broadcast is a raw EVM block; it reaches the UI in the API shape,
+    // because it lands in the same list as blocks fetched over REST. Handing
+    // `miner` through as a bare string blanked the whole home page.
     expect(handler).toHaveBeenCalledTimes(1);
-    expect(handler).toHaveBeenCalledWith({ block: { number: 42, hash: '0xabc' } });
+    expect(handler).toHaveBeenCalledWith({
+      block: expect.objectContaining({
+        height: 42,
+        hash: '0xabc',
+        miner: { hash: '0x01' },
+        transactions_count: 3,
+        type: 'block',
+      }),
+    });
   });
 
   it('routes a topic-scoped envelope straight to that channel + event', () => {
