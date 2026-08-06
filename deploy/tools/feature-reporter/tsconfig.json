@@ -6,6 +6,11 @@
     "module": "node16",
     "moduleResolution": "node16",
     "outDir": "./build",
+    // The repo root, which is where every input below already resolves to, so
+    // the emitted tree is unchanged. Stated because dropping baseUrl left it
+    // implicit, and tsc-alias — which runs straight after tsc — refuses that:
+    // "compilerOptions.rootDir is required with implicit baseUrl".
+    "rootDir": "../../..",
     // Every alias the include-set reaches must be listed here, because
     // TypeScript REPLACES the inherited paths map rather than merging it.
     // This was survivable while the root config set baseUrl: bare specifiers
