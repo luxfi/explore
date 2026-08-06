@@ -6,8 +6,24 @@
     "module": "node16",
     "moduleResolution": "node16",
     "outDir": "./build",
+    // Every alias the include-set reaches must be listed here, because
+    // TypeScript REPLACES the inherited paths map rather than merging it.
+    // This was survivable while the root config set baseUrl: bare specifiers
+    // resolved against it without any paths entry, and this file's own
+    // "./nextjs/..." resolved against it too. The TypeScript 7 migration
+    // dropped baseUrl for an explicit paths map, so this override started
+    // yielding neither — and "./nextjs/..." began resolving relative to THIS
+    // directory, where no such file exists. Paths are relative to this file.
     "paths": {
-      "nextjs-routes": ["./nextjs/nextjs-routes.d.ts"],
+      "nextjs-routes": [ "../../../nextjs/nextjs-routes.d.ts" ],
+      "configs/*": [ "../../../configs/*" ],
+      "lib/*": [ "../../../lib/*" ],
+      "toolkit/*": [ "../../../toolkit/*" ],
+      "types/*": [ "../../../types/*" ],
+      "ui/*": [ "../../../ui/*" ],
+      // ui/shared/IconSvg pulls in public/icons/name.d.ts, which the sprite
+      // step regenerates earlier in the image build.
+      "public/*": [ "../../../public/*" ]
     }
   },
   "include": [ "../../../configs/app/index.ts", "../../../global.d.ts", "../../../types/@luxfi/ui.d.ts" ],
