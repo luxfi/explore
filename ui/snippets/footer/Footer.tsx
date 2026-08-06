@@ -152,10 +152,14 @@ const Footer = () => {
   // mobile: single column so the network description + link groups wrap inside
   // the viewport instead of forcing a 470px column past the 390px edge.
   const footerGridCols = 'grid grid-cols-1 lg:grid-cols-[minmax(auto,470px)_1fr]';
+  // the project info block is the one surface that takes its text colour by
+  // inheritance, and the enclosing theme wrapper hands it white — unreadable on
+  // the light --color-bg-primary. Name the token, like every other surface does.
+  const footerClassName = 'border-t border-[var(--color-border-divider)] text-[var(--color-text-secondary)]';
 
   if (config.UI.footer.links) {
     return (
-      <footer className="border-t border-[var(--color-border-divider)]">
+      <footer className={ footerClassName }>
         <div
           className={ `${ footerGridCols } px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto gap-x-8 lg:gap-x-[100px]` }
           style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
@@ -194,7 +198,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="border-t border-[var(--color-border-divider)]">
+    <footer className={ footerClassName }>
       <div
         className={ `${ footerGridCols } lg:gap-x-[100px] px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto` }
         style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
