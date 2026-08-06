@@ -4,5 +4,6 @@ khtml
 parsdao
 platformvm
 reqs
+Tamagui
 ttfb
 unlayered
