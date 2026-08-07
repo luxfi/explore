@@ -16,7 +16,7 @@ const feature = config.features.blockchainInteraction;
 
 const initReown = () => {
   try {
-    if (!feature.isEnabled || !wagmiConfig.adapter || feature.connectorType === 'dynamic') {
+    if (!feature.isEnabled || !wagmiConfig.adapter) {
       return;
     }
 
