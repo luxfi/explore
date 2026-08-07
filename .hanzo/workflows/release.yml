@@ -1,6 +1,8 @@
 name: Release
 
-# Builds ghcr.io/luxfi/explore on the native runners (git.hanzo.ai → git-runner).
+# Builds explore on the native runners (git.hanzo.ai → git-runner), then copies
+# that one image into every brand's registry — see the fanout job for why a
+# release is one build and N copies rather than N builds.
 #
 # This replaces .github/workflows/build-lux.yml, which could never publish from
 # this forge for two independent reasons:
@@ -42,6 +44,9 @@ jobs:
     # Next.js production build of the full explorer. Measured runs sit well
     # under this; the ceiling is here so a hung build releases the runner.
     timeout-minutes: 90
+    outputs:
+      probe: ${{ steps.meta.outputs.probe }}
+      git_tag: ${{ steps.meta.outputs.git_tag }}
     steps:
       - uses: actions/checkout@v4
 
@@ -71,16 +76,23 @@ jobs:
         id: meta
         run: |
           set -euo pipefail
-          SHA_TAG="ghcr.io/luxfi/explore:sha-${GITHUB_SHA:0:7}"
+          # The registry org follows the repo the workflow is running in, so a
+          # brand that forks this repo and fast-forwards to an upstream tag
+          # publishes to ITS OWN org and nowhere else. Upstream is luxfi, and
+          # only upstream fans out (see the fanout job). Defaulted rather than
+          # bare so an unset owner cannot silently build `ghcr.io//explore`.
+          REPO="ghcr.io/${GITHUB_REPOSITORY_OWNER:-luxfi}/explore"
+          echo "repo=${REPO}" >> "$GITHUB_OUTPUT"
+          SHA_TAG="${REPO}:sha-${GITHUB_SHA:0:7}"
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             VERSION="${GITHUB_REF#refs/tags/v}"
             {
               echo "tags<<EOF"
-              echo "ghcr.io/luxfi/explore:v${VERSION}"
+              echo "${REPO}:v${VERSION}"
               echo "$SHA_TAG"
               echo "EOF"
             } >> "$GITHUB_OUTPUT"
-            echo "probe=ghcr.io/luxfi/explore:v${VERSION}" >> "$GITHUB_OUTPUT"
+            echo "probe=${REPO}:v${VERSION}" >> "$GITHUB_OUTPUT"
             echo "git_tag=v${VERSION}" >> "$GITHUB_OUTPUT"
           else
             {
@@ -182,3 +194,75 @@ jobs:
             echo "manifest not visible yet (attempt ${i}/6) — retrying"; sleep 5
           done
           echo "::error::$img not pullable after push"; exit 1
+
+  # ONE BUILD, N COPIES.
+  #
+  # The four ghcr.io/{luxfi,hanzoai,zooai,parsdao}/explore tags are the same
+  # bytes: brand comes from the explore-env-<brand> ConfigMap the pod reads at
+  # runtime, not from anything baked in. So a brand release is a registry copy,
+  # never a rebuild — four builds of one tree would be four chances to differ.
+  #
+  # This step was a person, and the evidence that a person is not a mechanism is
+  # that v1.1.25 and v1.1.26 were never copied at all: hanzo, pars and zoo sat on
+  # v1.1.22 — four releases and eleven days behind — with no image in their
+  # registries to advance to even if someone had edited the pins.
+  #
+  # Registries do not mix. Each brand's image goes to that brand's org and the
+  # copy is verified by digest, because a copy that changed the bytes would mean
+  # the brands are no longer running the build that passed the gate above.
+  fanout:
+    needs: build
+    # Only releases fan out — a main push is a sha tag for the lux fleet alone.
+    # Only upstream fans out: a brand running its own fork publishes to its own
+    # org from its own run of this workflow, and must not publish for others.
+    if: startsWith(github.ref, 'refs/tags/v') && github.repository_owner == 'luxfi'
+    runs-on: [lux-build-linux-amd64]
+    timeout-minutes: 20
+    steps:
+      - name: Install crane
+        # crane copy is a registry-to-registry blob copy that preserves the
+        # manifest digest. `buildx imagetools create` would republish the
+        # manifest and can change the digest — a different identity for
+        # identical content, which defeats the check below.
+        run: |
+          set -euo pipefail
+          ver=v0.20.2
+          curl -fsSL "https://github.com/google/go-containerregistry/releases/download/${ver}/go-containerregistry_Linux_x86_64.tar.gz" \
+            | tar -xz -C /usr/local/bin crane
+          crane version
+
+      - name: Copy the release into each brand registry
+        env:
+          GHCR_USER: ${{ secrets.GHCR_USER }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+        run: |
+          set -euo pipefail
+          SRC='${{ needs.build.outputs.probe }}'
+          TAG='${{ needs.build.outputs.git_tag }}'
+          crane auth login ghcr.io -u "$GHCR_USER" -p "$GHCR_TOKEN"
+
+          WANT="$(crane digest "$SRC")"
+          echo "source ${SRC} is ${WANT}"
+
+          for org in hanzoai zooai parsdao; do
+            crane copy "$SRC" "ghcr.io/${org}/explore:${TAG}"
+          done
+
+          # Assert the copies ARE the source, per org. A green copy command is
+          # not an artifact — this is the positive control that each brand
+          # registry now answers for this tag, with the bytes that were tested.
+          fail=0
+          for org in hanzoai zooai parsdao; do
+            got="$(crane digest "ghcr.io/${org}/explore:${TAG}" 2>/dev/null || echo MISSING)"
+            if [ "$got" = "$WANT" ]; then
+              echo "ok   ghcr.io/${org}/explore:${TAG} ${got}"
+            else
+              echo "::error::ghcr.io/${org}/explore:${TAG} is ${got}, expected ${WANT}"
+              fail=1
+            fi
+          done
+          [ "$fail" = 0 ] || exit 1
+
+          echo
+          echo "Pin all five brands to ${TAG} in luxfi/universe deploy/lux-mainnet/"
+          echo "(explore-fe-{lux,spc,hanzo,pars,zoo}.yaml) — CD applies within ~90s."
