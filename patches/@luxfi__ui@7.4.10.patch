@@ -1,0 +1,163 @@
+diff --git a/dist/input-group.cjs b/dist/input-group.cjs
+index 08c4f4567a919bf51f2d75e67591c4e0285809e9..fc3e318a037600182fec9c3829a5e09a9a79e134 100644
+--- a/dist/input-group.cjs
++++ b/dist/input-group.cjs
+@@ -31,11 +31,7 @@ var React__namespace = /*#__PURE__*/_interopNamespace(React);
+ function cn(...inputs) {
+   return tailwindMerge.twMerge(clsx.clsx(inputs));
+ }
+-function getComponentDisplayName(type) {
+-  if (typeof type === "string") return void 0;
+-  if ("displayName" in type) return type.displayName;
+-  return void 0;
+-}
++const useIsomorphicLayoutEffect = typeof window !== "undefined" ? React__namespace.useLayoutEffect : React__namespace.useEffect;
+ var InputGroup = React__namespace.forwardRef(
+   function InputGroup2(props, ref) {
+     const {
+@@ -81,7 +77,7 @@ var InputGroup = React__namespace.forwardRef(
+         }
+       };
+     }, [calculateInlinePaddings]);
+-    React__namespace.useEffect(() => {
++    useIsomorphicLayoutEffect(() => {
+       calculateInlinePaddings();
+       const resizeHandler = esToolkit.debounce(calculateInlinePaddings, 300);
+       const resizeObserver = new ResizeObserver(resizeHandler);
+@@ -122,15 +118,18 @@ var InputGroup = React__namespace.forwardRef(
+             }
+           ),
+           React__namespace.Children.map(children, (child) => {
+-            if (getComponentDisplayName(child.type) !== "FieldInput") {
++            if (!React__namespace.isValidElement(child)) {
+               return child;
+             }
++            const start = startElement ? startOffset ?? inlinePaddings?.start : void 0;
++            const end = endElement ? endOffset ?? inlinePaddings?.end : void 0;
++            const px = (v) => typeof v === "number" ? `${v}px` : v;
+             return React__namespace.cloneElement(child, {
+-              ...startElement && { ps: startOffset ?? (inlinePaddings?.start ? `${inlinePaddings.start}px` : void 0) },
+-              ...endElement && { pe: endOffset ?? (inlinePaddings?.end ? `${inlinePaddings.end}px` : void 0) },
+-              // hide input value and placeholder for the first render
+-              value: inlinePaddings ? child.props.value : void 0,
+-              placeholder: inlinePaddings ? child.props.placeholder : void 0
++              style: {
++                ...child.props.style,
++                ...start !== void 0 && { paddingInlineStart: px(start) },
++                ...end !== void 0 && { paddingInlineEnd: px(end) }
++              }
+             });
+           }),
+           endElement && /* @__PURE__ */ jsxRuntime.jsx(
+diff --git a/dist/input-group.js b/dist/input-group.js
+index 71035e813aced180b16bf665d88e7cdbbaa79f90..d56379695166d6b53a12c0b68a255049e0759a63 100644
+--- a/dist/input-group.js
++++ b/dist/input-group.js
+@@ -9,11 +9,7 @@ import { jsxs, jsx } from 'react/jsx-runtime';
+ function cn(...inputs) {
+   return twMerge(clsx(inputs));
+ }
+-function getComponentDisplayName(type) {
+-  if (typeof type === "string") return void 0;
+-  if ("displayName" in type) return type.displayName;
+-  return void 0;
+-}
++const useIsomorphicLayoutEffect = typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+ var InputGroup = React.forwardRef(
+   function InputGroup2(props, ref) {
+     const {
+@@ -59,7 +55,7 @@ var InputGroup = React.forwardRef(
+         }
+       };
+     }, [calculateInlinePaddings]);
+-    React.useEffect(() => {
++    useIsomorphicLayoutEffect(() => {
+       calculateInlinePaddings();
+       const resizeHandler = debounce(calculateInlinePaddings, 300);
+       const resizeObserver = new ResizeObserver(resizeHandler);
+@@ -100,15 +96,18 @@ var InputGroup = React.forwardRef(
+             }
+           ),
+           React.Children.map(children, (child) => {
+-            if (getComponentDisplayName(child.type) !== "FieldInput") {
++            if (!React.isValidElement(child)) {
+               return child;
+             }
++            const start = startElement ? startOffset ?? inlinePaddings?.start : void 0;
++            const end = endElement ? endOffset ?? inlinePaddings?.end : void 0;
++            const px = (v) => typeof v === "number" ? `${v}px` : v;
+             return React.cloneElement(child, {
+-              ...startElement && { ps: startOffset ?? (inlinePaddings?.start ? `${inlinePaddings.start}px` : void 0) },
+-              ...endElement && { pe: endOffset ?? (inlinePaddings?.end ? `${inlinePaddings.end}px` : void 0) },
+-              // hide input value and placeholder for the first render
+-              value: inlinePaddings ? child.props.value : void 0,
+-              placeholder: inlinePaddings ? child.props.placeholder : void 0
++              style: {
++                ...child.props.style,
++                ...start !== void 0 && { paddingInlineStart: px(start) },
++                ...end !== void 0 && { paddingInlineEnd: px(end) }
++              }
+             });
+           }),
+           endElement && /* @__PURE__ */ jsx(
+diff --git a/src/input-group.tsx b/src/input-group.tsx
+index fc0ed50dad745ae18315571bd44367a5eb86faab..120a95ecfb9c05dba23619288896bf095a2115f8 100644
+--- a/src/input-group.tsx
++++ b/src/input-group.tsx
+@@ -5,11 +5,11 @@ import { cn } from './utils';
+ 
+ import type { InputProps } from './input';
+ 
+-function getComponentDisplayName(type: string | React.JSXElementConstructor<unknown>): string | undefined {
+-  if (typeof type === 'string') return undefined;
+-  if ('displayName' in type) return type.displayName as string;
+-  return undefined;
+-}
++// The adornment widths must be applied before the browser paints, or the field
++// renders one frame with default padding and the text visibly jumps out from
++// under the icon. useLayoutEffect does that but has no meaning while rendering
++// on the server, where it only warns.
++const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+ 
+ export interface InputElementProps extends React.HTMLAttributes<HTMLDivElement> {
+   readonly placement?: 'start' | 'end';
+@@ -81,7 +81,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
+       };
+     }, [ calculateInlinePaddings ]);
+ 
+-    React.useEffect(() => {
++    useIsomorphicLayoutEffect(() => {
+       calculateInlinePaddings();
+ 
+       const resizeHandler = debounce(calculateInlinePaddings, 300);
+@@ -128,15 +128,24 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
+           </div>
+         ) }
+         { React.Children.map(children, (child: React.ReactElement<InputProps>) => {
+-          if (getComponentDisplayName(child.type) !== 'FieldInput') {
++          if (!React.isValidElement(child)) {
+             return child;
+           }
++          // The adornments are absolutely positioned over the field, so the
++          // control has to be inset by their measured width or the text starts
++          // underneath them. Written as inline padding rather than the `ps`/`pe`
++          // style props this once carried: those are Chakra's, and Input is now
++          // a Tailwind/gui component that spreads unknown props onto the DOM,
++          // so they applied nothing and the icon sat on the placeholder.
++          const start = startElement ? startOffset ?? inlinePaddings?.start : undefined;
++          const end = endElement ? endOffset ?? inlinePaddings?.end : undefined;
++          const px = (v: string | number) => typeof v === 'number' ? `${ v }px` : v;
+           return React.cloneElement(child, {
+-            ...(startElement && { ps: startOffset ?? (inlinePaddings?.start ? `${ inlinePaddings.start }px` : undefined) }),
+-            ...(endElement && { pe: endOffset ?? (inlinePaddings?.end ? `${ inlinePaddings.end }px` : undefined) }),
+-            // hide input value and placeholder for the first render
+-            value: inlinePaddings ? child.props.value : undefined,
+-            placeholder: inlinePaddings ? child.props.placeholder : undefined,
++            style: {
++              ...child.props.style,
++              ...(start !== undefined && { paddingInlineStart: px(start) }),
++              ...(end !== undefined && { paddingInlineEnd: px(end) }),
++            },
+           });
+         }) }
+         { endElement && (

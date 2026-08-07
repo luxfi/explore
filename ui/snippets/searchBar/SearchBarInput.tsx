@@ -1,14 +1,12 @@
+import { Input } from '@luxfi/ui/input';
+import { InputGroup } from '@luxfi/ui/input-group';
 import React from 'react';
 import type { ChangeEvent, FormEvent, FocusEvent } from 'react';
 
-import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
-import { Input } from '@luxfi/ui/input';
-import { InputGroup } from '@luxfi/ui/input-group';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import IconSvg from 'ui/shared/IconSvg';
-
-const nameServicesFeature = config.features.nameServices;
+import { useAssistantShortcut } from 'ui/snippets/searchBar/SearchBarAssistant';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onChange'> {
   onChange?: (value: string) => void;
@@ -37,6 +35,7 @@ const SearchBarInput = (
   const innerRef = React.useRef<HTMLFormElement>(null);
   React.useImperativeHandle(ref, () => innerRef.current as HTMLFormElement, []);
   const isMobile = useIsMobile();
+  const shortcut = useAssistantShortcut();
 
   const handleChange = React.useCallback((event: ChangeEvent<HTMLInputElement>) => {
     onChange?.(event.target.value);
@@ -77,30 +76,20 @@ const SearchBarInput = (
     };
   }, [ handleKeyPress ]);
 
-  const getPlaceholder = () => {
-    const clusterText = nameServicesFeature.isEnabled && nameServicesFeature.clusters.isEnabled ? ' / cluster ' : '';
-    return `Search by address / txn hash / block / token${ clusterText }/... `;
-  };
-
-  const startElement = (
-    <IconSvg
-      name="search"
-      className="w-5 h-5 mx-2"
-    />
-  );
+  const startElement = <IconSvg name="search" className="w-5 h-5"/>;
 
   const endElement = (
     <>
       <ClearButton onClick={ onClear } visible={ Boolean(value?.length) } className="mx-2"/>
-      { !isMobile && (
+      { !isMobile && shortcut && (
         <div
           className={
-            'flex items-center justify-center size-5 mr-2 rounded-sm' +
+            'flex items-center justify-center h-5 px-1.5 mr-2 rounded-sm whitespace-nowrap' +
             ' border border-solid border-[var(--color-icon-secondary)]' +
             ' text-[var(--color-icon-secondary)] text-xs font-medium'
           }
         >
-          /
+          { shortcut }
         </div>
       ) }
     </>
@@ -122,11 +111,12 @@ const SearchBarInput = (
     >
       <InputGroup
         startElement={ startElement }
+        startElementProps={{ className: 'px-2' }}
         endElement={ endElement }
       >
         <Input
           size={ isHeroBanner ? 'md' : 'sm' }
-          placeholder={ getPlaceholder() }
+          placeholder="Search or ask anything"
           value={ value }
           onChange={ handleChange }
           onFocus={ onFocus }
