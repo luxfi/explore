@@ -3,7 +3,10 @@ import React from 'react';
 
 import type { DexMarket, DexFill, DexMarketView, DexOverview } from './types';
 
-import config from 'configs/app';
+import { getApiBase, fetchSubgraph } from 'lib/api/subgraph';
+import { useHeadBlock } from 'lib/api/useHeadBlock';
+import type { VenueStatus } from 'lib/api/venueStatus';
+import { deriveVenueStatus } from 'lib/api/venueStatus';
 import shortenString from 'lib/shortenString';
 
 // One root field per request — the subgraph engine processes a single root
@@ -16,40 +19,6 @@ const DEX_STALE_TIME_MS = 30_000;
 
 const EMPTY_MARKETS: ReadonlyArray<DexMarketView> = [];
 const EMPTY_FILLS: ReadonlyArray<DexFill> = [];
-
-// The DEX subgraph lives on the same API host the rest of the SPA already
-// talks to (NEXT_PUBLIC_API_HOST → config.apis.general.endpoint), so the
-// network is selected exactly like every other resource — by deployment.
-function getApiBase(): string | undefined {
-  return config.apis.general?.endpoint;
-}
-
-async function fetchGraphql<T>(query: string): Promise<T | null> {
-  const base = getApiBase();
-  if (!base) {
-    return null;
-  }
-
-  let res: Response;
-  try {
-    res = await fetch(base + DEX_GRAPHQL_PATH, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }),
-    });
-  } catch {
-    return null;
-  }
-
-  // A net without the subgraph mounted answers 404 — that is an empty DEX,
-  // not an error, so we surface it as "no data" and render the empty state.
-  if (!res.ok) {
-    return null;
-  }
-
-  const json = await res.json().catch(() => null) as { data?: T } | null;
-  return json?.data ?? null;
-}
 
 async function fetchTokenSymbol(address: string): Promise<string | null> {
   const base = getApiBase();
@@ -98,9 +67,13 @@ export function computeOverview(markets: ReadonlyArray<DexMarketView>): DexOverv
   };
 }
 
-async function fetchMarkets(): Promise<ReadonlyArray<DexMarketView>> {
-  const data = await fetchGraphql<{ markets: ReadonlyArray<DexMarket> | null }>(MARKETS_QUERY);
-  const markets = data?.markets ?? [];
+// `null` means the subgraph never answered — an outage, not an empty venue.
+async function fetchMarkets(): Promise<ReadonlyArray<DexMarketView> | null> {
+  const data = await fetchSubgraph<{ markets: ReadonlyArray<DexMarket> | null }>(DEX_GRAPHQL_PATH, MARKETS_QUERY);
+  if (!data) {
+    return null;
+  }
+  const markets = data.markets ?? [];
 
   // Resolve base/quote symbols via the existing token metadata endpoint,
   // falling back to a shortened address when a token isn't indexed.
@@ -111,15 +84,16 @@ async function fetchMarkets(): Promise<ReadonlyArray<DexMarketView>> {
   return buildMarketViews(markets, symbols);
 }
 
-async function fetchFills(): Promise<ReadonlyArray<DexFill>> {
-  const data = await fetchGraphql<{ fills: ReadonlyArray<DexFill> | null }>(FILLS_QUERY);
-  return data?.fills ?? [];
+async function fetchFills(): Promise<ReadonlyArray<DexFill> | null> {
+  const data = await fetchSubgraph<{ fills: ReadonlyArray<DexFill> | null }>(DEX_GRAPHQL_PATH, FILLS_QUERY);
+  return data ? data.fills ?? [] : null;
 }
 
 export interface UseDexDataResult {
   readonly markets: ReadonlyArray<DexMarketView>;
   readonly fills: ReadonlyArray<DexFill>;
   readonly overview: DexOverview;
+  readonly status: VenueStatus;
   readonly isLoading: boolean;
   readonly isError: boolean;
 }
@@ -137,15 +111,21 @@ export function useDexData(): UseDexDataResult {
     staleTime: DEX_STALE_TIME_MS,
   });
 
+  const headBlock = useHeadBlock();
+
   const markets = marketsQuery.data ?? EMPTY_MARKETS;
   const fills = fillsQuery.data ?? EMPTY_FILLS;
 
   const overview = React.useMemo<DexOverview>(() => computeOverview(markets), [ markets ]);
 
+  // The CLOB stamps a fill with the block it landed in, same as the AMM.
+  const latestBlock = fills.length > 0 ? Math.max(...fills.map((fill) => fill.timestamp)) : null;
+
   return {
     markets,
     fills,
     overview,
+    status: deriveVenueStatus(latestBlock, headBlock, marketsQuery.data !== null),
     isLoading: marketsQuery.isLoading || fillsQuery.isLoading,
     isError: marketsQuery.isError || fillsQuery.isError,
   };

@@ -44,6 +44,9 @@
         "platformvm",
         "aatx",
         "CLOB",
+        // Mainnet 96369 token symbols
+        "WLUX",
+        "LZOO",
         "hanzoai",
         "zooai",
         "parsdao",
