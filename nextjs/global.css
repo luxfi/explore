@@ -284,9 +284,9 @@ html, body {
    The gui provider pins `t_dark` on <body> CLIENT-SIDE in BOTH schemes (the
    server sends a bare <body>), and its theme block reads:
 
-     .t_dark  { --color: var(--c-color-background) }   /* #ffffff */
-     .t_light { --color: var(--c-color-text)       }   /* #000000 */
-     :root    { --c-color-background:#ffffff; --c-color-text:#000000 }  /* invariant */
+     .t_dark  { --color: var(--c-color-background) }   -> #ffffff
+     .t_light { --color: var(--c-color-text)       }   -> #000000
+     :root    { --c-color-background:#ffffff; --c-color-text:#000000 }  invariant
 
    so every Tamagui text component (is_H1 / is_H3 / is_Text) resolved --color to
    #ffffff unconditionally — right by accident on dark, invisible on light.
@@ -308,14 +308,30 @@ html, body {
    the nested span immediately re-sets it to #ffffff, which every heading then
    inherits. Scoping to `.t_dark` reaches every Theme wrapper; (0,2,1) still
    beats `:root .t_dark` (0,2,0). */
-/* `html[class~="light"]`, NOT `html.light`. Measured on the v1.1.20 and
-   v1.1.21 bundles: the class-token form is stripped by the build — `.light`
-   occurs ZERO times in the served CSS — because no content file references
-   that token (the app's own theme CSS only ever tests `:not(.dark)`). The
-   attribute form carries the same (0,2,1) specificity but has no class token
-   for the scanner to miss. Covers OS-dark + stored-theme-light, where the
-   media query below is false and the page would otherwise render its original
-   white-on-white: verified 1.00:1 -> 21.00:1 in that exact state. */
+/* ⚠️ THIS RULE DOES NOT REACH THE BUNDLE. Do not trust it.
+   Three forms have now been shipped and none appear in the served CSS:
+     v1.1.20  html.light body.t_dark
+     v1.1.21  html.light .t_dark
+     v1.1.22  html[class~="light"] .t_dark
+   In every build `.t_dark` occurs exactly ONCE in the output — the media-query
+   rule below — while the file's OTHER top-level rule (html,body{font-family:
+   Geist}) survives intact, so top-level rules are not dropped wholesale.
+   Running this file through the real postcss + @tailwindcss/postcss pipeline
+   locally KEEPS both rules, so Tailwind is not the cause; something later in
+   the Next build removes it. Root cause not yet found.
+
+   What it is FOR, once it works: OS-dark + stored-theme-light. There <html>
+   gets class="light" so the background turns white, but prefers-color-scheme
+   is false, so the media rule below is inert and --color stays #ffffff — the
+   original white-on-white, measured 1.00:1 with 11,232/11,232 pure-white
+   pixels in the h1 band. Injecting this rule into that state live fixes it
+   (1.00 -> 21.00, and forcing html.dark still gives 17.93), which is the only
+   sense in which it is "verified" — by injection, NOT by the shipped bundle.
+
+   Not currently user-reachable: there is no theme toggle in the signed-out UI,
+   so the site follows the OS. But localStorage.theme IS honoured, so a
+   returning user carrying a stale value already lands here, and it goes live
+   the moment a toggle ships. */
 html[class~="light"] .t_dark { --color: var(--c-color-text); }
 @media (prefers-color-scheme: light) {
   html:not(.dark) .t_dark { --color: var(--c-color-text); }
