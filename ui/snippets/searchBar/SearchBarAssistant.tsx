@@ -20,15 +20,14 @@ export function useAssistantShortcut(): string | undefined {
   return feature.isEnabled ? label : undefined;
 }
 
-// Mounted once, next to the search bar. The search field advertises the
-// shortcut; this owns it, so there is one listener no matter how many search
-// inputs a page renders.
-
 interface Message {
   readonly role: 'user' | 'assistant';
   readonly content: string;
 }
 
+// Mounted once, next to the search bar. The search field advertises the
+// shortcut; this owns it, so there is one listener no matter how many search
+// inputs a page renders.
 const SearchBarAssistant = () => {
   const [ open, setOpen ] = React.useState(false);
   const [ messages, setMessages ] = React.useState<ReadonlyArray<Message>>([]);
@@ -37,12 +36,17 @@ const SearchBarAssistant = () => {
   const [ error, setError ] = React.useState<string>();
 
   React.useEffect(() => {
+    // The early return for a disabled feature is below, after the hooks, so
+    // this has to check too — otherwise a deployment with the assistant off
+    // still swallows the shortcut, and Ctrl+K is the browser's address bar on
+    // Chrome and Firefox.
+    if (!feature.isEnabled) {
+      return;
+    }
     const handler = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() !== 'k' || !(event.metaKey || event.ctrlKey)) {
         return;
       }
-      // Ctrl+K focuses the address bar in Chrome and Firefox; claim it only
-      // while the assistant can actually answer.
       event.preventDefault();
       setOpen((prev) => !prev);
     };
