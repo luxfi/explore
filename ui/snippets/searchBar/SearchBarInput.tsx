@@ -3,10 +3,13 @@ import { InputGroup } from '@luxfi/ui/input-group';
 import React from 'react';
 import type { ChangeEvent, FormEvent, FocusEvent } from 'react';
 
+import config from 'configs/app';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
 import IconSvg from 'ui/shared/IconSvg';
 import { useAssistantShortcut } from 'ui/snippets/searchBar/SearchBarAssistant';
+
+const assistant = config.features.aiAssistant;
 
 interface Props extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onChange'> {
   onChange?: (value: string) => void;
@@ -76,6 +79,11 @@ const SearchBarInput = (
     };
   }, [ handleKeyPress ]);
 
+  // "ask anything" is only true where the assistant is switched on. A field that
+  // invites a question no deployment can answer is the same class of lie as a
+  // stat that reads 0 because the read failed.
+  const placeholder = assistant.isEnabled ? 'Search or ask anything' : 'Search addresses, transactions, blocks';
+
   const startElement = <IconSvg name="search" className="w-5 h-5"/>;
 
   const endElement = (
@@ -116,7 +124,7 @@ const SearchBarInput = (
       >
         <Input
           size={ isHeroBanner ? 'md' : 'sm' }
-          placeholder="Search or ask anything"
+          placeholder={ placeholder }
           value={ value }
           onChange={ handleChange }
           onFocus={ onFocus }
