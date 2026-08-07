@@ -505,6 +505,21 @@ Ads are enabled by default on all self-hosted instances. If you would like to di
 
 &nbsp;
 
+### AI assistant
+
+Opened with `⌘K` / `Ctrl+K` from anywhere in the app. The credential is
+server-side and is deliberately **not** a `NEXT_PUBLIC_` variable, so it never
+reaches a browser bundle: set `AI_API_KEY` (and optionally `AI_API_URL`,
+default `https://api.hanzo.ai/v1/chat/completions`) on the deployment. With the
+feature enabled but no key, the dialog says so rather than failing silently.
+
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_AI_ASSISTANT_ENABLED | `boolean` | Set to true to enable the ⌘K assistant | - | - | `true` | v1.1.23+ |
+| NEXT_PUBLIC_AI_ASSISTANT_MODEL | `string` | Model name passed to the AI endpoint | - | `best` | `best` | v1.1.23+ |
+
+&nbsp;
+
 ### Beacon chain
 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |

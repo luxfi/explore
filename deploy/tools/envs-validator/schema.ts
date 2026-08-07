@@ -148,6 +148,7 @@ const schema = yup
   .concat(featuresSchemas.accountSchema)
   .concat(featuresSchemas.address3rdPartyWidgetsConfigSchema)
   .concat(featuresSchemas.adsSchema)
+  .concat(featuresSchemas.aiAssistantSchema)
   .concat(featuresSchemas.apiDocsSchema)
   .concat(featuresSchemas.beaconChainSchema)
   .concat(featuresSchemas.bridgedTokensSchema)

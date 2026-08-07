@@ -8,6 +8,7 @@ import { getCurrentChain, isChainSelectorEnabled, isNetworkSelectorEnabled } fro
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
+import SearchBarAssistant from 'ui/snippets/searchBar/SearchBarAssistant';
 import SearchBar from 'ui/snippets/searchBar/SearchBarDesktop';
 import UserProfileDesktop from 'ui/snippets/user/UserProfileDesktop';
 
@@ -196,6 +197,7 @@ const TopBar = () => {
         <div className="flex-1 mx-3 hidden lg:block max-w-[480px] min-w-[180px]">
           <SearchBar isHeroBanner={ false }/>
         </div>
+        <SearchBarAssistant/>
 
         { /* -- Spacer -- */ }
         <div className="flex-1 block lg:hidden"/>

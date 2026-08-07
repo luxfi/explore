@@ -71,6 +71,18 @@ export interface ChainEntry {
   readonly hostnames: ReadonlyArray<string>;
   readonly explorerUrl: string;
   readonly apiUrl: string;
+
+  /**
+   * Origin of the chain's own node API, where `<origin>/v1/bc/P` answers
+   * platform.* — NOT the indexer at `apiUrl`. Every sovereign L1 runs its own
+   * P-Chain and its own validator set, so this is what makes a validator count
+   * readable per chain.
+   *
+   * Absent means there is no publicly reachable node for that chain (SPC and
+   * Osage are in-cluster only). Absence is the honest signal: a chain without
+   * this is reported as unknown rather than counted as zero.
+   */
+  readonly nodeApiUrl?: string;
   readonly branding: ChainBranding;
 }
 
@@ -281,6 +293,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore.lux.network', 'localhost', '127.0.0.1', '0.0.0.0' ],
     explorerUrl: 'https://explore.lux.network',
     apiUrl: 'https://api-explore.lux.network',
+    nodeApiUrl: 'https://api.lux.network',
     branding: LUX_BRANDING,
   },
   {
@@ -292,6 +305,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explorer.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
+    nodeApiUrl: 'https://api.zoo.network',
     branding: ZOO_BRANDING,
   },
   {
@@ -303,6 +317,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
+    nodeApiUrl: 'https://api.hanzo.network',
     branding: HANZO_BRANDING,
   },
   {
@@ -325,6 +340,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-pars.lux.network', 'explore.pars.network', 'explorer.pars.network' ],
     explorerUrl: 'https://explore-pars.lux.network',
     apiUrl: 'https://api-explore-pars.lux.network',
+    nodeApiUrl: 'https://api.pars.network',
     branding: PARS_BRANDING,
   },
   {
