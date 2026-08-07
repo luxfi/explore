@@ -5,7 +5,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import { isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
-import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
+import { useBlockchains, useChainHeights, useCurrentValidators, useNetworkValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
@@ -227,6 +227,7 @@ const SectionCard = ({ title, count, isLoading, action, children }: SectionCardP
 
 const NetworkOverview = () => {
   const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData, isError: validatorsError } = useCurrentValidators();
+  const allValidators = useNetworkValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
 
@@ -261,10 +262,14 @@ const NetworkOverview = () => {
             'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
             'bg-[var(--color-stats-bg)]',
           ) }>
+            { /* Every L1 in the registry, not just this chain. The breakdown is
+                 in the Validators card below. Stake stays primary-network only:
+                 each chain bonds its own currency and the sum of two currencies
+                 is not a quantity. */ }
             <Metric
-              label="Validators"
-              value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
-              isLoading={ validatorsLoading }
+              label={ allValidators.answeredCount === allValidators.queriedCount ? 'Validators' : 'Validators (partial)' }
+              value={ allValidators.isKnown ? String(allValidators.total) : '\u2014' }
+              isLoading={ allValidators.isLoading }
             />
             <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
             <Metric
@@ -413,6 +418,26 @@ const NetworkOverview = () => {
                       </Skeleton>
                       <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
                     </div>
+                  </div>
+                  { /* Per-L1 breakdown. The strip above sums these; without the
+                       split, a chain that stopped answering just makes the
+                       total quietly smaller. */ }
+                  <div className="flex flex-col gap-1 mt-4 pt-3 border-t border-[var(--color-border-divider)]">
+                    { allValidators.networks.map((network) => (
+                      <div key={ network.chainId } className="flex items-center justify-between text-xs">
+                        <span className="text-[var(--color-text-secondary)]">{ network.name }</span>
+                        <Skeleton loading={ network.isLoading }>
+                          <span className={ cn(
+                            'font-mono',
+                            network.status === 'live' ?
+                              'text-[var(--color-text-primary)]' :
+                              'text-[var(--color-text-secondary)]',
+                          ) }>
+                            { network.status === 'live' ? network.validatorCount : network.status }
+                          </span>
+                        </Skeleton>
+                      </div>
+                    )) }
                   </div>
                   <div className="flex justify-center mt-4">
                     <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">

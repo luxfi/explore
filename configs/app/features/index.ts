@@ -1,5 +1,6 @@
 export { default as advancedFilter } from './advancedFilter';
 export { default as account } from './account';
+export { default as aiAssistant } from './aiAssistant';
 export { default as addressVerification } from './addressVerification';
 export { default as addressMetadata } from './addressMetadata';
 export { default as address3rdPartyWidgets } from './address3rdPartyWidgets';

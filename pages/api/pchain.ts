@@ -3,9 +3,19 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { CHAINS, getCurrentChain } from 'configs/app/chainRegistry';
 import { getEnvValue } from 'configs/app/utils';
 
 const TIMEOUT_MS = 10_000;
+
+// `?chain=<name>` reads another network's P-Chain — every sovereign L1 runs its
+// own, so a cross-network validator count needs one hop per chain. The name is
+// resolved against the registry and never used as a URL: an arbitrary origin
+// here would make this endpoint a request forwarder for anything on our network.
+function getChainBase(name: string): string | undefined {
+  const { network } = getCurrentChain();
+  return CHAINS.find((c) => c.name === name && c.network === network)?.nodeApiUrl;
+}
 
 // Derive the node's API origin from the chain RPC URL. The RPC URL points at a
 // specific EVM chain (canonical `…/v1/bc/C/rpc`); the P-chain
@@ -31,7 +41,13 @@ const handler = async(req: NextApiRequest, res: NextApiResponse): Promise<void> 
     return;
   }
 
-  const base = getApiBase();
+  const chain = req.query.chain;
+  if (typeof chain === 'string' && !getChainBase(chain)) {
+    res.status(404).json({ error: `No node API is registered for chain "${ chain }"` });
+    return;
+  }
+
+  const base = typeof chain === 'string' ? getChainBase(chain) : getApiBase();
   if (!base) {
     res.status(500).json({ error: 'NEXT_PUBLIC_NETWORK_RPC_URL not configured' });
     return;
