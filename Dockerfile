@@ -14,6 +14,10 @@ RUN apk add --no-cache libc6-compat python3 make g++ git && \
 ### APP
 WORKDIR /app
 COPY package.json pnpm-lock.yaml .npmrc ./
+# pnpm.patchedDependencies is resolved during install, so the patches have to be
+# in the context before it runs — without them install cannot open the file and
+# the build dies here.
+COPY patches ./patches
 COPY stubs ./stubs
 COPY tsconfig.json ./
 COPY types ./types
