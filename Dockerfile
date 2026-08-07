@@ -152,6 +152,18 @@ COPY ./configs/envs ./configs/envs
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# The build stamp has to be declared HERE, in the final stage. ENV does not
+# cross stage boundaries, so the copies in the builder above reach the compiled
+# bundle and nothing else, and the footer reads this at container start, not at
+# build time: make_envs_script.sh iterates the running process environment into
+# window.__envs, and configs/app/ui.ts serves frontendVersion out of that. Left
+# to the builder alone, every image ever published reported no version at all.
+# Last, so a new commit invalidates only this layer and not the copies above.
+ARG GIT_COMMIT_SHA
+ENV NEXT_PUBLIC_GIT_COMMIT_SHA=$GIT_COMMIT_SHA
+ARG GIT_TAG
+ENV NEXT_PUBLIC_GIT_TAG=$GIT_TAG
+
 ENTRYPOINT ["./entrypoint.sh"]
 
 USER nextjs
