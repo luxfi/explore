@@ -1,3 +1,4 @@
+import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
@@ -5,9 +6,7 @@ import type { AddressVerificationFormFirstStepFields, AddressCheckStatusSuccess 
 import type { VerifiedAddress } from 'types/api/account';
 
 import config from 'configs/app';
-import { FallbackProvider } from 'lib/contexts/fallback';
 import * as mixpanel from 'lib/mixpanel/index';
-import { DialogBody, DialogContent, DialogHeader, DialogRoot } from '@luxfi/ui/dialog';
 
 const Web3ProviderBase = dynamic(() => import('ui/shared/web3/Web3Provider'), { ssr: false });
 
@@ -17,9 +16,7 @@ import AddressVerificationStepSuccess from './steps/AddressVerificationStepSucce
 
 type StateData = AddressVerificationFormFirstStepFields & AddressCheckStatusSuccess & { isToken?: boolean };
 
-const feature = config.features.blockchainInteraction;
-// Dynamic providers cannot be nested, so a dummy provider is used here
-const Web3Provider = feature.isEnabled && feature.connectorType === 'dynamic' ? FallbackProvider : Web3ProviderBase;
+const Web3Provider = Web3ProviderBase;
 
 interface Props {
   open: boolean;

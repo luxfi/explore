@@ -18,24 +18,6 @@ export const account: Guard = (chainConfig: typeof config) => async() => {
   }
 };
 
-export const accountAuth0: Guard = (chainConfig: typeof config) => async() => {
-  const feature = chainConfig.features.account;
-  if (!feature.isEnabled || feature.authProvider !== 'auth0') {
-    return {
-      notFound: true,
-    };
-  }
-};
-
-export const accountOidc: Guard = (chainConfig: typeof config) => async() => {
-  const feature = chainConfig.features.account;
-  if (!feature.isEnabled || feature.authProvider !== 'oidc') {
-    return {
-      notFound: true,
-    };
-  }
-};
-
 export const verifiedAddresses: Guard = (chainConfig: typeof config) => async() => {
   if (!chainConfig.features.addressVerification.isEnabled) {
     return {
@@ -178,14 +160,6 @@ export const advancedFilter: Guard = (chainConfig: typeof config) => async() => 
 
 export const dataAvailability: Guard = (chainConfig: typeof config) => async() => {
   if (!chainConfig.features.dataAvailability.isEnabled) {
-    return {
-      notFound: true,
-    };
-  }
-};
-
-export const login: Guard = (chainConfig: typeof config) => async() => {
-  if (!chainConfig.app.isReview && !chainConfig.app.isDev) {
     return {
       notFound: true,
     };

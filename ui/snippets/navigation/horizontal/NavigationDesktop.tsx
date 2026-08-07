@@ -1,8 +1,8 @@
+import { Separator } from '@luxfi/ui/separator';
 import React from 'react';
 
 import config from 'configs/app';
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
-import { Separator } from '@luxfi/ui/separator';
 import RewardsButton from 'ui/rewards/RewardsButton';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import useIsAuth from 'ui/snippets/auth/useIsAuth';
@@ -22,7 +22,7 @@ const NavigationDesktop = () => {
   const isAuth = useIsAuth();
 
   const accountNavGroup = React.useMemo(() => {
-    if (accountFeature.isEnabled && accountFeature.authProvider === 'dynamic' && isAuth) {
+    if (accountFeature.isEnabled && isAuth) {
       return {
         text: 'Account',
         subItems: accountNavItems,

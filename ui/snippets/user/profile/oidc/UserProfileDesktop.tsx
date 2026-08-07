@@ -14,7 +14,6 @@ import { buildLoginUrl } from 'lib/oidc';
 import useWeb3AccountWithDomain from 'lib/web3/useAccountWithDomain';
 import useWeb3Wallet from 'lib/web3/useWallet';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
-import { Link } from 'toolkit/next/link';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import IconSvg from 'ui/shared/IconSvg';
 import useLogout from 'ui/snippets/auth/useLogout';
@@ -56,8 +55,9 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
 
   const web3Wallet = useWeb3Wallet({ source: 'Header' });
   const web3AccountWithDomain = useWeb3AccountWithDomain(isWalletEnabled && web3Wallet.isConnected);
-  const handleLoginClick = React.useCallback(() => {
-    const url = buildLoginUrl(REDIRECT_URI_PATH);
+  const handleLoginClick = React.useCallback(async() => {
+    // async because the PKCE challenge is a SubtleCrypto digest.
+    const url = await buildLoginUrl(REDIRECT_URI_PATH);
     if (url) {
       window.location.href = url;
     }
@@ -145,13 +145,6 @@ const UserProfileOidc = ({ buttonSize, buttonVariant = 'header' }: Props) => {
                   { data.email }
                 </div>
               ) }
-              <Link
-                href="/auth/profile"
-                className="block text-sm px-0 py-1 text-[var(--color-text-primary)] hover:text-[var(--color-link-primary-hover)]"
-                variant="plain"
-              >
-                My profile
-              </Link>
               <Separator className="my-3"/>
             </>
           ) }
