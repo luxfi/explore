@@ -20,7 +20,7 @@ spec:
       imagePullSecrets: [{name: ghcr-luxfi}]
       containers:
         - name: explore
-          image: ghcr.io/luxfi/explore:v1.1.22
+          image: ghcr.io/luxfi/explore:v1.1.23
           imagePullPolicy: IfNotPresent
           ports: [{containerPort: 3000, name: ui}]
           env:
