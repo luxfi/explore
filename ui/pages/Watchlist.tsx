@@ -1,3 +1,5 @@
+import { Button } from '@luxfi/ui/button';
+import { Skeleton } from '@luxfi/ui/skeleton';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 
@@ -6,8 +8,6 @@ import type { WatchlistAddress, WatchlistResponse } from 'types/api/account';
 import { resourceKey } from 'lib/api/resources';
 import { getResourceKey } from 'lib/api/useApiQuery';
 import { WATCH_LIST_ITEM_WITH_TOKEN_INFO } from 'stubs/account';
-import { Button } from '@luxfi/ui/button';
-import { Skeleton } from '@luxfi/ui/skeleton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
 import AccountPageDescription from 'ui/shared/AccountPageDescription';
 import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'ui/shared/ActionBar';
@@ -19,7 +19,6 @@ import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInvalidAuthToken';
 import AddressModal from 'ui/watchlist/AddressModal/AddressModal';
 import DeleteAddressModal from 'ui/watchlist/DeleteAddressModal';
-import WatchlistEmailAlert from 'ui/watchlist/WatchlistEmailAlert';
 import WatchListItem from 'ui/watchlist/WatchlistTable/WatchListItem';
 import WatchlistTable from 'ui/watchlist/WatchlistTable/WatchlistTable';
 
@@ -86,7 +85,6 @@ const WatchList: React.FC = () => {
 
     return (
       <>
-        { !hasEmail && <WatchlistEmailAlert/> }
         <AccountPageDescription>
           An email notification can be sent to you when an address on your watch list sends or receives any transactions.
         </AccountPageDescription>

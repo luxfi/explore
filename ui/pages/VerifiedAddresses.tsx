@@ -1,3 +1,4 @@
+import { Button } from '@luxfi/ui/button';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -9,10 +10,9 @@ import useApiQuery, { getResourceKey } from 'lib/api/useApiQuery';
 import { PAGE_TYPE_DICT } from 'lib/mixpanel/getPageType';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { TOKEN_INFO_APPLICATION, VERIFIED_ADDRESS } from 'stubs/account';
-import { Button } from '@luxfi/ui/button';
-import { Link } from 'toolkit/next/link';
 import { BackToButton } from 'toolkit/components/buttons/BackToButton';
 import { useDisclosure } from 'toolkit/hooks/useDisclosure';
+import { Link } from 'toolkit/next/link';
 import AddressVerificationModal from 'ui/addressVerification/AddressVerificationModal';
 import AccountPageDescription from 'ui/shared/AccountPageDescription';
 import DataListDisplay from 'ui/shared/DataListDisplay';
@@ -21,7 +21,6 @@ import AdminSupportText from 'ui/shared/texts/AdminSupportText';
 import useProfileQuery from 'ui/snippets/auth/useProfileQuery';
 import useRedirectForInvalidAuthToken from 'ui/snippets/auth/useRedirectForInvalidAuthToken';
 import TokenInfoForm from 'ui/tokenInfo/TokenInfoForm';
-import VerifiedAddressesEmailAlert from 'ui/verifiedAddresses/VerifiedAddressesEmailAlert';
 import VerifiedAddressesListItem from 'ui/verifiedAddresses/VerifiedAddressesListItem';
 import VerifiedAddressesTable from 'ui/verifiedAddresses/VerifiedAddressesTable';
 
@@ -186,7 +185,6 @@ const VerifiedAddresses = () => {
   return (
     <>
       <PageTitle title="My verified addresses"/>
-      { userWithoutEmail && <VerifiedAddressesEmailAlert/> }
       <AccountPageDescription allowCut={ false }>
         <span>
           Verify ownership of a smart contract address to easily update information in the explorer.

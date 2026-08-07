@@ -59,7 +59,7 @@ const reduceExternalChainsToTransportConfig = (readOnly: boolean): Record<string
 
 const wagmi = (() => {
 
-  if (!feature.isEnabled || feature.connectorType === 'dynamic') {
+  if (!feature.isEnabled) {
     const wagmiConfig = createConfig({
       chains: chains as [Chain, ...Array<Chain>],
       transports: {
@@ -70,7 +70,7 @@ const wagmi = (() => {
       },
       ssr: true,
       batch: { multicall: { wait: 100, batchSize: 5 } },
-      multiInjectedProviderDiscovery: feature.isEnabled && feature.connectorType === 'dynamic' ? false : true,
+      multiInjectedProviderDiscovery: true,
     });
 
     return { config: wagmiConfig, adapter: null };

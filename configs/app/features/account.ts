@@ -2,7 +2,6 @@ import type { Feature } from './types';
 import type { AuthProvider } from 'types/client/account';
 
 import app from '../app';
-import services from '../services';
 import { getEnvValue } from '../utils';
 
 const title = 'My account';
@@ -21,72 +20,40 @@ const apiKeysButton = (() => {
 const config: Feature<{
   isEnabled: true;
   authProvider: AuthProvider;
-  dynamic?: {
-    environmentId: string;
-  };
-  oidc?: {
+  oidc: {
     serverUrl: string;
     clientId: string;
   };
   apiKeysButton: boolean | string;
 }> = (() => {
 
+  // Sign-in is Hanzo IAM over OIDC and nothing else. The auth0 (email + OTP +
+  // reCAPTCHA) and Dynamic.xyz branches that used to sit here are gone with
+  // their implementations: both spoke to Blockscout's /account/* backend, which
+  // this deployment does not run — every one of those endpoints 404s — and both
+  // were a second gate beside the one we own.
+  //
+  // NEXT_PUBLIC_ACCOUNT_AUTH_PROVIDER is still read so an explicit `oidc` is
+  // honoured and an explicit anything-else is a visible no-op rather than a
+  // silent fallback into a provider that no longer exists.
+  const authProvider = getEnvValue('NEXT_PUBLIC_ACCOUNT_AUTH_PROVIDER');
+  const serverUrl = getEnvValue('NEXT_PUBLIC_OIDC_SERVER_URL');
+  const clientId = getEnvValue('NEXT_PUBLIC_OIDC_CLIENT_ID');
+
   if (
     !app.isPrivateMode &&
-    getEnvValue('NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED') === 'true'
+    getEnvValue('NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED') === 'true' &&
+    (authProvider === undefined || authProvider === 'oidc') &&
+    serverUrl &&
+    clientId
   ) {
-    const authProvider = getEnvValue('NEXT_PUBLIC_ACCOUNT_AUTH_PROVIDER');
-    const dynamicEnvironmentId = getEnvValue('NEXT_PUBLIC_ACCOUNT_DYNAMIC_ENVIRONMENT_ID');
-    const oidcServerUrl = getEnvValue('NEXT_PUBLIC_OIDC_SERVER_URL');
-    const oidcClientId = getEnvValue('NEXT_PUBLIC_OIDC_CLIENT_ID');
-
-    if (authProvider === 'dynamic' && dynamicEnvironmentId) {
-      return Object.freeze({
-        title,
-        isEnabled: true,
-        authProvider: 'dynamic',
-        dynamic: {
-          environmentId: dynamicEnvironmentId,
-        },
-        apiKeysButton,
-      });
-    }
-
-    if (authProvider === 'oidc' && oidcServerUrl && oidcClientId) {
-      return Object.freeze({
-        title,
-        isEnabled: true,
-        authProvider: 'oidc',
-        oidc: {
-          serverUrl: oidcServerUrl,
-          clientId: oidcClientId,
-        },
-        apiKeysButton,
-      });
-    }
-
-    if (services.reCaptchaV2.siteKey) {
-      return Object.freeze({
-        title,
-        isEnabled: true,
-        authProvider: 'auth0',
-        apiKeysButton,
-      });
-    }
-
-    // Fallback: if OIDC env vars are set without explicit provider, enable OIDC
-    if (oidcServerUrl && oidcClientId) {
-      return Object.freeze({
-        title,
-        isEnabled: true,
-        authProvider: 'oidc',
-        oidc: {
-          serverUrl: oidcServerUrl,
-          clientId: oidcClientId,
-        },
-        apiKeysButton,
-      });
-    }
+    return Object.freeze({
+      title,
+      isEnabled: true,
+      authProvider: 'oidc',
+      oidc: { serverUrl, clientId },
+      apiKeysButton,
+    });
   }
 
   return Object.freeze({

@@ -1,16 +1,14 @@
+import { toaster } from '@luxfi/ui/toaster';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import type { Route } from 'nextjs-routes';
 
-import config from 'configs/app';
-import useApiFetch from 'lib/api/useApiFetch';
 import { getResourceKey } from 'lib/api/useApiQuery';
-import { useRewardsContext } from 'lib/contexts/rewards';
 import * as cookies from 'lib/cookies';
 import * as mixpanel from 'lib/mixpanel';
-import { toaster } from '@luxfi/ui/toaster';
+import { buildLogoutUrl } from 'lib/oidc';
 
 const PROTECTED_ROUTES: Array<Route['pathname']> = [
   '/account/api-key',
@@ -19,27 +17,15 @@ const PROTECTED_ROUTES: Array<Route['pathname']> = [
   '/account/tag-address',
   '/account/verified-addresses',
   '/account/watchlist',
-  '/auth/profile',
 ];
 
 export default function useLogout() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const apiFetch = useApiFetch();
-  const { logout: rewardsLogout } = useRewardsContext();
 
   return React.useCallback(async() => {
     try {
-      const accountFeature = config.features.account;
-      const isOidc = accountFeature.isEnabled && accountFeature.authProvider === 'oidc';
-      if (!isOidc) {
-        await apiFetch('general:auth_logout');
-      }
       cookies.remove(cookies.NAMES.API_TOKEN);
-
-      if (config.features.rewards.isEnabled) {
-        rewardsLogout();
-      }
 
       mixpanel.logEvent(mixpanel.EventTypes.ACCOUNT_ACCESS, { Action: 'Logged out' }, { send_immediately: true });
       mixpanel.reset();
@@ -51,22 +37,22 @@ export default function useLogout() {
         await router.push({ pathname: '/' }, undefined, { shallow: true });
       }
 
-      queryClient.resetQueries({
-        queryKey: getResourceKey('general:user_info'),
-        exact: true,
-      });
-      queryClient.resetQueries({
-        queryKey: [ 'oidc_profile' ],
-      });
+      queryClient.resetQueries({ queryKey: [ 'oidc_profile' ] });
       queryClient.resetQueries({
         queryKey: getResourceKey('general:custom_abi'),
         exact: true,
       });
+
+      // End the IdP session last: this navigates away.
+      const logoutUrl = buildLogoutUrl('/');
+      if (logoutUrl) {
+        window.location.href = logoutUrl;
+      }
     } catch (error) {
       toaster.error({
         title: 'Logout failed',
         description: 'Please try again later',
       });
     }
-  }, [ apiFetch, rewardsLogout, queryClient, router ]);
+  }, [ queryClient, router ]);
 }

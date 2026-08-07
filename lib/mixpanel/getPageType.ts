@@ -33,7 +33,6 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/api-docs': 'REST API',
   '/search-results': 'Search results',
   '/auth/callback': 'Auth callback',
-  '/auth/profile': 'Profile',
   '/account/merits': 'Merits',
   '/account/watchlist': 'Watchlist',
   '/account/api-key': 'API keys',
@@ -90,7 +89,6 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/ecosystems': 'Ecosystems',
 
   // service routes, added only to make typescript happy
-  '/login': 'Login',
   '/sprite': 'Sprite',
   '/v1/metrics': 'Node API: Prometheus metrics',
   '/v1/monitoring/invalid-api-schema': 'Node API: Prometheus metrics',

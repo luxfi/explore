@@ -2,35 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 
 import type { UserInfo } from 'types/api/account';
 
-import config from 'configs/app';
-import useApiQuery from 'lib/api/useApiQuery';
 import * as cookies from 'lib/cookies';
+import { getOidc, fetchUserInfo } from 'lib/oidc';
 
-interface OidcUserInfo {
-  readonly sub?: string;
-  readonly name?: string;
-  readonly preferred_username?: string;
-  readonly displayName?: string;
-  readonly email?: string;
-  readonly picture?: string;
-  readonly avatar?: string;
-}
-
-function useOidcProfileQuery() {
-  const feature = config.features.account;
-  const serverUrl = feature.isEnabled && feature.authProvider === 'oidc' && feature.oidc ? feature.oidc.serverUrl : '';
+// The signed-in user comes from IAM's userinfo endpoint and nowhere else. The
+// explorer's own `general:user_info` half of this hook is gone with the account
+// backend it queried — that route 404s on this deployment.
+export default function useProfileQuery() {
+  const oidc = getOidc();
   const token = cookies.get(cookies.NAMES.API_TOKEN);
 
   return useQuery<UserInfo>({
-    queryKey: [ 'oidc_profile', serverUrl ],
+    queryKey: [ 'oidc_profile', oidc?.serverUrl ],
     queryFn: async() => {
-      const response = await fetch(`${ serverUrl }/api/userinfo`, {
-        headers: { Authorization: `Bearer ${ token }` },
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch profile');
-      }
-      const data = await response.json() as OidcUserInfo;
+      const data = await fetchUserInfo(token as string);
       return {
         name: data.name || data.displayName || undefined,
         nickname: data.preferred_username || undefined,
@@ -40,21 +25,6 @@ function useOidcProfileQuery() {
       };
     },
     refetchOnMount: false,
-    enabled: Boolean(serverUrl && token),
+    enabled: Boolean(oidc && token),
   });
-}
-
-export default function useProfileQuery() {
-  const feature = config.features.account;
-  const isOidc = feature.isEnabled && feature.authProvider === 'oidc';
-
-  const oidcQuery = useOidcProfileQuery();
-  const explorerQuery = useApiQuery('general:user_info', {
-    queryOptions: {
-      refetchOnMount: false,
-      enabled: !isOidc && feature.isEnabled && Boolean(cookies.get(cookies.NAMES.API_TOKEN)),
-    },
-  });
-
-  return isOidc ? oidcQuery : explorerQuery;
 }

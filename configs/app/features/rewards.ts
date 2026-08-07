@@ -1,21 +1,13 @@
 import type { Feature } from './types';
 
-import apis from '../apis';
-import app from '../app';
-import account from './account';
-import blockchainInteraction from './blockchainInteraction';
-
 const title = 'Rewards service integration';
 
 const config: Feature<{}> = (() => {
-  // @0xdeval: as of now, we won't support rewards programs with dynamic auth provider
-  if (!app.isPrivateMode && apis.rewards && account.isEnabled && account.authProvider === 'auth0' && blockchainInteraction.isEnabled) {
-    return Object.freeze({
-      title,
-      isEnabled: true,
-    });
-  }
-
+  // Off, permanently. Merits is Blockscout's hosted rewards service and its
+  // sign-in was auth0's — email + OTP against /account/*, which this deployment
+  // does not run. The gate here used to read `authProvider === 'auth0'`, so
+  // deleting that provider already made this unreachable; stating it is honest
+  // about the fact rather than leaving a condition that can never be true.
   return Object.freeze({
     title,
     isEnabled: false,

@@ -1,11 +1,9 @@
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 import config from 'configs/app';
 import { useIsSticky } from 'toolkit/hooks/useIsSticky';
 import RewardsButton from 'ui/rewards/RewardsButton';
 import NetworkIcon from 'ui/snippets/networkLogo/NetworkIcon';
-import UserProfileAuth0 from 'ui/snippets/user/profile/auth0/UserProfileMobile';
 import UserProfileOidc from 'ui/snippets/user/profile/oidc/UserProfileDesktop';
 import UserWalletMobile from 'ui/snippets/user/wallet/UserWalletMobile';
 
@@ -13,8 +11,6 @@ import RollupStageBadge from '../navigation/RollupStageBadge';
 import TestnetBadge from '../navigation/TestnetBadge';
 import SearchBarMobile from '../searchBar/SearchBarMobile';
 import Burger from './Burger';
-
-const UserProfileDynamic = dynamic(() => import('ui/snippets/user/profile/dynamic/UserProfile'), { ssr: false });
 
 type Props = {
   hideSearchButton?: boolean;
@@ -25,23 +21,9 @@ const HeaderMobile = ({ hideSearchButton, onGoToSearchResults }: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const isSticky = useIsSticky(ref, 5);
 
-  const userProfile = (() => {
-    const accountFeature = config.features.account;
-    if (accountFeature.isEnabled) {
-      switch (accountFeature.authProvider) {
-        case 'auth0':
-          return <UserProfileAuth0/>;
-        case 'dynamic':
-          return <UserProfileDynamic/>;
-        case 'oidc':
-          return <UserProfileOidc/>;
-        default:
-          break;
-      }
-    }
-    // Always render wallet/settings menu
-    return <UserWalletMobile/>;
-  })();
+  // See UserProfileDesktop: sign-in is Hanzo IAM, or account is off and this is
+  // the wallet/settings menu.
+  const userProfile = config.features.account.isEnabled ? <UserProfileOidc/> : <UserWalletMobile/>;
 
   return (
     <div

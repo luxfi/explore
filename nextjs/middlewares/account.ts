@@ -19,9 +19,8 @@ export function account(req: NextRequest) {
     const isAccountRoute =
         req.nextUrl.pathname.includes('/account/') ||
         (req.nextUrl.pathname === '/txs' && req.nextUrl.searchParams.get('tab') === 'watchlist');
-    const isProfileRoute = req.nextUrl.pathname.includes('/auth/profile');
 
-    if ((isAccountRoute || isProfileRoute)) {
+    if (isAccountRoute) {
       return NextResponse.redirect(config.app.baseUrl);
     }
   }

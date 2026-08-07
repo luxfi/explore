@@ -38,7 +38,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/api-docs': DEFAULT_TEMPLATE,
   '/search-results': DEFAULT_TEMPLATE,
   '/auth/callback': DEFAULT_TEMPLATE,
-  '/auth/profile': DEFAULT_TEMPLATE,
   '/account/merits': DEFAULT_TEMPLATE,
   '/account/watchlist': DEFAULT_TEMPLATE,
   '/account/api-key': DEFAULT_TEMPLATE,
@@ -95,7 +94,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/ecosystems': DEFAULT_TEMPLATE,
 
   // service routes, added only to make typescript happy
-  '/login': DEFAULT_TEMPLATE,
   '/sprite': DEFAULT_TEMPLATE,
   '/v1/metrics': DEFAULT_TEMPLATE,
   '/v1/monitoring/invalid-api-schema': DEFAULT_TEMPLATE,
