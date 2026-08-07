@@ -20,7 +20,7 @@ spec:
       imagePullSecrets: [{name: ghcr-luxfi}]
       containers:
         - name: explore
-          image: ghcr.io/luxfi/explore:v1.1.12
+          image: ghcr.io/luxfi/explore:v1.1.22
           imagePullPolicy: IfNotPresent
           ports: [{containerPort: 3000, name: ui}]
           env:
@@ -81,7 +81,7 @@ spec:
       imagePullSecrets: [{name: ghcr-luxfi}]
       containers:
         - name: explore
-          image: ghcr.io/zooai/explore:v1.1.12
+          image: ghcr.io/zooai/explore:v1.1.22
           imagePullPolicy: IfNotPresent
           ports: [{containerPort: 3000, name: ui}]
           env:
@@ -142,7 +142,7 @@ spec:
       imagePullSecrets: [{name: ghcr-luxfi}]
       containers:
         - name: explore
-          image: ghcr.io/hanzoai/explore:v1.1.12
+          image: ghcr.io/hanzoai/explore:v1.1.22
           imagePullPolicy: IfNotPresent
           ports: [{containerPort: 3000, name: ui}]
           env:
@@ -203,7 +203,7 @@ spec:
       imagePullSecrets: [{name: ghcr-luxfi}]
       containers:
         - name: explore
-          image: ghcr.io/parsdao/explore:v1.1.12
+          image: ghcr.io/parsdao/explore:v1.1.22
           imagePullPolicy: IfNotPresent
           ports: [{containerPort: 3000, name: ui}]
           env:
