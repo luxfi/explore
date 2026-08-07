@@ -82,7 +82,6 @@ import Layout from 'ui/shared/layout/Layout';
 import Web3Provider from 'ui/shared/web3/Web3Provider';
 
 const RewardsContextProvider = dynamic(() => import('lib/contexts/rewards').then(module => module.RewardsContextProvider), { ssr: false });
-const RewardsLoginModal = dynamic(() => import('ui/rewards/login/RewardsLoginModal'), { ssr: false });
 const RewardsActivityTracker = dynamic(() => import('ui/rewards/RewardsActivityTracker'), { ssr: false });
 
 import 'lib/setLocale';
@@ -195,12 +194,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
       <>
         { getLayout(<Component { ...pageProps }/>) }
         <Toaster/>
-        { config.features.rewards.isEnabled && (
-          <>
-            <RewardsLoginModal/>
-            <RewardsActivityTracker/>
-          </>
-        ) }
+        { config.features.rewards.isEnabled && <RewardsActivityTracker/> }
       </>
     );
   })();

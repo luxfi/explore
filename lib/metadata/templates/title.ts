@@ -40,7 +40,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/api-docs': '%network_name% API docs - %network_name% developer tools',
   '/search-results': '%network_name% search result for %q%',
   '/auth/callback': '%network_name% - authentication',
-  '/auth/profile': '%network_name% - my profile',
   '/account/merits': '%network_name% - Merits',
   '/account/watchlist': '%network_name% - watchlist',
   '/account/api-key': '%network_name% - API keys',
@@ -97,7 +96,6 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/ecosystems': '%network_name% ecosystems',
 
   // service routes, added only to make typescript happy
-  '/login': '%network_name% login',
   '/sprite': '%network_name% SVG sprite',
   '/v1/metrics': '%network_name% node API prometheus metrics',
   '/v1/monitoring/invalid-api-schema': '%network_name% node API prometheus metrics',

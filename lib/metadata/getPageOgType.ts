@@ -35,7 +35,6 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/api-docs': 'Regular page',
   '/search-results': 'Regular page',
   '/auth/callback': 'Regular page',
-  '/auth/profile': 'Root page',
   '/account/merits': 'Regular page',
   '/account/watchlist': 'Regular page',
   '/account/api-key': 'Regular page',
@@ -92,7 +91,6 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/ecosystems': 'Root page',
 
   // service routes, added only to make typescript happy
-  '/login': 'Regular page',
   '/sprite': 'Regular page',
   '/v1/metrics': 'Regular page',
   '/v1/monitoring/invalid-api-schema': 'Regular page',
