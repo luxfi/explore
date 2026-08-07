@@ -302,7 +302,13 @@ html, body {
    media query catches the pre-hydration frame.
 
    Remove this the day the provider stops hard-pinning t_dark. */
-html.light body.t_dark { --color: var(--c-color-text); }
+/* NOT `body.t_dark` — measured 2026-08-06: the provider mounts a SECOND
+   `<span class="t_dark">` INSIDE <body>, and `:root .t_dark` matches both. A
+   body-scoped rule sets --color on body correctly (verified #000000 there) and
+   the nested span immediately re-sets it to #ffffff, which every heading then
+   inherits. Scoping to `.t_dark` reaches every Theme wrapper; (0,2,1) still
+   beats `:root .t_dark` (0,2,0). */
+html.light .t_dark { --color: var(--c-color-text); }
 @media (prefers-color-scheme: light) {
-  html:not(.dark) body.t_dark { --color: var(--c-color-text); }
+  html:not(.dark) .t_dark { --color: var(--c-color-text); }
 }
