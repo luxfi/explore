@@ -27,6 +27,58 @@ interface Params {
 
 const NO_RPC_FALLBACK_ERROR_CODES = [ 403 ];
 
+/**
+ * Maps the RPC fallback response to an Address, or null when the RPC could not
+ * answer. Exported so the zero-balance case is testable — it shipped broken and
+ * was invisible from source.
+ */
+export function selectRpcAddress(response: RpcResponseType, hash: string): Address | null {
+  const [ balance ] = response;
+
+  // `balance === null`, NOT `!balance`. getBalance() returns a bigint and 0n is
+  // FALSY, so the truthy check threw away every genuine zero balance and
+  // reported it as an RPC failure.
+  //
+  // The consequence was not a broken RPC path but a WRONG one: with the fallback
+  // discarded, `query` reverted to the 404'd apiQuery, AddressDetails substituted
+  // error404Data (coin_balance: null), and AddressBalance's pruned-node guard —
+  // "coin_balance may be null while the address is known to exist, show Pending
+  // instead of a misleading 0 LUX" — fired on a perfectly healthy address. Every
+  // never-transacted address rendered `Balance Pending` forever, and
+  // setRefetchEnabled(false) made it permanent rather than eventually-correct.
+  //
+  // Verified on the live v1.1.23 build: the RPC answered {"result":"0x0"}
+  // correctly the whole time. Only this line disagreed. The type is already
+  // `bigint | null`, so the null check is exact.
+  if (balance === null) {
+    return null;
+  }
+
+  return {
+    hash,
+    block_number_balance_updated_at: null,
+    coin_balance: balance.toString(),
+    creator_address_hash: null,
+    creation_transaction_hash: null,
+    creation_status: null,
+    exchange_rate: null,
+    ens_domain_name: null,
+    has_logs: false,
+    has_token_transfers: false,
+    has_tokens: false,
+    has_validated_blocks: false,
+    implementations: null,
+    is_contract: false,
+    is_verified: false,
+    name: null,
+    token: null,
+    watchlist_address_id: null,
+    private_tags: null,
+    public_tags: null,
+    watchlist_names: null,
+  } as Address;
+}
+
 export default function useAddressQuery({ hash, isEnabled = true }: Params): AddressQuery {
   const [ isRefetchEnabled, setRefetchEnabled ] = React.useState(false);
 
@@ -62,37 +114,7 @@ export default function useAddressQuery({ hash, isEnabled = true }: Params): Add
         balance,
       ]);
     },
-    select: (response) => {
-      const [ balance ] = response;
-
-      if (!balance) {
-        return null;
-      }
-
-      return {
-        hash,
-        block_number_balance_updated_at: null,
-        coin_balance: balance.toString(),
-        creator_address_hash: null,
-        creation_transaction_hash: null,
-        creation_status: null,
-        exchange_rate: null,
-        ens_domain_name: null,
-        has_logs: false,
-        has_token_transfers: false,
-        has_tokens: false,
-        has_validated_blocks: false,
-        implementations: null,
-        is_contract: false,
-        is_verified: false,
-        name: null,
-        token: null,
-        watchlist_address_id: null,
-        private_tags: null,
-        public_tags: null,
-        watchlist_names: null,
-      };
-    },
+    select: (response) => selectRpcAddress(response, hash),
     placeholderData: [ GET_BALANCE ],
     enabled: (apiQuery.isError || apiQuery.errorUpdateCount > 0) && !(apiQuery.error?.status && NO_RPC_FALLBACK_ERROR_CODES.includes(apiQuery.error?.status)),
     retry: false,
