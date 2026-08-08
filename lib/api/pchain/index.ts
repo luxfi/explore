@@ -1,6 +1,5 @@
 // P-chain API hooks and types.
 
-export { getPChain, getInfo, getHealth } from './client';
 export { useCurrentValidators } from './useCurrentValidators';
 export { useNetworkValidators } from './useNetworkValidators';
 export { useBlockchains } from './useBlockchains';

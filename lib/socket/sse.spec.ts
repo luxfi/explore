@@ -101,20 +101,38 @@ describe('SSE Socket — envelope routing', () => {
     channel.on('new_block', handler);
 
     lastEs().emitOpen();
-    lastEs().emitMessage({ event: 'blocks', chain: 'cchain', data: { number: 42, hash: '0xabc', miner: '0x01', txCount: 3 } });
+    lastEs().emitMessage({ event: 'blocks', chain: 'cchain', data: {
+      number: 42, hash: '0xabc', parentHash: '0xdef', nonce: '0x00', miner: '0x01',
+      difficulty: '1', gasLimit: 12000000, gasUsed: 167897, baseFeePerGas: '25000000000',
+      timestamp: '2026-08-08T12:55:22Z', txCount: 3, size: 1358,
+    } });
 
     // the broadcast is a raw EVM block; it reaches the UI in the API shape,
     // because it lands in the same list as blocks fetched over REST. Handing
-    // `miner` through as a bare string blanked the whole home page.
+    // `miner` through as a bare string blanked the whole home page, and leaving
+    // the camelCase gas keys unmapped made a live row read 0 gas next to REST
+    // rows showing the real number.
     expect(handler).toHaveBeenCalledTimes(1);
     expect(handler).toHaveBeenCalledWith({
-      block: expect.objectContaining({
+      block: {
         height: 42,
         hash: '0xabc',
+        parent_hash: '0xdef',
+        nonce: '0x00',
         miner: { hash: '0x01' },
+        difficulty: '1',
+        total_difficulty: null,
+        size: 1358,
+        gas_limit: '12000000',
+        gas_used: '167897',
+        base_fee_per_gas: '25000000000',
+        burnt_fees: '0',
+        timestamp: '2026-08-08T12:55:22Z',
         transactions_count: 3,
+        state_root: null,
+        rewards: [],
         type: 'block',
-      }),
+      },
     });
   });
 

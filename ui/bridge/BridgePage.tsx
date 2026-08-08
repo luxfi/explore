@@ -6,8 +6,7 @@ import { Tag } from '@luxfi/ui/tag';
 import React from 'react';
 
 import config from 'configs/app';
-import { useBridgeData } from 'lib/api/bchain';
-import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
+import { useBlockchains } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import PageTitle from 'ui/shared/Page/PageTitle';
 
@@ -15,44 +14,7 @@ import PageTitle from 'ui/shared/Page/PageTitle';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 
-// All 14 primary network chains from ~/work/lux/node/node/vms_allvms.go
-const CHAIN_LABELS: Readonly<Record<string, string>> = {
-  C: 'C-Chain',
-  P: 'P-Chain',
-  X: 'X-Chain',
-  D: 'D-Chain',
-  A: 'A-Chain',
-  B: 'B-Chain',
-  Q: 'Q-Chain',
-  T: 'T-Chain',
-  Z: 'Z-Chain',
-  G: 'G-Chain',
-  K: 'K-Chain',
-  O: 'O-Chain',
-  R: 'R-Chain',
-  I: 'I-Chain',
-};
-
 // ── Sub-components ──
-
-interface StatCardProps {
-  readonly label: string;
-  readonly value: string;
-  readonly isLoading: boolean;
-}
-
-const StatCard = ({ label, value, isLoading }: StatCardProps) => (
-  <div className="border border-[var(--color-border-divider)] rounded-lg p-5 bg-[var(--color-gray-50)] dark:bg-[var(--color-whiteAlpha-50)]">
-    <div className="text-xs text-[var(--color-text-secondary)] font-semibold uppercase tracking-wider mb-1">
-      { label }
-    </div>
-    <Skeleton loading={ isLoading }>
-      <div className="text-2xl font-bold text-[var(--color-text-primary)]">
-        { value }
-      </div>
-    </Skeleton>
-  </div>
-);
 
 interface ChainPairCardProps {
   readonly source: string;
@@ -91,16 +53,12 @@ const ChainPairCard = ({ source, destination, status }: ChainPairCardProps) => (
 // ── Main component ──
 
 const BridgePage = () => {
-  const { blockchains, isLoading: chainsLoading } = useBlockchains();
-  const { stats, isLoading: validatorsLoading } = useCurrentValidators();
-  const { stats: bridgeStats, isLoading: bridgeLoading } = useBridgeData();
+  const { blockchains, isLoading } = useBlockchains();
 
   const l1Chains = React.useMemo<ReadonlyArray<PChainBlockchain>>(
     () => blockchains.filter((c) => c.netID !== PRIMARY_NETWORK_ID),
     [ blockchains ],
   );
-
-  const isLoading = chainsLoading || validatorsLoading || bridgeLoading;
 
   // Build bridge pairs: Primary chain <-> sovereign L1s
   const bridgePairs = React.useMemo(() => {
@@ -108,16 +66,8 @@ const BridgePage = () => {
 
     // C-Chain <-> each L1
     for (const chain of l1Chains) {
-      pairs.push({
-        source: CHAIN_LABELS.C ?? 'C-Chain',
-        destination: chain.name,
-        status: 'coming_soon',
-      });
-      pairs.push({
-        source: chain.name,
-        destination: CHAIN_LABELS.C ?? 'C-Chain',
-        status: 'coming_soon',
-      });
+      pairs.push({ source: 'C-Chain', destination: chain.name, status: 'coming_soon' });
+      pairs.push({ source: chain.name, destination: 'C-Chain', status: 'coming_soon' });
     }
 
     // X-Chain <-> C-Chain (atomic swaps)
@@ -141,30 +91,6 @@ const BridgePage = () => {
           </div>
         ) }
       />
-
-      { /* Stats */ }
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <StatCard
-          label="Connected Chains"
-          value={ String(l1Chains.length + Object.keys(CHAIN_LABELS).length) }
-          isLoading={ isLoading }
-        />
-        <StatCard
-          label="Bridge Routes"
-          value={ String(bridgePairs.length) }
-          isLoading={ isLoading }
-        />
-        <StatCard
-          label="Bridge Signers"
-          value={ bridgeStats.signerCount > 0 ? String(bridgeStats.signerCount) : String(stats.validatorCount) }
-          isLoading={ isLoading }
-        />
-        <StatCard
-          label="Active Routes"
-          value={ String(bridgePairs.filter((p) => p.status === 'active').length) }
-          isLoading={ isLoading }
-        />
-      </div>
 
       { /* Bridge routes table */ }
       <div className="border border-[var(--color-border-divider)] rounded-lg overflow-hidden">
