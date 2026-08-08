@@ -50,10 +50,7 @@ const MultichainAddress = () => {
   const isVerified = contract.isVerified(addressQuery.data);
 
   const checkSummedHash = React.useMemo(() => {
-    if (isLoading) {
-      return getCheckedSummedAddress(hash);
-    }
-    return addressQuery.data?.hash ?? getCheckedSummedAddress(hash);
+    return getCheckedSummedAddress(isLoading ? hash : addressQuery.data?.hash ?? hash);
   }, [ hash, addressQuery.data?.hash, isLoading ]);
 
   const tabs: Array<TabItemRegular> = React.useMemo(() => {
