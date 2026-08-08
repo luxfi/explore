@@ -38,7 +38,7 @@ export interface NetworkValidators {
 }
 
 async function fetchCount(chainName: string): Promise<number> {
-  const res = await fetch(`/v1/pchain?chain=${ encodeURIComponent(chainName) }`, {
+  const res = await fetch(`/v1/node/p-chain?chain=${ encodeURIComponent(chainName) }`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

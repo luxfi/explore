@@ -103,7 +103,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/v1/csrf': DEFAULT_TEMPLATE,
   '/v1/healthz': DEFAULT_TEMPLATE,
   '/v1/config': DEFAULT_TEMPLATE,
-  '/v1/pchain': DEFAULT_TEMPLATE,
+  '/v1/node/[endpoint]': DEFAULT_TEMPLATE,
 };
 
 const TEMPLATE_MAP_ENHANCED: Partial<Record<Route['pathname'], string>> = {
