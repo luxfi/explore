@@ -63,19 +63,41 @@ interface Translation {
 // evm/indexer.go `BroadcastBlock`). Extend here as the backend grows new
 // GLOBAL broadcast types; SCOPED events (addresses:*, tokens:*, …) arrive
 // with an explicit `topic` and need no entry.
-// The indexer broadcasts a raw EVM block — `number`, and `miner` as a bare
-// address string. The blocks the UI already holds came from the REST API and
-// are shaped the other way: `height`, and `miner` as an address object. Both
-// end up in one list, so the raw block is mapped here, the one place a
-// broadcast becomes app data, and nothing downstream has to know two shapes.
+// The indexer broadcasts a raw EVM block (luxfi/indexer evm.EVMBlock): camelCase
+// keys, `number` for the height, `miner` a bare address string. The blocks the
+// UI already holds came from the REST API in Blockscout's shape: snake_case,
+// `height`, `miner` an address object, the numeric fields as strings. Both end
+// up in one list, so the raw block is mapped here — the one place a broadcast
+// becomes app data — and nothing downstream has to know two shapes.
+//
+// Every field the row and the detail page read is named, not just the ones that
+// looked broken. Spreading the raw block and renaming three keys left
+// gas_used/gas_limit/base_fee_per_gas/parent_hash undefined, so a live-pushed
+// row rendered "0" gas beside REST rows showing the real number — the same
+// block reading two ways depending on how it arrived.
+const str = (v: unknown): string | null => (v === undefined || v === null ? null : String(v));
+
 function toApiBlock(data: Payload): Payload {
   const block = data as Record<string, unknown>;
 
   return {
-    ...block,
     height: block.number,
+    hash: block.hash,
+    parent_hash: block.parentHash,
+    nonce: block.nonce,
     miner: { hash: block.miner },
+    difficulty: str(block.difficulty),
+    total_difficulty: null,
+    size: block.size,
+    gas_limit: str(block.gasLimit),
+    gas_used: str(block.gasUsed),
+    base_fee_per_gas: str(block.baseFeePerGas),
+    // Lux credits the whole fee to the coinbase; nothing is burnt. See
+    // formatBlock in luxfi/indexer, which this shape has to match exactly.
+    burnt_fees: '0',
+    timestamp: block.timestamp,
     transactions_count: block.txCount,
+    state_root: null,
     rewards: [],
     type: 'block',
   };
