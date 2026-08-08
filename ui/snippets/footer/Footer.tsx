@@ -203,12 +203,22 @@ const Footer = () => {
         className={ `${ footerGridCols } lg:gap-x-[100px] px-4 ${ horizontalPadding } 2xl:px-6 py-4 lg:py-8 mx-auto` }
         style={{ maxWidth: `${ CONTENT_MAX_WIDTH }px` }}
       >
-        { renderNetworkInfo() }
-        { renderProjectInfo() }
-        { renderRecaptcha() }
+        { /* the grid has two columns, so the left one takes one child: without
+             this wrapper the three blocks fill both columns and the links land
+             in the 470px track, where five 160px columns do not fit. */ }
+        <div className="min-w-0">
+          { renderNetworkInfo() }
+          { renderProjectInfo() }
+          { renderRecaptcha() }
+        </div>
 
         <div
-          className="grid grid-cols-2 lg:grid-flow-col lg:auto-cols-[160px] content-start justify-start lg:justify-end gap-1 mt-8 lg:mt-0"
+          // desktop flows one 160px column per link, so the two mobile columns
+          // have to be dropped: kept, they stay the only explicit tracks and
+          // collapse to zero width, which is what stacked Contribute on
+          // X (Twitter) on Discord in the bottom-left corner.
+          className={ 'grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:auto-cols-[160px] ' +
+            'content-start justify-start lg:justify-end gap-1 mt-8 lg:mt-0' }
         >
           { FOOTER_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
         </div>
