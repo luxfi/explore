@@ -98,7 +98,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/v1/csrf': 'Node API: CSRF token',
   '/v1/healthz': 'Node API: Health check',
   '/v1/config': 'Node API: App config',
-  '/v1/pchain': 'Node API: P-chain proxy',
+  '/v1/node/[endpoint]': 'Node API: JSON-RPC proxy',
 };
 
 export default function getPageType(pathname: Route['pathname']) {

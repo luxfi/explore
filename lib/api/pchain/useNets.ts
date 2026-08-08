@@ -3,7 +3,7 @@
 // a sovereign L1 is a Network. The node's only wire method is
 // `platform.getNets` (vms/platformvm/service.go: GetNets/APINet) — the legacy
 // upstream method name does not exist here and returns JSON-RPC -32000.
-// Uses the server-side /v1/pchain proxy to bypass CORS.
+// Uses the server-side /v1/node/p-chain proxy to bypass CORS.
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
@@ -15,7 +15,7 @@ const NETS_QUERY_KEY = 'pchain:nets' as const;
 const EMPTY_NETS: ReadonlyArray<PChainNet> = [];
 
 async function fetchNets(): Promise<ReadonlyArray<PChainNet>> {
-  const res = await fetch('/v1/pchain', {
+  const res = await fetch('/v1/node/p-chain', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

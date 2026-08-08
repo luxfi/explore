@@ -17,9 +17,13 @@ import ChainRow from './ChainRow';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 
-// Primary-network VM chains come from the single source of truth in
-// configs/app/primaryChains.ts (mirrored from the node registry), so this page
-// and the chain-detail page can never drift apart.
+// Which primary chains EXIST is the network's answer, read live from
+// platform.getBlockchains; configs/app/primaryChains.ts only says how to
+// present one. Listing the hardcoded set gave every network the same fifteen
+// rows, four of which (T, R, I, O) are registered on no network at all — the
+// node answers "there is no ID with alias: T" — and one of which (M) exists
+// only on devnet. The P-Chain is added by hand because it is the registry, so
+// it never appears in its own list.
 
 const L1_EVM_CHAIN_IDS: Readonly<Record<string, number>> = {
   Zoo: 200200,
@@ -106,6 +110,21 @@ const ChainsPage = () => {
     return blockchains.filter((chain) => chain.netID !== PRIMARY_NETWORK_ID);
   }, [ blockchains ]);
 
+  // The primary chains this network actually runs, in the registry's order,
+  // each paired with its presentation metadata. A chain the network reports
+  // but we have no metadata for still gets a row — the network is the source
+  // of truth, not our table.
+  const primaryChains = React.useMemo(() => {
+    const rows = blockchains
+      .filter((chain) => chain.netID === PRIMARY_NETWORK_ID)
+      .map((chain) => {
+        const slug = chain.name.toLowerCase();
+        return { chain, meta: PRIMARY_VMS.find((vm) => vm.slug === slug) };
+      });
+    const pChain = PRIMARY_VMS.find((vm) => vm.slug === 'p-chain');
+    return pChain ? [ { chain: undefined, meta: pChain }, ...rows ] : rows;
+  }, [ blockchains ]);
+
   const handlePrimaryClick = React.useCallback(() => {
     setActiveTab(TAB_IDS.primary);
   }, []);
@@ -143,15 +162,28 @@ const ChainsPage = () => {
       { activeTab === TAB_IDS.primary && (
         <div className="border border-[var(--color-border-divider)] rounded-md overflow-hidden">
           <TableHeader showNetId={ false }/>
-          { PRIMARY_VMS.map((chain) => (
+          { isLoading && (
+            <div className="px-4 py-6">
+              <Skeleton loading={ true } h="20px" mb={ 3 }/>
+              <Skeleton loading={ true } h="20px" mb={ 3 }/>
+              <Skeleton loading={ true } h="20px"/>
+            </div>
+          ) }
+          { !isLoading && primaryChains.length === 0 && (
+            <div className="px-4 py-8 text-center text-[var(--color-text-secondary)] text-sm">
+              The P-Chain did not answer, so this network&apos;s chain list is unknown
+            </div>
+          ) }
+          { !isLoading && primaryChains.map(({ chain, meta }) => (
             <ChainRow
-              key={ chain.name }
-              name={ chain.name }
-              fullName={ chain.fullName }
-              vmLabel={ chain.vm }
-              chainId={ chain.chainId }
+              key={ meta?.slug ?? chain?.id }
+              name={ meta?.name ?? chain?.name ?? '' }
+              fullName={ meta?.fullName }
+              blockchainId={ chain?.id }
+              vmLabel={ meta?.vm ?? 'Unknown' }
+              chainId={ meta?.chainId ?? null }
               isActive
-              href={ `/chains/${ chain.slug }` }
+              href={ `/chains/${ meta?.slug ?? (chain?.name ?? '').toLowerCase() }` }
             />
           )) }
         </div>
