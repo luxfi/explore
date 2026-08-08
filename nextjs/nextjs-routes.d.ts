@@ -19,20 +19,19 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/address/[hash]", { "hash": string }>
     | StaticRoute<"/advanced-filter">
     | StaticRoute<"/ai">
+    | StaticRoute<"/api/ai">
     | StaticRoute<"/api/config">
-    | StaticRoute<"/api/csrf">
     | StaticRoute<"/api/healthz">
     | StaticRoute<"/api/log">
     | StaticRoute<"/api/metrics">
     | StaticRoute<"/api/monitoring/invalid-api-schema">
-    | StaticRoute<"/api/pchain">
+    | DynamicRoute<"/api/node/[endpoint]", { "endpoint": string }>
     | StaticRoute<"/api/proxy">
     | DynamicRoute<"/api/tokens/[hash]/instances/[id]/media-type", { "hash": string; "id": string }>
     | StaticRoute<"/api-docs">
     | DynamicRoute<"/apps/[id]", { "id": string }>
     | StaticRoute<"/apps">
     | StaticRoute<"/auth/callback">
-    | StaticRoute<"/auth/profile">
     | DynamicRoute<"/batches/[number]", { "number": string }>
     | DynamicRoute<"/batches/celestia/[height]/[commitment]", { "height": string; "commitment": string }>
     | StaticRoute<"/batches">
@@ -71,7 +70,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/">
     | StaticRoute<"/internal-txs">
     | StaticRoute<"/interop-messages">
-    | StaticRoute<"/login">
     | StaticRoute<"/mud-worlds">
     | DynamicRoute<"/name-services/clusters/[name]", { "name": string }>
     | DynamicRoute<"/name-services/domains/[name]", { "name": string }>

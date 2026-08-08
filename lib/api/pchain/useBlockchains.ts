@@ -1,6 +1,6 @@
 // React Query hook for platform.getBlockchains.
 // Returns the list of all blockchains registered on the P-chain.
-// Uses the server-side /v1/pchain proxy to bypass CORS.
+// Uses the server-side /v1/node/p-chain proxy to bypass CORS.
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
@@ -12,7 +12,7 @@ const BLOCKCHAINS_QUERY_KEY = 'pchain:blockchains' as const;
 const EMPTY_BLOCKCHAINS: ReadonlyArray<PChainBlockchain> = [];
 
 async function fetchBlockchains(): Promise<ReadonlyArray<PChainBlockchain>> {
-  const res = await fetch('/v1/pchain', {
+  const res = await fetch('/v1/node/p-chain', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

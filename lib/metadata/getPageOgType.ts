@@ -100,7 +100,7 @@ const OG_TYPE_DICT: Record<Route['pathname'], OGPageType> = {
   '/v1/csrf': 'Regular page',
   '/v1/healthz': 'Regular page',
   '/v1/config': 'Regular page',
-  '/v1/pchain': 'Regular page',
+  '/v1/node/[endpoint]': 'Regular page',
 };
 
 export default function getPageOgType(pathname: Route['pathname']) {

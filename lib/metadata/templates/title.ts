@@ -105,7 +105,7 @@ const TEMPLATE_MAP: Record<Route['pathname'], string> = {
   '/v1/csrf': '%network_name% node API CSRF token',
   '/v1/healthz': '%network_name% node API health check',
   '/v1/config': '%network_name% node API app config',
-  '/v1/pchain': '%network_name% node API P-chain proxy',
+  '/v1/node/[endpoint]': '%network_name% node API JSON-RPC proxy',
 };
 
 const TEMPLATE_MAP_ENHANCED: Partial<Record<Route['pathname'], string>> = {
