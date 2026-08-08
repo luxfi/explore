@@ -50,7 +50,7 @@ const TokensActionBar = ({
 
   return (
     <>
-      <div>
+      <div className="flex lg:hidden mb-6 gap-3">
         { filter }
         <Sort
           name="tokens_sorting"
@@ -60,9 +60,8 @@ const TokensActionBar = ({
         />
         { searchInput }
       </div>
-      <ActionBar
-      >
-        <div>
+      <ActionBar>
+        <div className="hidden lg:flex gap-3">
           { filter }
           { searchInput }
         </div>

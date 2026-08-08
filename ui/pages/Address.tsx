@@ -422,14 +422,12 @@ const AddressPageContent = () => {
     />
   );
 
-  // API always returns hash in check-summed format except for addresses that are not in the database
-  // In this case it returns 404 with empty payload, so we calculate check-summed hash on the client
+  // The API case-folds the hash it echoes back, so checksum whatever we display
+  // rather than trusting the payload to arrive check-summed. getAddress reads
+  // any case and is idempotent, so this is the same one call for a hash that
+  // came from the API, from the route, or from neither yet.
   const checkSummedHash = React.useMemo(() => {
-    if (isLoading) {
-      return getCheckedSummedAddress(hash);
-    }
-
-    return addressQuery.data?.hash ?? getCheckedSummedAddress(hash);
+    return getCheckedSummedAddress(isLoading ? hash : addressQuery.data?.hash ?? hash);
   }, [ hash, addressQuery.data?.hash, isLoading ]);
 
   const titleSecondRow = (
