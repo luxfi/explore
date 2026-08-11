@@ -3,6 +3,8 @@ import React from 'react';
 
 import config from 'configs/app';
 import type { PChainValidator, ValidatorStats } from 'lib/api/pchain';
+import { useNetworkValidators } from 'lib/api/pchain/useNetworkValidators';
+import { cn } from 'lib/utils/cn';
 
 import { formatStake, truncateNodeId } from './utils';
 
@@ -19,6 +21,62 @@ const UNKNOWN = '\u2014';
 
 const TOP_VALIDATORS_COUNT = 20;
 const PERCENTAGE_SCALE = 100;
+
+// ---------------------------------------------------------------------------
+// Every network's validators
+// ---------------------------------------------------------------------------
+
+// The cards above count THIS chain. Zoo and Hanzo run as L2s on the primary
+// network and Pars and Osage as their own L1s, so a reader who wants to know
+// how much iron is behind Lux needs all of them — a page titled "Validators"
+// that shows one network's share is answering a narrower question than the one
+// being asked.
+//
+// Every network is listed, including ones that did not answer. A chain dropped
+// from the list would read as a chain with no validators, and the total says
+// how many answered so a partial sum is never mistaken for the whole.
+const NetworkValidators = () => {
+  const { networks, total, isKnown, isLoading, answeredCount, queriedCount } = useNetworkValidators();
+
+  if (networks.length <= 1) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-lg border border-[var(--color-border-divider)] p-4">
+      <div className="flex items-baseline justify-between mb-3">
+        <span className="text-sm font-medium">All networks</span>
+        <Skeleton loading={ isLoading }>
+          <span className="font-mono text-sm">
+            { isKnown ? total.toLocaleString() : UNKNOWN }
+            { answeredCount !== queriedCount && (
+              <span className="ml-2 text-2xs text-[var(--color-text-secondary)]">
+                { answeredCount } of { queriedCount } answered
+              </span>
+            ) }
+          </span>
+        </Skeleton>
+      </div>
+      <div className="flex flex-col gap-1">
+        { networks.map((network) => (
+          <div key={ network.chainId } className="flex items-center justify-between text-xs">
+            <span className="text-[var(--color-text-secondary)]">{ network.name }</span>
+            <Skeleton loading={ network.isLoading }>
+              <span className={ cn(
+                'font-mono',
+                network.status === 'live' ?
+                  'text-[var(--color-text-primary)]' :
+                  'text-[var(--color-text-secondary)]',
+              ) }>
+                { network.status === 'live' ? network.validatorCount : network.status }
+              </span>
+            </Skeleton>
+          </div>
+        )) }
+      </div>
+    </div>
+  );
+};
 
 // ---------------------------------------------------------------------------
 // Stat card
@@ -200,6 +258,9 @@ const ValidatorsDashboard = ({ validators, stats, isLoading, isKnown }: Validato
           isLoading={ isLoading }
         />
       </div>
+
+      { /* Every network, not just this one */ }
+      <NetworkValidators/>
 
       { /* Stake breakdown */ }
       <StakeBreakdown stats={ stats } isLoading={ isLoading } isKnown={ isKnown }/>
