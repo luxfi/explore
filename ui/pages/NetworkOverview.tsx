@@ -262,10 +262,12 @@ const NetworkOverview = () => {
             'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
             'bg-[var(--color-stats-bg)]',
           ) }>
-            { /* Every L1 in the registry, not just this chain. The breakdown is
-                 in the Validators card below. Stake stays primary-network only:
-                 each chain bonds its own currency and the sum of two currencies
-                 is not a quantity. */ }
+            { /* Every network's validators, which is the number a reader wants:
+                 the fleet securing Lux is not just the primary network's share
+                 of it. Stake stays primary-only beside it because each network
+                 bonds its own currency and the sum of two currencies is not a
+                 quantity \u2014 so the label says which network the stake is for
+                 rather than letting the two be read as one ratio. */ }
             <Metric
               label={ allValidators.answeredCount === allValidators.queriedCount ? 'Validators' : 'Validators (partial)' }
               value={ allValidators.isKnown ? String(allValidators.total) : '\u2014' }
@@ -273,7 +275,7 @@ const NetworkOverview = () => {
             />
             <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
             <Metric
-              label="Staked"
+              label={ `Staked on ${ config.chain.name || 'primary' }` }
               value={ hasValidatorData ?
                 `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` :
                 '\u2014' }
