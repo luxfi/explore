@@ -77,7 +77,7 @@ import { SocketProvider } from 'lib/socket/context';
 import { Provider as ThemeProvider } from 'toolkit/next/provider';
 import AppErrorBoundary from 'ui/shared/AppError/AppErrorBoundary';
 import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer';
-import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
+import HanzoInsights from 'ui/shared/HanzoInsights';
 import Layout from 'ui/shared/layout/Layout';
 import Web3Provider from 'ui/shared/web3/Web3Provider';
 
@@ -225,7 +225,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout) {
                         </MarketplaceContextProvider>
                       </RewardsProvider>
                     </SocketProvider>
-                    <GoogleAnalytics/>
+                    <HanzoInsights/>
                   </AppContextProvider>
                 </Web3Provider>
               </QueryClientProvider>
