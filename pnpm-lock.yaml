@@ -60,6 +60,9 @@ importers:
       '@dynamic-labs/wagmi-connector':
         specifier: 4.52.2
         version: 4.52.2(2ec052942d9018144c9e8da474b03fb7)
+      '@hanzo/event':
+        specifier: ^0.3.21
+        version: 0.3.21(react@19.2.4)
       '@helia/verified-fetch':
         specifier: 2.6.12
         version: 2.6.12(bufferutil@4.0.9)(react-native@0.84.0(@babel/core@7.28.5)(@react-native/metro-config@0.86.2(@babel/core@7.28.5)(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@types/react@19.2.14)(bufferutil@4.0.9)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
@@ -2673,6 +2676,14 @@ packages:
     resolution: {integrity: sha512-AiXO/bfe9bmxBjxxtYxFAXGZvMaN5s8kO+jBHAJCON8rJoB5YS/D6X7ZNc6XQkuHNmyl4CYaMI1fJ/Gn27RGGw==}
     engines: {node: '>=6'}
     hasBin: true
+
+  '@hanzo/event@0.3.21':
+    resolution: {integrity: sha512-gUEql7ZteyNIkxdX9G44plCNYMNppdU3K9s9uc3IBtwdMjCS6iRM7Z7EP9aOtZm8LqPnAJU9l7IRYYFKhG9cRQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@hanzo/gui@7.3.0':
     resolution: {integrity: sha512-VJw3CocBJztLIil55NpCv2XxL7mIQHebTnhR/R7EDoJ19RUWATqqzn6r+jalPnzRR33D0eUKT7VR0IWz9GhQ8w==}
@@ -17702,6 +17713,10 @@ snapshots:
       long: 5.2.3
       protobufjs: 7.3.2
       yargs: 17.7.2
+
+  '@hanzo/event@0.3.21(react@19.2.4)':
+    optionalDependencies:
+      react: 19.2.4
 
   '@hanzo/gui@7.3.0(expo@57.0.8)(react-dom@19.2.4(react@19.2.4))(react-native-web@0.21.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-native@0.84.0(@babel/core@7.28.5)(@react-native/metro-config@0.86.2(@babel/core@7.28.5)(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@types/react@19.2.14)(bufferutil@4.0.9)(react@19.2.4)(utf-8-validate@5.0.10))(react@19.2.4)(sf-symbols-typescript@2.2.0)':
     dependencies:
