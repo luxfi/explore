@@ -22,7 +22,7 @@ export { default as faultProofSystem } from './faultProofSystem';
 export { default as flashblocks } from './flashblocks';
 export { default as gasTracker } from './gasTracker';
 export { default as getGasButton } from './getGasButton';
-export { default as googleAnalytics } from './googleAnalytics';
+export { default as hanzoInsights } from './hanzoInsights';
 export { default as hotContracts } from './hotContracts';
 export { default as marketplace } from './marketplace';
 export { default as megaEth } from './megaEth';
