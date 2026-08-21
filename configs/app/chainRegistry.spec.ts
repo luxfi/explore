@@ -72,6 +72,34 @@ describe('chain-visibility rule', () => {
     });
   });
 
+  // The footer renders branding.sourceUrl and branding.orgName verbatim, so a
+  // foreign org in either is a brand leak a reader can see. It shipped once as a
+  // hardcoded github.com/luxfi/explore version link on every brand's footer.
+  describe('a brand host never surfaces another org', () => {
+    const foreign: Record<string, Array<string>> = {
+      'explore.hanzo.ai': [ 'luxfi', 'lux.network', 'zoo', 'pars' ],
+      'explore.hanzo.network': [ 'luxfi', 'lux.network', 'zoo', 'pars' ],
+      'explore.zoo.network': [ 'luxfi', 'lux.network', 'hanzo', 'pars' ],
+    };
+
+    it.each(Object.entries(foreign))('%s footer names only its own org', (host, others) => {
+      atHost(host);
+      const { orgName, sourceUrl, websiteUrl, githubUrl } = getCurrentChain().branding;
+      const rendered = [ orgName, sourceUrl, websiteUrl, githubUrl ].join(' ').toLowerCase();
+      others.forEach((org) => expect(rendered).not.toContain(org));
+    });
+
+    it('lux keeps its own source link', () => {
+      atHost('explore.lux.network');
+      expect(getCurrentChain().branding.sourceUrl).toBe('https://github.com/luxfi/explore');
+    });
+
+    it('hanzo carries the legal entity used across hanzo surfaces', () => {
+      atHost('explore.hanzo.ai');
+      expect(getCurrentChain().branding.orgName).toBe('Hanzo AI, Inc.');
+    });
+  });
+
   describe('keystone: unregistered white-label hosts are NEVER the primary explorer', () => {
     it('does not leak the lux primary network to an unknown host', () => {
       atHost('explore.unknown.example');

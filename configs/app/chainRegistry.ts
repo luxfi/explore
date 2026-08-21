@@ -25,6 +25,11 @@ export interface ChainBranding {
   /** GitHub org URL */
   readonly githubUrl: string;
 
+  /** Repository this frontend is built from, for the footer's version link.
+   *  Every brand serves the same image from its own org's mirror, so the link
+   *  has to follow the brand — a Lux URL on a Hanzo page is a cross-brand leak. */
+  readonly sourceUrl: string;
+
   /** Twitter/X URL */
   readonly twitterUrl: string;
 
@@ -52,6 +57,7 @@ export function applyBrandEnvOverrides(b: ChainBranding): ChainBranding {
     websiteUrl: getEnvValue('NEXT_PUBLIC_BRAND_WEBSITE_URL') || b.websiteUrl,
     description: getEnvValue('NEXT_PUBLIC_BRAND_DESCRIPTION') || b.description,
     githubUrl: getEnvValue('NEXT_PUBLIC_BRAND_GITHUB_URL') || b.githubUrl,
+    sourceUrl: getEnvValue('NEXT_PUBLIC_BRAND_SOURCE_URL') || b.sourceUrl,
     twitterUrl: getEnvValue('NEXT_PUBLIC_BRAND_TWITTER_URL') || b.twitterUrl,
     discordUrl: getEnvValue('NEXT_PUBLIC_BRAND_DISCORD_URL') || b.discordUrl,
     logoViewBox: getEnvValue('NEXT_PUBLIC_BRAND_LOGO_VIEWBOX') || b.logoViewBox,
@@ -105,6 +111,7 @@ const LUX_BRANDING: ChainBranding = {
   websiteUrl: 'https://lux.network',
   description: 'High-performance blockchain for decentralized applications.',
   githubUrl: 'https://github.com/luxfi',
+  sourceUrl: 'https://github.com/luxfi/explore',
   twitterUrl: 'https://x.com/luxdefi',
   discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 100 100',
@@ -120,6 +127,7 @@ const ZOO_BRANDING: ChainBranding = {
   websiteUrl: 'https://zoo.ngo',
   description: 'Open AI research network — decentralized AI and science.',
   githubUrl: 'https://github.com/zoolabs',
+  sourceUrl: 'https://github.com/zooai/explore',
   twitterUrl: 'https://x.com/zoolabs',
   discordUrl: 'https://discord.gg/zoolabs',
   logoViewBox: '0 0 1024 1024',
@@ -173,10 +181,11 @@ const ZOO_BRANDING: ChainBranding = {
 const HANZO_BRANDING: ChainBranding = {
   brandName: 'Hanzo AI',
   productName: 'Explorer',
-  orgName: 'Hanzo Industries Inc.',
+  orgName: 'Hanzo AI, Inc.',
   websiteUrl: 'https://hanzo.ai',
   description: 'AI blockchain — decentralized compute and inference.',
   githubUrl: 'https://github.com/hanzoai',
+  sourceUrl: 'https://github.com/hanzoai/explore',
   twitterUrl: 'https://x.com/hanaboratory',
   discordUrl: 'https://discord.gg/hanzoai',
   logoViewBox: '0 0 67 67',
@@ -205,6 +214,7 @@ const SPC_BRANDING: ChainBranding = {
   websiteUrl: 'https://sparkleponyclub.com',
   description: 'SPC chain.',
   githubUrl: 'https://github.com/luxfi',
+  sourceUrl: 'https://github.com/luxfi/explore',
   twitterUrl: 'https://x.com/luxdefi',
   discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 64 64',
@@ -223,6 +233,7 @@ const PARS_BRANDING: ChainBranding = {
   websiteUrl: 'https://pars.network',
   description: 'Pars blockchain — financial infrastructure for the Persian-speaking world.',
   githubUrl: 'https://github.com/luxfi',
+  sourceUrl: 'https://github.com/luxfi/explore',
   twitterUrl: 'https://x.com/parsnetwork',
   discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '-120 -120 240 240',
@@ -269,6 +280,7 @@ const OSAGE_BRANDING: ChainBranding = {
   websiteUrl: 'https://osage.network',
   description: 'Osage blockchain explorer.',
   githubUrl: 'https://github.com/luxfi',
+  sourceUrl: 'https://github.com/luxfi/explore',
   twitterUrl: 'https://x.com/luxdefi',
   discordUrl: 'https://discord.gg/luxnetwork',
   logoViewBox: '0 0 100 100',

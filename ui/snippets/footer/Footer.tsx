@@ -20,9 +20,6 @@ import getApiVersionUrl from './utils/getApiVersionUrl';
 
 const MAX_LINKS_COLUMNS = 4;
 
-const FRONT_VERSION_URL = `https://github.com/luxfi/explore/tree/${ config.UI.footer.frontendVersion }`;
-const FRONT_COMMIT_URL = `https://github.com/luxfi/explore/commit/${ config.UI.footer.frontendCommit }`;
-
 const Footer = () => {
 
   const { data: backendVersionData } = useApiQuery('general:config_backend_version', {
@@ -73,11 +70,13 @@ const Footer = () => {
 
   const frontendLink = (() => {
     if (config.UI.footer.frontendVersion) {
-      return <Link href={ FRONT_VERSION_URL } external noIcon>{ config.UI.footer.frontendVersion }</Link>;
+      const href = `${ branding.sourceUrl }/tree/${ config.UI.footer.frontendVersion }`;
+      return <Link href={ href } external noIcon>{ config.UI.footer.frontendVersion }</Link>;
     }
 
     if (config.UI.footer.frontendCommit) {
-      return <Link href={ FRONT_COMMIT_URL } external noIcon>{ config.UI.footer.frontendCommit }</Link>;
+      const href = `${ branding.sourceUrl }/commit/${ config.UI.footer.frontendCommit }`;
+      return <Link href={ href } external noIcon>{ config.UI.footer.frontendCommit }</Link>;
     }
 
     return null;
