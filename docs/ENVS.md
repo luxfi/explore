@@ -44,7 +44,7 @@ All json-like values should be single-quoted. If it contains a hash (`#`) or a d
   - [User operations](#user-operations-erc-4337)
   - [Rollup chain](#rollup-chain)
   - [Export data to CSV file](#export-data-to-csv-file)
-  - [Google analytics](#google-analytics)
+  - [Hanzo Insights](#hanzo-insights)
   - [Mixpanel analytics](#mixpanel-analytics)
   - [GrowthBook feature flagging and A/B testing](#growthbook-feature-flagging-and-ab-testing)
   - [GraphQL API documentation](#graphql-api-documentation)
@@ -579,11 +579,15 @@ feature enabled but no key, the dialog says so rather than failing silently.
 
 &nbsp;
 
-### Google analytics
+### Hanzo Insights
+
+Pageviews go to Hanzo Insights through `@hanzo/event`. The key is publishable and
+write-only, and the app carries a default for this deployment, so this variable is
+only needed to point the surface at a different project.
 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
-| NEXT_PUBLIC_GOOGLE_ANALYTICS_PROPERTY_ID | `string` | Property ID for [Google Analytics](https://analytics.google.com/) service | true | - | `UA-XXXXXX-X` | v1.0.x+ |
+| NEXT_PUBLIC_PUBLISHABLE_KEY | `string` | Publishable ingest key for [Hanzo Insights](https://insights.hanzo.ai/) | false | - | `pk-...` | v1.0.x+ |
 
 &nbsp;
 

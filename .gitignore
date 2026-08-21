@@ -75,6 +75,5 @@ license.json
 release-prs-data.json
 
 AGENTS.md
-CLAUDE.md
 GEMINI.md
 QWEN.md
