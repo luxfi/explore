@@ -78,7 +78,7 @@ class OuterErrorBoundary extends React.Component<
           maxWidth: 600,
           margin: '80px auto',
           padding: 24,
-          fontFamily: 'Geist, system-ui, sans-serif',
+          fontFamily: 'Zen, system-ui, sans-serif',
         }}>
           <h1 style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>
             Something went wrong

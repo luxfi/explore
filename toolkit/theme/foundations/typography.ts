@@ -1,2 +1,2 @@
-export const BODY_TYPEFACE = 'Geist';
-export const HEADING_TYPEFACE = 'Geist';
+export const BODY_TYPEFACE = 'Zen';
+export const HEADING_TYPEFACE = 'Zen';

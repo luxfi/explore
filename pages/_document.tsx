@@ -44,19 +44,14 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          { /* FONTS */ }
-          <link
-            href={ config.UI.fonts.heading?.url ?? 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap' }
-            rel="stylesheet"
-          />
-          <link
-            href={ config.UI.fonts.body?.url ?? 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap' }
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
+          { /* FONTS — Zen ships with the app; these links only fire for a
+              deployer who names a different face in NEXT_PUBLIC_FONT_FAMILY_*. */ }
+          { config.UI.fonts.heading?.url && (
+            <link href={ config.UI.fonts.heading.url } rel="stylesheet"/>
+          ) }
+          { config.UI.fonts.body?.url && (
+            <link href={ config.UI.fonts.body.url } rel="stylesheet"/>
+          ) }
 
           { /* eslint-disable-next-line @next/next/no-sync-scripts */ }
           <script src="/assets/envs.js"/>
