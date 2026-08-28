@@ -50,7 +50,7 @@
     "@luxfi/points-types": "1.4.2",
     "@luxfi/stats-types": "2.11.1",
     "@luxfi/tac-operation-lifecycle-types": "1.1.0",
-    "@luxfi/ui": "7.3.2",
+    "@luxfi/ui": "5.5.6",
     "@luxfi/visualizer-types": "0.2.0",
     "@luxfi/zetachain-cctx-types": "1.0.1",
     "@metamask/post-message-stream": "^7.0.0",
@@ -234,5 +234,5 @@
       "@ipshipyard/node-datachannel": "link:./stubs/node-datachannel"
     }
   },
-  "packageManager": "pnpm@10.11.0"
+  "packageManager": "pnpm@11.24.0"
 }
