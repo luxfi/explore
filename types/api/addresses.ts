@@ -1,6 +1,14 @@
 import type { AddressParam } from './addressParams';
 
-export type AddressesItem = AddressParam & { transactions_count: string; coin_balance: string | null };
+// The list endpoints carry a projection of an address, not the full record:
+// tags, names and implementations are resolved per-address and are simply
+// absent here. Partial says so, which is what forces the read sites to reach
+// for them optionally instead of assuming a null.
+export type AddressesItem = Partial<AddressParam> & {
+  hash: string;
+  transactions_count: string;
+  coin_balance: string | null;
+};
 
 export type AddressesResponse = {
   items: Array<AddressesItem>;
@@ -9,7 +17,7 @@ export type AddressesResponse = {
     hash: string;
     items_count: number;
   } | null;
-  total_supply: string;
+  total_supply?: string;
 };
 
 export interface AddressesMetadataSearchResult {

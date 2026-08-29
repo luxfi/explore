@@ -110,7 +110,12 @@ const AppError = ({ error, className }: Props) => {
   })();
 
   return (
-    <div className={ `mt-[52px] lg:mt-[104px] max-w-[800px] ${ className || '' }` }>
+    // The pieces below — status glyph, heading, copy, button — are written as a
+    // plain sequence and read as a stack. Nothing here can rely on them being
+    // block-level: the glyph is an inline-block div and gui's H1 renders inline,
+    // so in normal flow they share a line box and the glyph runs straight into
+    // the headline. A column lays them out as the markup reads.
+    <div className={ `mt-[52px] lg:mt-[104px] max-w-[800px] flex flex-col items-start ${ className || '' }` }>
       { content }
     </div>
   );

@@ -44,7 +44,7 @@ const AddressesListItem = ({
           <span>{ index }</span>
         </Skeleton>
       </div>
-      { item.public_tags !== null && item.public_tags.length > 0 && item.public_tags.map(tag => (
+      { item.public_tags?.map(tag => (
         <Tag key={ tag.label } loading={ isLoading } truncated>{ tag.display_name }</Tag>
       )) }
       <div className="flex flex-row gap-3 max-w-full items-[flex-start]">
