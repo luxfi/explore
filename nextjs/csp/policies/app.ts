@@ -1,3 +1,6 @@
+import { bootScript } from '@hanzo/appearance/state';
+import Base64 from 'crypto-js/enc-base64';
+import sha256 from 'crypto-js/sha256';
 import type CspDev from 'csp-dev';
 
 import config from 'configs/app';
@@ -81,6 +84,14 @@ export function app(isPrivateMode = false): CspDev.DirectiveDescriptor {
       '\'sha256-YiC5bd+aSY6gJKgwwD9kRRZCdn/qi++mRW6ERR4uZ3c=\'',
       '\'sha256-wMOeDjJaOTjCfNjluteV+tSqHW547T89sgxd8W6tQJM=\'',
       '\'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\'',
+
+      // The appearance boot script (_document). Hashed from the SAME call that
+      // renders it, the way the adbutler scripts are, rather than pasted as a
+      // literal: the script is @hanzo/appearance's and changes when that package
+      // does, and a stale literal fails silently — the policy still parses, the
+      // browser drops the script, and the page paints at the published defaults
+      // with the reader's own settings quietly ignored.
+      `'sha256-${ Base64.stringify(sha256(bootScript())) }'`,
     ],
 
     'style-src': [

@@ -1,3 +1,4 @@
+import { bootScript } from '@hanzo/appearance/state';
 import type { DocumentContext } from 'next/document';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
@@ -44,6 +45,24 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          { /*
+            * The reader's own settings, before the first paint.
+            *
+            * Type scale, ratio, density, face and measure are stored on the
+            * device and land as inline custom properties on <html>, which is
+            * :root — so they outrank the token sheet without needing a
+            * selector to out-specify it. Every ramp in @hanzo/design already
+            * multiplies by them, so five properties retune the whole page.
+            *
+            * It runs here, synchronously, because anything later paints the
+            * published defaults first and then jumps, and a jump on every load
+            * reads as a bug rather than as a setting. The panel re-applies on
+            * mount (useAppearance in toolkit/next/provider), where an accent
+            * colour can be validated — which a head script this small will not
+            * do.
+            */ }
+          <script dangerouslySetInnerHTML={{ __html: bootScript() }}/>
+
           { /* FONTS */ }
           <link
             href={ config.UI.fonts.heading?.url ?? 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap' }

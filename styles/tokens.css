@@ -1,13 +1,84 @@
 /*
- * Explore rides the canonical Lux token set.
+ * The token layer.
  *
- * Every colour the explorer paints resolves through @luxfi/ui/tokens.css — one
- * achromatic ladder, two state hues, and the --lux-accent hook the Host header
- * retints. This file used to be a 500-line fork of that sheet, which is how it
- * drifted its own browns: --color-status-warn #B45309 / #FBBF7A, and the whole
- * Chakra orange + yellow badge ramp (#FEEBCB #FFFAF0 #DD6B20 #FFFFF0 #D69E2E
- * #FEFCBF #B7791F #C05621 #7B341E #744210 #FAF089).
+ * COLOUR is @luxfi/ui's. One achromatic ladder, two state hues, and the
+ * --lux-accent hook a hostname retints. It declares colour and nothing else —
+ * measured: no space ramp, no type ramp, no radius, no z, no grid among its 348
+ * properties.
  *
- * Add a token to the design system, never here.
+ * MEASURE is Tailwind's, for as long as Tailwind is here. v4 keeps the ramps in
+ * `@theme` and compiles each utility to a `var()` REFERENCE rather than a baked
+ * value — `.p-4` is `calc(var(--spacing) * 4)`, `.text-base` is
+ * `var(--text-base)`. So the ramps are already live custom properties, and a
+ * preference reaches them by retuning the ramp rather than by restating it.
+ *
+ * That reference is also why @hanzo/design's token sheets are NOT imported here.
+ * They declare --text-*, --radius-* and --breakpoint-* — the same names Tailwind
+ * publishes — outside any layer, so they win, and the whole app silently
+ * reanchors: --text-base 16px -> 14px, --radius-lg 8px -> 12px, --breakpoint-sm
+ * 415px -> 40rem. Measured in the built sheet, not inferred. design's ramps
+ * become the explorer's ramps when Tailwind leaves and there is one ramp to own;
+ * until then two sets under one set of names is a silent fork, not a migration.
  */
 @import '@luxfi/ui/tokens.css';
+
+/*
+ * Where a reader's own settings land.
+ *
+ * @hanzo/appearance stores the preference and puts it on <html> as inline
+ * custom properties — before first paint via the head script in _document, and
+ * again on mount for the axes a 900-byte script will not validate. It writes
+ * numbers only. What those numbers MEAN is here, so the storage and the
+ * arithmetic stay in separate hands.
+ *
+ * Two axes reach the whole page from one declaration each:
+ *
+ *   --type-scale  the root font size. Every Tailwind rung is in rem, so one
+ *                 percentage moves the entire ramp — rungs this file has never
+ *                 heard of included, and rungs added later. Nothing is restated,
+ *                 so nothing can drift.
+ *
+ *   --density     the spacing base. Every p-*, m-*, gap-* is calc(var(--spacing)
+ *                 * n), so the ladder has exactly one rung to retune. It sits on
+ *                 TOP of type: larger type carries its layout with it, and
+ *                 density is then how tight that layout runs.
+ *
+ * Both default to 1, so an install that has never opened the panel renders byte
+ * for byte what it rendered before.
+ *
+ *   --font-sans   the face. `font` picks one; Tailwind's font-sans utility
+ *                 already resolves through this property.
+ *   --primary     the accent, which @luxfi/ui components read.
+ *
+ * The `ratio` and `modular` axes are inert on this surface and will stay inert
+ * while Tailwind owns the ramp: both reshape the SPACING BETWEEN rungs, which
+ * needs the ramp to be parameterised rung by rung the way tokens/typography.css
+ * writes it. Tailwind's ladder is a flat list of literals — there is no term to
+ * multiply. `width` (the measure) is inert for the same reason: it moves
+ * --container-max / --container-prose / --container-wide, which this surface
+ * does not lay out against.
+ *
+ * A reader's accent reaches --primary but not --lux-accent, which is what the
+ * explorer's own --color-button-solid-bg and --color-link-primary derive from.
+ * Binding them here would mean `--lux-accent: var(--primary)` against a sheet
+ * that already says `--primary: var(--lux-accent)` — a cycle, and a cycle in CSS
+ * is not an error, it is both properties resolving to nothing. The hook belongs
+ * in @luxfi/ui, one line: give --lux-accent a reader-settable fallback.
+ */
+@theme {
+  --spacing: calc(0.25rem * var(--density, 1));
+}
+
+:root {
+  font-size: calc(100% * var(--type-scale, 1));
+
+  /*
+   * The faces `font` can choose between. It makes the switch by pointing
+   * --font-sans at one of these, so a face it can name has to exist. Sans and
+   * mono are the explorer's own, declared in the Tailwind theme; serif is the
+   * one @hanzo/design's fonts.css would have brought, and it is a stack rather
+   * than a webfont because a reader who asks for a serif wants to read, not to
+   * wait for a download.
+   */
+  --font-serif: Georgia, 'Times New Roman', serif;
+}

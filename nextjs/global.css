@@ -25,6 +25,13 @@
  * Breakpoints match Chakra: sm=415px, lg=1000px, xl=1440px, 2xl=1920px
  * Dark mode via .dark class (next-themes "class" strategy)
  * Font families: Geist (body/heading), Geist Mono (mono)
+ *
+ * The block below is the TAILWIND BRIDGE: names registered so a call site can
+ * write `text-good` or `bg-gray-100` and get a utility, with the values coming
+ * from @luxfi/ui. It exists because Tailwind is here and it goes when Tailwind
+ * goes. The other @theme, in styles/tokens.css, is a different thing with a
+ * different lifetime — it binds a reader's own settings to the ramps, and it
+ * outlives Tailwind. Two blocks, two reasons; Tailwind merges them.
  */
 @theme {
   /* --- Breakpoints --- */
