@@ -46,9 +46,9 @@ const AddressesTableItem = ({
             className="font-bold my-[2px]"
            
           />
-          { item.public_tags && item.public_tags.length ? item.public_tags.map(tag => (
+          { item.public_tags?.map(tag => (
             <Tag key={ tag.label } loading={ isLoading } truncated>{ tag.display_name }</Tag>
-          )) : null }
+          )) }
         </div>
       </TableCell>
       <TableCell isNumeric>
