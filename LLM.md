@@ -11,22 +11,56 @@ Lux Network Explorer is a fork of Blockscout Frontend, customized for the Lux bl
 
 ## Essential Commands
 
+**The package manager is pnpm** (`packageManager: pnpm@10.11.0`, only `pnpm-lock.yaml`
+exists). `yarn` in older notes below is wrong — `yarn install` would write a
+second lockfile.
+
 ```bash
-# Development
-yarn dev              # Start dev server (runs tools/scripts/dev.sh)
-yarn dev:preset       # Start with preset configuration
-yarn build            # Production build
-yarn build:docker     # Build Docker image
-yarn start            # Start production server
+# Development — THE dev command
+pnpm dev              # tools/scripts/dev.sh, serves on $NEXT_PUBLIC_APP_PORT (3055), NOT 3000
+
+pnpm build:next       # Production build WITH assets/sprite/envs.js
+pnpm start            # Start production server
 
 # Linting & Testing
-yarn lint:eslint      # Run ESLint
-yarn lint:tsc         # TypeScript check
-yarn test:pw          # Playwright tests
-yarn test:pw:local    # Playwright tests locally
+pnpm vitest run       # Unit suite — the only gate in .hanzo/workflows/ci.yml
+pnpm lint:eslint      # ESLint (repo-wide is red on main; keep YOUR files clean)
+pnpm lint:tsc         # TypeScript check (also red on main — see .hanzo/workflows/ci.yml)
+pnpm test:pw          # Playwright
+```
 
+### What `pnpm dev` actually does
+
+`tools/scripts/dev.sh` deletes and regenerates the runtime env bundle each start:
+
+1. `rm -rf public/assets/{configs,multichain,envs.js}`
+2. `download_assets.sh` — skips every unset `NEXT_PUBLIC_*` asset URL, so it is
+   offline-safe with the committed local env files
+3. `build_sprite.sh` — needs `jq` and `md5sum` (not macOS defaults)
+4. **`make_envs_script.sh` → `public/assets/envs.js`** — this is the file the
+   browser reads. `pages/_document.tsx` loads it as a blocking `<script>` and
+   `configs/app/utils.ts:getEnvValue` reads `window.__envs` from it. Plain
+   `next dev` does NOT generate it, and without it every API-backed page throws
+   `API config for general not found`.
+5. `next dev -p $NEXT_PUBLIC_APP_PORT`
+
+Env precedence is **first `-e` wins** (dotenv-cli, `override: false`):
+`.env.secrets` → `.env.development.local` → `.env.local` → `.env.development` → `.env`.
+Missing files are skipped silently, which is why the absent `.env.secrets` is harmless.
+⚠️ `.env.development.local` sets `NEXT_PUBLIC_APP_HOST=explore.lux.network`, so
+the local app self-identifies as production for absolute links and OIDC redirects.
+
+🪤 `.nvmrc` contains `>=22.14.0`, which is a semver range, not an nvm version —
+`nvm use` fails in this directory. CI pins the real value, `22.14.0`.
+
+🪤 **CSS comments do not nest.** A `/* … */` inside a block comment in
+`nextjs/global.css` ends it early, and the remaining prose is parsed as CSS —
+Turbopack then serves a full-page *Build Error* overlay instead of the app, so
+`pnpm dev` "starts" but nothing renders. Fixed once; do not reintroduce.
+
+```bash
 # Docker
-docker compose up                    # Dev environment
+docker compose up                      # Dev environment
 docker compose -f compose.prod.yml up  # Production
 ```
 
@@ -165,6 +199,157 @@ All symlinks reference this single source of truth.
 5. **TEST** UI changes with Playwright before committing
 
 ## Recent Changes
+
+### Duplicated tokens filter, colliding footer row, lower-case addresses (v1.1.27)
+
+- **`ui/tokens/TokensActionBar.tsx` was the one action bar the Chakra→Tailwind
+  port stripped.** Upstream has two blocks on purpose — `<HStack display={{base:
+  'flex', lg:'none'}}>` (filter + sort + search, mobile) and a `display={{base:
+  'none', lg:'flex'}}` block inside the sticky `ActionBar` (filter + search,
+  desktop). The port turned both into bare `<div>`s, so *both* rendered at every
+  width (two Filter buttons, two search inputs) and, with no `flex`, their
+  children stacked instead of sitting in a row. Every sibling kept the pattern —
+  `VerifiedContracts`, `NameDomainsActionBar`, `ClustersActionBar` all use
+  `flex lg:hidden` / `hidden lg:flex` — so the fix restores it rather than
+  inventing a second way. 🪤 When a page-level control looks doubled, count the
+  elements before blaming CSS: two things at one spot are usually two things.
+  ⚠️ `NameDomainsActionBar` writes its desktop block as `flex hidden lg:block` —
+  `block`, so its filter and input still stack at lg. Same family, not fixed here.
+- **@luxfi/ui's `ButtonFrame` never sets `flexDirection`.** It is `styled(View)`
+  on a react-native `View`, whose default is `column`, while the frame sets
+  `inline-flex`, `alignItems`, `gap`, a fixed `height` and `overflow: hidden` —
+  all of which only make sense for a row. Any Button with **two or more children**
+  stacks icon over label and the fixed height clips the label off. Swept 39
+  visible LuxButtons over 9 pages × 2 viewports: only 3 have >1 child and only
+  `Filter` clipped, so this is fixed at `ui/shared/filters/FilterButton.tsx`
+  (the single component behind every filter in the app) with an inline
+  `style={{ flexDirection: 'row' }}` — inline because the frame's own
+  `is_View` class outranks a Tailwind `flex-row` utility. **The primitive is
+  still wrong**; fix `ButtonFrame` upstream and drop the call-site style.
+- **`Footer`'s no-custom-links branch never wrapped its left column.** The grid is
+  `lg:grid-cols-[minmax(auto,470px)_1fr]` but that branch passes
+  `renderNetworkInfo() / renderProjectInfo() / renderRecaptcha()` as three
+  separate children, so auto-placement scattered them and the link row landed in
+  the **470px** track — where five 160px columns cannot fit. The two mobile
+  `grid-cols-2` tracks were also still the only *explicit* tracks at `lg`, so they
+  took `1fr` each, collapsed to width 0, and Contribute / X (Twitter) / Discord
+  painted on top of each other bottom-left. Both halves fixed: wrap the left
+  column in `<div className="min-w-0">` exactly as the custom-links branch already
+  does, and add `lg:grid-cols-none`. 🪤 A zero-width element does not register as
+  an overlap in a rect-intersection test — its text still paints over the
+  neighbour. Compare `max(width, scrollWidth)`, and treat width 0 as a defect.
+- **The API case-folds address hashes, so never trust the payload's casing.** The
+  backend lower-cases `{hash}`/`{addr}` path params before lookup (deliberate — a
+  checksummed URL used to 404). `ui/pages/Address.tsx` and
+  `ui/multichain/address/MultichainAddress.tsx` both read
+  `addressQuery.data?.hash ?? getCheckedSummedAddress(hash)`, and the `??` took
+  the lower-case payload whenever the address existed. Both now checksum whatever
+  they display; `getAddress` accepts any case and is idempotent. **Display-side
+  only — the backend keeps folding.** The page `<title>` was always right (it is
+  built from the route), which is why this only ever showed in the header.
+
+### Search adornments, ⌘K assistant, cross-L1 validator count (v1.1.23)
+
+- **@luxfi/ui `InputGroup` never applied its measured padding.** It measures the
+  start/end adornments with a ResizeObserver and then discards the result: the
+  clone is guarded on `displayName === 'FieldInput'`, a component that does not
+  exist in the package, and the props it would set (`ps`/`pe`) are Chakra style
+  props that the Tailwind/gui `Input` spreads onto the DOM and ignores. Both are
+  Chakra→Tailwind port leftovers, so **every** `InputGroup` in the app was
+  unpadded — the header search icon sat on the placeholder's leading letter
+  (measured: 24px left overlap, 52px right, at 1440x900).
+  Fixed at the primitive via `pnpm patch` → `patches/@luxfi__ui@7.4.10.patch`
+  (`pnpm install --frozen-lockfile` applies it, so CI gets it too). Publish the
+  same fix upstream and the patch can be dropped.
+  🪤 Removing the dead guard makes the *rest* of that clone live: it also blanked
+  `value`/`placeholder` on first render, which flips the field from controlled to
+  uncontrolled. Dropped, and measurement moved to a layout effect so there is no
+  unpadded first frame instead.
+- **`ClearButton` spread `className` over its own visibility classes**, so any
+  caller passing one clobbered `invisible` — the header showed a clear button on
+  an empty field. Merged with `cn` at the component.
+- **Validators counted one L1 of four.** `useCurrentValidators` asks a single
+  P-Chain (the one `NEXT_PUBLIC_NETWORK_RPC_URL` points at). Lux 96369, Hanzo
+  36963, Zoo 200200 and Pars 494949 each run their **own** P-Chain with their own
+  validator set — verified 2026-08-06, five each, four disjoint NodeID sets, so
+  20 not 5. `ChainEntry.nodeApiUrl` is the per-chain node origin;
+  `useNetworkValidators` fans out through the `/v1/pchain?chain=` proxy.
+  ⚠️ **Pars DOES have a P-Chain** and answers `platform.getCurrentValidators` —
+  do not assume otherwise. SPC and Osage have no publicly reachable node and are
+  reported `unavailable`, never 0. Stake is **not** summed across chains: each
+  bonds its own currency.
+- **⌘K assistant.** Nothing in this repo, `@luxfi/ui` or `@hanzo/gui` ships a
+  command palette or chat (no `cmdk`), so it is the existing Dialog + one global
+  listener + `pages/api/ai.ts`, which holds the credential server-side. Gated on
+  `NEXT_PUBLIC_AI_ASSISTANT_ENABLED`; `AI_API_KEY` is **not** a `NEXT_PUBLIC_`
+  var. 🪤 The gui Dialog's `size={{ lgDown: 'full', lg: 'md' }}` leaks `full`'s
+  `min-h-dvh rounded-none` into every width — `sizeClasses` only prefixes the
+  `lg` half. Use a plain size. 🪤 The gui `Input` sizes itself to 100% and
+  ignores flex utilities; wrap it to make the wrapper the flex item.
+
+### 🔴 Neither CI plane builds this image — measured 2026-08-06/07
+
+- `.github/workflows/*` is `runs-on: lux-build-amd64`, and
+  `gh api /orgs/luxfi/actions/runners` returns **0** — those jobs queue forever
+  (the runs on main sat 12–24h and were cancelled).
+- `.hanzo/workflows/release.yml` names a label the fleet DOES carry, but those
+  runners register with **git.hanzo.ai**, and this repo is a **pull mirror**
+  there: `git push hanzo main` is rejected 3/3 while `git ls-remote hanzo` shows
+  GitHub pushes arriving within ~15s. A mirror sync raises no Actions event, so
+  the workflow never fires. `v1.1.23` sat tagged with no image for ~2h.
+- The Gitea REST API 404s on **everything, including a repo that exists**, so it
+  cannot be used to check run status. Probe **GHCR** instead, always with a
+  negative control.
+- Neither `v1.1.21` nor `v1.1.22` carries `NEXT_PUBLIC_GIT_TAG` or the OCI
+  labels the release workflow sets — more evidence they were built by hand.
+
+**What works: build on our own amd64 nodes.**
+🪤 A local `--platform linux/amd64` cross-build on an arm64 Mac **cannot** build
+this image: colima emulates with QEMU, and `pnpm build` dies with
+`QEMU internal SIGILL / uncaught target signal 4`.
+🪤 buildx's `kubernetes` driver also fails here — its port-forward drops while
+streaming (`load build context ... err="EOF"`), and when the client dies the
+in-pod build keeps burning CPU but nothing is ever pushed.
+✅ The reliable path is a **Job** running `buildctl` in-cluster, so no local
+client is in the loop (`scratchpad/buildjob.yaml` shape): `moby/buildkit`
+privileged, `nodeSelector: runner-pool=1tb` + the `dedicated=ci-runner`
+toleration, `--opt context=https://github.com/luxfi/explore.git#<tag>` so
+buildkit clones server-side, and `DOCKER_CONFIG` pointing at a mounted GHCR
+secret so the push happens from inside the cluster.
+🪤 **Do not read "stalled" from CPU graphs.** `kubectl top pod` reads ~3m CPU /
+15Mi for a buildkit pod building flat out — it does not attribute the nested
+build cgroup. `kubectl top node` is no better: the `runner-pool-1tb` nodes also
+host 4 `git-runner-*` pods. The only honest check is inside the pod —
+`kubectl exec <pod> -- ps -o pid,etime,time,rss,args`; a `next build` with
+14 minutes of CPU TIME and 3.7 GB RSS is working, not hung. `Collecting build
+traces` (`@vercel/nft`) is the long pole on this app, several minutes on its own.
+
+📌 `hanzo-build` already runs a **`buildkitd-node` DaemonSet (7 nodes, amd64)** —
+prefer wiring a build to that over creating a namespace and Job by hand as this
+note's recipe does.
+
+### Runtime ENV plumbing — three places, all required
+
+Adding a `NEXT_PUBLIC_*` variable needs **all** of:
+1. `configs/app/features/<name>.ts` (+ the `features/index.ts` export)
+2. `deploy/tools/envs-validator/schemas/features/<name>.ts` (+ its `index.ts`
+   and a `.concat()` in `schema.ts`) — the schema is `.noUnknown(true)` and
+   `entrypoint.sh` validates at container start, so an undeclared variable
+   **stops the pod booting** (unless that deployment sets `SKIP_ENVS_VALIDATION`,
+   which `explore-env-lux` does)
+3. `docs/ENVS.md` — `collect_envs.sh` greps it to build `.env.registry`, and
+   `checkPlaceholdersCongruity` **throws** for a runtime var with no placeholder
+
+🪤 **`NEXT_PUBLIC_GIT_TAG` cannot be set from a ConfigMap.** The image bakes a
+four-key `.env` (`NEXT_PUBLIC_BRAND`, `GIT_COMMIT_SHA`, `GIT_TAG`,
+`ICON_SPRITE_HASH`) at build time, and `make_envs_script.sh` does `source .env`
+before emitting `envs.js` — so the build-time value wins over the pod env. That
+is correct: those four are properties of the image. Verified in-pod on
+2026-08-06: `printenv NEXT_PUBLIC_GIT_TAG` = `v1.1.19` while `envs.js` carried
+`""`. The stray key was the only drift on `explore-env-lux` (absent from
+`last-applied-configuration` and from both git sources) and was **removed**,
+not adopted — the version must come from the image or the footer can lie about
+which build is running.
 
 ### Shell overflow + white-on-white values + broken Menu button (v1.1.12)
 Three write-once-deploy-4 root causes from the 4-breakpoint UI audit. Built
@@ -568,6 +753,115 @@ white color that doesn't flip with the theme. Fixes:
   (+ `k8s/lux-devnet/explore-fe.yaml`).
 - App hydrates client-side (SSR HTML is an 8 KB shell) — verify the logo
   with a real browser (Playwright), not `curl | grep`.
+
+### Auth — Hanzo IAM is the only gate (do not add a second)
+
+- Sign-in is OIDC against Hanzo IAM. **Never build local password/OTP/SIWE
+  auth, and never re-point Blockscout's `/account/*` auth at our backend —
+  rewriting it *is* building custom auth.** The auth0 (email + one-time-code +
+  reCAPTCHA), Dynamic.xyz and CSRF paths were deleted, not ported: every
+  `/account/*` endpoint 404s on `api-explore.*` (measured), so none of it could
+  ever have worked here.
+- `lib/oidc.ts` is the ONE place that knows IAM's endpoints. Never rebuild a
+  path at a call site. IAM publishes discovery at
+  `<issuer>/.well-known/openid-configuration`; everything lives under
+  `/v1/iam/oauth/*` (`authorize`, `token`, `userinfo`, `logout`). The bare
+  `/oauth/*` and `/api/userinfo` paths are the IdP's SPA shell or a 404 and
+  fail *silently*.
+- **PKCE is mandatory.** IAM rejects a public client without it:
+  `error=invalid_request, PKCE is required for public clients`. Our clients are
+  public (a browser holds no secret), so the S256 challenge is not optional
+  polish — it is the thing that makes login work at all.
+- Client ids are `<org>-<app>` (HIP-0111): `lux-explore`, `zoo-explore`,
+  `hanzo-explore`, `pars-explore`. The tree shipped
+  `NEXT_PUBLIC_OIDC_CLIENT_ID=lux-explore-client-id`, a client that never
+  existed → `400 unknown client_id`. Issuers are `lux.id`, **`zoolabs.id`**
+  (NOT `zoo.id` — it does not resolve), `hanzo.id`, `pars.id`.
+- IAM state is changed ONLY by `make iam-provision` from that org's
+  `universe/infra/k8s/iam/provision.yaml`. 🪤 The upsert **REPLACES**
+  `redirectUris` — it does not merge. Any live URI not derivable from `hosts:`
+  must be stated under `redirects:` or the next converge deletes it.
+
+### UI stack — the migration is already done; Tailwind is NOT removable
+
+- Measured: `@chakra-ui` 0 files, `@emotion` 0, `styled-system` 0, `@radix-ui`
+  **0 files in our code**. `@luxfi/ui` is imported by ~787 files.
+- The ~17 `@radix-ui/*` entries in `package.json` have zero call sites — they
+  duplicate `@luxfi/ui`'s own 13 Radix dependencies. Dead declarations, safe to
+  drop, but they are our library's internals and Radix stays in the tree.
+- **Tailwind v4 is structural, not legacy cruft.** `nextjs/global.css` has
+  `@source "../node_modules/@luxfi/ui"` precisely so Tailwind emits the
+  utilities `@luxfi/ui` itself uses; purge them and the library breaks. There is
+  no `tailwind.config` — v4 is configured in CSS (`@theme`, `@custom-variant`).
+- Real remaining debt: ~137 files still pass Chakra-shaped style props
+  (`fontSize="sm"`, `w`, `borderRadius`) that `@luxfi/ui` absorbs via an
+  `any`-typed compat shim. If that shim goes, those files break.
+
+### Deployment traps
+
+- The four `ghcr.io/{luxfi,hanzoai,zooai,parsdao}/explore` tags are **byte-
+  identical copies** (same digest) — brand comes entirely from the
+  `explore-env-<brand>` ConfigMap at runtime. A version bump is therefore
+  `crane copy`, not four builds. Never mix org registries.
+- 🪤 CI cannot build this repo from GitHub: `gh api /orgs/luxfi/actions/runners`
+  returns **0**. `runs-on: lux-build-amd64` is a valid legacy alias, but its
+  pool lives on the arcd/git.hanzo.ai fleet, so GitHub runs queue for 12–24h and
+  get cancelled. git.hanzo.ai mirrors `main` automatically.
+- 🪤 `tsconfig.json` has `incremental: true`. A stale `tsconfig.tsbuildinfo`
+  reports errors against file contents that no longer exist. Delete it before
+  trusting a typecheck diff.
+- 🪤 `.cspell-words.txt` is in cspell's **ignorePaths**, not a dictionary. New
+  words go in the `words` array in `cspell.jsonc` or the pre-commit hook fails.
+
+## The primary-network chains: what is real, and what only looks it
+
+Measured 2026-08-08 against all three networks. These are facts about the
+network, not about this app, so check them before believing any chain page.
+
+- **The chain list is `platform.getBlockchains`, never a table in this repo.**
+  mainnet and testnet report nine chains (A B C D G K Q X Z); devnet reports
+  ten, adding **M**. `configs/app/primaryChains.ts` additionally names **T, R,
+  I and O, which are registered on NO network** — the node answers "there is no
+  ID with alias: T". That table is presentation metadata; the network is the
+  source of truth. `/chains` and `/chains/<slug>` join the two.
+- **The public gateway routes exactly three chains: `/v1/bc/P`, `/v1/bc/X` and
+  `/v1/bc/C/rpc`.** Everything else 404s — including C-Chain's own blockchain
+  ID, `/v1/bc/25td8att…/rpc`, which proves the 404 is the route and not the
+  chain. D, A, B, Z, G, K are registered AND bootstrapped on the node; a
+  browser simply cannot reach them. Render that as unreachable, never as a
+  height of 0.
+- **Q-Chain is `isBootstrapped: false` on all three networks** and is the sole
+  entry in `/v1/health`'s not-bootstrapped list — which is why all three
+  networks report `healthy: false`. Q's page says Syncing; that is correct.
+- **P and X both report height 0** on all three. That is the RPC's real answer
+  (genesis-era P timestamps confirm it), not a failure.
+- **X speaks `xvm.*`, not `avm.*`.** `avm` returns "can't find service".
+  `xvm.getBlockchainID` and `xvm.getTxFee` are not in this build either.
+- C-Chain chain ids: mainnet **96369**, testnet **96368**, devnet **96367**.
+- 🪤 `api-indexer-<x>chain.lux.network` — all fifteen were NXDOMAIN. Deleted.
+  Do not reintroduce a per-chain indexer host map without probing DNS first.
+
+### Reaching the node
+`/v1/node/<endpoint>` (`pages/api/node/[endpoint].ts`) is the ONE proxy. The
+browser cannot call the node directly — the gateway 404s the OPTIONS preflight
+for `/v1/bc/*`. The endpoint is resolved against the primary-chain table and
+never used as a URL. A chain the gateway does not route answers 200 with a
+JSON-RPC error, not 502: nothing is broken, and 502 painted a failed request
+into the console of eight of the ten chain pages.
+
+### 🪤 Deployment does not follow the tag
+`.hanzo/workflows/release.yml` builds the image and copies it to each brand
+registry, then **prints** "Pin all five brands to <tag> in luxfi/universe
+deploy/lux-mainnet/". Nothing performs that pin. On 2026-08-08 GHCR held
+v1.1.28, v1.1.29 and v1.1.26 while `universe` still declared **v1.1.26** — so
+v1.1.27 (never built) and v1.1.28/29 (built, undeployed) had all been sitting.
+Moving the pin is a hand commit in `luxfi/universe`; the history does exactly
+that ("move all five brands to v1.1.26").
+🪤 Only `deploy/lux-mainnet/explore-fe-*.yaml` drives CD (`cd.automated: true`,
+"CD applies this file within ~90s"). The **testnet and devnet files are
+snapshots generated from the live Deployment** by `hack/live2values.py` and say
+so in their header — editing them deploys nothing. Those two clusters were on
+`v1.0.4` / `sha-caf792d` while mainnet ran v1.1.26.
 
 ### 2024-12-24
 - Merged upstream blockscout/frontend (up to commit 5a49ad8b1)
