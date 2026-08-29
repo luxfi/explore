@@ -9,13 +9,13 @@
     "dev": "./dev.sh"
   },
   "dependencies": {
-    "es-toolkit": "1.39.10",
-    "viem": "2.38.6"
+    "es-toolkit": "catalog:",
+    "viem": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "22.12.0",
-    "dotenv-cli": "10.0.0",
-    "typescript": "5.4.2",
-    "vite": "6.4.1"
+    "@types/node": "catalog:",
+    "dotenv-cli": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }

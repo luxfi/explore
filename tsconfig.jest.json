@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "*": ["./*"]
+    },
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,9 +16,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
-    "incremental": true,
-    "baseUrl": ".",
-  },
+    "incremental": true
+    },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "decs.d.ts", "global.d.ts"],
-  "exclude": ["node_modules", "node_modules_linux"],
+  "exclude": ["node_modules", "node_modules_linux"]
 }

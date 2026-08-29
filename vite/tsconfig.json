@@ -13,8 +13,8 @@
     "noEmit": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["vite/client"],
-    "baseUrl": ".",
     "paths": {
+      "*": ["./*"],
       "configs/*": ["../configs/*"],
       "lib/*": ["../lib/*"],
       "mocks/*": ["../mocks/*"],

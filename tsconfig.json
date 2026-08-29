@@ -18,8 +18,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "*": ["./*"]},
     "types": [
       "node"
     ]

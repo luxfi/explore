@@ -1,3 +1,5 @@
+const withGui = require('@hanzo/ui/next')
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.BUNDLE_ANALYZER === 'true',
 });
@@ -14,7 +16,6 @@ const rewrites = require('./nextjs/rewrites');
 const moduleExports = {
   transpilePackages: [
     'react-syntax-highlighter',
-    '@luxfi/ui',
     '@hanzogui/core',
     '@hanzogui/tooltip',
     '@hanzogui/popover',
@@ -71,4 +72,4 @@ const moduleExports = {
   },
 };
 
-module.exports = withBundleAnalyzer(withRoutes(moduleExports));
+module.exports = withGui(withBundleAnalyzer(withRoutes(moduleExports)), __dirname)

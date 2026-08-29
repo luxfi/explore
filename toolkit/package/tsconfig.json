@@ -16,8 +16,8 @@
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "declarationDir": "./dist",
-    "baseUrl": "..",
     "paths": {
+      "*": ["./../*"],
       "configs/*": ["../configs/*"],
       "lib/*": ["../lib/*"],
       "types/*": ["../types/*"],
@@ -25,7 +25,7 @@
       "ui/*": ["../ui/*"],
       "public/*": ["../public/*"],
       "toolkit/*": ["./*"],
-      "nextjs-routes": ["../nextjs/nextjs-routes.d.ts"],
+      "nextjs-routes": ["../nextjs/nextjs-routes.d.ts"]
     },
     "types": ["vite/client", "node"],
     "allowJs": true,
@@ -41,7 +41,7 @@
     "../hooks",
     "../../global.d.ts",
     "../../decs.d.ts",
-    "../../reset.d.ts",
+    "../../reset.d.ts"
   ],
   "exclude": ["node_modules", "dist", "../../node_modules", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

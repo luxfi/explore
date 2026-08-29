@@ -41,23 +41,23 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "next": ">=15.2.3",
-    "next-themes": ">=0.4.4",
-    "react": ">=18.3.1",
-    "react-dom": ">=18.3.1",
-    "react-hook-form": ">=7.52.1"
+    "next": ">=16.3.3",
+    "next-themes": ">=0",
+    "react": ">=19.2.8",
+    "react-dom": ">=19.2.8",
+    "react-hook-form": ">=7"
   },
   "devDependencies": {
-    "@svgr/plugin-jsx": "8.1.0",
-    "@types/node": "20.16.7",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1",
-    "@vitejs/plugin-react": "4.3.4",
-    "typescript": "5.9.2",
-    "vite": "6.4.1",
-    "vite-plugin-dts": "4.5.4",
-    "vite-plugin-svgr": "4.5.0",
-    "vite-tsconfig-paths": "5.1.4"
+    "@svgr/plugin-jsx": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vite-plugin-svgr": "catalog:",
+    "vite-tsconfig-paths": "catalog:"
   },
   "engines": {
     "node": ">=22.14.0"
