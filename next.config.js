@@ -15,6 +15,7 @@ const rewrites = require('./nextjs/rewrites');
 /** @type {import('next').NextConfig} */
 const moduleExports = {
   transpilePackages: [
+    '@luxfi/ui',
     'react-syntax-highlighter',
     '@hanzogui/core',
     '@hanzogui/tooltip',

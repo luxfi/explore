@@ -3,7 +3,7 @@ import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import {
   PeriodicExportingMetricReader,
   ConsoleMetricExporter,
@@ -17,7 +17,7 @@ diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 const traceExporter = new OTLPTraceExporter();
 
 const sdk = new NodeSDK({
-  resource: new Resource({
+  resource: resourceFromAttributes({
     [SEMRESATTRS_SERVICE_NAME]: process.env.NEXT_PUBLIC_NETWORK_SHORT_NAME ?
         `${ process.env.NEXT_PUBLIC_NETWORK_SHORT_NAME.toLowerCase() }_explorer_frontend` : 'explorer_frontend',
     [SEMRESATTRS_SERVICE_VERSION]: process.env.NEXT_PUBLIC_GIT_TAG || process.env.NEXT_PUBLIC_GIT_COMMIT_SHA || 'unknown_version',
