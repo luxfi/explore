@@ -119,7 +119,7 @@ Key environment variables (see `docs/ENVS.md` for full list):
 ```bash
 NEXT_PUBLIC_NETWORK_NAME=Lux Network
 NEXT_PUBLIC_NETWORK_ID=96369
-NEXT_PUBLIC_NETWORK_RPC_URL=https://api.lux.network/v1/bc/C/rpc
+NEXT_PUBLIC_NETWORK_RPC_URL=https://api.lux.network/v1/chain/C/rpc
 NEXT_PUBLIC_API_HOST=https://explore.lux.network
 NEXT_PUBLIC_APP_HOST=https://explore.lux.network
 ```
@@ -553,8 +553,8 @@ EVMChainID map). One value, one way.
   `public/.well-known/explore.json`, `lib/web3/chains.ts` (comment),
   `deploy/k8s/explore-fe/configmap-{mainnet,testnet}.yaml`,
   `deploy/scripts/branded_build.sh`, `tools/send_test_txs.py`.
-- **Chain RPC migrated `/v1/bc/<alias>/rpc` → `/v1/bc/C/rpc`** (gateway canonical;
-  every sovereign L1 exposes its own C-Chain at `/v1/bc/C/rpc`, so zoo/hanzo/pars
+- **Chain RPC migrated `/v1/chain/<alias>/rpc` → `/v1/chain/C/rpc`** (gateway canonical;
+  every sovereign L1 exposes its own C-Chain at `/v1/chain/C/rpc`, so zoo/hanzo/pars
   drop their old brand-aliased `/v1/bc/{zoo,hanzo,pars}/rpc` paths — which were
   already 404ing). Verified returning blocks BEFORE switching: Lux/Zoo/Hanzo/Pars
   **mainnet** + Lux **testnet**. Deliberately still on `/ext` (their `/v1` gateway
@@ -645,8 +645,8 @@ empty, never faked. Root causes + fixes:
 - **Validators/Stake = 0 was a proxy bug, not missing data.** P-chain
   `platform.getCurrentValidators` returns real validators (5, total weight
   2.5e18 on hanzo). `pages/api/pchain.ts` derived its base URL by stripping
-  ONLY `/v1/bc/C/rpc` via regex; brand RPCs are `…/v1/bc/<chain>/rpc`
-  (hanzo: `/v1/bc/hanzo/rpc`), so the regex no-op'd and the proxy POSTed to
+  ONLY `/v1/chain/C/rpc` via regex; brand RPCs are `…/v1/chain/<chain>/rpc`
+  (hanzo: `/v1/chain/hanzo/rpc`), so the regex no-op'd and the proxy POSTed to
   `…/v1/bc/hanzo/rpc/v1/bc/P` → HTML 404 → "Unexpected non-whitespace
   character after JSON at position 4" → 502. Fix: `new URL(rpcUrl).origin`
   (works for every brand) + defensive text→JSON parse with a clear error.
@@ -824,8 +824,8 @@ network, not about this app, so check them before believing any chain page.
   I and O, which are registered on NO network** — the node answers "there is no
   ID with alias: T". That table is presentation metadata; the network is the
   source of truth. `/chains` and `/chains/<slug>` join the two.
-- **The public gateway routes exactly three chains: `/v1/bc/P`, `/v1/bc/X` and
-  `/v1/bc/C/rpc`.** Everything else 404s — including C-Chain's own blockchain
+- **The public gateway routes exactly three chains: `/v1/chain/P`, `/v1/chain/X` and
+  `/v1/chain/C/rpc`.** Everything else 404s — including C-Chain's own blockchain
   ID, `/v1/bc/25td8att…/rpc`, which proves the 404 is the route and not the
   chain. D, A, B, Z, G, K are registered AND bootstrapped on the node; a
   browser simply cannot reach them. Render that as unreachable, never as a
@@ -844,7 +844,7 @@ network, not about this app, so check them before believing any chain page.
 ### Reaching the node
 `/v1/node/<endpoint>` (`pages/api/node/[endpoint].ts`) is the ONE proxy. The
 browser cannot call the node directly — the gateway 404s the OPTIONS preflight
-for `/v1/bc/*`. The endpoint is resolved against the primary-chain table and
+for `/v1/chain/*`. The endpoint is resolved against the primary-chain table and
 never used as a URL. A chain the gateway does not route answers 200 with a
 JSON-RPC error, not 502: nothing is broken, and 502 painted a failed request
 into the console of eight of the ten chain pages.
