@@ -803,10 +803,6 @@ white color that doesn't flip with the theme. Fixes:
   identical copies** (same digest) — brand comes entirely from the
   `explore-env-<brand>` ConfigMap at runtime. A version bump is therefore
   `crane copy`, not four builds. Never mix org registries.
-- 🪤 CI cannot build this repo from GitHub: `gh api /orgs/luxfi/actions/runners`
-  returns **0**. `runs-on: lux-build-amd64` is a valid legacy alias, but its
-  pool lives on the arcd/git.hanzo.ai fleet, so GitHub runs queue for 12–24h and
-  get cancelled. git.hanzo.ai mirrors `main` automatically.
 - 🪤 `tsconfig.json` has `incremental: true`. A stale `tsconfig.tsbuildinfo`
   reports errors against file contents that no longer exist. Delete it before
   trusting a typecheck diff.
