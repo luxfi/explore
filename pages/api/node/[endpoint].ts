@@ -28,7 +28,7 @@ const PATHS: Readonly<Record<string, string>> = {
   info: '/v1/info',
   ...Object.fromEntries(PRIMARY_VMS.map((vm) => [
     vm.slug,
-    `/v1/bc/${ vm.slug.charAt(0).toUpperCase() }${ vm.view === 'evm' || vm.view === 'dex' ? '/rpc' : '' }`,
+    `/v1/chain/${ vm.slug.charAt(0).toUpperCase() }${ vm.view === 'evm' || vm.view === 'dex' ? '/rpc' : '' }`,
   ])),
 };
 
@@ -40,7 +40,7 @@ function getChainBase(name: string): string | undefined {
 }
 
 // The node's API origin, derived from the chain RPC URL. That URL points at a
-// specific EVM chain (canonical `…/v1/bc/C/rpc`), so it must be reduced to
+// specific EVM chain (canonical `…/v1/chain/C/rpc`), so it must be reduced to
 // scheme+host — concatenating onto the full RPC path produced a malformed URL,
 // an HTML 404, and "Unexpected non-whitespace character after JSON" on every
 // non-C-chain brand.

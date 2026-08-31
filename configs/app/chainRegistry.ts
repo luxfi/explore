@@ -79,7 +79,7 @@ export interface ChainEntry {
   readonly apiUrl: string;
 
   /**
-   * Origin of the chain's own node API, where `<origin>/v1/bc/P` answers
+   * Origin of the chain's own node API, where `<origin>/v1/chain/P` answers
    * platform.* — NOT the indexer at `apiUrl`. Every sovereign L1 runs its own
    * P-Chain and its own validator set, so this is what makes a validator count
    * readable per chain.
