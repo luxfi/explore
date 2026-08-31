@@ -9,7 +9,7 @@ const HEIGHTS_QUERY_KEY = 'pchain:chainHeights' as const;
 
 async function fetchChainHeights(): Promise<{ pChain: number; cChain: number }> {
   // NEXT_PUBLIC_NETWORK_RPC_URL IS the C-chain EVM RPC endpoint (canonical
-  // `/v1/chain/C/rpc` on the gateway). Dial it directly — no path rewriting — so
+  // `/v1/bc/C/rpc` on the gateway). Dial it directly — no path rewriting — so
   // the C-chain height works regardless of the gateway path scheme.
   const cChainRpcUrl = getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') ?? '';
 

@@ -44,7 +44,7 @@ export function app(isPrivateMode = false): CspDev.DirectiveDescriptor {
       ...Object.values(config.apis).filter(Boolean).map((api) => api.endpoint),
       ...Object.values(config.apis).filter(Boolean).map((api) => api.socketEndpoint),
 
-      // chain RPC server (full URLs + base origins for SDK calls to other paths like /v1/chain/P)
+      // chain RPC server (full URLs + base origins for SDK calls to other paths like /v1/bc/P)
       ...config.chain.rpcUrls,
       ...config.chain.rpcUrls.map((url) => {
         try {
