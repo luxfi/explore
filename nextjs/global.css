@@ -24,7 +24,6 @@
  *
  * Breakpoints match Chakra: sm=415px, lg=1000px, xl=1440px, 2xl=1920px
  * Dark mode via .dark class (next-themes "class" strategy)
- * Font families: Geist (body/heading), Geist Mono (mono)
  *
  * The block below is the TAILWIND BRIDGE: names registered so a call site can
  * write `text-good` or `bg-gray-100` and get a utility, with the values coming
@@ -41,9 +40,9 @@
   --breakpoint-2xl: 1920px;
 
   /* --- Font Families --- */
-  --font-sans: "Geist", sans-serif;
-  --font-heading: "Geist", sans-serif;
-  --font-mono: "Geist Mono", monospace;
+  --font-sans: Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Zen Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
   /* --- State. The only two hues Lux keeps, plus the achromatic warn.
          Registered here so a call site can say `text-good` instead of
@@ -268,20 +267,12 @@
  * New Tailwind components explicitly opt in via utility classes.
  */
 
-@font-face {
-  font-family: 'InterFallback';
-  src: url('/static/fonts/Inter-fallback.woff2') format('woff2');
-  unicode-range: U+2192; /* Only the right arrow */
-  font-display: swap;
-}
-
 /*
  * Global font and body styles.
- * Geist is loaded via Google Fonts in _document.tsx.
  * Apply it universally so Chakra components inherit it too.
  */
 html, body {
-  font-family: 'Geist', sans-serif;
+  font-family: Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -322,7 +313,7 @@ html, body {
      v1.1.22  html[class~="light"] .t_dark
    In every build `.t_dark` occurs exactly ONCE in the output — the media-query
    rule below — while the file's OTHER top-level rule (html,body{font-family:
-   Geist}) survives intact, so top-level rules are not dropped wholesale.
+   Zen, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif}) survives intact, so top-level rules are not dropped wholesale.
    Running this file through the real postcss + @tailwindcss/postcss pipeline
    locally KEEPS both rules, so Tailwind is not the cause; something later in
    the Next build removes it. Root cause not yet found.

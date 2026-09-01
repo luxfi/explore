@@ -23,8 +23,8 @@ Each fork only needs to modify:
 
 All networks use Inter font by default. This is configured via environment variables:
 ```env
-NEXT_PUBLIC_FONT_FAMILY_HEADING={"name": "Inter", "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"}
-NEXT_PUBLIC_FONT_FAMILY_BODY={"name": "Inter", "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"}
+NEXT_PUBLIC_FONT_FAMILY_HEADING={"name": "Zen", "url": ""}
+NEXT_PUBLIC_FONT_FAMILY_BODY={"name": "Zen", "url": ""}
 ```
 
 Monospace fonts use Roboto Mono (hardcoded in `theme/foundations/typography.ts`).
