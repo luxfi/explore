@@ -351,7 +351,6 @@
           this.canvasCtx.fill();
           Runner.updateCanvasScaling(this.canvas);
 
-          // Horizon contains clouds, obstacles and the ground.
           this.horizon = new Horizon(this.canvas, this.spriteDef, this.dimensions,
               this.config.GAP_COEFFICIENT);
 
@@ -2298,10 +2297,8 @@
   //******************************************************************************
 
   /**
-   * Horizon Line.
    * Consists of two connecting lines. Randomly assigns a flat / bumpy horizon.
    * @param {HTMLCanvasElement} canvas
-   * @param {Object} spritePos Horizon position in sprite.
    * @constructor
    */
   function HorizonLine(canvas, spritePos) {
@@ -2322,7 +2319,6 @@
 
 
   /**
-   * Horizon line dimensions.
    * @enum {number}
    */
   HorizonLine.dimensions = {
@@ -2427,7 +2423,6 @@
   //******************************************************************************
 
   /**
-   * Horizon background class.
    * @param {HTMLCanvasElement} canvas
    * @param {Object} spritePos Sprite positioning.
    * @param {Object} dimensions Canvas dimensions.
@@ -2451,14 +2446,12 @@
       this.clouds = [];
       this.cloudSpeed = this.config.BG_CLOUD_SPEED;
 
-      // Horizon
       this.horizonLine = null;
       this.init();
   };
 
 
   /**
-   * Horizon config.
    * @enum {number}
    */
   Horizon.config = {
@@ -2538,7 +2531,6 @@
        * @param {number} currentSpeed
        */
       updateObstacles: function (deltaTime, currentSpeed) {
-          // Obstacles, move to Horizon layer.
           var updatedObstacles = this.obstacles.slice(0);
 
           for (var i = 0; i < this.obstacles.length; i++) {

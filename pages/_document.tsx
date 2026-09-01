@@ -65,15 +65,15 @@ class MyDocument extends Document {
 
           { /* FONTS */ }
           <link
-            href={ config.UI.fonts.heading?.url ?? 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap' }
+            href={ config.UI.fonts.heading?.url ?? '' }
             rel="stylesheet"
           />
           <link
-            href={ config.UI.fonts.body?.url ?? 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap' }
+            href={ config.UI.fonts.body?.url ?? '' }
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap"
+            href=""
             rel="stylesheet"
           />
 
