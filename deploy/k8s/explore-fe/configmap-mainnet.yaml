@@ -28,7 +28,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.lux.network
   NEXT_PUBLIC_APP_HOST: explore.lux.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.lux.network/v1/bc/C/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.lux.network/v1/chain/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explore.lux.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.lux.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.lux.network
@@ -70,7 +70,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.zoo.network
   NEXT_PUBLIC_APP_HOST: explore.zoo.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.zoo.network/v1/bc/C/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.zoo.network/v1/chain/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explore.zoo.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.zoo.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.zoo.network
@@ -105,7 +105,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.hanzo.network
   NEXT_PUBLIC_APP_HOST: explore.hanzo.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.hanzo.network/v1/bc/C/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.hanzo.network/v1/chain/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explore.hanzo.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.hanzo.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.hanzo.network
@@ -139,7 +139,7 @@ data:
   NEXT_PUBLIC_IS_TESTNET: "false"
   NEXT_PUBLIC_API_HOST: api-explore.pars.network
   NEXT_PUBLIC_APP_HOST: explore.pars.network
-  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.pars.network/v1/bc/C/rpc
+  NEXT_PUBLIC_NETWORK_RPC_URL: https://api.pars.network/v1/chain/C/rpc
   NEXT_PUBLIC_STATS_API_HOST: https://api-explore.pars.network
   NEXT_PUBLIC_VISUALIZE_API_HOST: https://api-explore.pars.network
   NEXT_PUBLIC_CONTRACT_INFO_API_HOST: https://api-explore.pars.network
