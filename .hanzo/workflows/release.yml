@@ -40,7 +40,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: [lux-build-linux-amd64]
+    runs-on: [linux-amd64]
     # Next.js production build of the full explorer. Measured runs sit well
     # under this; the ceiling is here so a hung build releases the runner.
     timeout-minutes: 90
@@ -216,7 +216,7 @@ jobs:
     # Only upstream fans out: a brand running its own fork publishes to its own
     # org from its own run of this workflow, and must not publish for others.
     if: startsWith(github.ref, 'refs/tags/v') && github.repository_owner == 'luxfi'
-    runs-on: [lux-build-linux-amd64]
+    runs-on: [linux-amd64]
     timeout-minutes: 20
     steps:
       - name: Install crane
