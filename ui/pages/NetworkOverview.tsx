@@ -42,8 +42,6 @@ const PRIMARY_CHAINS = [
 const KNOWN_L1_CHAINS: ReadonlyArray<{ readonly name: string; readonly href: string }> = [
   { name: 'Zoo', href: 'https://explore-zoo.lux.network' },
   { name: 'Hanzo', href: 'https://explore-hanzo.lux.network' },
-  { name: 'SPC', href: 'https://explore-spc.lux.network' },
-  { name: 'Pars', href: 'https://explore-pars.lux.network' },
 ];
 
 const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
