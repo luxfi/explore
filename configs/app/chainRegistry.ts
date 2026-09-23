@@ -126,10 +126,10 @@ const ZOO_BRANDING: ChainBranding = {
   orgName: 'Zoo Labs Foundation',
   websiteUrl: 'https://zoo.ngo',
   description: 'Open AI research network — decentralized AI and science.',
-  githubUrl: 'https://github.com/zoolabs',
+  githubUrl: 'https://github.com/zooai',
   sourceUrl: 'https://github.com/zooai/explore',
-  twitterUrl: 'https://x.com/zoolabs',
-  discordUrl: 'https://discord.gg/zoolabs',
+  twitterUrl: 'https://x.com/zoo_labs',
+  discordUrl: 'https://discord.gg/edmZPTZjH9',
   logoViewBox: '0 0 1024 1024',
   logoContent:
     '<defs>' +
