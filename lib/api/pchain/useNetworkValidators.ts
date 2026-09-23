@@ -1,5 +1,6 @@
-// Validator counts across every network in the registry, not just the one this
-// explorer is pointed at.
+// Validator counts. The Lux primary-network explorer sums every L1 in the
+// registry; a brand explorer (Zoo, Hanzo, Pars, SPC, Osage) counts only its own
+// chain and never names another network.
 //
 // Lux, Hanzo, Zoo and Pars are each a sovereign L1 with its OWN P-Chain and its
 // own validator set, so "how many validators" is a sum over chains and there is
@@ -15,7 +16,7 @@ import React from 'react';
 
 import type { PChainValidator } from './types';
 
-import { CHAINS, getCurrentChain } from 'configs/app/chainRegistry';
+import { CHAINS, getCurrentChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 
 const STALE_TIME_MS = 60_000;
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
@@ -65,8 +66,10 @@ export function useNetworkValidators() {
   // Same network as this deployment: a mainnet explorer must not count testnet
   // validators.
   const { all, readable } = React.useMemo(() => {
-    const { network } = getCurrentChain();
-    const chains = CHAINS.filter((c) => c.network === network);
+    const current = getCurrentChain();
+    const chains = isPrimaryNetworkExplorer() ?
+      CHAINS.filter((c) => c.network === current.network) :
+      CHAINS.filter((c) => c.network === current.network && c.name === current.name);
     return { all: chains, readable: chains.filter((c) => c.nodeApiUrl) };
   }, []);
 

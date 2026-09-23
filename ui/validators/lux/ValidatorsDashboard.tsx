@@ -32,9 +32,10 @@ const PERCENTAGE_SCALE = 100;
 // that shows one network's share is answering a narrower question than the one
 // being asked.
 //
-// Every network is listed, including ones that did not answer. A chain dropped
-// from the list would read as a chain with no validators, and the total says
-// how many answered so a partial sum is never mistaken for the whole.
+// On the Lux primary-network explorer every network is listed, including ones
+// that did not answer: a chain dropped from the list would read as a chain with
+// no validators, and the total says how many answered. A brand explorer has
+// only its own chain, so the block does not render there.
 const NetworkValidators = () => {
   const { networks, total, isKnown, isLoading, answeredCount, queriedCount } = useNetworkValidators();
 

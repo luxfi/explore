@@ -413,7 +413,13 @@ export function isPrimaryNetworkExplorer(): boolean {
   // primary network's chains or the cross-L1 list. Gating purely on vm==='EVM'
   // wrongly promoted unregistered hosts (buildWhiteLabelChain defaults to
   // vm:'EVM') to primary, leaking the parent network's chains.
-  return !isWhiteLabelMode() && getCurrentChain().vm === 'EVM';
+  return isPrimaryNetworkHost(getHostname());
+}
+
+/** isPrimaryNetworkExplorer() for an explicit host, e.g. a request's Host header. */
+export function isPrimaryNetworkHost(hostname: string): boolean {
+  const chain = CHAINS.find((c) => c.hostnames.includes(hostname));
+  return chain !== undefined && chain.vm === 'EVM';
 }
 
 export function getCurrentNetwork(): NetworkEntry {

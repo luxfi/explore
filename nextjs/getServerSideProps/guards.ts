@@ -6,6 +6,7 @@ import type { Route } from 'nextjs-routes';
 import type { Props } from 'nextjs/getServerSideProps/handlers';
 
 import config from 'configs/app';
+import { isPrimaryNetworkHost } from 'configs/app/chainRegistry';
 
 export type Guard = (chainConfig: typeof config) => <Pathname extends Route['pathname'] = never>(context: GetServerSidePropsContext) =>
 Promise<GetServerSidePropsResult<Props<Pathname>> | undefined>;
@@ -337,6 +338,19 @@ export const notMultichain: Guard = () => async() => {
 
 export const megaEth: Guard = () => async() => {
   if (!config.features.megaEth.isEnabled) {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+// Pages that read the Lux primary network (the D-Chain DEX) exist only on the
+// Lux C-Chain explorer. A brand explorer answers 404 for them rather than
+// rendering another network's markets under its own name.
+export const primaryNetwork: Guard = () => async(context: GetServerSidePropsContext) => {
+  const header = context.req.headers['x-forwarded-host'] ?? context.req.headers.host ?? '';
+  const host = String(Array.isArray(header) ? header[0] : header).split(',')[0].trim().replace(/:\d+$/, '');
+  if (!isPrimaryNetworkHost(host)) {
     return {
       notFound: true,
     };
