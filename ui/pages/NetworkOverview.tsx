@@ -49,8 +49,6 @@ const KNOWN_L1_CHAINS: ReadonlyArray<{ readonly name: string; readonly href: str
 const L1_EXPLORER_URLS: Readonly<Record<string, string>> = {
   Zoo: 'https://explore-zoo.lux.network',
   Hanzo: 'https://explore-hanzo.lux.network',
-  SPC: 'https://explore-spc.lux.network',
-  Pars: 'https://explore-pars.lux.network',
 };
 
 function formatStake(nanoLux: bigint): string {

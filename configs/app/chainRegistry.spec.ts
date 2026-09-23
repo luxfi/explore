@@ -39,9 +39,11 @@ describe('chain-visibility rule', () => {
       expect(getCurrentChain().name).toBe('C-Chain');
     });
 
-    it('lists every sovereign L1 incl. Osage', () => {
-      const names = switcherChainNames();
-      expect(names).toEqual(expect.arrayContaining([ 'C-Chain', 'Zoo', 'Hanzo', 'SPC', 'Pars', 'Osage' ]));
+    // The switcher lists the chains that have an explorer to switch to, and
+    // no others: every entry is a link, and a link to a name that does not
+    // resolve is a dead end on every page.
+    it('lists exactly the mainnet chains with an explorer', () => {
+      expect(switcherChainNames()).toEqual([ 'C-Chain', 'Zoo', 'Hanzo' ]);
     });
   });
 
@@ -49,8 +51,6 @@ describe('chain-visibility rule', () => {
     const cases = [
       { host: 'explore.hanzo.network', name: 'Hanzo', brandName: 'Hanzo AI' },
       { host: 'explore.zoo.network', name: 'Zoo', brandName: 'Zoo Chain' },
-      { host: 'explore.pars.network', name: 'Pars', brandName: 'Pars Network' },
-      { host: 'explore.osage.network', name: 'Osage', brandName: 'Osage' },
     ];
 
     it.each(cases)('$host is a registered L2, NOT the primary explorer (no leak)', ({ host, brandName }) => {
@@ -64,11 +64,6 @@ describe('chain-visibility rule', () => {
     it.each(cases)('$host switcher shows ONLY its own chain (no lux-primary, no other orgs)', ({ host, name }) => {
       atHost(host);
       expect(switcherChainNames()).toEqual([ name ]);
-    });
-
-    it('pars uses its live deployed chainId 494949 (api.pars.network eth_chainId=0x78d65 / net_version=494949)', () => {
-      atHost('explore.pars.network');
-      expect(getCurrentChain().chainId).toBe(494949);
     });
   });
 

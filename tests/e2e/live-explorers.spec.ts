@@ -24,20 +24,6 @@ const explorers = [
     minBlocks: 9,
     minTxs: 45,
   },
-  {
-    name: 'SPC L1',
-    url: 'https://explore-spc.lux.network',
-    apiUrl: 'https://api-explore-spc.lux.network',
-    minBlocks: 9,
-    minTxs: 45,
-  },
-  {
-    name: 'Pars L1',
-    url: 'https://explore-pars.lux.network',
-    apiUrl: 'https://api-explore-pars.lux.network',
-    minBlocks: 9,
-    minTxs: 45,
-  },
 ];
 
 for (const explorer of explorers) {

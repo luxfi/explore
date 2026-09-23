@@ -41,8 +41,6 @@ const L1_DESCRIPTIONS: Readonly<Record<string, string>> = {
 const EXPLORER_URLS: Readonly<Record<string, string>> = {
   zoo: 'https://explore-zoo.lux.network',
   hanzo: 'https://explore-hanzo.lux.network',
-  spc: 'https://explore-spc.lux.network',
-  pars: 'https://explore-pars.lux.network',
 };
 
 const KNOWN_VM_IDS: Readonly<Record<string, string>> = {
