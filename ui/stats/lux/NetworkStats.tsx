@@ -4,7 +4,7 @@
 import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
-import { getPChain } from 'configs/app/chainRegistry';
+import { getPChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
 
 // ── Constants ──
@@ -73,11 +73,14 @@ const NetworkStats = () => {
       <div
 
       >
-        <StatCard
-          label="Total Chains"
-          value={ String(totalChains) }
-          isLoading={ isLoading }
-        />
+        { /* The chain count is the Lux primary network's chain list, which a brand explorer does not show. */ }
+        { isPrimaryNetworkExplorer() && (
+          <StatCard
+            label="Total Chains"
+            value={ String(totalChains) }
+            isLoading={ isLoading }
+          />
+        ) }
         <StatCard
           label="Validators"
           value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }

@@ -69,6 +69,11 @@ const Footer = () => {
   ].filter(Boolean);
 
   const frontendLink = (() => {
+    const version = config.UI.footer.frontendVersion || config.UI.footer.frontendCommit;
+    if (version && !branding.sourceUrl) {
+      return <span>{ version }</span>;
+    }
+
     if (config.UI.footer.frontendVersion) {
       const href = `${ branding.sourceUrl }/tree/${ config.UI.footer.frontendVersion }`;
       return <Link href={ href } external noIcon>{ config.UI.footer.frontendVersion }</Link>;

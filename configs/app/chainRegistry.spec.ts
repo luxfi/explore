@@ -76,6 +76,7 @@ describe('chain-visibility rule', () => {
       'explore.hanzo.ai': [ 'luxfi', 'lux.network', 'zoo', 'pars' ],
       'explore.hanzo.network': [ 'luxfi', 'lux.network', 'zoo', 'pars' ],
       'explore.zoo.network': [ 'luxfi', 'lux.network', 'hanzo', 'pars' ],
+      'explore.zoo-test.network': [ 'luxfi', 'lux.network', 'hanzo', 'pars' ],
     };
 
     it.each(Object.entries(foreign))('%s footer names only its own org', (host, others) => {
@@ -88,6 +89,12 @@ describe('chain-visibility rule', () => {
     it('lux keeps its own source link', () => {
       atHost('explore.lux.network');
       expect(getCurrentChain().branding.sourceUrl).toBe('https://github.com/luxfi/explore');
+    });
+
+    // zooai/explore is private: a version link there is a 404 for every visitor.
+    it('zoo has no source link to a repo visitors cannot open', () => {
+      atHost('explore.zoo.network');
+      expect(getCurrentChain().branding.sourceUrl).toBe('');
     });
 
     it('hanzo carries the legal entity used across hanzo surfaces', () => {
