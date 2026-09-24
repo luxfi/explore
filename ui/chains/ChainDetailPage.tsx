@@ -135,8 +135,9 @@ interface ValidatorRowProps {
 }
 
 const ValidatorRow = ({ validator, index }: ValidatorRowProps) => {
-  const stake = BigInt(validator.stakeAmount || validator.weight || '0');
-  const uptime = parseFloat(validator.uptime || '0') * 100;
+  const stake = BigInt(validator.weight);
+  // Already a percentage (0–100) on the wire.
+  const uptime = parseFloat(validator.uptime || '0');
 
   return (
     <div className={ cn(
@@ -230,7 +231,7 @@ const ChainDetailPage = () => {
   );
 
   const totalStake = React.useMemo(
-    () => validators.reduce((sum, v) => sum + BigInt(v.stakeAmount || v.weight || '0'), BigInt(0)),
+    () => validators.reduce((sum, v) => sum + BigInt(v.weight), BigInt(0)),
     [ validators ],
   );
 

@@ -79,25 +79,26 @@ export interface ChainEntry {
   readonly apiUrl: string;
 
   /**
-   * The chain has a Lux primary network behind it, so its node answers
-   * platform.* at /v1/chain/P: validators, registered chains, P-Chain height.
-   * False for a chain whose node runs no P-Chain (Hanzo: hanzod and its own
-   * committee), whose explorer then shows no P-Chain surface and never asks.
+   * The P-Chain whose validators secure this chain. Lux reads its own; Zoo is
+   * an L2 carried by Lux's validator set and reads Lux's, never its own node's.
+   * Absent: no P-Chain secures the chain (Hanzo runs its own committee until
+   * hanzod joins as an L2), and the explorer shows no P-Chain surface.
    */
-  readonly pChain: boolean;
-
-  /**
-   * Origin of the chain's own node API, where `<origin>/v1/chain/P` answers
-   * platform.* — NOT the indexer at `apiUrl`. Every sovereign L1 runs its own
-   * P-Chain and its own validator set, so this is what makes a validator count
-   * readable per chain.
-   *
-   * Absent means there is no publicly reachable node for that chain. Absence
-   * is the honest signal: a chain without this is reported as unknown rather
-   * than counted as zero.
-   */
-  readonly nodeApiUrl?: string;
+  readonly pChain?: PChain;
   readonly branding: ChainBranding;
+}
+
+/** A P-Chain, read through GET <url>/v1/chain/P/ops/* (OpenAPI 3.1 at ops/.well-known/openapi.json). */
+export interface PChain {
+
+  /** API origin that serves it. */
+  readonly url: string;
+
+  /** Whose P-Chain it is, as a reader sees it named, e.g. "Lux primary network". */
+  readonly name: string;
+
+  /** Currency its stake is bonded in. */
+  readonly symbol: string;
 }
 
 export interface NetworkEntry {
@@ -107,6 +108,9 @@ export interface NetworkEntry {
   readonly baseHostname: string;
   readonly explorerUrl: string;
 }
+
+const LUX_MAINNET: PChain = { url: 'https://api.lux.network', name: 'Lux primary network', symbol: 'LUX' };
+const LUX_TESTNET: PChain = { url: 'https://api.lux-test.network', name: 'Lux primary network', symbol: 'LUX' };
 
 // ── Per-chain branding definitions ──
 // Real logos sourced from ~/work/{org}/logo/ repos.
@@ -226,8 +230,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore.lux.network', 'localhost', '127.0.0.1', '0.0.0.0' ],
     explorerUrl: 'https://explore.lux.network',
     apiUrl: 'https://api-explore.lux.network',
-    pChain: true,
-    nodeApiUrl: 'https://api.lux.network',
+    pChain: LUX_MAINNET,
     branding: LUX_BRANDING,
   },
   {
@@ -239,8 +242,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explorer.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
-    pChain: true,
-    nodeApiUrl: 'https://api.zoo.network',
+    pChain: LUX_MAINNET,
     branding: ZOO_BRANDING,
   },
   {
@@ -252,8 +254,6 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
-    pChain: false,
-    nodeApiUrl: 'https://api.hanzo.network',
     branding: HANZO_BRANDING,
   },
   // Testnet chains
@@ -266,7 +266,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-test.lux.network', 'explore.lux-test.network' ],
     explorerUrl: 'https://explore-test.lux.network',
     apiUrl: 'https://api-explore-test.lux.network',
-    pChain: true,
+    pChain: LUX_TESTNET,
     branding: LUX_BRANDING,
   },
   {
@@ -275,10 +275,10 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     vm: 'L2',
     network: 'testnet',
     chainId: 200201,
-    hostnames: [ 'explore-zoo-test.lux.network' ],
+    hostnames: [ 'explore-zoo-test.lux.network', 'explore.zoo-test.network' ],
     explorerUrl: 'https://explore-zoo-test.lux.network',
     apiUrl: 'https://api-explore-zoo-test.lux.network',
-    pChain: true,
+    pChain: LUX_TESTNET,
     branding: ZOO_BRANDING,
   },
 
@@ -294,7 +294,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore.localnet', 'explore-local.lux.network' ],
     explorerUrl: 'http://localhost:3000',
     apiUrl: 'http://localhost:4000',
-    pChain: true,
+    pChain: { url: 'http://localhost:9630', name: 'Lux primary network', symbol: 'LUX' },
     branding: LUX_BRANDING,
   },
 ];
@@ -343,6 +343,19 @@ function buildWhiteLabelBranding(): ChainBranding {
   };
 }
 
+// An unregistered host reads the P-Chain of the node its RPC URL names.
+function buildWhiteLabelPChain(brandName: string): PChain | undefined {
+  try {
+    return {
+      url: new URL(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') ?? '').origin,
+      name: brandName,
+      symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL') || '',
+    };
+  } catch {
+    return undefined;
+  }
+}
+
 function buildWhiteLabelChain(hostname: string): ChainEntry {
   const branding = buildWhiteLabelBranding();
   const appHost = getEnvValue('NEXT_PUBLIC_APP_HOST') || hostname;
@@ -358,7 +371,7 @@ function buildWhiteLabelChain(hostname: string): ChainEntry {
     hostnames: [ hostname ],
     explorerUrl: `${ protocol }://${ appHost }`,
     apiUrl: apiHost ? `${ apiProtocol }://${ apiHost }` : '',
-    pChain: true,
+    pChain: buildWhiteLabelPChain(branding.brandName),
     branding,
   };
 }
@@ -439,13 +452,8 @@ export function isPrimaryNetworkHost(hostname: string): boolean {
   return chain !== undefined && chain.vm === 'EVM';
 }
 
-/** Whether this explorer's chain has a P-Chain to read (ChainEntry.pChain). */
-export function hasPChain(): boolean {
-  return hasPChainHost(getHostname());
-}
-
-/** hasPChain() for an explicit host, e.g. a request's Host header. */
-export function hasPChainHost(hostname: string): boolean {
+/** The P-Chain that secures the chain served at `hostname` (ChainEntry.pChain); by default this request's host. */
+export function getPChain(hostname: string = getHostname()): PChain | undefined {
   return getChain(hostname).pChain;
 }
 

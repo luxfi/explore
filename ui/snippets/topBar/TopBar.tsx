@@ -4,7 +4,8 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { getCurrentChain, hasPChain, isChainSelectorEnabled, isNetworkSelectorEnabled } from 'configs/app/chainRegistry';
+import config from 'configs/app';
+import { getCurrentChain, getPChain, isChainSelectorEnabled, isNetworkSelectorEnabled, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
@@ -53,6 +54,12 @@ const TopBar = () => {
   const router = useRouter();
   const pathname = router.pathname;
   const chain = getCurrentChain();
+  // A link is shown only where its page has something to show. Chains, Bridge
+  // and DEX are about the Lux primary network's own chains; Validators reads the
+  // P-Chain that secures this chain; Stats is the P-Chain panel or the stats
+  // service. Chains, Bridge, DEX and Validators answer 404 on the same condition.
+  const isPrimary = isPrimaryNetworkExplorer();
+  const pChain = getPChain();
 
   const isHome = pathname === '/';
   const isBlockchainActive = pathname === '/blocks' || pathname.startsWith('/block/') ||
@@ -166,36 +173,41 @@ const TopBar = () => {
             </MenuContent>
           </MenuRoot>
 
-          { /* Both pages read the P-Chain, and 404 where there is none. */ }
-          { hasPChain() && (
+          { isPrimary && (
+            <NavLinkItem
+              text="Chains"
+              href={ route({ pathname: '/chains' as const }) }
+              isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
+            />
+          ) }
+          { pChain && (
+            <NavLinkItem
+              text="Validators"
+              href={ route({ pathname: '/validators' as const }) }
+              isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
+            />
+          ) }
+          { (pChain || config.features.stats.isEnabled) && (
+            <NavLinkItem
+              text="Stats"
+              href={ route({ pathname: '/stats' as const }) }
+              isActive={ pathname.startsWith('/stats') }
+            />
+          ) }
+          { isPrimary && (
             <>
               <NavLinkItem
-                text="Chains"
-                href={ route({ pathname: '/chains' as const }) }
-                isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
+                text="Bridge"
+                href={ route({ pathname: '/bridge' as const }) }
+                isActive={ pathname === '/bridge' }
               />
               <NavLinkItem
-                text="Validators"
-                href={ route({ pathname: '/validators' as const }) }
-                isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
+                text="DEX"
+                href={ route({ pathname: '/dex' as const }) }
+                isActive={ pathname === '/dex' }
               />
             </>
           ) }
-          <NavLinkItem
-            text="Stats"
-            href={ route({ pathname: '/stats' as const }) }
-            isActive={ pathname.startsWith('/stats') }
-          />
-          <NavLinkItem
-            text="Bridge"
-            href={ route({ pathname: '/bridge' as const }) }
-            isActive={ pathname === '/bridge' }
-          />
-          <NavLinkItem
-            text="DEX"
-            href={ route({ pathname: '/dex' as const }) }
-            isActive={ pathname === '/dex' }
-          />
         </nav>
 
         { /* -- Search bar (center, flexible) -- */ }

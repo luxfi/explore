@@ -20,7 +20,10 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import type { GetHeightResponse } from 'lib/api/pchain/types';
+
 import type { PrimaryVm } from 'configs/app/primaryChains';
+import { read } from 'lib/api/pchain/read';
 
 const STALE_MS = 15_000;
 
@@ -50,16 +53,17 @@ async function rpc(endpoint: string, method: string, params: unknown): Promise<u
 }
 
 // Each dialect names its head differently, and asking the wrong one gets a
-// "can't find service" error rather than an answer — X speaks xvm, not avm, and
-// not platform.
+// "can't find service" error rather than an answer — X speaks xvm, not avm. The
+// P-Chain speaks no JSON-RPC at all: its head is GET /v1/chain/P/ops/height.
 async function readHead(vm: PrimaryVm): Promise<Head> {
   try {
     if (vm.view === 'evm' || vm.view === 'dex') {
       const hex = await rpc(vm.slug, 'eth_blockNumber', []) as string | null;
       return hex ? { kind: 'height', height: parseInt(hex, 16) } : { kind: 'unreachable' };
     }
-    const method = vm.view === 'platform' ? 'platform.getHeight' : 'xvm.getHeight';
-    const out = await rpc(vm.slug, method, {}) as { height?: string } | null;
+    const out = vm.view === 'platform' ?
+      await read<GetHeightResponse>('height') :
+      await rpc(vm.slug, 'xvm.getHeight', {}) as { height?: string } | null;
     return out?.height !== undefined ?
       { kind: 'height', height: Number(out.height) } :
       { kind: 'unreachable' };

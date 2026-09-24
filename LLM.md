@@ -200,24 +200,38 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
-### No P-Chain surface where the node runs none (v1.1.32)
+### The P-Chain is read through typed GETs, from the P-Chain that secures the chain (v2.8.6-lux)
 
-- `ChainEntry.pChain` (configs/app/chainRegistry.ts) says whether a chain's node
-  answers platform.* at `/v1/chain/P`. Hanzo is `false`: hanzod runs its own
-  committee and answers `no such chain: P`. Lux, Zoo and white-label hosts are
-  `true`. `hasPChain()` / `hasPChainHost(host)` read it.
-- Where false: every `lib/api/pchain` hook is `enabled: false` (no
-  `/v1/node/p-chain` request), the Chains/Validators nav entries and the stats
-  page's NetworkStats are gone, and `/validators`, `/chains`, `/chains/<slug>`
-  404 via `guards.pChain`. Pinned by `lib/api/pchain/gate.spec.tsx` and
-  `configs/app/chainRegistry.spec.ts`.
-- Built by a rootless BuildKit Job in `hanzo-build` on the AWS cluster from
-  `github.com/luxfi/explore#v1.1.32` straight to `ghcr.io/hanzoai/explore`
-  (secret `push-hanzoai`); pinned by tag+digest in lux/universe
-  `deploy/lux-mainnet/explore-fe-hanzo.yaml`.
-- `api.lux.network` and `api.zoo.network` route `/v1/chain` to `luxd-archive`
-  (luxd 1.37.9), which answers 404 for `/v1/chain/P`; the Lux and Zoo P-Chain
-  widgets render but stay empty until that node serves the P-Chain.
+- luxd serves no P-Chain JSON-RPC; `platform.*` 404s on every node of this
+  generation. The P-Chain is `GET <origin>/v1/chain/P/ops/{validators,blockchains,height}`,
+  contract at `ops/.well-known/openapi.json` (OpenAPI 3.1). The browser reads it
+  through `GET /v1/node/p-chain?op=<op>` (`pages/api/node/[endpoint].ts`), whose
+  fixed table allows those three ops and one parameter (`nodeIDs`, a single
+  base58 NodeID). JSON-RPC POSTs there answer 405.
+- Delegator records come only from a read naming ONE validator
+  (`service.go: numNodeIDs == 1`); the list carries `delegatorCount` and
+  `delegatorWeight`. `useCurrentValidators` reads each validator with delegators
+  on its own, and no others.
+- `ChainEntry.pChain` is WHERE the P-Chain that secures a chain is read
+  (`{ url, name, symbol }`), read by `getPChain(host?)`. Lux: `api.lux.network`.
+  Zoo is an L2 carried by Lux's validator set: Lux's too, never `api.zoo.network`
+  (a stopgap node whose stakers are not Zoo's security). Hanzo: absent, since
+  its chain runs its own 5-seat committee until hanzod joins as an L2. White-label
+  hosts: the origin of `NEXT_PUBLIC_NETWORK_RPC_URL`. `explore.zoo-test.network`
+  is registered so it reads Lux testnet's.
+- Absent P-Chain: no P-Chain request, no Validators link, no stats panel, and
+  `/validators` 404s (`guards.pChain`). Chains, Bridge and DEX are the Lux
+  primary network's own chains: shown and served (`guards.primaryNetwork`) only
+  on the Lux C-Chain host. The top bar and the mobile menu gate on the same two
+  predicates.
+- P-Chain UI is labelled by whose it is: "Lux primary network validators
+  securing Zoo Network", stake in LUX. The cross-network validator sum is gone:
+  with Zoo carried by Lux's set it counted the same validators twice.
+- A P-Chain at genesis answers height `"0"`; that renders as `#0`, while an
+  unanswered read renders nothing. Lux mainnet's archive has no peers, so its
+  height is 0 with 5 genesis validators whose stake ends 2026-12-12.
+- Pinned by `pages/api/node/[endpoint].spec.ts`, `lib/api/pchain/gate.spec.tsx`,
+  `lib/api/pchain/wire.spec.ts` and `configs/app/chainRegistry.spec.ts`.
 
 ### Duplicated tokens filter, colliding footer row, lower-case addresses (v1.1.27)
 
@@ -833,7 +847,7 @@ white color that doesn't flip with the theme. Fixes:
 Measured 2026-08-08 against all three networks. These are facts about the
 network, not about this app, so check them before believing any chain page.
 
-- **The chain list is `platform.getBlockchains`, never a table in this repo.**
+- **The chain list is `GET /v1/chain/P/ops/blockchains`, never a table in this repo.**
   mainnet and testnet report nine chains (A B C D G K Q X Z); devnet reports
   ten, adding **M**. `configs/app/primaryChains.ts` additionally names **T, R,
   I and O, which are registered on NO network** — the node answers "there is no

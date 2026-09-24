@@ -1,6 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
+import { getPChain } from 'configs/app/chainRegistry';
 import { useCurrentValidators } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
 import PageTitle from 'ui/shared/Page/PageTitle';
@@ -71,7 +72,7 @@ const ValidatorsPage = () => {
         title="Validators"
         secondRow={ (
           <div>
-            P-Chain validators securing { config.chain.name || 'the network' }
+            { getPChain()?.name } validators securing { config.chain.name || 'the network' }
           </div>
         ) }
       />

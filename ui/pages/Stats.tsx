@@ -1,7 +1,7 @@
 import React from 'react';
 
 import config from 'configs/app';
-import { hasPChain } from 'configs/app/chainRegistry';
+import { getPChain } from 'configs/app/chainRegistry';
 import useEtherscanRedirects from 'lib/router/useEtherscanRedirects';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import NetworkStats from 'ui/stats/lux/NetworkStats';
@@ -39,7 +39,7 @@ const Stats = () => {
         title={ config.meta.seo.enhancedDataEnabled ? `${ config.chain.name } statistic & data` : `${ config.chain.name } stats` }
       />
 
-      { hasPChain() && <NetworkStats/> }
+      { getPChain() && <NetworkStats/> }
 
       { hasStatsService ? (
         <>

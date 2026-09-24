@@ -2,12 +2,10 @@ import { Input } from '@luxfi/ui/input';
 import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
-import config from 'configs/app';
+import { getPChain } from 'configs/app/chainRegistry';
 import type { PChainValidator } from 'lib/api/pchain';
 
 import { formatStake, formatUptime, truncateNodeId } from './utils';
-
-const CURRENCY = config.chain.currency.symbol || 'LUX';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -24,6 +22,7 @@ interface ValidatorsListProps {
 
 const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
   const [ search, setSearch ] = React.useState('');
+  const symbol = getPChain()?.symbol;
 
   const handleSearchChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +34,8 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
   // Sort by stake desc, then filter by search
   const filtered = React.useMemo(() => {
     const sorted = [ ...validators ].sort((a, b) => {
-      const aStake = BigInt(a.stakeAmount ?? a.weight);
-      const bStake = BigInt(b.stakeAmount ?? b.weight);
+      const aStake = BigInt(a.weight);
+      const bStake = BigInt(b.weight);
       if (bStake > aStake) return 1;
       if (bStake < aStake) return -1;
       return 0;
@@ -115,13 +114,13 @@ const ValidatorsList = ({ validators, isLoading }: ValidatorsListProps) => {
               { truncateNodeId(v.nodeID) }
             </div>
             <div className="flex-[2] text-right">
-              { formatStake(v.stakeAmount ?? v.weight) } { CURRENCY }
+              { formatStake(v.weight) } { symbol }
             </div>
             <div className="flex-1 text-right">
               { v.delegationFee }%
             </div>
             <div className="flex-1 text-right">
-              { v.delegators?.length ?? 0 }
+              { v.delegatorCount ?? 0 }
             </div>
             <div className="flex-1 flex justify-center">
               <div/>

@@ -4,7 +4,7 @@ import React from 'react';
 import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/navigation';
 
 import config from 'configs/app';
-import { hasPChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
+import { getPChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 import { getEnvValue } from 'configs/app/utils';
 import { layerLabels } from 'lib/rollups/utils';
 import { rightLineArrow } from 'toolkit/utils/htmlEntities';
@@ -94,8 +94,9 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/name_services',
       isActive: pathname.startsWith('/name-services'),
     } : null;
-    // The validators page reads the P-Chain; a chain without one has no entry.
-    const validators: NavItem | null = hasPChain() ? {
+    // The validators page reads the P-Chain that secures this chain; a chain no
+    // P-Chain secures has no entry.
+    const validators: NavItem | null = getPChain() ? {
       text: 'Validators',
       nextRoute: { pathname: '/validators' as const },
       icon: 'navigation/validator',

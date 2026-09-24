@@ -18,7 +18,7 @@ import ChainRow from './ChainRow';
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY' as const;
 
 // Which primary chains EXIST is the network's answer, read live from
-// platform.getBlockchains; configs/app/primaryChains.ts only says how to
+// GET /v1/chain/P/ops/blockchains; configs/app/primaryChains.ts only says how to
 // present one. Listing the hardcoded set gave every network the same fifteen
 // rows, four of which (T, R, I, O) are registered on no network at all — the
 // node answers "there is no ID with alias: T" — and one of which (M) exists

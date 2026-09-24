@@ -1,16 +1,21 @@
-// React Query hook for platform.getCurrentValidators.
-// Returns the validator list and aggregated network statistics.
-// Uses the server-side /v1/node/p-chain proxy to bypass CORS.
+// The P-Chain's current validators and their aggregate statistics:
+// GET /v1/chain/P/ops/validators. The list carries each validator's
+// delegatorCount and delegatorWeight; the delegator records themselves come
+// only from a read naming that one validator, so those are fetched for the
+// validators that have delegators, and for no others.
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 import type {
+  GetCurrentValidatorsResponse,
   PChainValidator,
   ValidatorStats,
 } from './types';
 
-import { hasPChain } from 'configs/app/chainRegistry';
+import { getPChain } from 'configs/app/chainRegistry';
+
+import { read } from './read';
 
 const VALIDATORS_STALE_TIME_MS = 60_000;
 const VALIDATORS_QUERY_KEY = 'pchain:currentValidators' as const;
@@ -26,7 +31,10 @@ function computeValidatorStats(
   let uptimeSum = 0;
 
   for (const v of validators) {
-    totalStake += BigInt(v.stakeAmount ?? v.weight);
+    const delegated = BigInt(v.delegatorWeight ?? '0');
+    totalStake += BigInt(v.weight) + delegated;
+    totalDelegatedStake += delegated;
+    delegatorCount += Number(v.delegatorCount ?? '0');
 
     // connected field may be absent in some node configurations;
     // infer connectivity from uptime > 0 when missing
@@ -35,13 +43,6 @@ function computeValidatorStats(
     }
 
     uptimeSum += parseFloat(v.uptime);
-
-    if (v.delegators) {
-      delegatorCount += v.delegators.length;
-      for (const d of v.delegators) {
-        totalDelegatedStake += BigInt(d.stakeAmount);
-      }
-    }
   }
 
   // uptime values from the API are already in percentage (0–100); no scaling needed
@@ -64,27 +65,20 @@ export interface UseCurrentValidatorsResult {
   readonly stats: ValidatorStats;
 }
 
-async function fetchCurrentValidators(): Promise<UseCurrentValidatorsResult> {
-  const res = await fetch('/v1/node/p-chain', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      method: 'platform.getCurrentValidators',
-      params: { netID: '11111111111111111111111111111111LpoYY' },
-      id: 1,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`P-chain proxy returned ${ res.status }`);
+// The node lists delegators only when one validator is named (service.go:
+// `numNodeIDs == 1`), so each validator with delegators is read on its own.
+async function withDelegators(v: PChainValidator): Promise<PChainValidator> {
+  if (Number(v.delegatorCount ?? '0') === 0) {
+    return v;
   }
+  const { validators } = await read<GetCurrentValidatorsResponse>('validators', { nodeIDs: v.nodeID });
+  return { ...v, delegators: validators[0]?.delegators ?? [] };
+}
 
-  const json = await res.json() as { result?: { validators?: ReadonlyArray<PChainValidator> } };
-  const validators = json.result?.validators ?? [];
-  const stats = computeValidatorStats(validators);
-
-  return { validators, stats };
+async function fetchCurrentValidators(): Promise<UseCurrentValidatorsResult> {
+  const listed = (await read<GetCurrentValidatorsResponse>('validators')).validators ?? [];
+  const validators = await Promise.all(listed.map(withDelegators));
+  return { validators, stats: computeValidatorStats(validators) };
 }
 
 export function useCurrentValidators() {
@@ -93,7 +87,7 @@ export function useCurrentValidators() {
     queryFn: fetchCurrentValidators,
     staleTime: VALIDATORS_STALE_TIME_MS,
     retry: 2,
-    enabled: hasPChain(),
+    enabled: Boolean(getPChain()),
   });
 
   const validators = React.useMemo(

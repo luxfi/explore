@@ -1,6 +1,6 @@
 // How much we actually know about a trading venue. Every word already carries
-// this meaning elsewhere in the codebase (lib/api/pchain/useNetworkValidators,
-// lib/api/cchain/useFeeSplit) and keeps it here:
+// this meaning elsewhere in the codebase (lib/api/cchain/useFeeSplit) and keeps
+// it here:
 //
 //   'unavailable' — the indexer never answered, so we learned nothing at all.
 //   'unknown'     — it answered, but the chain head is unreadable, so we cannot

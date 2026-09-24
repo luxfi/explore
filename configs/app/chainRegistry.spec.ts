@@ -4,8 +4,7 @@ import {
   getChainsForNetwork,
   getCurrentChain,
   getCurrentNetwork,
-  hasPChain,
-  hasPChainHost,
+  getPChain,
   isPrimaryNetworkExplorer,
   isWhiteLabelMode,
 } from './chainRegistry';
@@ -97,19 +96,26 @@ describe('chain-visibility rule', () => {
     });
   });
 
-  // hanzod runs Hanzo's own committee and no P-Chain: every platform.* read
-  // there answers "no such chain: P". Lux and Zoo keep theirs.
+  // Which P-Chain secures each chain. Zoo is an L2 carried by Lux's validator
+  // set, so it reads Lux's, never the P-Chain of a Zoo node. Hanzo runs its own
+  // committee until hanzod joins as an L2, so it has none.
   describe('P-Chain', () => {
-    it.each([ 'explore.lux.network', 'explore.lux-test.network', 'explore.zoo.network', 'explore.unknown.example' ])('%s has one', (host) => {
+    it.each([
+      [ 'explore.lux.network', 'https://api.lux.network' ],
+      [ 'explore.zoo.network', 'https://api.lux.network' ],
+      [ 'explore.zoo.ngo', 'https://api.lux.network' ],
+      [ 'explore.lux-test.network', 'https://api.lux-test.network' ],
+      [ 'explore.zoo-test.network', 'https://api.lux-test.network' ],
+    ])('%s is secured by the P-Chain at %s', (host, url) => {
       atHost(host);
-      expect(hasPChain()).toBe(true);
-      expect(hasPChainHost(host)).toBe(true);
+      expect(getPChain()).toEqual({ url, name: 'Lux primary network', symbol: 'LUX' });
+      expect(getPChain(host)?.url).toBe(url);
     });
 
     it.each([ 'explore.hanzo.network', 'explore.hanzo.ai', 'explore-hanzo.lux.network' ])('%s has none', (host) => {
       atHost(host);
-      expect(hasPChain()).toBe(false);
-      expect(hasPChainHost(host)).toBe(false);
+      expect(getPChain()).toBeUndefined();
+      expect(getPChain(host)).toBeUndefined();
     });
   });
 

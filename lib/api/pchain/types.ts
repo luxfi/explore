@@ -1,4 +1,6 @@
-// P-chain API response types for the Lux platform JSON-RPC API.
+// P-Chain wire types: GET /v1/chain/P/ops/{validators,blockchains,height}.
+// The contract is the node's OpenAPI document at ops/.well-known/openapi.json;
+// the Go shapes are ~/work/lux/node/vms/platformvm/api/static_service.go.
 
 export interface PChainRewardOwner {
   readonly locktime: string;
@@ -10,44 +12,38 @@ export interface PChainDelegator {
   readonly txID: string;
   readonly startTime: string;
   readonly endTime: string;
-  readonly stakeAmount: string;
+  readonly weight: string;
   readonly nodeID: string;
-  readonly potentialReward: string;
-  readonly rewardOwner: PChainRewardOwner;
+  readonly potentialReward?: string;
+  readonly rewardOwner?: PChainRewardOwner;
 }
 
 export interface PChainValidator {
   readonly txID: string;
   readonly startTime: string;
   readonly endTime: string;
-  readonly stakeAmount?: string; // may be absent; use weight instead
-  readonly nodeID: string;
+
+  /** The validator's own stake in nLUX; its delegators' is delegatorWeight. */
   readonly weight: string;
+  readonly nodeID: string;
   readonly delegationFee: string;
-  readonly potentialReward: string;
+  readonly potentialReward?: string;
   readonly connected?: boolean;
   readonly uptime: string;
-  readonly delegators: ReadonlyArray<PChainDelegator> | null;
+  readonly delegatorCount?: string;
+  readonly delegatorWeight?: string;
+
+  /** Only on a read that names this one validator (?nodeIDs=<its NodeID>). */
+  readonly delegators?: ReadonlyArray<PChainDelegator>;
 }
 
-// Wire field is `netID` — the node's platform.getBlockchains emits netID
-// (Lux nomenclature: a sovereign L1 is a Network). See
-// ~/work/lux/node/vms/platformvm/service.go GetBlockchainsResponse.
+// Wire field is `netID` (Lux nomenclature: a sovereign L1 is a Network).
 export interface PChainBlockchain {
   readonly id: string;
   readonly name: string;
   readonly netID: string;
   readonly vmID: string;
 }
-
-// Wire shape of platform.getNets → APINet.
-export interface PChainNet {
-  readonly id: string;
-  readonly controlKeys: ReadonlyArray<string>;
-  readonly threshold: string;
-}
-
-// JSON-RPC response wrappers
 
 export interface GetCurrentValidatorsResponse {
   readonly validators: ReadonlyArray<PChainValidator>;
@@ -57,8 +53,9 @@ export interface GetBlockchainsResponse {
   readonly blockchains: ReadonlyArray<PChainBlockchain>;
 }
 
-export interface GetNetsResponse {
-  readonly nets: ReadonlyArray<PChainNet>;
+/** An unsigned 64-bit integer, carried as a decimal string. */
+export interface GetHeightResponse {
+  readonly height: string;
 }
 
 // Aggregated validator statistics

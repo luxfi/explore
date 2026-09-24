@@ -4,7 +4,7 @@
 import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
-import config from 'configs/app';
+import { getPChain } from 'configs/app/chainRegistry';
 import { useBlockchains, useCurrentValidators } from 'lib/api/pchain';
 
 // ── Constants ──
@@ -62,11 +62,13 @@ const NetworkStats = () => {
   );
 
   const totalChains = PRIMARY_CHAIN_COUNT + l1Count;
+  const pChain = getPChain();
 
   return (
     <div>
+      { /* Named for whose P-Chain it is: on an L2 brand these are Lux's figures. */ }
       <span className="text-[var(--color-text-secondary)]">
-        Network Overview
+        { pChain?.name }
       </span>
       <div
 
@@ -83,13 +85,12 @@ const NetworkStats = () => {
         />
         <StatCard
           label="Total Stake"
-          value={ hasValidatorData ? `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` : '\u2014' }
+          value={ hasValidatorData ? `${ formatStake(stats.totalStake) } ${ pChain?.symbol }` : '\u2014' }
           isLoading={ isLoading }
         />
         { /*
-          Connected / Avg Uptime intentionally omitted: platform.getCurrentValidators
-          reports connected=null and uptime=0 on the public RPC, so any value would be
-          fabricated. Only chain-verifiable metrics are shown.
+          Connected / Avg Uptime intentionally omitted: they are the public API node's
+          view of its peers, not a network fact. Only chain-verifiable metrics are shown.
         */ }
       </div>
     </div>

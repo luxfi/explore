@@ -15,4 +15,4 @@ const Page: NextPage = () => {
 
 export default Page;
 
-export { pChain as getServerSideProps } from 'nextjs/getServerSideProps/main';
+export { primaryNetwork as getServerSideProps } from 'nextjs/getServerSideProps/main';

@@ -1,33 +1,34 @@
-// Wire-contract guard for the P-chain JSON-RPC surface.
+// Wire-contract guard for the P-Chain's typed reads, GET /v1/chain/P/ops/*.
+// luxd serves no P-Chain JSON-RPC; the contract is its OpenAPI 3.1 document at
+// /v1/chain/P/ops/.well-known/openapi.json.
 //
-// The node speaks Lux nomenclature: a sovereign L1 is a *Network*. The
-// platform API therefore emits `netID` on every blockchain record and exposes
-// `platform.getNets`. The legacy upstream spelling is not a synonym here — it
-// is simply absent, and calling it returns JSON-RPC -32000. Before this guard
-// existed the explorer read a field the node never sends, so
-// `chain.<missing> !== PRIMARY_NETWORK_ID` was true for every primary chain and
-// the "L1 / L2 / L3" tab listed all ten primary-network chains as sovereign L1s.
+// The node speaks Lux nomenclature: a sovereign L1 is a *Network*, so every
+// blockchain record carries `netID`. The legacy upstream spelling is simply
+// absent. Before this guard existed the explorer read a field the node never
+// sends, so `chain.<missing> !== PRIMARY_NETWORK_ID` was true for every primary
+// chain and the "L1 / L2 / L3" tab listed all ten primary-network chains as
+// sovereign L1s.
 //
-// These tests pin the wire contract against a recorded live response from
-// https://api.lux.network/v1/bc/C -> P-chain (mainnet 96369, 2026-07-25).
+// Pinned against responses recorded from https://api.lux.network (mainnet
+// 96369, luxd v1.37.9, 2026-09-24).
 
-import type { GetBlockchainsResponse, GetNetsResponse } from './types';
+import type { GetBlockchainsResponse, GetCurrentValidatorsResponse, GetHeightResponse } from './types';
 
 import { describe, expect, it } from 'vitest';
 
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
 
-// Verbatim excerpt of platform.getBlockchains on lux-mainnet.
-const LIVE_GET_BLOCKCHAINS: GetBlockchainsResponse = {
+// Verbatim excerpt of GET /v1/chain/P/ops/blockchains.
+const LIVE_BLOCKCHAINS: GetBlockchainsResponse = {
   blockchains: [
     {
-      id: '13BEMG3e4dZXC7H7AqW9YtY3JRPP4AyPh9mvnTtX3AVnuCzri',
+      id: '2Y3a57PjhyvTfmiqxN772ms2kDD1xkcskaw3Mb7ZbwLYFuSoqS',
       name: 'K-Chain',
       netID: PRIMARY_NETWORK_ID,
       vmID: 'pJJCSV7hHYVY6TUZwR8qUPAfuhX8JLb2C1AzNSezrYNbgau8M',
     },
     {
-      id: '2T11SNJM9KYqSenoPb5yv6qahmj8HLefCjxt4gTD2iQWTHwdRu',
+      id: '2Hx3UMuWA6mSQHwZ8SYcqnWUUAj4T3jHbD5HFFa1SiCdPq9TvU',
       name: 'C-Chain',
       netID: PRIMARY_NETWORK_ID,
       vmID: 'mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6',
@@ -35,22 +36,42 @@ const LIVE_GET_BLOCKCHAINS: GetBlockchainsResponse = {
   ],
 };
 
-// Verbatim platform.getNets on lux-mainnet.
-const LIVE_GET_NETS: GetNetsResponse = {
-  nets: [
-    { id: PRIMARY_NETWORK_ID, controlKeys: [], threshold: '0' },
+// Verbatim first record of GET /v1/chain/P/ops/validators, signer omitted.
+const LIVE_VALIDATORS = {
+  validators: [
+    {
+      txID: '2sV1q6dPSWKs8eUJDbbhcCi7wdZ4vLa6sy1nhrXqbbmBMLxFD7',
+      startTime: '1765573611',
+      endTime: '1797088011',
+      weight: '500000000000000000',
+      nodeID: 'NodeID-DwsrqSkPoE3pXWrUt9nkJ5yBycwRQ246X',
+      potentialReward: '33575831900252839',
+      accruedDelegateeReward: '0',
+      delegationFee: '2.0000',
+      uptime: '99.9205',
+      connected: false,
+      delegatorCount: '0',
+      delegatorWeight: '0',
+    },
   ],
 };
 
-describe('P-chain wire contract', () => {
+// The recorded answer is assignable to the type the hooks read it as.
+const TYPED_VALIDATORS: GetCurrentValidatorsResponse = LIVE_VALIDATORS;
+
+// Verbatim GET /v1/chain/P/ops/height: the archive node has no peers, so the
+// P-Chain sits at genesis.
+const LIVE_HEIGHT: GetHeightResponse = { height: '0' };
+
+describe('P-Chain wire contract', () => {
   it('blockchain records carry netID, and it is the field the L1 filter reads', () => {
-    for (const chain of LIVE_GET_BLOCKCHAINS.blockchains) {
+    for (const chain of LIVE_BLOCKCHAINS.blockchains) {
       expect(chain.netID).toBe(PRIMARY_NETWORK_ID);
     }
   });
 
   it('the L1 filter excludes primary-network chains', () => {
-    const l1Chains = LIVE_GET_BLOCKCHAINS.blockchains
+    const l1Chains = LIVE_BLOCKCHAINS.blockchains
       .filter((c) => c.netID !== PRIMARY_NETWORK_ID);
     expect(l1Chains).toHaveLength(0);
   });
@@ -59,12 +80,23 @@ describe('P-chain wire contract', () => {
     // Regression pin: this is exactly the bug that shipped to
     // explore.lux.network. An absent field is never equal to the primary
     // network id, so the filter passed everything through.
-    const wrong = LIVE_GET_BLOCKCHAINS.blockchains
+    const wrong = LIVE_BLOCKCHAINS.blockchains
       .filter((c) => (c as unknown as Record<string, string>).subnetID !== PRIMARY_NETWORK_ID);
-    expect(wrong).toHaveLength(LIVE_GET_BLOCKCHAINS.blockchains.length);
+    expect(wrong).toHaveLength(LIVE_BLOCKCHAINS.blockchains.length);
   });
 
-  it('platform.getNets returns nets, and the primary network is one of them', () => {
-    expect(LIVE_GET_NETS.nets.map((n) => n.id)).toContain(PRIMARY_NETWORK_ID);
+  it('a validator carries its stake as weight and its delegators as a count and a weight', () => {
+    const [ v ] = TYPED_VALIDATORS.validators;
+    expect(BigInt(v.weight)).toBe(BigInt('500000000000000000'));
+    expect(v.delegatorCount).toBe('0');
+    expect(v.delegatorWeight).toBe('0');
+    // The list never carries the delegator records or the deprecated stakeAmount.
+    expect(v).not.toHaveProperty('delegators');
+    expect(v).not.toHaveProperty('stakeAmount');
+  });
+
+  it('height is a decimal string, and 0 is a height', () => {
+    expect(LIVE_HEIGHT.height).toMatch(/^\d+$/);
+    expect(Number(LIVE_HEIGHT.height)).toBe(0);
   });
 });

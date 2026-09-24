@@ -1,13 +1,11 @@
 import { Skeleton } from '@luxfi/ui/skeleton';
 import React from 'react';
 
-import config from 'configs/app';
+import { getPChain } from 'configs/app/chainRegistry';
 import type { PChainDelegator, PChainValidator } from 'lib/api/pchain';
 import dayjs from 'lib/date/dayjs';
 
 import { formatStake, truncateNodeId } from './utils';
-
-const CURRENCY = config.chain.currency.symbol || 'LUX';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -50,6 +48,7 @@ interface DelegatorsListProps {
 }
 
 const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
+  const symbol = getPChain()?.symbol;
   const delegators = React.useMemo<ReadonlyArray<FlatDelegator>>(() => {
     const result: Array<FlatDelegator> = [];
     for (const v of validators) {
@@ -61,8 +60,8 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
     }
     // Sort by stake descending
     result.sort((a, b) => {
-      const aStake = BigInt(a.stakeAmount);
-      const bStake = BigInt(b.stakeAmount);
+      const aStake = BigInt(a.weight);
+      const bStake = BigInt(b.weight);
       if (bStake > aStake) return 1;
       if (bStake < aStake) return -1;
       return 0;
@@ -128,7 +127,7 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
             { truncateNodeId(d.validatorNodeID) }
           </div>
           <div className="text-left lg:text-right">
-            { formatStake(d.stakeAmount) } { CURRENCY }
+            { formatStake(d.weight) } { symbol }
           </div>
           <div>
             { formatTimestamp(d.startTime) }
@@ -137,7 +136,7 @@ const DelegatorsList = ({ validators, isLoading }: DelegatorsListProps) => {
             { formatTimestamp(d.endTime) }
           </div>
           <div className="text-left lg:text-right">
-            { formatStake(d.potentialReward) } { CURRENCY }
+            { d.potentialReward ? `${ formatStake(d.potentialReward) } ${ symbol }` : '\u2014' }
           </div>
         </div>
       )) }

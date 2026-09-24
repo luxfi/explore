@@ -5,7 +5,7 @@ import React from 'react';
 
 import config from 'configs/app';
 import { isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
-import { useBlockchains, useChainHeights, useCurrentValidators, useNetworkValidators } from 'lib/api/pchain';
+import { useBlockchains, useChainHeights, useCurrentValidators } from 'lib/api/pchain';
 import type { PChainBlockchain } from 'lib/api/pchain';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
@@ -86,7 +86,9 @@ interface ChainRowProps {
   readonly vm: string;
   readonly href: string | undefined;
   readonly tier?: string;
-  readonly height?: number;
+
+  /** Absent: this chain shows no head. Null: its head could not be read. */
+  readonly height?: number | null;
   readonly heightLoading?: boolean;
 }
 
@@ -112,7 +114,7 @@ const ChainRow = ({
         { height !== undefined && (
           <Skeleton loading={ heightLoading }>
             <span className="font-mono text-xs text-[var(--color-text-secondary)]">
-              { height > 0 ? `#${ height.toLocaleString() }` : '' }
+              { height === null ? '' : `#${ height.toLocaleString() }` }
             </span>
           </Skeleton>
         ) }
@@ -223,7 +225,6 @@ const SectionCard = ({ title, count, isLoading, action, children }: SectionCardP
 
 const NetworkOverview = () => {
   const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData, isError: validatorsError } = useCurrentValidators();
-  const allValidators = useNetworkValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
   const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
 
@@ -258,16 +259,12 @@ const NetworkOverview = () => {
             'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
             'bg-[var(--color-stats-bg)]',
           ) }>
-            { /* Every network's validators, which is the number a reader wants:
-                 the fleet securing Lux is not just the primary network's share
-                 of it. Stake stays primary-only beside it because each network
-                 bonds its own currency and the sum of two currencies is not a
-                 quantity \u2014 so the label says which network the stake is for
-                 rather than letting the two be read as one ratio. */ }
+            { /* Zoo is an L2 carried by these same validators, so this one set
+                 is the whole of what secures the chains listed here. */ }
             <Metric
-              label={ allValidators.answeredCount === allValidators.queriedCount ? 'Validators' : 'Validators (partial)' }
-              value={ allValidators.isKnown ? String(allValidators.total) : '\u2014' }
-              isLoading={ allValidators.isLoading }
+              label="Validators"
+              value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
+              isLoading={ validatorsLoading }
             />
             <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
             <Metric
@@ -284,11 +281,10 @@ const NetworkOverview = () => {
               isLoading={ isLoading }
             />
             { /*
-              Uptime / Connected are NOT shown here. platform.getCurrentValidators
-              reports uptime=0 and connected=null for every validator on the public
-              RPC (the API node does not track peer uptime), so rendering them
-              printed "0.0%" and "0/5" on a healthy, fully-meshed network — the
-              worst kind of wrong, since it reads as an outage. Same reasoning as
+              Uptime / Connected are NOT shown here. They are the public API
+              node's view of its peers, and rendering them printed "0.0%" and
+              "0/5" on a healthy, fully-meshed network — the worst kind of wrong,
+              since it reads as an outage. Same reasoning as
               ui/validators/lux/ValidatorsDashboard.tsx. Only chain-sourced,
               verifiable metrics belong in this row.
             */ }
@@ -329,8 +325,8 @@ const NetworkOverview = () => {
               <div className="flex flex-col gap-0.5">
                 { PRIMARY_CHAINS.map((chain) => {
                   const chainHeight = (() => {
-                    if (chain.id === 'C') return cChainHeight;
-                    if (chain.id === 'P') return pChainHeight;
+                    if (chain.id === 'C') return cChainHeight ?? null;
+                    if (chain.id === 'P') return pChainHeight ?? null;
                     return undefined;
                   })();
                   return (
@@ -416,26 +412,6 @@ const NetworkOverview = () => {
                       </Skeleton>
                       <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
                     </div>
-                  </div>
-                  { /* Per-L1 breakdown. The strip above sums these; without the
-                       split, a chain that stopped answering just makes the
-                       total quietly smaller. */ }
-                  <div className="flex flex-col gap-1 mt-4 pt-3 border-t border-[var(--color-border-divider)]">
-                    { allValidators.networks.map((network) => (
-                      <div key={ network.chainId } className="flex items-center justify-between text-xs">
-                        <span className="text-[var(--color-text-secondary)]">{ network.name }</span>
-                        <Skeleton loading={ network.isLoading }>
-                          <span className={ cn(
-                            'font-mono',
-                            network.status === 'live' ?
-                              'text-[var(--color-text-primary)]' :
-                              'text-[var(--color-text-secondary)]',
-                          ) }>
-                            { network.status === 'live' ? network.validatorCount : network.status }
-                          </span>
-                        </Skeleton>
-                      </div>
-                    )) }
                   </div>
                   <div className="flex justify-center mt-4">
                     <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">

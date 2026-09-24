@@ -1,3 +1,4 @@
+import type { IncomingMessage } from 'http';
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 
 import type { RollupType } from 'types/client/rollup';
@@ -6,7 +7,7 @@ import type { Route } from 'nextjs-routes';
 import type { Props } from 'nextjs/getServerSideProps/handlers';
 
 import config from 'configs/app';
-import { hasPChainHost, isPrimaryNetworkHost } from 'configs/app/chainRegistry';
+import { getPChain, isPrimaryNetworkHost } from 'configs/app/chainRegistry';
 
 export type Guard = (chainConfig: typeof config) => <Pathname extends Route['pathname'] = never>(context: GetServerSidePropsContext) =>
 Promise<GetServerSidePropsResult<Props<Pathname>> | undefined>;
@@ -344,26 +345,27 @@ export const megaEth: Guard = () => async() => {
   }
 };
 
-function requestHost(context: GetServerSidePropsContext): string {
-  const header = context.req.headers['x-forwarded-host'] ?? context.req.headers.host ?? '';
+/** The host a request was addressed to: a proxy's X-Forwarded-Host, else Host. */
+export function requestHost(req: IncomingMessage): string {
+  const header = req.headers['x-forwarded-host'] ?? req.headers.host ?? '';
   return String(Array.isArray(header) ? header[0] : header).split(',')[0].trim().replace(/:\d+$/, '');
 }
 
-// Pages that read the Lux primary network (the D-Chain DEX) exist only on the
-// Lux C-Chain explorer. A brand explorer answers 404 for them rather than
-// rendering another network's markets under its own name.
+// Pages about the Lux primary network's own chains (DEX, bridge routes, the
+// chain list) exist only on the Lux C-Chain explorer. A brand explorer answers
+// 404 for them rather than rendering another network's chains under its name.
 export const primaryNetwork: Guard = () => async(context: GetServerSidePropsContext) => {
-  if (!isPrimaryNetworkHost(requestHost(context))) {
+  if (!isPrimaryNetworkHost(requestHost(context.req))) {
     return {
       notFound: true,
     };
   }
 };
 
-// Pages built from P-Chain reads (validators, chains) answer 404 on a chain
-// whose node runs no P-Chain, rather than rendering reads that cannot answer.
+// The validators page answers 404 on a chain no P-Chain secures (Hanzo), rather
+// than render another network's validators as its own.
 export const pChain: Guard = () => async(context: GetServerSidePropsContext) => {
-  if (!hasPChainHost(requestHost(context))) {
+  if (!getPChain(requestHost(context.req))) {
     return {
       notFound: true,
     };
