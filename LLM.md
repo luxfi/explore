@@ -200,6 +200,25 @@ All symlinks reference this single source of truth.
 
 ## Recent Changes
 
+### No P-Chain surface where the node runs none (v1.1.32)
+
+- `ChainEntry.pChain` (configs/app/chainRegistry.ts) says whether a chain's node
+  answers platform.* at `/v1/chain/P`. Hanzo is `false`: hanzod runs its own
+  committee and answers `no such chain: P`. Lux, Zoo and white-label hosts are
+  `true`. `hasPChain()` / `hasPChainHost(host)` read it.
+- Where false: every `lib/api/pchain` hook is `enabled: false` (no
+  `/v1/node/p-chain` request), the Chains/Validators nav entries and the stats
+  page's NetworkStats are gone, and `/validators`, `/chains`, `/chains/<slug>`
+  404 via `guards.pChain`. Pinned by `lib/api/pchain/gate.spec.tsx` and
+  `configs/app/chainRegistry.spec.ts`.
+- Built by a rootless BuildKit Job in `hanzo-build` on the AWS cluster from
+  `github.com/luxfi/explore#v1.1.32` straight to `ghcr.io/hanzoai/explore`
+  (secret `push-hanzoai`); pinned by tag+digest in lux/universe
+  `deploy/lux-mainnet/explore-fe-hanzo.yaml`.
+- `api.lux.network` and `api.zoo.network` route `/v1/chain` to `luxd-archive`
+  (luxd 1.37.9), which answers 404 for `/v1/chain/P`; the Lux and Zoo P-Chain
+  widgets render but stay empty until that node serves the P-Chain.
+
 ### Duplicated tokens filter, colliding footer row, lower-case addresses (v1.1.27)
 
 - **`ui/tokens/TokensActionBar.tsx` was the one action bar the Chakra→Tailwind
