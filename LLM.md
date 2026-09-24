@@ -230,6 +230,10 @@ All symlinks reference this single source of truth.
 - A P-Chain at genesis answers height `"0"`; that renders as `#0`, while an
   unanswered read renders nothing. Lux mainnet's archive has no peers, so its
   height is 0 with 5 genesis validators whose stake ends 2026-12-12.
+- A surface reads only what it renders: the home page's P-Chain panels and the
+  stats page's chain count are components the Lux explorer alone renders, so a
+  brand explorer's home sends no P-Chain request (v2.8.7-lux,
+  `ui/pages/NetworkOverview.spec.tsx`).
 - Pinned by `pages/api/node/[endpoint].spec.ts`, `lib/api/pchain/gate.spec.tsx`,
   `lib/api/pchain/wire.spec.ts` and `configs/app/chainRegistry.spec.ts`.
 

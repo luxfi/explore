@@ -48,20 +48,31 @@ const StatCard = ({ label, value, isLoading }: StatCardProps) => (
   </div>
 );
 
-// ── Main component ──
+// ── Chain count ──
 
-const NetworkStats = () => {
-  const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData } = useCurrentValidators();
-  const { blockchains, isLoading: chainsLoading } = useBlockchains();
-
-  const isLoading = validatorsLoading || chainsLoading;
+// The Lux primary network's chain list, which a brand explorer does not show,
+// so only the Lux explorer renders this and reads the list.
+const ChainCount = () => {
+  const { blockchains, isLoading } = useBlockchains();
 
   const l1Count = React.useMemo(
     () => blockchains.filter((c) => c.netID !== PRIMARY_NETWORK_ID).length,
     [ blockchains ],
   );
 
-  const totalChains = PRIMARY_CHAIN_COUNT + l1Count;
+  return (
+    <StatCard
+      label="Total Chains"
+      value={ String(PRIMARY_CHAIN_COUNT + l1Count) }
+      isLoading={ isLoading }
+    />
+  );
+};
+
+// ── Main component ──
+
+const NetworkStats = () => {
+  const { stats, isLoading, isKnown: hasValidatorData } = useCurrentValidators();
   const pChain = getPChain();
 
   return (
@@ -73,14 +84,7 @@ const NetworkStats = () => {
       <div
 
       >
-        { /* The chain count is the Lux primary network's chain list, which a brand explorer does not show. */ }
-        { isPrimaryNetworkExplorer() && (
-          <StatCard
-            label="Total Chains"
-            value={ String(totalChains) }
-            isLoading={ isLoading }
-          />
-        ) }
+        { isPrimaryNetworkExplorer() && <ChainCount/> }
         <StatCard
           label="Validators"
           value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }

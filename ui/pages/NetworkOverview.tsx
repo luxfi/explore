@@ -221,12 +221,13 @@ const SectionCard = ({ title, count, isLoading, action, children }: SectionCardP
   </div>
 );
 
-// ── Main page ──
+// ── Lux primary network panels ──
 
-const NetworkOverview = () => {
-  const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData, isError: validatorsError } = useCurrentValidators();
+// The Lux primary network's figures. Only the panels the Lux explorer renders
+// call this, so a brand explorer never reads what it does not show.
+function usePrimaryNetwork() {
+  const validators = useCurrentValidators();
   const { blockchains, isLoading: chainsLoading } = useBlockchains();
-  const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
 
   const l1Chains = React.useMemo(
     () => blockchains.filter((c) => c.netID !== PRIMARY_NETWORK_ID),
@@ -235,15 +236,178 @@ const NetworkOverview = () => {
 
   // Use known L1 chains as fallback when P-chain API is unreachable
   const hasL1Data = l1Chains.length > 0;
-  const showFallbackL1 = !chainsLoading && !hasL1Data;
-
   const totalChains = PRIMARY_CHAINS.length + (hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length);
+
+  return { ...validators, chainsLoading, l1Chains, hasL1Data, totalChains };
+}
+
+const PrimaryMetrics = () => {
+  const { stats, isLoading: validatorsLoading, isKnown: hasValidatorData, chainsLoading, totalChains } = usePrimaryNetwork();
   const isLoading = validatorsLoading || chainsLoading;
 
-  // Primary-network panels (validator metrics strip + the 15 primary-network
+  return (
+    <div className={ cn(
+      'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
+      'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
+      'bg-[var(--color-stats-bg)]',
+    ) }>
+      { /* Zoo is an L2 carried by these same validators, so this one set
+           is the whole of what secures the chains listed here. */ }
+      <Metric
+        label="Validators"
+        value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
+        isLoading={ validatorsLoading }
+      />
+      <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+      <Metric
+        label={ `Staked on ${ config.chain.name || 'primary' }` }
+        value={ hasValidatorData ?
+          `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` :
+          '\u2014' }
+        isLoading={ validatorsLoading }
+      />
+      <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
+      <Metric
+        label="Chains"
+        value={ String(totalChains) }
+        isLoading={ isLoading }
+      />
+      { /*
+        Uptime / Connected are NOT shown here. They are the public API
+        node's view of its peers, and rendering them printed "0.0%" and
+        "0/5" on a healthy, fully-meshed network — the worst kind of wrong,
+        since it reads as an outage. Same reasoning as
+        ui/validators/lux/ValidatorsDashboard.tsx. Only chain-sourced,
+        verifiable metrics belong in this row.
+      */ }
+    </div>
+  );
+};
+
+const PrimaryChainHealth = () => {
+  const {
+    stats, isLoading: validatorsLoading, isKnown: hasValidatorData, isError: validatorsError, chainsLoading, l1Chains, hasL1Data,
+  } = usePrimaryNetwork();
+  const { pChainHeight, cChainHeight, isLoading: heightsLoading } = useChainHeights();
+  const showFallbackL1 = !chainsLoading && !hasL1Data;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      { /* Primary Network chains */ }
+      <SectionCard
+        title="Primary Network"
+        count={ PRIMARY_CHAINS.length }
+      >
+        <div className="flex flex-col gap-0.5">
+          { PRIMARY_CHAINS.map((chain) => {
+            const chainHeight = (() => {
+              if (chain.id === 'C') return cChainHeight ?? null;
+              if (chain.id === 'P') return pChainHeight ?? null;
+              return undefined;
+            })();
+            return (
+              <ChainRow
+                key={ chain.id }
+                name={ chain.name }
+                fullName={ chain.fullName }
+                vm={ chain.vm }
+                href={ chain.href }
+                height={ chainHeight }
+                heightLoading={ heightsLoading }
+              />
+            );
+          }) }
+        </div>
+      </SectionCard>
+
+      { /* L1 chains */ }
+      <SectionCard
+        title="Chains"
+        count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
+        isLoading={ chainsLoading }
+        action={{ label: 'View all', href: '/chains' }}
+      >
+        { chainsLoading && (
+          <div className="flex flex-col gap-1">
+            { Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={ i } loading h="40px" borderRadius="md"/>
+            )) }
+          </div>
+        ) }
+        { !chainsLoading && hasL1Data && (
+          <div className="flex flex-col gap-0.5">
+            { l1Chains.map((chain) => (
+              <L1ChainRow key={ chain.id } chain={ chain }/>
+            )) }
+          </div>
+        ) }
+        { showFallbackL1 && (
+          <div className="flex flex-col gap-0.5">
+            { KNOWN_L1_CHAINS.map((chain) => (
+              <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
+            )) }
+          </div>
+        ) }
+      </SectionCard>
+
+      { /* Validators summary card */ }
+      <SectionCard title="Validators">
+        { !hasValidatorData && !validatorsLoading ? (
+          <div className="flex flex-col items-center py-4">
+            <span className="text-sm text-[var(--color-text-secondary)]">
+              { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
+            </span>
+            <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] mt-2">
+              View validators
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Skeleton loading={ validatorsLoading }>
+                  <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                    { hasValidatorData ? stats.validatorCount : '\u2014' }
+                  </span>
+                </Skeleton>
+                <span className="text-2xs text-[var(--color-text-secondary)]">Active</span>
+              </div>
+              <div>
+                <Skeleton loading={ validatorsLoading }>
+                  <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                    { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
+                  </span>
+                </Skeleton>
+                <span className="text-2xs text-[var(--color-text-secondary)]">Total Stake ({ config.chain.currency.symbol || 'LUX' })</span>
+              </div>
+              <div>
+                <Skeleton loading={ validatorsLoading }>
+                  <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
+                    { hasValidatorData ? stats.delegatorCount : '\u2014' }
+                  </span>
+                </Skeleton>
+                <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
+              </div>
+            </div>
+            <div className="flex justify-center mt-4">
+              <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
+                View validators
+              </Link>
+            </div>
+          </>
+        ) }
+      </SectionCard>
+    </div>
+  );
+};
+
+// ── Main page ──
+
+const NetworkOverview = () => {
+  // Primary-network panels (validator metrics strip + the primary-network
   // chains + the cross-L1 list) belong ONLY on the Lux primary-network explorer.
-  // Brand explorers (Hanzo / Zoo / SPC / Pars, vm: 'L2') show ONLY their own
-  // chain — Hero + Stats + Latest blocks/txns — never the parent's chains.
+  // Brand explorers (Zoo / Hanzo, vm: 'L2') show ONLY their own chain — Hero +
+  // Stats + Latest blocks/txns — and read nothing about the parent network.
   const isPrimary = isPrimaryNetworkExplorer();
 
   return (
@@ -253,43 +417,7 @@ const NetworkOverview = () => {
         <HeroBanner/>
 
         { /* ── Metrics strip (Lux primary network only) ── */ }
-        { isPrimary && (
-          <div className={ cn(
-            'flex items-center justify-center flex-wrap overflow-hidden rounded-lg',
-            'py-4 px-4 gap-x-6 gap-y-3 border border-[var(--color-border-divider)]',
-            'bg-[var(--color-stats-bg)]',
-          ) }>
-            { /* Zoo is an L2 carried by these same validators, so this one set
-                 is the whole of what secures the chains listed here. */ }
-            <Metric
-              label="Validators"
-              value={ hasValidatorData ? String(stats.validatorCount) : '\u2014' }
-              isLoading={ validatorsLoading }
-            />
-            <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
-            <Metric
-              label={ `Staked on ${ config.chain.name || 'primary' }` }
-              value={ hasValidatorData ?
-                `${ formatStake(stats.totalStake) } ${ config.chain.currency.symbol || 'LUX' }` :
-                '\u2014' }
-              isLoading={ validatorsLoading }
-            />
-            <div className="w-px h-7 hidden md:block bg-[var(--color-border-divider)]"/>
-            <Metric
-              label="Chains"
-              value={ String(totalChains) }
-              isLoading={ isLoading }
-            />
-            { /*
-              Uptime / Connected are NOT shown here. They are the public API
-              node's view of its peers, and rendering them printed "0.0%" and
-              "0/5" on a healthy, fully-meshed network — the worst kind of wrong,
-              since it reads as an outage. Same reasoning as
-              ui/validators/lux/ValidatorsDashboard.tsx. Only chain-sourced,
-              verifiable metrics belong in this row.
-            */ }
-          </div>
-        ) }
+        { isPrimary && <PrimaryMetrics/> }
 
         { /* ── Stats widgets ── */ }
         <Stats/>
@@ -315,114 +443,7 @@ const NetworkOverview = () => {
         </div>
 
         { /* ── Chain Health (Lux primary network only) ── */ }
-        { isPrimary && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-            { /* Primary Network chains */ }
-            <SectionCard
-              title="Primary Network"
-              count={ PRIMARY_CHAINS.length }
-            >
-              <div className="flex flex-col gap-0.5">
-                { PRIMARY_CHAINS.map((chain) => {
-                  const chainHeight = (() => {
-                    if (chain.id === 'C') return cChainHeight ?? null;
-                    if (chain.id === 'P') return pChainHeight ?? null;
-                    return undefined;
-                  })();
-                  return (
-                    <ChainRow
-                      key={ chain.id }
-                      name={ chain.name }
-                      fullName={ chain.fullName }
-                      vm={ chain.vm }
-                      href={ chain.href }
-                      height={ chainHeight }
-                      heightLoading={ heightsLoading }
-                    />
-                  );
-                }) }
-              </div>
-            </SectionCard>
-
-            { /* L1 chains */ }
-            <SectionCard
-              title="Chains"
-              count={ hasL1Data ? l1Chains.length : KNOWN_L1_CHAINS.length }
-              isLoading={ chainsLoading }
-              action={{ label: 'View all', href: '/chains' }}
-            >
-              { chainsLoading && (
-                <div className="flex flex-col gap-1">
-                  { Array.from({ length: 4 }).map((_, i) => (
-                    <Skeleton key={ i } loading h="40px" borderRadius="md"/>
-                  )) }
-                </div>
-              ) }
-              { !chainsLoading && hasL1Data && (
-                <div className="flex flex-col gap-0.5">
-                  { l1Chains.map((chain) => (
-                    <L1ChainRow key={ chain.id } chain={ chain }/>
-                  )) }
-                </div>
-              ) }
-              { showFallbackL1 && (
-                <div className="flex flex-col gap-0.5">
-                  { KNOWN_L1_CHAINS.map((chain) => (
-                    <KnownL1Row key={ chain.name } name={ chain.name } href={ chain.href }/>
-                  )) }
-                </div>
-              ) }
-            </SectionCard>
-
-            { /* Validators summary card */ }
-            <SectionCard title="Validators">
-              { !hasValidatorData && !validatorsLoading ? (
-                <div className="flex flex-col items-center py-4">
-                  <span className="text-sm text-[var(--color-text-secondary)]">
-                    { validatorsError ? 'Unable to fetch validator data.' : 'No validator data available.' }
-                  </span>
-                  <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] mt-2">
-                    View validators
-                  </Link>
-                </div>
-              ) : (
-                <>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Skeleton loading={ validatorsLoading }>
-                        <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                          { hasValidatorData ? stats.validatorCount : '\u2014' }
-                        </span>
-                      </Skeleton>
-                      <span className="text-2xs text-[var(--color-text-secondary)]">Active</span>
-                    </div>
-                    <div>
-                      <Skeleton loading={ validatorsLoading }>
-                        <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                          { hasValidatorData ? formatStake(stats.totalStake) : '\u2014' }
-                        </span>
-                      </Skeleton>
-                      <span className="text-2xs text-[var(--color-text-secondary)]">Total Stake ({ config.chain.currency.symbol || 'LUX' })</span>
-                    </div>
-                    <div>
-                      <Skeleton loading={ validatorsLoading }>
-                        <span className="font-mono text-lg font-bold text-[var(--color-text-primary)]">
-                          { hasValidatorData ? stats.delegatorCount : '\u2014' }
-                        </span>
-                      </Skeleton>
-                      <span className="text-2xs text-[var(--color-text-secondary)]">Delegators</span>
-                    </div>
-                  </div>
-                  <div className="flex justify-center mt-4">
-                    <Link href="/validators" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
-                      View validators
-                    </Link>
-                  </div>
-                </>
-              ) }
-            </SectionCard>
-          </div>
-        ) }
+        { isPrimary && <PrimaryChainHealth/> }
       </div>
     </HomeRpcDataContextProvider>
   );
