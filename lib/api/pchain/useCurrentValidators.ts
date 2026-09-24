@@ -10,6 +10,8 @@ import type {
   ValidatorStats,
 } from './types';
 
+import { hasPChain } from 'configs/app/chainRegistry';
+
 const VALIDATORS_STALE_TIME_MS = 60_000;
 const VALIDATORS_QUERY_KEY = 'pchain:currentValidators' as const;
 const ZERO = BigInt(0);
@@ -91,6 +93,7 @@ export function useCurrentValidators() {
     queryFn: fetchCurrentValidators,
     staleTime: VALIDATORS_STALE_TIME_MS,
     retry: 2,
+    enabled: hasPChain(),
   });
 
   const validators = React.useMemo(

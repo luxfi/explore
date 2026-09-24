@@ -7,6 +7,8 @@ import React from 'react';
 
 import type { PChainBlockchain } from './types';
 
+import { hasPChain } from 'configs/app/chainRegistry';
+
 const BLOCKCHAINS_STALE_TIME_MS = 300_000;
 const BLOCKCHAINS_QUERY_KEY = 'pchain:blockchains' as const;
 const EMPTY_BLOCKCHAINS: ReadonlyArray<PChainBlockchain> = [];
@@ -37,6 +39,7 @@ export function useBlockchains() {
     queryFn: fetchBlockchains,
     staleTime: BLOCKCHAINS_STALE_TIME_MS,
     retry: 2,
+    enabled: hasPChain(),
   });
 
   const blockchains = React.useMemo(

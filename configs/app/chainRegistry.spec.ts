@@ -4,6 +4,8 @@ import {
   getChainsForNetwork,
   getCurrentChain,
   getCurrentNetwork,
+  hasPChain,
+  hasPChainHost,
   isPrimaryNetworkExplorer,
   isWhiteLabelMode,
 } from './chainRegistry';
@@ -92,6 +94,22 @@ describe('chain-visibility rule', () => {
     it('hanzo carries the legal entity used across hanzo surfaces', () => {
       atHost('explore.hanzo.ai');
       expect(getCurrentChain().branding.orgName).toBe('Hanzo AI, Inc.');
+    });
+  });
+
+  // hanzod runs Hanzo's own committee and no P-Chain: every platform.* read
+  // there answers "no such chain: P". Lux and Zoo keep theirs.
+  describe('P-Chain', () => {
+    it.each([ 'explore.lux.network', 'explore.lux-test.network', 'explore.zoo.network', 'explore.unknown.example' ])('%s has one', (host) => {
+      atHost(host);
+      expect(hasPChain()).toBe(true);
+      expect(hasPChainHost(host)).toBe(true);
+    });
+
+    it.each([ 'explore.hanzo.network', 'explore.hanzo.ai', 'explore-hanzo.lux.network' ])('%s has none', (host) => {
+      atHost(host);
+      expect(hasPChain()).toBe(false);
+      expect(hasPChainHost(host)).toBe(false);
     });
   });
 

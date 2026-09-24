@@ -79,6 +79,14 @@ export interface ChainEntry {
   readonly apiUrl: string;
 
   /**
+   * The chain has a Lux primary network behind it, so its node answers
+   * platform.* at /v1/chain/P: validators, registered chains, P-Chain height.
+   * False for a chain whose node runs no P-Chain (Hanzo: hanzod and its own
+   * committee), whose explorer then shows no P-Chain surface and never asks.
+   */
+  readonly pChain: boolean;
+
+  /**
    * Origin of the chain's own node API, where `<origin>/v1/chain/P` answers
    * platform.* — NOT the indexer at `apiUrl`. Every sovereign L1 runs its own
    * P-Chain and its own validator set, so this is what makes a validator count
@@ -218,6 +226,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore.lux.network', 'localhost', '127.0.0.1', '0.0.0.0' ],
     explorerUrl: 'https://explore.lux.network',
     apiUrl: 'https://api-explore.lux.network',
+    pChain: true,
     nodeApiUrl: 'https://api.lux.network',
     branding: LUX_BRANDING,
   },
@@ -230,6 +239,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-zoo.lux.network', 'explore.zoo.network', 'explorer.zoo.network', 'explore.zoo.ngo' ],
     explorerUrl: 'https://explore-zoo.lux.network',
     apiUrl: 'https://api-explore-zoo.lux.network',
+    pChain: true,
     nodeApiUrl: 'https://api.zoo.network',
     branding: ZOO_BRANDING,
   },
@@ -242,6 +252,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-hanzo.lux.network', 'explore.hanzo.network', 'explore.hanzo.ai' ],
     explorerUrl: 'https://explore-hanzo.lux.network',
     apiUrl: 'https://api-explore-hanzo.lux.network',
+    pChain: false,
     nodeApiUrl: 'https://api.hanzo.network',
     branding: HANZO_BRANDING,
   },
@@ -255,6 +266,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-test.lux.network', 'explore.lux-test.network' ],
     explorerUrl: 'https://explore-test.lux.network',
     apiUrl: 'https://api-explore-test.lux.network',
+    pChain: true,
     branding: LUX_BRANDING,
   },
   {
@@ -266,6 +278,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore-zoo-test.lux.network' ],
     explorerUrl: 'https://explore-zoo-test.lux.network',
     apiUrl: 'https://api-explore-zoo-test.lux.network',
+    pChain: true,
     branding: ZOO_BRANDING,
   },
 
@@ -281,6 +294,7 @@ export const CHAINS: ReadonlyArray<ChainEntry> = [
     hostnames: [ 'explore.localnet', 'explore-local.lux.network' ],
     explorerUrl: 'http://localhost:3000',
     apiUrl: 'http://localhost:4000',
+    pChain: true,
     branding: LUX_BRANDING,
   },
 ];
@@ -344,6 +358,7 @@ function buildWhiteLabelChain(hostname: string): ChainEntry {
     hostnames: [ hostname ],
     explorerUrl: `${ protocol }://${ appHost }`,
     apiUrl: apiHost ? `${ apiProtocol }://${ apiHost }` : '',
+    pChain: true,
     branding,
   };
 }
@@ -391,10 +406,12 @@ export function isNetworkSelectorEnabled(): boolean {
   return !isWhiteLabelMode();
 }
 
+function getChain(hostname: string): ChainEntry {
+  return CHAINS.find((c) => c.hostnames.includes(hostname)) ?? buildWhiteLabelChain(hostname);
+}
+
 export function getCurrentChain(): ChainEntry {
-  const hostname = getHostname();
-  const found = CHAINS.find((c) => c.hostnames.includes(hostname));
-  const base = found ?? buildWhiteLabelChain(hostname);
+  const base = getChain(getHostname());
   // Apply NEXT_PUBLIC_BRAND_* env overrides on every read so deploys can
   // rebrand without rebuilding the bundle.
   return { ...base, branding: applyBrandEnvOverrides(base.branding) };
@@ -420,6 +437,16 @@ export function isPrimaryNetworkExplorer(): boolean {
 export function isPrimaryNetworkHost(hostname: string): boolean {
   const chain = CHAINS.find((c) => c.hostnames.includes(hostname));
   return chain !== undefined && chain.vm === 'EVM';
+}
+
+/** Whether this explorer's chain has a P-Chain to read (ChainEntry.pChain). */
+export function hasPChain(): boolean {
+  return hasPChainHost(getHostname());
+}
+
+/** hasPChain() for an explicit host, e.g. a request's Host header. */
+export function hasPChainHost(hostname: string): boolean {
+  return getChain(hostname).pChain;
 }
 
 export function getCurrentNetwork(): NetworkEntry {

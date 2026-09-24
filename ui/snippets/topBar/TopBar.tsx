@@ -4,7 +4,7 @@ import React from 'react';
 
 import { route } from 'nextjs-routes';
 
-import { getCurrentChain, isChainSelectorEnabled, isNetworkSelectorEnabled } from 'configs/app/chainRegistry';
+import { getCurrentChain, hasPChain, isChainSelectorEnabled, isNetworkSelectorEnabled } from 'configs/app/chainRegistry';
 import { cn } from 'lib/utils/cn';
 import { Link } from 'toolkit/next/link';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
@@ -166,16 +166,21 @@ const TopBar = () => {
             </MenuContent>
           </MenuRoot>
 
-          <NavLinkItem
-            text="Chains"
-            href={ route({ pathname: '/chains' as const }) }
-            isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
-          />
-          <NavLinkItem
-            text="Validators"
-            href={ route({ pathname: '/validators' as const }) }
-            isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
-          />
+          { /* Both pages read the P-Chain, and 404 where there is none. */ }
+          { hasPChain() && (
+            <>
+              <NavLinkItem
+                text="Chains"
+                href={ route({ pathname: '/chains' as const }) }
+                isActive={ pathname === '/chains' || pathname.startsWith('/chain/') }
+              />
+              <NavLinkItem
+                text="Validators"
+                href={ route({ pathname: '/validators' as const }) }
+                isActive={ pathname === '/validators' || pathname.startsWith('/validators/') }
+              />
+            </>
+          ) }
           <NavLinkItem
             text="Stats"
             href={ route({ pathname: '/stats' as const }) }

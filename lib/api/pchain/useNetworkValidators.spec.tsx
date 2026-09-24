@@ -25,6 +25,8 @@ vi.mock('@tanstack/react-query', async(importOriginal) => ({
 // do not. Measured 2026-08-06 against api.{lux,zoo,hanzo,pars}.network/v1/bc/P.
 vi.mock('configs/app/chainRegistry', () => ({
   getCurrentChain: () => ({ network: 'mainnet' }),
+  hasPChain: () => true,
+  isPrimaryNetworkExplorer: () => true,
   CHAINS: [
     { name: 'C-Chain', chainId: 96369, network: 'mainnet', nodeApiUrl: 'https://api.lux.network' },
     { name: 'Zoo', chainId: 200200, network: 'mainnet', nodeApiUrl: 'https://api.zoo.network' },

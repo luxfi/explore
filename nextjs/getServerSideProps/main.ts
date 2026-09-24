@@ -32,6 +32,7 @@ export const megaEth = factory([ guards.megaEth ]);
 export const zetaChainCCTX = factory([ guards.zetaChainCCTX ]);
 export const crossChainTxs = factory([ guards.notMultichain, guards.crossChainTxs ]);
 export const dex = factory([ guards.primaryNetwork ]);
+export const pChain = factory([ guards.pChain ]);
 
 // ROLLUPS
 export const rollup = factory([ guards.rollup ]);

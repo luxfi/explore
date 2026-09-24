@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import { hasPChain } from 'configs/app/chainRegistry';
 import { getEnvValue } from 'configs/app/utils';
 
 const HEIGHTS_STALE_TIME_MS = 15_000;
@@ -55,6 +56,7 @@ export function useChainHeights(): UseChainHeightsResult {
     queryFn: fetchChainHeights,
     staleTime: HEIGHTS_STALE_TIME_MS,
     refetchInterval: HEIGHTS_STALE_TIME_MS,
+    enabled: hasPChain(),
   });
 
   return {

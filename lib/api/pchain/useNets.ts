@@ -10,6 +10,8 @@ import React from 'react';
 
 import type { PChainNet } from './types';
 
+import { hasPChain } from 'configs/app/chainRegistry';
+
 const NETS_STALE_TIME_MS = 300_000;
 const NETS_QUERY_KEY = 'pchain:nets' as const;
 const EMPTY_NETS: ReadonlyArray<PChainNet> = [];
@@ -39,6 +41,7 @@ export function useNets() {
     queryKey: [ NETS_QUERY_KEY ],
     queryFn: fetchNets,
     staleTime: NETS_STALE_TIME_MS,
+    enabled: hasPChain(),
   });
 
   const nets = React.useMemo(

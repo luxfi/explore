@@ -16,7 +16,7 @@ import React from 'react';
 
 import type { PChainValidator } from './types';
 
-import { CHAINS, getCurrentChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
+import { CHAINS, getCurrentChain, hasPChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 
 const STALE_TIME_MS = 60_000;
 const PRIMARY_NETWORK_ID = '11111111111111111111111111111111LpoYY';
@@ -79,6 +79,7 @@ export function useNetworkValidators() {
       queryFn: () => fetchCount(chain.name),
       staleTime: STALE_TIME_MS,
       retry: 1,
+      enabled: hasPChain(),
     })),
   });
 

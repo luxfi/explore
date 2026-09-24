@@ -4,7 +4,7 @@ import React from 'react';
 import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/navigation';
 
 import config from 'configs/app';
-import { isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
+import { hasPChain, isPrimaryNetworkExplorer } from 'configs/app/chainRegistry';
 import { getEnvValue } from 'configs/app/utils';
 import { layerLabels } from 'lib/rollups/utils';
 import { rightLineArrow } from 'toolkit/utils/htmlEntities';
@@ -94,12 +94,13 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/name_services',
       isActive: pathname.startsWith('/name-services'),
     } : null;
-    const validators: NavItem = {
+    // The validators page reads the P-Chain; a chain without one has no entry.
+    const validators: NavItem | null = hasPChain() ? {
       text: 'Validators',
       nextRoute: { pathname: '/validators' as const },
       icon: 'navigation/validator',
       isActive: pathname === '/validators' || pathname === '/validators/[id]',
-    };
+    } : null;
     // Chains / DEX / Bridge / AI Compute are Lux PRIMARY-network VM surfaces
     // (the C/X/D/A/B… VM family). They belong to the Lux primary network only,
     // so they are hidden on brand explorers (Hanzo / Zoo / Pars / SPC / Osage)
